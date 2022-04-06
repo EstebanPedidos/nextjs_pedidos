@@ -1,0 +1,51 @@
+{
+  "short_name": "Pedidos.com",
+  "name": "Pedidos.com",
+  "description": "Todo para tu espacio de trabajo.",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "images/manifesto/maskable-icons/pedidos-icon-x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "images/manifesto/maskable-icons/pedidos-icon-x72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "images/manifesto/maskable-icons/pedidos-icon-x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "images/manifesto/maskable-icons/pedidos-icon-x128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "images/manifesto/maskable-icons/pedidos-icon-x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "images/manifesto/maskable-icons/pedidos-icon-x384.png",
+      "type": "image/png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "images/manifesto/maskable-icons/pedidos-icon-x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#3655A5",
+  "background_color": "#3655A5"
+}
