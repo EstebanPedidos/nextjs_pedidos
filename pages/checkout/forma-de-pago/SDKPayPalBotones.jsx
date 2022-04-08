@@ -11,6 +11,12 @@ export default function SDKPayPalBotones(props){
         "disable-funding":"card"
     };
 
+    async function Liberar(){        
+        let services    = await Services('POST','/registrov2/getOrderPayPal',{evento:3250091,orderID:props.data,address:'192.10.2.166',isSTC:'S',id_PayTok:'', term:'',interval_duration:''})
+        let data        = await services.data
+        console.log(data)
+    }
+
     return (
         <PayPalScriptProvider options={initialOptions}>
             <PayPalButtons
@@ -18,7 +24,7 @@ export default function SDKPayPalBotones(props){
                     return props.data
                 }}
                 onApprove={(data, actions) => { 
-                    alert('Aprobada')
+                    Liberar()
                 }}
             />
         </PayPalScriptProvider>
@@ -26,7 +32,7 @@ export default function SDKPayPalBotones(props){
 }
 
 export async function getServerSideProps(context) {
-    let services    = await Services('POST','/registrov2/createOrderPayPal',{evento:3247250,isSTC:'S'})
+    let services    = await Services('POST','/registrov2/createOrderPayPal',{evento:3250091,isSTC:'S'})
     let data        = await services.data
     console.log(data)
     return {
