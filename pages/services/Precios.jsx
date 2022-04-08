@@ -4,6 +4,9 @@ function Precios(accion,json){
         case 'redondear_arriba':
           return Calculoprecio(json)
           break;
+        case 'formatcurrency':
+          return formatcurrency(json)
+          break;
         default:
           return null
     }
@@ -27,6 +30,10 @@ function Precios(accion,json){
             }        
         }  
         return enteros+"."+decimales;
+    }
+
+    function formatcurrency(json){
+        return parseFloat(json.subtotal).toFixed(json.fixed);
     }
 }
 

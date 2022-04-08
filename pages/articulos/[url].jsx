@@ -159,7 +159,7 @@ export default function FichaTecnica(props){
                         <Grid item xs={12} sm={8}>
                             <Grid container>
                                 <Grid>
-                                    <Typography variant="h1"  mt={2} >
+                                    <Typography variant="h3" component="h1"  mt={2} >
                                         {`${datos.descripcion.descripcion.urlName}`}
                                     </Typography> 
                                 </Grid>
