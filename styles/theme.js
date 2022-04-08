@@ -45,6 +45,7 @@ export default createMuiTheme ({
         },
         h2:  {
           fontWeight: "600",
+          fontSize: '1.5rem',
          
           },
         h3:  {
@@ -52,7 +53,8 @@ export default createMuiTheme ({
           
           },
         button: {
-          textTransform: 'none'
+          textTransform: 'none',
+          height: '50px',
         }
       },
 

@@ -159,7 +159,7 @@ export default function FichaTecnica(props){
                         <Grid item xs={12} sm={8}>
                             <Grid container>
                                 <Grid>
-                                    <Typography variant="h3" component="h1"  mt={2} >
+                                    <Typography variant="h1" component="h1"  mt={2} >
                                         {`${datos.descripcion.descripcion.urlName}`}
                                     </Typography> 
                                 </Grid>
@@ -201,7 +201,7 @@ export default function FichaTecnica(props){
                                     <Box>   
                                         <Grid >
                                             <TypographyDemo loading />
-                                            <Typography variant="h2" className={classes.titDescription}>
+                                            <Typography variant="h2" component="h3" className={classes.titDescription}>
                                                 Detalles de {(datos.descripcion.descripcion.hasOwnProperty("titulo"))?`${datos.descripcion.descripcion.titulo}`:``}
                                             </Typography> 
                                             <ListDescription detalle={datos.detalle} />

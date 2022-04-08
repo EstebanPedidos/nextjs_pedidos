@@ -1,10 +1,5 @@
 html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+body{font-family: 'Poppins', sans-serif!important; padding: 0; margin: 0;}
 
 a {
   color: inherit;
@@ -14,3 +9,12 @@ a {
 * {
   box-sizing: border-box;
 }
+:root{
+  --color-white:#ffffff;
+  --color-pedidosblue:#3655A5;
+  --color-pedidosbluelight:#99B2F2;
+  --color-pedidosorange:#f1861c;
+  --color-pedidosorangeslight:#FFF5EC;
+}
+
+::-webkit-scrollbar{-webkit-border-radius:5px;background-color:transparent;border-radius:5px;height:10px;transition:background-color .2s linear;width:10px}::-webkit-scrollbar:hover{background-color:rgba(0,0,0,.09);transition:background-color .2s linear}::-webkit-scrollbar-thumb{-webkit-border-radius:5px;background:#aaa;background-clip:padding-box;border:2px solid transparent;border-radius:5px;transition:background-color .2s linear}::-webkit-scrollbar-thumb:active{-webkit-border-radius:5px;background:rgba(0,0,0,.4);background-clip:padding-box;border:1px solid transparent;border-radius:5px}::-webkit-scrollbar-thumb:vertical{min-height:10px}::-webkit-scrollbar-thumb:horizontal{min-width:10px}
