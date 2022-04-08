@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import { ThemeProvider } from '@material-ui/core/styles';
-import theme from './ui/theme'
+import theme from '../styles/theme';
 
 //pages/_app.js
 import { useEffect } from "react"
