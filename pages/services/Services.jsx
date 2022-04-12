@@ -1,5 +1,5 @@
 import axios from 'axios'
-const PATH ='http://192.10.2.166:8080/rest';
+const PATH ='http://192.10.2.166:8080/rest'//'https://api-pickup.pedidos.com/API-Rest';
 
 
 
@@ -8,6 +8,9 @@ function Services(metodo,url,json) {
         case 'POST':
           return getMetodPost(url,json)
           break;
+        case 'POST-NOT':
+          return getMetodPost_not(url,json)
+          break;
         case 'GET':
         return getMetodGet(url,json)
           break;
@@ -15,19 +18,23 @@ function Services(metodo,url,json) {
           return getMetodPut(url,json)
           break;
         case 'DELETE':
-          getMetodDelete(url,json)
+          return getMetodDelete(url,json)
           break;
         default:
           return null
     }
 
     async function getMetodPost(url,json){
-        json.headers ={
-            'Content-Type': 'application/json',
-            'Access-control-Allow-Origin' : '*',
-            'Access-control-Allow-Methods' : 'GET, PUT, POST, DELETE',
-        }
-        return await axios.post(PATH+url,json)
+      json.headers ={
+          'Content-Type': 'application/json',
+          'Access-control-Allow-Origin' : '*',
+          'Access-control-Allow-Methods' : 'GET, PUT, POST, DELETE',
+      }
+      return await axios.post(PATH+url,json)
+    }
+
+    async function getMetodPost_not(url,json){
+      return await axios.post(PATH+url,json)
     }
 
     async function getMetodGet(url,json){
@@ -48,8 +55,13 @@ function Services(metodo,url,json) {
         return axios.put(PATH+url,json);
     }
 
-    function getMetodDelete(url,json){
-        return axios.delete(PATH+url,json);
+    async function getMetodDelete(url,json){
+      json.headers ={
+        'Content-Type': 'application/json',
+        'Access-control-Allow-Origin' : '*',
+        'Access-control-Allow-Methods' : 'GET, PUT, POST, DELETE',
+      }
+      return await axios.delete(PATH+url,json);
     }
 }
 

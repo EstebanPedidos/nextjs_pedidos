@@ -3,9 +3,9 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../styles/theme';
 
 //pages/_app.js
-import { useEffect } from "react"
+//import { useEffect } from "react"
 function MyApp({ Component, pageProps }) {
-  useEffect(() => {
+ /* useEffect(() => {
     if("serviceWorker" in navigator) {
       window.addEventListener("load", function () {
        navigator.serviceWorker.register("/sw.js").then(
@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
         );
       });
     }
-  }, [])
+  }, [])*/
 
   return (
     <ThemeProvider  theme={theme}>
