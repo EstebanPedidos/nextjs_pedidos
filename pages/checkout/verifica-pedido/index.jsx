@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 //next js
 import { useRouter } from 'next/router'
 //Pauquetes
@@ -26,7 +26,7 @@ import Precios from '../../services/Precios'
 import DataContext from './Context/DataContext'
 import ItemFavorites from './ItemFavorites'
 import Cart from './Cart'
-import RemoveCart from '../modals/RemoveCart'
+import Eliminar from '../modals/Eliminar'
 import ModalExecutive   from '../modals/ModalExecutive'
 
 const useStyles = makeStyles((theme) => ({
@@ -68,18 +68,69 @@ export default function Verifica_pedido(props){
     const [data,setData]                    = useState({ejecutivo:'',slmn:0})
     
     let carrito     = props.carrito
+    //const [carrito,setCarrito]                  = useState([])
     let partidas    = props.num_partidas
+    //const [partidas,setPartidas]                = useState([])
     let isEjecutivo = props.isEjecutivo
+    //const [isEjecutivo,setisEjecutivo]          = useState([])
     let total       = props.total
+    //const [total,setTotal]                      = useState([])
     let favoritos   = props.favoritos
+    //const [favoritos,setFavoritos]              = useState([])
     let articulos   = props.articulos
+    //const [articulos,setArticulos]              = useState([])
+
+
+    /*useEffect(() => {
+        const getData = async () => {
+            let services        = await Services('GET','/carritoyreservado/getCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&top=10&afiliado=S',{})
+            let carrito         = await services.data
+            let total           = await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+            let isEjecutivo     = await (carrito.configCarrito.resenapedidos.length > 0)
+            let num_partidas    = await carrito.configCarrito.precarrito.length
+            let pyitemsfavoritos= await carrito.configCarrito.pyitemsfavoritos 
+            let favoritos       = await getFavoritos(pyitemsfavoritos)
+
+            async function getFavoritos(pyitemsfavoritos) {
+                let f = []
+                pyitemsfavoritos.forEach(function(item) {
+                    if(num_partidas > 0){
+                        if(item.tipo === 'I' && item.disponibilidad > 0){
+                            f.push(item)  
+                        }
+                    }else{
+                        if((pyitemsfavoritos.find((items) =>{return items.tipo === 'V'}) !== undefined)){
+                        
+                            if(item.tipo === 'V' && item.disponibilidad > 0 ){
+                                f.push(item) 
+                            }
+                        }else{
+                            if(item.tipo === 'I' && item.disponibilidad > 0 ){
+                                f.push(item) 
+                            }
+                        }
+                    }            
+                })
+                return f
+            }
+
+            let articulos =  await carrito.configCarrito.precarrito.map((item) => item.item_num);
+            setCarrito(carrito)
+            setTotal(total)
+            setisEjecutivo(isEjecutivo)
+            setPartidas(num_partidas)
+            setFavoritos(favoritos)
+            setArticulos(articulos)
+        }
+        getData()       
+    },[])*/
 
     async function Delete(item_num){
         if(deleteAll && Remove.length===0){
             alert('sin item')
             return 
         }
-        let articulosD   = await (item_num === '')?(deleteAll)?Remove.toString():articulos.toString():item_num
+        let articulosD   = await (item_num === 'V' || item_num === 'E')?(deleteAll)?Remove.toString():articulos.toString():item_num
         Services('DELETE','/carritoyreservado/deleteCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&items='+articulosD,{})
         .then( response =>{
             setRemove([])
@@ -143,6 +194,7 @@ export default function Verifica_pedido(props){
                 Services('POST','/carritoyreservado/reservaCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&afiliado=S&cupon='+cupon+'&ip=192.10.1.166&ejecutivo='+ejecutivo.slmn,arraySkus)
                 .then( response =>{
                     if(response.data.pedido > 0){
+                        localStorage.setItem('Pedido', response.data.pedido)
                         ruter.push('/checkout/direccion-de-envio')
                     }
                     
@@ -379,16 +431,22 @@ export default function Verifica_pedido(props){
                                         </Box>
                                         {(deleteAll)  ? (
                                             <Box component="div">
-                                                <RemoveCart
+                                                <Eliminar
                                                 Delete={Delete}
-                                                tipo={"E"}
+                                                object={"E"}
+                                                ms_but={'Eliminar productos'}
+                                                titilo={'Eliminar productos'}
+                                                mensaje={'¿Estás seguro de eliminar los productos seleccionados?'}
                                                 />
                                             </Box>
                                         ) : (
                                             <Box component="div">
-                                                <RemoveCart
+                                                <Eliminar
                                                 Delete={Delete}
-                                                tipo={"V"}
+                                                object={"V"}
+                                                ms_but={'Vaciar carrito'}
+                                                titilo={'Vaciar carrito'}
+                                                mensaje={'¿Estás seguro de eliminar todos los productos?'}
                                                 />
                                             </Box>
                                         )}
@@ -454,5 +512,5 @@ export async function getServerSideProps(context) {
             favoritos:      favoritos,
             articulos:      articulos
         },
-      }
+    }
 }

@@ -1,14 +1,14 @@
 import {useState} from 'react'
 //Material UI
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Checkbox from '@material-ui/core/Checkbox';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { CardActionArea } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Checkbox from '@mui/material/Checkbox';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import { CardActionArea } from '@mui/material';
+import FormControlLabel from '@mui/material/FormControlLabel';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,

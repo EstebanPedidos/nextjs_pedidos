@@ -1,6 +1,6 @@
-import { createMuiTheme } from '@material-ui/core/styles'; 
+import { createTheme, adaptV4Theme } from '@mui/material/styles'; 
 
-export default createMuiTheme ({
+export default createTheme (adaptV4Theme({
     palette:{
         common: {
            blue: '#3655a5',
@@ -58,4 +58,4 @@ export default createMuiTheme ({
         }
       },
 
-});
+}));

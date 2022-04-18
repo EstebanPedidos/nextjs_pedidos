@@ -17,6 +17,9 @@ function Services(metodo,url,json) {
         case 'PUT':
           return getMetodPut(url,json)
           break;
+        case 'PUT-NOT':
+          return getMetodPut_not(url,json)
+          break;
         case 'DELETE':
           return getMetodDelete(url,json)
           break;
@@ -53,6 +56,10 @@ function Services(metodo,url,json) {
             'Access-control-Allow-Methods' : 'GET, PUT, POST, DELETE',
         }
         return axios.put(PATH+url,json);
+    }
+
+    function getMetodPut_not(url,json){
+      return axios.put(PATH+url,json);
     }
 
     async function getMetodDelete(url,json){

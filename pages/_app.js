@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import theme from '../styles/theme';
 
 //pages/_app.js
@@ -21,10 +21,12 @@ function MyApp({ Component, pageProps }) {
   }, [])*/
 
   return (
-    <ThemeProvider  theme={theme}>
-      <Component {...pageProps} />
-    </ThemeProvider>
-  )
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider  theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
 }
 
 export default MyApp

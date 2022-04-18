@@ -2,18 +2,18 @@
 //next js
 import { useRouter } from 'next/router'
 //Material UI
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import LocalShippingOutlinedIcon from '@material-ui/icons/LocalShippingOutlined';
-import InsertDriveFileOutlinedIcon from '@material-ui/icons/InsertDriveFileOutlined';
-import MotorcycleOutlinedIcon from '@material-ui/icons/MotorcycleOutlined';
-import StorefrontOutlinedIcon from '@material-ui/icons/StorefrontOutlined';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+//import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+//import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+//import MotorcycleOutlinedIcon from '@mui/icons-material/MotorcycleOutlined';
+//import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 //Componenetes
 import ModalExecutive from './modals/ModalExecutive';
 
@@ -84,11 +84,11 @@ export default function Resumen(props){
                                             <Grid item xs={2} sm={3} md={2} lg={2} >
                                                 {(data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
                                                 <Avatar className={classes.orangeL}>
-                                                    <LocalShippingOutlinedIcon />
+                                                    LocalShippingOutlinedIcon
                                                 </Avatar>
                                                 :
                                                 <Avatar className={classes.orangeL}>
-                                                    <StorefrontOutlinedIcon />
+                                                    StorefrontOutlinedIcon
                                                 </Avatar>
                                                 }
                                             </Grid>
@@ -126,7 +126,7 @@ export default function Resumen(props){
                                             <Grid container justifyContent="space-around" alignItems="center">
                                                 <Grid item xs={2} sm={3} md={2} lg={2} >
                                                 <Avatar className={classes.blueL}>
-                                                    <InsertDriveFileOutlinedIcon />
+                                                    InsertDriveFileOutlinedIcon 
                                                 </Avatar>
                                                 </Grid>
                                                 <Grid item xs={6} sm={9} md={7} lg={8}>
@@ -157,7 +157,7 @@ export default function Resumen(props){
                                                     <Grid container justifyContent="space-around" alignItems="center">
                                                         <Grid item xs={2} sm={3} md={2} lg={2} >
                                                             <Avatar className={classes.blueD}>
-                                                                <LocalShippingOutlinedIcon />
+                                                                LocalShippingOutlinedIcon
                                                             </Avatar>
                                                         </Grid>
                                                         <Grid item xs={6} sm={9} md={7} lg={8}>
@@ -177,16 +177,16 @@ export default function Resumen(props){
                                                         <Grid item xs={2} sm={3} md={2} lg={2} >
                                                             {(data.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP')?
                                                             <Avatar className={classes.blueD}>
-                                                                <StorefrontOutlinedIcon />
+                                                                StorefrontOutlinedIcon 
                                                             </Avatar>
                                                             :
                                                             (data.jsonResumen.resumen.envio.tipo === 'Express')?                                                                
                                                                 <Avatar className={classes.blueD}>
-                                                                    <MotorcycleOutlinedIcon />
+                                                                    MotorcycleOutlinedIcon
                                                                 </Avatar>
                                                                 :
                                                                 <Avatar className={classes.blueD}>
-                                                                    <LocalShippingOutlinedIcon />
+                                                                    LocalShippingOutlinedIco
                                                                 </Avatar>                                                                
                                                             }                    
                                                             

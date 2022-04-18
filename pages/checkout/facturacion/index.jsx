@@ -2,31 +2,32 @@ import { useState } from 'react';
 //next js
 import { useRouter } from 'next/router'
 //Material UI
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import Badge from '@material-ui/core/Badge';
-import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import ReceiptOutlinedIcon from '@material-ui/icons/ReceiptOutlined';
-import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
-import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+import InputLabel from '@mui/material/InputLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import makeStyles from '@mui/styles/makeStyles';
+import Badge from '@mui/material/Badge';
+import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 
 //Componentes 
 import Process from "../Process"
 import NotasCredito from './NotasCredito';
 import Resumen from '../Resumen';
+import Eliminar from '../modals/Eliminar';
 
 //Servicios
 import Services from '../../services/Services'
@@ -74,6 +75,7 @@ export default function Facturacion(props){
     const [pago,setPago]            = useState((pagos.length > 0)?pagos[0].mpago:'')
     const [notas,setNotas]          = useState(props.notas)
     const [aplicar,setAplicar]      = useState([])
+    const [rfcs,setRfcs]            = useState(data.jsonResumen.facturas)
 
 
     async function salectOption({target}){
@@ -110,7 +112,7 @@ export default function Facturacion(props){
     }
 
     async function continuarCompra(){
-        let nota_aplicar = await (aplicar.length > 0)?aplicar.toString():'N'
+        let nota_aplicar = ((await aplicar.length) > 0)?aplicar.toString():'N'
         Services('PUT','/carritoyreservado/actualizaRFC?clienteNum='+839494+'&pedidoNum='+2795111+'&rfcNum='+rfc.rfc_num+'&ejecutivo=0&cfdi='+cfdi+'&pago='+pago+'&notas='+nota_aplicar,{})
         .then( response =>{
             let mensaje = response.data
@@ -127,6 +129,20 @@ export default function Facturacion(props){
             }
         })
         
+    }
+
+    function Delete({rfc,rfcNum}){
+        Services('POST','/miCuenta/eliminaRfc?rfcNum='+rfcNum+'&rfc='+rfc+'&clienteNum='+839494,{})
+        .then( response =>{
+            let eliminaRfc = response.data
+            if(eliminaRfc.indexOf('error') !== -1) {
+                alert(eliminaRfc.replace('error',''));
+            } else {
+                rfcs.splice((rfcs.findIndex(rfc => rfc.rfcNum === rfcNum)), 1);
+                (parseInt(rfc.rfcNum) === rfcNum)?setRfc((rfcs.length > 0)?{rfc_num:rfcs[0].rfcNum,rfc:rfcs[0].rfc}:{rfc_num:'',rfc:''}):setRfcs([...rfcs])
+                alert(eliminaRfc.replace('correcto',''));
+            }
+        })
     }
 
     return (
@@ -185,7 +201,7 @@ export default function Facturacion(props){
                                                 <RadioGroup name='rfc' value={rfc.rfc_num+''}  onChange={salectOption}>                                                     
                                                     <Grid container direction="row" justifyContent="space-between" alignItems="flex-start" spacing={1}>
                                                             {
-                                                                data.jsonResumen.facturas.map((rfc, index) => (  
+                                                                rfcs.map((rfc, index) => (  
                                                                     <Grid item xs={12} sm={6}>
                                                                         <Box component="div" key={index}> 
                                                                             <Card className={classes.rootcardi} variant="outlined">  
@@ -241,9 +257,13 @@ export default function Facturacion(props){
                                                                                                     <Button size="small" fullWidth color="primary">
                                                                                                     Detalles
                                                                                                     </Button>
-                                                                                                    <Button size="small" fullWidth color="primary">
-                                                                                                    Eliminar
-                                                                                                    </Button>
+                                                                                                    <Eliminar
+                                                                                                    Delete={Delete}
+                                                                                                    object={{rfc:rfc.rfc,rfcNum:rfc.rfcNum}}
+                                                                                                    ms_but={'Eliminar'}
+                                                                                                    titilo={'Eliminar RFC'}
+                                                                                                    mensaje={'Estás seguro de eliminar el RFC: '+rfc.rfc+'?'}
+                                                                                                    />
                                                                                                 </CardActions>
                                                                                                 
                                                                                             </Box>
@@ -337,8 +357,8 @@ export async function getServerSideProps(context) {
     let total        = await ((data.resumen.subtotal+data.resumen.costoEnvio)-data.nc.montoNc)
         services     = await Services('POST','/miCuenta/obtieneMPago',{})
     let pagos        = await services.data 
-    let rfc_ini      = await (data.facturas.length > 0)?data.facturas[1]:{}
-    let tipoPersona  = await (data.facturas.length > 0)?(rfc_ini.rfc.length === 13)?'fisica':'moral':'moral';
+    let rfc_ini      = ((await data.facturas.length) > 0)?data.facturas[1]:{}
+    let tipoPersona  = ((await data.facturas.length) > 0)?(rfc_ini.rfc.length === 13)?'fisica':'moral':'moral';
         services     = await Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
     let cfdis        = await services.data 
     let notas        = []   

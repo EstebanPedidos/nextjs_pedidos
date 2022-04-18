@@ -2,27 +2,29 @@ import { useState } from 'react';
 //next js
 import { useRouter } from 'next/router'
 //Material Ui
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import StorefrontOutlinedIcon from '@material-ui/icons/StorefrontOutlined';
-import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardActionArea from '@material-ui/core/CardActionArea';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import makeStyles from '@mui/styles/makeStyles';
+import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardActionArea from '@mui/material/CardActionArea';
 //Componentes 
 import Resumen from '../Resumen';
 import Process from "../Process"
 import ConFactura from '../modals/ConFactura';
+import Eliminar from '../modals/Eliminar';
+
 //Servicos
 import Services from '../../services/Services'
 
@@ -54,12 +56,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Direccion_de_envio(props){
-    const classes                   = useStyles();
-    const ruter                     = useRouter() 
-    const data                      = props.data
-    const peso                      = 1
-    const [direccion,setDireccion]  = useState({dir_num:'0',observacion:'PickUP'});
-    const [ejecutivo,setEjecutivo]  = useState((data.jsonResumen.resumen.nombreEjecutivo !== '')?{ejecutivo:data.jsonResumen.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
+    const classes                       = useStyles();
+    const ruter                         = useRouter() 
+    const data                          = props.data
+    const peso                          = 1
+    const [direcciones,setDirecciones]  = useState(data.jsonResumen.direcciones)
+    const [direccion,setDireccion]      = useState({dir_num:'0',observacion:'PickUP'});
+    const [ejecutivo,setEjecutivo]      = useState((data.jsonResumen.resumen.nombreEjecutivo !== '')?{ejecutivo:data.jsonResumen.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
+    
+    async function Delete(dirNum){
+        Services('PUT','/registrov2/inhabilitadireccion?clienteNum='+839494+'&dirNum='+dirNum,{})
+        .then( response =>{
+            if (response.data === "Ok") {
+                direcciones.splice((direcciones.findIndex(direccion => direccion.dirNum === dirNum)), 1);
+                (parseInt(direccion.dir_num) === dirNum)?setDireccion({dir_num:'0',observacion:'PickUP'}):setDirecciones([...direcciones])
+                alert('Tu dirección se ha eliminado', 'Eliminando dirección');
+            } else {
+                alert('La dirección no se ha eliminado', 'Intenta de nuevo');
+            }
+        })
+    }
 
     function salectOption({target}){
         const {value,name,id} = target;
@@ -68,7 +84,7 @@ export default function Direccion_de_envio(props){
 
     function continuarCompra(op){       
         Services('PUT','/carritoyreservado/actualizaDireccion?clienteNum='+839494+'&pedidoNum='+2795111+'&dirNum='+parseInt(direccion.dir_num)+'&ejecutivo='+ejecutivo.slmn+'&observaciones='+direccion.observacion+'&op='+op+'&peso='+peso+'&afiliado=S',{})
-            .then( response =>{
+        .then( response =>{
                 let mensaje = response.data
                 if (mensaje.indexOf("Error") == -1) {
                     if(op === 1){
@@ -91,7 +107,7 @@ export default function Direccion_de_envio(props){
                         alert('Intenta de nuevo','Algo salió mal');
                     }
                 }
-            })
+        })
     }
 
     return (
@@ -202,7 +218,7 @@ export default function Direccion_de_envio(props){
                             <div className={classes.root}>
                                 <Grid container spacing={2}>
                                     {
-                                        data.jsonResumen.direcciones.map((direccion, index) => (
+                                        direcciones.map((direccion, index) => (
                                             <Grid item xs={12} sm={6} key={index}>
                                                 <Card className={classes.rootCardA} variant="outlined">
                                                 <Box component="div" mx={2}>
@@ -227,9 +243,13 @@ export default function Direccion_de_envio(props){
                                                         Ver
                                                     </Button>
                                                     {direccion.reservado === 0 &&
-                                                        <Button size="large" color="primary">
-                                                        Eliminar
-                                                        </Button>
+                                                        <Eliminar
+                                                        Delete={Delete}
+                                                        object={direccion.dirNum}
+                                                        ms_but={'Eliminar'}
+                                                        titilo={'Eliminar Dirección'}
+                                                        mensaje={'¿Estás seguro de eliminar la dirección?'}
+                                                        />
                                                     }
                                                 </CardActions>
                                                 </Card>
@@ -247,12 +267,14 @@ export default function Direccion_de_envio(props){
                 </Grid>                 
             </Grid>
         </Box>
-    )
+    );
 }
 
-export async function getServerSideProps(context) {    
+export async function getServerSideProps(context) { 
+    
     let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=1',{})
     let data         = await services.data  
+
     return {
         props: {
             data : {jsonResumen:data}
