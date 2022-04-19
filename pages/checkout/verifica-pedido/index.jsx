@@ -28,6 +28,7 @@ import ItemFavorites from './ItemFavorites'
 import Cart from './Cart'
 import Eliminar from '../modals/Eliminar'
 import ModalExecutive   from '../modals/ModalExecutive'
+import { RestorePageOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,33 +65,25 @@ export default function Verifica_pedido(props){
     const [modificar,setModificar]              = useState(0)
     const [ejecutivo,setEjecutivo]              = useState({ejecutivo:'', slmn:0})
     const [cupon,setCupon]                      = useState('')
-
-    const [data,setData]                    = useState({ejecutivo:'',slmn:0})
     
-    let carrito     = props.carrito
-    //const [carrito,setCarrito]                  = useState([])
-    let partidas    = props.num_partidas
-    //const [partidas,setPartidas]                = useState([])
-    let isEjecutivo = props.isEjecutivo
-    //const [isEjecutivo,setisEjecutivo]          = useState([])
-    let total       = props.total
-    //const [total,setTotal]                      = useState([])
-    let favoritos   = props.favoritos
-    //const [favoritos,setFavoritos]              = useState([])
-    let articulos   = props.articulos
-    //const [articulos,setArticulos]              = useState([])
+
+    const [carrito,setCarrito]                  = useState({})
+    const [partidas,setPartidas]                = useState(0)
+    const [isEjecutivo,setisEjecutivo]          = useState(false)
+    const [total,setTotal]                      = useState(0)
+    const [favoritos,setFavoritos]              = useState([])
+    const [articulos,setArticulos]              = useState([])
 
 
-    /*useEffect(() => {
+    useEffect(() => {
         const getData = async () => {
             let services        = await Services('GET','/carritoyreservado/getCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&top=10&afiliado=S',{})
-            let carrito         = await services.data
-            let total           = await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
-            let isEjecutivo     = await (carrito.configCarrito.resenapedidos.length > 0)
-            let num_partidas    = await carrito.configCarrito.precarrito.length
-            let pyitemsfavoritos= await carrito.configCarrito.pyitemsfavoritos 
+            let carritoS        = await services.data
+            let totalS           = await carritoS.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+            let isEjecutivo     = await (carritoS.configCarrito.resenapedidos.length > 0)
+            let num_partidas    = await carritoS.configCarrito.precarrito.length
+            let pyitemsfavoritos= await carritoS.configCarrito.pyitemsfavoritos 
             let favoritos       = await getFavoritos(pyitemsfavoritos)
-
             async function getFavoritos(pyitemsfavoritos) {
                 let f = []
                 pyitemsfavoritos.forEach(function(item) {
@@ -113,45 +106,46 @@ export default function Verifica_pedido(props){
                 })
                 return f
             }
+            let articulos =  await carritoS.configCarrito.precarrito.map((item) => item.item_num)
 
-            let articulos =  await carrito.configCarrito.precarrito.map((item) => item.item_num);
-            setCarrito(carrito)
-            setTotal(total)
-            setisEjecutivo(isEjecutivo)
+            setCarrito(carritoS)
             setPartidas(num_partidas)
+            setisEjecutivo(isEjecutivo)
+            setTotal(totalS)
             setFavoritos(favoritos)
             setArticulos(articulos)
         }
-        getData()       
-    },[])*/
+        getData()   
+    },[partidas])
 
     async function Delete(item_num){
         if(deleteAll && Remove.length===0){
             alert('sin item')
             return 
         }
+
         let articulosD   = await (item_num === 'V' || item_num === 'E')?(deleteAll)?Remove.toString():articulos.toString():item_num
+        
         Services('DELETE','/carritoyreservado/deleteCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&items='+articulosD,{})
         .then( response =>{
-            setRemove([])
-            ruter.push('/checkout/verifica-pedido')
-        }) 
+            setPartidas(response.data)                        
+        })        
         
     }
 
     async function UpdateCantidad({target}){
         const {name, value , id} = target
-        if(value === 0){
-            carrito.configCarrito.precarrito[name].modificar = await true 
-            setModificar(modificar+1)
+        if(parseInt(value) === 0){
+            carrito.configCarrito.precarrito[name].modificar = await true    
+            carrito.configCarrito.precarrito[name].cantidad  = await 6        
         }else if(id === 'input'){
-            carrito.configCarrito.precarrito[name].cantidad = await value
-            setModificar(modificar+1) 
+            carrito.configCarrito.precarrito[name].cantidad = await value            
         }else{
             carrito.configCarrito.precarrito[name].cantidad = await value 
-            setModificar(modificar+1)
-        }
-        total  =  await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+        }        
+
+        let totalR  =  await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+        setTotal(totalR)
     }
 
  
@@ -206,12 +200,12 @@ export default function Verifica_pedido(props){
     }
 
     return (
-        <DataContext.Provider value={data}> 
             <Box component="div">
                 <div className={classes.root}>
                     <Grid container justifyContent="space-around" alignItems="flex-start">
                         <ItemFavorites 
                         favoritos={favoritos}
+                        setPartidas={setPartidas}
                         />
                         {partidas > 0 ? (
                             <Box component="div" m={2} >                        
@@ -466,51 +460,6 @@ export default function Verifica_pedido(props){
                     </Grid>
                 </div>
             </Box>
-        </DataContext.Provider>
     )
 }
 
-export async function getServerSideProps(context) {
-    
-    let services        = await Services('GET','/carritoyreservado/getCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&top=10&afiliado=S',{})
-    let carrito         = await services.data
-    let total           = await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
-    let isEjecutivo     = await (carrito.configCarrito.resenapedidos.length > 0)
-    let num_partidas    = await carrito.configCarrito.precarrito.length
-    let pyitemsfavoritos= await carrito.configCarrito.pyitemsfavoritos 
-    let favoritos       = await getFavoritos(pyitemsfavoritos)
-    async function getFavoritos(pyitemsfavoritos) {
-        let f = []
-        pyitemsfavoritos.forEach(function(item) {
-            if(num_partidas > 0){
-                if(item.tipo === 'I' && item.disponibilidad > 0){
-                    f.push(item)  
-                }
-            }else{
-                if((pyitemsfavoritos.find((items) =>{return items.tipo === 'V'}) !== undefined)){
-                  
-                    if(item.tipo === 'V' && item.disponibilidad > 0 ){
-                        f.push(item) 
-                    }
-                }else{
-                    if(item.tipo === 'I' && item.disponibilidad > 0 ){
-                        f.push(item) 
-                    }
-                }
-            }            
-        })
-        return f
-    }
-    let articulos =  await carrito.configCarrito.precarrito.map((item) => item.item_num);
-
-    return {
-        props: {
-            carrito:        carrito,
-            total:          total,
-            isEjecutivo:    isEjecutivo,
-            num_partidas:   num_partidas,
-            favoritos:      favoritos,
-            articulos:      articulos
-        },
-    }
-}

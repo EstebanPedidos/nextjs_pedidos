@@ -84,7 +84,6 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
         setRemove(Remove);   
     }
 
-    function addRemove(){}
     
 
     return(
@@ -191,23 +190,23 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                     {(item.modificar !== undefined )?                                                            
                                                     <TextField fullWidth  id='input' type="number" value={item.cantidad} name={index}  onChange={UpdateCantidad} label="Cantidad"/>
                                                     :
-                                                    <FormControl fullWidth variant="outlined" className={classes.formControl}>
-                                                    <InputLabel >Cantidad</InputLabel>
-                                                    <Select
-                                                    value={item.cantidad}
-                                                    onChange={UpdateCantidad}
-                                                    inputProps={{
-                                                        name: index
-                                                    }}
-                                                    >
-                                                    {Array.apply(0, Array((item.existencia >= 5)?5:item.existencia)).map(function (x, i) {
-                                                        return <MenuItem key={i+1} value={i+1}>{i+1}</MenuItem>;
-                                                    })}
-
-                                                    {(item.existencia >= 5)&&
-                                                        <MenuItem value={0}>+5</MenuItem>
-                                                    }
-                                                    </Select>
+                                                    <FormControl variant="outlined" className={classes.formControl}>
+                                                        <InputLabel htmlFor="age-native-simple">Cantidad</InputLabel>
+                                                        <Select
+                                                        native
+                                                        value={item.cantidad}
+                                                        onChange={UpdateCantidad}
+                                                        inputProps={{
+                                                            name: index,
+                                                        }}
+                                                        >
+                                                        {Array.apply(0, Array((item.existencia >= 5)?5:item.existencia)).map(function (x, i) {
+                                                            return <option key={i+1} value={i+1}>{i+1}</option>;
+                                                        })}  
+                                                        {(item.existencia >= 5)&&
+                                                            <option key={0} value="0">+5</option>
+                                                        }                
+                                                        </Select>
                                                     </FormControl>
                                                     }   
                                                 
