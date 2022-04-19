@@ -125,7 +125,6 @@ export default function Forma_de_envio(props){
             ejecutivo:ejecutivo.slmn,
             shipVia:data.jsonResumen.resumen.shipVia
         }
-        alert(JSON.stringify(json))
         Services('PUT-NOT','/carritoyreservado/actualizaPagos',json)        
         .then( response =>{
             let mensaje = response.data

@@ -1,19 +1,24 @@
 import {useState,useEffect} from 'react'
-import * as React from 'react';
 //next js
 import { useRouter } from 'next/router'
-//Paquetes
-import {Box, Grid, Paper, Typography,
-        Button, TextField, Divider, 
-        Alert, Stack, AlertTitle,  Link  } from '@mui/material';
-
+//Pauquetes
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+//Data Display
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+//Inputs
+import TextField from '@material-ui/core/TextField';
+//Lab
+import { Alert, AlertTitle } from '@material-ui/lab';
 //Navigation
-//import Link from '@mui/material/Link';
-
+import Link from '@material-ui/core/Link';
 //Componentes MUI4
 
-//Servicios
+//Servicos
 import Services from '../../services/Services'
 //Funciones
 import Precios from '../../services/Precios'
@@ -149,8 +154,7 @@ export default function Verifica_pedido(props){
             carrito.configCarrito.precarrito[name].cantidad = await value            
         }else{
             carrito.configCarrito.precarrito[name].cantidad = await value 
-        }        
-
+        }  
         let totalR  =  await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
         setTotal(totalR)
     }
@@ -207,103 +211,102 @@ export default function Verifica_pedido(props){
             <Box component="div">
                 <div className={classes.root}>
                     <Grid container justifyContent="space-around" alignItems="flex-start">
-                        <Grid item xs={12} sm={8} lg={8}>
-                            <ItemFavorites 
-                            favoritos={favoritos}
-                            add={add}
-                            />
-                            {partidas > 0 ? (
-                                <Box component="div" m={2} >                        
-                                    <Box className={classes.root} py={2}>
-                                        <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                                            <Grid item xs={6} sm={8}>
-                                                <Typography component="h1" variant="h5">
-                                                    <Box component="span" fontWeight="fontWeightBold">
-                                                        Carrito de compra
-                                                    </Box>
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item justifyContent="flex-end" xs={6} sm={4}>
-                                            {deleteAll ? (
-                                                <Button variant="outlined" size="large"color="secondary" 
-                                                    onClick={() => {
-                                                        setDeleteAll(false);
-                                                    }}
-                                                    >
-                                                    Cancelar
-                                                </Button>
-                                            ) : (
-                                                <Button variant="outlined" size="large"  justifyContent="flex-end"
-                                                    onClick={() => {
-                                                        setDeleteAll(true);
-                                                    }}
-                                                    >
-                                                    Varios
-                                                </Button>
-                                            )}
-                                            </Grid>
+                        <ItemFavorites 
+                        favoritos={favoritos}
+                        add={add}
+                        />
+                        {partidas > 0 ? (
+                            <Box component="div" m={2} >                        
+                                <Box className={classes.root} py={2}>
+                                    <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
+                                        <Grid item xs={6} sm={8}>
+                                            <Typography component="h1" variant="h5">
+                                                <Box component="span" fontWeight="fontWeightBold">
+                                                    Carrito de compra
+                                                </Box>
+                                            </Typography>
                                         </Grid>
-                                        </Box>
-                                        <Divider light />                
-                                    
-                                    {/*carrito.configCarrito.precarrito.find((items) => {
-                                        return items.exis === "N";
-                                    }) !== undefined*/ 1===1 && (
-                                        <Box component="div">
-                                            {" "}
-                                            <Alert severity="warning">
-                                                <AlertTitle>Disponibilidad límitada</AlertTitle>
-                                                    Es probable que algunos productos <strong>No cuenten con suficiente disponilidad.</strong>
-                                            </Alert>
-                                            {" "}
-                                            <Alert severity="warning">Uno o varios productos sin suficiente disponibilidad.</Alert>  
-                                        </Box>
-                                    )}
-                                    {/*carrito.configCarrito.precarrito.find((items) => {
-                                        return items.exis === "N";
-                                    }) !== undefined*/ 1===1 && (
-                                        <Box component="div">
-                                            <Alert severity="error"><strong>Sin disponibilidad</strong> de producto</Alert>
-                                        </Box>
-                                    )}
-                                    {(modificar >= 0)&&
-                                            <Cart
-                                            precarrito={carrito.configCarrito.precarrito}
-                                            deleteAll={deleteAll}
-                                            Remove={Remove}
-                                            setRemove={setRemove}
-                                            Delete={Delete}
-                                            UpdateCantidad={UpdateCantidad}
-                                            modificar={modificar}
-                                        />
-                                    }
+                                        <Grid item justifyContent="flex-end" xs={6} sm={4}>
+                                        {deleteAll ? (
+                                            <Button variant="outlined" size="large"color="secondary" 
+                                                onClick={() => {
+                                                    setDeleteAll(false);
+                                                }}
+                                                >
+                                                Cancelar
+                                            </Button>
+                                        ) : (
+                                            <Button variant="outlined" size="large"  justifyContent="flex-end"
+                                                onClick={() => {
+                                                    setDeleteAll(true);
+                                                }}
+                                                >
+                                                Varios
+                                            </Button>
+                                        )}
+                                        </Grid>
+                                    </Grid>
                                 </Box>
-                                ) : (
-                                    <Box component="div" py={4}>
-                                        <Divider light variant="middle" />
-                                        <Box className={classes.root} py={2}>
-                                            <Grid container direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                                                <Grid item xs={12}>
-                                                    <Box component="div" m={1} pt={4} >
-                                                        <img className={classes.emptyCart} src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/carrito-v.svg" alt="Carrito vacio" />
-                                                    </Box>
-                                                </Grid>
-                                                <Grid item xs={12}>
-                                                    <Typography component="h1" variant="h5">
-                                                        <Box component="span" fontWeight="fontWeightBold">
-                                                            Carrito vacío
-                                                        </Box>
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item xs={12}>
-                                                    <Button component={Link} to={'/home'} variant="contained" color="secondary">Comenzar</Button>     
-                                                </Grid>
-                                            </Grid>
-                                        </Box>
-                                    </Box>
-                                )}
-                        </Grid>
-                        <Grid item xs={12} sm={4} lg={4}>
+                                <Divider light />                
+                            
+                            {carrito.configCarrito.precarrito.find((items) => {
+                                return items.exis === "N";
+                            }) !== undefined && (
+                                <Box component="div">
+                                    {" "}
+                                    <Alert severity="warning">
+                                        <AlertTitle>Disponibilidad límitada</AlertTitle>
+                                            Es probable que algunos productos <strong>No cuenten con suficiente disponilidad.</strong>
+                                    </Alert>
+                                    {" "}
+                                    <Alert severity="warning">Uno o varios productos sin suficiente disponibilidad.</Alert>  
+                                </Box>
+                            )}
+                            {carrito.configCarrito.precarrito.find((items) => {
+                                return items.exis === "N";
+                            }) !== undefined && (
+                                <Box component="div">
+                                    <Alert severity="error"><strong>Sin disponibilidad</strong> de producto</Alert>
+                                </Box>
+                            )}
+                            {(modificar >= 0)&&
+                                    <Cart
+                                    precarrito={carrito.configCarrito.precarrito}
+                                    deleteAll={deleteAll}
+                                    Remove={Remove}
+                                    setRemove={setRemove}
+                                    Delete={Delete}
+                                    UpdateCantidad={UpdateCantidad}
+                                    modificar={modificar}
+                                />
+                            }
+                            </Box>
+                        ) : (
+                            <Box component="div" py={4}>
+                                <Divider light variant="middle" />
+                                <Box className={classes.root} py={2}>
+                                    <Grid container direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                                        <Grid item xs={12}>
+                                            <Box component="div" m={1} pt={4} >
+                                                <img className={classes.emptyCart} src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/carrito-v.svg" alt="Carrito vacio" />
+                                            </Box>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <Typography component="h1" variant="h5">
+                                                <Box component="span" fontWeight="fontWeightBold">
+                                                    Carrito vacío
+                                                </Box>
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <Button component={Link} to={'/home'} variant="contained" color="secondary">Comenzar</Button>     
+                                        </Grid>
+                                    </Grid>
+                                </Box>
+                            </Box>
+                        )}
+
+                        <Grid item xs={12} sm={4}>
                             <Paper className={classes.paper}  elevation={0}>
                                 {isEjecutivo && (
                                 <div>
@@ -461,6 +464,7 @@ export default function Verifica_pedido(props){
                                 )}
                             </Paper>
                         </Grid>
+
                     </Grid>
                 </div>
             </Box>

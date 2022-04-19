@@ -152,7 +152,7 @@ export default function Facturacion(props){
         .then( response =>{
             let mensaje = response.data
             if (mensaje.indexOf("Error") == -1) {
-                if(data.resumen.direccion.nombreDireccion === 'PickUP'){
+                if(data.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP'){
                     ruter.push("/checkout/forma-de-pago")
                 }else{
                     ruter.push('/checkout/forma-de-envio')
