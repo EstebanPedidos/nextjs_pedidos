@@ -104,7 +104,7 @@ export default function Direccion_de_envio(props){
                 let mensaje = response.data              
                 if (mensaje.indexOf("Error") == -1) {
                     if(op === 1){
-                        if(data.dir_num === '0'){
+                        if(direccion.dir_num === '0'){
                             ruter.push("/checkout/forma-de-pago") 
                         }else{
                             ruter.push("/checkout/forma-de-envio")  
@@ -283,7 +283,7 @@ export default function Direccion_de_envio(props){
                 </Grid>  
                 {(data.hasOwnProperty('jsonResumen'))&&
                 <Grid item xs={12} sm={4}>
-                    <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} total={total}/> 
+                    <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
                 </Grid>                 
                 }
             </Grid>

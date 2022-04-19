@@ -152,7 +152,11 @@ export default function Facturacion(props){
         .then( response =>{
             let mensaje = response.data
             if (mensaje.indexOf("Error") == -1) {
-                ruter.push('/checkout/forma-de-envio')
+                if(data.resumen.direccion.nombreDireccion === 'PickUP'){
+                    ruter.push("/checkout/forma-de-pago")
+                }else{
+                    ruter.push('/checkout/forma-de-envio')
+                }
             } else {
                 if (mensaje == "Error PvsE"){
                     setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido es pago al recibir: No puede modificarse'})

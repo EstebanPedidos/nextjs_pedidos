@@ -157,6 +157,9 @@ export default function Forma_de_envio(props){
             }else if(value === 'Express'){
                 setTipoHora('Express')
                 setPrecioEnvio(data.jsonResumen.formasEnvio.express.costo)
+            }else if(value === '3'){
+                setTipoHora('PickUP')
+                setPrecioEnvio(0)
             }            
             setFormaEnvio(value)
             setPaqueteria('-')            
