@@ -4,77 +4,130 @@ import {
     PayPalHostedField,
     usePayPalHostedFields,
 } from "@paypal/react-paypal-js";
-//Servicios
-import Services from '../../services/Services'
+//Material
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Radio from '@mui/material/Radio';
+import ListItemText from '@mui/material/ListItemText';
+
+const initialOptions = {
+    "client-id": "ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_",
+    "data-client-token": "eyJicmFpbnRyZWUiOnsiYXV0aG9yaXphdGlvbkZpbmdlcnByaW50IjoiNjI0YmJkOTc1MjkyMDc0M2M2ZDcyNzRiNTU0MmJhN2RkMjUzMWJhNTE2YjdkMjIxZWRhNzQzOWJkMTUxZjQ2YnxtZXJjaGFudF9pZD1yd3dua3FnMnhnNTZobTJuJnB1YmxpY19rZXk9ajJmYzJqcHhkZzZ2cDg0ZiZjcmVhdGVkX2F0PTIwMjItMDQtMTlUMTM6MTE6NTIuMDM0WiZjdXN0b21lcl9pZD04Mzk0OTMiLCJ2ZXJzaW9uIjoiMy1wYXlwYWwifSwicGF5cGFsIjp7ImlkVG9rZW4iOm51bGwsImFjY2Vzc1Rva2VuIjoiQTIxQUFQbjRUNFh0V3hTR3FVODQ1SzJZMlJRenlGcVVDNURKZHoySXNaTnV2d0lSN1ZBcWdjaDBGeHF0aWtYOW9YbFlKdERBNmpiQTdQRDNoTFB5WHg3LTkwNjRDSDEwdyJ9fQ==",
+    currency: "MXN",
+    locale:"es_MX",
+    components: "buttons,hosted-fields",
+    intent: "capture",
+	vault: false,
+};
+
 
 const SubmitPayment = () => {
     // Here declare the variable containing the hostedField instance
-    const hostedFields = usePayPalHostedFields();
+    const fields = usePayPalHostedFields();
 
     const submitHandler = () => {
-        alert('Entro a funcion')
-        if (!typeof hostedFields.submit !== "function") return; // validate that `submit()` exists before using it
-        alert('Paso a funcion')
-        hostedFields
+        alert(Object.values(fields))
+        if (!typeof fields.submit !== "function") return; // validate that `submit()` exists before using it
+        alert('Paso')
+        /*hostedFields
             .submit({
                 // The full name as shown in the card and billing address
                 cardholderName: "John Wick",
             })
             .then((order) => {
-                fetch(
-                    "/your-server-side-integration-endpoint/capture-payment-info"
-                )
-                    .then((response) => response.json())
-                    .then((data) => {
-                        // Inside the data you can find all the information related to the payment
-                    })
-                    .catch((err) => {
-                        // Handle any error
-                    });
-            });
+                alert(order)
+            });*/
     };
 
     return <button onClick={submitHandler}>Pay</button>;
 };
 
-export default function Hostedfields(props) {
-    const initialOptions = {
-        "client-id": "ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_",
-        "data-client-token": props.data.clienteToken,
-        currency: "MXN",
-        locale:"es_MX",
-        components: "hosted-fields,buttons",
-        "data-service-stage":"paypal.com",
-        "data-stag":"paypal.com",
-        "data-api-stage-host":"api.paypal.com"
-    };
+export default function Hostedfields({clientToken,salectOption,tajetaSave}) {
+    
+    const brand ={
+    VISA:       'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/visa.svg',
+    MASTERCARD: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/mastercard.svg',
+    DISCOVER: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/DISCOVER.svg',
+    AMEX: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/AMEX.svg',
+    SOLO: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/solo.svg',
+    JCB: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/JBC.svg',
+    STAR: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/Military-star.svg',
+    DELTA: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/Delta.svg',
+    SWITCH: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/Switch.svg',
+    MAESTRO: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/maestro.svg',
+    CB_NATIONALE: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/cb.svg',
+    CONFIGOGA: '',
+    CONFIDIS: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/confidis.svg',
+    ELECTRON: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/electron.svg',
+    CETELEM: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/cetelem.svg',
+    CHINA_UNION_PAY: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/unionpay.svg',
+    }
 
-    return (
+    return (    
+        <>
+        {(clientToken.getPaymentTokens.length > 0 && tajetaSave.id !== 'nueva')?
+        <>
+            <RadioGroup aria-label="gender" name="tarjeta_guardada" value={tajetaSave.id} onChange={salectOption}>
+                <FormControlLabel key="nueva" value="nueva" fullWidth label={                                                            
+                    <Box component="div" py={2}>
+                        <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={8}>
+                            <Grid item xs={4}>
+                                +
+                            </Grid>
+                            <Grid item xs={8}>                                    
+                                <ListItemText id="list-label-payment-method" primary="Agregar nueva"/>
+                            </Grid>
+                        </Grid>   
+                    </Box>
+                } control={<Radio />}/> 
+                {clientToken.getPaymentTokens.map((tarjeta, index) => (  
+                    <FormControlLabel key={index} value={tarjeta.id} fullWidth label={                                                            
+                        <Box component="div" py={2}>
+                            <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={8}>
+                                <Grid item xs={4}>
+                                    <img src={brand[tarjeta.brand]} alt={"Paga en linea con "+tarjeta.brand} />
+                                </Grid>
+                                <Grid item xs={8}>                                    
+                                    <ListItemText id="list-label-payment-method" primary={tarjeta.id}/>
+                                </Grid>
+                            </Grid>   
+                        </Box>
+                    } control={<Radio />}/>
+                ))
+                }
+            </RadioGroup>
+            </>
+        :
+        
         <PayPalScriptProvider
             options={initialOptions}
         >
             <PayPalHostedFieldsProvider
                 createOrder={() => {
-                    let id = async ()=>{
-                        let services    = await Services('POST','/registrov2/createOrderPayPal',{evento:3250091,isSTC:'S'})
+                    // Here define the call to create and order
+                    async function orden(){
+                        let services    = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:3250091,isSTC:'S'})
                         let data        = await services.data
+                        alert(data)
                         return data
-                    }
-                    
-                    console.log(id)
-                    console.log(data)
-                    return data
+                    }       
+                    return orden()
                 }}
             >
                 <PayPalHostedField
                     id="card-number"
                     hostedFieldType="number"
-                    options={{ selector: "#card-number" }}
+                    options={{ selector: "#card-number",
+                    placeholder: "Tarjeta"
+                    }}
                 />
                 <PayPalHostedField
                     id="cvv"
                     hostedFieldType="cvv"
-                    options={{ selector: "#cvv" }}
+                    options={{ selector: "#cvv" ,
+                    placeholder: "CVV"}}
                 />
                 <PayPalHostedField
                     id="expiration-date"
@@ -87,16 +140,9 @@ export default function Hostedfields(props) {
                 <SubmitPayment />
             </PayPalHostedFieldsProvider>
         </PayPalScriptProvider>
+        }
+        </>
+        
     );
 }
 
-export async function getServerSideProps(context) {
-    let services    = await Services('POST','/registrov2/clientetoken?cust_num='+839494,{})
-    let data        = await services.data
-    console.log(data)
-    return {
-      props: {
-          data : data
-      },
-    }
-}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 //next js
 import { useRouter } from 'next/router'
 //Material UI
@@ -28,6 +28,7 @@ import Process from "../Process"
 import NotasCredito from './NotasCredito';
 import Resumen from '../Resumen';
 import Eliminar from '../modals/Eliminar';
+import Alertas from '../Alertas';
 
 //Servicios
 import Services from '../../services/Services'
@@ -61,28 +62,62 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Facturacion(props){
-    const classes           = useStyles()
-    const ruter             = useRouter() 
-    const data              = props.data
-    const pagos             = props.pagos
-    const rfc_ini           = props.rfc_ini
-    const total             = props.total
+    const classes                   = useStyles()
+    const ruter                     = useRouter() 
 
-    const [ejecutivo,setEjecutivo]  = useState((data.jsonResumen.resumen.nombreEjecutivo !== '')?{ejecutivo:data.jsonResumen.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
-    const [rfc,setRfc]              = useState({rfc_num:rfc_ini.rfcNum,rfc:rfc_ini.rfc})
-    const [cfdis,setCfdis]          = useState(props.cfdis)
-    const [cfdi,setCfdi]            = useState((props.cfdis.length > 0)?props.cfdis[0].idUsu:'')
-    const [pago,setPago]            = useState((pagos.length > 0)?pagos[0].mpago:'')
-    const [notas,setNotas]          = useState(props.notas)
+    const [data,setData]            = useState({})
+    const [pagos,setPagos]          = useState([])
+    const [cfdis,setCfdis]          = useState([])
+    const [rfc_ini,setRfcIni]       = useState({})
+    const [total,setTotal]          = useState(0)
+    const [notas,setNotas]          = useState([])
+    const [ejecutivo,setEjecutivo]  = useState({ejecutivo:'', slmn:0})
+    const [rfc,setRfc]              = useState({rfc_num:0,rfc:''})
+    const [cfdi,setCfdi]            = useState('')
+    const [pago,setPago]            = useState('')
+    const [rfcs,setRfcs]            = useState([])
     const [aplicar,setAplicar]      = useState([])
-    const [rfcs,setRfcs]            = useState(data.jsonResumen.facturas)
+    const [alerta,setAlerta]        = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
+    const cliente                   = 839494
+    const usuario                   = 168020
+    const afiliado                  = 'S'
 
+    useEffect(()=>{
+        const getData = async () => {
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=2',{})
+            let json         = await services.data  
+            let total        = await ((json.resumen.subtotal+json.resumen.costoEnvio)-json.nc.montoNc)
+            let jsonP        = await Services('POST','/miCuenta/obtieneMPago',{})
+            let pagos        = await jsonP.data 
+            let rfc_ini      = ((await json.facturas.length) > 0)?json.facturas[1]:{}
+            let tipoPersona  = ((await json.facturas.length) > 0)?(rfc_ini.rfc.length === 13)?'fisica':'moral':'moral';
+            let jsonC        = await Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
+            let cfdis        = await jsonC.data 
+            let notas        = []   
+            if(json.facturas.length > 0){
+                let jsonN    = await Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+cliente+'&rfc='+rfc_ini.rfc+'&total='+total,{})
+                    notas    = await jsonN.data                 
+            }
+            setData({jsonResumen:json})  
+            setTotal(total)
+            setPagos(pagos) 
+            setCfdis(cfdis) 
+            setRfcIni(rfc_ini)
+            setNotas(notas)
+            setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
+            setRfc({rfc_num:rfc_ini.rfcNum,rfc:rfc_ini.rfc})
+            setCfdi((cfdis.length > 0)?cfdis[0].idUsu:'')
+            setPago((pagos.length > 0)?pagos[0].mpago:'')
+            setRfcs(json.facturas)
+        }
+        getData()
+    },[])
 
     async function salectOption({target}){
         const {value,name,id} = target;
         if(name === 'rfc'){
             let tipoPersona = (id.length === 13)?'fisica':'moral';
-            Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+839494+'&rfc='+id+'&total='+total,{})
+            Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+cliente+'&rfc='+id+'&total='+total,{})
             .then( response =>{
                 let notas = response.data               
                 Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
@@ -113,18 +148,22 @@ export default function Facturacion(props){
 
     async function continuarCompra(){
         let nota_aplicar = ((await aplicar.length) > 0)?aplicar.toString():'N'
-        Services('PUT','/carritoyreservado/actualizaRFC?clienteNum='+839494+'&pedidoNum='+2795111+'&rfcNum='+rfc.rfc_num+'&ejecutivo=0&cfdi='+cfdi+'&pago='+pago+'&notas='+nota_aplicar,{})
+        Services('PUT','/carritoyreservado/actualizaRFC?clienteNum='+cliente+'&pedidoNum='+localStorage.getItem('Pedido')+'&rfcNum='+rfc.rfc_num+'&ejecutivo=0&cfdi='+cfdi+'&pago='+pago+'&notas='+nota_aplicar,{})
         .then( response =>{
             let mensaje = response.data
             if (mensaje.indexOf("Error") == -1) {
-                ruter.push('/checkout/forma-de-envio')
+                if(data.resumen.direccion.nombreDireccion === 'PickUP'){
+                    ruter.push("/checkout/forma-de-pago")
+                }else{
+                    ruter.push('/checkout/forma-de-envio')
+                }
             } else {
                 if (mensaje == "Error PvsE"){
-                    alert('No puede modificarse', 'Tu pedido es pago al recibir');
+                    setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido es pago al recibir: No puede modificarse'})
                 } else if (mensaje == "Error factura"){
-                    alert('No puede modificarse', 'Tu pedido esta facturado');
+                    setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido esta facturado: No puede modificarse'})
                 } else {
-                    alert('Intenta de nuevo','Algo salió mal');
+                    setAlerta({...alerta,severity:'error',estado:true,mensaje:'Algo salió mal: Intenta de nuevo'})
                 }
             }
         })
@@ -132,15 +171,15 @@ export default function Facturacion(props){
     }
 
     function Delete({rfc,rfcNum}){
-        Services('POST','/miCuenta/eliminaRfc?rfcNum='+rfcNum+'&rfc='+rfc+'&clienteNum='+839494,{})
+        Services('POST','/miCuenta/eliminaRfc?rfcNum='+rfcNum+'&rfc='+rfc+'&clienteNum='+cliente,{})
         .then( response =>{
             let eliminaRfc = response.data
             if(eliminaRfc.indexOf('error') !== -1) {
-                alert(eliminaRfc.replace('error',''));
+                setAlerta({...alerta,severity:'error',estado:true,mensaje:eliminaRfc.replace('error','')})
             } else {
                 rfcs.splice((rfcs.findIndex(rfc => rfc.rfcNum === rfcNum)), 1);
                 (parseInt(rfc.rfcNum) === rfcNum)?setRfc((rfcs.length > 0)?{rfc_num:rfcs[0].rfcNum,rfc:rfcs[0].rfc}:{rfc_num:'',rfc:''}):setRfcs([...rfcs])
-                alert(eliminaRfc.replace('correcto',''));
+                setAlerta({...alerta,severity:'error',estado:true,mensaje:eliminaRfc.replace('correcto','')})
             }
         })
     }
@@ -347,36 +386,9 @@ export default function Facturacion(props){
                     <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
                 </Grid>                 
             </Grid>
+            {(alerta.estado)&&
+                <Alertas estado={alerta.estado} severity={alerta.severity} vertical={alerta.vertical} horizontal={alerta.horizontal} mensaje={alerta.mensaje}/>
+            }
         </Box>
     )
-}
-
-export async function getServerSideProps(context) {    
-    let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=2',{})
-    let data         = await services.data  
-    let total        = await ((data.resumen.subtotal+data.resumen.costoEnvio)-data.nc.montoNc)
-        services     = await Services('POST','/miCuenta/obtieneMPago',{})
-    let pagos        = await services.data 
-    let rfc_ini      = ((await data.facturas.length) > 0)?data.facturas[1]:{}
-    let tipoPersona  = ((await data.facturas.length) > 0)?(rfc_ini.rfc.length === 13)?'fisica':'moral':'moral';
-        services     = await Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
-    let cfdis        = await services.data 
-    let notas        = []   
-    if(data.facturas.length > 0){
-        services     = await Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+839494+'&rfc='+rfc_ini.rfc+'&total='+total,{})
-        notas        = await services.data 
-        
-    }
-        
-    
-    return {
-        props: {
-            data :      {jsonResumen:data},
-            total:      total,
-            pagos:      pagos,
-            cfdis:      cfdis,
-            rfc_ini:    rfc_ini,
-            notas:      notas
-        },
-      }
 }

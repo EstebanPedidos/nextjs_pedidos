@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 //next js
 import { useRouter } from 'next/router'
 import makeStyles from '@mui/styles/makeStyles';
@@ -31,6 +31,7 @@ import 'swiper/swiper.min.css'
 //Componentes
 import Resumen from '../Resumen';
 import Process from '../Process';
+import Alertas from '../Alertas';
 //Servicios
 import Services from '../../services/Services'
 const useStyles = makeStyles((theme) => ({
@@ -77,24 +78,44 @@ const useStyles = makeStyles((theme) => ({
 export default function Forma_de_envio(props){
     const classes                           = useStyles();
     const router                            = useRouter()
-    const data                              = props.data
-    const [ejecutivo,setEjecutivo]          = useState((data.jsonResumen.resumen.nombreEjecutivo !== '')?{ejecutivo:data.jsonResumen.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
-    const [forma_envio,setFormaEnvio]       = useState((data.jsonResumen.formasEnvio !== undefined)?(data.jsonResumen.formasEnvio.pactado.fechas.length > 0)?'Programada':'2':'2')
-    const [fecha_envio,setFechaEnvio]       = useState((data.jsonResumen.formasEnvio !== undefined)?(data.jsonResumen.formasEnvio.pactado.fechas.length > 0)?data.jsonResumen.formasEnvio.pactado.fechas[0].fecha.replace(' de ','-').replace(' ','-'):'-':'-',)
-    const [horarios,setHorarios]            = useState((data.jsonResumen.formasEnvio !== undefined)?(data.jsonResumen.formasEnvio.pactado.fechas.length > 0)?data.jsonResumen.formasEnvio.pactado.fechas[0].horarios:[]:[])
+    const [data,setData]                    = useState({})
+    const [ejecutivo,setEjecutivo]          = useState({ejecutivo:'', slmn:0})
+    const [forma_envio,setFormaEnvio]       = useState('2')
+    const [fecha_envio,setFechaEnvio]       = useState('-')
+    const [horarios,setHorarios]            = useState([])
     const [horario_envio,setHorarioEnvio]   = useState('-')
     const [precio_envio,setPrecioEnvio]     = useState(0)
     const [tipo_hora,setTipoHora]           = useState('Abierto')
     const [paqueteria,setPaqueteria]        = useState('-')
+    const [alerta,setAlerta]                = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
+    const cliente                           = 839494
+    const usuario                           = 168020
+    const afiliado                          = 'S'
+    
+    useEffect(()=>{
+        const getData = async ()=>{
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=3',{})
+            let json         = await services.data 
+            let fe           = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?'Programada':'2':'2'
+            let fhe          = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].fecha.replace(' de ','-').replace(' ','-'):'-':'-'
+            let h            = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].horarios:[]:[]
+            setData({jsonResumen:json})
+            setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
+            setFormaEnvio(fe)
+            setFechaEnvio(fhe)
+            setHorarios(h)
+        }
+        getData()
+    },[])
 
     async function continuarCompra(){
         if(forma_envio === '2' && paqueteria === '-'){
-            alert('Selecciona una paqueteria')
+            setAlerta({...alerta,severity:'error',estado:(alerta.estado)?false:true,mensaje:'Selecciona una paqueteria'})
             return
         }
         let json = await {
-            clienteNum:839494,
-            pedidoNum:2795111,
+            clienteNum:cliente,
+            pedidoNum:localStorage.getItem('Pedido'),
             paq:paqueteria,
             paqPrecio:precio_envio,
             tipoHora:tipo_hora,
@@ -104,6 +125,7 @@ export default function Forma_de_envio(props){
             ejecutivo:ejecutivo.slmn,
             shipVia:data.jsonResumen.resumen.shipVia
         }
+        alert(JSON.stringify(json))
         Services('PUT-NOT','/carritoyreservado/actualizaPagos',json)        
         .then( response =>{
             let mensaje = response.data
@@ -111,13 +133,13 @@ export default function Forma_de_envio(props){
                 router.push('/checkout/forma-de-pago')
             }else {
                 if(mensaje == "Error PvsE"){
-                    alert('No puede modificarse', 'Tu pedido es pago al recibir');
+                    setAlerta({...alerta,severity:'error',estado:(alerta.estado)?false:true,mensaje:'Tu pedido es pago al recibir: No puede modificarse'})
                     router.push('/Soho/Micuenta/misPedidos')
                 }else if (mensaje == "Error factura"){
-                    alert('No puede modificarse', 'Tu pedido esta facturado');
+                    setAlerta({...alerta,severity:'error',estado:(alerta.estado)?false:true,mensaje:'Tu pedido esta facturado: No puede modificarse'})
                     router.push('/Soho/Micuenta/misPedidos')
                 }else {
-                    alert('Intenta de nuevo','Algo salió mal');
+                    setAlerta({...alerta,severity:'error',estado:(alerta.estado)?false:true,mensaje:'Algo salió mal: Intenta de nuevo'})
                 }
             }
         })
@@ -135,6 +157,9 @@ export default function Forma_de_envio(props){
             }else if(value === 'Express'){
                 setTipoHora('Express')
                 setPrecioEnvio(data.jsonResumen.formasEnvio.express.costo)
+            }else if(value === '3'){
+                setTipoHora('PickUP')
+                setPrecioEnvio(0)
             }            
             setFormaEnvio(value)
             setPaqueteria('-')            
@@ -169,7 +194,8 @@ export default function Forma_de_envio(props){
                             </Grid>
                         </Grid>
                     </Box>
-                    {(data.jsonResumen.resumen.bodegaDif === 'S')&&
+                    {(data.hasOwnProperty('jsonResumen'))&&
+                    (data.jsonResumen.resumen.bodegaDif === 'S')&&
                         <Box>
                             <p><b>Entrega en horario abierto o paquetería.</b></p>
                             <p>Envío express y horarios pactados no están disponibles. Uno o varios productos de tu pedido se encuentran en diferentes bodegas.</p>
@@ -181,7 +207,8 @@ export default function Forma_de_envio(props){
                                 <List dense>
                                     <div className={classes.root}>
                                         <Grid container spacing={2}>
-                                            {(data.jsonResumen.resumen.shipVia !== 5 && data.jsonResumen.formasEnvio.pactado.fechas.length > 0)&&
+                                            {(data.hasOwnProperty('jsonResumen'))&&
+                                            (data.jsonResumen.resumen.shipVia !== 5 && data.jsonResumen.formasEnvio.pactado.fechas.length > 0)&&
                                                 <Grid item xs={12}>
                                                     <Card variant="outlined" >
                                                         <ListItem variant="outlined" button >
@@ -210,7 +237,8 @@ export default function Forma_de_envio(props){
                                                     </Card>
                                                 </Grid>
                                             }
-                                            {(data.jsonResumen.resumen.bodegaDif === 'N' && data.jsonResumen.formasEnvio.express.aplicaExpress === 'S')&&
+                                            {(data.hasOwnProperty('jsonResumen'))&&
+                                            (data.jsonResumen.resumen.bodegaDif === 'N' && data.jsonResumen.formasEnvio.express.aplicaExpress === 'S')&&
                                                 <Grid item xs={12}>
                                                     <Card variant="outlined">
                                                         <ListItem variant="outlined" button >
@@ -274,7 +302,8 @@ export default function Forma_de_envio(props){
                                                         </ListItem>
                                                     </Card>
                                                 </Grid>
-                                            {(data.jsonResumen.resumen.entregaPickup !== '')&&                   
+                                            {(data.hasOwnProperty('jsonResumen'))&&
+                                            (data.jsonResumen.resumen.entregaPickup !== '')&&                   
                                                 <Grid item xs={12}>
                                                     <Card variant="outlined">
                                                         <ListItem variant="outlined" button > 
@@ -346,7 +375,7 @@ export default function Forma_de_envio(props){
                                                 },
                                             }}
                                             >
-                                            {
+                                            {(data.hasOwnProperty('jsonResumen'))&&
                                                 data.jsonResumen.formasEnvio.pactado.fechas.map((fecha, index) => (
                                                     <SwiperSlide className={classes.swiperBox}>
                                                     <Box component="div" key={index}>
@@ -386,7 +415,8 @@ export default function Forma_de_envio(props){
                                                         <Box component="div" key={index}>                                                   
                                                             <Card variant="outlined">
                                                                 <ListItem variant="outlined" button>
-                                                                    {(horario.horario !== '10hrs a 18hrs')&&
+                                                                    {(data.hasOwnProperty('jsonResumen'))&&
+                                                                    (horario.horario !== '10hrs a 18hrs')&&
                                                                     (data.jsonResumen.resumen.bodegaDif === 'N' || horario.horario !== '10hrs a 19hrs')&&
                                                                         <FormControlLabel fullWidht disabled={(horario.disponible === 'N')?(horario.horario === '10hrs a 19hrs')?true:(data.jsonResumen.resumen.bodegaDif !== 'S')?true:false:false}
                                                                         value={(horario.horario === '10hrs a 19hrs')?'-':horario.horario.replace('hrs a ','-').replace('hrs','')} label={
@@ -432,7 +462,8 @@ export default function Forma_de_envio(props){
                             </Grid>
                         </Box>
                         <Box m={1}>
-                            {(data.jsonResumen.resumen.peso > 199 || data.jsonResumen.resumen.pesoVolumetrico > 199 || 
+                            {(data.hasOwnProperty('jsonResumen'))&&
+                            (data.jsonResumen.resumen.peso > 199 || data.jsonResumen.resumen.pesoVolumetrico > 199 || 
                             data.jsonResumen.resumen.costoEnvio === -1 || data.jsonResumen.resumen.costoEnvio === -2)?
                             <div>
                                 <p>
@@ -450,7 +481,7 @@ export default function Forma_de_envio(props){
                                     <List dense fullWidth>
                                         <div className={classes.root}>
                                             <Grid container spacing={2}>                                                 
-                                                {
+                                                {(data.hasOwnProperty('jsonResumen'))&&
                                                     Object.entries(data.jsonResumen.formasEnvio.paqueteria).reverse().map(([key, value]) => (
                                                         <Grid item xs={12}> 
                                                         <Box component="Div" key={key}>                                                          
@@ -506,17 +537,9 @@ export default function Forma_de_envio(props){
                 <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
             </Grid>                 
         </Grid>
+        {(alerta.estado)&&
+            <Alertas estado={true} severity={alerta.severity} vertical={alerta.vertical} horizontal={alerta.horizontal} mensaje={alerta.mensaje}/>
+        }
     </Box>
     )
-}
-
-export async function getServerSideProps(context) {    
-    let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=3',{})
-    let data         = await services.data  
-    //console.log(data) 
-    return {
-        props: {
-            data :      {jsonResumen:data}
-        },
-      }
 }

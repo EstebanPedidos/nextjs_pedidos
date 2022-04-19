@@ -23,6 +23,7 @@ import ItemFavorites from './ItemFavorites'
 import Cart from './Cart'
 import Eliminar from '../modals/Eliminar'
 import ModalExecutive   from '../modals/ModalExecutive'
+import { RestorePageOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,33 +60,28 @@ export default function Verifica_pedido(props){
     const [modificar,setModificar]              = useState(0)
     const [ejecutivo,setEjecutivo]              = useState({ejecutivo:'', slmn:0})
     const [cupon,setCupon]                      = useState('')
-
-    const [data,setData]                    = useState({ejecutivo:'',slmn:0})
     
-    let carrito     = props.carrito
-    //const [carrito,setCarrito]                  = useState([])
-    let partidas    = props.num_partidas
-    //const [partidas,setPartidas]                = useState([])
-    let isEjecutivo = props.isEjecutivo
-    //const [isEjecutivo,setisEjecutivo]          = useState([])
-    let total       = props.total
-    //const [total,setTotal]                      = useState([])
-    let favoritos   = props.favoritos
-    //const [favoritos,setFavoritos]              = useState([])
-    let articulos   = props.articulos
-    //const [articulos,setArticulos]              = useState([])
+
+    const [carrito,setCarrito]                  = useState({})
+    const [partidas,setPartidas]                = useState(0)
+    const [isEjecutivo,setisEjecutivo]          = useState(false)
+    const [total,setTotal]                      = useState(0)
+    const [favoritos,setFavoritos]              = useState([])
+    const [articulos,setArticulos]              = useState([])
+    const cliente                               = 839494
+    const usuario                               = 168020
+    const afiliado                              = 'S'
 
 
-    /*useEffect(() => {
+    useEffect(() => {
         const getData = async () => {
-            let services        = await Services('GET','/carritoyreservado/getCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&top=10&afiliado=S',{})
-            let carrito         = await services.data
-            let total           = await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
-            let isEjecutivo     = await (carrito.configCarrito.resenapedidos.length > 0)
-            let num_partidas    = await carrito.configCarrito.precarrito.length
-            let pyitemsfavoritos= await carrito.configCarrito.pyitemsfavoritos 
+            let services        = await Services('GET','/carritoyreservado/getCarrito?clienteNum='+cliente+'&usuarioNum='+usuario+'&top=10&afiliado='+afiliado,{})
+            let carritoS        = await services.data
+            let totalS          = await carritoS.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+            let isEjecutivo     = await (carritoS.configCarrito.resenapedidos.length > 0)
+            let num_partidas    = await carritoS.configCarrito.precarrito.length
+            let pyitemsfavoritos= await carritoS.configCarrito.pyitemsfavoritos 
             let favoritos       = await getFavoritos(pyitemsfavoritos)
-
             async function getFavoritos(pyitemsfavoritos) {
                 let f = []
                 pyitemsfavoritos.forEach(function(item) {
@@ -108,51 +104,61 @@ export default function Verifica_pedido(props){
                 })
                 return f
             }
+            let articulos =  await carritoS.configCarrito.precarrito.map((item) => item.item_num)
 
-            let articulos =  await carrito.configCarrito.precarrito.map((item) => item.item_num);
-            setCarrito(carrito)
-            setTotal(total)
-            setisEjecutivo(isEjecutivo)
+            setCarrito(carritoS)
             setPartidas(num_partidas)
+            setisEjecutivo(isEjecutivo)
+            setTotal(totalS)
             setFavoritos(favoritos)
             setArticulos(articulos)
         }
-        getData()       
-    },[])*/
+        getData()   
+    },[partidas])
+
+    function add(item_num){
+        Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: cliente,usuario_num : usuario,cantidad : 1,item_num : item_num,seguro : '',garantia : ''})
+        .then( response =>{
+            if(response.data > 0){
+                setPartidas(response.data)
+            }
+        }) 
+    }
 
     async function Delete(item_num){
         if(deleteAll && Remove.length===0){
             alert('sin item')
             return 
         }
+
         let articulosD   = await (item_num === 'V' || item_num === 'E')?(deleteAll)?Remove.toString():articulos.toString():item_num
-        Services('DELETE','/carritoyreservado/deleteCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&items='+articulosD,{})
+        
+        Services('DELETE','/carritoyreservado/deleteCarrito?clienteNum='+cliente+'&usuarioNum='+usuario+'&items='+articulosD,{})
         .then( response =>{
-            setRemove([])
-            ruter.push('/checkout/verifica-pedido')
-        }) 
+            setPartidas(response.data)                        
+        })        
         
     }
 
     async function UpdateCantidad({target}){
         const {name, value , id} = target
-        if(value === 0){
-            carrito.configCarrito.precarrito[name].modificar = await true 
-            setModificar(modificar+1)
+        if(parseInt(value) === 0){
+            carrito.configCarrito.precarrito[name].modificar = await true    
+            carrito.configCarrito.precarrito[name].cantidad  = await 6        
         }else if(id === 'input'){
-            carrito.configCarrito.precarrito[name].cantidad = await value
-            setModificar(modificar+1) 
+            carrito.configCarrito.precarrito[name].cantidad = await value            
         }else{
             carrito.configCarrito.precarrito[name].cantidad = await value 
-            setModificar(modificar+1)
-        }
-        total  =  await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+        }        
+
+        let totalR  =  await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+        setTotal(totalR)
     }
 
  
     function validaCodigoDescuento(){
         if(cupon !== ''){
-            Services('GET','/carritoyreservado/validaCodigoDescuento?clienteNum='+839494+'&usuarioNum='+168020+'&cupon='+cupon,{})
+            Services('GET','/carritoyreservado/validaCodigoDescuento?clienteNum='+cliente+'&usuarioNum='+usuario+'&cupon='+cupon,{})
             .then( response =>{
                 if(response.data)  {
                     alert("Continua para ver el descuento")
@@ -186,28 +192,25 @@ export default function Verifica_pedido(props){
             })
 
             if(arraySkus.length > 0){
-                Services('POST','/carritoyreservado/reservaCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&afiliado=S&cupon='+cupon+'&ip=192.10.1.166&ejecutivo='+ejecutivo.slmn,arraySkus)
+                Services('POST','/carritoyreservado/reservaCarrito?clienteNum='+cliente+'&usuarioNum='+usuario+'&afiliado='+afiliado+'&cupon='+cupon+'&ip=192.10.1.166&ejecutivo='+ejecutivo.slmn,arraySkus)
                 .then( response =>{
                     if(response.data.pedido > 0){
                         localStorage.setItem('Pedido', response.data.pedido)
                         ruter.push('/checkout/direccion-de-envio')
-                    }
-                    
+                    }                    
                 }) 
-            }
-
-            
+            }           
         }
     }
 
     return (
-        <DataContext.Provider value={data}> 
             <Box component="div">
                 <div className={classes.root}>
                     <Grid container justifyContent="space-around" alignItems="flex-start">
                         <Grid item xs={12} sm={8} lg={8}>
                             <ItemFavorites 
                             favoritos={favoritos}
+                            add={add}
                             />
                             {partidas > 0 ? (
                                 <Box component="div" m={2} >                        
@@ -240,65 +243,65 @@ export default function Verifica_pedido(props){
                                             )}
                                             </Grid>
                                         </Grid>
-                                    </Box>
-                                    <Divider light />                
-                                
-                                {carrito.configCarrito.precarrito.find((items) => {
-                                    return items.exis === "N";
-                                }) !== undefined && (
-                                    <Box component="div">
-                                        {" "}
-                                        <Alert severity="warning">
-                                            <AlertTitle>Disponibilidad límitada</AlertTitle>
-                                                Es probable que algunos productos <strong>No cuenten con suficiente disponilidad.</strong>
-                                        </Alert>
-                                        {" "}
-                                        <Alert severity="warning">Uno o varios productos sin suficiente disponibilidad.</Alert>  
-                                    </Box>
-                                )}
-                                {carrito.configCarrito.precarrito.find((items) => {
-                                    return items.exis === "N";
-                                }) !== undefined && (
-                                    <Box component="div">
-                                        <Alert severity="error"><strong>Sin disponibilidad</strong> de producto</Alert>
-                                    </Box>
-                                )}
-                                {(modificar >= 0)&&
-                                        <Cart
-                                        precarrito={carrito.configCarrito.precarrito}
-                                        deleteAll={deleteAll}
-                                        Remove={Remove}
-                                        setRemove={setRemove}
-                                        Delete={Delete}
-                                        UpdateCantidad={UpdateCantidad}
-                                        modificar={modificar}
-                                    />
-                                }
+                                        </Box>
+                                        <Divider light />                
+                                    
+                                    {/*carrito.configCarrito.precarrito.find((items) => {
+                                        return items.exis === "N";
+                                    }) !== undefined*/ 1===1 && (
+                                        <Box component="div">
+                                            {" "}
+                                            <Alert severity="warning">
+                                                <AlertTitle>Disponibilidad límitada</AlertTitle>
+                                                    Es probable que algunos productos <strong>No cuenten con suficiente disponilidad.</strong>
+                                            </Alert>
+                                            {" "}
+                                            <Alert severity="warning">Uno o varios productos sin suficiente disponibilidad.</Alert>  
+                                        </Box>
+                                    )}
+                                    {/*carrito.configCarrito.precarrito.find((items) => {
+                                        return items.exis === "N";
+                                    }) !== undefined*/ 1===1 && (
+                                        <Box component="div">
+                                            <Alert severity="error"><strong>Sin disponibilidad</strong> de producto</Alert>
+                                        </Box>
+                                    )}
+                                    {(modificar >= 0)&&
+                                            <Cart
+                                            precarrito={carrito.configCarrito.precarrito}
+                                            deleteAll={deleteAll}
+                                            Remove={Remove}
+                                            setRemove={setRemove}
+                                            Delete={Delete}
+                                            UpdateCantidad={UpdateCantidad}
+                                            modificar={modificar}
+                                        />
+                                    }
                                 </Box>
-                            ) : (
-                                <Box component="div" py={4}>
-                                    <Divider light variant="middle" />
-                                    <Box className={classes.root} py={2}>
-                                        <Grid container direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                                            <Grid item xs={12}>
-                                                <Box component="div" m={1} pt={4} >
-                                                    <img className={classes.emptyCart} src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/carrito-v.svg" alt="Carrito vacio" />
-                                                </Box>
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <Typography component="h1" variant="h5">
-                                                    <Box component="span" fontWeight="fontWeightBold">
-                                                        Carrito vacío
+                                ) : (
+                                    <Box component="div" py={4}>
+                                        <Divider light variant="middle" />
+                                        <Box className={classes.root} py={2}>
+                                            <Grid container direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                                                <Grid item xs={12}>
+                                                    <Box component="div" m={1} pt={4} >
+                                                        <img className={classes.emptyCart} src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/carrito-v.svg" alt="Carrito vacio" />
                                                     </Box>
-                                                </Typography>
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    <Typography component="h1" variant="h5">
+                                                        <Box component="span" fontWeight="fontWeightBold">
+                                                            Carrito vacío
+                                                        </Box>
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    <Button component={Link} to={'/home'} variant="contained" color="secondary">Comenzar</Button>     
+                                                </Grid>
                                             </Grid>
-                                            <Grid item xs={12}>
-                                                <Button component={Link} to={'/home'} variant="contained" color="secondary">Comenzar</Button>     
-                                            </Grid>
-                                        </Grid>
+                                        </Box>
                                     </Box>
-                                </Box>
-                            )}
+                                )}
                         </Grid>
                         <Grid item xs={12} sm={4} lg={4}>
                             <Paper className={classes.paper}  elevation={0}>
@@ -458,55 +461,9 @@ export default function Verifica_pedido(props){
                                 )}
                             </Paper>
                         </Grid>
-
                     </Grid>
                 </div>
             </Box>
-        </DataContext.Provider>
     )
 }
 
-export async function getServerSideProps(context) {
-    
-    let services        = await Services('GET','/carritoyreservado/getCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&top=10&afiliado=S',{})
-    let carrito         = await services.data
-    let total           = await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
-    let isEjecutivo     = await (carrito.configCarrito.resenapedidos.length > 0)
-    let num_partidas    = await carrito.configCarrito.precarrito.length
-    let pyitemsfavoritos= await carrito.configCarrito.pyitemsfavoritos 
-    let favoritos       = await getFavoritos(pyitemsfavoritos)
-    async function getFavoritos(pyitemsfavoritos) {
-        let f = []
-        pyitemsfavoritos.forEach(function(item) {
-            if(num_partidas > 0){
-                if(item.tipo === 'I' && item.disponibilidad > 0){
-                    f.push(item)  
-                }
-            }else{
-                if((pyitemsfavoritos.find((items) =>{return items.tipo === 'V'}) !== undefined)){
-                  
-                    if(item.tipo === 'V' && item.disponibilidad > 0 ){
-                        f.push(item) 
-                    }
-                }else{
-                    if(item.tipo === 'I' && item.disponibilidad > 0 ){
-                        f.push(item) 
-                    }
-                }
-            }            
-        })
-        return f
-    }
-    let articulos =  await carrito.configCarrito.precarrito.map((item) => item.item_num);
-
-    return {
-        props: {
-            carrito:        carrito,
-            total:          total,
-            isEjecutivo:    isEjecutivo,
-            num_partidas:   num_partidas,
-            favoritos:      favoritos,
-            articulos:      articulos
-        },
-    }
-}

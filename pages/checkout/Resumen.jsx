@@ -50,17 +50,20 @@ export default function Resumen(props){
     return (
         <div>
             <div>
+                {(data.hasOwnProperty('jsonResumen'))&&
                 <ModalExecutive resenapedidos={data.jsonResumen.resumen.resenaPedidos} setEjecutivo={props.setEjecutivo} ejecutivo={props.ejecutivo.ejecutivo}/>
+                }
             </div>
             <Box component="div">
                 <div className={classes.root}>
                     <Grid container  alignItems="center" spacing={1}>
                         <Grid item xs={6} sm={12} lg={6}>
                             <Box textAlign="left">  
-                                <Typography component="h2" variant="h6">Pedido #{data.pedido_num}</Typography>
+                                <Typography component="h2" variant="h6">Pedido # </Typography>
                             </Box>  
                         </Grid>
                         <Grid item xs={6} sm={12} lg={6}>
+                            {(data.hasOwnProperty('jsonResumen'))&&
                             <Paper variant="outlined"> 
                                 <Typography variant="body2">   
                                     <Box py={1} fontWeight="fontWeightMedium" textAlign="center">    
@@ -68,6 +71,7 @@ export default function Resumen(props){
                                     </Box>
                                 </Typography>
                             </Paper>
+                            }
                         </Grid>
                     </Grid>
                 </div>              
@@ -75,7 +79,8 @@ export default function Resumen(props){
             <Box component="div" py={2}>    
                 <div className={classes.root}>
                     <Grid container spacing={1}>
-                        {(data.jsonResumen.resumen.direccion.dirNum > 0 && data.jsonResumen.resumen.direccion.nombreDireccion !== '')&&
+                        {(data.hasOwnProperty('jsonResumen'))&&
+                        (data.jsonResumen.resumen.direccion.dirNum > 0 && data.jsonResumen.resumen.direccion.nombreDireccion !== '')&&
                         <Grid item xs={12}>
                             <Paper variant="outlined">
                                 <Box component="div" m={1}>
@@ -118,7 +123,8 @@ export default function Resumen(props){
                             </Paper>
                         </Grid>
                         }           
-                        {(data.jsonResumen.resumen.facturas.rfc !== '' && data.jsonResumen.resumen.facturas.rfc !== 'XAXX010101000')&&
+                        {(data.hasOwnProperty('jsonResumen'))&&
+                        (data.jsonResumen.resumen.facturas.rfc !== '' && data.jsonResumen.resumen.facturas.rfc !== 'XAXX010101000')&&
                             <Grid item xs={12}>
                                 <Paper variant="outlined">
                                     <Box component="div" m={1}>
@@ -145,7 +151,8 @@ export default function Resumen(props){
                                 </Paper>
                             </Grid>
                         }
-                        {(data.jsonResumen.resumen.envio.tipo.trim() !== '') &&
+                        {(data.hasOwnProperty('jsonResumen'))&&
+                        (data.jsonResumen.resumen.envio.tipo.trim() !== '') &&
                         <Grid item xs={12}>
                                 <Paper variant="outlined">
                                     <Box component="div" m={1}>
@@ -175,7 +182,8 @@ export default function Resumen(props){
                                                         :
                                                     <Grid container justifyContent="space-around" alignItems="center">
                                                         <Grid item xs={2} sm={3} md={2} lg={2} >
-                                                            {(data.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP')?
+                                                            {(data.hasOwnProperty('jsonResumen'))&&
+                                                            (data.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP')?
                                                             <Avatar className={classes.blueD}>
                                                                 StorefrontOutlinedIcon 
                                                             </Avatar>
@@ -250,31 +258,39 @@ export default function Resumen(props){
                                 <Box textAlign="right"> 
                                     <Grid container direction="column" justifyContent="center" spacing={1}>
                                         <Grid item>
-                                                <Typography variant="subtitle1"  >
-                                                    <Box component="span" >
-                                                    {(data.jsonResumen.resumen.descuento > 0)?data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.descuento:data.jsonResumen.resumen.subtotal}
-                                                    </Box>
-                                                </Typography>
+                                            {(data.hasOwnProperty('jsonResumen'))&&
+                                            <Typography variant="subtitle1"  >
+                                                <Box component="span" >
+                                                {(data.jsonResumen.resumen.descuento > 0)?data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.descuento:data.jsonResumen.resumen.subtotal}
+                                                </Box>
+                                            </Typography>
+                                            }
                                         </Grid>
                                         <Grid item>
+                                            {(data.hasOwnProperty('jsonResumen'))&&
                                             <Typography variant="body2">
                                                     {(data.jsonResumen.resumen.costoEnvio <  0)?`Cotiza con nosotros`:(data.jsonResumen.resumen.costoEnvio === 0)?`Gratis`:data.jsonResumen.resumen.costoEnvio}
                                             </Typography>
-                                            {(data.jsonResumen.resumen.descuento > 0)&&
+                                            }
+                                            {(data.hasOwnProperty('jsonResumen'))&&
+                                            (data.jsonResumen.resumen.descuento > 0)&&
                                             <Typography>
                                                 {data.jsonResumen.resumen.descuento}
                                             </Typography>
-                                                }
-                                                {(data.jsonResumen.nc.tieneNc !== 'false')&&
+                                            }
+                                            {(data.hasOwnProperty('jsonResumen'))&&
+                                            (data.jsonResumen.nc.tieneNc !== 'false')&&
                                             <Typography>
                                                 <p>{data.jsonResumen.nc.montoNc}</p>
                                             </Typography>
-                                                }
+                                            }
                                         </Grid>
                                         <Grid item>
                                             <Typography variant="subtitle1"  >
                                                     <Box component="span" fontWeight="fontWeightBold">
-                                                        {data.total}
+                                                        {(data.hasOwnProperty('jsonResumen'))&&
+                                                            ((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc)
+                                                        }
                                                     </Box>
                                             </Typography>
                                         </Grid>
