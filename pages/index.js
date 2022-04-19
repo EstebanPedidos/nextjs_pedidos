@@ -1,3 +1,5 @@
+import { Typography } from '@mui/material';
+
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
@@ -8,13 +10,15 @@ export default function Home() {
       <Head>
         <title>Pedidos.com | Todo para tu espacio de trabajo</title>
         <meta name="description" content="Paga a Meses Sin Intereses, 18 MSI con tarjetas participantes y hasta 24 MSI con Citibanamex. Gran variedad de productos + Entregas EXPRESS CDMX." />
-        <link rel="icon" href="/favicon.ico" />
+        
       </Head>
       <nav>
         Header
       </nav>
 
       <main className={styles.main}>
+        <Typography variant='h1' color='primary'>prueba MUI lista</Typography>
+
         <h1 className={styles.title}>
           Ir a <a href="/">Home</a>
         </h1>

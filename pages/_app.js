@@ -1,32 +1,26 @@
-import '../styles/globals.css'
-import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-import theme from '../styles/theme';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { CacheProvider } from '@emotion/react';
+import { ThemeProvider, createMuiTheme, makeStyles, CssBaseline } from '@mui/material';
 
-//pages/_app.js
-//import { useEffect } from "react"
-function MyApp({ Component, pageProps }) {
- /* useEffect(() => {
-    if("serviceWorker" in navigator) {
-      window.addEventListener("load", function () {
-       navigator.serviceWorker.register("/sw.js").then(
-          function (registration) {
-            console.log("Service Worker registration successful with scope: ", registration.scope);
-          },
-          function (err) {
-            console.log("Service Worker registration failed: ", err);
-          }
-        );
-      });
-    }
-  }, [])*/
+import createEmotionCache from '../utility/createEmotionCache';
+import lightTheme from '../themes/light-theme';
+import '../styles/globals.css';
+
+
+const clientSideEmotionCache = createEmotionCache();
+
+const MyApp = (props) => {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider  theme={theme}>
+    <CacheProvider value={emotionCache}>
+      <ThemeProvider theme={lightTheme}>
+        <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>
-    </StyledEngineProvider>
+    </CacheProvider>
   );
-}
+};
 
-export default MyApp
+export default MyApp;
