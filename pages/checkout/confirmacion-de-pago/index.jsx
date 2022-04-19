@@ -16,14 +16,25 @@ import ResumeConfirmation from '../ResumenConfirmacion';
 import Transferencia from './Transferencia';
 //Servicios
 import Services from '../../services/Services'
+import { useEffect, useState } from 'react';
 const useStyles = makeStyles((theme) => ({
 	root: {
 	  flexGrow: 1,
 	},
 }));
 export default function Confirmacion_de_pago(props){
-    const classes   = useStyles();
-    const data = props.data
+    const classes        = useStyles();
+    const [data,setData] = useState()
+
+    useEffect(()=>{
+        let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=4',{})
+        let json         = await services.data 
+        /*let jsonc        = await Services('POST','/registrov2/obtieneCliente?cliente='+839494,{})
+        let JsonCliente  = await jsonc.data  
+            jsonp        = await Services('POST','/miCuenta/detallePedido?clienteNum='+839494+'&pedidoNum='+2795111,{})
+        let miPedido     = await jsonp.data */
+        setData(json)
+    },[])
     
     return (
     <Box component="div" m={2} className={classes.root}>
@@ -99,7 +110,7 @@ export default function Confirmacion_de_pago(props){
     )
 }
 
-export async function getServerSideProps(context) {    
+/*export async function getServerSideProps(context) {    
     let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=4',{})
     let data         = await services.data 
         services     = await Services('POST','/registrov2/obtieneCliente?cliente='+839494,{})
@@ -113,4 +124,4 @@ export async function getServerSideProps(context) {
             miPedido:       miPedido
         },
       }
-}
+}*/

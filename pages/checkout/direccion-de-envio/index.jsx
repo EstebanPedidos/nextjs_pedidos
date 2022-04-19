@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 //next js
 import { useRouter } from 'next/router'
 //Material Ui
@@ -24,6 +24,7 @@ import Resumen from '../Resumen';
 import Process from "../Process"
 import ConFactura from '../modals/ConFactura';
 import Eliminar from '../modals/Eliminar';
+import Alertas from '../Alertas';
 
 //Servicos
 import Services from '../../services/Services'
@@ -58,34 +59,46 @@ const useStyles = makeStyles((theme) => ({
 export default function Direccion_de_envio(props){
     const classes                       = useStyles();
     const ruter                         = useRouter() 
-    const data                          = props.data
     const peso                          = 1
-    const [direcciones,setDirecciones]  = useState(data.jsonResumen.direcciones)
+    const [data,setData]                = useState({})
+    const [direcciones,setDirecciones]  = useState([])
     const [direccion,setDireccion]      = useState({dir_num:'0',observacion:'PickUP'});
-    const [ejecutivo,setEjecutivo]      = useState((data.jsonResumen.resumen.nombreEjecutivo !== '')?{ejecutivo:data.jsonResumen.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
-    
-    async function Delete(dirNum){
+    const [ejecutivo,setEjecutivo]      = useState({ejecutivo:'', slmn:0})
+    const [alerta,setAlerta]            = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
+
+    useEffect(()=>{
+        const getData = async () => {
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=1',{})
+            let json         = await {jsonResumen:services.data}
+            setData(json)
+            setDirecciones(json.jsonResumen.direcciones)
+            setEjecutivo((json.jsonResumen.resumen.nombreEjecutivo !== '')?{ejecutivo:json.jsonResumen.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
+        }
+        getData()
+    },[])
+
+    async function Delete({dirNum,nombreDireccion}){
         Services('PUT','/registrov2/inhabilitadireccion?clienteNum='+839494+'&dirNum='+dirNum,{})
         .then( response =>{
-            if (response.data === "Ok") {
+            if (response.data === "Ok") { 
                 direcciones.splice((direcciones.findIndex(direccion => direccion.dirNum === dirNum)), 1);
                 (parseInt(direccion.dir_num) === dirNum)?setDireccion({dir_num:'0',observacion:'PickUP'}):setDirecciones([...direcciones])
-                alert('Tu dirección se ha eliminado', 'Eliminando dirección');
+                setAlerta({...alerta,severity:'success',estado:true,mensaje:'Tu dirección '+nombreDireccion+' se ha eliminado'})
             } else {
-                alert('La dirección no se ha eliminado', 'Intenta de nuevo');
+                setAlerta({...alerta,severity:'error',estado:true,mensaje:'La dirección no se ha eliminado: Intenta de nuevo'})
             }
         })
     }
 
     function salectOption({target}){
-        const {value,name,id} = target;
+        const {value,id} = target;
         setDireccion({dir_num:value,observacion:id})
     }
 
-    function continuarCompra(op){       
+    function continuarCompra(op){     
         Services('PUT','/carritoyreservado/actualizaDireccion?clienteNum='+839494+'&pedidoNum='+2795111+'&dirNum='+parseInt(direccion.dir_num)+'&ejecutivo='+ejecutivo.slmn+'&observaciones='+direccion.observacion+'&op='+op+'&peso='+peso+'&afiliado=S',{})
         .then( response =>{
-                let mensaje = response.data
+                let mensaje = response.data              
                 if (mensaje.indexOf("Error") == -1) {
                     if(op === 1){
                         if(data.dir_num === '0'){
@@ -98,13 +111,13 @@ export default function Direccion_de_envio(props){
                     }
                 } else {
                     if (mensaje == "Error PvsE"){
-                        alert('No puede modificarse', 'Tu pedido es pago al recibir');
+                        setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido es pago al recibir'})
                         ruter.push("/misPedidos")
                     } else if (mensaje == "Error factura"){
-                        alert('No puede modificarse', 'Tu pedido esta facturado');
+                        setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido esta facturado'})
                         ruter.push("/misPedidos")
                     } else {
-                        alert('Intenta de nuevo','Algo salió mal');
+                        setAlerta({...alerta,severity:'error',estado:true,mensaje:'Intenta de nuevo: Algo salió mal'})
                     }
                 }
         })
@@ -179,7 +192,8 @@ export default function Direccion_de_envio(props){
                         </Box>
                         <Box component="div" py={2}>
                             <RadioGroup name='direccion_envio' value={direccion.dir_num}  onChange={salectOption}>
-                            {(data.jsonResumen.resumen.entregaPickup !== '')&&
+                            {(data.hasOwnProperty('jsonResumen'))&&
+                            (data.jsonResumen.resumen.entregaPickup !== '')&&
                                 <div>
                                     <Card className={classes.root} variant="outlined">
                                     <CardActionArea>
@@ -195,9 +209,11 @@ export default function Direccion_de_envio(props){
                                                             </Box>
                                                         
                                                             <Box component="div" px={3}>
+                                                            {(data.hasOwnProperty('jsonResumen'))&&
                                                             <Typography variant="h6" component="h2">
                                                                 {data.jsonResumen.resumen.entregaPickup} en PickUp Center
                                                             </Typography>
+                                                            }
                                                             <Typography  color="textSecondary">
                                                                 Alejandro Dumas 135, Polanco, 11550 CDMX.
                                                             </Typography>
@@ -245,7 +261,7 @@ export default function Direccion_de_envio(props){
                                                     {direccion.reservado === 0 &&
                                                         <Eliminar
                                                         Delete={Delete}
-                                                        object={direccion.dirNum}
+                                                        object={{dirNum:direccion.dirNum,nombreDireccion:direccion.nombreDireccion}}
                                                         ms_but={'Eliminar'}
                                                         titilo={'Eliminar Dirección'}
                                                         mensaje={'¿Estás seguro de eliminar la dirección?'}
@@ -262,22 +278,15 @@ export default function Direccion_de_envio(props){
                         </Box>
                     </div>
                 </Grid>  
+                {(data.hasOwnProperty('jsonResumen'))&&
                 <Grid item xs={12} sm={4}>
                     <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
                 </Grid>                 
+                }
             </Grid>
+            {(alerta.estado)&&
+                <Alertas estado={alerta.estado} severity={alerta.severity} vertical={alerta.vertical} horizontal={alerta.horizontal} mensaje={alerta.mensaje}/>
+            }            
         </Box>
     );
-}
-
-export async function getServerSideProps(context) { 
-    
-    let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=1',{})
-    let data         = await services.data  
-
-    return {
-        props: {
-            data : {jsonResumen:data}
-        },
-      }
 }

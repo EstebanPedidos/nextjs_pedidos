@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 //next js
 import { useRouter } from 'next/router'
 //Material
@@ -26,6 +26,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Resumen from '../Resumen';
 import Process from '../Process';
 import SDKPayPalBotones from './SDKPayPalBotones'
+import Hostedfields from './Hostedfields';
 //Servicios
 import Services from '../../services/Services'
 
@@ -56,13 +57,15 @@ const useStyles = makeStyles((theme) => ({
 export default function Forma_de_pago(props){
     const classes                           = useStyles()
     const router                            = useRouter()
-    const data                              = props.data
+    const [data,setData]                    = useState({})
     const afiliado                          = 'S'
     const max_cont_ent                      = (afiliado === 'S')?5000:1000    
-    const [ejecutivo,setEjecutivo]          = useState((data.jsonResumen.resumen.nombreEjecutivo !== '')?{ejecutivo:data.jsonResumen.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
+    const [ejecutivo,setEjecutivo]          = useState({ejecutivo:'', slmn:0})
     const [forma_pago,setFormaPago]         = useState('linea')
     const [sub_forma_pago,setSubFormaPago]  = useState('1')
-    
+    const [clientToken,setClientToken]      = useState({clienteToken:'',getPaymentTokens:[]})
+    const [tajetaSave,setTarjetaSave]       = useState({id:'nueva'})
+
     function salectOption({target}){
         const {value,name,id} = target;
         if(name === 'forma_pago'){
@@ -70,6 +73,8 @@ export default function Forma_de_pago(props){
             setSubFormaPago('')
         }else if(name === 'sub_forma_pago'){
             setSubFormaPago(value)
+        }else if(name === 'tarjeta_guardada'){
+            setTarjetaSave({...tajetaSave,id:value})         
         }
     }
     function continuarCompra(){
@@ -86,14 +91,14 @@ export default function Forma_de_pago(props){
     }
 
     function guardaFormaDePago(linkOxxo){
+        
         Services('PUT-NOT','/registrov2/registraFormaPagoTv',{
             pedido_num:2795111,
             cliente_num:839494,
             fp_num:sub_forma_pago
-        })
-        //ShoppingCartServices.guardaFormaDePago(data.pedido_num,data.Cliente,data.sub_forma_pago)
-        .then( response =>{
+        }).then( response =>{
             let mensaje = response.data
+            alert(mensaje)
             if( mensaje === "Agregado" || mensaje === "Actualizado"){
                 if(sub_forma_pago === '3' || sub_forma_pago === '4' ){
                     router.push('/checkout/confirmacion-de-pago')
@@ -113,6 +118,25 @@ export default function Forma_de_pago(props){
         })
     }
 
+    useEffect(()=>{
+        const getData = async () =>{
+            let cust_num     = await (839494-1)
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=4',{})
+            let json         = await services.data  
+            let token        = await Services('POST','/registrov2/clientetoken?cust_num='+cust_num,{})
+            let cliente      = await token.data 
+            setData({jsonResumen:json})
+            setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
+            let tarjetas         = await cliente.getPaymentTokens
+            let getPaymentTokens = await JSON.parse(tarjetas)
+            setClientToken({clienteToken:cliente.clienteToken,getPaymentTokens:getPaymentTokens})
+            if(getPaymentTokens.length > 0){
+                setTarjetaSave({...tajetaSave,id:getPaymentTokens[0].id}) 
+            }
+        }
+        getData()
+    },[])
+
     return (
     <Box component="div" m={2} className={classes.root}>
         <Grid container spacing={3}>
@@ -126,7 +150,6 @@ export default function Forma_de_pago(props){
                             </Grid>
                         </Grid>
                     </Box>
-
                     <Box m={1} >
                         <FormControl component="fieldset" fullWidth>
                             <RadioGroup aria-label="gender" name="forma_pago" value={forma_pago} onChange={salectOption}>                           
@@ -156,7 +179,8 @@ export default function Forma_de_pago(props){
                                                 </Card>
                                             </Grid>
                                             <Grid item xs={12}>
-                                            {((data.jsonResumen.resumen.shipVia !== 5 || data.jsonResumen.resumen.envio.tipo === 'Abierto' || data.jsonResumen.resumen.envio.tipo === 'Pactado')
+                                            {(data.hasOwnProperty('jsonResumen'))&&
+                                            ((data.jsonResumen.resumen.shipVia !== 5 || data.jsonResumen.resumen.envio.tipo === 'Abierto' || data.jsonResumen.resumen.envio.tipo === 'Pactado')
                                             && data.jsonResumen.resumen.subtotal + data.jsonResumen.resumen.costoEnvio <= max_cont_ent
                                             )&&  
                                             <Card variant="outlined">
@@ -412,7 +436,8 @@ export default function Forma_de_pago(props){
                                                         </Card>
                                                     </Grid>
                                                     <Grid item xs={12}>
-                                                        {(data.jsonResumen.resumen.envio.tipo !== "Express" && data.jsonResumen.resumen.subtotal + data.jsonResumen.resumen.costoEnvio <= 10000)&&
+                                                        {(data.hasOwnProperty('jsonResumen'))&&
+                                                        (data.jsonResumen.resumen.envio.tipo !== "Express" && data.jsonResumen.resumen.subtotal + data.jsonResumen.resumen.costoEnvio <= 10000)&&
                                                         <Card variant="outlined">
                                                             <ListItem variant="outlined" button>
                                                                 <FormControlLabel value="5" label={
@@ -448,7 +473,7 @@ export default function Forma_de_pago(props){
                             <SDKPayPalBotones/>
                             :
                             (sub_forma_pago === '1')?
-                            <h1>tarjeta</h1>
+                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave}/>
                             :
                             <Button variant="contained" fullWidth  size="large" color="secondary" type="button" onClick={continuarCompra}>Finalizar</Button>
                         :
@@ -457,19 +482,11 @@ export default function Forma_de_pago(props){
                 </div>
             </Grid>  
             <Grid item xs={12} sm={4}>
+                {(data.hasOwnProperty('jsonResumen'))&&
                 <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                }                
             </Grid>                 
         </Grid>
     </Box>
     )
-}
-
-export async function getServerSideProps(context) {    
-    let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=4',{})
-    let data         = await services.data  
-    return {
-        props: {
-            data :      {jsonResumen:data}
-        },
-      }
 }
