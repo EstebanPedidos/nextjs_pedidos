@@ -48,18 +48,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export  default function ItemFavorites({favoritos,setPartidas}){
+export  default function ItemFavorites({favoritos,add}){
     const classes                   = useStyles();
-    const ruter                     = useRouter() 
-
-    function add(item_num){
-        Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: 839494,usuario_num : 168020,cantidad : 1,item_num : item_num,seguro : '',garantia : ''})
-        .then( response =>{
-            if(response.data > 0){
-                setPartidas(response.data)
-            }
-        }) 
-    }     
+    const ruter                     = useRouter()       
 
     return (
         <Box m={1}>

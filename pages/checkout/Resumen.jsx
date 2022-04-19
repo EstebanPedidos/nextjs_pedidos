@@ -59,7 +59,7 @@ export default function Resumen(props){
                     <Grid container  alignItems="center" spacing={1}>
                         <Grid item xs={6} sm={12} lg={6}>
                             <Box textAlign="left">  
-                                <Typography component="h2" variant="h6">Pedido #{data.pedido_num}</Typography>
+                                <Typography component="h2" variant="h6">Pedido # </Typography>
                             </Box>  
                         </Grid>
                         <Grid item xs={6} sm={12} lg={6}>
@@ -288,7 +288,9 @@ export default function Resumen(props){
                                         <Grid item>
                                             <Typography variant="subtitle1"  >
                                                     <Box component="span" fontWeight="fontWeightBold">
-                                                        {data.total}
+                                                        {(data.hasOwnProperty('jsonResumen'))&&
+                                                            ((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc)
+                                                        }
                                                     </Box>
                                             </Typography>
                                         </Grid>

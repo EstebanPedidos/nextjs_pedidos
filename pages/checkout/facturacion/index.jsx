@@ -78,10 +78,13 @@ export default function Facturacion(props){
     const [rfcs,setRfcs]            = useState([])
     const [aplicar,setAplicar]      = useState([])
     const [alerta,setAlerta]        = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
+    const cliente                   = 839494
+    const usuario                   = 168020
+    const afiliado                  = 'S'
 
     useEffect(()=>{
         const getData = async () => {
-            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=2',{})
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=2',{})
             let json         = await services.data  
             let total        = await ((json.resumen.subtotal+json.resumen.costoEnvio)-json.nc.montoNc)
             let jsonP        = await Services('POST','/miCuenta/obtieneMPago',{})
@@ -92,7 +95,7 @@ export default function Facturacion(props){
             let cfdis        = await jsonC.data 
             let notas        = []   
             if(json.facturas.length > 0){
-                let jsonN    = await Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+839494+'&rfc='+rfc_ini.rfc+'&total='+total,{})
+                let jsonN    = await Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+cliente+'&rfc='+rfc_ini.rfc+'&total='+total,{})
                     notas    = await jsonN.data                 
             }
             setData({jsonResumen:json})  
@@ -114,7 +117,7 @@ export default function Facturacion(props){
         const {value,name,id} = target;
         if(name === 'rfc'){
             let tipoPersona = (id.length === 13)?'fisica':'moral';
-            Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+839494+'&rfc='+id+'&total='+total,{})
+            Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+cliente+'&rfc='+id+'&total='+total,{})
             .then( response =>{
                 let notas = response.data               
                 Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
@@ -145,7 +148,7 @@ export default function Facturacion(props){
 
     async function continuarCompra(){
         let nota_aplicar = ((await aplicar.length) > 0)?aplicar.toString():'N'
-        Services('PUT','/carritoyreservado/actualizaRFC?clienteNum='+839494+'&pedidoNum='+2795111+'&rfcNum='+rfc.rfc_num+'&ejecutivo=0&cfdi='+cfdi+'&pago='+pago+'&notas='+nota_aplicar,{})
+        Services('PUT','/carritoyreservado/actualizaRFC?clienteNum='+cliente+'&pedidoNum='+localStorage.getItem('Pedido')+'&rfcNum='+rfc.rfc_num+'&ejecutivo=0&cfdi='+cfdi+'&pago='+pago+'&notas='+nota_aplicar,{})
         .then( response =>{
             let mensaje = response.data
             if (mensaje.indexOf("Error") == -1) {
@@ -164,7 +167,7 @@ export default function Facturacion(props){
     }
 
     function Delete({rfc,rfcNum}){
-        Services('POST','/miCuenta/eliminaRfc?rfcNum='+rfcNum+'&rfc='+rfc+'&clienteNum='+839494,{})
+        Services('POST','/miCuenta/eliminaRfc?rfcNum='+rfcNum+'&rfc='+rfc+'&clienteNum='+cliente,{})
         .then( response =>{
             let eliminaRfc = response.data
             if(eliminaRfc.indexOf('error') !== -1) {

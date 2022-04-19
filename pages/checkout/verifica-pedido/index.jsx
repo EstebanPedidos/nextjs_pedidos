@@ -73,13 +73,16 @@ export default function Verifica_pedido(props){
     const [total,setTotal]                      = useState(0)
     const [favoritos,setFavoritos]              = useState([])
     const [articulos,setArticulos]              = useState([])
+    const cliente                               = 839494
+    const usuario                               = 168020
+    const afiliado                              = 'S'
 
 
     useEffect(() => {
         const getData = async () => {
-            let services        = await Services('GET','/carritoyreservado/getCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&top=10&afiliado=S',{})
+            let services        = await Services('GET','/carritoyreservado/getCarrito?clienteNum='+cliente+'&usuarioNum='+usuario+'&top=10&afiliado='+afiliado,{})
             let carritoS        = await services.data
-            let totalS           = await carritoS.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+            let totalS          = await carritoS.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
             let isEjecutivo     = await (carritoS.configCarrito.resenapedidos.length > 0)
             let num_partidas    = await carritoS.configCarrito.precarrito.length
             let pyitemsfavoritos= await carritoS.configCarrito.pyitemsfavoritos 
@@ -118,6 +121,15 @@ export default function Verifica_pedido(props){
         getData()   
     },[partidas])
 
+    function add(item_num){
+        Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: cliente,usuario_num : usuario,cantidad : 1,item_num : item_num,seguro : '',garantia : ''})
+        .then( response =>{
+            if(response.data > 0){
+                setPartidas(response.data)
+            }
+        }) 
+    }
+
     async function Delete(item_num){
         if(deleteAll && Remove.length===0){
             alert('sin item')
@@ -126,7 +138,7 @@ export default function Verifica_pedido(props){
 
         let articulosD   = await (item_num === 'V' || item_num === 'E')?(deleteAll)?Remove.toString():articulos.toString():item_num
         
-        Services('DELETE','/carritoyreservado/deleteCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&items='+articulosD,{})
+        Services('DELETE','/carritoyreservado/deleteCarrito?clienteNum='+cliente+'&usuarioNum='+usuario+'&items='+articulosD,{})
         .then( response =>{
             setPartidas(response.data)                        
         })        
@@ -151,7 +163,7 @@ export default function Verifica_pedido(props){
  
     function validaCodigoDescuento(){
         if(cupon !== ''){
-            Services('GET','/carritoyreservado/validaCodigoDescuento?clienteNum='+839494+'&usuarioNum='+168020+'&cupon='+cupon,{})
+            Services('GET','/carritoyreservado/validaCodigoDescuento?clienteNum='+cliente+'&usuarioNum='+usuario+'&cupon='+cupon,{})
             .then( response =>{
                 if(response.data)  {
                     alert("Continua para ver el descuento")
@@ -185,17 +197,14 @@ export default function Verifica_pedido(props){
             })
 
             if(arraySkus.length > 0){
-                Services('POST','/carritoyreservado/reservaCarrito?clienteNum='+839494+'&usuarioNum='+168020+'&afiliado=S&cupon='+cupon+'&ip=192.10.1.166&ejecutivo='+ejecutivo.slmn,arraySkus)
+                Services('POST','/carritoyreservado/reservaCarrito?clienteNum='+cliente+'&usuarioNum='+usuario+'&afiliado='+afiliado+'&cupon='+cupon+'&ip=192.10.1.166&ejecutivo='+ejecutivo.slmn,arraySkus)
                 .then( response =>{
                     if(response.data.pedido > 0){
                         localStorage.setItem('Pedido', response.data.pedido)
                         ruter.push('/checkout/direccion-de-envio')
-                    }
-                    
+                    }                    
                 }) 
-            }
-
-            
+            }           
         }
     }
 
@@ -205,7 +214,7 @@ export default function Verifica_pedido(props){
                     <Grid container justifyContent="space-around" alignItems="flex-start">
                         <ItemFavorites 
                         favoritos={favoritos}
-                        setPartidas={setPartidas}
+                        add={add}
                         />
                         {partidas > 0 ? (
                             <Box component="div" m={2} >                        

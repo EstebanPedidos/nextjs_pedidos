@@ -87,12 +87,14 @@ export default function Forma_de_envio(props){
     const [precio_envio,setPrecioEnvio]     = useState(0)
     const [tipo_hora,setTipoHora]           = useState('Abierto')
     const [paqueteria,setPaqueteria]        = useState('-')
-    const [alerta,setAlerta]        = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
-
+    const [alerta,setAlerta]                = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
+    const cliente                           = 839494
+    const usuario                           = 168020
+    const afiliado                          = 'S'
     
     useEffect(()=>{
         const getData = async ()=>{
-            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=3',{})
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=3',{})
             let json         = await services.data 
             let fe           = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?'Programada':'2':'2'
             let fhe          = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].fecha.replace(' de ','-').replace(' ','-'):'-':'-'
@@ -112,8 +114,8 @@ export default function Forma_de_envio(props){
             return
         }
         let json = await {
-            clienteNum:839494,
-            pedidoNum:2795111,
+            clienteNum:cliente,
+            pedidoNum:localStorage.getItem('Pedido'),
             paq:paqueteria,
             paqPrecio:precio_envio,
             tipoHora:tipo_hora,
@@ -123,6 +125,7 @@ export default function Forma_de_envio(props){
             ejecutivo:ejecutivo.slmn,
             shipVia:data.jsonResumen.resumen.shipVia
         }
+        alert(JSON.stringify(json))
         Services('PUT-NOT','/carritoyreservado/actualizaPagos',json)        
         .then( response =>{
             let mensaje = response.data

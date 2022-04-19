@@ -65,10 +65,13 @@ export default function Direccion_de_envio(props){
     const [direccion,setDireccion]      = useState({dir_num:'0',observacion:'PickUP'});
     const [ejecutivo,setEjecutivo]      = useState({ejecutivo:'', slmn:0})
     const [alerta,setAlerta]            = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
+    const cliente                       = 839494
+    const usuario                       = 168020
+    const afiliado                      = 'S'
 
     useEffect(()=>{
         const getData = async () => {
-            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=1',{})
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=1',{})
             let json         = await {jsonResumen:services.data}
             setData(json)
             setDirecciones(json.jsonResumen.direcciones)
@@ -78,7 +81,7 @@ export default function Direccion_de_envio(props){
     },[])
 
     async function Delete({dirNum,nombreDireccion}){
-        Services('PUT','/registrov2/inhabilitadireccion?clienteNum='+839494+'&dirNum='+dirNum,{})
+        Services('PUT','/registrov2/inhabilitadireccion?clienteNum='+cliente+'&dirNum='+dirNum,{})
         .then( response =>{
             if (response.data === "Ok") { 
                 direcciones.splice((direcciones.findIndex(direccion => direccion.dirNum === dirNum)), 1);
@@ -96,7 +99,7 @@ export default function Direccion_de_envio(props){
     }
 
     function continuarCompra(op){     
-        Services('PUT','/carritoyreservado/actualizaDireccion?clienteNum='+839494+'&pedidoNum='+2795111+'&dirNum='+parseInt(direccion.dir_num)+'&ejecutivo='+ejecutivo.slmn+'&observaciones='+direccion.observacion+'&op='+op+'&peso='+peso+'&afiliado=S',{})
+        Services('PUT','/carritoyreservado/actualizaDireccion?clienteNum='+cliente+'&pedidoNum='+localStorage.getItem('Pedido')+'&dirNum='+parseInt(direccion.dir_num)+'&ejecutivo='+ejecutivo.slmn+'&observaciones='+direccion.observacion+'&op='+op+'&peso='+peso+'&afiliado='+afiliado,{})
         .then( response =>{
                 let mensaje = response.data              
                 if (mensaje.indexOf("Error") == -1) {
@@ -280,7 +283,7 @@ export default function Direccion_de_envio(props){
                 </Grid>  
                 {(data.hasOwnProperty('jsonResumen'))&&
                 <Grid item xs={12} sm={4}>
-                    <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                    <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} total={total}/> 
                 </Grid>                 
                 }
             </Grid>

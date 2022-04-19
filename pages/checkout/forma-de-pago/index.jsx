@@ -57,14 +57,16 @@ const useStyles = makeStyles((theme) => ({
 export default function Forma_de_pago(props){
     const classes                           = useStyles()
     const router                            = useRouter()
-    const [data,setData]                    = useState({})
-    const afiliado                          = 'S'
-    const max_cont_ent                      = (afiliado === 'S')?5000:1000    
+    const [data,setData]                    = useState({})    
     const [ejecutivo,setEjecutivo]          = useState({ejecutivo:'', slmn:0})
     const [forma_pago,setFormaPago]         = useState('linea')
     const [sub_forma_pago,setSubFormaPago]  = useState('1')
     const [clientToken,setClientToken]      = useState({clienteToken:'',getPaymentTokens:[]})
     const [tajetaSave,setTarjetaSave]       = useState({id:'nueva'})
+    const cliente                           = 839494
+    const usuario                           = 168020
+    const afiliado                          = 'S'
+    const max_cont_ent                      = (afiliado === 'S')?5000:1000    
 
     function salectOption({target}){
         const {value,name,id} = target;
@@ -93,8 +95,8 @@ export default function Forma_de_pago(props){
     function guardaFormaDePago(linkOxxo){
         
         Services('PUT-NOT','/registrov2/registraFormaPagoTv',{
-            pedido_num:2795111,
-            cliente_num:839494,
+            pedido_num:localStorage.getItem('Pedido'),
+            cliente_num:cliente,
             fp_num:sub_forma_pago
         }).then( response =>{
             let mensaje = response.data
@@ -120,8 +122,8 @@ export default function Forma_de_pago(props){
 
     useEffect(()=>{
         const getData = async () =>{
-            let cust_num     = await (839494-1)
-            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=4',{})
+            let cust_num     = await (cliente-1)
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=4',{})
             let json         = await services.data  
             let token        = await Services('POST','/registrov2/clientetoken?cust_num='+cust_num,{})
             let cliente      = await token.data 
