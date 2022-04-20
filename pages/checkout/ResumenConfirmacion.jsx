@@ -14,8 +14,26 @@ const useStyles = makeStyles((theme) => ({
 	},
   }));
 export default function ResumeConfirmation({data}){
-	const classes   = useStyles();
-	const formaP	= {1:'Tarjeta',2:'Al recibir con tarjeta',3:'Transferencia',4:'Dep&oacute;sito',5:'Pago en OXXO',7:'PayPal'}
+	const classes   = useStyles();	
+	function FormaPago(formaPago){
+		switch (formaPago) {
+			case 1:
+				return 'Tarjeta'
+			case 2:
+				return 'Al recibir con tarjeta'
+			case 3:
+				return 'Transferencia'
+			case 4:
+				return 'Deposito'
+			case 5:
+				return 'Pago en OXXO'
+			case 7:
+				return 'PayPal'
+			default:
+				return 'Sin definir';
+		  }
+	}
+
     return (
         <div>
 		<Paper variant="outlined">
@@ -64,7 +82,7 @@ export default function ResumeConfirmation({data}){
 			<Box component="div" py={2}>
 				<Typography component="h3" variant="subtitle1">
 					<Box component="span" fontWeight="fontWeightMedium">
-						Forma de Pago: {formaP[data.jsonResumen.resumen.formaPago]}
+						Forma de Pago: {FormaPago(parseInt(data.jsonResumen.resumen.formaPago))}
 					</Box>
 				</Typography>
 			</Box>
@@ -140,8 +158,7 @@ export default function ResumeConfirmation({data}){
 												</Typography>
 												<Typography variant="subtitle1"  >
 													<Box component="span" fontWeight="fontWeightBold">
-													{data.jsonResumen.resumen.formaPago}
-													{formaP[data.jsonResumen.resumen.formaPago]}
+														{FormaPago(parseInt(data.jsonResumen.resumen.formaPago))}
 													</Box>
 												</Typography>
 											</Grid>
@@ -154,8 +171,8 @@ export default function ResumeConfirmation({data}){
 												</Typography>
 												<Typography variant="subtitle1"  >
 													<Box component="span" fontWeight="fontWeightBold">
-													{formaP[data.jsonResumen.resumen.formaPago]}	
-													</Box>
+														{FormaPago(parseInt(data.jsonResumen.resumen.formaPago))}
+													</Box> 
 												</Typography>
 											</Grid>
 										}
@@ -172,7 +189,7 @@ export default function ResumeConfirmation({data}){
 			</Box> 
 				
 				
-				{(data.jsonResumen.resumen.formaPago = 7 || data.jsonResumen.resumen.formaPago === 1)&&
+				{(data.jsonResumen.resumen.formaPago === 7 || data.jsonResumen.resumen.formaPago === 1)&&
 				<Box component="div" pt={4} pb={2} mx="auto">
 					<Typography component="h4" variant="subtitle1">
 					<Box component="span" fontWeight="fontWeightMedium" textAlign="center"  justifyContent="center">

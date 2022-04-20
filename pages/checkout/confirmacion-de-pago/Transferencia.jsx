@@ -28,9 +28,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Transferencia({data}){
     const classes = useStyles();
+
+    function printDiv(){
+        var contenido= document.getElementById('info-transfer').innerHTML;
+        var contenidoOriginal= document.body.innerHTML;
+        document.body.innerHTML = contenido;
+        window.print();
+        document.body.innerHTML = contenidoOriginal;
+    }
+
     return (
-        <div>
-        {(data.jsonResumen.resumen.formaPago === "3" )?
+        <div id='info-transfer'>
+        {(parseInt(data.jsonResumen.resumen.formaPago) === 3 )?
             <Box component="div" pt={4}>
                 <Box component="div">
                     <Typography component="p" variant="h6">
@@ -70,7 +79,7 @@ export default function Transferencia({data}){
                                     </Typography>
                                 </CardContent>
                                 <CardActions >
-                                    <Button size="small" color="primary" fullWidth>
+                                    <Button onClick={printDiv} size="small" color="primary" fullWidth>
                                     Imprimir
                                     </Button>                     
                                 </CardActions>
@@ -107,7 +116,7 @@ export default function Transferencia({data}){
                 </Box> 
             </Box>
             :
-            ( data.jsonResumen.resumen.formaPago === "4")&&
+            ( parseInt(data.jsonResumen.resumen.formaPago) === 4)&&
             <Box component="div" pt={4}>
                 <Box component="div">
                     <Typography component="p" variant="h6">
@@ -145,7 +154,7 @@ export default function Transferencia({data}){
                                         Sucursal: 1824 
                                     </Typography>
                                     <Typography variant="subtitle2" color="textPrimary" component="p">
-                                        Referencia: {data.jsonResumenreferencia}
+                                        Referencia: {data.jsonResumen.referencia}
                                     </Typography>
                                 </Box>
                                 <Box component="div" textAlign="left">
@@ -161,7 +170,7 @@ export default function Transferencia({data}){
                                 </Box>
                             </CardContent>
                             <CardActions >
-                                <Button size="small" color="primary" fullWidth>
+                                <Button onClick={printDiv} size="small" color="primary" fullWidth>
                                 Imprimir
                                 </Button>                     
                             </CardActions>

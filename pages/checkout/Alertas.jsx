@@ -17,16 +17,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Alertas({estado,severity,vertical,horizontal,mensaje}) {
+export default function Alertas({setAlerta,alerta}) {
   const classes             = useStyles();
-  const [open, setOpen]     = useState(estado);
 
   return (
     <div className={classes.root}>        
-      <Snackbar open={open} autoHideDuration={6000} onClose={()=>{setOpen(false)}}
-         anchorOrigin={{vertical: vertical, horizontal: horizontal }}>
-        <Alert onClose={()=>{setOpen(false)}} severity={severity}>
-          {mensaje}
+      <Snackbar open={true} autoHideDuration={6000} onClose={()=>{setAlerta({})}}
+         anchorOrigin={{vertical: alerta.vertical, horizontal: alerta.horizontal }}>
+        <Alert onClose={()=>{setAlerta({})}} severity={alerta.severity}>
+          {alerta.mensaje}
         </Alert>
       </Snackbar>
     </div>

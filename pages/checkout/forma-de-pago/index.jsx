@@ -80,16 +80,19 @@ export default function Forma_de_pago(props){
         }
     }
     function continuarCompra(){
-        (sub_forma_pago === '5')?
-        Services('PUT-NOT','/registrov2/getOrderPayPalOXXO',{
-            evento:data.jsonResumen.resumen.eventoNum
-        })
-        .then( response =>{
-            let linkOxxo = response.data
-            if(linkOxxo !== ''){
-                guardaFormaDePago(linkOxxo) 
-            }                           
-        }): guardaFormaDePago(''); 
+        if(sub_forma_pago !== ''){
+            (sub_forma_pago === '5')?
+            Services('PUT-NOT','/registrov2/getOrderPayPalOXXO',{
+                evento:data.jsonResumen.resumen.eventoNum
+            })
+            .then( response =>{
+                let linkOxxo = response.data
+                if(linkOxxo !== ''){
+                    guardaFormaDePago(linkOxxo) 
+                }                           
+            }): guardaFormaDePago(''); 
+        }
+        
     }
 
     function guardaFormaDePago(linkOxxo){
@@ -100,7 +103,6 @@ export default function Forma_de_pago(props){
             fp_num:sub_forma_pago
         }).then( response =>{
             let mensaje = response.data
-            alert(mensaje)
             if( mensaje === "Agregado" || mensaje === "Actualizado"){
                 if(sub_forma_pago === '3' || sub_forma_pago === '4' ){
                     router.push('/checkout/confirmacion-de-pago')

@@ -1,29 +1,12 @@
 import {useEffect, useState} from 'react';
-//next js
+//Next js
 import { useRouter } from 'next/router'
+//Material UI
 import makeStyles from '@mui/styles/makeStyles';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
-import { Navigation } from 'swiper';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardActionArea from '@mui/material/CardActionArea';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
+import {Radio,RadioGroup,FormControlLabel,CardContent,
+       FormControl,Box,Grid,Button,Avatar,Divider,
+       Typography,Card,List,ListItem,ListItemText,
+       ListItemSecondaryAction,ListItemAvatar } from '@mui/material';
 //Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/swiper-bundle.min.css'
@@ -46,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
     rightText: {
         textAlign: "right"
-      },
+    },
     SDayRadio: {
         margin: theme.spacing(1),
     },
@@ -87,20 +70,22 @@ export default function Forma_de_envio(props){
     const [precio_envio,setPrecioEnvio]     = useState(0)
     const [tipo_hora,setTipoHora]           = useState('Abierto')
     const [paqueteria,setPaqueteria]        = useState('-')
-    const [alerta,setAlerta]                = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
+    const [alerta,setAlerta]                = useState({})
+    const [open, setOpen]                   = useState(false);
     const cliente                           = 839494
     const usuario                           = 168020
     const afiliado                          = 'S'
     
     useEffect(()=>{
         const getData = async ()=>{
-            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=3',{})
+            let pedido       = await localStorage.getItem('Pedido')
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=3',{})
             let json         = await services.data 
             let fe           = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?'Programada':'2':'2'
             let fhe          = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].fecha.replace(' de ','-').replace(' ','-'):'-':'-'
             let h            = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].horarios:[]:[]
-            setData({jsonResumen:json})
-            setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
+            setData({jsonResumen:json,pedido:pedido})
+            setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:parseInt(json.resumen.ejecutivo)}:{ejecutivo:'', slmn:0})
             setFormaEnvio(fe)
             setFechaEnvio(fhe)
             setHorarios(h)
@@ -110,7 +95,7 @@ export default function Forma_de_envio(props){
 
     async function continuarCompra(){
         if(forma_envio === '2' && paqueteria === '-'){
-            setAlerta({...alerta,severity:'error',estado:(alerta.estado)?false:true,mensaje:'Selecciona una paqueteria'})
+            setAlerta({severity:'error',mensaje:'Selecciona una paqueteria',vertical:'bottom',horizontal:'right'})
             return
         }
         let json = await {
@@ -132,13 +117,13 @@ export default function Forma_de_envio(props){
                 router.push('/checkout/forma-de-pago')
             }else {
                 if(mensaje == "Error PvsE"){
-                    setAlerta({...alerta,severity:'error',estado:(alerta.estado)?false:true,mensaje:'Tu pedido es pago al recibir: No puede modificarse'})
+                    setAlerta({severity:'error',mensaje:'Tu pedido es pago al recibir: No puede modificarse',vertical:'bottom',horizontal:'right'})
                     router.push('/Soho/Micuenta/misPedidos')
                 }else if (mensaje == "Error factura"){
-                    setAlerta({...alerta,severity:'error',estado:(alerta.estado)?false:true,mensaje:'Tu pedido esta facturado: No puede modificarse'})
+                    setAlerta({severity:'error',mensaje:'Tu pedido esta facturado: No puede modificarse',vertical:'bottom',horizontal:'right'})
                     router.push('/Soho/Micuenta/misPedidos')
                 }else {
-                    setAlerta({...alerta,severity:'error',estado:(alerta.estado)?false:true,mensaje:'Algo salió mal: Intenta de nuevo'})
+                    setAlerta({severity:'error',mensaje:'Algo salió mal: Intenta de nuevo',vertical:'bottom',horizontal:'right'})
                 }
             }
         })
@@ -182,9 +167,11 @@ export default function Forma_de_envio(props){
         <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
                 <div>
+                    {(!alerta.hasOwnProperty('severity'))&&
                     <Button variant="contained" fullWidth  size="large" color="primary" type="button" onClick={continuarCompra}>
                         Continuar 
                     </Button>
+                    }
                     <Process paso={2}/>
                     <Box component="div" py={2}  className={classes.root}>
                         <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
@@ -193,7 +180,7 @@ export default function Forma_de_envio(props){
                             </Grid>
                         </Grid>
                     </Box>
-                    {(data.hasOwnProperty('jsonResumen'))&&
+                    {(data.hasOwnProperty('jsonResumen'))&&                    
                     (data.jsonResumen.resumen.bodegaDif === 'S')&&
                         <Box>
                             <p><b>Entrega en horario abierto o paquetería.</b></p>
@@ -450,7 +437,7 @@ export default function Forma_de_envio(props){
                         </Box>
                     </div>
                     :
-                    (forma_envio === '2')?
+                    (forma_envio === '2')&&
                     <Box m={1}>
                         <Box component="div" py={2}  className={classes.root}>
                             <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
@@ -525,20 +512,16 @@ export default function Forma_de_envio(props){
                             }
                         </Box>
                     </Box>
-                    :
-                    <div>
-
-                    </div>
+                    }
+                    {(alerta.hasOwnProperty('severity'))&&
+                        <Alertas setAlerta={setAlerta} alerta={alerta}/>
                     }
                 </div>
             </Grid>  
             <Grid item xs={12} sm={4}>
                 <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
             </Grid>                 
-        </Grid>
-        {(alerta.estado)&&
-            <Alertas estado={true} severity={alerta.severity} vertical={alerta.vertical} horizontal={alerta.horizontal} mensaje={alerta.mensaje}/>
-        }
+        </Grid>        
     </Box>
     )
 }

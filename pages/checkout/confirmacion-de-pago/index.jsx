@@ -1,15 +1,13 @@
-
+//next js
+import { useRouter } from 'next/router'
 //Material UI
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import { Alert, AlertTitle } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
-import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
 //Componentes 
 import ResumeConfirmation from '../ResumenConfirmacion';
@@ -23,16 +21,18 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 export default function Confirmacion_de_pago(props){
-    const classes        = useStyles();
-    const [data,setData] = useState({})
-    const cliente       = 839494
-    const usuario       = 168020
-    const afiliado      = 'S'
+    const classes           = useStyles();
+    const router            = useRouter()
+    const [data,setData]    = useState({})
+    const cliente           = 839494
+    const usuario           = 168020
+    const afiliado          = 'S'
 
     useEffect(()=>{
         const getData = async ()=>{
-            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=4',{})
-            let json         = await {jsonResumen:services.data}
+            let pedido       = await localStorage.getItem('Pedido')
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=5',{})
+            let json         = await {jsonResumen:services.data,pedido:pedido}
             /*let jsonc        = await Services('POST','/registrov2/obtieneCliente?cliente='+839494,{})
             let JsonCliente  = await jsonc.data  
                 jsonp        = await Services('POST','/miCuenta/detallePedido?clienteNum='+839494+'&pedidoNum='+2795111,{})
@@ -54,11 +54,8 @@ export default function Confirmacion_de_pago(props){
                             </Box>
                             <Box component="div" textAlign="center">
                                 <Typography component="h1" variant="h6">Gracias por tu compra</Typography>
-                                <Typography component="p" variant="h6">
-                                        Pago: "---------------"
-                                </Typography>
                                 <Typography component="p" variant="subtitle1">
-                                        No. de pedido: <b></b>
+                                        No. de pedido: {(data.hasOwnProperty('jsonResumen'))&&data.pedido} <b></b>
                                 </Typography>                     
                                 <Box component="div" py={2}>
                                 {(data.hasOwnProperty('jsonResumen'))&&
@@ -101,7 +98,7 @@ export default function Confirmacion_de_pago(props){
                                         </div>
                                     </div>
                                 } 
-                                <Button variant="outlined">
+                                <Button variant="outlined" onClick={()=>{router.push('/')}}>
                                     Ir a página principal
                                 </Button>	 
                             </Box>
