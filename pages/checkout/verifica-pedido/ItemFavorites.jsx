@@ -5,17 +5,11 @@ import { useRouter } from 'next/router'
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
-
-//Paquetes Material
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+//MUI
+import {Box, Grid, Paper, Typography, Button, Card, 
+    CardActionArea, CardContent, CardActions,CardMedia
+   } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import AddIcon from '@mui/icons-material/Add';
 import DoneIcon from '@mui/icons-material/Done';
 //Funciones
@@ -31,15 +25,14 @@ const useStyles = makeStyles((theme) => ({
         width:'90px',
         height: '90px',
         margin:'auto',
+        padding: '0.8rem',
        
     },
     productCardC: {  
          boxShadow: '0px 0px 16px rgb(54 85 166 / 8%), 0px 1px 4px rgb(54 85 166 / 8%)',          
         },
     swiperBox: {
-        paddingTop: theme.spacing(1),
-        paddingBottom: theme.spacing(1), 
-        paddingLeft: "0.3rem",         
+        padding: theme.spacing(1),     
         },
     boxTitleIF:{
         height: "20px",
@@ -57,7 +50,7 @@ export  default function ItemFavorites({favoritos,add}){
             <Box component="div" pt={2}  className={classes.root}>
                 <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
                     <Grid item xs={12}>
-                    <Typography  component="subtitle1" color="textSecondary">
+                    <Typography variant="h6"  component="subtitle1" color="textSecondary">
                         <Box component="span" fontWeight="fontWeightMedium">
                             Podría interesarte
                         </Box>
@@ -68,7 +61,7 @@ export  default function ItemFavorites({favoritos,add}){
             <Box component="div" m={1}>
             {(favoritos.length > 0)&&
                 <Swiper
-                    spaceBetween={15}
+                    spaceBetween={10}
                     slidesPerView={4}
                     onSlideChange={() => console.log("slide change")}
                     onSwiper={swiper => console.log(swiper)}
@@ -83,7 +76,7 @@ export  default function ItemFavorites({favoritos,add}){
                           
                         },
                         1024: {
-                          slidesPerView: 4,
+                          slidesPerView: 3,
                          
                         },
                     }}
@@ -105,14 +98,14 @@ export  default function ItemFavorites({favoritos,add}){
                                     {(item.tituloCompuesto !== '')&&(item.tituloCompuesto.length > 20)?item.tituloCompuesto.substring(0,20)+' ...':item.tituloCompuesto.length}
                                     </Typography>
                                     <Typography variant="caption" display="block" gutterBottom color="textPrimary">
-                                        <Box component="span" fontWeight="fontWeightBold">{Precios('formatcurrency',{subtotal:item.precio,fixed:2})}</Box>
+                                        <Box component="span" fontWeight="fontWeightBold">${Precios('formatcurrency',{subtotal:item.precio,fixed:2})}</Box>
                                     </Typography>
                                 </CardContent>
                                 </CardActionArea>
                             <Box component="div" m={1}>
                                 {                                    
                                 (item.estatus==='A')?
-                                    <Button variant="outlined" fullWidth size="large"  onClick={()=>add(item.itemNum)}>
+                                    <Button sx={{borderColor:'common.darkgray', color:'common.darkgray'}} variant="outlined" fullWidth size="large"  onClick={()=>add(item.itemNum)}>
                                         <AddIcon/>
                                     </Button>
                                     :

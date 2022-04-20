@@ -42,9 +42,9 @@ export default function Eliminar({Delete,object,ms_but,titulo,mensaje}) {
     return (
         <div>
             {(ms_but === 'E' || ms_but === 'V')?
-            <Button variant="outlined" fullWidth size="Large" type="button" onClick={()=>{setOpen(true);}}>{ms_but}</Button>
+            <Button variant="outlined" fullWidth size="Large" type="button"  sx={{borderColor:'common.lightgray', color:'common.darkgray'}} onClick={()=>{setOpen(true);}}>{ms_but}</Button>
             :
-            <Button size="large" color="primary" onClick={()=>{setOpen(true);}}>{ms_but}</Button>
+            <Button variant="outlined" fullWidth size="large" type="button" sx={{borderColor:'common.lightgray', color:'common.darkgray'}} onClick={()=>{setOpen(true);}}>{ms_but}</Button>
             }
             
             <Modal

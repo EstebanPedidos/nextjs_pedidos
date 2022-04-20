@@ -266,7 +266,7 @@ export default function Direccion_de_envio(props){
                                                         Delete={Delete}
                                                         object={{dirNum:direccion.dirNum,nombreDireccion:direccion.nombreDireccion}}
                                                         ms_but={'Eliminar'}
-                                                        titilo={'Eliminar Dirección'}
+                                                        titulo={'Eliminar Dirección'}
                                                         mensaje={'¿Estás seguro de eliminar la dirección?'}
                                                         />
                                                     }

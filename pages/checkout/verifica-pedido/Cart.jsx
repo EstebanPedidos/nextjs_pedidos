@@ -1,25 +1,18 @@
-import {useState} from 'react'
+//Pauquetes
+import {useState,useEffect} from 'react';
+import * as React from 'react';
+import { useRouter } from 'next/router';
 //Material UI
-import Checkbox from '@mui/material/Checkbox';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import {Box, Grid, Paper, Typography, Button, Checkbox,
+        ButtonBase, IconButton, TextField, FormControl,
+        InputBase, InputLabel, Select, Divider, Card, CardActions,
+       } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import Button from '@mui/material/Button';
-import ButtonBase from '@mui/material/ButtonBase';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import CardActions from '@mui/material/CardActions';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import Divider from '@mui/material/Divider';
-import InputBase from '@mui/material/InputBase';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import TextField from '@mui/material/TextField';
+
 //Funciones
 import Precios from '../../services/Precios'
 //Servicos
@@ -33,12 +26,12 @@ const useStyles = makeStyles((theme) => ({
     
     },
     productimage: { width: "100%", borderRadius:"8px",
-        border: "1px solid",  borderColor: theme.palette.common.lightgrayb, padding: "0.3rem", },
+        border: "1px solid",  borderColor:'#CCCCCC', padding: "0.8rem", },
     pimg: {
         margin: 'auto',
         display: 'block',
-        maxWidth: '90px',
-        maxHeight: '90px',
+        maxWidth: '100%',
+        maxHeight: '100%',
       },
     ppimg: {
         margin: 'auto',
@@ -139,7 +132,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                     </Box> 
                                                 </Grid> 
                                                 <Grid item xs={8}>
-                                                    <Box component="div" pt={1}>
+                                                    <Box component="div">
                                                         <Grid item container justifyContent="space-between" alignItems="center" direction="column">
                                                             <Grid item >
                                                                 <Box textAlign="left">
@@ -147,7 +140,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                                     {item.descripcion}
                                                                 </Typography>
                                                                 <Typography variant="body2" gutterBottom>
-                                                                    Precio Unitario: <span>{Precios('formatcurrency',{subtotal:item.precio,fixed:2})}</span>
+                                                                    Precio Unitario: <span>${Precios('formatcurrency',{subtotal:item.precio,fixed:2})}</span>
                                                                 </Typography>
                                                                 <Typography variant="body2" color="textSecondary">
                                                                     SKU: <span>{item.item_num}</span>
@@ -193,6 +186,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                     <FormControl variant="outlined" className={classes.formControl}>
                                                         <InputLabel htmlFor="age-native-simple">Cantidad</InputLabel>
                                                         <Select
+                                                        label="Cantidad"
                                                         native
                                                         value={item.cantidad}
                                                         onChange={UpdateCantidad}
@@ -232,7 +226,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                 <Grid item xs={9} sm={6} lg={6}>
                                                     <Box m={1} p={1} justifyContent="center">
                                                         <Typography variant="subtitle1" >
-                                                            <Box pt={2} fontWeight="fontWeightMedium" textAlign="center">
+                                                            <Box pt={2} fontWeight="fontWeightMedium" textAlign="center">$
                                                             {Precios('formatcurrency',{subtotal:
                                                             (Precios('formatcurrency',{subtotal:item.precio,fixed:2}))*item.cantidad+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2)
                                                             ,fixed:2})    }   

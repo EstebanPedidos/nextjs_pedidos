@@ -143,7 +143,7 @@ export default function Resumen({classes,setEjecutivo,ejecutivo,isEjecutivo,carr
                                     Delete={Delete}
                                     object={"E"}
                                     ms_but={'Eliminar productos'}
-                                    titilo={'Eliminar productos'}
+                                    titulo={'Eliminar productos'}
                                     mensaje={'¿Estás seguro de eliminar los productos seleccionados?'}
                                     />
                                 </Box>
@@ -153,7 +153,7 @@ export default function Resumen({classes,setEjecutivo,ejecutivo,isEjecutivo,carr
                                     Delete={Delete}
                                     object={"V"}
                                     ms_but={'Vaciar carrito'}
-                                    titilo={'Vaciar carrito'}
+                                    titulo={'Vaciar carrito'}
                                     mensaje={'¿Estás seguro de eliminar todos los productos?'}
                                     />
                                 </Box>

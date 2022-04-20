@@ -36,14 +36,6 @@ const useStyles = makeStyles((theme) => ({
         padding: '2px 4px',
         display: 'flex',
     },
-    buttonDiscount: {
-        width: "95%",
-      },
-    rootdivider: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-    },
     emptyCart: {
         padding: theme.spacing(1),
         width: '160px',
@@ -201,7 +193,7 @@ export default function Verifica_pedido(props){
     }
 
     return (
-            <Box component="div">
+            <Box component="div"m={1}>
                 <div className={classes.root}>
                     <Grid container justifyContent="space-around" alignItems="flex-start">
                         <Grid item xs={12} sm={8}>
@@ -222,7 +214,7 @@ export default function Verifica_pedido(props){
                                         </Grid>
                                         <Grid item justifyContent="flex-end" xs={6} sm={4}>
                                         {deleteAll ? (
-                                            <Button variant="outlined" size="large"color="secondary" 
+                                            <Button variant="outlined" size="large" fullWidth color="secondary" 
                                                 onClick={() => {
                                                     setDeleteAll(false);
                                                 }}
@@ -230,7 +222,7 @@ export default function Verifica_pedido(props){
                                                 Cancelar
                                             </Button>
                                         ) : (
-                                            <Button variant="outlined" size="large"  justifyContent="flex-end"
+                                            <Button variant="outlined" size="large" fullWidth sx={{borderColor:'common.lightgray', color:'common.darkgray'}}
                                                 onClick={() => {
                                                     setDeleteAll(true);
                                                 }}
@@ -314,14 +306,14 @@ export default function Verifica_pedido(props){
                                 <div>
                                     <Box component="div" m={1} className={classes.root}>
                                         <Grid container  alignItems="center" spacing={1}>
-                                            <Grid item xs={6} sm={12} lg={6}>
+                                            <Grid item xs={6} sm={5} lg={6}>
                                                 <Box textAlign="left">  
                                                     <Typography component="h2" variant="h6">
                                                         Resumen
                                                     </Typography>
                                                 </Box>  
                                             </Grid>
-                                            <Grid item xs={6} sm={12} lg={6}>
+                                            <Grid item xs={6} sm={7} lg={6}>
                                                 {partidas > 0 && (
                                                     <Paper variant="outlined">
                                                     <Typography variant="body2">   
@@ -340,15 +332,16 @@ export default function Verifica_pedido(props){
                                         <Divider light /> 
                                             <Box component="div" className={classes.root} pt={3}>
                                                 <Grid container  alignItems="center" spacing={1}> 
-                                                    <Grid item xs={6} sm={12} lg={6}>
+                                                    <Grid item xs={6} sm={8} lg={6}>
                                                         <TextField label="Código de descuento" type="text" name="cupon" onChange={({target})=>{setCupon(target.value)}} id="discountcode"  variant="outlined" value={cupon}/>
                                                     </Grid>
-                                                    <Grid item xs={6} sm={12} lg={6}>
+                                                    <Grid item xs={6} sm={4} lg={6}>
                                                         <Button disableElevation
                                                             variant="contained"
                                                             fullWidth
                                                             size="large"
-                                                            className={classes.buttonDiscount} 
+                                                            sx={{ backgroundColor:'primary.gray' }}
+                                                            
                                                             onClick={validaCodigoDescuento}
                                                             >
                                                             Aplicar
@@ -415,7 +408,7 @@ export default function Verifica_pedido(props){
                                             <Divider light />
                                         </Box>
                                         <Box component="div" py={2} >
-                                        <Button
+                                        <Button 
                                             variant="contained"
                                             fullWidth
                                             size="large"
@@ -431,7 +424,7 @@ export default function Verifica_pedido(props){
                                                 Delete={Delete}
                                                 object={"E"}
                                                 ms_but={'Eliminar productos'}
-                                                titilo={'Eliminar productos'}
+                                                titulo={'Eliminar productos'}
                                                 mensaje={'¿Estás seguro de eliminar los productos seleccionados?'}
                                                 />
                                             </Box>
@@ -441,7 +434,7 @@ export default function Verifica_pedido(props){
                                                 Delete={Delete}
                                                 object={"V"}
                                                 ms_but={'Vaciar carrito'}
-                                                titilo={'Vaciar carrito'}
+                                                titulo={'Vaciar carrito'}
                                                 mensaje={'¿Estás seguro de eliminar todos los productos?'}
                                                 />
                                             </Box>
