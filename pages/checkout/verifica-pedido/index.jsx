@@ -1,21 +1,14 @@
+//Pauquetes
 import {useState,useEffect} from 'react'
+import * as React from 'react';
 //next js
 import { useRouter } from 'next/router'
-//Pauquetes
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+//Paquetes
+import {Box, Grid, Paper, Typography,
+        Button, TextField, Divider, 
+        Alert, Stack, AlertTitle,  Link  } from '@mui/material';
+
 import { makeStyles } from '@material-ui/core/styles';
-//Data Display
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-//Inputs
-import TextField from '@material-ui/core/TextField';
-//Lab
-import { Alert, AlertTitle } from '@material-ui/lab';
-//Navigation
-import Link from '@material-ui/core/Link';
 //Componentes MUI4
 
 //Servicos
@@ -211,6 +204,7 @@ export default function Verifica_pedido(props){
             <Box component="div">
                 <div className={classes.root}>
                     <Grid container justifyContent="space-around" alignItems="flex-start">
+                        <Grid item xs={12} sm={8}>
                         <ItemFavorites 
                         favoritos={favoritos}
                         add={add}
@@ -305,7 +299,7 @@ export default function Verifica_pedido(props){
                                 </Box>
                             </Box>
                         )}
-
+                        </Grid>
                         <Grid item xs={12} sm={4}>
                             <Paper className={classes.paper}  elevation={0}>
                                 {isEjecutivo && (
