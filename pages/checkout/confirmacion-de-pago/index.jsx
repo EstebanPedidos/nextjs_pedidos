@@ -24,16 +24,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Confirmacion_de_pago(props){
     const classes        = useStyles();
-    const [data,setData] = useState()
+    const [data,setData] = useState({})
+    const cliente       = 839494
+    const usuario       = 168020
+    const afiliado      = 'S'
 
     useEffect(()=>{
-        let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=4',{})
-        let json         = await services.data 
-        /*let jsonc        = await Services('POST','/registrov2/obtieneCliente?cliente='+839494,{})
-        let JsonCliente  = await jsonc.data  
-            jsonp        = await Services('POST','/miCuenta/detallePedido?clienteNum='+839494+'&pedidoNum='+2795111,{})
-        let miPedido     = await jsonp.data */
-        setData(json)
+        const getData = async ()=>{
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=4',{})
+            let json         = await {jsonResumen:services.data}
+            /*let jsonc        = await Services('POST','/registrov2/obtieneCliente?cliente='+839494,{})
+            let JsonCliente  = await jsonc.data  
+                jsonp        = await Services('POST','/miCuenta/detallePedido?clienteNum='+839494+'&pedidoNum='+2795111,{})
+            let miPedido     = await jsonp.data */
+            setData(json)
+        }
+        getData()
     },[])
     
     return (
@@ -52,10 +58,11 @@ export default function Confirmacion_de_pago(props){
                                         Pago: "---------------"
                                 </Typography>
                                 <Typography component="p" variant="subtitle1">
-                                        No. de pedido: <b>{data.pedido_num}</b>
+                                        No. de pedido: <b></b>
                                 </Typography>                     
                                 <Box component="div" py={2}>
-                                {(data.jsonResumen.resumen.formaPago === "3" || data.jsonResumen.resumen.formaPago === "4")&&
+                                {(data.hasOwnProperty('jsonResumen'))&&
+                                (data.jsonResumen.resumen.formaPago === "3" || data.jsonResumen.resumen.formaPago === "4")&&
                                 <div>
                                     <Box component="div" textAlign="left">
                                         <Grid container spacing={2}>
@@ -78,10 +85,11 @@ export default function Confirmacion_de_pago(props){
                                             </Grid> */}
                                         </Grid>
                                     </Box>
-                                    <Transfer/>
+                                    <Transferencia data={data}/>
                                 </div>
                                 }
-                                {(data.jsonResumen.resumen.shipVia === 24)&&
+                                {(data.hasOwnProperty('jsonResumen'))&&
+                                (data.jsonResumen.resumen.shipVia === 24)&&
                                     <div>
                                         <div>
                                             {(data.jsonResumen.resumen.formaPago !== 3 && data.jsonResumen.resumen.formaPago !== 4)&&
@@ -103,25 +111,12 @@ export default function Confirmacion_de_pago(props){
             </div>
             </Grid>  
             <Grid item xs={12} sm={4}>
-                <ResumeConfirmation data={data} /> 
+                {(data.hasOwnProperty('jsonResumen'))&&
+                    <ResumeConfirmation data={data} />
+                }
             </Grid>                 
         </Grid>
     </Box>
     )
 }
 
-/*export async function getServerSideProps(context) {    
-    let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+2795111+'&afiliado=S&paso=4',{})
-    let data         = await services.data 
-        services     = await Services('POST','/registrov2/obtieneCliente?cliente='+839494,{})
-    let JsonCliente  = await services.data  
-        services     = await Services('POST','/miCuenta/detallePedido?clienteNum='+839494+'&pedidoNum='+2795111,{})
-    let miPedido        = await services.data  
-    return {
-        props: {
-            data :          {jsonResumen:data},
-            JsonCliente:    JsonCliente,
-            miPedido:       miPedido
-        },
-      }
-}*/

@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 export default function ResumeConfirmation({data}){
 	const classes   = useStyles();
+	const formaP	= {1:'Tarjeta',2:'Al recibir con tarjeta',3:'Transferencia',4:'Dep&oacute;sito',5:'Pago en OXXO',7:'PayPal'}
     return (
         <div>
 		<Paper variant="outlined">
@@ -63,7 +64,7 @@ export default function ResumeConfirmation({data}){
 			<Box component="div" py={2}>
 				<Typography component="h3" variant="subtitle1">
 					<Box component="span" fontWeight="fontWeightMedium">
-						Forma de Pago: {data.jsonResumen.resumen.formaPago}
+						Forma de Pago: {formaP[data.jsonResumen.resumen.formaPago]}
 					</Box>
 				</Typography>
 			</Box>
@@ -139,7 +140,8 @@ export default function ResumeConfirmation({data}){
 												</Typography>
 												<Typography variant="subtitle1"  >
 													<Box component="span" fontWeight="fontWeightBold">
-														{data.jsonResumen.resumen.formaPago}
+													{data.jsonResumen.resumen.formaPago}
+													{formaP[data.jsonResumen.resumen.formaPago]}
 													</Box>
 												</Typography>
 											</Grid>
@@ -152,7 +154,7 @@ export default function ResumeConfirmation({data}){
 												</Typography>
 												<Typography variant="subtitle1"  >
 													<Box component="span" fontWeight="fontWeightBold">
-													{data.jsonResumen.resumen.formaPago}	
+													{formaP[data.jsonResumen.resumen.formaPago]}	
 													</Box>
 												</Typography>
 											</Grid>
