@@ -2,26 +2,15 @@ import { useState,useEffect } from 'react';
 //next js
 import { useRouter } from 'next/router'
 //Material UI
-import InputLabel from '@mui/material/InputLabel';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import {Box, Grid, Paper, Typography, Button, Select, Badge,
+    Card, CardActions, CardContent, CardActionArea, FormControl,
+    Avatar, Divider, Radio, RadioGroup, FormHelperText, FormControlLabel, InputLabel, Link} from '@mui/material';
+
 import makeStyles from '@mui/styles/makeStyles';
-import Badge from '@mui/material/Badge';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
 import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+
 
 //Componentes 
 import Process from "../Process"
@@ -45,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
       rootcard: {
         margin: theme.spacing(1),  
       },
-      cardv2:{ margin: theme.spacing(1),width:"100%", margin:"auto",},
+      cardv2:{ width:"100%", margin:"auto",},
       rootcardi: {
         margin: theme.spacing(1), 
-        height:'13rem', 
+        height:'14rem', 
       },
       mleftib: {
         marginLeft: theme.spacing(2),
@@ -189,201 +178,202 @@ export default function Facturacion(props){
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={8}>
                     <div>
-                        <Button variant="contained" fullWidth  size="large"
-                            color="primary" type="button" onClick={continuarCompra}>Continuar</Button>
-                        <Process paso={1}/>
-                        <Box component="div" pt={2}  className={classes.root}>
-                            <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
-                                <Grid item xs={12}>
-                                    <Typography variant="h6" component="h1" >2. Selecciona y/o añade los datos de facturación.</Typography>
-                                </Grid>
-                            </Grid>
+                        <Box component="div" py={4} px={8}>
+                            <Process paso={1}/>
                         </Box>
-                        <Box component="div" py={2}>
-                            <div className={classes.root}>
-                                <Grid container direction="row" justifyContent="space-evenly" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} sm={12}>
-                                        <Card className={classes.root} variant="outlined">
-                                            <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={0}>
-                                                <Grid item xs={8} sm={8}>                 
-                                                    <CardContent>
-                                                        <Grid container alignItems="center" spacing={1}>
-                                                            <Grid item xs={4} sm={4}>
-                                                                <Box component="div" ml={6}>
-                                                                    <Avatar>
-                                                                        <AddOutlinedIcon />
-                                                                    </Avatar>
-                                                                </Box>
-                                                            </Grid>
-                                                            <Grid item xs={4} sm={4}>  
-                                                                <Box component="div" ml={4} textAlign="left">
-                                                                    <Typography variant="h6" component="h2">
-                                                                        Nueva
-                                                                    </Typography>
-                                                                </Box>
-                                                            </Grid>
-                                                        </Grid> 
-                                                    </CardContent>
-                                                </Grid> 
-                                                <Grid item xs={4} sm={4}>
-                                                    <CardActions>
-                                                        <Button size="Large" color="primary">Añadir Datos</Button>
-                                                    </CardActions>
-                                                </Grid>   
-                                            </Grid>                      
-                                        </Card>
-                                    </Grid> 
-                                    <Grid item xs={12} sm={12}>
-                                    <Box component="div">
-                                        <FormControl component="fieldset" fullWidth>
-                                            <div className={classes.root}>
-                                                <RadioGroup name='rfc' value={rfc.rfc_num+''}  onChange={salectOption}>                                                     
-                                                    <Grid container direction="row" justifyContent="space-between" alignItems="flex-start" spacing={1}>
-                                                            {
-                                                                rfcs.map((rfc, index) => (  
-                                                                    <Grid item xs={12} sm={6}>
-                                                                        <Box component="div" key={index}> 
-                                                                            <Card className={classes.rootcardi} variant="outlined">  
-                                                                                <Box component="div" m={3}>
-                                                                                    
-                                                                                    {(rfc.cantNotas > 0)&&
-                                                                                        <Box component="div" m={1} display="flex" justifyContent="flex-end"> 
-                                                                                            <Typography variant="caption" display="block" color="primary" gutterBottom>
-                                                                                                Notas de crédito
-                                                                                            </Typography>
-                                                                                            <Badge  className={classes.mleftib} badgeContent={rfc.cantNotas+''} color="primary">
-                                                                                                <ReceiptOutlinedIcon color="textSecondary" />
-                                                                                            </Badge>
-                                                                                        </Box>
-                                                                                    }
-                                                                                    <FormControlLabel fullWidth className={classes.cardv2} value={rfc.rfcNum+''} label={
-                                                                                        <Box component="div">
-                                                                                            {(rfc.rfc === 'XAXX010101000')?  
-                                                                                            
-                                                                                                <Box component="div" m={1}> 
-                                                                                                    <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>        
-                                                                                                        <Grid item xs={12}>
-                                                                                                            <Box mx="auto" py={1}>
-                                                                                                                <Avatar className={classes.mxauto}>
-                                                                                                                    <RemoveOutlinedIcon />
-                                                                                                                </Avatar>
-                                                                                                            </Box>
-                                                                                                        </Grid>
-                                                                                                        <Grid item xs={12}>
-                                                                                                            <Box textAlign="center">
-                                                                                                                <Typography variant="h6" component="h2">
-                                                                                                                    Sin factura
-                                                                                                                </Typography>  
-                                                                                                            </Box>                         
-                                                                                                        </Grid>
-                                                                                                    </Grid>
-                                                                                                </Box> 
-                                                                                            
-                                                                                            :                       
-                                                                                            <Box component="div">   
-                                                                                                <CardContent>  
-                                                                                                    <Typography variant="h6" component="h2">
-                                                                                                        {rfc.razon.substring(0,27)}
+                        <Box component="div" p={2}>
+                            <Divider light/> 
+                            <Box component="div" pt={3}  mb={1}> 
+                                <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>2. Selecciona y/o añade los datos de facturación.</Typography>
+                            </Box>
+                            <Box component="div" py={2} >
+                                <div className={classes.root}>
+                                    <Grid container direction="row" justifyContent="center" alignItems="center"  spacing={2}>
+                                        <Grid item xs={12} >
+                                            <Card className={classes.root} variant="outlined">
+                                                <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
+                                                    <Grid item xs={8} sm={8}>                 
+                                                        <CardContent>
+                                                            <Grid container alignItems="center" direction="row" justifyContent="flex-start" spacing={1}>
+                                                                <Grid item xs={4} sm={4}>
+                                                                    <Box component="div" ml={4}>
+                                                                        <Avatar>
+                                                                            <AddOutlinedIcon />
+                                                                        </Avatar>
+                                                                    </Box>
+                                                                </Grid>
+                                                                <Grid item xs={4} sm={4}>  
+                                                                    <Box component="div"textAlign="left">
+                                                                        <Typography variant="h6" component="h2">
+                                                                            Nueva
+                                                                        </Typography>
+                                                                    </Box>
+                                                                </Grid>
+                                                            </Grid> 
+                                                        </CardContent>
+                                                    </Grid> 
+                                                    <Grid item xs={4} sm={4}>
+                                                        <CardActions>
+                                                            <Button size="Large" fullWidth color="primary">Añadir Datos</Button>
+                                                        </CardActions>
+                                                    </Grid>   
+                                                </Grid>                      
+                                            </Card>
+                                        </Grid> 
+                                        <Grid item xs={12} sm={12}>
+                                            <Box component="div">
+                                                <FormControl component="fieldset" fullWidth>
+                                                    <div className={classes.root}>
+                                                        <RadioGroup name='rfc' value={rfc.rfc_num+''}  onChange={salectOption}>                                                     
+                                                            <Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
+                                                                    {
+                                                                        rfcs.map((rfc, index) => (  
+                                                                            <Grid item xs={12} sm={6}>
+                                                                                <Box component="div" key={index}> 
+                                                                                    <Card className={classes.rootcardi} variant="outlined">  
+                                                                                        <Box component="div" >
+                                                                                            {(rfc.cantNotas > 0)&&
+                                                                                                <Box component="div" m={2} display="flex" justifyContent="flex-end"> 
+                                                                                                    <Typography variant="caption" display="block" color="primary" gutterBottom>
+                                                                                                        Notas de crédito
                                                                                                     </Typography>
-                                                                                                    <Typography  color="textSecondary">
-                                                                                                        RFC: {rfc.rfc}
-                                                                                                    </Typography>
-                                                                                                    <Typography  color="textSecondary">
-                                                                                                        {(rfc.rfc.trim().length === 13)?`Física`:`Moral`}
-                                                                                                    </Typography>
-                                                                                                </CardContent> 
-                                                                                                <CardActions>
-                                                                                                    <Button size="small" fullWidth color="primary">
-                                                                                                    Detalles
-                                                                                                    </Button>
-                                                                                                    <Eliminar
-                                                                                                    Delete={Delete}
-                                                                                                    object={{rfc:rfc.rfc,rfcNum:rfc.rfcNum}}
-                                                                                                    ms_but={'Eliminar'}
-                                                                                                    titilo={'Eliminar RFC'}
-                                                                                                    mensaje={'Estás seguro de eliminar el RFC: '+rfc.rfc+'?'}
-                                                                                                    />
-                                                                                                </CardActions>
-                                                                                                
-                                                                                            </Box>
-
-
+                                                                                                    <Badge  className={classes.mleftib} badgeContent={rfc.cantNotas+''} color="primary">
+                                                                                                        <ReceiptOutlinedIcon color="textSecondary" />
+                                                                                                    </Badge>
+                                                                                                </Box>
                                                                                             }
+                                                                                            <FormControlLabel fullWidth className={classes.cardv2} value={rfc.rfcNum+''} label={
+                                                                                                <Box component="div">
+                                                                                                    {(rfc.rfc === 'XAXX010101000')?  
+
+                                                                                                        <Box component="div"> 
+                                                                                                            <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>        
+                                                                                                                <Grid item xs={12}>
+                                                                                                                    <Box mx="auto" py={1}>
+                                                                                                                        <Avatar className={classes.mxauto}>
+                                                                                                                            <RemoveOutlinedIcon />
+                                                                                                                        </Avatar>
+                                                                                                                    </Box>
+                                                                                                                </Grid>
+                                                                                                                <Grid item xs={12}>
+                                                                                                                    <Box textAlign="center">
+                                                                                                                        <Typography variant="h6" component="h2">
+                                                                                                                            Sin factura
+                                                                                                                        </Typography>  
+                                                                                                                    </Box>                         
+                                                                                                                </Grid>
+                                                                                                            </Grid>
+                                                                                                        </Box> 
+                                                                                                    
+                                                                                                    :                       
+                                                                                                    <Box component="div">   
+                                                                                                        <CardContent> 
+                                                                                                            <Box component="div" mb={2} sx={{height:'60px'}}>
+                                                                                                                <Typography variant="subtitle1" component="h3" sx={{fontWeight:'500'}}>
+                                                                                                                    {rfc.razon.substring(0,27)}
+                                                                                                                </Typography>
+                                                                                                            </Box> 
+                                                                                                            <Typography variant="body1" color="textSecondary" gutterBottom>
+                                                                                                                Persona {(rfc.rfc.trim().length === 13)?`Física`:`Moral`}
+                                                                                                            </Typography>
+                                                                                                            <Typography variant="body1" color="textSecondary" color="textSecondary">
+                                                                                                                RFC: {rfc.rfc}
+                                                                                                            </Typography>
+                                                                                                        </CardContent> 
+                                                                                                        {/* <Box component="div" >
+                                                                                                            <Divider variant="middle" light />
+                                                                                                        </Box> */}
+                                                                                                        <CardActions>
+                                                                                                            <Button size="small" fullWidth color="primary">
+                                                                                                            Detalles
+                                                                                                            </Button>
+                                                                                                            <Eliminar
+                                                                                                            Delete={Delete}
+                                                                                                            object={{rfc:rfc.rfc,rfcNum:rfc.rfcNum}}
+                                                                                                            ms_but={'Eliminar'}
+                                                                                                            titilo={'Eliminar RFC'}
+                                                                                                            mensaje={'Estás seguro de eliminar el RFC: '+rfc.rfc+'?'}
+                                                                                                            />
+                                                                                                        </CardActions>
+                                                                                                        
+                                                                                                    </Box>
+
+
+                                                                                                    }
+                                                                                                </Box>
+                                                                                            }
+                                                                                            control={<Radio id={rfc.rfc}/>} /> 
                                                                                         </Box>
-                                                                                    }
-                                                                                    control={<Radio id={rfc.rfc}/>} /> 
+                                                                                    </Card>   
                                                                                 </Box>
-                                                                                
-                                                                            </Card>   
-                                                                        </Box>
-                                                                    </Grid>
-                                                                ))                    
-                                                            }                                                   
-                                                    </Grid>
-                                                </RadioGroup>
-                                            </div>
-                                        </FormControl>
-                                    </Box>    
+                                                                            </Grid>
+                                                                        ))                    
+                                                                    }                                                   
+                                                            </Grid>
+                                                        </RadioGroup>
+                                                    </div>
+                                                </FormControl>
+                                            </Box>    
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </div>
-                        </Box>
-                        <Box component="div" pt={4} className={classes.root}>
-                            <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
-                                <Grid item xs={12}>
-                                    <Typography variant="h6" component="h2" >Selecciona el uso y forma de pago de tu factura</Typography>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                        <Box component="div" py={2}>
-                            <FormControl variant="outlined" className={classes.formControl} focused required fullWidth>
-                                <InputLabel htmlFor="age-native-simple">Uso de CFDI </InputLabel>
-                                <Select
-                                native
-                                value={cfdi}
-                                onChange={salectOption}
-                                label="Uso de CFDI"
-                                inputProps={{
-                                    name: 'cfdi'
-                                }}
-                                >
-                                {(cfdis.length > 0)&&
-                                    cfdis.map((cfdi, index) => (
-                                        <option value={cfdi.idUsu}>{cfdi.descripcion}</option>
-                                    ))
-                                }                    
-                                </Select>
-                                <FormHelperText>Requerido</FormHelperText>
-                            </FormControl>
-                        </Box>
-                        <Box component="div">
-                            <FormControl variant="outlined" className={classes.formControl} focused required fullWidth>
-                                <InputLabel htmlFor="age-native-simple">Forma de pago</InputLabel>
-                                <Select
-                                native
-                                value={pago}
-                                onChange={salectOption}
-                                label="Forma de pago"
-                                inputProps={{
-                                    name: 'pago',
-                                }}
-                                >
-                                {(pagos.length > 0)&&
-                                    pagos.map((pago, index) => (
-                                        <option value={pago.mpago}>{pago.descripcion}</option>
-                                    ))
-                                }                    
-                                </Select>
-                                <FormHelperText>Requerido</FormHelperText>
-                            </FormControl>
-                        </Box>
-                        {(notas.length > 0 )&&
-                            <NotasCredito notas={notas} salectOption={salectOption} aplicar={aplicar}/>
-                        }            
+                                </div>
+                            </Box>
+                            <Box component="div" py={1}>
+                                <Typography variant="h6" component="h2" >Selecciona el uso y forma de pago de tu factura</Typography>
+                                    
+                            </Box>
+                            <Box component="div" py={2}>
+                                <FormControl variant="outlined" className={classes.formControl} focused required fullWidth>
+                                    <InputLabel htmlFor="age-native-simple">Uso de CFDI </InputLabel>
+                                    <Select
+                                    native
+                                    value={cfdi}
+                                    onChange={salectOption}
+                                    label="Uso de CFDI"
+                                    inputProps={{
+                                        name: 'cfdi'
+                                    }}
+                                    >
+                                    {(cfdis.length > 0)&&
+                                        cfdis.map((cfdi, index) => (
+                                            <option value={cfdi.idUsu}>{cfdi.descripcion}</option>
+                                        ))
+                                    }                    
+                                    </Select>
+                                    <FormHelperText>Requerido</FormHelperText>
+                                </FormControl>
+                            </Box>
+                            <Box component="div">
+                                <FormControl variant="outlined" className={classes.formControl} focused required fullWidth>
+                                    <InputLabel htmlFor="age-native-simple">Forma de pago</InputLabel>
+                                    <Select
+                                    native
+                                    value={pago}
+                                    onChange={salectOption}
+                                    label="Forma de pago"
+                                    inputProps={{
+                                        name: 'pago',
+                                    }}
+                                    >
+                                    {(pagos.length > 0)&&
+                                        pagos.map((pago, index) => (
+                                            <option value={pago.mpago}>{pago.descripcion}</option>
+                                        ))
+                                    }                    
+                                    </Select>
+                                    <FormHelperText>Requerido</FormHelperText>
+                                </FormControl>
+                            </Box>
+                            {(notas.length > 0 )&&
+                                <NotasCredito notas={notas} salectOption={salectOption} aplicar={aplicar}/>
+                            }  
+                        </Box>          
                     </div>
                 </Grid>  
                 <Grid item xs={12} sm={4}>
                     <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                    <Button variant="contained" fullWidth  size="large"
+                            color="primary" type="button" onClick={continuarCompra}>Continuar</Button>
                 </Grid>                 
             </Grid>
             {(alerta.estado)&&
