@@ -1,10 +1,5 @@
 
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Alert from '@mui/material/Alert';
-import Paper from '@mui/material/Paper';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
+import {Box,Grid,Alert,Paper,Divider,Typography} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 //MUI
 
@@ -12,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 	  flexGrow: 1,
 	},
-  }));
+}));
 export default function ResumeConfirmation({data}){
 	const classes   = useStyles();	
 	function FormaPago(formaPago){

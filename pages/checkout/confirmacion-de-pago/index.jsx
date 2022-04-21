@@ -1,26 +1,21 @@
+import { useEffect, useState } from 'react';
 //next js
 import { useRouter } from 'next/router'
 //Material UI
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import { Alert, AlertTitle } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import {Box,Grid,Button,Container,Alert,AlertTitle,Typography,Link,Skeleton} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import Link from '@mui/material/Link';
 //Componentes 
 import ResumeConfirmation from '../ResumenConfirmacion';
 import Transferencia from './Transferencia';
 //Servicios
 import Services from '../../services/Services'
-import { useEffect, useState } from 'react';
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 	  flexGrow: 1,
 	},
 }));
-export default function Confirmacion_de_pago(props){
+export default function Confirmacion_de_pago(){
     const classes           = useStyles();
     const router            = useRouter()
     const [data,setData]    = useState({})
@@ -48,14 +43,17 @@ export default function Confirmacion_de_pago(props){
             <Grid item xs={12} sm={8}>
             <div>
                 <Container maxWidth="sm">
-                    <Box component="div" mx="auto" py={4}>
+                    <Box component="div" mx="auto" py={4}>                           
                             <Box component="div" width="20%" mx="auto" pt={4}>
+                            {(data.hasOwnProperty('jsonResumen'))?
                                 <img src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/confirmacion/confirm.svg" alt="Confirmación" />
+                                :<Skeleton variant="circular" width={100} height={120} animation="wave"/>
+                            }
                             </Box>
                             <Box component="div" textAlign="center">
-                                <Typography component="h1" variant="h6">Gracias por tu compra</Typography>
+                                <Typography component="h1" variant="h6">{(data.hasOwnProperty('jsonResumen'))?'Gracias por tu compra':<Skeleton animation="wave"/>}</Typography>
                                 <Typography component="p" variant="subtitle1">
-                                        No. de pedido: {(data.hasOwnProperty('jsonResumen'))&&data.pedido} <b></b>
+                                    {(data.hasOwnProperty('jsonResumen'))?`No. de pedido:<b>${data.pedido}</b>`:<Skeleton animation="wave"/>} 
                                 </Typography>                     
                                 <Box component="div" py={2}>
                                 {(data.hasOwnProperty('jsonResumen'))&&
@@ -74,12 +72,6 @@ export default function Confirmacion_de_pago(props){
                                                     </strong>
                                                 </Alert>
                                             </Grid>
-                                            {/* <Grid item  xs={12}>
-                                                <Alert severity="info" fullWidth>No olvides colocar el No. de referencia de tu pedido</Alert>
-                                            </Grid>
-                                            <Grid item>
-                                                Puedes cargar tu evidencia de pago dentro de tu cuenta en la sección de Pedidos.com
-                                            </Grid> */}
                                         </Grid>
                                     </Box>
                                     <Transferencia data={data}/>
@@ -97,10 +89,12 @@ export default function Confirmacion_de_pago(props){
                                         <p>Una vez facturado el pedido, la cuenta de los 180 min. empezará</p>
                                         </div>
                                     </div>
-                                } 
+                                }   
+                                {(data.hasOwnProperty('jsonResumen'))?                       
                                 <Button variant="outlined" onClick={()=>{router.push('/')}}>
-                                    Ir a página principal
-                                </Button>	 
+                                    Ir a página principal                             
+                                </Button>:<Skeleton variant="rectangular" height={300} animation="wave"/>
+                                }                                
                             </Box>
                         </Box>
                     </Box>
@@ -108,8 +102,8 @@ export default function Confirmacion_de_pago(props){
             </div>
             </Grid>  
             <Grid item xs={12} sm={4}>
-                {(data.hasOwnProperty('jsonResumen'))&&
-                    <ResumeConfirmation data={data} />
+                {(data.hasOwnProperty('jsonResumen'))?
+                    <ResumeConfirmation data={data} />:<Skeleton variant="rectangular" height={500} animation="wave"/>
                 }
             </Grid>                 
         </Grid>

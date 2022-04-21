@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 //next js
 import { useRouter } from 'next/router';
 //Material UI
-import {Box, Grid, Paper, Typography, Button, TextField,
+import {Box, Grid, Paper, Typography, Button, Skeleton,
         Card, CardActions, CardContent, CardActionArea,
-        Avatar, Divider, Radio, RadioGroup, FormControlLabel, Link} from '@mui/material';
+        Avatar, Divider, Radio, RadioGroup, FormControlLabel} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
@@ -61,8 +61,9 @@ export default function Direccion_de_envio(props){
 
     useEffect(()=>{
         const getData = async () => {
-            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=1',{})
-            let json         = await {jsonResumen:services.data}
+            let pedido       = await localStorage.getItem('Pedido')
+            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=1',{})
+            let json         = await {jsonResumen:services.data,pedido:pedido}
             setData(json)
             setDirecciones(json.jsonResumen.direcciones)
             setEjecutivo((json.jsonResumen.resumen.nombreEjecutivo !== '')?{ejecutivo:json.jsonResumen.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
@@ -122,9 +123,12 @@ export default function Direccion_de_envio(props){
                 <Grid item xs={12} sm={8}>
                     <div>
                         <Box component="div" py={4} px={8}>
-                            <Process paso={0}/>
+                        {(data.hasOwnProperty('jsonResumen'))?                  
+                            <Process paso={0}/>:<Skeleton variant="text" animation="wave"/>
+                        }
                         </Box>
                         <Box component="div" p={2}>
+                            {(data.hasOwnProperty('jsonResumen'))?  
                             <Box component="div" >
                                 <Paper elevation={0} className={classes.paper}>
                                     <Box component="div" mb={1} className={classes.root}>
@@ -152,7 +156,11 @@ export default function Direccion_de_envio(props){
                                     </Box>
                                 </Paper>
                             </Box>
+                            :
+                            <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                            }
                             <Box component="div" px={2}>
+                                {(data.hasOwnProperty('jsonResumen'))?  
                                 <Box component="div">
                                     <div className={classes.root}>
                                         <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -190,6 +198,9 @@ export default function Direccion_de_envio(props){
                                         </Grid>
                                     </div>
                                 </Box>
+                                :
+                                <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                                }
                                 <Box component="div" py={2}>
                                     <RadioGroup name='direccion_envio' value={direccion.dir_num}  onChange={salectOption}>
                                     {(data.hasOwnProperty('jsonResumen'))&&
@@ -228,9 +239,11 @@ export default function Direccion_de_envio(props){
                                             </Card>                       
                                         </div>
                                     }
+                                    
                                     <Box component="div" py={3}>
-                                        <Typography variant="h6" component="h2">Direcciones de envío:</Typography>
+                                        <Typography variant="h6" component="h2">{(data.hasOwnProperty('jsonResumen'))?'Direcciones de envío:':<Skeleton animation="wave"/>}</Typography>
                                     </Box>
+                                    {(data.hasOwnProperty('jsonResumen'))?
                                     <div className={classes.root}>
                                         <Grid container spacing={2}>
                                             {
@@ -277,6 +290,9 @@ export default function Direccion_de_envio(props){
                                             }
                                         </Grid>
                                     </div>
+                                    :
+                                    <Skeleton variant="rectangular" height={300} animation="wave"/>
+                                    }
                                     </RadioGroup>
                                 </Box>
                             </Box>
@@ -284,10 +300,14 @@ export default function Direccion_de_envio(props){
                     </div>
                 </Grid>     
                 <Grid item xs={12} sm={4}>
-                    {(data.hasOwnProperty('jsonResumen'))&&
+                    {(data.hasOwnProperty('jsonResumen'))?
+                        <>
                         <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
-                    }
-                    <ConFactura continuarCompra={continuarCompra}/>
+                        <ConFactura continuarCompra={continuarCompra}/>
+                        </>
+                        :
+                        <Skeleton variant="rectangular"  height={400} animation="wave"/>
+                    }                    
                 </Grid> 
             </Grid>
             {(alerta.estado)&&
