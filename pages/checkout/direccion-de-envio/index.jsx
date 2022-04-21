@@ -77,9 +77,9 @@ export default function Direccion_de_envio(props){
             if (response.data === "Ok") { 
                 direcciones.splice((direcciones.findIndex(direccion => direccion.dirNum === dirNum)), 1);
                 (parseInt(direccion.dir_num) === dirNum)?setDireccion({dir_num:'0',observacion:'PickUP'}):setDirecciones([...direcciones])
-                setAlerta({...alerta,severity:'success',estado:true,mensaje:'Tu dirección '+nombreDireccion+' se ha eliminado'})
+                setAlerta({severity:'error',mensaje:'Tu dirección '+nombreDireccion+' se ha eliminado',vertical:'bottom',horizontal:'right'})
             } else {
-                setAlerta({...alerta,severity:'error',estado:true,mensaje:'La dirección no se ha eliminado: Intenta de nuevo'})
+                setAlerta({severity:'error',mensaje:'La dirección no se ha eliminado: Intenta de nuevo',vertical:'bottom',horizontal:'right'})
             }
         })
     }
@@ -106,13 +106,13 @@ export default function Direccion_de_envio(props){
                         }
                     } else {
                         if (mensaje == "Error PvsE"){
-                            setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido es pago al recibir'})
+                            setAlerta({severity:'error',mensaje:'Tu pedido es pago al recibir',vertical:'bottom',horizontal:'right'})
                             ruter.push("/misPedidos")
                         } else if (mensaje == "Error factura"){
-                            setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido esta facturado'})
+                            setAlerta({severity:'error',mensaje:'Tu pedido esta facturado',vertical:'bottom',horizontal:'right'})
                             ruter.push("/misPedidos")
                         } else {
-                            setAlerta({...alerta,severity:'error',estado:true,mensaje:'Intenta de nuevo: Algo salió mal'})
+                            setAlerta({severity:'error',mensaje:'Intenta de nuevo: Algo salió mal',vertical:'bottom',horizontal:'right'})
                         }
                     }
             })
@@ -312,8 +312,8 @@ export default function Direccion_de_envio(props){
                     }                    
                 </Grid> 
             </Grid>
-            {(alerta.estado)&&
-                <Alertas estado={alerta.estado} severity={alerta.severity} vertical={alerta.vertical} horizontal={alerta.horizontal} mensaje={alerta.mensaje}/>
+            {(alerta.hasOwnProperty('severity'))&
+                <Alertas setAlerta={setAlerta} alerta={alerta}/>
             }            
         </Box>
     );

@@ -57,7 +57,6 @@ export default function Facturacion(props){
     const [data,setData]            = useState({})
     const [pagos,setPagos]          = useState([])
     const [cfdis,setCfdis]          = useState([])
-    const [rfc_ini,setRfcIni]       = useState({})
     const [total,setTotal]          = useState(0)
     const [notas,setNotas]          = useState([])
     const [ejecutivo,setEjecutivo]  = useState({ejecutivo:'', slmn:0})
@@ -78,8 +77,8 @@ export default function Facturacion(props){
             let total        = await ((json.resumen.subtotal+json.resumen.costoEnvio)-json.nc.montoNc)
             let jsonP        = await Services('POST','/miCuenta/obtieneMPago',{})
             let pagos        = await jsonP.data 
-            let rfc_ini      = ((await json.facturas.length) > 0)?json.facturas[1]:{}
-            let tipoPersona  = ((await json.facturas.length) > 0)?(rfc_ini.rfc.length === 13)?'fisica':'moral':'moral';
+            let rfc_ini      = ((await json.facturas.length) > 0)?json.facturas[1]:rfc
+            let tipoPersona  = (rfc_ini.rfc.length === 13)?'fisica':'moral';
             let jsonC        = await Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
             let cfdis        = await jsonC.data 
             let notas        = []   
@@ -91,7 +90,6 @@ export default function Facturacion(props){
             setTotal(total)
             setPagos(pagos) 
             setCfdis(cfdis) 
-            setRfcIni(rfc_ini)
             setNotas(notas)
             setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
             setRfc({rfc_num:rfc_ini.rfcNum,rfc:rfc_ini.rfc})
@@ -136,27 +134,42 @@ export default function Facturacion(props){
     }
 
     async function continuarCompra(){
-        let nota_aplicar = ((await aplicar.length) > 0)?aplicar.toString():'N'
-        Services('PUT','/carritoyreservado/actualizaRFC?clienteNum='+cliente+'&pedidoNum='+localStorage.getItem('Pedido')+'&rfcNum='+rfc.rfc_num+'&ejecutivo=0&cfdi='+cfdi+'&pago='+pago+'&notas='+nota_aplicar,{})
-        .then( response =>{
-            let mensaje = response.data
-            if (mensaje.indexOf("Error") == -1) {
-                if(data.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP'){
-                    ruter.push("/checkout/forma-de-pago")
+        if(rfc.rfc !== ''){
+            if(cfdi !== ''){
+                if(pago !== ''){
+                    let nota_aplicar = ((await aplicar.length) > 0)?aplicar.toString():'N'
+                    if(nota_aplicar !== ''){
+                        Services('PUT','/carritoyreservado/actualizaRFC?clienteNum='+cliente+'&pedidoNum='+localStorage.getItem('Pedido')+'&rfcNum='+rfc.rfc_num+'&ejecutivo=0&cfdi='+cfdi+'&pago='+pago+'&notas='+nota_aplicar,{})
+                        .then( response =>{
+                            let mensaje = response.data
+                            if (mensaje.indexOf("Error") == -1) {
+                                if(data.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP'){
+                                    ruter.push("/checkout/forma-de-pago")
+                                }else{
+                                    ruter.push('/checkout/forma-de-envio')
+                                }
+                            } else {
+                                if (mensaje == "Error PvsE"){
+                                    setAlerta({severity:'error',mensaje:'Tu pedido es pago al recibir: No puede modificarse',vertical:'bottom',horizontal:'right'})
+                                } else if (mensaje == "Error factura"){
+                                    setAlerta({severity:'error',mensaje:'Tu pedido esta facturado: No puede modificarse',vertical:'bottom',horizontal:'right'})
+                                } else {
+                                    setAlerta({severity:'error',mensaje:'Algo salió mal: Intenta de nuevo',vertical:'bottom',horizontal:'right'})
+                                }
+                            }
+                        })
+                    }else{
+                        setAlerta({severity:'error',mensaje:'Error al seleccionar NC',vertical:'bottom',horizontal:'right'})
+                    }                    
                 }else{
-                    ruter.push('/checkout/forma-de-envio')
+                    setAlerta({severity:'error',mensaje:'Se requiere seleccionar un meto de Pago',vertical:'bottom',horizontal:'right'})
                 }
-            } else {
-                if (mensaje == "Error PvsE"){
-                    setAlerta({severity:'error',mensaje:'Tu pedido es pago al recibir: No puede modificarse',vertical:'bottom',horizontal:'right'})
-                } else if (mensaje == "Error factura"){
-                    setAlerta({severity:'error',mensaje:'Tu pedido esta facturado: No puede modificarse',vertical:'bottom',horizontal:'right'})
-                } else {
-                    setAlerta({severity:'error',mensaje:'Algo salió mal: Intenta de nuevo',vertical:'bottom',horizontal:'right'})
-                }
-            }
-        })
-        
+            }else{
+                setAlerta({severity:'error',mensaje:'Se requiere seleccionar un CFDI',vertical:'bottom',horizontal:'right'})
+            }           
+        }else{
+            setAlerta({severity:'error',mensaje:'Se requiere seleccionar un RFC',vertical:'bottom',horizontal:'right'})
+        }       
     }
 
     function Delete({rfc,rfcNum}){
@@ -240,7 +253,7 @@ export default function Facturacion(props){
                                                                     {
                                                                         rfcs.map((rfc, index) => (  
                                                                             <Grid item xs={12} sm={6}>
-                                                                                <Box component="div" key={index}> 
+                                                                                <Box component="div" key={index}>
                                                                                     <Card className={classes.rootcardi} variant="outlined">  
                                                                                         <Box component="div" >
                                                                                             {(rfc.cantNotas > 0)&&
