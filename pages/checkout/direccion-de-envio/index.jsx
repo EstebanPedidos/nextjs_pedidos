@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 //next js
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 //Material UI
 import {Box, Grid, Paper, Typography, Button, TextField,
         Card, CardActions, CardContent, CardActionArea,

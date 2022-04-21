@@ -2,18 +2,16 @@
 //next js
 import { useRouter } from 'next/router'
 //Material UI
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
+import {Box, Grid, Paper, Typography, Button,
+    Avatar, Divider, Link} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-//import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import MopedOutlinedIcon from '@mui/icons-material/MopedOutlined';
+import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
+import MarkEmailUnreadOutlinedIcon from '@mui/icons-material/MarkEmailUnreadOutlined';
+import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
 //import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
-//import MotorcycleOutlinedIcon from '@mui/icons-material/MotorcycleOutlined';
-//import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 //Componenetes
 import ModalExecutive from './modals/ModalExecutive';
 
@@ -89,11 +87,11 @@ export default function Resumen(props){
                                             <Grid item xs={2} sm={3} md={2} lg={2} >
                                                 {(data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
                                                 <Avatar className={classes.orangeL}>
-                                                    LocalShippingOutlinedIcon
+                                                    <LocalShippingOutlinedIcon/>
                                                 </Avatar>
                                                 :
                                                 <Avatar className={classes.orangeL}>
-                                                    StorefrontOutlinedIcon
+                                                    <StorefrontOutlinedIcon/>
                                                 </Avatar>
                                                 }
                                             </Grid>
@@ -101,15 +99,25 @@ export default function Resumen(props){
                                                 <Box component="div">
                                                     {
                                                         (data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
-                                                            <Typography variant="body2">
-                                                                <b> Entrega {data.jsonResumen.resumen.direccion.dirNum}.{data.jsonResumen.resumen.direccion.nombreDireccion}</b><br/>
-                                                                {data.jsonResumen.resumen.direccion.direccion.substring(0, 30)}..
-                                                            </Typography>  
+                                                            <Box component="div">
+                                                                <Typography variant="body2" sx={{fontWeight:'600',}}>
+                                                                    Entregar en {/*  {data.jsonResumen.resumen.direccion.dirNum}. */}
+                                                                    {data.jsonResumen.resumen.direccion.nombreDireccion}
+                                                                </Typography>  
+                                                                <Typography variant="body2">
+                                                                    
+                                                                    {data.jsonResumen.resumen.direccion.direccion.substring(0, 38)}...
+                                                                </Typography> 
+                                                            </Box> 
                                                         :
+                                                        <Box component="div">
+                                                            <Typography variant="body2" sx={{fontWeight:'600',}}>
+                                                                {data.jsonResumen.resumen.entregaPickup} en PickUp Center
+                                                            </Typography>
                                                             <Typography variant="body2">
-                                                                <b>PickUp Center Polanco en {data.jsonResumen.resumen.entregaPickup}<br/></b> 
-                                                                Alejandro Dumas 135, C.P 11550, CDMX
+                                                                Alejandro Dumas 135, C.P 11550, CDMX, Polanco.
                                                             </Typography> 
+                                                        </Box>
                                                     }
 
                                                 </Box>
@@ -132,14 +140,17 @@ export default function Resumen(props){
                                             <Grid container justifyContent="space-around" alignItems="center">
                                                 <Grid item xs={2} sm={3} md={2} lg={2} >
                                                 <Avatar className={classes.blueL}>
-                                                    InsertDriveFileOutlinedIcon 
+                                                    <StickyNote2OutlinedIcon/> 
                                                 </Avatar>
                                                 </Grid>
                                                 <Grid item xs={6} sm={9} md={7} lg={8}>
                                                     <Box component="div">
-                                                    <Typography variant="body2">
-                                                        <b>Facturar a RFC</b><br/>{data.jsonResumen.resumen.facturas.rfc}
-                                                    </Typography>
+                                                        <Typography variant="body2" sx={{fontWeight:'600',}}>
+                                                            Facturar a RFC 
+                                                        </Typography>
+                                                        <Typography variant="body2" >
+                                                            {data.jsonResumen.resumen.facturas.rfc}
+                                                        </Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={4} sm={12} md={3} lg={2}>
@@ -153,18 +164,17 @@ export default function Resumen(props){
                         }
                         {(data.hasOwnProperty('jsonResumen'))&&
                         (data.jsonResumen.resumen.envio.tipo.trim() !== '') &&
-                        <Grid item xs={12}>
+                            <Grid item xs={12}>
                                 <Paper variant="outlined">
                                     <Box component="div" m={1}>
                                         <div className={classes.root}>
                                             <Grid container justifyContent="space-around" alignItems="center">                            
-                                                <Box component="div">  
                                                 {
                                                 (enviosF.includes(data.jsonResumen.resumen.envio.tipo))?
                                                     <Grid container justifyContent="space-around" alignItems="center">
                                                         <Grid item xs={2} sm={3} md={2} lg={2} >
                                                             <Avatar className={classes.blueD}>
-                                                                LocalShippingOutlinedIcon
+                                                                <LocalShippingOutlinedIcon/>
                                                             </Avatar>
                                                         </Grid>
                                                         <Grid item xs={6} sm={9} md={7} lg={8}>
@@ -185,16 +195,16 @@ export default function Resumen(props){
                                                             {(data.hasOwnProperty('jsonResumen'))&&
                                                             (data.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP')?
                                                             <Avatar className={classes.blueD}>
-                                                                StorefrontOutlinedIcon 
+                                                                <MarkEmailUnreadOutlinedIcon/> 
                                                             </Avatar>
                                                             :
                                                             (data.jsonResumen.resumen.envio.tipo === 'Express')?                                                                
                                                                 <Avatar className={classes.blueD}>
-                                                                    MotorcycleOutlinedIcon
+                                                                    <MopedOutlinedIcon />
                                                                 </Avatar>
                                                                 :
                                                                 <Avatar className={classes.blueD}>
-                                                                    LocalShippingOutlinedIco
+                                                                    <EventOutlinedIcon/>
                                                                 </Avatar>                                                                
                                                             }                    
                                                             
@@ -202,14 +212,23 @@ export default function Resumen(props){
                                                         <Grid item xs={6} sm={9} md={7} lg={8}>
                                                             <Box component="div">
                                                                 {(data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
-                                                                 <Typography variant="body2"><b>Día de envío {data.jsonResumen.resumen.envio.fecha}</b><br/>
-                                                                Horario '{data.jsonResumen.resumen.envio.tipo}' de {data.jsonResumen.resumen.envio.horario}
-                                                                </Typography>
+                                                                <Box component="div">
+                                                                    <Typography variant="body2" sx={{fontWeight:'600',}}>
+                                                                        Día de envío {data.jsonResumen.resumen.envio.fecha}
+                                                                    </Typography>
+                                                                    <Typography variant="body2">
+                                                                        Horario '{data.jsonResumen.resumen.envio.tipo}' de {data.jsonResumen.resumen.envio.horario}
+                                                                    </Typography>
+                                                                </Box>
                                                                 :
-                                                                <Typography variant="body2">
-                                                                    <b>Día de entrega</b><br/>
-                                                                     Notificación vía e-mail <br/>cuando este disponible
-                                                                </Typography>
+                                                                <Box component="div">
+                                                                    <Typography variant="body2" sx={{fontWeight:'600',}}>
+                                                                        Entrega:  {data.jsonResumen.resumen.entregaPickup}
+                                                                    </Typography>
+                                                                    <Typography variant="body2">
+                                                                        Notificación vía e-mail para poder recoger
+                                                                    </Typography>
+                                                                </Box>
                                                                 }
                                                             </Box>
                                                         </Grid>
@@ -218,13 +237,11 @@ export default function Resumen(props){
                                                         </Grid>
                                                     </Grid>  
                                                 }
-
-                                                </Box>
                                             </Grid>
                                         </div>
                                     </Box>
                                 </Paper>
-                        </Grid>                 
+                            </Grid>                 
                         } 
                     </Grid>
                 </div>
