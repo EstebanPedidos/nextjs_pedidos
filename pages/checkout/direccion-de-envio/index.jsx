@@ -89,35 +89,37 @@ export default function Direccion_de_envio(props){
         setDireccion({dir_num:value,observacion:id})
     }
 
-    function continuarCompra(op){     
-        Services('PUT','/carritoyreservado/actualizaDireccion?clienteNum='+cliente+'&pedidoNum='+localStorage.getItem('Pedido')+'&dirNum='+parseInt(direccion.dir_num)+'&ejecutivo='+ejecutivo.slmn+'&observaciones='+direccion.observacion+'&op='+op+'&peso='+peso+'&afiliado='+afiliado,{})
-        .then( response =>{
-                let mensaje = response.data              
-                if (mensaje.indexOf("Error") == -1) {
-                    if(op === 1){
-                        if(direccion.dir_num === '0'){
-                            ruter.push("/checkout/forma-de-pago") 
-                        }else{
-                            ruter.push("/checkout/forma-de-envio")  
+    function continuarCompra(op){  
+        if(parseInt(direccion.dir_num) >= 0){
+            Services('PUT','/carritoyreservado/actualizaDireccion?clienteNum='+cliente+'&pedidoNum='+data.pedido+'&dirNum='+parseInt(direccion.dir_num)+'&ejecutivo='+ejecutivo.slmn+'&observaciones='+direccion.observacion+'&op='+op+'&peso='+peso+'&afiliado='+afiliado,{})
+            .then( response =>{
+                    let mensaje = response.data              
+                    if (mensaje.indexOf("Error") == -1) {
+                        if(op === 1){
+                            if(direccion.dir_num === '0'){
+                                ruter.push("/checkout/forma-de-pago") 
+                            }else{
+                                ruter.push("/checkout/forma-de-envio")  
+                            }
+                        } else if(op == 2){
+                            ruter.push("/checkout/facturacion")                    
                         }
-                    } else if(op == 2){
-                        ruter.push("/checkout/facturacion")                    
-                    }
-                } else {
-                    if (mensaje == "Error PvsE"){
-                        setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido es pago al recibir'})
-                        ruter.push("/misPedidos")
-                    } else if (mensaje == "Error factura"){
-                        setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido esta facturado'})
-                        ruter.push("/misPedidos")
                     } else {
-                        setAlerta({...alerta,severity:'error',estado:true,mensaje:'Intenta de nuevo: Algo salió mal'})
+                        if (mensaje == "Error PvsE"){
+                            setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido es pago al recibir'})
+                            ruter.push("/misPedidos")
+                        } else if (mensaje == "Error factura"){
+                            setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido esta facturado'})
+                            ruter.push("/misPedidos")
+                        } else {
+                            setAlerta({...alerta,severity:'error',estado:true,mensaje:'Intenta de nuevo: Algo salió mal'})
+                        }
                     }
-                }
-        })
+            })
+        }        
     }
 
-    return (
+    return ( 
         <Box component="div" m={2} className={classes.root}>
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={8}>
@@ -209,7 +211,7 @@ export default function Direccion_de_envio(props){
                                             <Card className={classes.root} variant="outlined">
                                             <CardActionArea>
                                                 <Box component="div" mx={2}>
-                                                    <FormControlLabel sx={{ padding:"0px"}} value="0" labelPlacement="End" label={
+                                                    <FormControlLabel sx={{ padding:"0px"}} value="0" labelPlacement="start" label={
                                                         <Grid container direction="row" justifyContent="center" alignItems="center">
                                                             <CardContent>
                                                                 <Box display="flex" justifyContent="space-between" >
@@ -217,8 +219,7 @@ export default function Direccion_de_envio(props){
                                                                         <Avatar>
                                                                             <StorefrontOutlinedIcon />
                                                                         </Avatar>
-                                                                    </Box>
-                                                                
+                                                                    </Box>                                                                
                                                                     <Box component="div" pl={4}>
                                                                         {(data.hasOwnProperty('jsonResumen'))&&
                                                                         <Typography variant="h6" component="h2">
@@ -265,6 +266,7 @@ export default function Direccion_de_envio(props){
                                                                 </>                                        
                                                                 
                                                             }
+                                                            labelPlacement="start"
                                                             control={<Radio id={(direccion.observacion.trim() === '')?'':direccion.observacion.replace('Á','A').replace('É','E').replace('Í','I').replace('Ó','O').replace('Ú','U').replace('á','a').replace('é','e').replace('í','i').replace('ó','o').replace('ú','u').replace('Ñ','N').replace('ñ','n').replace(/ /g, "%20").substr(0,50)}/>} />
                                                         </Box>
                                                         <Box component="div" >

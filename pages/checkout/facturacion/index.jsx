@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 //Material UI
 import {Box, Grid, Paper, Typography, Button, Select, Badge,
     Card, CardActions, CardContent, CardActionArea, FormControl,
-    Avatar, Divider, Radio, RadioGroup, FormHelperText, FormControlLabel, InputLabel, Link} from '@mui/material';
+    Avatar, Divider, Radio, RadioGroup, FormHelperText, FormControlLabel, InputLabel, Skeleton} from '@mui/material';
 
 import makeStyles from '@mui/styles/makeStyles';
 import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
@@ -66,7 +66,7 @@ export default function Facturacion(props){
     const [pago,setPago]            = useState('')
     const [rfcs,setRfcs]            = useState([])
     const [aplicar,setAplicar]      = useState([])
-    const [alerta,setAlerta]        = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
+    const [alerta,setAlerta]        = useState({})
     const cliente                   = 839494
     const usuario                   = 168020
     const afiliado                  = 'S'
@@ -130,7 +130,7 @@ export default function Facturacion(props){
                     setAplicar([...aplicar,value])
                 }                
             }else{
-                alert('No se puede')
+                setAlerta({severity:'error',mensaje:'La NC es mayor que el monto del pedido',vertical:'bottom',horizontal:'right'})
             }
         } 
     }
@@ -148,11 +148,11 @@ export default function Facturacion(props){
                 }
             } else {
                 if (mensaje == "Error PvsE"){
-                    setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido es pago al recibir: No puede modificarse'})
+                    setAlerta({severity:'error',mensaje:'Tu pedido es pago al recibir: No puede modificarse',vertical:'bottom',horizontal:'right'})
                 } else if (mensaje == "Error factura"){
-                    setAlerta({...alerta,severity:'error',estado:true,mensaje:'Tu pedido esta facturado: No puede modificarse'})
+                    setAlerta({severity:'error',mensaje:'Tu pedido esta facturado: No puede modificarse',vertical:'bottom',horizontal:'right'})
                 } else {
-                    setAlerta({...alerta,severity:'error',estado:true,mensaje:'Algo salió mal: Intenta de nuevo'})
+                    setAlerta({severity:'error',mensaje:'Algo salió mal: Intenta de nuevo',vertical:'bottom',horizontal:'right'})
                 }
             }
         })
@@ -164,11 +164,11 @@ export default function Facturacion(props){
         .then( response =>{
             let eliminaRfc = response.data
             if(eliminaRfc.indexOf('error') !== -1) {
-                setAlerta({...alerta,severity:'error',estado:true,mensaje:eliminaRfc.replace('error','')})
+                setAlerta({severity:'error',mensaje:eliminaRfc.replace('error',''),vertical:'bottom',horizontal:'right'})
             } else {
                 rfcs.splice((rfcs.findIndex(rfc => rfc.rfcNum === rfcNum)), 1);
                 (parseInt(rfc.rfcNum) === rfcNum)?setRfc((rfcs.length > 0)?{rfc_num:rfcs[0].rfcNum,rfc:rfcs[0].rfc}:{rfc_num:'',rfc:''}):setRfcs([...rfcs])
-                setAlerta({...alerta,severity:'error',estado:true,mensaje:eliminaRfc.replace('correcto','')})
+                setAlerta({severity:'error',mensaje:eliminaRfc.replace('correcto',''),vertical:'bottom',horizontal:'right'})
             }
         })
     }
@@ -179,12 +179,14 @@ export default function Facturacion(props){
                 <Grid item xs={12} sm={8}>
                     <div>
                         <Box component="div" py={4} px={8}>
-                            <Process paso={1}/>
+                            {(data.hasOwnProperty('jsonResumen'))?                  
+                                <Process paso={1}/>:<Skeleton variant="text" animation="wave"/>
+                            }
                         </Box>
                         <Box component="div" p={2}>
                             <Divider light/> 
                             <Box component="div" pt={3}  mb={1}> 
-                                <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>2. Selecciona y/o añade los datos de facturación.</Typography>
+                                <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'2. Selecciona y/o añade los datos de facturación.':<Skeleton variant="text" animation="wave"/>}</Typography>
                             </Box>
                             <Box component="div" py={2} >
                                 <div className={classes.root}>
@@ -192,7 +194,8 @@ export default function Facturacion(props){
                                         <Grid item xs={12} >
                                             <Card className={classes.root} variant="outlined">
                                                 <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
-                                                    <Grid item xs={8} sm={8}>                 
+                                                    <Grid item xs={8} sm={8}> 
+                                                        {(data.hasOwnProperty('jsonResumen'))? 
                                                         <CardContent>
                                                             <Grid container alignItems="center" direction="row" justifyContent="flex-start" spacing={1}>
                                                                 <Grid item xs={4} sm={4}>
@@ -211,16 +214,24 @@ export default function Facturacion(props){
                                                                 </Grid>
                                                             </Grid> 
                                                         </CardContent>
+                                                        :
+                                                        <Skeleton variant="rectangular" height={80} animation="wave"/>
+                                                        }
                                                     </Grid> 
                                                     <Grid item xs={4} sm={4}>
+                                                        {(data.hasOwnProperty('jsonResumen'))? 
                                                         <CardActions>
                                                             <Button size="Large" fullWidth color="primary">Añadir Datos</Button>
                                                         </CardActions>
+                                                        :
+                                                        <Skeleton variant="rectangular" height={80} animation="wave"/>
+                                                        }
                                                     </Grid>   
                                                 </Grid>                      
                                             </Card>
                                         </Grid> 
                                         <Grid item xs={12} sm={12}>
+                                            {(data.hasOwnProperty('jsonResumen'))? 
                                             <Box component="div">
                                                 <FormControl component="fieldset" fullWidth>
                                                     <div className={classes.root}>
@@ -276,7 +287,7 @@ export default function Facturacion(props){
                                                                                                             <Typography variant="body1" color="textSecondary" gutterBottom>
                                                                                                                 Persona {(rfc.rfc.trim().length === 13)?`Física`:`Moral`}
                                                                                                             </Typography>
-                                                                                                            <Typography variant="body1" color="textSecondary" color="textSecondary">
+                                                                                                            <Typography variant="body1" color="textSecondary">
                                                                                                                 RFC: {rfc.rfc}
                                                                                                             </Typography>
                                                                                                         </CardContent> 
@@ -297,11 +308,9 @@ export default function Facturacion(props){
                                                                                                         </CardActions>
                                                                                                         
                                                                                                     </Box>
-
-
                                                                                                     }
                                                                                                 </Box>
-                                                                                            }
+                                                                                            }                                                                                            
                                                                                             control={<Radio id={rfc.rfc}/>} /> 
                                                                                         </Box>
                                                                                     </Card>   
@@ -313,15 +322,18 @@ export default function Facturacion(props){
                                                         </RadioGroup>
                                                     </div>
                                                 </FormControl>
-                                            </Box>    
+                                            </Box>
+                                            :
+                                            <Skeleton variant="rectangular"  height={150} animation="wave"/>
+                                            }    
                                         </Grid>
                                     </Grid>
                                 </div>
                             </Box>
                             <Box component="div" py={1}>
-                                <Typography variant="h6" component="h2" >Selecciona el uso y forma de pago de tu factura</Typography>
-                                    
+                                <Typography variant="h6" component="h2" >{(data.hasOwnProperty('jsonResumen'))?'Selecciona el uso y forma de pago de tu factura':<Skeleton animation="wave" />}</Typography>
                             </Box>
+                            {(data.hasOwnProperty('jsonResumen'))?
                             <Box component="div" py={2}>
                                 <FormControl variant="outlined" className={classes.formControl} focused required fullWidth>
                                     <InputLabel htmlFor="age-native-simple">Uso de CFDI </InputLabel>
@@ -343,6 +355,11 @@ export default function Facturacion(props){
                                     <FormHelperText>Requerido</FormHelperText>
                                 </FormControl>
                             </Box>
+                            :
+                            <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                            }
+                            <Divider light/>
+                            {(data.hasOwnProperty('jsonResumen'))? 
                             <Box component="div">
                                 <FormControl variant="outlined" className={classes.formControl} focused required fullWidth>
                                     <InputLabel htmlFor="age-native-simple">Forma de pago</InputLabel>
@@ -364,6 +381,9 @@ export default function Facturacion(props){
                                     <FormHelperText>Requerido</FormHelperText>
                                 </FormControl>
                             </Box>
+                            :
+                            <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                            }
                             {(notas.length > 0 )&&
                                 <NotasCredito notas={notas} salectOption={salectOption} aplicar={aplicar}/>
                             }  
@@ -371,13 +391,19 @@ export default function Facturacion(props){
                     </div>
                 </Grid>  
                 <Grid item xs={12} sm={4}>
+                    {(data.hasOwnProperty('jsonResumen'))?
+                    (!alerta.hasOwnProperty('severity'))&&
+                    <>
                     <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
-                    <Button variant="contained" fullWidth  size="large"
-                            color="primary" type="button" onClick={continuarCompra}>Continuar</Button>
+                    <Button variant="contained" fullWidth  size="large" color="primary" type="button" onClick={continuarCompra}>Continuar</Button>
+                    </>
+                    :
+                    <Skeleton variant="rectangular" height={400} animation="wave"/>
+                    }
                 </Grid>                 
             </Grid>
-            {(alerta.estado)&&
-                <Alertas estado={alerta.estado} severity={alerta.severity} vertical={alerta.vertical} horizontal={alerta.horizontal} mensaje={alerta.mensaje}/>
+            {(alerta.hasOwnProperty('severity'))&&
+                <Alertas setAlerta={setAlerta} alerta={alerta}/>
             }
         </Box>
     )
