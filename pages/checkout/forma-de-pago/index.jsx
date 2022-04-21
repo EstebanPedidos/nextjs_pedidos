@@ -2,26 +2,12 @@ import {useEffect, useState} from 'react';
 //next js
 import { useRouter } from 'next/router'
 //Material
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import makeStyles from '@mui/styles/makeStyles';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
-import Card from '@mui/material/Card';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-
-
+import {Radio,RadioGroup,FormControlLabel,FormControl,ListItemSecondaryAction,
+Box,Grid,Button,Avatar,Typography,Card,
+List,ListItem,ListItemText,ListItemAvatar,Skeleton} from '@mui/material'
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined'
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
+import makeStyles from '@mui/styles/makeStyles'
 //Componentes 
 import Resumen from '../Resumen';
 import Process from '../Process';
@@ -54,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Forma_de_pago(props){
+export default function Forma_de_pago(){
     const classes                           = useStyles()
     const router                            = useRouter()
     const [data,setData]                    = useState({})    
@@ -69,7 +55,7 @@ export default function Forma_de_pago(props){
     const max_cont_ent                      = (afiliado === 'S')?5000:1000    
 
     function salectOption({target}){
-        const {value,name,id} = target;
+        const {value,name} = target;
         if(name === 'forma_pago'){
             setFormaPago(value)
             setSubFormaPago('')
@@ -145,16 +131,19 @@ export default function Forma_de_pago(props){
     <Box component="div" m={2} className={classes.root}>
         <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-                <div>                  
-                    <Process paso={3}/>
+                <div>  
+                    {(data.hasOwnProperty('jsonResumen'))?                  
+                        <Process paso={3}/>:<Skeleton variant="text" animation="wave"/>
+                    }
                     <Box component="div" py={2}  className={classes.root}>
                         <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
                             <Grid item xs={12}>
-                            <Typography variant="h6" component="h1">4. Selecciona la forma de pago</Typography>
+                                <Typography variant="h6" component="h1">{(data.hasOwnProperty('jsonResumen'))?'4. Selecciona la forma de pago':<Skeleton animation="wave"/>}</Typography>
                             </Grid>
                         </Grid>
                     </Box>
-                    <Box m={1} >
+                    <Box m={1} >    
+                    {(data.hasOwnProperty('jsonResumen'))?                   
                         <FormControl component="fieldset" fullWidth>
                             <RadioGroup aria-label="gender" name="forma_pago" value={forma_pago} onChange={salectOption}>                           
                                 <List dense>
@@ -163,8 +152,7 @@ export default function Forma_de_pago(props){
                                             <Grid item xs={12}>
                                                 <Card variant="outlined">
                                                     <ListItem variant="outlined" button>
-                                                        <FormControlLabel value="linea" fullWidth label={
-                                                            
+                                                        <FormControlLabel value="linea" fullWidth label={                                                            
                                                             <Box component="div" py={2}>
                                                                 <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={8}>
                                                                     <Grid item xs={4}>
@@ -173,7 +161,6 @@ export default function Forma_de_pago(props){
                                                                         </ListItemAvatar>
                                                                     </Grid>
                                                                     <Grid item xs={8}>
-                                                                        {/* <Typography component="subtitle1">Paga en línea </Typography> */}
                                                                         <ListItemText id="list-label-payment-method" primary="Paga en línea"/>
                                                                     </Grid>
                                                                 </Grid>   
@@ -198,7 +185,6 @@ export default function Forma_de_pago(props){
                                                                         </ListItemAvatar>
                                                                     </Grid>
                                                                     <Grid item xs={8}>
-                                                                        {/* <Typography component="subtitle1">Paga al recibir</Typography> */}
                                                                         <ListItemText id="list-label-payment-method" primary="Paga al recibir"/>
                                                                     </Grid>
                                                                 </Grid>   
@@ -233,19 +219,23 @@ export default function Forma_de_pago(props){
                                     </div>
                                 </List>                  
                             </RadioGroup>
-                        </FormControl>  
+                        </FormControl> 
+                        :
+                        <Skeleton variant="rectangular" height={500} animation="wave"/>
+                        }
                     </Box>
                     {(forma_pago === 'linea') &&
                         <Box component="div" m={1}>
                             <Box component="div" py={2} >
                                 <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
                                     <Grid item xs={12}>
-                                        <Typography variant="h6" component="h2">Pago en línea</Typography>
-                                        <Typography variant="subtitle1" component="subtitle2">Selecciona la opción:</Typography>
+                                        <Typography variant="h6" component="h2">{(data.hasOwnProperty('jsonResumen'))?'Pago en línea':<Skeleton animation="wave"/>}</Typography>
+                                        <Typography variant="subtitle1" component="subtitle2">{(data.hasOwnProperty('jsonResumen'))?'Selecciona la opción:':<Skeleton animation="wave"/>}</Typography>
                                     </Grid>
                                 </Grid>
                             </Box>
                             <Box component="div" >
+                                {(data.hasOwnProperty('jsonResumen'))? 
                                 <FormControl component="fieldset" fullWidth>
                                     <RadioGroup aria-label="gender" name="sub_forma_pago" value={sub_forma_pago} onChange={salectOption}> 
                                         <List dense>
@@ -323,6 +313,9 @@ export default function Forma_de_pago(props){
                                         </List>
                                     </RadioGroup>
                                 </FormControl> 
+                                :
+                                <Skeleton variant="rectangular" height={500} animation="wave"/>
+                                }
                             </Box>
                         </Box>
                     }
@@ -373,8 +366,7 @@ export default function Forma_de_pago(props){
                                 </FormControl> 
                             </Box>
                         </Box>
-                    }
-                    
+                    }                    
                     {(forma_pago === 'transfer') &&
                         <Box m={1}>
                             <Box component="div" py={2} >
@@ -472,7 +464,9 @@ export default function Forma_de_pago(props){
                             </Box>
                         </Box>
                     }  
-                    {(sub_forma_pago !== '')?
+
+                    {(data.hasOwnProperty('jsonResumen'))&&
+                    (sub_forma_pago !== '')?
                         (sub_forma_pago === '7')?
                             <SDKPayPalBotones/>
                             :
@@ -486,8 +480,10 @@ export default function Forma_de_pago(props){
                 </div>
             </Grid>  
             <Grid item xs={12} sm={4}>
-                {(data.hasOwnProperty('jsonResumen'))&&
+                {(data.hasOwnProperty('jsonResumen'))?
                 <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                :
+                <Skeleton variant="rectangular" height={500} animation="wave"/>
                 }                
             </Grid>                 
         </Grid>

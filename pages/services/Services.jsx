@@ -49,7 +49,7 @@ function Services(metodo,url,json) {
         return axios.get(PATH+url,json);
     }
 
-    function getMetodPut(url,json){
+    async function getMetodPut(url,json){
         json.headers ={
             'Content-Type': 'application/json',
             'Access-control-Allow-Origin' : '*',
@@ -58,7 +58,7 @@ function Services(metodo,url,json) {
         return axios.put(PATH+url,json);
     }
 
-    function getMetodPut_not(url,json){
+    async function getMetodPut_not(url,json){
       return axios.put(PATH+url,json);
     }
 
