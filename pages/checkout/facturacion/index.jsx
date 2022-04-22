@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react';
 //next js
 import { useRouter } from 'next/router'
 //Material UI
-import {Box, Grid, Paper, Typography, Button, Select, Badge,
+import {Container, Box, Grid, Paper, Typography, Button, Select, Badge,
     Card, CardActions, CardContent, CardActionArea, FormControl,
     Avatar, Divider, Radio, RadioGroup, FormHelperText, FormControlLabel, InputLabel, Skeleton} from '@mui/material';
 
@@ -13,7 +13,8 @@ import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
 
 
 //Componentes 
-import Process from "../Process"
+import Header  from '../Header';
+import Process from "../Process";
 import NotasCredito from './NotasCredito';
 import Resumen from '../Resumen';
 import Eliminar from '../modals/Eliminar';
@@ -34,10 +35,10 @@ const useStyles = makeStyles((theme) => ({
       rootcard: {
         margin: theme.spacing(1),  
       },
-      cardv2:{ width:"100%", margin:"auto",},
+      cardv2:{ width:"95%", margin:"auto",},
       rootcardi: {
         margin: theme.spacing(1), 
-        height:'14rem', 
+        height:'14.5rem', 
       },
       mleftib: {
         marginLeft: theme.spacing(2),
@@ -187,236 +188,239 @@ export default function Facturacion(props){
     }
 
     return (
-        <Box component="div" m={2} className={classes.root}>
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={8}>
-                    <div>
-                        <Box component="div" py={4} px={8}>
-                            {(data.hasOwnProperty('jsonResumen'))?                  
-                                <Process paso={1}/>:<Skeleton variant="text" animation="wave"/>
-                            }
-                        </Box>
-                        <Box component="div" p={2}>
-                            <Divider light/> 
-                            <Box component="div" pt={3}  mb={1}> 
-                                <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'2. Selecciona y/o añade los datos de facturación.':<Skeleton variant="text" animation="wave"/>}</Typography>
+        <Box component="div">
+            <Header/>
+            <Container maxWidth="lg">
+            <Box component="div" mt={1}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={8}>
+                        <div>
+                            <Box component="div" pt={4}>
+                                {(data.hasOwnProperty('jsonResumen'))?                  
+                                    <Process paso={1}/>:<Skeleton variant="text" animation="wave"/>
+                                }
                             </Box>
-                            <Box component="div" py={2} >
-                                <div className={classes.root}>
-                                    <Grid container direction="row" justifyContent="center" alignItems="center"  spacing={2}>
-                                        <Grid item xs={12} >
-                                            <Card className={classes.root} variant="outlined">
-                                                <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
-                                                    <Grid item xs={8} sm={8}> 
-                                                        {(data.hasOwnProperty('jsonResumen'))? 
-                                                        <CardContent>
-                                                            <Grid container alignItems="center" direction="row" justifyContent="flex-start" spacing={1}>
-                                                                <Grid item xs={4} sm={4}>
-                                                                    <Box component="div" ml={4}>
-                                                                        <Avatar>
-                                                                            <AddOutlinedIcon />
-                                                                        </Avatar>
-                                                                    </Box>
-                                                                </Grid>
-                                                                <Grid item xs={4} sm={4}>  
-                                                                    <Box component="div"textAlign="left">
-                                                                        <Typography variant="h6" component="h2">
-                                                                            Nueva
-                                                                        </Typography>
-                                                                    </Box>
-                                                                </Grid>
-                                                            </Grid> 
-                                                        </CardContent>
-                                                        :
-                                                        <Skeleton variant="rectangular" height={80} animation="wave"/>
-                                                        }
-                                                    </Grid> 
-                                                    <Grid item xs={4} sm={4}>
-                                                        {(data.hasOwnProperty('jsonResumen'))? 
-                                                        <CardActions>
-                                                            <Button size="Large" fullWidth color="primary">Añadir Datos</Button>
-                                                        </CardActions>
-                                                        :
-                                                        <Skeleton variant="rectangular" height={80} animation="wave"/>
-                                                        }
-                                                    </Grid>   
-                                                </Grid>                      
-                                            </Card>
-                                        </Grid> 
-                                        <Grid item xs={12} sm={12}>
-                                            {(data.hasOwnProperty('jsonResumen'))? 
-                                            <Box component="div">
-                                                <FormControl component="fieldset" fullWidth>
-                                                    <div className={classes.root}>
-                                                        <RadioGroup name='rfc' value={rfc.rfc_num+''}  onChange={salectOption}>                                                     
-                                                            <Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
-                                                                    {
-                                                                        rfcs.map((rfc, index) => (  
-                                                                            <Grid item xs={12} sm={6}>
-                                                                                <Box component="div" key={index}>
-                                                                                    <Card className={classes.rootcardi} variant="outlined">  
-                                                                                        <Box component="div" >
-                                                                                            {(rfc.cantNotas > 0)&&
-                                                                                                <Box component="div" m={2} display="flex" justifyContent="flex-end"> 
-                                                                                                    <Typography variant="caption" display="block" color="primary" gutterBottom>
-                                                                                                        Notas de crédito
-                                                                                                    </Typography>
-                                                                                                    <Badge  className={classes.mleftib} badgeContent={rfc.cantNotas+''} color="primary">
-                                                                                                        <ReceiptOutlinedIcon color="textSecondary" />
-                                                                                                    </Badge>
-                                                                                                </Box>
-                                                                                            }
-                                                                                            <FormControlLabel fullWidth className={classes.cardv2} value={rfc.rfcNum+''} label={
-                                                                                                <Box component="div">
-                                                                                                    {(rfc.rfc === 'XAXX010101000')?  
-
-                                                                                                        <Box component="div"> 
+                            <Box component="div" p={1}>
+                                <Divider light/> 
+                                <Box component="div" pt={3}  mb={1}> 
+                                    <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'2. Selecciona y/o añade los datos de facturación.':<Skeleton variant="text" animation="wave"/>}</Typography>
+                                </Box>
+                                <Box component="div" py={2} >
+                                    <div className={classes.root}>
+                                        <Grid container direction="row" justifyContent="center" alignItems="center"  spacing={2}>
+                                            <Grid item xs={12} >
+                                                <Card className={classes.root} variant="outlined">
+                                                    <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
+                                                        <Grid item xs={8} sm={8}> 
+                                                            {(data.hasOwnProperty('jsonResumen'))? 
+                                                            <CardContent>
+                                                                <Grid container alignItems="center" direction="row" justifyContent="flex-start" spacing={1}>
+                                                                    <Grid item xs={4} sm={4}>
+                                                                        <Box component="div" ml={4}>
+                                                                            <Avatar>
+                                                                                <AddOutlinedIcon />
+                                                                            </Avatar>
+                                                                        </Box>
+                                                                    </Grid>
+                                                                    <Grid item xs={4} sm={4}>  
+                                                                        <Box component="div"textAlign="left">
+                                                                            <Typography variant="h6" component="h2">
+                                                                                Nueva
+                                                                            </Typography>
+                                                                        </Box>
+                                                                    </Grid>
+                                                                </Grid> 
+                                                            </CardContent>
+                                                            :
+                                                            <Skeleton variant="rectangular" height={80} animation="wave"/>
+                                                            }
+                                                        </Grid> 
+                                                        <Grid item xs={4} sm={4}>
+                                                            {(data.hasOwnProperty('jsonResumen'))? 
+                                                            <CardActions>
+                                                                <Button size="Large" fullWidth color="primary">Añadir Datos</Button>
+                                                            </CardActions>
+                                                            :
+                                                            <Skeleton variant="rectangular" height={80} animation="wave"/>
+                                                            }
+                                                        </Grid>   
+                                                    </Grid>                      
+                                                </Card>
+                                            </Grid> 
+                                            <Grid item xs={12} sm={12}>
+                                                {(data.hasOwnProperty('jsonResumen'))? 
+                                                <Box component="div">
+                                                    <FormControl component="fieldset" fullWidth>
+                                                        <div className={classes.root}>
+                                                            <RadioGroup name='rfc' value={rfc.rfc_num+''}  onChange={salectOption}>                                                     
+                                                                <Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
+                                                                        {
+                                                                            rfcs.map((rfc, index) => (  
+                                                                                <Grid item xs={6}>
+                                                                                    <Box component="div" key={index}>
+                                                                                        <Card className={classes.rootcardi} variant="outlined">  
+                                                                                            <Box component="div" >
+                                                                                                {(rfc.cantNotas > 0)&&
+                                                                                                    <Box component="div" m={2} display="flex" justifyContent="flex-end"> 
+                                                                                                        <Typography variant="caption" display="block" color="primary" gutterBottom>
+                                                                                                            Notas de crédito
+                                                                                                        </Typography>
+                                                                                                        <Badge  className={classes.mleftib} badgeContent={rfc.cantNotas+''} color="primary">
+                                                                                                            <ReceiptOutlinedIcon color="textSecondary" />
+                                                                                                        </Badge>
+                                                                                                    </Box>
+                                                                                                }
+                                                                                                <FormControlLabel fullWidth className={classes.cardv2} value={rfc.rfcNum+''} labelPlacement="end"  label={
+                                                                                                    <Box component="div">
+                                                                                                        {(rfc.rfc === 'XAXX010101000')?  
+                                                                                                        <Box component="div" py={2} > 
                                                                                                             <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>        
-                                                                                                                <Grid item xs={12}>
-                                                                                                                    <Box mx="auto" py={1}>
+                                                                                                                <Grid item xs={12} >
+                                                                                                                    <Box mx="auto" px={1}>
                                                                                                                         <Avatar className={classes.mxauto}>
                                                                                                                             <RemoveOutlinedIcon />
                                                                                                                         </Avatar>
                                                                                                                     </Box>
                                                                                                                 </Grid>
                                                                                                                 <Grid item xs={12}>
-                                                                                                                    <Box textAlign="center">
+                                                                                                                    <Box textAlign="center" p={1}>
                                                                                                                         <Typography variant="h6" component="h2">
                                                                                                                             Sin factura
                                                                                                                         </Typography>  
                                                                                                                     </Box>                         
                                                                                                                 </Grid>
                                                                                                             </Grid>
-                                                                                                        </Box> 
-                                                                                                    
-                                                                                                    :                       
-                                                                                                    <Box component="div">   
-                                                                                                        <CardContent> 
-                                                                                                            <Box component="div" mb={2} sx={{height:'60px'}}>
-                                                                                                                <Typography variant="subtitle1" component="h3" sx={{fontWeight:'500'}}>
-                                                                                                                    {rfc.razon.substring(0,27)}
+                                                                                                        </Box>  
+                                                                                                        :                       
+                                                                                                        <Box component="div">   
+                                                                                                            <CardContent> 
+                                                                                                                <Box component="div" mb={2} sx={{height:'60px'}}>
+                                                                                                                    <Typography variant="subtitle1" component="h3" sx={{fontWeight:'500'}}>
+                                                                                                                        {rfc.razon.substring(0,27)}
+                                                                                                                    </Typography>
+                                                                                                                </Box> 
+                                                                                                                <Typography variant="body1" color="textSecondary" gutterBottom>
+                                                                                                                    Persona {(rfc.rfc.trim().length === 13)?`Física`:`Moral`}
                                                                                                                 </Typography>
-                                                                                                            </Box> 
-                                                                                                            <Typography variant="body1" color="textSecondary" gutterBottom>
-                                                                                                                Persona {(rfc.rfc.trim().length === 13)?`Física`:`Moral`}
-                                                                                                            </Typography>
-                                                                                                            <Typography variant="body1" color="textSecondary">
-                                                                                                                RFC: {rfc.rfc}
-                                                                                                            </Typography>
-                                                                                                        </CardContent> 
-                                                                                                        {/* <Box component="div" >
-                                                                                                            <Divider variant="middle" light />
-                                                                                                        </Box> */}
-                                                                                                        <CardActions>
-                                                                                                            <Button size="small" fullWidth color="primary">
-                                                                                                            Detalles
-                                                                                                            </Button>
-                                                                                                            <Eliminar
-                                                                                                            Delete={Delete}
-                                                                                                            object={{rfc:rfc.rfc,rfcNum:rfc.rfcNum}}
-                                                                                                            ms_but={'Eliminar'}
-                                                                                                            titilo={'Eliminar RFC'}
-                                                                                                            mensaje={'Estás seguro de eliminar el RFC: '+rfc.rfc+'?'}
-                                                                                                            />
-                                                                                                        </CardActions>
-                                                                                                        
+                                                                                                                <Typography variant="body1" color="textSecondary">
+                                                                                                                    RFC: {rfc.rfc}
+                                                                                                                </Typography>
+                                                                                                            </CardContent> 
+                                                                                                            {/* <Box component="div" >
+                                                                                                                <Divider variant="middle" light />
+                                                                                                            </Box> */}
+                                                                                                            <CardActions>
+                                                                                                                <Button size="small" fullWidth color="primary">
+                                                                                                                Detalles
+                                                                                                                </Button>
+                                                                                                                <Eliminar
+                                                                                                                Delete={Delete}
+                                                                                                                object={{rfc:rfc.rfc,rfcNum:rfc.rfcNum}}
+                                                                                                                ms_but={'Eliminar'}
+                                                                                                                titilo={'Eliminar RFC'}
+                                                                                                                mensaje={'Estás seguro de eliminar el RFC: '+rfc.rfc+'?'}
+                                                                                                                />
+                                                                                                            </CardActions>
+                                                                                                            
+                                                                                                        </Box>
+                                                                                                        }
                                                                                                     </Box>
-                                                                                                    }
-                                                                                                </Box>
-                                                                                            }                                                                                            
-                                                                                            control={<Radio id={rfc.rfc}/>} /> 
-                                                                                        </Box>
-                                                                                    </Card>   
-                                                                                </Box>
-                                                                            </Grid>
-                                                                        ))                    
-                                                                    }                                                   
-                                                            </Grid>
-                                                        </RadioGroup>
-                                                    </div>
-                                                </FormControl>
-                                            </Box>
-                                            :
-                                            <Skeleton variant="rectangular"  height={150} animation="wave"/>
-                                            }    
+                                                                                                }                                                                                            
+                                                                                                control={<Radio id={rfc.rfc}/>} /> 
+                                                                                            </Box>
+                                                                                        </Card>   
+                                                                                    </Box>
+                                                                                </Grid>
+                                                                            ))                    
+                                                                        }                                                   
+                                                                </Grid>
+                                                            </RadioGroup>
+                                                        </div>
+                                                    </FormControl>
+                                                </Box>
+                                                :
+                                                <Skeleton variant="rectangular"  height={150} animation="wave"/>
+                                                }    
+                                            </Grid>
                                         </Grid>
-                                    </Grid>
-                                </div>
-                            </Box>
-                            <Box component="div" py={1}>
-                                <Typography variant="h6" component="h2" >{(data.hasOwnProperty('jsonResumen'))?'Selecciona el uso y forma de pago de tu factura':<Skeleton animation="wave" />}</Typography>
-                            </Box>
-                            {(data.hasOwnProperty('jsonResumen'))?
-                            <Box component="div" py={2}>
-                                <FormControl variant="outlined" className={classes.formControl} focused required fullWidth>
-                                    <InputLabel htmlFor="age-native-simple">Uso de CFDI </InputLabel>
-                                    <Select
-                                    native
-                                    value={cfdi}
-                                    onChange={salectOption}
-                                    label="Uso de CFDI"
-                                    inputProps={{
-                                        name: 'cfdi'
-                                    }}
-                                    >
-                                    {(cfdis.length > 0)&&
-                                        cfdis.map((cfdi, index) => (
-                                            <option value={cfdi.idUsu}>{cfdi.descripcion}</option>
-                                        ))
-                                    }                    
-                                    </Select>
-                                    <FormHelperText>Requerido</FormHelperText>
-                                </FormControl>
-                            </Box>
-                            :
-                            <Skeleton variant="rectangular"  height={80} animation="wave"/>
-                            }
-                            <Divider light/>
-                            {(data.hasOwnProperty('jsonResumen'))? 
-                            <Box component="div">
-                                <FormControl variant="outlined" className={classes.formControl} focused required fullWidth>
-                                    <InputLabel htmlFor="age-native-simple">Forma de pago</InputLabel>
-                                    <Select
-                                    native
-                                    value={pago}
-                                    onChange={salectOption}
-                                    label="Forma de pago"
-                                    inputProps={{
-                                        name: 'pago',
-                                    }}
-                                    >
-                                    {(pagos.length > 0)&&
-                                        pagos.map((pago, index) => (
-                                            <option value={pago.mpago}>{pago.descripcion}</option>
-                                        ))
-                                    }                    
-                                    </Select>
-                                    <FormHelperText>Requerido</FormHelperText>
-                                </FormControl>
-                            </Box>
-                            :
-                            <Skeleton variant="rectangular"  height={80} animation="wave"/>
-                            }
-                            {(notas.length > 0 )&&
-                                <NotasCredito notas={notas} salectOption={salectOption} aplicar={aplicar}/>
-                            }  
-                        </Box>          
-                    </div>
-                </Grid>  
-                <Grid item xs={12} sm={4}>
-                    {(data.hasOwnProperty('jsonResumen'))?
-                    (!alerta.hasOwnProperty('severity'))&&
-                    <>
-                    <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
-                    <Button variant="contained" fullWidth  size="large" color="primary" type="button" onClick={continuarCompra}>Continuar</Button>
-                    </>
-                    :
-                    <Skeleton variant="rectangular" height={400} animation="wave"/>
-                    }
-                </Grid>                 
-            </Grid>
+                                    </div>
+                                </Box>
+                                <Box component="div" py={1}>
+                                    <Typography variant="h6" component="h2" >{(data.hasOwnProperty('jsonResumen'))?'Selecciona el uso y forma de pago de tu factura':<Skeleton animation="wave" />}</Typography>
+                                </Box>
+                                {(data.hasOwnProperty('jsonResumen'))?
+                                <Box component="div" py={2}>
+                                    <FormControl variant="outlined" className={classes.formControl} focused required fullWidth>
+                                        <InputLabel htmlFor="age-native-simple">Uso de CFDI </InputLabel>
+                                        <Select
+                                        native
+                                        value={cfdi}
+                                        onChange={salectOption}
+                                        label="Uso de CFDI"
+                                        inputProps={{
+                                            name: 'cfdi'
+                                        }}
+                                        >
+                                        {(cfdis.length > 0)&&
+                                            cfdis.map((cfdi, index) => (
+                                                <option value={cfdi.idUsu}>{cfdi.descripcion}</option>
+                                            ))
+                                        }                    
+                                        </Select>
+                                        <FormHelperText>Requerido</FormHelperText>
+                                    </FormControl>
+                                </Box>
+                                :
+                                <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                                }
+                                <Divider light/>
+                                {(data.hasOwnProperty('jsonResumen'))? 
+                                <Box component="div">
+                                    <FormControl variant="outlined" className={classes.formControl} focused required fullWidth>
+                                        <InputLabel htmlFor="age-native-simple">Forma de pago</InputLabel>
+                                        <Select
+                                        native
+                                        value={pago}
+                                        onChange={salectOption}
+                                        label="Forma de pago"
+                                        inputProps={{
+                                            name: 'pago',
+                                        }}
+                                        >
+                                        {(pagos.length > 0)&&
+                                            pagos.map((pago, index) => (
+                                                <option value={pago.mpago}>{pago.descripcion}</option>
+                                            ))
+                                        }                    
+                                        </Select>
+                                        <FormHelperText>Requerido</FormHelperText>
+                                    </FormControl>
+                                </Box>
+                                :
+                                <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                                }
+                                {(notas.length > 0 )&&
+                                    <NotasCredito notas={notas} salectOption={salectOption} aplicar={aplicar}/>
+                                }  
+                            </Box>          
+                        </div>
+                    </Grid>  
+                    <Grid item xs={12} sm={4}>
+                        {(data.hasOwnProperty('jsonResumen'))?
+                        (!alerta.hasOwnProperty('severity'))&&
+                        <>
+                        <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                        <Button variant="contained" fullWidth  size="large" color="primary" type="button" onClick={continuarCompra}>Continuar</Button>
+                        </>
+                        :
+                        <Skeleton variant="rectangular" height={400} animation="wave"/>
+                        }
+                    </Grid>                 
+                </Grid>
+            </Box>
+            </Container>
             {(alerta.hasOwnProperty('severity'))&&
-                <Alertas setAlerta={setAlerta} alerta={alerta}/>
+                    <Alertas setAlerta={setAlerta} alerta={alerta}/>
             }
         </Box>
     )

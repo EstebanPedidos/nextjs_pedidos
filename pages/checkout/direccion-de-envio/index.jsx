@@ -11,7 +11,8 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 //Componentes 
 import Resumen from '../Resumen';
-import Process from "../Process"
+import Process from "../Process";
+import Header  from '../Header';
 import ConFactura from '../modals/ConFactura';
 import Eliminar from '../modals/Eliminar';
 import Alertas from '../Alertas';
@@ -23,19 +24,14 @@ const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
     },
-    logo: {
-        height:"1.5em",
-      },
+    
     rootCardA: {
         flexGrow: 1,
         height: "13rem",
       },
     textCardA: {
     height: "9rem",
-    
     },
-
-
     paper: {
       padding: theme.spacing(2),
       textAlign: 'left',
@@ -125,53 +121,42 @@ export default function Direccion_de_envio(props){
     return ( 
        
         <Box className={classes.root}>
-             <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" color="transparent" elevation={0} variant="outlined">
-                <Toolbar>
-                <Box component="div" sx={{ flexGrow: 1 }}>
-                    <Link to="/Home">
-                        <img alt='Pedidos.com' src='https://pedidos.com/myfotos/pedidos-com/pagina/header/pedidos-logo.svg' className={classes.logo} />
-                    </Link>
-                </Box>
-                <Button variant="outlined" color="primary" >Ayuda </Button>
-                </Toolbar>
-            </AppBar>
-            </Box>
+            <Header/>
             <Container maxWidth="lg">
-                <Box component="div" m={2} >
-                    <Grid container spacing={3}>
+                <Box component="div" mt={1}>
+                    <Grid container spacing={2}>
                         <Grid item xs={12} sm={8}>
                             <div>
-                                <Box component="div" py={4}>
+                                <Box component="div" pt={4}>
                                 {(data.hasOwnProperty('jsonResumen'))?                  
                                     <Process paso={0}/>:<Skeleton variant="text" animation="wave"/>
                                 }
                                 </Box>
-                                <Box component="div" p={2}>
+                                <Box component="div" p={1}>
                                     {(data.hasOwnProperty('jsonResumen'))?  
                                     <Box component="div" >
                                         <Paper elevation={0} className={classes.paper}>
-                                            <Box component="div" mb={1} className={classes.root}>
+                                            <Box component="div"className={classes.root}>
                                                 <Divider light />
-                                                <Box component="div" p={3} >
-                                                    <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={3}>
-                                                        <Grid item xs={1}>
+                                                <Box component="div" pt={3} >
+                                                    <Grid container direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
+                                                       {/*  <Grid item xs={1}>
                                                             <Box component="div" mx="auto">
                                                                 <Avatar className={classes.blue}>Ini</Avatar>
                                                             </Box>
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={11}>
-                                                            <Typography variant="h6" component="p" >
-                                                                <Box px={6}>
-                                                                    Nomcort
-                                                                </Box>
-                                                            </Typography>
+                                                            <Typography variant="h6" component="p"sx={{ fontWeight:'600'}} >
+                                                               {/*  <Box  px={6} > */}
+                                                                    Nomcort,
+                                                                {/* </Box> */}
+                                                            </Typography> 
                                                         </Grid>
                                                     </Grid>
                                                 </Box> 
-                                                <Divider light/> 
-                                                <Box component="div" pt={3}>                                           
-                                                    <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}} >1. Selecciona la forma de entrega.</Typography>
+                                                {/* <Divider light/>  */}
+                                                <Box component="div" pb={1}>                                           
+                                                    <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}} >1. Selecciona la forma de entrega:</Typography>
                                                 </Box>   
                                             </Box>
                                         </Paper>
@@ -188,24 +173,26 @@ export default function Direccion_de_envio(props){
                                                         <Card className={classes.root} variant="outlined">
                                                             <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
                                                                 <Grid item xs={8} sm={8}>                 
-                                                                    <CardContent>
-                                                                        <Grid container alignItems="center" direction="row" justifyContent="center" spacing={1}>
-                                                                            <Grid item xs={4} sm={3}>
-                                                                                <Box component="div">
-                                                                                    <Avatar>
-                                                                                        <AddOutlinedIcon />
-                                                                                    </Avatar>
-                                                                                </Box>
-                                                                            </Grid>
-                                                                            <Grid item xs={4} sm={6}>  
-                                                                                <Box component="div" textAlign="left">
-                                                                                    <Typography variant="h6" component="h2">
-                                                                                        A Domicilio
-                                                                                    </Typography>
-                                                                                </Box>
-                                                                            </Grid>
-                                                                        </Grid> 
-                                                                    </CardContent>
+                                                                    <Box component="div" ml={5}>
+                                                                        <CardContent>
+                                                                            <Grid container alignItems="center" direction="row" justifyContent="flex-start">
+                                                                                <Grid item xs={4} sm={2}>
+                                                                                    <Box component="div">
+                                                                                        <Avatar>
+                                                                                            <AddOutlinedIcon />
+                                                                                        </Avatar>
+                                                                                    </Box>
+                                                                                </Grid>
+                                                                                <Grid item xs={4} sm={7}>  
+                                                                                    <Box component="div" textAlign="left" ml={2}>
+                                                                                        <Typography variant="h6" component="h2">
+                                                                                            A Domicilio
+                                                                                        </Typography>
+                                                                                    </Box>
+                                                                                </Grid>
+                                                                            </Grid> 
+                                                                        </CardContent>
+                                                                    </Box>
                                                                 </Grid> 
                                                                 <Grid item xs={4} sm={4}>
                                                                     <CardActions>
@@ -225,37 +212,46 @@ export default function Direccion_de_envio(props){
                                             <RadioGroup name='direccion_envio' value={direccion.dir_num}  onChange={salectOption}>
                                             {(data.hasOwnProperty('jsonResumen'))&&
                                             (data.jsonResumen.resumen.entregaPickup !== '')&&
-                                                <div>
-                                                    <Card className={classes.root} variant="outlined">
-                                                    <CardActionArea>
-                                                        <Box component="div" mx={2}>
-                                                            <FormControlLabel sx={{ padding:"0px"}} value="0" labelPlacement="start" label={
-                                                                <Grid container direction="row" justifyContent="center" alignItems="center">
-                                                                    <CardContent>
-                                                                        <Box display="flex" justifyContent="space-between" >
-                                                                            <Box justifyContent="center" py={1}>
-                                                                                <Avatar>
-                                                                                    <StorefrontOutlinedIcon />
-                                                                                </Avatar>
-                                                                            </Box>                                                                
-                                                                            <Box component="div" pl={4}>
-                                                                                {(data.hasOwnProperty('jsonResumen'))&&
-                                                                                <Typography variant="h6" component="h2">
-                                                                                    {data.jsonResumen.resumen.entregaPickup} en PickUp Center
-                                                                                </Typography>
-                                                                                }
-                                                                                <Typography variant="body1" gutterBottom color="textSecondary">
-                                                                                    Alejandro Dumas 135, Polanco, 11550 CDMX.
-                                                                                </Typography>
-                                                                            </Box>
-                                                                        </Box>
-                                                                    </CardContent>
-                                                                </Grid>
-                                                            }
-                                                            control={<Radio row id="PickUP"/>}/> 
-                                                        </Box>                       
-                                                    </CardActionArea>                         
-                                                    </Card>                       
+                                                <div className={classes.root}>
+                                                    <Grid container direction="row" justifyContent="center" alignItems="center">
+                                                        <Grid item xs={12} >
+                                                            <Card className={classes.root} variant="outlined">
+                                                                <Box component="div" ml={1}>
+                                                                    <CardActionArea>
+                                                                        <FormControlLabel sx={{ padding:"0px"}} value="0" label={
+                                                                            <Grid container direction="row" justifyContent="center" alignItems="center">
+                                                                                <CardContent>
+                                                                                        <Grid container alignItems="center" direction="row" justifyContent="flex-start">
+                                                                                            <Grid item xs={4} sm={2}>
+                                                                                                <Box justifyContent="center" py={1}>
+                                                                                                    <Avatar>
+                                                                                                        <StorefrontOutlinedIcon />
+                                                                                                    </Avatar>
+                                                                                                </Box> 
+                                                                                            </Grid>
+                                                                                            <Grid item xs={8} sm={10}>  
+                                                                                                <Box component="div">
+                                                                                                    {(data.hasOwnProperty('jsonResumen'))&&
+                                                                                                    <Typography variant="h6" component="h2">
+                                                                                                        {data.jsonResumen.resumen.entregaPickup} en PickUp Center
+                                                                                                    </Typography>
+                                                                                                    }
+                                                                                                    <Typography variant="body1" gutterBottom color="textSecondary">
+                                                                                                        Alejandro Dumas 135, Polanco, 11550 CDMX.
+                                                                                                    </Typography>
+                                                                                                </Box>
+                                                                                            </Grid>
+                                                                                        </Grid> 
+                                                                                </CardContent>
+                                                                            </Grid>
+                                                                        }
+                                                                        labelPlacement="end"
+                                                                        control={<Radio row id="PickUP"/>}/>                 
+                                                                    </CardActionArea>
+                                                                </Box>                         
+                                                            </Card> 
+                                                        </Grid>
+                                                    </Grid>                      
                                                 </div>
                                             }
                                             
@@ -275,7 +271,7 @@ export default function Direccion_de_envio(props){
                                                                         <>
                                                                             <CardContent className={classes.textCardA} >                                        
                                                                                 <Typography variant="subtitle1" component="h3" sx={{fontWeight:'500'}}>
-                                                                                        {direccion.nombreDireccion.substring(0, 30)}
+                                                                                    {direccion.nombreDireccion.substring(0, 30)}
                                                                                 </Typography>
                                                                                 <Typography variant="body1" gutterBottom color="textSecondary">
                                                                                     {direccion.direccion.substring(0, 57)}
@@ -284,7 +280,7 @@ export default function Direccion_de_envio(props){
                                                                         </>                                        
                                                                         
                                                                     }
-                                                                    labelPlacement="start"
+                                                                    labelPlacement="end"
                                                                     control={<Radio id={(direccion.observacion.trim() === '')?'':direccion.observacion.replace('Á','A').replace('É','E').replace('Í','I').replace('Ó','O').replace('Ú','U').replace('á','a').replace('é','e').replace('í','i').replace('ó','o').replace('ú','u').replace('Ñ','N').replace('ñ','n').replace(/ /g, "%20").substr(0,50)}/>} />
                                                                 </Box>
                                                                 <Box component="div" >
@@ -334,8 +330,7 @@ export default function Direccion_de_envio(props){
                             <Alertas setAlerta={setAlerta} alerta={alerta}/>
                         } 
                 </Box> 
-            </Container>
-                     
+            </Container>         
         </Box>
     );
 }
