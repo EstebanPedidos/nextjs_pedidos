@@ -15,8 +15,7 @@ export default function Home() {
         Header
       </nav>
 
-      <main className={styles.main}>
-        <Typography variant='h1' color='primary'>prueba MUI lista</Typography>
+      
 
 			<main className={styles.main}>
 				<Typography variant='h1' color='primary'>
