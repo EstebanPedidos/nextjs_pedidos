@@ -1,0 +1,1 @@
+export { LogoPedidos } from './LogoPedidos'

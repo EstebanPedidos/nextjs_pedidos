@@ -1,0 +1,1 @@
+export const logoUrl = 'https://pedidos.com/myfotos/pedidos-com/pagina/header/pedidos-logo.svg'
