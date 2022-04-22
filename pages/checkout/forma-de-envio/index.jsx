@@ -7,6 +7,7 @@ import {Radio,RadioGroup,FormControlLabel,CardContent,
        FormControl,Box,Grid,Button,Avatar,Divider,
        Typography,Card,List,ListItem,ListItemText,
        ListItemSecondaryAction,ListItemAvatar, Alert, AlertTitle,Stack } from '@mui/material';
+       import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 //Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/swiper-bundle.min.css'
@@ -167,6 +168,14 @@ export default function Forma_de_envio(props){
             setPrecioEnvio(id)
         }
     }
+    const imgpaqueterias ={ 
+        DHL:'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/paqueterias/dhl.svg',
+        IVOYDCM:'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/paqueterias/ivoy.png',
+        FedEx:'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/paqueterias/fedex.svg',
+        FedExE:'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/paqueterias/fedex.svg',
+        Estafeta:'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/paqueterias/estafeta.svg',
+
+    }
     return (
     <Box component="div" m={2} className={classes.root}>
         <Grid container spacing={3}>
@@ -286,7 +295,7 @@ export default function Forma_de_envio(props){
                                                                             </Grid>
                                                                             <Grid item xs={5} sm={4}>    
                                                                                 <ListItemText id="list-label-horario-programad" ml={8} sx={{width:'150px'}} primary={
-                                                                                <Typography  className={classes.titleTypeS} variant="subtitle1">
+                                                                                <Typography className={classes.titleTypeS} variant="subtitle1">
                                                                                    Paquetería </Typography> 
                                                                                 } />             
                                                                                 
@@ -491,17 +500,36 @@ export default function Forma_de_envio(props){
                             <Box m={1}>
                                 {(data.hasOwnProperty('jsonResumen'))&&
                                 (data.jsonResumen.resumen.peso > 199 || data.jsonResumen.resumen.pesoVolumetrico > 199 || 
-                                data.jsonResumen.resumen.costoEnvio === -1 || data.jsonResumen.resumen.costoEnvio === -2)?
-                                <div>
-                                    <p>
-                                    {(data.jsonResumen.resumen.costoEnvio === -2)?
-                                    `Dirección fuera de cobertura`:`¡Pedido demasiado pesado!`
-                                    }
-                                    </p>
-                                    <p>Llámanos para cotizar el precio de tu envío</p>
-                                    <p>5015-8100 | 018008138181</p> 
-                                    <a>Llamar</a>
-                                </div>
+                                data.jsonResumen.resumen.costoEnvio === -1 || data.jsonResumen.resumen.costoEnvio === -2
+                                )?
+
+                                <Box sx={{
+                                    margin: 'auto',
+                                    width: 350,
+                                    height: 350,
+                                   textAlign:'center',
+                                    
+                                  }}>
+                                    <Inventory2OutlinedIcon sx={{
+                                    marginTop: '1rem',
+                                    marginBottom: '1rem',
+                                    color:'rgba(166, 173, 185, 0.48)',
+                                    fontSize: '6rem',
+                                   textAlign:'center',
+
+                                    
+                                  }} color="textSecondary" />
+                                    <Box component="div" pb={2}>
+                                        <Typography variant="h6">
+                                        {(data.jsonResumen.resumen.costoEnvio === -2)?
+                                        `Dirección fuera de cobertura`:`¡Pedido demasiado pesado!`
+                                        }
+                                        </Typography>
+                                        <Typography variant="subtitle1" color="textSecondary">Llámanos para cotizar el precio de tu envío</Typography>
+                                        <Typography variant="subtitle1" color="textSecondary">5015-8100 | 018008138181</Typography> 
+                                    </Box>
+                                    <Button variant="outlined" fullWidth>Llamar</Button>
+                                </Box>
                                 :
                                 <FormControl fullWidth component="fieldset">
                                     <RadioGroup aria-label="gender" name="paqueteria" value={paqueteria} onChange={salectOption}>  
@@ -519,7 +547,10 @@ export default function Forma_de_envio(props){
                                                                                 <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={8}>
                                                                                     <Grid item xs={3}>
                                                                                         <ListItemAvatar className={classes.shippingType} >
-                                                                                            <Avatar className={classes.shippingTypeimg} variant="rounded"  alt="Shippingt" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/paqueterias/ivoy.png" />
+                                                                                            <Avatar className={classes.shippingTypeimg} variant="rounded"  alt="Shippingt" src={
+                                                                                                imgpaqueterias[key]
+                                                                                                
+                                                                                            } />
                                                                                         </ListItemAvatar>                                                                                    
                                                                                     </Grid>
                                                                                     <Grid item xs={4}>                 
@@ -554,9 +585,7 @@ export default function Forma_de_envio(props){
                             </Box>
                         </Box>
                         }
-                        {(alerta.hasOwnProperty('severity'))&&
-                            <Alertas setAlerta={setAlerta} alerta={alerta}/>
-                        }
+                        
                     </Box>
                 </div>
             </Grid>  
@@ -569,6 +598,9 @@ export default function Forma_de_envio(props){
                 }
             </Grid>                 
         </Grid>        
+        {(alerta.hasOwnProperty('severity'))&&
+                            <Alertas setAlerta={setAlerta} alerta={alerta}/>
+        }
     </Box>
     )
 }
