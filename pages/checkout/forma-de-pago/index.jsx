@@ -8,6 +8,7 @@ import {Radio,RadioGroup,FormControlLabel,FormControl,
         Box,Grid,Button,Avatar,Typography,Card, Divider,Skeleton} from '@mui/material'
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
+import LoadingButton from '@mui/lab/LoadingButton';
 import makeStyles from '@mui/styles/makeStyles'
 //Componentes 
 import Resumen from '../Resumen';
@@ -61,10 +62,8 @@ export default function Forma_de_pago(){
     const [sub_forma_pago,setSubFormaPago]  = useState('1')
     const [clientToken,setClientToken]      = useState({clienteToken:'',getPaymentTokens:[]})
     const [tajetaSave,setTarjetaSave]       = useState({id:'nueva'})
-    const cliente                           = 839494
-    const usuario                           = 168020
-    const afiliado                          = 'S'
-    const max_cont_ent                      = (afiliado === 'S')?5000:1000    
+    const [max_cont_ent,setMaxCE]           = useState(1000)
+    const [loading,setLoading]              = useState(false) 
 
     function salectOption({target}){
         const {value,name} = target;
@@ -78,6 +77,7 @@ export default function Forma_de_pago(){
         }
     }
     function continuarCompra(){
+        setLoading(true)
         if(sub_forma_pago !== ''){
             (sub_forma_pago === '5')?
             Services('PUT-NOT','/registrov2/getOrderPayPalOXXO',{
@@ -87,34 +87,37 @@ export default function Forma_de_pago(){
                 let linkOxxo = response.data
                 if(linkOxxo !== ''){
                     guardaFormaDePago(linkOxxo) 
-                }                           
+                } else{
+                    setLoading(false)
+                }                         
             }): guardaFormaDePago(''); 
         }
         
     }
 
-    function guardaFormaDePago(linkOxxo){
-        
+    function guardaFormaDePago(linkOxxo){        
         Services('PUT-NOT','/registrov2/registraFormaPagoTv',{
             pedido_num:localStorage.getItem('Pedido'),
-            cliente_num:cliente,
+            cliente_num:localStorage.getItem('Cliente'),
             fp_num:sub_forma_pago
-        }).then( response =>{
+        }).then( response =>{            
             let mensaje = response.data
             if( mensaje === "Agregado" || mensaje === "Actualizado"){
                 if(sub_forma_pago === '3' || sub_forma_pago === '4' ){
                     router.push('/checkout/confirmacion-de-pago')
                 }else if(sub_forma_pago === '2'){
-                   /* ShoppingCartServices.guardaPagoAlRecibir(data.pedido_num,data.Cliente,data.jsonResumen.resumen.shipVia,data.sub_forma_pago)
+                    ShoppingCartServices.guardaPagoAlRecibir(localStorage.getItem('Pedido'),localStorage.getItem('Cliente'),data.jsonResumen.resumen.shipVia,sub_forma_pago)
                     .then( response =>{
                         let mensajeRecibir = response.data
                         if(mensajeRecibir === 'ok'){
                             router.push('/checkout/confirmacion-de-pago')
+                        }else{
+                            setLoading(false)
                         }
-                    })*/
+                    })
                 }else if(sub_forma_pago === '5'){
                     window.open(linkOxxo,'','width=800,height=550,left=300,top=100,toolbar=yes')
-                    setTimeout(router.push('/checkout/confirmacion-de-pago'),1000000)
+                    setTimeout(router.push('/checkout/confirmacion-de-pago'),5000000)
                 }
             }
         })
@@ -122,19 +125,43 @@ export default function Forma_de_pago(){
 
     useEffect(()=>{
         const getData = async () =>{
-            let cust_num     = await (cliente-1)
-            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=4',{})
-            let json         = await services.data  
-            let token        = await Services('POST','/registrov2/clientetoken?cust_num='+cust_num,{})
-            let cliente      = await token.data 
-            setData({jsonResumen:json})
-            setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
-            let tarjetas         = await cliente.getPaymentTokens
-            let getPaymentTokens = await JSON.parse(tarjetas)
-            setClientToken({clienteToken:cliente.clienteToken,getPaymentTokens:getPaymentTokens})
-            if(getPaymentTokens.length > 0){
-                setTarjetaSave({...tajetaSave,id:getPaymentTokens[0].id}) 
-            }
+            let cliente           = await localStorage.getItem('Cliente')
+            let afiliado          = await localStorage.getItem('afiliado') 
+            if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
+                if(parseInt(cliente) !== 201221){
+                    let pedido       = await localStorage.getItem('Pedido')
+                    if(pedido !== undefined && pedido !== null){
+                        let cust_num     = await (cliente-1)
+                        let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=4',{})
+                        let json         = await services.data  
+                        if(json.resumen.estatus === 'R' && json.resumen.pvse === 'N'){
+                            if(json.resumen.costoEnvio > 0 || json.resumen.envio.tipo !== ''){
+                                let token        = await Services('POST','/registrov2/clientetoken?cust_num='+cust_num,{})
+                                let cliente      = await token.data 
+                                setData({jsonResumen:json})
+                                setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
+                                let tarjetas         = await cliente.getPaymentTokens
+                                let getPaymentTokens = await JSON.parse(tarjetas)
+                                setClientToken({clienteToken:cliente.clienteToken,getPaymentTokens:getPaymentTokens})
+                                if(getPaymentTokens.length > 0){
+                                    setTarjetaSave({...tajetaSave,id:getPaymentTokens[0].id}) 
+                                }
+                                setMaxCE((afiliado === 'S')?5000:1000)
+                            }else{
+                                router.push('/checkout/forma-de-envio')
+                            }
+                        }else{
+                            router.push('/misPedidos')
+                        }
+                    }else{
+                        router.push('/')
+                    } 
+                }else{
+                    router.push('/')
+                } 
+            }else{
+                router.push('/')
+            } 
         }
         getData()
     },[])
@@ -524,7 +551,13 @@ export default function Forma_de_pago(){
                                 (sub_forma_pago === '1')?
                                 <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave}/>
                                 :
-                                <Button variant="contained" fullWidth  size="large" color="secondary" type="button" onClick={continuarCompra}>Finalizar</Button>
+                                <LoadingButton variant="contained" fullWidth  size="large" color="secondary" type="button"
+                                onClick={continuarCompra}
+                                loading={loading}
+                                loadingIndicator="Cargando..."
+                                >
+                                    Finalizar
+                                </LoadingButton>
                             :
                             null
                         } 

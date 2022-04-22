@@ -5,12 +5,11 @@ import { useRouter } from 'next/router'
 import {Container, Box, Grid, Paper, Typography, Button, Select, Badge,
     Card, CardActions, CardContent, CardActionArea, FormControl,
     Avatar, Divider, Radio, RadioGroup, FormHelperText, FormControlLabel, InputLabel, Skeleton} from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
-import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
+import makeStyles from '@mui/styles/makeStyles'
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
-
+import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 //Componentes 
 import Header  from '../Header';
@@ -67,36 +66,53 @@ export default function Facturacion(props){
     const [rfcs,setRfcs]            = useState([])
     const [aplicar,setAplicar]      = useState([])
     const [alerta,setAlerta]        = useState({})
-    const cliente                   = 839494
-    const usuario                   = 168020
-    const afiliado                  = 'S'
+    const [loading,setLoading]      = useState(false)
 
     useEffect(()=>{
         const getData = async () => {
-            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=2',{})
-            let json         = await services.data  
-            let total        = await ((json.resumen.subtotal+json.resumen.costoEnvio)-json.nc.montoNc)
-            let jsonP        = await Services('POST','/miCuenta/obtieneMPago',{})
-            let pagos        = await jsonP.data 
-            let rfc_ini      = ((await json.facturas.length) > 0)?json.facturas[1]:rfc
-            let tipoPersona  = (rfc_ini.rfc.length === 13)?'fisica':'moral';
-            let jsonC        = await Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
-            let cfdis        = await jsonC.data 
-            let notas        = []   
-            if(json.facturas.length > 0){
-                let jsonN    = await Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+cliente+'&rfc='+rfc_ini.rfc+'&total='+total,{})
-                    notas    = await jsonN.data                 
-            }
-            setData({jsonResumen:json})  
-            setTotal(total)
-            setPagos(pagos) 
-            setCfdis(cfdis) 
-            setNotas(notas)
-            setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
-            setRfc({rfc_num:rfc_ini.rfcNum,rfc:rfc_ini.rfc})
-            setCfdi((cfdis.length > 0)?cfdis[0].idUsu:'')
-            setPago((pagos.length > 0)?pagos[0].mpago:'')
-            setRfcs(json.facturas)
+            let cliente           = await localStorage.getItem('Cliente')
+            let afiliado          = await localStorage.getItem('afiliado') 
+            if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
+                if(parseInt(cliente) !== 201221){
+                    let pedido       = await localStorage.getItem('Pedido')
+                    if(pedido !== undefined && pedido !== null){
+                        let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=2',{})
+                        let json         = await services.data  
+                        if(json.resumen.estatus === 'R' && json.resumen.pvse === 'N'){
+                            let total        = await ((json.resumen.subtotal+json.resumen.costoEnvio)-json.nc.montoNc)
+                            let jsonP        = await Services('POST','/miCuenta/obtieneMPago',{})
+                            let pagos        = await jsonP.data 
+                            let rfc_ini      = ((await json.facturas.length) > 0)?json.facturas[1]:rfc
+                            let tipoPersona  = (rfc_ini.rfc.length === 13)?'fisica':'moral';
+                            let jsonC        = await Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
+                            let cfdis        = await jsonC.data 
+                            let notas        = []   
+                            if(json.facturas.length > 0){
+                                let jsonN    = await Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+cliente+'&rfc='+rfc_ini.rfc+'&total='+total,{})
+                                    notas    = await jsonN.data                 
+                            }
+                            setData({jsonResumen:json,pedido:pedido})  
+                            setTotal(total)
+                            setPagos(pagos) 
+                            setCfdis(cfdis) 
+                            setNotas(notas)
+                            setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
+                            setRfc({rfc_num:rfc_ini.rfcNum,rfc:rfc_ini.rfc})
+                            setCfdi((cfdis.length > 0)?cfdis[0].idUsu:'')
+                            setPago((pagos.length > 0)?pagos[0].mpago:'')
+                            setRfcs(json.facturas)
+                        }else{
+                            ruter.push('/misPedidos')
+                        }  
+                    }else{
+                        ruter.push('/')
+                    } 
+                }else{
+                    ruter.push('/')
+                } 
+            }else{
+                ruter.push('/')
+            } 
         }
         getData()
     },[])
@@ -105,7 +121,7 @@ export default function Facturacion(props){
         const {value,name,id} = target;
         if(name === 'rfc'){
             let tipoPersona = (id.length === 13)?'fisica':'moral';
-            Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+cliente+'&rfc='+id+'&total='+total,{})
+            Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+localStorage.getItem('Cliente')+'&rfc='+id+'&total='+total,{})
             .then( response =>{
                 let notas = response.data               
                 Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
@@ -135,13 +151,14 @@ export default function Facturacion(props){
     }
 
     async function continuarCompra(){
+        setLoading(true)
         if(rfc.rfc !== ''){
             if(cfdi !== ''){
                 if(pago !== ''){
                     let nota_aplicar = ((await aplicar.length) > 0)?aplicar.toString():'N'
                     if(nota_aplicar !== ''){
-                        Services('PUT','/carritoyreservado/actualizaRFC?clienteNum='+cliente+'&pedidoNum='+localStorage.getItem('Pedido')+'&rfcNum='+rfc.rfc_num+'&ejecutivo=0&cfdi='+cfdi+'&pago='+pago+'&notas='+nota_aplicar,{})
-                        .then( response =>{
+                        Services('PUT','/carritoyreservado/actualizaRFC?clienteNum='+localStorage.getItem('Cliente')+'&pedidoNum='+localStorage.getItem('Pedido')+'&rfcNum='+rfc.rfc_num+'&ejecutivo=0&cfdi='+cfdi+'&pago='+pago+'&notas='+nota_aplicar,{})
+                        .then( response =>{                            
                             let mensaje = response.data
                             if (mensaje.indexOf("Error") == -1) {
                                 if(data.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP'){
@@ -152,29 +169,35 @@ export default function Facturacion(props){
                             } else {
                                 if (mensaje == "Error PvsE"){
                                     setAlerta({severity:'error',mensaje:'Tu pedido es pago al recibir: No puede modificarse',vertical:'bottom',horizontal:'right'})
+                                    setLoading(false)
                                 } else if (mensaje == "Error factura"){
                                     setAlerta({severity:'error',mensaje:'Tu pedido esta facturado: No puede modificarse',vertical:'bottom',horizontal:'right'})
+                                    setLoading(false)
                                 } else {
                                     setAlerta({severity:'error',mensaje:'Algo salió mal: Intenta de nuevo',vertical:'bottom',horizontal:'right'})
+                                    setLoading(false)
                                 }
                             }
                         })
                     }else{
                         setAlerta({severity:'error',mensaje:'Error al seleccionar NC',vertical:'bottom',horizontal:'right'})
+                        setLoading(false)
                     }                    
                 }else{
                     setAlerta({severity:'error',mensaje:'Se requiere seleccionar un meto de Pago',vertical:'bottom',horizontal:'right'})
+                    setLoading(false)
                 }
             }else{
                 setAlerta({severity:'error',mensaje:'Se requiere seleccionar un CFDI',vertical:'bottom',horizontal:'right'})
             }           
         }else{
             setAlerta({severity:'error',mensaje:'Se requiere seleccionar un RFC',vertical:'bottom',horizontal:'right'})
+            setLoading(false)
         }       
     }
 
     function Delete({rfc,rfcNum}){
-        Services('POST','/miCuenta/eliminaRfc?rfcNum='+rfcNum+'&rfc='+rfc+'&clienteNum='+cliente,{})
+        Services('POST','/miCuenta/eliminaRfc?rfcNum='+rfcNum+'&rfc='+rfc+'&clienteNum='+localStorage.getItem('Cliente'),{})
         .then( response =>{
             let eliminaRfc = response.data
             if(eliminaRfc.indexOf('error') !== -1) {
@@ -410,7 +433,13 @@ export default function Facturacion(props){
                         (!alerta.hasOwnProperty('severity'))&&
                         <>
                         <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
-                        <Button variant="contained" fullWidth  size="large" color="primary" type="button" onClick={continuarCompra}>Continuar</Button>
+                        <LoadingButton variant="contained" fullWidth  size="large" color="primary" type="button"
+                        onClick={continuarCompra}
+                        loading={loading}
+                        loadingIndicator="Cargando..."
+                        >
+                            Continuar
+                        </LoadingButton>
                         </>
                         :
                         <Skeleton variant="rectangular" height={400} animation="wave"/>

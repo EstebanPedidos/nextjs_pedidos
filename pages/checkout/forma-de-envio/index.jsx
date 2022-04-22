@@ -6,8 +6,9 @@ import makeStyles from '@mui/styles/makeStyles';
 import {Radio,RadioGroup,FormControlLabel,CardContent,
        FormControl,Box,Grid,Button,Avatar,Divider,
        Typography,Card,List,ListItem,ListItemText,
-       ListItemSecondaryAction,ListItemAvatar, Alert, AlertTitle,Stack } from '@mui/material';
-       import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+       ListItemSecondaryAction,ListItemAvatar, Alert, AlertTitle,Stack,Skeleton } from '@mui/material';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import LoadingButton from '@mui/lab/LoadingButton';
 //Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/swiper-bundle.min.css'
@@ -77,62 +78,93 @@ export default function Forma_de_envio(props){
     const [tipo_hora,setTipoHora]           = useState('Abierto')
     const [paqueteria,setPaqueteria]        = useState('-')
     const [alerta,setAlerta]                = useState({})
-    const [open, setOpen]                   = useState(false);
-    const cliente                           = 839494
-    const usuario                           = 168020
-    const afiliado                          = 'S'
+    const [loading,setLoading]              = useState(false)
     
     useEffect(()=>{
         const getData = async ()=>{
-            let pedido       = await localStorage.getItem('Pedido')
-            let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=3',{})
-            let json         = await services.data 
-            let fe           = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?'Programada':'2':'2'
-            let fhe          = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].fecha.replace(' de ','-').replace(' ','-'):'-':'-'
-            let h            = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].horarios:[]:[]
-            setData({jsonResumen:json,pedido:pedido})
-            setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:parseInt(json.resumen.ejecutivo)}:{ejecutivo:'', slmn:0})
-            setFormaEnvio(fe)
-            setFechaEnvio(fhe)
-            setHorarios(h)
+            let cliente           = await localStorage.getItem('Cliente')
+            let afiliado          = await localStorage.getItem('afiliado') 
+            if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
+                if(parseInt(cliente) !== 201221){
+                    let pedido       = await localStorage.getItem('Pedido')
+                    if(pedido !== undefined && pedido !== null){
+                        let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=3',{})
+                        let json         = await services.data 
+                        if(json.resumen.estatus === 'R' && json.resumen.pvse === 'N'){
+                            if(json.resumen.direccion.nombreDireccion !== 'PickUP'){
+                                let fe           = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?'Programada':'2':'2'
+                                let fhe          = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].fecha.replace(' de ','-').replace(' ','-'):'-':'-'
+                                let h            = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].horarios:[]:[]
+                                setData({jsonResumen:json,pedido:pedido})
+                                setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:parseInt(json.resumen.ejecutivo)}:{ejecutivo:'', slmn:0})
+                                setFormaEnvio(fe)
+                                setFechaEnvio(fhe)
+                                setHorarios(h)
+                            }else{
+                                router.push('/checkout/forma-de-pago')
+                            }
+                        }else{
+                            router.push('misPedidos')
+                        }                        
+                    }else{
+                        router.push('/') 
+                    }
+                }else{
+                    router.push('/')
+                }
+            }else{
+                router.push('/')
+            }          
         }
-        getData()
+        getData()        
     },[])
 
     async function continuarCompra(){
-        if(forma_envio === '2' && paqueteria === '-'){
-            setAlerta({severity:'error',mensaje:'Selecciona una paqueteria',vertical:'bottom',horizontal:'right'})
-            return
-        }
-        let json = await {
-            clienteNum:cliente,
-            pedidoNum:localStorage.getItem('Pedido'),
-            paq:paqueteria,
-            paqPrecio:precio_envio,
-            tipoHora:tipo_hora,
-            fecha:horario_envio,
-            hora:fecha_envio,
-            tipoHoraPrecio:precio_envio,
-            ejecutivo:ejecutivo.slmn,
-            shipVia:data.jsonResumen.resumen.shipVia
-        }
-        Services('PUT-NOT','/carritoyreservado/actualizaPagos',json)        
-        .then( response =>{
-            let mensaje = response.data
-            if (mensaje.indexOf("Error") == -1) {
-                router.push('/checkout/forma-de-pago')
-            }else {
-                if(mensaje == "Error PvsE"){
-                    setAlerta({severity:'error',mensaje:'Tu pedido es pago al recibir: No puede modificarse',vertical:'bottom',horizontal:'right'})
-                    router.push('/Soho/Micuenta/misPedidos')
-                }else if (mensaje == "Error factura"){
-                    setAlerta({severity:'error',mensaje:'Tu pedido esta facturado: No puede modificarse',vertical:'bottom',horizontal:'right'})
-                    router.push('/Soho/Micuenta/misPedidos')
-                }else {
-                    setAlerta({severity:'error',mensaje:'Algo salió mal: Intenta de nuevo',vertical:'bottom',horizontal:'right'})
+        setLoading(true)
+        let cliente      = await localStorage.getItem('Cliente')
+        let pedido       = await localStorage.getItem('Pedido')
+        if(pedido !== undefined && pedido !== null && cliente !== undefined && cliente !== null){
+            if(parseInt(cliente) !== 201221){
+                if(forma_envio === '2' && paqueteria === '-'){
+                    setAlerta({severity:'error',mensaje:'Selecciona una paqueteria',vertical:'bottom',horizontal:'right'})
+                    setLoading(false)
+                    return
                 }
+
+                let json = await {
+                    clienteNum:localStorage.getItem('Cliente'),
+                    pedidoNum:localStorage.getItem('Pedido'),
+                    paq:paqueteria,
+                    paqPrecio:precio_envio,
+                    tipoHora:tipo_hora,
+                    fecha:horario_envio,
+                    hora:fecha_envio,
+                    tipoHoraPrecio:precio_envio,
+                    ejecutivo:ejecutivo.slmn,
+                    shipVia:data.jsonResumen.resumen.shipVia
+                }
+                Services('PUT-NOT','/carritoyreservado/actualizaPagos',json)        
+                .then( response =>{                    
+                    let mensaje = response.data
+                    if (mensaje.indexOf("Error") == -1) {
+                        router.push('/checkout/forma-de-pago')
+                    }else {
+                        if(mensaje == "Error PvsE"){
+                            router.push('/Soho/Micuenta/misPedidos')
+                        }else if (mensaje == "Error factura"){
+                            router.push('/Soho/Micuenta/misPedidos')
+                        }else {
+                            setAlerta({severity:'error',mensaje:'Algo salió mal: Intenta de nuevo',vertical:'bottom',horizontal:'right'})
+                            setLoading(false)
+                        }
+                    }                    
+                })
+            }else{
+                router.push('/')
             }
-        })
+        }else{
+            router.push('/')
+        }
     }
 
     function salectOption({target}){
@@ -182,12 +214,14 @@ export default function Forma_de_envio(props){
             <Grid item xs={12} sm={8}>
                 <div>
                     <Box component="div" py={4}>
-                        <Process paso={2}/>
+                    {(data.hasOwnProperty('jsonResumen'))?                  
+                        <Process paso={2}/>:<Skeleton variant="text" animation="wave"/>
+                    }
                     </Box>
                     <Box component="div" p={2}>
                         <Divider light/> 
                         <Box component="div" pt={3}  mb={1}>
-                            <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>3. Selecciona la forma de envío</Typography>
+                            <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'3. Selecciona la forma de envío':<Skeleton variant="text" animation="wave"/>}</Typography>
                         </Box>
                         <Box component="div">
                             {(data.hasOwnProperty('jsonResumen'))&&                    
@@ -203,13 +237,14 @@ export default function Forma_de_envio(props){
                             }
                         </Box>
                         <Box component="div" py={2} >
+                            {(data.hasOwnProperty('jsonResumen'))?  
                             <FormControl component="fieldset" fullWidth>
                                 <RadioGroup aria-label="gender" name="forma_envio" value={forma_envio} onChange={salectOption}>   
                                     <List dense>
                                         <div className={classes.root}>
                                             <Grid container spacing={2}>
                                                 {(data.hasOwnProperty('jsonResumen'))&&
-                                                (data.jsonResumen.resumen.shipVia !== 5 && data.jsonResumen.formasEnvio.pactado.fechas.length > 0)&&
+                                                (data.jsonResumen.resumen.shipVia !== 5 || data.jsonResumen.formasEnvio.pactado.fechas.length > 0)&&
                                                     <Grid item xs={12}>
                                                         <Card variant="outlined" >
                                                             <ListItem variant="outlined" button >
@@ -362,18 +397,23 @@ export default function Forma_de_envio(props){
                                     </List>
                                 </RadioGroup>
                             </FormControl>
+                            :
+                            <Skeleton variant="rectangular" height={80} animation="wave"/>
+                            }
                         </Box>
-                        {(forma_envio === 'Programada')?
+                        {
+                        (forma_envio === 'Programada')?
                         <div>
                             <Box component="div" py={2}  className={classes.root}>
                                 <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
                                     <Grid item xs={12}>
-                                        <Typography variant="h6" component="h2" >Entrega programada</Typography>
-                                        <Typography variant="subtitle1" component="subtitle2" >Selecciona el día y el horario de entrega.</Typography>
+                                        <Typography variant="h6" component="h2" >{(data.hasOwnProperty('jsonResumen'))?'Entrega programada':<Skeleton variant="text" animation="wave"/>}</Typography>
+                                        <Typography variant="subtitle1" component="subtitle2" >{(data.hasOwnProperty('jsonResumen'))?'Selecciona el día y el horario de entrega.':<Skeleton variant="text" animation="wave"/>}</Typography>
                                     </Grid>
                                 </Grid>
                             </Box>
                             <Box component="div">
+                                {(data.hasOwnProperty('jsonResumen'))?                 
                                 <FormControl component="fieldset" fullWidth>
                                     <Box pb={1}  className={classes.root}>
                                         <RadioGroup aria-label="gender" name="fecha_envio" value={fecha_envio} onChange={salectOption} row fullWidth>  
@@ -431,9 +471,9 @@ export default function Forma_de_envio(props){
                                         </RadioGroup>
                                     </Box>
                                 </FormControl>
-                                {/* <Box py={2}>
-                                    <Divider light />
-                                </Box> */}
+                                :
+                                <Skeleton variant="rectangular" height={80} animation="wave"/>
+                                }
                                 <FormControl component="fieldset" fullWidth>
                                     <RadioGroup aria-label="gender" name="horario_envio" value={horario_envio} onChange={salectOption}>
                                         <List dense fullWidth>
@@ -492,13 +532,14 @@ export default function Forma_de_envio(props){
                             <Box component="div" py={2}  className={classes.root}>
                                 <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
                                     <Grid item xs={12}>
-                                        <Typography variant="h6" component="h2" >Entrega por paquetería</Typography>
-                                        <Typography variant="subtitle1" component="subtitle2" >Selecciona la paquetería de tu agrado:</Typography>
+                                        <Typography variant="h6" component="h2" >{(data.hasOwnProperty('jsonResumen'))?'Entrega por paquetería':<Skeleton variant="text" animation="wave"/>}</Typography>
+                                        <Typography variant="subtitle1" component="subtitle2" >{(data.hasOwnProperty('jsonResumen'))?'Selecciona la paquetería de tu agrado:':<Skeleton variant="text" animation="wave"/>}</Typography>
                                     </Grid>
                                 </Grid>
                             </Box>
                             <Box m={1}>
-                                {(data.hasOwnProperty('jsonResumen'))&&
+                                {
+                                (data.hasOwnProperty('jsonResumen'))?
                                 (data.jsonResumen.resumen.peso > 199 || data.jsonResumen.resumen.pesoVolumetrico > 199 || 
                                 data.jsonResumen.resumen.costoEnvio === -1 || data.jsonResumen.resumen.costoEnvio === -2
                                 )?
@@ -581,6 +622,8 @@ export default function Forma_de_envio(props){
                                         </List>
                                     </RadioGroup>
                                 </FormControl>
+                                :
+                                <Skeleton variant="rectangular" height={80} animation="wave"/>
                                 }
                             </Box>
                         </Box>
@@ -590,16 +633,26 @@ export default function Forma_de_envio(props){
                 </div>
             </Grid>  
             <Grid item xs={12} sm={4}>
+            {(data.hasOwnProperty('jsonResumen'))?
+                <>
                 <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
                 {(!alerta.hasOwnProperty('severity'))&&
-                    <Button variant="contained" fullWidth  size="large" color="primary" type="button" onClick={continuarCompra}>
-                        Continuar 
-                    </Button>
+                    <LoadingButton variant="contained" fullWidth  size="large" color="primary" type="button"
+                    onClick={continuarCompra}
+                    loading={loading}
+                    loadingIndicator="Cargando..."
+                    >
+                        Continuar
+                    </LoadingButton>
                 }
+                </>
+                :
+                <Skeleton variant="rectangular" height={400} animation="wave"/>
+            }
             </Grid>                 
         </Grid>        
         {(alerta.hasOwnProperty('severity'))&&
-                            <Alertas setAlerta={setAlerta} alerta={alerta}/>
+            <Alertas setAlerta={setAlerta} alerta={alerta}/>
         }
     </Box>
     )
