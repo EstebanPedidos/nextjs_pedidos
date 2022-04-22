@@ -1,9 +1,11 @@
-import { Container, Typography, Box } from '@material-ui/core';
 import React from 'react';
-import { HeadingPolicies, Paragraph, PoliciesMenu } from '../../components';
-import { Layout } from '../../layout';
+// import { Container, Typography, Box } from '@material-ui/core';
+import { Container, Typography, Box } from '@mui/material';
 
-export function DevolucionesGarantias() {
+import { HeadingPolicies, Paragraph, PoliciesMenu } from '/components';
+import { Layout } from '/layout/Layout';
+
+export default function DevolucionesGarantias() {
 	return (
 		<Layout>
 			<Container maxWidth='xl'>

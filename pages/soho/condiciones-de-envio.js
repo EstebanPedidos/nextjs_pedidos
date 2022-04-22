@@ -1,3 +1,4 @@
+import React from 'react';
 import {
 	Container,
 	Box,
@@ -11,8 +12,8 @@ import {
 	Paper,
 	Grid,
 } from '@material-ui/core';
-import { HeadingPolicies, PoliciesMenu } from '../../components';
-import { Layout } from '../../layout';
+import { HeadingPolicies, PoliciesMenu } from '/components';
+import { Layout } from '/layout/Layout';
 
 const rows = [
 	{
@@ -33,7 +34,7 @@ const rows = [
 	},
 ];
 
-export const CondicionesDeEnvio = () => {
+export default function CondicionesDeEnvio() {
 	return (
 		<Layout>
 			<Container maxWidth='xl'>
@@ -183,4 +184,4 @@ export const CondicionesDeEnvio = () => {
 			</Container>
 		</Layout>
 	);
-};
+}

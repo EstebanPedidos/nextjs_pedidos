@@ -7,7 +7,6 @@ export const Layout = ({ children }) => {
 			<HeroSection />
 			<CategoriesDrawer />
 			{children}
-			layout
 			<Footer />
 		</>
 	);

@@ -1,25 +1,49 @@
 import React, { useRef, useState } from 'react';
 
 // Third parties import
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 
 // Componentes - material UI
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Menu from '@material-ui/core/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import Box from '@material-ui/core/Box';
-import Hidden from '@material-ui/core/Hidden';
-import TextField from '@material-ui/core/TextField';
-import { Button, Divider } from '@material-ui/core';
-import InputAdornment from '@material-ui/core/InputAdornment';
+// import AppBar from '@material-ui/core/AppBar';
+// import Toolbar from '@material-ui/core/Toolbar';
+// import IconButton from '@material-ui/core/IconButton';
+// import Typography from '@material-ui/core/Typography';
+// import Menu from '@material-ui/core/Menu';
+// import Box from '@material-ui/core/Box';
+// import Hidden from '@material-ui/core/Hidden';
+// import TextField from '@material-ui/core/TextField';
+// import { Button, Divider } from '@material-ui/core';
+// import InputAdornment from '@material-ui/core/InputAdornment';
+
+//Components @mui/material
+import {
+	AppBar,
+	Toolbar,
+	IconButton,
+	Typography,
+	Menu,
+	Box,
+	Hidden,
+	TextField,
+	Button,
+	Divider,
+	InputAdornment,
+} from '@mui/material';
+
+import {
+	FavoriteBorder as FavoriteBorderIcon,
+	HelpOutline as HelpOutlineIcon,
+	ShoppingCart as ShoppingCartIcon,
+	Search as SearchIcon,
+} from '@mui/icons-material';
+
+import { makeStyles } from '@mui/styles';
 
 // Icons
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+// import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+// import SearchIcon from '@material-ui/icons/Search';
 
 // Variables imports
 import { logoUrl } from '../constants';
@@ -71,7 +95,7 @@ export function Navbar() {
 			<AppBar position='sticky' color='white'>
 				<Toolbar className={content}>
 					<Box component={'div'} alignItems={'center'} display='flex'>
-						<Hidden smDown='true'>
+						<Hidden smDown={true}>
 							{/* Crear una variante del logo que sea adaptable / Por
 							ejemplo una "p" para esos casos de usos */}
 							<img
@@ -94,7 +118,7 @@ export function Navbar() {
 								/>
 							</IconButton>
 						</Box>
-						<Hidden smDown='true'>
+						<Hidden smDown={true}>
 							<Box component={'span'} padding={'1rem'}>
 								<Typography>Categorías</Typography>
 							</Box>
@@ -129,7 +153,7 @@ export function Navbar() {
 						flexWrap='nowrap'
 						component={'div'}>
 						{/* This inline styles is temporaly, when add link router component, remove */}
-						<Hidden smDown='hide'>
+						<Hidden smDown={true}>
 							<Box
 								component={'span'}
 								style={{ cursor: 'pointer' }}>
@@ -190,9 +214,8 @@ export function Navbar() {
 							Ingresar
 						</Button>
 					</Box>
-					{/* </Hidden> */}
 				</Toolbar>
-				<Hidden mdUp='hide'>
+				<Hidden mdUp={true}>
 					<Box mt={'1rem'}>
 						<TextField
 							size='medium'

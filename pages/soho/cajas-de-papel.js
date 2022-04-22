@@ -1,9 +1,9 @@
 import React from 'react';
-import { Layout } from '../../layout';
-import { Paragraph, HeadingPolicies, PoliciesMenu } from '../../components';
+import { Layout } from '/layout/Layout';
+import { Paragraph, HeadingPolicies, PoliciesMenu } from '/components';
 import { Box, Container, Typography } from '@material-ui/core';
 
-export const CajasDePapel = () => {
+export default function CajasDePapel() {
 	return (
 		<Layout>
 			<Container maxWidth='xl'>
@@ -40,4 +40,4 @@ export const CajasDePapel = () => {
 			</Container>
 		</Layout>
 	);
-};
+}
