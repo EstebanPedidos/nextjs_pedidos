@@ -515,16 +515,8 @@ export default function Forma_de_pago(){
                                 </Box>
                             </Box>
                         }  
-                    </Box>
-                </div>
-            </Grid>  
-            <Grid item xs={12} sm={4}>
-                {(data.hasOwnProperty('jsonResumen'))?
-                <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
-                :
-                <Skeleton variant="rectangular" height={500} animation="wave"/>
-                }    
-                {(data.hasOwnProperty('jsonResumen'))&&
+
+                        {(data.hasOwnProperty('jsonResumen'))&&
                         (sub_forma_pago !== '')?
                             (sub_forma_pago === '7')?
                                 <SDKPayPalBotones/>
@@ -535,7 +527,16 @@ export default function Forma_de_pago(){
                                 <Button variant="contained" fullWidth  size="large" color="secondary" type="button" onClick={continuarCompra}>Finalizar</Button>
                             :
                             null
-                 }             
+                        } 
+                    </Box>
+                </div>
+            </Grid>  
+            <Grid item xs={12} sm={4}>
+                {(data.hasOwnProperty('jsonResumen'))?
+                <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                :
+                <Skeleton variant="rectangular" height={500} animation="wave"/>
+                }                
             </Grid>                 
         </Grid>
     </Box>
