@@ -1,7 +1,11 @@
 import React from 'react';
-import { Box, Container } from '@material-ui/core';
-import { HeadingPolicies, Paragraph, PoliciesMenu } from '../../components';
-import { Layout } from '../../layout';
+
+// import { Box, Container } from '@material-ui/core';
+// mui/material
+import { Box, Container } from '@mui/material';
+
+import { HeadingPolicies, Paragraph, PoliciesMenu } from '/components';
+import { Layout } from '/layout/Layout';
 
 export const SohoPrecios = () => {
 	return (
@@ -28,3 +32,5 @@ export const SohoPrecios = () => {
 		</Layout>
 	);
 };
+
+export default SohoPrecios;
