@@ -1,11 +1,7 @@
-import React,{useState} from 'react';
+import {useState} from 'react';
 import makeStyles from '@mui/styles/makeStyles';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
+import {Box,Grid,Modal,Button,Divider,Typography} from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 //MUI4
 
 function rand() {
@@ -34,15 +30,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ConFactura({continuarCompra}) {
+export default function ConFactura({continuarCompra,loading}) {
     const classes         = useStyles();
     const [modalStyle]    = useState(getModalStyle);
     const [open, setOpen] = useState(false);
-
+//<Button  onClick=>Continuar compra</Button>
     return (
         <div>
-            <Button variant="contained" fullWidth  size="large"
-            color="primary" type="button" onClick={()=>{setOpen(true);}}>Continuar compra</Button>
+            <LoadingButton variant="contained" fullWidth  size="large" color="primary" type="button"
+            onClick={()=>{setOpen(true);}}
+            loading={loading}
+            loadingIndicator="Cargando..."
+            >
+                Continuar
+            </LoadingButton>
             <Modal
                 open={open}
                 onClose={()=>{setOpen(false);}}

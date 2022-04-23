@@ -53,7 +53,7 @@ export default function Confirmacion_de_pago(){
                             <Box component="div" textAlign="center">
                                 <Typography component="h1" variant="h6">{(data.hasOwnProperty('jsonResumen'))?'Gracias por tu compra':<Skeleton animation="wave"/>}</Typography>
                                 <Typography component="p" variant="subtitle1">
-                                    {(data.hasOwnProperty('jsonResumen'))?`No. de pedido:<b>${data.pedido}</b>`:<Skeleton animation="wave"/>} 
+                                    {(data.hasOwnProperty('jsonResumen'))?<>No. de pedido:<b>{data.pedido}</b></>:<Skeleton animation="wave"/>} 
                                 </Typography>                     
                                 <Box component="div" py={2}>
                                 {(data.hasOwnProperty('jsonResumen'))&&

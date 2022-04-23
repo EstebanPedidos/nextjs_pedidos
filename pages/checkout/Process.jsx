@@ -1,9 +1,8 @@
 //Paquetes
 import { useRouter } from 'next/router'
 //Material
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
+//Material UI
+import {Box, Stepper, Step, StepLabel, } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
@@ -11,11 +10,11 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
     button: {
-      marginRight: theme.spacing(2),
+      marginRight: theme.spacing(1),
     },
     instructions: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
     },
 }));
 
@@ -39,9 +38,9 @@ export default function Process({paso}){
   }
 
   return (
-    <div>
+    <Box component="div" pb={2}>
         <div className={classes.root}>
-            <Stepper activeStep={(paso === undefined)?0:(paso > 3)?3:paso}>
+            <Stepper alternativeLabel activeStep={(paso === undefined)?0:(paso > 3)?3:paso}>
                 {steps.map((label, index) => {
                 const stepProps = {};
                 const labelProps = {};
@@ -53,6 +52,6 @@ export default function Process({paso}){
                 })}
             </Stepper>
         </div>
-    </div>
+    </Box>
   )
 }
