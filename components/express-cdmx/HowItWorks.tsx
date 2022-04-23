@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 // import Typography from '@mui/material/Typography';
 // import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import { Container } from '@mui/material';
 import { Paddined } from './Banner';
 
 import HelpIcon from '@mui/icons-material/Help';
@@ -31,19 +32,19 @@ export const HowItWorks = () => {
 			title: 'Exclusivo CDMX',
 			bigTitle: false,
 			text: 'Actualmente esta disponible en la Ciudad de México',
-			icon: HelpIcon,
+			icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/soporte-tecnico/problemas.webp',
 		},
 		{
 			title: 'Entregas',
 			bigTitle: false,
 			text: 'Costo extra +$45 pesos ya con IVA incluido y reflejado en la factura de compra.',
-			icon: MoreTimeIcon,
+			icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/home19/pp/pe.svg',
 		},
 		{
 			title: 'Paga al recibir',
 			bigTitle: false,
 			text: 'Tienes la opción dentro del carrito de compras para pagar al momento de la entrega.',
-			icon: CreditCardIcon,
+			icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/home19/pp/paga-recibe.svg',
 		},
 	]);
 
@@ -51,13 +52,15 @@ export const HowItWorks = () => {
 		<Card className={classes.withoutShadow}>
 			<CardContent>
 				<Paddined>
-					<Grid container spacing={2}>
-						{data.map(
-							(item: any, index: number): JSX.Element => (
-								<HowItWorksItem item={item} key={index} />
-							)
-						)}
-					</Grid>
+					<Container maxWidth='lg'>
+						<Grid container spacing={2}>
+							{data.map(
+								(item: any, index: number): JSX.Element => (
+									<HowItWorksItem item={item} key={index} />
+								)
+							)}
+						</Grid>
+					</Container>
 				</Paddined>
 			</CardContent>
 		</Card>

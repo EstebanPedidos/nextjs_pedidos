@@ -43,22 +43,22 @@ export const lightTheme = createTheme({
 	},
 	typography: {
 		fontFamily: 'Poppins ,sans-serif',
-		h1: {
-			fontWeight: '600',
-			fontSize: '2rem',
-		},
-		h2: {
-			fontWeight: '600',
-			fontSize: '1.5rem',
-		},
-		h3: {
-			fontWeight: '600',
-		},
+		// h1: {
+		// 	fontWeight: '600',
+		// 	fontSize: '2rem',
+		// },
+		// h2: {
+		// 	fontWeight: '600',
+		// 	fontSize: '1.5rem',
+		// },
+		// h3: {
+		// 	fontWeight: '600',
+		// },
 		button: {
 			textTransform: 'none',
-			height: '50px',
-			// no borrar el padding, ya que impacta en el diseno general, 12px es el padding por defecto, por alguna razon al no pasarle padding, sobre escribia el original y lo seteaba en 0, por favor no borrar
-			padding: '12px',
+			height: '2.5rem',
+			// no borrar el padding, ya que impacta en el diseno general, 12px es el padding por defecto, por alguna razon al no pasarle padding, sobre escribia el original y lo seteaba en 0, por favor no eliminar
+			padding: '0.8rem',
 		},
 	},
 });

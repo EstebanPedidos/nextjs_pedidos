@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@mui/styles';
-import { Typography, Grid } from '@mui/material';
+import { Typography, Grid, Box } from '@mui/material';
 import { COLORS } from '../../themes/light-theme';
 
 export interface ChildrenProps {
@@ -82,18 +82,37 @@ export const SubTitle = ({ children }: any) => (
 	</BaseText>
 );
 
+const subtitle = {
+	fontSize: '1.5rem',
+	color: '#424242',
+};
+
 export const Banner = () => {
 	const classes = useStyles();
 
 	return (
 		<Paddined>
 			<Grid container spacing={2}>
-				<Medium className={classes.paddined}>
-					<SubTitle>Envíos rápidos CDMX</SubTitle>
-					<Head>
-						Pedidos <span>Express</span> CD<span>MX</span>
-					</Head>
-					<SubTitle>Tu pedido en 3 horas o menos</SubTitle>
+				<Medium>
+					<Box
+						height={'100%'}
+						display='flex'
+						justifyContent='center'
+						flexDirection='column'>
+						<Typography style={subtitle}>
+							Envíos rápidos CDMX
+						</Typography>
+						<Typography
+							variant='h3'
+							component='h2'
+							color={'primary'}
+							fontWeight='600'>
+							Pedidos <span>Express</span> CD<span>MX</span>
+						</Typography>
+						<Typography style={subtitle}>
+							Tu pedido en 3 horas o menos
+						</Typography>
+					</Box>
 				</Medium>
 				<Medium>
 					<img
