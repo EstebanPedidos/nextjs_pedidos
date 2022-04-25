@@ -153,7 +153,7 @@ export default function Direccion_de_envio(props){
         <Box className={classes.root}>
             <Header/>
             <Container maxWidth="lg">
-                <Box component="div" mt={1}>
+                <Box component="div" py={4} m={1}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={8}>
                             <div>

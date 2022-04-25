@@ -294,7 +294,7 @@ export default function Resumen(props){
                                             {(data.hasOwnProperty('jsonResumen'))&&
                                             <Typography variant="subtitle1"  >
                                                 <Box component="span" >
-                                                {(data.jsonResumen.resumen.descuento > 0)?data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.descuento:data.jsonResumen.resumen.subtotal}
+                                                ${(data.jsonResumen.resumen.descuento > 0)?data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.descuento:data.jsonResumen.resumen.subtotal}
                                                 </Box>
                                             </Typography>
                                             }
@@ -307,21 +307,21 @@ export default function Resumen(props){
                                             }
                                             {(data.hasOwnProperty('jsonResumen'))&&
                                             (data.jsonResumen.resumen.descuento > 0)&&
-                                            <Typography>
+                                            <Typography variant="body2">
                                                 {data.jsonResumen.resumen.descuento}
                                             </Typography>
                                             }
                                             {(data.hasOwnProperty('jsonResumen'))&&
                                             (data.jsonResumen.nc.tieneNc !== 'false')&&
-                                            <Typography>
-                                                <p>{data.jsonResumen.nc.montoNc}</p>
+                                            <Typography variant="body2">
+                                                ${data.jsonResumen.nc.montoNc}
                                             </Typography>
                                             }
                                         </Grid>
                                         <Grid item>
                                             <Typography variant="subtitle1"  >
                                                     <Box component="span" fontWeight="fontWeightBold">
-                                                        {(data.hasOwnProperty('jsonResumen'))&&
+                                                        ${(data.hasOwnProperty('jsonResumen'))&&
                                                             ((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc)
                                                         }
                                                     </Box>

@@ -159,7 +159,7 @@ export default function Transferencia({data}){
                                 </Box>
                                 <Box component="div" textAlign="left">
                                     <Typography variant="caption" color="textPrimary" component="p">
-                                        <Alert severity="info">
+                                        <Alert severity="warning">
                                             Coloca el n&uacute;mero de referencia para identificar tu pago y
                                             env&iacute;a tu comprobante de pago a 
                                             <b><Link disable typography href="mailto:pagos@pedidos.com.mx" target="_blank">

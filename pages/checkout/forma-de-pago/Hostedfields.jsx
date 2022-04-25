@@ -5,12 +5,17 @@ import {
     usePayPalHostedFields,
 } from "@paypal/react-paypal-js";
 //Material
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Radio from '@mui/material/Radio';
-import ListItemText from '@mui/material/ListItemText';
+import { Radio,RadioGroup,FormControlLabel,FormControl,
+    List,ListItem,ListItemText,ListItemAvatar, ListItemSecondaryAction,
+    Box,Grid,Button,Avatar,Typography,Card, Divider,Skeleton} from '@mui/material';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import makeStyles from '@mui/styles/makeStyles';
+    const useStyles = makeStyles((theme) => ({
+        rootcardi: {
+            margin: theme.spacing(1), 
+            height:'14.5rem', 
+        },
+    }));
 
 const initialOptions = {
     "client-id": "ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_",
@@ -70,35 +75,61 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave}) {
         {(clientToken.getPaymentTokens.length > 0 && tajetaSave.id !== 'nueva')?
         <>
             <RadioGroup aria-label="gender" name="tarjeta_guardada" value={tajetaSave.id} onChange={salectOption}>
-                <FormControlLabel key="nueva" value="nueva" fullWidth label={                                                            
-                    <Box component="div" py={2}>
-                        <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={8}>
-                            <Grid item xs={4}>
-                                +
-                            </Grid>
-                            <Grid item xs={8}>                                    
-                                <ListItemText id="list-label-payment-method" primary="Agregar nueva"/>
-                            </Grid>
-                        </Grid>   
-                    </Box>
-                } control={<Radio />}/> 
-                {clientToken.getPaymentTokens.map((tarjeta, index) => (  
-                    <FormControlLabel key={index} value={tarjeta.id} fullWidth label={                                                            
+                <Grid container direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
+                    <Grid item xs={12}>
+                    <FormControlLabel key="nueva" value="nueva" fullWidth label={                                                            
                         <Box component="div" py={2}>
-                            <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={8}>
-                                <Grid item xs={4}>
-                                    <img src={brand[tarjeta.brand]} alt={"Paga en linea con "+tarjeta.brand} />
+                                <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={8}>
+                                    <Grid item xs={3} >
+                                        <Box component="div" ml={1}>
+                                            <Avatar sx={{ backgroundColor:'#3655a6',}}>
+                                                <AddOutlinedIcon />
+                                            </Avatar>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={9}>                                    
+                                        <ListItemText id="list-label-payment-method" color="primary" primary={
+                                        <Typography component="subtitle2" sx={{ fontWeight:'500',}} color="primary">Agregar nueva</Typography>
+                                            }/>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={8}>                                    
-                                    <ListItemText id="list-label-payment-method" primary={tarjeta.id}/>
-                                </Grid>
-                            </Grid>   
                         </Box>
-                    } control={<Radio />}/>
-                ))
-                }
+                    } control={<Radio />}/> 
+                    </Grid>
+                    <Grid item xs={6}>
+                    {clientToken.getPaymentTokens.map((tarjeta, index) => (  
+                    <Box component="div">
+                        
+                            <FormControlLabel key={index} value={tarjeta.id} fullWidth label={                                                            
+                                <Box component="div">
+                                    <Grid container direction="row-reverse"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
+                                        <Grid item xs={4}>
+                                            <img src={brand[tarjeta.brand]} alt={"Paga en linea con "+tarjeta.brand} />
+                                        </Grid>
+                                        <Grid item xs={8}>  
+                                            <Box component="div" ml={1}>                                 
+                                                <ListItemText id="list-label-payment-method" primary={
+                                                    <Typography component="subtitle2" sx={{ fontWeight:'500',}} >
+                                                        {tarjeta.id}
+                                                    </Typography>
+                                                }/>
+                                            </Box> 
+                                        </Grid>
+                                    </Grid>   
+                                </Box>
+                            } control={<Radio />}/>
+                        
+                    </Box>
+                        
+
+                    ))
+                    }
+                   
+                    </Grid>
+                </Grid>
             </RadioGroup>
             </>
+           
         :
         
         <PayPalScriptProvider

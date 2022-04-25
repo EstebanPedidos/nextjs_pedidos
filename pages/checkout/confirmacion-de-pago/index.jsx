@@ -38,76 +38,80 @@ export default function Confirmacion_de_pago(){
     },[])
     
     return (
-    <Box component="div" m={2} className={classes.root}>
+    <Box component="div" className={classes.root}>
         <Header/>
-        <Grid container spacing={3}>
-            <Grid item xs={12} sm={8}>
-            <div>
-                <Container maxWidth="sm">
-                    <Box component="div" mx="auto" py={4}>                           
-                            <Box component="div" width="20%" mx="auto" pt={4}>
-                            {(data.hasOwnProperty('jsonResumen'))?
-                                <img src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/confirmacion/confirm.svg" alt="Confirmación" />
-                                :<Skeleton variant="circular" width={100} height={120} animation="wave"/>
-                            }
-                            </Box>
-                            <Box component="div" textAlign="center">
-                                <Typography component="h1" variant="h6">{(data.hasOwnProperty('jsonResumen'))?'Gracias por tu compra':<Skeleton animation="wave"/>}</Typography>
-                                <Typography component="p" variant="subtitle1">
-                                    {(data.hasOwnProperty('jsonResumen'))?<>No. de pedido:<b>{data.pedido}</b></>:<Skeleton animation="wave"/>} 
-                                </Typography>                     
-                                <Box component="div" py={2}>
-                                {(data.hasOwnProperty('jsonResumen'))&&
-                                (data.jsonResumen.resumen.formaPago === "3" || data.jsonResumen.resumen.formaPago === "4")&&
-                                <div>
-                                    <Box component="div" textAlign="left">
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12}>
-                                                <Alert severity="warning" fullWidth>
-                                                    <AlertTitle>Importante</AlertTitle>
-                                                    Realiza el pago en 1hra m&aacute;x. para respetar el horario de entrega y
-                                                    <strong> envía tu comprobante a  
-                                                        <Link disable typography href="mailto:pagos@pedidos.com.mx" target="_blank">
-                                                            &nbsp;  pagos@pedidos.com.mx 
-                                                        </Link>
-                                                    </strong>
-                                                </Alert>
-                                            </Grid>
-                                        </Grid>
+        <Container maxWidth="lg">
+            <Box component="div" py={2} m={1}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={8}>
+                    <div>
+                        <Container maxWidth="sm">
+                            <Box component="div" mx="auto" py={4}>                           
+                                    <Box component="div" width="20%" mx="auto" pt={4}>
+                                    {(data.hasOwnProperty('jsonResumen'))?
+                                        <img src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/confirmacion/confirm.svg" alt="Confirmación" />
+                                        :<Skeleton variant="circular" width={100} height={120} animation="wave"/>
+                                    }
                                     </Box>
-                                    <Transferencia data={data}/>
-                                </div>
-                                }
-                                {(data.hasOwnProperty('jsonResumen'))&&
-                                (data.jsonResumen.resumen.shipVia === 24)&&
-                                    <div>
+                                    <Box component="div" textAlign="center">
+                                        <Typography component="h1" variant="h6">{(data.hasOwnProperty('jsonResumen'))?'Gracias por tu compra':<Skeleton animation="wave"/>}</Typography>
+                                        <Typography component="p" variant="subtitle1">
+                                            {(data.hasOwnProperty('jsonResumen'))?<>No. de pedido:<b>{data.pedido}</b></>:<Skeleton animation="wave"/>} 
+                                        </Typography>                     
+                                        <Box component="div" py={2}>
+                                        {(data.hasOwnProperty('jsonResumen'))&&
+                                        (data.jsonResumen.resumen.formaPago === "3" || data.jsonResumen.resumen.formaPago === "4")&&
                                         <div>
-                                            {(data.jsonResumen.resumen.formaPago !== 3 && data.jsonResumen.resumen.formaPago !== 4)&&
-                                                <i></i>
-                                            }
+                                            <Box component="div" textAlign="left">
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12}>
+                                                        <Alert severity="warning" fullWidth>
+                                                            <AlertTitle>Importante</AlertTitle>
+                                                            Realiza el pago en 1hra m&aacute;x. para respetar el horario de entrega y
+                                                            <strong> envía tu comprobante a  
+                                                                <Link disable typography href="mailto:pagos@pedidos.com.mx" target="_blank">
+                                                                    &nbsp;  pagos@pedidos.com.mx 
+                                                                </Link>
+                                                            </strong>
+                                                        </Alert>
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+                                            <Transferencia data={data}/>
                                         </div>
-                                        <div>
-                                        <p>Una vez facturado el pedido, la cuenta de los 180 min. empezará</p>
-                                        </div>
-                                    </div>
-                                }   
-                                {(data.hasOwnProperty('jsonResumen'))?                       
-                                <Button variant="outlined" onClick={()=>{router.push('/')}}>
-                                    Ir a página principal                             
-                                </Button>:<Skeleton variant="rectangular" height={300} animation="wave"/>
-                                }                                
+                                        }
+                                        {(data.hasOwnProperty('jsonResumen'))&&
+                                        (data.jsonResumen.resumen.shipVia === 24)&&
+                                            <div>
+                                                <div>
+                                                    {(data.jsonResumen.resumen.formaPago !== 3 && data.jsonResumen.resumen.formaPago !== 4)&&
+                                                        <i></i>
+                                                    }
+                                                </div>
+                                                <div>
+                                                <p>Una vez facturado el pedido, la cuenta de los 180 min. empezará</p>
+                                                </div>
+                                            </div>
+                                        }   
+                                        {(data.hasOwnProperty('jsonResumen'))?                       
+                                        <Button variant="outlined" onClick={()=>{router.push('/')}}>
+                                            Ir a página principal                             
+                                        </Button>:<Skeleton variant="rectangular" height={300} animation="wave"/>
+                                        }                                
+                                    </Box>
+                                </Box>
                             </Box>
-                        </Box>
-                    </Box>
-                </Container>
-            </div>
-            </Grid>  
-            <Grid item xs={12} sm={4}>
-                {(data.hasOwnProperty('jsonResumen'))?
-                    <ResumeConfirmation data={data} />:<Skeleton variant="rectangular" height={500} animation="wave"/>
-                }
-            </Grid>                 
-        </Grid>
+                        </Container>
+                    </div>
+                    </Grid>  
+                    <Grid item xs={12} sm={4}>
+                        {(data.hasOwnProperty('jsonResumen'))?
+                            <ResumeConfirmation data={data} />:<Skeleton variant="rectangular" height={500} animation="wave"/>
+                        }
+                    </Grid>                 
+                </Grid>
+            </Box>
+        </Container>
     </Box>
     )
 }
