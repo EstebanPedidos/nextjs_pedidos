@@ -144,12 +144,12 @@ export default function Forma_de_pago(){
                         if(json.resumen.estatus === 'R' && json.resumen.pvse === 'N'){
                             if(json.resumen.costoEnvio > 0 || json.resumen.envio.tipo !== ''){
                                 let token        = await Services('POST','/registrov2/clientetoken?cust_num='+cust_num,{})
-                                let cliente      = await token.data 
+                                let cliente_l      = await token.data 
                                 setData({jsonResumen:json,pedido:pedido})
                                 setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
-                                let tarjetas         = await cliente.getPaymentTokens
+                                let tarjetas         = await cliente_l.getPaymentTokens
                                 let getPaymentTokens = await JSON.parse(tarjetas)
-                                setClientToken({clienteToken:cliente.clienteToken,getPaymentTokens:getPaymentTokens})
+                                setClientToken({clienteToken:cliente_l.clienteToken,getPaymentTokens:getPaymentTokens})
                                 if(getPaymentTokens.length > 0){
                                     setTarjetaSave({...tajetaSave,id:getPaymentTokens[0].id}) 
                                 }

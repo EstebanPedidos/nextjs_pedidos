@@ -10,12 +10,12 @@ import { Radio,RadioGroup,FormControlLabel,FormControl,
     Box,Grid,Button,Avatar,Typography,Card, Divider,Skeleton} from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import makeStyles from '@mui/styles/makeStyles';
-    const useStyles = makeStyles((theme) => ({
-        rootcardi: {
-            margin: theme.spacing(1), 
-            height:'14.5rem', 
-        },
-    }));
+const useStyles = makeStyles((theme) => ({
+    rootcardi: {
+        margin: theme.spacing(1), 
+        height:'14.5rem', 
+    },
+}));
 
 const initialOptions = {
     "client-id": "ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_",
@@ -50,7 +50,7 @@ const SubmitPayment = () => {
 };
 
 export default function Hostedfields({clientToken,salectOption,tajetaSave}) {
-    
+    const classes                           = useStyles()
     const brand ={
     VISA:       'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/visa.svg',
     MASTERCARD: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/mastercard.svg',
@@ -72,63 +72,70 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave}) {
 
     return (    
         <>
-        {(clientToken.getPaymentTokens.length > 0 && tajetaSave.id !== 'nueva')?
-        <>
-            <RadioGroup aria-label="gender" name="tarjeta_guardada" value={tajetaSave.id} onChange={salectOption}>
-                <Grid container direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
-                    <Grid item xs={12}>
-                    <FormControlLabel key="nueva" value="nueva" fullWidth label={                                                            
-                        <Box component="div" py={2}>
-                                <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={8}>
-                                    <Grid item xs={3} >
-                                        <Box component="div" ml={1}>
-                                            <Avatar sx={{ backgroundColor:'#3655a6',}}>
-                                                <AddOutlinedIcon />
-                                            </Avatar>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={9}>                                    
-                                        <ListItemText id="list-label-payment-method" color="primary" primary={
-                                        <Typography component="subtitle2" sx={{ fontWeight:'500',}} color="primary">Agregar nueva</Typography>
-                                            }/>
-                                    </Grid>
+        {(clientToken.getPaymentTokens.length > 0)?
+           <Box component="div">
+            <FormControl component="fieldset" fullWidth>
+                <div className={classes.root}>
+                    <>
+                        <RadioGroup aria-label="gender" name="tarjeta_guardada" value={tajetaSave.id} onChange={salectOption}>
+                            <Grid container direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
+                                <Grid item xs={12}>
+                                <FormControlLabel key="nueva" value="nueva" fullWidth label={                                                            
+                                    <Box component="div" py={2}>
+                                            <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={8}>
+                                                <Grid item xs={3} >
+                                                    <Box component="div" ml={1}>
+                                                        <Avatar sx={{ backgroundColor:'#3655a6',}}>
+                                                            <AddOutlinedIcon />
+                                                        </Avatar>
+                                                    </Box>
+                                                </Grid>
+                                                <Grid item xs={9}>                                    
+                                                    <ListItemText id="list-label-payment-method" color="primary" primary={
+                                                    <Typography component="subtitle2" sx={{ fontWeight:'500',}} color="primary">Agregar nueva</Typography>
+                                                        }/>
+                                                </Grid>
+                                            </Grid>
+                                    </Box>
+                                } control={<Radio />}/> 
                                 </Grid>
-                        </Box>
-                    } control={<Radio />}/> 
-                    </Grid>
-                    <Grid item xs={6}>
-                    {clientToken.getPaymentTokens.map((tarjeta, index) => (  
-                    <Box component="div">
-                        
-                            <FormControlLabel key={index} value={tarjeta.id} fullWidth label={                                                            
+                                <Grid item xs={6}>
+                                {clientToken.getPaymentTokens.map((tarjeta, index) => (  
                                 <Box component="div">
-                                    <Grid container direction="row-reverse"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                        <Grid item xs={4}>
-                                            <img src={brand[tarjeta.brand]} alt={"Paga en linea con "+tarjeta.brand} />
-                                        </Grid>
-                                        <Grid item xs={8}>  
-                                            <Box component="div" ml={1}>                                 
-                                                <ListItemText id="list-label-payment-method" primary={
-                                                    <Typography component="subtitle2" sx={{ fontWeight:'500',}} >
-                                                        {tarjeta.id}
-                                                    </Typography>
-                                                }/>
-                                            </Box> 
-                                        </Grid>
-                                    </Grid>   
+                                    
+                                        <FormControlLabel key={index} value={tarjeta.id} fullWidth label={                                                            
+                                            <Box component="div">
+                                                <Grid container direction="row-reverse"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
+                                                    <Grid item xs={4}>
+                                                        <img src={brand[tarjeta.brand]} alt={"Paga en linea con "+tarjeta.brand} />
+                                                    </Grid>
+                                                    <Grid item xs={8}>  
+                                                        <Box component="div" ml={1}>                                 
+                                                            <ListItemText id="list-label-payment-method" primary={
+                                                                <Typography component="subtitle2" sx={{ fontWeight:'500',}} >
+                                                                    {tarjeta.id}
+                                                                </Typography>
+                                                            }/>
+                                                        </Box> 
+                                                    </Grid>
+                                                </Grid>   
+                                            </Box>
+                                        } control={<Radio />}/>
+                                    
                                 </Box>
-                            } control={<Radio />}/>
-                        
-                    </Box>
-                        
+                                    
 
-                    ))
-                    }
-                   
-                    </Grid>
-                </Grid>
-            </RadioGroup>
-            </>
+                                ))
+                                }
+                            
+                                </Grid>
+                            </Grid>
+                        </RadioGroup>
+                    </>
+                    </div>
+            </FormControl>
+            </Box>
+
            
         :
         
@@ -176,4 +183,3 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave}) {
         
     );
 }
-
