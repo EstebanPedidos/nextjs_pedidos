@@ -11,12 +11,13 @@ import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import LoadingButton from '@mui/lab/LoadingButton';
 //Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
+import 'swiper/css';
+import 'swiper/css/navigation';
 //Componentes
 import Resumen from '../Resumen';
 import Process from '../Process';
 import Alertas from '../Alertas';
+import Header  from '../Header';
 //Servicios
 import Services from '../../services/Services'
 const useStyles = makeStyles((theme) => ({
@@ -210,6 +211,7 @@ export default function Forma_de_envio(props){
     }
     return (
     <Box component="div" m={2} className={classes.root}>
+        <Header/>
         <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
                 <div>

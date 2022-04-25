@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import {Box,Grid,Button,Container,Alert,AlertTitle,Typography,Link,Skeleton} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 //Componentes 
+import Header  from '../Header';
 import ResumeConfirmation from '../ResumenConfirmacion';
 import Transferencia from './Transferencia';
 //Servicios
@@ -19,13 +20,12 @@ export default function Confirmacion_de_pago(){
     const classes           = useStyles();
     const router            = useRouter()
     const [data,setData]    = useState({})
-    const cliente           = 839494
-    const usuario           = 168020
-    const afiliado          = 'S'
+    
 
     useEffect(()=>{
         const getData = async ()=>{
             let pedido       = await localStorage.getItem('Pedido')
+            const afiliado   = await localStorage.getItem('afiliado') 
             let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=5',{})
             let json         = await {jsonResumen:services.data,pedido:pedido}
             /*let jsonc        = await Services('POST','/registrov2/obtieneCliente?cliente='+839494,{})
@@ -39,6 +39,7 @@ export default function Confirmacion_de_pago(){
     
     return (
     <Box component="div" m={2} className={classes.root}>
+        <Header/>
         <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
             <div>
