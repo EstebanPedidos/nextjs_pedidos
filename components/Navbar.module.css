@@ -1,0 +1,15 @@
+.logo {
+	width: 150;
+}
+
+.content {
+	height: 72px;
+	align-items: center;
+	justify-content: space-around;
+	position: relative;
+}
+
+.iconhcs {
+	width: 19px;
+	height: 19px;
+}

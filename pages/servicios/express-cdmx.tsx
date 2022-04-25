@@ -1,8 +1,9 @@
-import { Layout } from '/layout/Layout';
+import { Layout } from '../../layout/Layout';
 import { makeStyles } from '@mui/styles';
-import Banner from '/components/express-cdmx/Banner';
-import HowItWorks from '/components/express-cdmx/HowItWorks';
-import Schedule from '/components/express-cdmx/Schedule';
+// import Banner from '/components/express-cdmx/Banner';
+import Banner from '../../components/express-cdmx/Banner';
+import HowItWorks from '../../components/express-cdmx/HowItWorks';
+import Schedule from '../../components/express-cdmx/Schedule';
 
 const useStyles = makeStyles({
 	container: {

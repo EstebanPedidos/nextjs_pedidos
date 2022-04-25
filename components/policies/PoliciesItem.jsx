@@ -1,6 +1,6 @@
 // import { Icon, Link } from '@material-ui/core';
 import { Icon, Link } from '@mui/material';
-import { COLORS } from '/app/theme';
+import { COLORS } from '/themes/light-theme';
 
 export const Item = ({ icon: IconItem, title, path }) => {
 	return (

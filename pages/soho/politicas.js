@@ -1,10 +1,11 @@
 import React from 'react';
 // MATERIAL UI COMPONENTS
-import { Box, Container, Icon, Typography } from '@material-ui/core';
+// import { Box, Container, Icon, Typography } from '@material-ui/core';
+import { Box, Container, Icon, Typography } from '@mui/material';
 
 //CUSTOM COMPONENTS
-import { Layout } from '../../layout';
-import { HeadingPolicies, PoliciesMenu } from '../../components';
+import { Layout } from '/layout/Layout';
+import { HeadingPolicies, PoliciesMenu } from '/components';
 
 export const Politicas = () => {
 	return (
@@ -117,3 +118,5 @@ export const Politicas = () => {
 		</Layout>
 	);
 };
+
+export default Politicas;
