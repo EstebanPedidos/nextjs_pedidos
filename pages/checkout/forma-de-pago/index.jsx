@@ -11,10 +11,12 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
 import LoadingButton from '@mui/lab/LoadingButton';
 import makeStyles from '@mui/styles/makeStyles'
 //Componentes 
+import Header  from '../Header';
 import Resumen from '../Resumen';
 import Process from '../Process';
 import SDKPayPalBotones from './SDKPayPalBotones'
 import Hostedfields from './Hostedfields';
+
 //Servicios
 import Services from '../../services/Services'
 
@@ -105,8 +107,13 @@ export default function Forma_de_pago(){
             if( mensaje === "Agregado" || mensaje === "Actualizado"){
                 if(sub_forma_pago === '3' || sub_forma_pago === '4' ){
                     router.push('/checkout/confirmacion-de-pago')
-                }else if(sub_forma_pago === '2'){
-                    ShoppingCartServices.guardaPagoAlRecibir(localStorage.getItem('Pedido'),localStorage.getItem('Cliente'),data.jsonResumen.resumen.shipVia,sub_forma_pago)
+                }else if(sub_forma_pago === '2'){                
+                    Services('PUT-NOT','/registrov2/guardaPagoAlRecibir',{
+                        pedido_num:localStorage.getItem('Pedido'),
+                        cliente_num:localStorage.getItem('Cliente'),
+                        shipVia:data.jsonResumen.resumen.shipVia,
+                        formaPago:sub_forma_pago
+                    })
                     .then( response =>{
                         let mensajeRecibir = response.data
                         if(mensajeRecibir === 'ok'){
@@ -132,13 +139,13 @@ export default function Forma_de_pago(){
                     let pedido       = await localStorage.getItem('Pedido')
                     if(pedido !== undefined && pedido !== null){
                         let cust_num     = await (cliente-1)
-                        let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+localStorage.getItem('Pedido')+'&afiliado='+afiliado+'&paso=4',{})
+                        let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=4',{})
                         let json         = await services.data  
                         if(json.resumen.estatus === 'R' && json.resumen.pvse === 'N'){
                             if(json.resumen.costoEnvio > 0 || json.resumen.envio.tipo !== ''){
                                 let token        = await Services('POST','/registrov2/clientetoken?cust_num='+cust_num,{})
                                 let cliente      = await token.data 
-                                setData({jsonResumen:json})
+                                setData({jsonResumen:json,pedido:pedido})
                                 setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
                                 let tarjetas         = await cliente.getPaymentTokens
                                 let getPaymentTokens = await JSON.parse(tarjetas)
@@ -168,6 +175,7 @@ export default function Forma_de_pago(){
 
     return (
     <Box component="div" m={2} className={classes.root}>
+        <Header/>
         <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
                 <div> 

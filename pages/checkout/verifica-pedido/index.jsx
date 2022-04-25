@@ -7,8 +7,8 @@ import { useRouter } from 'next/router'
 import {Box, Grid, Paper, Typography,
         Button, TextField, Divider, 
         Alert, Stack, AlertTitle,  Link  } from '@mui/material';
-
 import { makeStyles } from '@material-ui/core/styles';
+import LoadingButton from '@mui/lab/LoadingButton';
 //Componentes MUI4
 
 //Servicos
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Verifica_pedido(props){
+export default function Verifica_pedido(){
     const classes                               = useStyles();
     const ruter                                 = useRouter() 
     const [Remove,setRemove]                    = useState([])
@@ -58,13 +58,15 @@ export default function Verifica_pedido(props){
     const [total,setTotal]                      = useState(0)
     const [favoritos,setFavoritos]              = useState([])
     const [articulos,setArticulos]              = useState([])
-    const cliente                               = 839494
-    const usuario                               = 168020
-    const afiliado                              = 'S'
+    const [loading,setLoading]                  = useState(false) 
+
 
 
     useEffect(() => {
         const getData = async () => {
+            let cliente         = await localStorage.getItem('Cliente')
+            let usuario         = await localStorage.getItem('Usuario') 
+            let afiliado        = await localStorage.getItem('afiliado') 
             let services        = await Services('GET','/carritoyreservado/getCarrito?clienteNum='+cliente+'&usuarioNum='+usuario+'&top=10&afiliado='+afiliado,{})
             let carritoS        = await services.data
             let totalS          = await carritoS.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
@@ -107,7 +109,7 @@ export default function Verifica_pedido(props){
     },[partidas])
 
     function add(item_num){
-        Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: cliente,usuario_num : usuario,cantidad : 1,item_num : item_num,seguro : '',garantia : ''})
+        Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: localStorage.getItem('Cliente'),usuario_num : localStorage.getItem('Usuario'),cantidad : 1,item_num : item_num,seguro : '',garantia : ''})
         .then( response =>{
             if(response.data > 0){
                 setPartidas(response.data)
@@ -123,7 +125,7 @@ export default function Verifica_pedido(props){
 
         let articulosD   = await (item_num === 'V' || item_num === 'E')?(deleteAll)?Remove.toString():articulos.toString():item_num
         
-        Services('DELETE','/carritoyreservado/deleteCarrito?clienteNum='+cliente+'&usuarioNum='+usuario+'&items='+articulosD,{})
+        Services('DELETE','/carritoyreservado/deleteCarrito?clienteNum='+localStorage.getItem('Cliente')+'&usuarioNum='+localStorage.getItem('Usuario')+'&items='+articulosD,{})
         .then( response =>{
             setPartidas(response.data)                        
         })        
@@ -147,7 +149,7 @@ export default function Verifica_pedido(props){
  
     function validaCodigoDescuento(){
         if(cupon !== ''){
-            Services('GET','/carritoyreservado/validaCodigoDescuento?clienteNum='+cliente+'&usuarioNum='+usuario+'&cupon='+cupon,{})
+            Services('GET','/carritoyreservado/validaCodigoDescuento?clienteNum='+localStorage.getItem('Cliente')+'&usuarioNum='+localStorage.getItem('Usuario')+'&cupon='+cupon,{})
             .then( response =>{
                 if(response.data)  {
                     alert("Continua para ver el descuento")
@@ -162,6 +164,7 @@ export default function Verifica_pedido(props){
     }
 
     function reservaCarrito(){
+        setLoading(true)
         if(carrito.configCarrito.precarrito.length > 0){
             var arraySkus = new Array();
             carrito.configCarrito.precarrito.map(function(item) {                
@@ -174,6 +177,7 @@ export default function Verifica_pedido(props){
                     objeto.itemGarant = "";
                     arraySkus.push(objeto)
                 }else{
+                    setLoading(false)
                     alert("El articulo "+item.item_num+' no se puede reservar con cantidad 0')
                     return false;
                 }
@@ -181,19 +185,24 @@ export default function Verifica_pedido(props){
             })
 
             if(arraySkus.length > 0){
-                Services('POST','/carritoyreservado/reservaCarrito?clienteNum='+cliente+'&usuarioNum='+usuario+'&afiliado='+afiliado+'&cupon='+cupon+'&ip=192.10.1.166&ejecutivo='+ejecutivo.slmn,arraySkus)
+                Services('POST','/carritoyreservado/reservaCarrito?clienteNum='+localStorage.getItem('Cliente')+'&usuarioNum='+localStorage.getItem('Usuario')+'&afiliado='+localStorage.getItem('afiliado')+'&cupon='+cupon+'&ip=192.10.1.166&ejecutivo='+ejecutivo.slmn,arraySkus)
                 .then( response =>{
                     if(response.data.pedido > 0){
                         localStorage.setItem('Pedido', response.data.pedido)
                         ruter.push('/checkout/direccion-de-envio')
+                    }else{
+                        setLoading(false)
                     }                    
                 }) 
+            }else{
+                setLoading(false)
             }           
         }
     }
 
     return (
             <Box component="div"m={1}>
+                sdfsfds
                 <div className={classes.root}>
                     <Grid container justifyContent="space-around" alignItems="flex-start">
                         <Grid item xs={12} sm={8}>
@@ -408,15 +417,16 @@ export default function Verifica_pedido(props){
                                             <Divider light />
                                         </Box>
                                         <Box component="div" py={2} >
-                                        <Button 
-                                            variant="contained"
+                                            <LoadingButton variant="contained"
                                             fullWidth
                                             size="large"
                                             color="primary"
                                             onClick={reservaCarrito}
-                                        >
-                                            Continuar compra
-                                        </Button>
+                                            loading={loading}
+                                            loadingIndicator="Cargando..."
+                                            >
+                                                Continuar compra
+                                            </LoadingButton>
                                         </Box>
                                         {(deleteAll)  ? (
                                             <Box component="div">
