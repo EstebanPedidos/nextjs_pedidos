@@ -1,4 +1,5 @@
 
+import {useState} from 'react'
 //next js
 import { useRouter } from 'next/router'
 //Material UI
@@ -11,6 +12,7 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import MarkEmailUnreadOutlinedIcon from '@mui/icons-material/MarkEmailUnreadOutlined';
 import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
+import CircularProgress from '@mui/material/CircularProgress';
 //import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 //Componenetes
 import ModalExecutive from './modals/ModalExecutive';
@@ -35,8 +37,10 @@ export default function Resumen(props){
     const enviosF   = ['DHL','FEDEX','ESTAFETA','REDPACK'];
     let   router    = useRouter();
     let   data      = props.data
+    const [iscambio,setIsCambio] = useState(false)
     
     function cambio(index){
+        setIsCambio(true)
         router.push(
         (index == 0)?'/checkout/direccion-de-envio':
         (index == 1)?'/checkout/facturacion':
@@ -123,7 +127,11 @@ export default function Resumen(props){
                                                 </Box>
                                             </Grid>
                                             <Grid item xs={4} sm={12} md={3} lg={2}>
+                                            {(iscambio)?
+                                                <CircularProgress />
+                                                :
                                                 <Button color="primary" fullWidth size="small" onClick={()=>{cambio(0)}}>Cambiar</Button>
+                                            }
                                             </Grid>
                                         </Grid>
                                     </div>
@@ -154,7 +162,11 @@ export default function Resumen(props){
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={4} sm={12} md={3} lg={2}>
+                                                    {(iscambio)?
+                                                     <CircularProgress />
+                                                    :
                                                     <Button color="primary" fullWidth size="small" onClick={()=>{cambio(1)}}>Cambiar</Button>
+                                                    }
                                                 </Grid>
                                             </Grid>
                                         </div>
@@ -233,7 +245,11 @@ export default function Resumen(props){
                                                             </Box>
                                                         </Grid>
                                                         <Grid item xs={4} sm={12} md={3} lg={2}>
+                                                        {(iscambio)?
+                                                            <CircularProgress />
+                                                            :
                                                             <Button color="primary" fullWidth size="small" onClick={()=>{cambio(2)}}>Cambiar</Button>
+                                                        }
                                                         </Grid>
                                                     </Grid>  
                                                 }

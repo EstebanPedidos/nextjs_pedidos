@@ -1,9 +1,11 @@
+import {useState} from 'react'
 //Paquetes
 import { useRouter } from 'next/router'
 //Material
 //Material UI
 import {Box, Stepper, Step, StepLabel, } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +28,10 @@ export default function Process({paso}){
   const classes   = useStyles();
   const steps     = getSteps();
 
+  const [iscambio,setIsCambio] = useState(false)
+
   function cambio(index){
+    setIsCambio(true)
     if(index !== paso){
       ruter.push(
         (index == 0)?'/checkout/direccion-de-envio':
@@ -40,6 +45,9 @@ export default function Process({paso}){
   return (
     <Box component="div" pb={2}>
         <div className={classes.root}>
+          {(iscambio)?
+          <LinearProgress />
+          :
             <Stepper alternativeLabel activeStep={(paso === undefined)?0:(paso > 3)?3:paso}>
                 {steps.map((label, index) => {
                 const stepProps = {};
@@ -51,6 +59,7 @@ export default function Process({paso}){
                   );
                 })}
             </Stepper>
+          }
         </div>
     </Box>
   )

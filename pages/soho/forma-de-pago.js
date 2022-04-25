@@ -1,7 +1,7 @@
-import { Container, Typography, Box } from '@material-ui/core';
-import React from 'react';
-import { HeadingPolicies, PoliciesMenu } from '../../components';
-import { Layout } from '../../layout';
+// import { Container, Typography, Box } from '@material-ui/core';
+import { Container, Typography, Box } from '@mui/material';
+import { HeadingPolicies, PoliciesMenu } from '/components';
+import { Layout } from '/layout/Layout';
 
 export const FormaDePago = () => {
 	return (
@@ -138,3 +138,5 @@ export const FormaDePago = () => {
 		</Layout>
 	);
 };
+
+export default FormaDePago;

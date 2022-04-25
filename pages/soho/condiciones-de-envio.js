@@ -1,4 +1,18 @@
 import React from 'react';
+// import {
+// 	Container,
+// 	Box,
+// 	Typography,
+// 	Table,
+// 	TableHead,
+// 	TableRow,
+// 	TableCell,
+// 	TableBody,
+// 	TableContainer,
+// 	Paper,
+// 	Grid,
+// } from '@material-ui/core';
+
 import {
 	Container,
 	Box,
@@ -11,7 +25,8 @@ import {
 	TableContainer,
 	Paper,
 	Grid,
-} from '@material-ui/core';
+} from '@mui/material';
+
 import { HeadingPolicies, PoliciesMenu } from '/components';
 import { Layout } from '/layout/Layout';
 

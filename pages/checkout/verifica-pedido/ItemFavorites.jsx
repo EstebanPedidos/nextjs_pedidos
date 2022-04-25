@@ -3,8 +3,8 @@ import React,{useState,useEffect} from 'react';
 import { useRouter } from 'next/router'
 //Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
+import 'swiper/css';
+import 'swiper/css/navigation';
 //MUI
 import {Box, Grid, Paper, Typography, Button, Card, 
     CardActionArea, CardContent, CardActions,CardMedia

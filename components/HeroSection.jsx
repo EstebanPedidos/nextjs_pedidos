@@ -100,7 +100,7 @@ export const HeroSection = () => {
 							</Link>
 						</Breadcrumbs>
 					</Box>
-					<Hidden mdDown='hide'>
+					<Hidden mdDown={true}>
 						<Box display={'flex'} alignItems='center'>
 							<span
 								style={{
@@ -124,7 +124,7 @@ export const HeroSection = () => {
 			<Box overflow={'hidden'}>
 				<Box>
 					<Hidden smDown>
-						<Carousel slidesPerView={4}>
+						<Carousel slidesPerView={5}>
 							{items.map((props, indx) => (
 								<SwiperSlide key={indx}>
 									<HeroItem {...props} />

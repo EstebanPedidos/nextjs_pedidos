@@ -31,13 +31,11 @@ import {
 } from '@mui/material';
 
 import {
-	FavoriteBorder as FavoriteBorderIcon,
+	FavoriteBorder,
 	HelpOutline as HelpOutlineIcon,
 	ShoppingCart as ShoppingCartIcon,
 	Search as SearchIcon,
 } from '@mui/icons-material';
-
-import { makeStyles } from '@mui/styles';
 
 // Icons
 // import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -49,34 +47,12 @@ import { makeStyles } from '@mui/styles';
 import { logoUrl } from '../constants';
 
 import { HelpModal } from './modals';
-// import { useUiContext } from '../context/UiContext';
 
-const useStyles = makeStyles((theme) => ({
-	// my styles - javier mora
-	logo: {
-		width: '150px',
-	},
-	content: {
-		height: '72px',
-		alignItems: 'center',
-		justifyContent: 'space-around',
-		// gap: '0.5rem',
-		position: 'relative',
-		// margin: '0 auto',
-	},
-	iconhca: {
-		width: '19px',
-		height: '19px',
-	},
-}));
+import { content, logo, iconhca } from './Navbar.module.css';
 
 export function Navbar() {
-	const { logo, content, iconhca } = useStyles();
-
 	const [openModal, setOpenModal] = useState(false);
 	const [openMenu, setOpenMenu] = useState(false);
-	// const { drawerToggle } = useUiContext();
-	// const [anchorEl, setAnchorEl] = React.useState(null);
 	const anchorEl = useRef();
 	const handleClose = () => {
 		setOpenMenu(false);
@@ -166,7 +142,7 @@ export function Navbar() {
 
 						<Box component={'span'}>
 							<IconButton onClick={handleClick}>
-								<FavoriteBorderIcon />
+								<FavoriteBorder />
 							</IconButton>
 							<Menu
 								anchorEl={anchorEl.current}
@@ -188,7 +164,7 @@ export function Navbar() {
 										alignItems='center'
 										flexDirection={'column'}>
 										<IconButton>
-											<FavoriteBorderIcon fontSize='large' />
+											<FavoriteBorder fontSize='large' />
 										</IconButton>
 										<Typography>
 											Iniciar sesión para añadir
@@ -198,16 +174,12 @@ export function Navbar() {
 							</Menu>
 							<div ref={anchorEl} id='menu'></div>
 						</Box>
-						<Box component={'span'}>
-							<IconButton onClick={handleOpenModal}>
-								<HelpOutlineIcon />
-							</IconButton>
-						</Box>
-						<Box component={'span'}>
-							<IconButton>
-								<ShoppingCartIcon />
-							</IconButton>
-						</Box>
+						<IconButton onClick={handleOpenModal}>
+							<HelpOutlineIcon />
+						</IconButton>
+						<IconButton color='primary'>
+							<ShoppingCartIcon />
+						</IconButton>
 					</Box>
 					<Box>
 						<Button variant='contained' color='primary'>

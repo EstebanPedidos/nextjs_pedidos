@@ -8,7 +8,8 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import MarkunreadMailboxIcon from '@material-ui/icons/MarkunreadMailbox';
 
 //Materil Components
-import { Box } from '@material-ui/core';
+// import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 //Custom components
 import { Item } from './PoliciesItem';
 
