@@ -20,6 +20,8 @@ import {Grid,Box,Typography,Skeleton,Divider,Button,Avatar,TextField,Paper,FormC
     Select,MenuItem,FormLabel,RadioGroup,Radio,
     Card,CardActionArea,CardActions,CardContent,CardMedia,FormControlLabel} 
 from '@mui/material';
+import MopedOutlinedIcon from '@mui/icons-material/MopedOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 
@@ -33,16 +35,16 @@ const useStyles = makeStyles((theme) => ({
     width_carousel: {
         width: 500,
     },
-    titDescription:{
+    /* titDescription:{
         fontSize: '1.3rem',
     },
     titxt:{
         fontSize: '1.3rem',
-    },
+    }, 
    titSuggest:{
     fontSize: '1.3rem',
     fontWeight: 'SemiBold',
-   },
+   },*/
 
    media: {
     height: 130,
@@ -199,7 +201,7 @@ export default function FichaTecnica(props){
                         <Grid item xs={12} sm={8}>
                             <Grid container>
                                 <Grid>
-                                    <Typography variant="h1" component="h1"  mt={2} >
+                                    <Typography variant="h4" component="h1"  mt={2} >
                                         {(datos.hasOwnProperty('item_num'))?`${datos.descripcion.descripcion.urlName}`:<Skeleton animation="wave"/>}
                                     </Typography> 
                                 </Grid>
@@ -242,8 +244,8 @@ export default function FichaTecnica(props){
                                 <Grid item xs={12} sm={12} lg={5}>
                                     <Box>   
                                         <Grid >
-                                            <Typography variant="h2" component="h3" className={classes.titDescription}>
-                                                {(datos.hasOwnProperty('item_num'))?(datos.descripcion.descripcion.hasOwnProperty("titulo"))?`Detalles de  ${datos.descripcion.descripcion.titulo}`:``:<Skeleton animation="wave"/>}
+                                            <Typography variant="h6" component="h3" className={classes.titDescription}>
+                                                {(datos.hasOwnProperty('item_num'))?(datos.descripcion.descripcion.hasOwnProperty("titulo"))?`Especificaciones de  ${datos.descripcion.descripcion.titulo}`:``:<Skeleton animation="wave"/>}
                                             </Typography> 
                                             {(datos.hasOwnProperty('item_num'))?
                                             <ListDescription detalle={datos.detalle} />
@@ -267,7 +269,7 @@ export default function FichaTecnica(props){
                                     <Grid item></Grid>
                                     <Grid item>
                                         <Box my={2}>
-                                            <Typography variant="h2" component="h3" className={classes.titxt} >{(datos.hasOwnProperty('item_num'))?'Consulta envío express 3 horas aquí':<Skeleton animation="wave" />}</Typography>
+                                            <Typography variant="subtitle1" component="h4" className={classes.titxt} >{(datos.hasOwnProperty('item_num'))?'Consulta envío express 3 horas aquí':<Skeleton animation="wave" />}</Typography>
                                             <Box my={2}>
                                                 <Grid container justifyContent="center" alignItems="center">
                                                     <Grid item xs={2} >
@@ -310,7 +312,7 @@ export default function FichaTecnica(props){
                             <Paper style={{ padding:15 }} variant="outlined" elevation={3}>
                                 <Typography>Precio unitario</Typography>
                                 <Box display="flex" flexWrap="nowrap" >
-                                    <Box p={1}><Typography component="subtitle1" variant="h1"> {(precio > 0)?precio:``}</Typography></Box>
+                                    <Box p={1}><Typography variant="h4" component="subtitle1"> {(precio > 0)?precio:``}</Typography></Box>
                                     <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
                                         <Typography variant="subtitle1">
                                             {(cortadosPA.indexOf(datos.cortado) >= 0 || articulosPA.indexOf(datos.item_num) >= 0)?(datos.precio_anterior > 0 && datos.precio_anterior > precio)?Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0}):``:Precios('redondear_arriba',{subtotal:(((precio*10)/100)+precio),iva:0})}
@@ -326,17 +328,17 @@ export default function FichaTecnica(props){
                                                     <Box fontWeight="fontWeightBold">
                                                         <Grid item>
                                                             <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
-                                                                <Grid item xs={2}>MotorcycleIcon</Grid>
+                                                                <Grid item xs={2}><MopedOutlinedIcon/></Grid>
                                                                 <Grid item xs={10}>
-                                                                    <Typography color="primary" variant="subtitle2">Entrega EXPRESS, CDMX {datos.horarioEntrega.horarioLocal} </Typography>
+                                                                    <Typography variant="subtitle2">Entrega EXPRESS, CDMX {datos.horarioEntrega.horarioLocal} </Typography>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item>
                                                             <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
-                                                                <Grid item xs={2}>LocalShippingOutlinedIcon</Grid>
+                                                                <Grid item xs={2}><LocalShippingOutlinedIcon/></Grid>
                                                                 <Grid item xs={10}>
-                                                                    <Typography color="primary" variant="subtitle2">Entregas al país: {datos.horarioEntrega.horarioForaneo} </Typography>
+                                                                    <Typography variant="subtitle2">Entregas al país: {datos.horarioEntrega.horarioForaneo} </Typography>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -357,7 +359,7 @@ export default function FichaTecnica(props){
                                         </Box>
                                     </Box>
                                     <Box component="div" pt={1}>
-                                        <Typography variant="subtitle1" color="textPrimary">
+                                        <Typography variant="subtitle2" color="textPrimary">
                                             <Box component="span" fontWeight="fontWeightMedium">
                                                 {(datos.disponibilidad > 20)?`¡Tenemos más de 20 piezas!`:`¡Tenemos ${datos.disponibilidad} piezas!`}
                                             </Box>
@@ -456,7 +458,7 @@ export default function FichaTecnica(props){
                         {(datos.hasOwnProperty('item_num'))&&
                         (datos.relacionados.listaRelacionados.length > 0  && datos.descripcion.descripcion.titulo !== undefined )&&
                         <Box component="div" py={2}>
-                            <Typography variant="h2" component="h4" className={classes.titSuggest} >
+                            <Typography variant="h6" component="h5" className={classes.titSuggest} >
                                 {(cortadosPA.indexOf(datos.cortado) >= 0)?`Consumibles HP para `:`Sugerencia de compra para `}<span>{(datos.descripcion.descripcion.titulo.indexOf('ORIGINAL') >= 0)?datos.descripcion.descripcion.titulo.substring(0,datos.descripcion.descripcion.titulo.indexOf('ORIGINAL')-1):datos.descripcion.descripcion.titulo}</span> {(cortadosPA.indexOf(datos.cortado) >= 0)?`relacionados`:``}
                             </Typography>
                             <Box my={4}>   
