@@ -137,14 +137,14 @@ export default function Forma_de_pago(){
             if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
                 if(parseInt(cliente) !== 201221){
                     let pedido       = await localStorage.getItem('Pedido')
-                    if(pedido !== undefined && pedido !== null){
-                        let cust_num     = await (cliente-1)
+                    if(pedido !== undefined && pedido !== null){                        
                         let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=4',{})
                         let json         = await services.data  
                         if(json.resumen.estatus === 'R' && json.resumen.pvse === 'N'){
                             if(json.resumen.costoEnvio > 0 || json.resumen.envio.tipo !== ''){
+                                let cust_num     = await (cliente-(parseInt(json.resumen.direccion.dirNum)))
                                 let token        = await Services('POST','/registrov2/clientetoken?cust_num='+cust_num,{})
-                                let cliente_l      = await token.data 
+                                let cliente_l    = await token.data 
                                 setData({jsonResumen:json,pedido:pedido})
                                 setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
                                 let tarjetas         = await cliente_l.getPaymentTokens
@@ -184,6 +184,7 @@ export default function Forma_de_pago(){
                             <Box component="div" py={4}> 
                                 {(data.hasOwnProperty('jsonResumen'))?                  
                                     <Process paso={3}/>:<Skeleton variant="text" animation="wave"/>
+                                    
                                 }
                             </Box>
                             <Box component="div" p={2}>

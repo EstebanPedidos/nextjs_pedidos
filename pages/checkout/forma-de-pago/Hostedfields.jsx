@@ -139,11 +139,8 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave}) {
                     </>
                     </div>
             </FormControl>
-            </Box>
-
-           
-        :
-        
+            </Box>           
+        :        
         <PayPalScriptProvider
             options={initialOptions}
         >

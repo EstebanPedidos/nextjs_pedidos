@@ -15,8 +15,6 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 //Funciones
 import Precios from '../../services/Precios'
-//Servicos
-import Services from '../../services/Services'
 
 const useStyles = makeStyles((theme) => ({
     root: { flexGrow: 1 
@@ -197,6 +195,10 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                         {Array.apply(0, Array((item.existencia >= 5)?5:item.existencia)).map(function (x, i) {
                                                             return <option key={i+1} value={i+1}>{i+1}</option>;
                                                         })}  
+
+                                                        {(item.cantidad > 5)&&
+                                                            <option key={item.cantidad} value={item.cantidad}>{item.cantidad}</option>
+                                                        }
                                                         {(item.existencia >= 5)&&
                                                             <option key={0} value="0">+5</option>
                                                         }                
