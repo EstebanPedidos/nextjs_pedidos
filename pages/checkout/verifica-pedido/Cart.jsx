@@ -5,12 +5,9 @@ import { useRouter } from 'next/router';
 //Material UI
 import {Box, Grid, Paper, Typography, Button, Checkbox,
         ButtonBase, IconButton, TextField, FormControl,
-        InputBase, InputLabel, Select, Divider, Card, CardActions,
+        Alert, InputLabel, Select, Divider, Card, CardActions,
        } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import MenuItem from '@mui/material/MenuItem';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 //Funciones
@@ -178,7 +175,10 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                         </Grid>                        
                                         <Grid item xs={3} sm={3}>
                                                 <Box m={1}>
-                                                    {(item.modificar !== undefined )?                                                            
+                                                    { (item.exis === 'X') ?
+                                                    <Alert severity="error">Sin Disponibilidad</Alert>
+                                                    :                                                    
+                                                    (item.modificar !== undefined )?                                                            
                                                     <TextField fullWidth  id='input' type="number" value={item.cantidad} name={index}  onChange={UpdateCantidad} label="Cantidad"/>
                                                     :
                                                     <FormControl variant="outlined" className={classes.formControl}>

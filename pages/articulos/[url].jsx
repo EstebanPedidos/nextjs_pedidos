@@ -35,16 +35,6 @@ const useStyles = makeStyles((theme) => ({
     width_carousel: {
         width: 500,
     },
-    /* titDescription:{
-        fontSize: '1.3rem',
-    },
-    titxt:{
-        fontSize: '1.3rem',
-    }, 
-   titSuggest:{
-    fontSize: '1.3rem',
-    fontWeight: 'SemiBold',
-   },*/
 
    media: {
     height: 130,
@@ -100,6 +90,7 @@ export default function FichaTecnica(props){
     const classes                       = useStyles()
     const ruter                         = useRouter() 
     const [datos,setDatos]              = useState({})
+    const [horentr,setHorEntr]          = useState([])
     const [precio,setPrecio]            = useState(0)
     const [hdi,setHdi]                  = useState(0)
     const [garantext1,setGarnatExt1]    = useState(0)
@@ -109,6 +100,7 @@ export default function FichaTecnica(props){
     const [cantidad,setCantidad]        = useState(1)
     const [isManual,setIsManual]        = useState(false)
     const [loading,setLoading]          = useState(false) 
+    const [agregado,setAgregado]        = useState([]) 
 
     const cortadosPA    = ['HP-TIN','HP-TO-'];
     const articulosPA   = ['HP-LAP-2C3C3LA','ASU-LAP-C4G500','HP-MFC-Z4B04A','HP-MFC-Z4B53A','PDIR-LAP-2C3E1L','PDIR-LAP-2Z748L','HP-LAP-151F5LT','PDIR-LAP-22A98L','PDIR-IMP-1TJ09A','PDIR-ACC-2UF58A','LG-PAN-32LM570','BRO-MFC-T220','PF-LOG-G920','PF-LOG-G29','HP-IMP-CZ993A','CAN-MFC-G2160','BRO-MFC-DCP2551','PDIR-MFC-2LB19A','HP-ALL-140P8AA','ACE-MON-V246HQL','LEN-LAP-CHRB0US'];
@@ -130,6 +122,9 @@ export default function FichaTecnica(props){
                     data.breadcrumb     = await data.breadcrumb.split(',')
                     data.horarioEntrega = await JSON.parse(data.horarioEntrega)
                     data.relacionados   = await JSON.parse(data.relacionados)
+
+                        services        = await Services('POST','/fichaTecnica/disponibilidad?itemNum='+data.item_num,{})
+                    let horarios        = await services.data
                 
                         services        = await Services('POST','/fichaTecnica/obtienePrecio?cliente_num='+cliente+'&item_num='+data.item_num,{})
                     let subtotal        = await services.data
@@ -148,6 +143,7 @@ export default function FichaTecnica(props){
                     setHdi(hdi)
                     setGarnatExt1(garantext1)
                     setGarnatExt2(garantext2)
+                    setHorEntr(horarios)
                 }else{
                     ruter.push('/')
                 }                
@@ -164,7 +160,7 @@ export default function FichaTecnica(props){
         
     }
 
-    function add(isCarrito,item_num){   
+    async function add(isCarrito,item_num){   
         setLoading(true)
         if(item_num === '' && (cantidad === '' || parseInt(cantidad) === 0)){
             alert('Se requiere una cantidad')
@@ -173,6 +169,7 @@ export default function FichaTecnica(props){
         Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: localStorage.getItem('Cliente'),usuario_num : localStorage.getItem('Usuario'),cantidad : (item_num==='')?parseInt(cantidad):1,item_num :(item_num==='')?datos.item_num:item_num,seguro :(item_num==='')?isHDI:'',garantia :(item_num==='')?isGarn:''})
         .then( response =>{
             if(response.data > 0){
+                setAgregado([...agregado,(item_num==='')?datos.item_num:item_num])
                 if(isCarrito){
                     ruter.push('/checkout/verifica-pedido')
                 }else{
@@ -338,12 +335,13 @@ export default function FichaTecnica(props){
                                                             <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
                                                                 <Grid item xs={2}><LocalShippingOutlinedIcon/></Grid>
                                                                 <Grid item xs={10}>
-                                                                    <Typography variant="subtitle2">Entregas al país: {datos.horarioEntrega.horarioForaneo} </Typography>
+                                                                    <Typography variant="subtitle2">Entregas al país: {horentr.horarioForaneo} </Typography>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Box> 
                                                 }
+                                                
                                                 {(datos.envio_gratis === "Y")&&
                                                     <Grid item>
                                                         <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
@@ -486,6 +484,14 @@ export default function FichaTecnica(props){
                                                             </CardContent>
                                                         </CardActionArea>
                                                         <CardActions>
+                                                            {(agregado.indexOf(datos.relacionados.listaRelacionados[oneKey].item_rel) >= 0)?
+                                                            <Typography
+                                                                variant="body2"
+                                                                color="textSecondary"
+                                                                component="p">
+                                                            Agregado
+                                                            </Typography>
+                                                            :
                                                             <LoadingButton size="medium"
                                                             variant="outlined"
                                                             fullWidth
@@ -495,6 +501,7 @@ export default function FichaTecnica(props){
                                                             >
                                                                 +
                                                             </LoadingButton>
+                                                            }
                                                         </CardActions>
                                                         </Card> 
                                                     </div>

@@ -16,12 +16,11 @@ import Services from '../../services/Services'
 //Funciones
 import Precios from '../../services/Precios'
 //Componentes
-import DataContext from './Context/DataContext'
+import Alertas from '../Alertas';
 import ItemFavorites from './ItemFavorites'
 import Cart from './Cart'
 import Eliminar from '../modals/Eliminar'
 import ModalExecutive   from '../modals/ModalExecutive'
-import { RestorePageOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,7 +49,7 @@ export default function Verifica_pedido(){
     const [modificar,setModificar]              = useState(0)
     const [ejecutivo,setEjecutivo]              = useState({ejecutivo:'', slmn:0})
     const [cupon,setCupon]                      = useState('')
-    
+    const [alerta,setAlerta]                    = useState({})
 
     const [carrito,setCarrito]                  = useState({})
     const [partidas,setPartidas]                = useState(0)
@@ -138,7 +137,7 @@ export default function Verifica_pedido(){
             carrito.configCarrito.precarrito[name].modificar = await true    
             carrito.configCarrito.precarrito[name].cantidad  = await 6        
         }else if(id === 'input'){
-            carrito.configCarrito.precarrito[name].cantidad = await value            
+            carrito.configCarrito.precarrito[name].cantidad = await (parseInt(value) > carrito.configCarrito.precarrito[name].existencia)?carrito.configCarrito.precarrito[name].existencia:value
         }else{
             carrito.configCarrito.precarrito[name].cantidad = await value 
         }  
@@ -167,21 +166,27 @@ export default function Verifica_pedido(){
         setLoading(true)
         if(carrito.configCarrito.precarrito.length > 0){
             var arraySkus = new Array();
-            carrito.configCarrito.precarrito.map(function(item) {                
-                if(item.cantidad > 0){
-                    var objeto      = new Object()
-                    objeto.sku        = item.item_num.replace(' ', '');
-                    objeto.cantidad   = item.cantidad;
-                    objeto.seguro     = 0;
-                    objeto.gaex       = 0 ;
-                    objeto.itemGarant = "";
-                    arraySkus.push(objeto)
+            carrito.configCarrito.precarrito.map(function(item) {    
+                if(item.exis !== 'X' ){
+                    if(item.cantidad > 0){
+                        var objeto      = new Object()
+                        objeto.sku        = item.item_num.replace(' ', '');
+                        objeto.cantidad   = item.cantidad;
+                        objeto.seguro     = 0;
+                        objeto.gaex       = 0 ;
+                        objeto.itemGarant = "";
+                        arraySkus.push(objeto)
+                    }else{
+                        setLoading(false)
+                        setAlerta({severity:'error',mensaje:'El articulo '+item.item_num+' no se puede reservar con cantidad 0',vertical:'bottom',horizontal:'right'})
+                        return ;
+                    }
                 }else{
                     setLoading(false)
-                    alert("El articulo "+item.item_num+' no se puede reservar con cantidad 0')
-                    return false;
-                }
-                
+                    arraySkus = [];
+                    setAlerta({severity:'error',mensaje:'El articulo '+item.item_num+' no cuenta con existencia',vertical:'bottom',horizontal:'right'})
+                    return
+                }                
             })
 
             if(arraySkus.length > 0){
@@ -202,7 +207,6 @@ export default function Verifica_pedido(){
 
     return (
             <Box component="div"m={1}>
-                sdfsfds
                 <div className={classes.root}>
                     <Grid container justifyContent="space-around" alignItems="flex-start">
                         <Grid item xs={12} sm={8}>
@@ -258,7 +262,7 @@ export default function Verifica_pedido(){
                                 </Box>
                             )}
                             {carrito.configCarrito.precarrito.find((items) => {
-                                return items.exis === "N";
+                                return items.exis === "X";
                             }) !== undefined && (
                                 <Box component="div">
                                     <Alert severity="error"><strong>Sin disponibilidad</strong> de producto</Alert>
@@ -464,6 +468,9 @@ export default function Verifica_pedido(){
 
                     </Grid>
                 </div>
+                {(alerta.hasOwnProperty('severity'))&&
+                    <Alertas setAlerta={setAlerta} alerta={alerta}/>
+                } 
             </Box>
     )
 }
