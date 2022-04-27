@@ -46,7 +46,7 @@ export default function Resumen(props){
         (index == 1)?'/checkout/facturacion':
         (index == 2)?'/checkout/forma-de-envio':
         (index == 3)&&'/checkout/forma-de-pago'
-        )  
+        ) 
     }
 
     return (

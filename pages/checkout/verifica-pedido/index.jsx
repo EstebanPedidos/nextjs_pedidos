@@ -151,13 +151,13 @@ export default function Verifica_pedido(){
             Services('GET','/carritoyreservado/validaCodigoDescuento?clienteNum='+localStorage.getItem('Cliente')+'&usuarioNum='+localStorage.getItem('Usuario')+'&cupon='+cupon,{})
             .then( response =>{
                 if(response.data)  {
-                    alert("Continua para ver el descuento")
+                    setAlerta({severity:'success',mensaje:'Continua para ver el descuento',vertical:'bottom',horizontal:'right'})
                 }else{
-                    alert('Algo salió mal Es posible que el código sea incorrecto o no aplique en tú carrito')
+                    setAlerta({severity:'error',mensaje:'Algo salió mal Es posible que el código sea incorrecto o no aplique en tú carrito',vertical:'bottom',horizontal:'right'})
                 } 
             }) 
         }else{
-            alert('Ingresa un código de descuento')
+            setAlerta({severity:'error',mensaje:'Ingresa un código de descuento',vertical:'bottom',horizontal:'right'})
         }
 
     }
@@ -196,10 +196,12 @@ export default function Verifica_pedido(){
                         localStorage.setItem('Pedido', response.data.pedido)
                         ruter.push('/checkout/direccion-de-envio')
                     }else{
+                        setAlerta({severity:'error',mensaje:'Error en reservar',vertical:'bottom',horizontal:'right'})
                         setLoading(false)
                     }                    
                 }) 
             }else{
+                setAlerta({severity:'error',mensaje:'No se cuenta con ningun articulo',vertical:'bottom',horizontal:'right'})
                 setLoading(false)
             }           
         }
