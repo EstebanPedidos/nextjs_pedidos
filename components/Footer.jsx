@@ -1,11 +1,8 @@
 import React from 'react';
 // import { Link as RouterLink} from 'react-router-dom';
-
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import {Grid,Typography,Skeleton,Divider,Button } from '@mui/material';
 // import logo from '../assets/pedidos-logo.svg';
 import { logoUrl as logo } from '../constants';
-import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import TwitterIcon from '@material-ui/icons/Twitter';

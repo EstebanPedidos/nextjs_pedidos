@@ -36,16 +36,16 @@ export default function ProductTab({datos}) {
           <Box component='div' py={2}>
             <div>
                 <Grid container spacing={2}>
-                    <Typography variant='h5' my={4}>{(datos.hasOwnProperty('item_num'))?(datos.descripcion.descripcion.hasOwnProperty('titulo'))?`Información de  ${datos.descripcion.descripcion.titulo}`:``:<Skeleton animation='wave'/>}</Typography> 
+                    <Typography variant='h6' component="h5" mt={4} px={2}>{(datos.hasOwnProperty('item_num'))?(datos.descripcion.descripcion.hasOwnProperty('titulo'))?`Información sobre ${datos.descripcion.descripcion.titulo}`:``:<Skeleton animation='wave'/>}</Typography> 
                     <Grid item xs={12}></Grid>
                     <Grid item xs={12}>
-                        <Box component='div' m={1}>
+                        <Box component='div'>
                             {(datos.hasOwnProperty('item_num'))&&
                             <>
-                            <Box component='div' py={2}>
-                                <Typography variant='h6'>Especificaciones</Typography>
+                            <Box component='div' >
+                                <Typography variant='h6' color="textSecondary">Especificaciones</Typography>
                             </Box>
-                            <TableContainer component={Paper}>
+                            <TableContainer>
                                 <Table  aria-label='simple table'>
                                     <TableBody component='ul'>
                                         {

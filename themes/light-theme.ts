@@ -56,7 +56,7 @@ export const lightTheme = createTheme({
 		// },
 		button: {
 			textTransform: 'none',
-			height: '2.5rem',
+			height: '3.2rem',
 			// no borrar el padding, ya que impacta en el diseno general, 12px es el padding por defecto, por alguna razon al no pasarle padding, sobre escribia el original y lo seteaba en 0, por favor no eliminar
 			padding: '0.8rem',
 		},
