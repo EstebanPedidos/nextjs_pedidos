@@ -1,6 +1,7 @@
 import {useState,useEffect} from "react";
 //next js
 import { useRouter } from 'next/router'
+import Script from 'next/script'
 //Servicios
 import Services from '../services/Services'
 import Precios from '../services/Precios'
@@ -9,7 +10,7 @@ import Precios from '../services/Precios'
 import Breadcrumb from './Breadcrumb';
 import ListDescription from './ListDescription';
 import ProductTab   from './ProductTab';
-//import { Footer, Navbar, HeroSection,} from 'components';
+import Alertas from '../checkout/Alertas'
 import { Layout } from 'layout/Layout';
 
 //Carousel
@@ -105,6 +106,8 @@ export default function FichaTecnica(props){
     const [isManual,setIsManual]        = useState(false)
     const [loading,setLoading]          = useState(false) 
     const [agregado,setAgregado]        = useState([]) 
+    const [alerta,setAlerta]            = useState({})
+    const [cp,setCP]                    = useState('')
 
     const cortadosPA    = ['HP-TIN','HP-TO-'];
     const articulosPA   = ['HP-LAP-2C3C3LA','ASU-LAP-C4G500','HP-MFC-Z4B04A','HP-MFC-Z4B53A','PDIR-LAP-2C3E1L','PDIR-LAP-2Z748L','HP-LAP-151F5LT','PDIR-LAP-22A98L','PDIR-IMP-1TJ09A','PDIR-ACC-2UF58A','LG-PAN-32LM570','BRO-MFC-T220','PF-LOG-G920','PF-LOG-G29','HP-IMP-CZ993A','CAN-MFC-G2160','BRO-MFC-DCP2551','PDIR-MFC-2LB19A','HP-ALL-140P8AA','ACE-MON-V246HQL','LEN-LAP-CHRB0US'];
@@ -157,17 +160,29 @@ export default function FichaTecnica(props){
     },[ruter])
 
     function validaCPexpress (){
-
-    }
-
-    function handleChange(){
-        
+        setLoading(true)
+        if(cp !== ''){
+            Services('POST','/fichaTecnica/esMotoExpress?item_num='+datos.item_num+'&codigo_postal='+cp,{})
+            .then( response =>{
+                if(response.data >= 0){
+                    setAlerta({severity:'success',mensaje:'Disponible Envío Express',vertical:'bottom',horizontal:'right'})
+                }else{
+                    setAlerta({severity:'error',mensaje:'Este producto aún no esta disponible para envío express.',vertical:'bottom',horizontal:'right'})
+                }
+                setLoading(false)
+                
+            })
+        }else{
+            setAlerta({severity:'error',mensaje:'Ingresa un CP',vertical:'bottom',horizontal:'right'})
+            setLoading(false)
+        }   
     }
 
     async function add(isCarrito,item_num){   
         setLoading(true)
         if(item_num === '' && (cantidad === '' || parseInt(cantidad) === 0)){
-            alert('Se requiere una cantidad')
+            setAlerta({severity:'error',mensaje:'Se requiere una cantidad',vertical:'bottom',horizontal:'right'})
+            setLoading(false)
             return
         }
         Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: localStorage.getItem('Cliente'),usuario_num : localStorage.getItem('Usuario'),cantidad : (item_num==='')?parseInt(cantidad):1,item_num :(item_num==='')?datos.item_num:item_num,seguro :(item_num==='')?isHDI:'',garantia :(item_num==='')?isGarn:''})
@@ -178,22 +193,32 @@ export default function FichaTecnica(props){
                     ruter.push('/checkout/verifica-pedido')
                 }else{
                     setLoading(false)
+                    setAlerta({severity:'success',mensaje:'Agregado',vertical:'bottom',horizontal:'right'})
                 }                
+            }else{
+                setAlerta({severity:'error',mensaje:'Error al agregar',vertical:'bottom',horizontal:'right'})
+                setLoading(false)
             }
-        }) 
-        
+        })         
     }
 
     return (
         <>
             <Layout>
-                <Box p={2}>
+                {(datos.hasOwnProperty('item_num'))&&
+                    <Script type="text/javascript" src="https://storage.googleapis.com/indexado/assets/alquimioIndexado.v2.js" 
+                    data-sku={datos.descripcion.descripcion.sort_name}
+                    data-country="MX"
+                    data-source="SCRIPT"
+                    data-brand="HP"></Script>
+                }
+                <Box p={2} my={2}>
                     <Grid container direction="row" justifyContent="space-between">
                         <Grid xs={12} sm={12} >
                             <Box component="div">
                                 <Box component="div">
                                     {(datos.hasOwnProperty('item_num'))&&
-                                    (datos.breadcrumb[0] !== "N/A")?
+                                    (datos.breadcrumb[0] !== "N/A")?                                    
                                         <Breadcrumb site='Home' categoria={datos.breadcrumb[0]} subcategoria={datos.breadcrumb[1]} productos={datos.breadcrumb[2]} variant="caption"/>
                                         :
                                         <Skeleton  animation="wave"/>
@@ -286,19 +311,21 @@ export default function FichaTecnica(props){
                                                             </Grid>
                                                             <Grid item xs={10}>
                                                             {(datos.hasOwnProperty('item_num'))?
-                                                            (datos.isExpress)&&
-                                                            <form noValidate onSubmit={validaCPexpress}>   
+                                                            (datos.isExpress)&&  
                                                                 <Grid container  alignItems="center" justifyContent="flex-start">
                                                                     <Grid item xs={7}>
-                                                                        <TextField id="outlined-basic" label="Código Postal" variant="outlined" name="cp" onChange={handleChange} fullWidth/>
+                                                                        <TextField id="outlined-basic" value={cp} label="Código Postal" variant="outlined" name="cp" onChange={({target})=>{setCP(target.value)}} fullWidth/>
                                                                     </Grid>
                                                                     <Grid item xs={5}>
-                                                                        <Button variant="contained" color="primary" size="large" onClick={validaCPexpress} fullWidth>
-                                                                                Comprobar
-                                                                        </Button> 
+                                                                        <LoadingButton variant="contained" color="primary" size="large"fullWidth
+                                                                        onClick={validaCPexpress}
+                                                                        loading={loading}
+                                                                        loadingIndicator="Comprobando..."
+                                                                        >
+                                                                            Comprobar
+                                                                        </LoadingButton> 
                                                                     </Grid>                                           
                                                                 </Grid>
-                                                            </form> 
                                                             :
                                                             <Skeleton variant="rectangular"  height={80} animation="wave"/>
                                                             }
@@ -524,10 +551,14 @@ export default function FichaTecnica(props){
                                 <ProductTab datos={datos}/>
                                 :
                                 <Skeleton variant="rectangular"  height={80} animation="wave"/>
-                                }                         
+                                }    
+                                <div id="contenidoIndexado"></div>
                             </Grid>
                         </Grid>
                     </Grid>
+                    {(alerta.hasOwnProperty('severity'))&&
+                        <Alertas setAlerta={setAlerta} alerta={alerta}/>
+                    } 
                 </Box>
             </Layout>
         </>
