@@ -14,6 +14,12 @@ import Alertas from '../checkout/Alertas'
 import { Layout } from 'layout/Layout';
 
 //Carousel
+import { Swiper } from 'swiper/react';
+import { Navigation } from 'swiper';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { SwiperSlide } from 'swiper/react';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -27,6 +33,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import MopedOutlinedIcon from '@mui/icons-material/MopedOutlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import LoadingButton from '@mui/lab/LoadingButton';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 
 
@@ -51,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 345,
     margin:10,
     padding:5,
+    boxShadow: '0px 0px 16px rgb(54 85 166 / 8%), 0px 1px 4px rgb(54 85 166 / 8%)',
   },
 /*plussss*/ 
   green: { color: 'rgba(116, 166, 38, 1)'},
@@ -67,7 +75,9 @@ const useStyles = makeStyles((theme) => ({
   iconButton: {
     padding: 10,
   },
-
+  ctaAdd:{
+    backgroundColor:  "secondary.light" ,
+  }
 
 }));
 
@@ -212,7 +222,7 @@ export default function FichaTecnica(props){
                     data-source="SCRIPT"
                     data-brand="HP"></Script>
                 }
-                <Box p={2} my={2}>
+                <Box component="div" p={2} my={2}>
                     <Grid container direction="row" justifyContent="space-between">
                         <Grid xs={12} sm={12} >
                             <Box component="div">
@@ -229,7 +239,7 @@ export default function FichaTecnica(props){
                                 <Grid item xs={12} sm={8}>
                                     <Grid container>
                                         <Grid>
-                                            <Typography variant="h4" component="h1"  my={2}>
+                                            <Typography variant="h5" component="h1" sx={{fontWeight:'500'}}>
                                                 {(datos.hasOwnProperty('item_num'))?`${datos.descripcion.descripcion.urlName}`:<Skeleton animation="wave"/>}
                                             </Typography> 
                                         </Grid>
@@ -368,7 +378,7 @@ export default function FichaTecnica(props){
                                                                     <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
                                                                         <Grid item xs={1}><LocalShippingOutlinedIcon color="primary"/></Grid>
                                                                         <Grid item xs={11}>
-                                                                            <Typography variant="subtitle2">Entregas <Box component="span" sx={{ color:'primary.main' }}>al país: {horentr.horarioForaneo}</Box></Typography>
+                                                                            <Typography variant="subtitle2">Entregas <Box component="span" sx={{ color:'primary.main' }}>al país {horentr.horarioForaneo}</Box></Typography>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
@@ -423,11 +433,11 @@ export default function FichaTecnica(props){
                                                         }
                                                     </Grid>
                                                     <Grid item xs={8}>
-                                                        <Button variant="outlined" size="large" py={1} fullWidth onClick={()=>{add(false,'')}}>Agregar a carrito</Button>
+                                                        <Button variant="contained" sx={{ backgroundColor: "secondary.light" }} size="large" py={1} fullWidth elevation={0} onClick={()=>{add(false,'')}}>Agregar a carrito</Button>
                                                     </Grid>
                                                     <Grid item xs={12}>
                                                         {(datos.disponibilidad  > 0)&&
-                                                            <Button onClick={()=>{add(true,'')}} variant="contained" color="secondary" onclick="" type="button" fullWidth size="large">
+                                                            <Button onClick={()=>{add(true,'')}} variant="contained" color="secondary" onclick="" type="button" fullWidth size="large" elevation={0}>
                                                                 Comprar ahora
                                                             </Button> 
                                                         }
@@ -493,56 +503,80 @@ export default function FichaTecnica(props){
                                         {(cortadosPA.indexOf(datos.cortado) >= 0)?`Consumibles HP para `:`Sugerencia de compra para `}<span>{(datos.descripcion.descripcion.titulo.indexOf('ORIGINAL') >= 0)?datos.descripcion.descripcion.titulo.substring(0,datos.descripcion.descripcion.titulo.indexOf('ORIGINAL')-1):datos.descripcion.descripcion.titulo}</span> {(cortadosPA.indexOf(datos.cortado) >= 0)?`relacionados`:``}
                                     </Typography>
                                     <Box my={4}>   
-                                        <Grid container>                                
-                                            <Grid item xs={12}>        
-                                                <Carousel emulateTouch={true} showStatus={false} showIndicators={false} showThumbs={false} centerMode={true} centerSlidePercentage={20}>
-                                                    { Object.keys(datos.relacionados.listaRelacionados).map((oneKey,i)=>{
+                                        <Grid container>  
+                                            <Grid item xs={12}>
+                                            <Swiper
+                                                modules={[Navigation]}
+                                                navigation
+                                                spaceBetween={10}
+                                                slidesPerView={4.5}
+                                                onSlideChange={() => console.log('slide change')}
+                                                onSwiper={(swiper) => console.log(swiper)}
+                                                breakpoints={{
+                                                    640: {
+                                                      slidesPerView: 2.2,
+                                                      
+                                                    },
+                                                    768: {
+                                                      slidesPerView: 3.3,
+                                                      
+                                                    },
+                                                    1024: {
+                                                      slidesPerView: 4.5,
+                                                     
+                                                    },
+                                                }}>
+                                                { Object.keys(datos.relacionados.listaRelacionados).map((oneKey,i)=>{
                                                             return (
-                                                            <div key={i}>
-                                                                <Card className={classes.productCard} elevation={3} >
-                                                                <CardActionArea  to={`/articulos/${datos.relacionados.listaRelacionados[oneKey].url}`} >
-                                                                    <CardMedia
-                                                                    className={classes.media}
-                                                                    image={`https://pedidos.com/myfotos/large/(L)${datos.relacionados.listaRelacionados[oneKey].item_rel}.webp`}
-                                                                    onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
-                                                                    alt={datos.item_num}
-                                                                    title={datos.item_num} />
-                                                                    <CardContent>
-                                                                    <Typography
-                                                                        variant="body2"
-                                                                        color="textSecondary"
-                                                                        component="p">
-                                                                        { datos.relacionados .listaRelacionados[oneKey].alt }
-                                                                    </Typography>
-                                                                    </CardContent>
-                                                                </CardActionArea>
-                                                                <CardActions>
-                                                                    {(agregado.indexOf(datos.relacionados.listaRelacionados[oneKey].item_rel) >= 0)?
-                                                                    <Typography
-                                                                        variant="body2"
-                                                                        color="textSecondary"
-                                                                        component="p">
-                                                                    Agregado
-                                                                    </Typography>
-                                                                    :
-                                                                    <LoadingButton size="medium"
-                                                                    variant="outlined"
-                                                                    fullWidth
-                                                                    onClick={()=>{add(false,datos.relacionados.listaRelacionados[oneKey].item_rel)}}
-                                                                    loading={loading}
-                                                                    loadingIndicator="Agregando..."
-                                                                    >
-                                                                        +
-                                                                    </LoadingButton>
-                                                                    }
-                                                                </CardActions>
-                                                                </Card> 
-                                                            </div>
-                                                            );
-                                                        })
-                                                    }
-                                                </Carousel>
-                                            </Grid>   
+                                                <SwiperSlide key={i}>
+                                                    <Card className={classes.productCard} >
+                                                        <CardActionArea  to={`/articulos/${datos.relacionados.listaRelacionados[oneKey].url}`} >
+                                                            <CardMedia
+                                                            className={classes.media}
+                                                            image={`https://pedidos.com/myfotos/large/(L)${datos.relacionados.listaRelacionados[oneKey].item_rel}.webp`}
+                                                            onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
+                                                            alt={datos.item_num}
+                                                            title={datos.item_num} />
+                                                            <CardContent>
+                                                            <Divider light />
+                                                            <Typography mt={2} sx={{ height:'45px', overflow: 'hidden'}}
+                                                                variant="body2"
+                                                                color="textSecondary"
+                                                                component="p">
+                                                                { datos.relacionados .listaRelacionados[oneKey].alt }
+                                                            </Typography>
+                                                            </CardContent>
+                                                        </CardActionArea>
+                                                       
+                                                        <CardActions>
+                                                            {(agregado.indexOf(datos.relacionados.listaRelacionados[oneKey].item_rel) >= 0)?
+                                                            <Button color="secondary"
+                                                                variant="outlined"
+                                                                fullWidth
+                                                                size="large"
+                                                                >
+                                                            Agregado
+                                                            </Button>
+                                                            :
+                                                            <LoadingButton size="medium"
+                                                            variant="outlined"
+                                                            fullWidth
+                                                            onClick={()=>{add(false,datos.relacionados.listaRelacionados[oneKey].item_rel)}}
+                                                            loading={loading}
+                                                            loadingIndicator="Agregando..."
+                                                            >
+                                                               <AddOutlinedIcon />
+                                                            </LoadingButton>
+                                                            }
+                                                        </CardActions>
+                                                    </Card>
+                                                </SwiperSlide>
+                                                 );
+                                                    })
+                                                }
+                                                
+                                            </Swiper>
+                                            </Grid>                              
                                         </Grid>  
                                     </Box>     
                                 </Box>
