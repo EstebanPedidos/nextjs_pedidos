@@ -187,11 +187,11 @@ export default function FichaTecnica(props){
     return (
         <>
             <Layout>
-                <Box p={2} my={2}>
+                <Box p={2}>
                     <Grid container direction="row" justifyContent="space-between">
                         <Grid xs={12} sm={12} >
                             <Box component="div">
-                                <Box mt={2}>
+                                <Box component="div">
                                     {(datos.hasOwnProperty('item_num'))&&
                                     (datos.breadcrumb[0] !== "N/A")?
                                         <Breadcrumb site='Home' categoria={datos.breadcrumb[0]} subcategoria={datos.breadcrumb[1]} productos={datos.breadcrumb[2]} variant="caption"/>
