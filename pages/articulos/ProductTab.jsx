@@ -1,7 +1,10 @@
 import {useState} from 'react';
 import {Paper,Tab,AppBar,Typography,Grid,Table,TableBody,
-  TableCell,TableContainer,TableRow,Box, Avatar} from '@mui/material';
+  TableCell,TableContainer,TableRow,Box, Avatar, Button} from '@mui/material';
 import MopedOutlinedIcon from '@mui/icons-material/MopedOutlined';
+import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import {TabContext,TabList,TabPanel} from '@mui/lab';
 import ReviewItem from './ReviewItem';
 
@@ -74,141 +77,112 @@ export default function ProductTab({datos}) {
             justifyContent="space-around"
             alignItems="center">
               <Grid item>
-                <Grid
-                  container
-                  direction="column"
-                  justifyContent="space-between"
-                  alignItems="flex-start" spacing={4}>
-                    <Grid item>                   
-                      <Typography variant="subtitle1" sx={{fontWeight:'600'}}>
-                        Beneficios
-                      </Typography>                      
-                    </Grid>
-                    <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center" spacing={2}>
-                          <Avatar>
-                            <MopedOutlinedIcon />
-                          </Avatar>
-                          <Typography ml={2} variant="subtitle2">
-                            Envío Express CDMX -3 hrs
-                          </Typography>
+                {/* <Paper elevation={3}>
+                  <Box component="div" p={4}> */}
+                  <Grid
+                    container
+                    direction="column"
+                    justifyContent="space-between"
+                    alignItems="flex-start" spacing={1}>
+                      <Grid item>                   
+                        <Typography variant="subtitle1" sx={{fontWeight:'600'}}>
+                          Beneficios
+                        </Typography>                      
                       </Grid>
-                    </Grid>
-                    <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center" spacing={2}>
-                          <Avatar>
-                            <MopedOutlinedIcon />
-                          </Avatar>
-                          <Typography ml={2} variant="subtitle2">
-                            Paga al recibir CDMX y Guadalajara
-                          </Typography>
+                      <Grid item>
+                        <Grid
+                          container
+                          direction="row"
+                          justifyContent="space-between"
+                          alignItems="center" >                         
+                            <StorefrontOutlinedIcon />
+                            <Typography ml={2} variant="subtitle2">
+                              Recoge en PickUp Center*
+                            </Typography>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                    <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center" spacing={2}>
-                          <Avatar>
-                            <MopedOutlinedIcon />
-                          </Avatar>
-                          <Typography ml={2} variant="subtitle2">
-                            Programa tu entrega
-                          </Typography>
+                      <Grid item>
+                        <Grid
+                          container
+                          direction="row"
+                          justifyContent="space-between"
+                          alignItems="center" >
+                            
+                              <MopedOutlinedIcon />
+                            
+                            <Typography ml={2} variant="subtitle2">
+                              Envío Express CDMX -3 hrs
+                            </Typography>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                </Grid>
+                      <Grid item>
+                        <Grid
+                          container
+                          direction="row"
+                          justifyContent="space-between"
+                          alignItems="center" >
+                            
+                              <Inventory2OutlinedIcon />
+                            
+                            <Typography ml={2} variant="subtitle2">
+                              Devoluciones con producto cerrado
+                            </Typography>
+                        </Grid>
+                      </Grid>
+                      <Grid item>
+                        <Grid
+                          container
+                          direction="row"
+                          justifyContent="space-between"
+                          alignItems="center">
+                            
+                              <PaymentOutlinedIcon />
+                            
+                            <Typography ml={2} variant="subtitle2">
+                              Paga al recibir y Programa tu entrega CDMX y Guadalajara
+                            </Typography>
+                        </Grid>
+                      </Grid>
+                      
+                  </Grid>
+                  {/* </Box>
+                </Paper> */}
               </Grid>
               <Grid item>
-              <Grid 
+                <Grid 
                   container
                   direction="column"
                   justifyContent="space-between"
-                  alignItems="flex-start" spacing={3}>
+                  alignItems="flex-start" spacing={2}>
                      <Grid item>
                       <Grid
                         container
                         direction="row"
                         justifyContent="space-between"
-                        alignItems="center" spacing={2}>
-                          <Avatar>
-                            <MopedOutlinedIcon />
-                          </Avatar>
-                          <Typography ml={2} variant="subtitle2">
-                            Recoge en PickUp Center
-                          </Typography>
-                      </Grid>
-                    </Grid>
-                    <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center" spacing={2}>
-                          <Avatar>
-                            <MopedOutlinedIcon />
-                          </Avatar>
-                          <Typography ml={2} variant="subtitle2">
-                            Comentarios de servicio
-                          </Typography>
-                      </Grid>
-                    </Grid>
-                    <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center" spacing={2}>
-                          <Avatar>
-                            <MopedOutlinedIcon />
-                          </Avatar>
-                          <Typography ml={2} variant="subtitle2">
-                            Devoluciones con producto cerrado
-                          </Typography>
-                      </Grid>
-                    </Grid>
-                    
-                   
-                </Grid>
-              </Grid>
-              <Grid item>
-              <Grid 
-                  container
-                  direction="column"
-                  justifyContent="space-between"
-                  alignItems="flex-start" spacing={3}>
-                     <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center" spacing={2}>
+                        alignItems="center">
                           {/* <Avatar>
                             <MopedOutlinedIcon />
                           </Avatar> */}
-                          <Typography ml={2} variant="subtitle2">
+                          <Typography variant="subtitle1" sx={{fontWeight:'600'}}>
                             Meses sin intereses
                           </Typography>
                       </Grid>
                     </Grid>
                     <Grid item>
-                      <Typography ml={2} variant="body2">
-                        Hasta 18 MSI con tarjetas participantes
+                      <Typography variant="body2">
+                         18 MSI con tarjetas participantes
                       </Typography>
                     </Grid>
                     <Grid item>
-                        <Typography ml={2} variant="body2">
-                          Hasta 24 MSI con tarjetas CitiBanamex
+                        <Typography variant="body2">
+                           24 MSI con tarjetas CitiBanamex
                         </Typography>
+                    </Grid>
+                    <Grid item>
+                      
+                          <Button variant="outlined" fullWidth color="primary">
+                            Comentarios de servicio
+                          </Button>
                     </Grid>
                     
                    
