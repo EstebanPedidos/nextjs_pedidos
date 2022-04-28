@@ -352,10 +352,10 @@ export default function FichaTecnica(props){
                                     <Paper style={{ padding:15 }} variant="outlined" elevation={3}>
                                         <Typography>Precio unitario</Typography>
                                         <Box display="flex" flexWrap="nowrap" >
-                                            <Box p={1}><Typography variant="h4" component="subtitle1"> {(precio > 0)?precio:``}</Typography></Box>
+                                            <Box p={1}><Typography variant="h4" component="subtitle1"> ${(precio > 0)?precio:``}</Typography></Box>
                                             <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
                                                 <Typography variant="subtitle1">
-                                                    {(cortadosPA.indexOf(datos.cortado) >= 0 || articulosPA.indexOf(datos.item_num) >= 0)?(datos.precio_anterior > 0 && datos.precio_anterior > precio)?Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0}):``:Precios('redondear_arriba',{subtotal:(((precio*10)/100)+precio),iva:0})}
+                                                ${(cortadosPA.indexOf(datos.cortado) >= 0 || articulosPA.indexOf(datos.item_num) >= 0)?(datos.precio_anterior > 0 && datos.precio_anterior > precio)?Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0}):``:Precios('redondear_arriba',{subtotal:(((precio*10)/100)+precio),iva:0})}
                                                 </Typography> 
                                             </Box>
                                         </Box> 
@@ -433,7 +433,7 @@ export default function FichaTecnica(props){
                                                         }
                                                     </Grid>
                                                     <Grid item xs={8}>
-                                                        <Button variant="contained" sx={{ backgroundColor: "secondary.light" }} size="large" py={1} fullWidth elevation={0} onClick={()=>{add(false,'')}}>Agregar a carrito</Button>
+                                                        <Button variant="outlined" color="secondary"  size="large" py={1} fullWidth elevation={0} onClick={()=>{add(false,'')}}>Agregar a carrito</Button>
                                                     </Grid>
                                                     <Grid item xs={12}>
                                                         {(datos.disponibilidad  > 0)&&
