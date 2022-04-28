@@ -161,6 +161,8 @@ export default function FichaTecnica(props){
                     setGarnatExt1(garantext1)
                     setGarnatExt2(garantext2)
                     setHorEntr(horarios)
+
+                    
                 }else{
                     ruter.push('/')
                 }                
@@ -168,6 +170,8 @@ export default function FichaTecnica(props){
         }
         getdata()
     },[ruter])
+
+    
 
     function validaCPexpress (){
         setLoading(true)
@@ -216,11 +220,12 @@ export default function FichaTecnica(props){
         <>
             <Layout>
                 {(datos.hasOwnProperty('item_num'))&&
+                    (datos.item_num.includes('HP-') || datos.item_num.includes('hp-') || datos.item_num.includes('PDIR-') || datos.item_num.includes('pdir-'))&&
                     <Script type="text/javascript" src="https://storage.googleapis.com/indexado/assets/alquimioIndexado.v2.js" 
                     data-sku={datos.descripcion.descripcion.sort_name}
                     data-country="MX"
                     data-source="SCRIPT"
-                    data-brand="HP"></Script>
+                    data-brand="HP"></Script>                    
                 }
                 <Box component="div" p={2} my={2}>
                     <Grid container direction="row" justifyContent="space-between">
@@ -352,10 +357,11 @@ export default function FichaTecnica(props){
                                     <Paper style={{ padding:15 }} variant="outlined" elevation={3}>
                                         <Typography>Precio unitario</Typography>
                                         <Box display="flex" flexWrap="nowrap" >
-                                            <Box p={1}><Typography variant="h4" component="subtitle1"> ${(precio > 0)?precio:``}</Typography></Box>
+                                            <Box p={1}><Typography variant="h4" component="subtitle1"> ${(precio > 0)?Precios('formato',precio):``}</Typography></Box>
                                             <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
                                                 <Typography variant="subtitle1">
-                                                ${(cortadosPA.indexOf(datos.cortado) >= 0 || articulosPA.indexOf(datos.item_num) >= 0)?(datos.precio_anterior > 0 && datos.precio_anterior > precio)?Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0}):``:Precios('redondear_arriba',{subtotal:(((precio*10)/100)+precio),iva:0})}
+                                                    asdfsdfsdfs
+                                                ${(cortadosPA.indexOf(datos.cortado) >= 0 || articulosPA.indexOf(datos.item_num) >= 0)?(datos.precio_anterior > 0 && datos.precio_anterior > precio)?Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0,formato:true}):``:Precios('redondear_arriba',{subtotal:(((parseFloat(precio)*10)/100)+parseFloat(precio)),iva:0,formato:true})}
                                                 </Typography> 
                                             </Box>
                                         </Box> 
@@ -587,6 +593,12 @@ export default function FichaTecnica(props){
                                 <Skeleton variant="rectangular"  height={80} animation="wave"/>
                                 }    
                                 <div id="contenidoIndexado"></div>
+                                <section>
+                                    <div>
+                                        <div id="ccs-inline-content"></div>
+                                        <div id="ccs-explore-product"></div>
+                                    </div>
+                                </section>
                             </Grid>
                         </Grid>
                     </Grid>

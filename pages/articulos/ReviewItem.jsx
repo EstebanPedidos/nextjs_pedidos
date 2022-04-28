@@ -1,19 +1,12 @@
 import {Box} from '@mui/material';
-import ResponsiveEmbed from 'react-responsive-embed'
-export default function ReviewItem({item_num}) {
-  
+import Script from 'next/script'
+
+export default function ReviewItem({item_num}) {  
   return (
     <Box> 
-      <ResponsiveEmbed srcDoc={`
-          <!doctype html>
-          <style>
-            @media (min-width: 768px) {::-webkit-scrollbar{-webkit-border-radius:5px;background-color:transparent;border-radius:5px;height:10px;transition:background-color .2s linear;width:10px}::-webkit-scrollbar:hover{background-color:rgba(0,0,0,.09);transition:background-color .2s linear}::-webkit-scrollbar-thumb{-webkit-border-radius:5px;background:#aaa;background-clip:padding-box;border:2px solid transparent;border-radius:5px;transition:background-color .2s linear}::-webkit-scrollbar-thumb:active{-webkit-border-radius:5px;background:rgba(0,0,0,.4);background-clip:padding-box;border:1px solid transparent;border-radius:5px}::-webkit-scrollbar-thumb:vertical{min-height:10px}::-webkit-scrollbar-thumb:horizontal{min-width:10px}}
-          </style>
-          <body>
-            <script src=https://widget.reviews.io/polaris/build.js></script>
-            <div class="col-lg-12 col-sm-12 col-xs-12 text-center pt-80" id="ReviewsWidget"></div>
-            <script>
-            new ReviewsWidget('#ReviewsWidget', {
+      <Script type="text/javascript" src="https://widget.reviews.io/polaris/build.js" 
+        onLoad={() => {
+          new ReviewsWidget('#ReviewsWidget', {
               //Your REVIEWS.io account ID and widget type:
               store: 'pedidos.com',
               widget: 'polaris',
@@ -28,7 +21,7 @@ export default function ReviewItem({item_num}) {
                   //Product specific settings. Provide product SKU for which reviews should be displayed:
                   product_review:{
                       //Display product reviews - include multiple product SKUs seperated by Semi-Colons (Main Indentifer in your product catalog )
-                      sku: '${item_num}',
+                      sku: `${item_num}`,
                       hide_if_no_results: false,
                   },
                   //Questions settings:
@@ -239,11 +232,10 @@ export default function ReviewItem({item_num}) {
                   '--pagination-tab-active-border-color': '#3655a5',
                   '--pagination-tab-border-width': '3px',
               },
-            });
-            </script>
-          </body>
-          </html>
-          `} allowfullscreen />   
+            })
+          }}
+        ></Script>
+      <div id="ReviewsWidget"></div>
     </Box>
   );
 }
