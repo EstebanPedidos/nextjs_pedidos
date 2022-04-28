@@ -41,7 +41,7 @@ function Precios(accion,json){
     }
 
     function formatcurrency(json){
-        return Formater(parseFloat(json.subtotal).toFixed(json.fixed));
+        return formato(parseFloat(json.subtotal).toFixed(json.fixed));
     }
 
     function formato(numb) {
