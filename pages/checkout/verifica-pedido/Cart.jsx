@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     root: { flexGrow: 1 
     },
     paperpp: { padding: "5px", marginBottom:"5px", textAlign: 'center', width:'100%',
-    backgroundColor: theme.palette.common.lightgrayb, borderColor: theme.palette.common.lightgrayb,
+    backgroundColor: '#E7ECF3', borderColor: '#E7ECF3',
     
     },
     productimage: { width: "100%", borderRadius:"8px",

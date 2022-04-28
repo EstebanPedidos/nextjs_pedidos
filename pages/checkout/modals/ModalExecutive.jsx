@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.white,
     '&:hover': {
       backgroundColor: theme.palette.common.white,
-      borderColor: theme.palette.common.lightgray,
+      borderColor: 'rgba(166, 173, 185, 0.48)',
       },
     }, 
   boxEjecutivo: {

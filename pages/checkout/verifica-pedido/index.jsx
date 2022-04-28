@@ -237,7 +237,7 @@ export default function Verifica_pedido(){
                                                 Cancelar
                                             </Button>
                                         ) : (
-                                            <Button variant="outlined" size="large" fullWidth sx={{borderColor:'common.lightgray', color:'common.darkgray'}}
+                                            <Button variant="outlined" size="large" fullWidth sx={{borderColor:'rgba(166, 173, 185, 0.48)', color:'#A6ADB9'}}
                                                 onClick={() => {
                                                     setDeleteAll(true);
                                                 }}
