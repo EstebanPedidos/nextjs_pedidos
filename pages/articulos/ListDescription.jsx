@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   title: {
-    margin: theme.spacing(4, 0, 2),
+    margin: theme.spacing(2, 0, 1),
   },
 }));
 
@@ -26,7 +26,7 @@ export default function ListDescription({detalle}) {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         <Grid item xs={12} md={12}>
           <div className={classes.demo}>
             <List dense={dense}>

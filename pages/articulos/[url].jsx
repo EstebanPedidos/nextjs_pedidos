@@ -257,7 +257,9 @@ export default function FichaTecnica(props){
                                     (datos.breadcrumb[0] !== "N/A")?                                    
                                         <Breadcrumb site='Home' categoria={datos.breadcrumb[0]} subcategoria={datos.breadcrumb[1]} productos={datos.breadcrumb[2]} variant="caption"/>
                                         :
-                                        <Skeleton  animation="wave"/>
+                                        <Box sx={{ pt: 0.5 }}>
+                                            <Skeleton width="60%" />
+                                        </Box>
                                     } 
                                 </Box>  
                             </Box>
@@ -266,7 +268,8 @@ export default function FichaTecnica(props){
                                     <Grid container>
                                         <Grid>
                                             <Typography variant="h5" component="h1" sx={{fontWeight:'500'}}>
-                                                {(datos.hasOwnProperty('item_num'))?`${datos.descripcion.descripcion.urlName}`:<Skeleton animation="wave"/>}
+                                                {(datos.hasOwnProperty('item_num'))?`${datos.descripcion.descripcion.urlName}`
+                                                :<Skeleton width="80%" variant="text"/>}
                                             </Typography> 
                                         </Grid>
                                         <Grid item xs={12} sm={12} lg={7}>
@@ -301,20 +304,20 @@ export default function FichaTecnica(props){
                                                     </div>
                                                 </Carousel>
                                                 :
-                                                <Skeleton variant="rectangular"  height={200} animation="wave"/>
+                                                <Skeleton variant="rectangular"  height={500} animation="wave"/>
                                                 }
                                             </Box>
                                         </Grid>
                                         <Grid item xs={12} sm={12} lg={5}>
                                             <Box>   
                                                 <Grid >
-                                                    <Typography variant="h6" component="h3" className={classes.titDescription}>
-                                                        {(datos.hasOwnProperty('item_num'))?(datos.descripcion.descripcion.hasOwnProperty("titulo"))?`Especificaciones de  ${datos.descripcion.descripcion.titulo}`:``:<Skeleton animation="wave"/>}
+                                                    <Typography variant="subtitle1" component="h3" sx={{fontWeight:'500'}} className={classes.titDescription}>
+                                                        {(datos.hasOwnProperty('item_num'))?(datos.descripcion.descripcion.hasOwnProperty("titulo"))?`Especificaciones de  ${datos.descripcion.descripcion.titulo}`:``:<Skeleton variant="text" height={100} animation="wave"/>}
                                                     </Typography> 
                                                     {(datos.hasOwnProperty('item_num'))?
                                                     <ListDescription detalle={datos.detalle} />
                                                     :
-                                                    <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                                                    <Skeleton variant="rectangular"  height={400} animation="wave"/>
                                                     }
                                                 </Grid>
                                             </Box>
@@ -325,7 +328,7 @@ export default function FichaTecnica(props){
                                                     <Button color="primary" to="#more" size="large" fullWidth>
                                                         Ver todo {(cortadosPA.indexOf(datos.cortado) >= 0)? `del `:`de `}   {datos.descripcion.descripcion.titulo}
                                                     </Button>:
-                                                    <Skeleton variant="rectangular"  height={10} animation="wave"/>
+                                                    <Skeleton variant="rectangular"  height={50} animation="wave"/>
                                                     }
                                                 </Box>
                                             </Grid>
@@ -333,7 +336,7 @@ export default function FichaTecnica(props){
                                             <Grid item></Grid>
                                             <Grid item>
                                                 <Box my={2}>
-                                                    <Typography variant="subtitle1" component="h4" className={classes.titxt} >{(datos.hasOwnProperty('item_num'))?'Consulta envío express 3 horas aquí':<Skeleton animation="wave" />}</Typography>
+                                                    <Typography variant="subtitle1" component="h4" className={classes.titxt} >{(datos.hasOwnProperty('item_num'))?'Consulta envío express 3 horas aquí':<Skeleton variant="text" animation="wave" />}</Typography>
                                                     <Box my={2}>
                                                         <Grid container justifyContent="center" alignItems="center">
                                                             <Grid item xs={2} >
@@ -341,7 +344,7 @@ export default function FichaTecnica(props){
                                                                 {(datos.hasOwnProperty('item_num'))?
                                                                     <Avatar alt="express"size="large" src="https://pedidos.com/myfotos/pedidos-com/pagina/ficha-tecnica/m-express-ship.svg"/>
                                                                     :
-                                                                    <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                                                                    <Skeleton variant="circular" width={50} height={50} animation="wave"/>
                                                                 }
                                                                 </Box>
                                                             </Grid>
@@ -363,7 +366,7 @@ export default function FichaTecnica(props){
                                                                     </Grid>                                           
                                                                 </Grid>
                                                             :
-                                                            <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                                                            <Skeleton variant="rectangular"  height={50} animation="wave"/>
                                                             }
                                                             </Grid>
                                                         </Grid>
@@ -610,7 +613,7 @@ export default function FichaTecnica(props){
                                 {(datos.hasOwnProperty('item_num'))?
                                 <ProductTab datos={datos}/>
                                 :
-                                <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                                <Skeleton variant="rectangular"  height={250} animation="wave"/>
                                 }    
                                 <div id="contenidoIndexado"></div>
                                 <section>
