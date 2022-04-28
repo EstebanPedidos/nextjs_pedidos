@@ -67,7 +67,7 @@ export default function ProductTab({datos}) {
           </Box>
         </TabPanel>    
         <TabPanel value='3'>
-          <Box component="div" py={4 } >
+          <Box component="div" py={4} >
             <Grid
             container
             direction="row"
@@ -78,7 +78,12 @@ export default function ProductTab({datos}) {
                   container
                   direction="column"
                   justifyContent="space-between"
-                  alignItems="flex-start" spacing={3}>
+                  alignItems="flex-start" spacing={4}>
+                    <Grid item>                   
+                      <Typography variant="subtitle1" sx={{fontWeight:'600'}}>
+                        Beneficios
+                      </Typography>                      
+                    </Grid>
                     <Grid item>
                       <Grid
                         container

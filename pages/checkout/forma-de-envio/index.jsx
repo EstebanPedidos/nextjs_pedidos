@@ -213,19 +213,19 @@ export default function Forma_de_envio(props){
     <Box className={classes.root}>
         <Header/>
         <Container maxWidth="lg">
-            <Box component="div" py={4} m={1}>
+            <Box component="div" py={3} m={1}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={8}>
                         <div>
-                            <Box component="div" py={4}>
+                            <Box component="div" pt={1}>
                             {(data.hasOwnProperty('jsonResumen'))?                  
-                                <Process paso={2}/>:<Skeleton variant="text" animation="wave"/>
+                                <Process paso={2}/>:<Skeleton variant="text" height={150} animation="wave"/>
                             }
                             </Box>
                             <Box component="div" p={2}>
                                 <Divider light/> 
                                 <Box component="div" pt={3}  mb={1}>
-                                    <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'3. Selecciona la forma de envío':<Skeleton variant="text" animation="wave"/>}</Typography>
+                                    <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'3. Selecciona la forma de envío':<Skeleton variant="text" width="70%" animation="wave"/>}</Typography>
                                 </Box>
                                 <Box component="div">
                                     {(data.hasOwnProperty('jsonResumen'))&&                    
@@ -402,7 +402,7 @@ export default function Forma_de_envio(props){
                                         </RadioGroup>
                                     </FormControl>
                                     :
-                                    <Skeleton variant="rectangular" height={80} animation="wave"/>
+                                    <Skeleton variant="rectangular" height={250} animation="wave"/>
                                     }
                                 </Box>
                                 {
@@ -411,8 +411,8 @@ export default function Forma_de_envio(props){
                                     <Box component="div" py={2}  className={classes.root}>
                                         <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
                                             <Grid item xs={12}>
-                                                <Typography variant="h6" component="h2" >{(data.hasOwnProperty('jsonResumen'))?'Entrega programada':<Skeleton variant="text" animation="wave"/>}</Typography>
-                                                <Typography variant="subtitle1" component="subtitle2" >{(data.hasOwnProperty('jsonResumen'))?'Selecciona el día y el horario de entrega.':<Skeleton variant="text" animation="wave"/>}</Typography>
+                                                <Typography variant="h6" component="h2" >{(data.hasOwnProperty('jsonResumen'))?'Entrega programada':<Skeleton variant="text" width="50%" animation="wave"/>}</Typography>
+                                                <Typography variant="subtitle1" component="subtitle2" >{(data.hasOwnProperty('jsonResumen'))?'Selecciona el día y el horario de entrega.':<Skeleton variant="text" width="70%" animation="wave"/>}</Typography>
                                             </Grid>
                                         </Grid>
                                     </Box>
@@ -476,7 +476,7 @@ export default function Forma_de_envio(props){
                                             </Box>
                                         </FormControl>
                                         :
-                                        <Skeleton variant="rectangular" height={80} animation="wave"/>
+                                        <Skeleton variant="rectangular" height={180} animation="wave"/>
                                         }
                                         <FormControl component="fieldset" fullWidth>
                                             <RadioGroup aria-label="gender" name="horario_envio" value={horario_envio} onChange={salectOption}>
@@ -536,8 +536,8 @@ export default function Forma_de_envio(props){
                                     <Box component="div" py={2}  className={classes.root}>
                                         <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
                                             <Grid item xs={12}>
-                                                <Typography variant="h6" component="h2" >{(data.hasOwnProperty('jsonResumen'))?'Entrega por paquetería':<Skeleton variant="text" animation="wave"/>}</Typography>
-                                                <Typography variant="subtitle1" component="subtitle2" >{(data.hasOwnProperty('jsonResumen'))?'Selecciona la paquetería de tu agrado:':<Skeleton variant="text" animation="wave"/>}</Typography>
+                                                <Typography variant="h6" component="h2" >{(data.hasOwnProperty('jsonResumen'))?'Entrega por paquetería':<Skeleton variant="text" width="50%" animation="wave"/>}</Typography>
+                                                <Typography variant="subtitle1" component="subtitle2" >{(data.hasOwnProperty('jsonResumen'))?'Selecciona la paquetería de tu agrado:':<Skeleton variant="text" width="70%" animation="wave"/>}</Typography>
                                             </Grid>
                                         </Grid>
                                     </Box>
@@ -627,7 +627,7 @@ export default function Forma_de_envio(props){
                                             </RadioGroup>
                                         </FormControl>
                                         :
-                                        <Skeleton variant="rectangular" height={80} animation="wave"/>
+                                        <Skeleton variant="rectangular" height={250} animation="wave"/>
                                         }
                                     </Box>
                                 </Box>
@@ -651,7 +651,7 @@ export default function Forma_de_envio(props){
                         }
                         </>
                         :
-                        <Skeleton variant="rectangular" height={400} animation="wave"/>
+                        <Skeleton variant="rectangular" height={600} animation="wave"/>
                     }
                     </Grid>                 
                 </Grid> 

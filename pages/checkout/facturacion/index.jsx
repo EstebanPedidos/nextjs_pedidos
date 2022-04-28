@@ -214,19 +214,19 @@ export default function Facturacion(props){
         <Box component="div">
             <Header/>
             <Container maxWidth="lg">
-            <Box component="div" mt={1}>
+            <Box component="div" py={3} m={1}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={8}>
                         <div>
-                            <Box component="div" pt={4}>
+                            <Box component="div" pt={1}>
                                 {(data.hasOwnProperty('jsonResumen'))?                  
-                                    <Process paso={1}/>:<Skeleton variant="text" animation="wave"/>
+                                    <Process paso={1}/>:<Skeleton variant="text" height={150} animation="wave"/>
                                 }
                             </Box>
                             <Box component="div" p={1}>
                                 <Divider light/> 
                                 <Box component="div" pt={3}  mb={1}> 
-                                    <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'2. Selecciona y/o añade los datos de facturación.':<Skeleton variant="text" animation="wave"/>}</Typography>
+                                    <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'2. Selecciona y/o añade los datos de facturación.':<Skeleton variant="text" width="70%" animation="wave"/>}</Typography>
                                 </Box>
                                 <Box component="div" py={2} >
                                     <div className={classes.root}>
@@ -369,7 +369,7 @@ export default function Facturacion(props){
                                     </div>
                                 </Box>
                                 <Box component="div" py={1}>
-                                    <Typography variant="h6" component="h2" >{(data.hasOwnProperty('jsonResumen'))?'Selecciona el uso y forma de pago de tu factura':<Skeleton animation="wave" />}</Typography>
+                                    <Typography variant="h6" component="h2" >{(data.hasOwnProperty('jsonResumen'))?'Selecciona el uso y forma de pago de tu factura':<Skeleton width="50%" animation="wave" />}</Typography>
                                 </Box>
                                 {(data.hasOwnProperty('jsonResumen'))?
                                 <Box component="div" py={2}>
@@ -394,7 +394,7 @@ export default function Facturacion(props){
                                     </FormControl>
                                 </Box>
                                 :
-                                <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                                <Skeleton variant="rectangular"  height={200} animation="wave"/>
                                 }
                                 <Divider light/>
                                 {(data.hasOwnProperty('jsonResumen'))? 
@@ -442,7 +442,7 @@ export default function Facturacion(props){
                         </LoadingButton>
                         </>
                         :
-                        <Skeleton variant="rectangular" height={400} animation="wave"/>
+                        <Skeleton variant="rectangular" height={600} animation="wave"/>
                         }
                     </Grid>                 
                 </Grid>

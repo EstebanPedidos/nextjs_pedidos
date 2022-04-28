@@ -1,33 +1,26 @@
-import {useState} from 'react';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
-
-export default function Alertas({setAlerta,alerta}) {
-  const classes             = useStyles();
+export default function Alertas({setAlerta,alerta}) {  
 
   return (
-    <div className={classes.root}>        
+    <Stack spacing={2} sx={{ width: '100%' }}>
       <Snackbar open={true} autoHideDuration={6000} onClose={()=>{setAlerta({})}}
-         anchorOrigin={{vertical: alerta.vertical, horizontal: alerta.horizontal }}>
-        <Alert onClose={()=>{setAlerta({})}} severity={alerta.severity}>
+      anchorOrigin={{vertical: alerta.vertical, horizontal: alerta.horizontal }}
+      >
+        <Alert severity={alerta.severity}>
+          {(alerta.hasOwnProperty('titulo'))&&
+            <AlertTitle>{alerta.titulo}</AlertTitle>
+          }
           {alerta.mensaje}
         </Alert>
       </Snackbar>
-    </div>
+     
+    </Stack>
   );
 }

@@ -355,7 +355,7 @@ export default function Verifica_pedido(){
                                                             variant="contained"
                                                             fullWidth
                                                             size="large"
-                                                            sx={{ backgroundColor:'primary.gray' }}
+                                                            sx={{ backgroundColor:'#A6ADB9' }}
                                                             
                                                             onClick={validaCodigoDescuento}
                                                             >

@@ -61,7 +61,7 @@ export  default function ItemFavorites({favoritos,add}){
             <Box component="div" m={1}>
             {(favoritos.length > 0)&&
                 <Swiper
-                    spaceBetween={10}
+                    spaceBetween={5}
                     slidesPerView={4}
                     onSlideChange={() => console.log("slide change")}
                     onSwiper={swiper => console.log(swiper)}
@@ -76,7 +76,7 @@ export  default function ItemFavorites({favoritos,add}){
                           
                         },
                         1024: {
-                          slidesPerView: 3,
+                          slidesPerView: 4.3,
                          
                         },
                     }}

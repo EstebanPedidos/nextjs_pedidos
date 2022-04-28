@@ -51,216 +51,218 @@ export default function Resumen(props){
 
     return (
         <div>
-            <div>
-                {(data.hasOwnProperty('jsonResumen'))&&
-                <ModalExecutive resenapedidos={data.jsonResumen.resumen.resenaPedidos} setEjecutivo={props.setEjecutivo} ejecutivo={props.ejecutivo.ejecutivo}/>
-                }
-            </div>
-            <Box component="div">
-                <div className={classes.root}>
-                    <Grid container  alignItems="center" spacing={1}>
-                        <Grid item xs={6} sm={12} lg={6}>
-                            <Box textAlign="left">  
-                                <Typography component="h2" variant="h6">Pedido #{data.pedido} </Typography>
-                            </Box>  
+            <Box component="div" pt={1}>
+                <div>
+                    {(data.hasOwnProperty('jsonResumen'))&&
+                    <ModalExecutive resenapedidos={data.jsonResumen.resumen.resenaPedidos} setEjecutivo={props.setEjecutivo} ejecutivo={props.ejecutivo.ejecutivo}/>
+                    }
+                </div>
+                <Box component="div">
+                    <div className={classes.root}>
+                        <Grid container  alignItems="center" spacing={1}>
+                            <Grid item xs={6} sm={12} lg={6}>
+                                <Box textAlign="left">  
+                                    <Typography component="h2" variant="h6">Pedido #{data.pedido} </Typography>
+                                </Box>  
+                            </Grid>
+                            <Grid item xs={6} sm={12} lg={6}>
+                                {(data.hasOwnProperty('jsonResumen'))&&
+                                <Paper variant="outlined"> 
+                                    <Typography variant="body2">   
+                                        <Box py={1} fontWeight="fontWeightMedium" textAlign="center">    
+                                            {data.jsonResumen.resumen.partidas} {(data.jsonResumen.resumen.partidas > 1)?`productos`:`producto`}
+                                        </Box>
+                                    </Typography>
+                                </Paper>
+                                }
+                            </Grid>
                         </Grid>
-                        <Grid item xs={6} sm={12} lg={6}>
+                    </div>              
+                </Box>
+                <Box component="div" py={2}>    
+                    <div className={classes.root}>
+                        <Grid container spacing={1}>
                             {(data.hasOwnProperty('jsonResumen'))&&
-                            <Paper variant="outlined"> 
-                                <Typography variant="body2">   
-                                    <Box py={1} fontWeight="fontWeightMedium" textAlign="center">    
-                                        {data.jsonResumen.resumen.partidas} {(data.jsonResumen.resumen.partidas > 1)?`productos`:`producto`}
-                                    </Box>
-                                </Typography>
-                            </Paper>
-                            }
-                        </Grid>
-                    </Grid>
-                </div>              
-            </Box>
-            <Box component="div" py={2}>    
-                <div className={classes.root}>
-                    <Grid container spacing={1}>
-                        {(data.hasOwnProperty('jsonResumen'))&&
-                        (data.jsonResumen.resumen.direccion.dirNum > 0 && data.jsonResumen.resumen.direccion.nombreDireccion !== '')&&
-                        <Grid item xs={12}>
-                            <Paper variant="outlined">
-                                <Box component="div" m={1}>
-                                    <div className={classes.root}>
-                                        <Grid container justifyContent="space-around" alignItems="center">
-                                            <Grid item xs={2} sm={3} md={2} lg={2} >
-                                                {(data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
-                                                <Avatar className={classes.orangeL}>
-                                                    <LocalShippingOutlinedIcon/>
-                                                </Avatar>
-                                                :
-                                                <Avatar className={classes.orangeL}>
-                                                    <StorefrontOutlinedIcon/>
-                                                </Avatar>
-                                                }
-                                            </Grid>
-                                            <Grid item xs={6} sm={9} md={7} lg={8}>
-                                                <Box component="div">
-                                                    {
-                                                        (data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
-                                                            <Box component="div">
-                                                                <Typography variant="body2" sx={{fontWeight:'600',}}>
-                                                                    Entregar en {/*  {data.jsonResumen.resumen.direccion.dirNum}. */}
-                                                                    {data.jsonResumen.resumen.direccion.nombreDireccion}
-                                                                </Typography>  
-                                                                <Typography variant="body2">
-                                                                    
-                                                                    {data.jsonResumen.resumen.direccion.direccion.substring(0, 38)}...
-                                                                </Typography> 
-                                                            </Box> 
-                                                        :
-                                                        <Box component="div">
-                                                            <Typography variant="body2" sx={{fontWeight:'600',}}>
-                                                                {data.jsonResumen.resumen.entregaPickup} en PickUp Center
-                                                            </Typography>
-                                                            <Typography variant="body2">
-                                                                Alejandro Dumas 135, C.P 11550, CDMX, Polanco.
-                                                            </Typography> 
-                                                        </Box>
-                                                    }
-
-                                                </Box>
-                                            </Grid>
-                                            <Grid item xs={4} sm={12} md={3} lg={2}>
-                                            {(iscambio)?
-                                                <CircularProgress />
-                                                :
-                                                <Button color="primary" fullWidth size="small" onClick={()=>{cambio(0)}}>Cambiar</Button>
-                                            }
-                                            </Grid>
-                                        </Grid>
-                                    </div>
-                                </Box>
-                            </Paper>
-                        </Grid>
-                        }           
-                        {(data.hasOwnProperty('jsonResumen'))&&
-                        (data.jsonResumen.resumen.facturas.rfc !== '' && data.jsonResumen.resumen.facturas.rfc !== 'XAXX010101000')&&
+                            (data.jsonResumen.resumen.direccion.dirNum > 0 && data.jsonResumen.resumen.direccion.nombreDireccion !== '')&&
                             <Grid item xs={12}>
                                 <Paper variant="outlined">
                                     <Box component="div" m={1}>
                                         <div className={classes.root}>
                                             <Grid container justifyContent="space-around" alignItems="center">
                                                 <Grid item xs={2} sm={3} md={2} lg={2} >
-                                                <Avatar className={classes.blueL}>
-                                                    <StickyNote2OutlinedIcon/> 
-                                                </Avatar>
+                                                    {(data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
+                                                    <Avatar className={classes.orangeL}>
+                                                        <LocalShippingOutlinedIcon/>
+                                                    </Avatar>
+                                                    :
+                                                    <Avatar className={classes.orangeL}>
+                                                        <StorefrontOutlinedIcon/>
+                                                    </Avatar>
+                                                    }
                                                 </Grid>
                                                 <Grid item xs={6} sm={9} md={7} lg={8}>
                                                     <Box component="div">
-                                                        <Typography variant="body2" sx={{fontWeight:'600',}}>
-                                                            Facturar a RFC 
-                                                        </Typography>
-                                                        <Typography variant="body2" >
-                                                            {data.jsonResumen.resumen.facturas.rfc}
-                                                        </Typography>
+                                                        {
+                                                            (data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
+                                                                <Box component="div">
+                                                                    <Typography variant="body2" sx={{fontWeight:'600',}}>
+                                                                        Entregar en {/*  {data.jsonResumen.resumen.direccion.dirNum}. */}
+                                                                        {data.jsonResumen.resumen.direccion.nombreDireccion}
+                                                                    </Typography>  
+                                                                    <Typography variant="body2">
+                                                                        
+                                                                        {data.jsonResumen.resumen.direccion.direccion.substring(0, 38)}...
+                                                                    </Typography> 
+                                                                </Box> 
+                                                            :
+                                                            <Box component="div">
+                                                                <Typography variant="body2" sx={{fontWeight:'600',}}>
+                                                                    {data.jsonResumen.resumen.entregaPickup} en PickUp Center
+                                                                </Typography>
+                                                                <Typography variant="body2">
+                                                                    Alejandro Dumas 135, C.P 11550, CDMX, Polanco.
+                                                                </Typography> 
+                                                            </Box>
+                                                        }
+
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={4} sm={12} md={3} lg={2}>
-                                                    {(iscambio)?
-                                                     <CircularProgress />
+                                                {(iscambio)?
+                                                    <CircularProgress />
                                                     :
-                                                    <Button color="primary" fullWidth size="small" onClick={()=>{cambio(1)}}>Cambiar</Button>
-                                                    }
+                                                    <Button color="primary" fullWidth size="small" onClick={()=>{cambio(0)}}>Cambiar</Button>
+                                                }
                                                 </Grid>
                                             </Grid>
                                         </div>
                                     </Box>
                                 </Paper>
                             </Grid>
-                        }
-                        {(data.hasOwnProperty('jsonResumen'))&&
-                        (data.jsonResumen.resumen.envio.tipo.trim() !== '') &&
-                            <Grid item xs={12}>
-                                <Paper variant="outlined">
-                                    <Box component="div" m={1}>
-                                        <div className={classes.root}>
-                                            <Grid container justifyContent="space-around" alignItems="center">                            
-                                                {
-                                                (enviosF.includes(data.jsonResumen.resumen.envio.tipo))?
-                                                    <Grid container justifyContent="space-around" alignItems="center">
-                                                        <Grid item xs={2} sm={3} md={2} lg={2} >
-                                                            <Avatar className={classes.blueD}>
-                                                                <LocalShippingOutlinedIcon/>
-                                                            </Avatar>
-                                                        </Grid>
-                                                        <Grid item xs={6} sm={9} md={7} lg={8}>
-                                                            <Box component="div">
-                                                                <Typography variant="body2">
-                                                                    <b>Paquetería {data.jsonResumen.resumen.envio.tipo}</b><br/>
-                                                                    Demoras por COVID-19
-                                                                </Typography>
-                                                            </Box>
-                                                        </Grid>
-                                                        <Grid item xs={4} sm={12} md={3} lg={2}>
-                                                            <Button color="primary" fullWidth size="small" onClick={()=>{cambio(2)}}>Cambiar</Button>
-                                                        </Grid>
+                            }           
+                            {(data.hasOwnProperty('jsonResumen'))&&
+                            (data.jsonResumen.resumen.facturas.rfc !== '' && data.jsonResumen.resumen.facturas.rfc !== 'XAXX010101000')&&
+                                <Grid item xs={12}>
+                                    <Paper variant="outlined">
+                                        <Box component="div" m={1}>
+                                            <div className={classes.root}>
+                                                <Grid container justifyContent="space-around" alignItems="center">
+                                                    <Grid item xs={2} sm={3} md={2} lg={2} >
+                                                    <Avatar className={classes.blueL}>
+                                                        <StickyNote2OutlinedIcon/> 
+                                                    </Avatar>
                                                     </Grid>
+                                                    <Grid item xs={6} sm={9} md={7} lg={8}>
+                                                        <Box component="div">
+                                                            <Typography variant="body2" sx={{fontWeight:'600',}}>
+                                                                Facturar a RFC 
+                                                            </Typography>
+                                                            <Typography variant="body2" >
+                                                                {data.jsonResumen.resumen.facturas.rfc}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Grid>
+                                                    <Grid item xs={4} sm={12} md={3} lg={2}>
+                                                        {(iscambio)?
+                                                        <CircularProgress />
                                                         :
-                                                    <Grid container justifyContent="space-around" alignItems="center">
-                                                        <Grid item xs={2} sm={3} md={2} lg={2} >
-                                                            {(data.hasOwnProperty('jsonResumen'))&&
-                                                            (data.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP')?
-                                                            <Avatar className={classes.blueD}>
-                                                                <MarkEmailUnreadOutlinedIcon/> 
-                                                            </Avatar>
-                                                            :
-                                                            (data.jsonResumen.resumen.envio.tipo === 'Express')?                                                                
+                                                        <Button color="primary" fullWidth size="small" onClick={()=>{cambio(1)}}>Cambiar</Button>
+                                                        }
+                                                    </Grid>
+                                                </Grid>
+                                            </div>
+                                        </Box>
+                                    </Paper>
+                                </Grid>
+                            }
+                            {(data.hasOwnProperty('jsonResumen'))&&
+                            (data.jsonResumen.resumen.envio.tipo.trim() !== '') &&
+                                <Grid item xs={12}>
+                                    <Paper variant="outlined">
+                                        <Box component="div" m={1}>
+                                            <div className={classes.root}>
+                                                <Grid container justifyContent="space-around" alignItems="center">                            
+                                                    {
+                                                    (enviosF.includes(data.jsonResumen.resumen.envio.tipo))?
+                                                        <Grid container justifyContent="space-around" alignItems="center">
+                                                            <Grid item xs={2} sm={3} md={2} lg={2} >
                                                                 <Avatar className={classes.blueD}>
-                                                                    <MopedOutlinedIcon />
+                                                                    <LocalShippingOutlinedIcon/>
+                                                                </Avatar>
+                                                            </Grid>
+                                                            <Grid item xs={6} sm={9} md={7} lg={8}>
+                                                                <Box component="div">
+                                                                    <Typography variant="body2">
+                                                                        <b>Paquetería {data.jsonResumen.resumen.envio.tipo}</b><br/>
+                                                                        Demoras por COVID-19
+                                                                    </Typography>
+                                                                </Box>
+                                                            </Grid>
+                                                            <Grid item xs={4} sm={12} md={3} lg={2}>
+                                                                <Button color="primary" fullWidth size="small" onClick={()=>{cambio(2)}}>Cambiar</Button>
+                                                            </Grid>
+                                                        </Grid>
+                                                            :
+                                                        <Grid container justifyContent="space-around" alignItems="center">
+                                                            <Grid item xs={2} sm={3} md={2} lg={2} >
+                                                                {(data.hasOwnProperty('jsonResumen'))&&
+                                                                (data.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP')?
+                                                                <Avatar className={classes.blueD}>
+                                                                    <MarkEmailUnreadOutlinedIcon/> 
                                                                 </Avatar>
                                                                 :
-                                                                <Avatar className={classes.blueD}>
-                                                                    <EventOutlinedIcon/>
-                                                                </Avatar>                                                                
-                                                            }                    
-                                                            
-                                                        </Grid>
-                                                        <Grid item xs={6} sm={9} md={7} lg={8}>
-                                                            <Box component="div">
-                                                                {(data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
+                                                                (data.jsonResumen.resumen.envio.tipo === 'Express')?                                                                
+                                                                    <Avatar className={classes.blueD}>
+                                                                        <MopedOutlinedIcon />
+                                                                    </Avatar>
+                                                                    :
+                                                                    <Avatar className={classes.blueD}>
+                                                                        <EventOutlinedIcon/>
+                                                                    </Avatar>                                                                
+                                                                }                    
+                                                                
+                                                            </Grid>
+                                                            <Grid item xs={6} sm={9} md={7} lg={8}>
                                                                 <Box component="div">
-                                                                    <Typography variant="body2" sx={{fontWeight:'600',}}>
-                                                                        Día de envío {data.jsonResumen.resumen.envio.fecha}
-                                                                    </Typography>
-                                                                    <Typography variant="body2">
-                                                                        Horario '{data.jsonResumen.resumen.envio.tipo}' de {data.jsonResumen.resumen.envio.horario}
-                                                                    </Typography>
+                                                                    {(data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
+                                                                    <Box component="div">
+                                                                        <Typography variant="body2" sx={{fontWeight:'600',}}>
+                                                                            Día de envío {data.jsonResumen.resumen.envio.fecha}
+                                                                        </Typography>
+                                                                        <Typography variant="body2">
+                                                                            Horario '{data.jsonResumen.resumen.envio.tipo}' de {data.jsonResumen.resumen.envio.horario}
+                                                                        </Typography>
+                                                                    </Box>
+                                                                    :
+                                                                    <Box component="div">
+                                                                        <Typography variant="body2" sx={{fontWeight:'600',}}>
+                                                                            Entrega:  {data.jsonResumen.resumen.entregaPickup}
+                                                                        </Typography>
+                                                                        <Typography variant="body2">
+                                                                            Notificación vía e-mail para poder recoger
+                                                                        </Typography>
+                                                                    </Box>
+                                                                    }
                                                                 </Box>
+                                                            </Grid>
+                                                            <Grid item xs={4} sm={12} md={3} lg={2}>
+                                                            {(iscambio)?
+                                                                <CircularProgress />
                                                                 :
-                                                                <Box component="div">
-                                                                    <Typography variant="body2" sx={{fontWeight:'600',}}>
-                                                                        Entrega:  {data.jsonResumen.resumen.entregaPickup}
-                                                                    </Typography>
-                                                                    <Typography variant="body2">
-                                                                        Notificación vía e-mail para poder recoger
-                                                                    </Typography>
-                                                                </Box>
-                                                                }
-                                                            </Box>
-                                                        </Grid>
-                                                        <Grid item xs={4} sm={12} md={3} lg={2}>
-                                                        {(iscambio)?
-                                                            <CircularProgress />
-                                                            :
-                                                            <Button color="primary" fullWidth size="small" onClick={()=>{cambio(2)}}>Cambiar</Button>
-                                                        }
-                                                        </Grid>
-                                                    </Grid>  
-                                                }
-                                            </Grid>
-                                        </div>
-                                    </Box>
-                                </Paper>
-                            </Grid>                 
-                        } 
-                    </Grid>
-                </div>
+                                                                <Button color="primary" fullWidth size="small" onClick={()=>{cambio(2)}}>Cambiar</Button>
+                                                            }
+                                                            </Grid>
+                                                        </Grid>  
+                                                    }
+                                                </Grid>
+                                            </div>
+                                        </Box>
+                                    </Paper>
+                                </Grid>                 
+                            } 
+                        </Grid>
+                    </div>
+                </Box>
             </Box>
             <Box component="div" m={1} pt={1}>
                 <Divider light /> 

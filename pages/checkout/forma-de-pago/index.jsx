@@ -177,20 +177,20 @@ export default function Forma_de_pago(){
     <Box className={classes.root}>
         <Header/>
         <Container maxWidth="lg">
-            <Box component="div" py={4} m={1}>
+            <Box component="div" py={3} m={1}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={8}>
                         <div> 
-                            <Box component="div" py={4}> 
+                            <Box component="div" pt={1}> 
                                 {(data.hasOwnProperty('jsonResumen'))?                  
-                                    <Process paso={3}/>:<Skeleton variant="text" animation="wave"/>
+                                    <Process paso={3}/>:<Skeleton variant="text" height={150} animation="wave"/>
                                     
                                 }
                             </Box>
                             <Box component="div" p={2}>
                                 <Divider light/> 
                                 <Box component="div" pt={3}  mb={1}>
-                                    <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'4. Selecciona la forma de pago':<Skeleton animation="wave"/>}</Typography>
+                                    <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'4. Selecciona la forma de pago':<Skeleton width="80%" animation="wave"/>}</Typography>
                                 </Box>                   
                                 <Box component="div" py={2} >    
                                 {(data.hasOwnProperty('jsonResumen'))?                   
@@ -297,7 +297,7 @@ export default function Forma_de_pago(){
                                         </RadioGroup>
                                     </FormControl> 
                                     :
-                                    <Skeleton variant="rectangular" height={500} animation="wave"/>
+                                    <Skeleton variant="rectangular" height={250} animation="wave"/>
                                     }
                                 </Box>
                             
@@ -306,8 +306,8 @@ export default function Forma_de_pago(){
                                         <Box component="div" py={2} >
                                             <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
                                                 <Grid item xs={12}>
-                                                    <Typography variant="h6" component="h2">{(data.hasOwnProperty('jsonResumen'))?'Pago en línea':<Skeleton animation="wave"/>}</Typography>
-                                                    <Typography variant="subtitle1" component="subtitle2">{(data.hasOwnProperty('jsonResumen'))?'Selecciona la opción:':<Skeleton animation="wave"/>}</Typography>
+                                                    <Typography variant="h6" component="h2">{(data.hasOwnProperty('jsonResumen'))?'Pago en línea':<Skeleton width="40%" animation="wave"/>}</Typography>
+                                                    <Typography variant="subtitle1" component="subtitle2">{(data.hasOwnProperty('jsonResumen'))?'Selecciona la opción:':<Skeleton width="50%" animation="wave"/>}</Typography>
                                                 </Grid>
                                             </Grid>
                                         </Box>
@@ -398,7 +398,7 @@ export default function Forma_de_pago(){
                                                 </RadioGroup>
                                             </FormControl> 
                                             :
-                                            <Skeleton variant="rectangular" height={500} animation="wave"/>
+                                            <Skeleton variant="rectangular" height={250} animation="wave"/>
                                             }
                                         </Box>
                                     </Box>
@@ -408,7 +408,7 @@ export default function Forma_de_pago(){
                                         <Box component="div" py={2} >
                                             <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
                                                 <Grid item xs={12}>
-                                                    <Typography variant="h6" component="h2">Pago al recibir </Typography>
+                                                    <Typography variant="h6" component="h2">Paga al recibir </Typography>
                                                     <Typography variant="subtitle1" component="subtitle2">Selecciona la opción:</Typography>
                                                 </Grid>
                                             </Grid>
@@ -585,7 +585,7 @@ export default function Forma_de_pago(){
                         {(data.hasOwnProperty('jsonResumen'))?
                         <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
                         :
-                        <Skeleton variant="rectangular" height={500} animation="wave"/>
+                        <Skeleton variant="rectangular" height={600} animation="wave"/>
                         }                
                     </Grid>                 
                 </Grid>

@@ -153,13 +153,13 @@ export default function Direccion_de_envio(props){
         <Box className={classes.root}>
             <Header/>
             <Container maxWidth="lg">
-                <Box component="div" py={4} m={1}>
+                <Box component="div" py={3} m={1}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={8}>
                             <div>
-                                <Box component="div" pt={4}>
+                                <Box component="div" pt={1}>
                                 {(data.hasOwnProperty('jsonResumen'))?                  
-                                    <Process paso={0}/>:<Skeleton variant="text" animation="wave"/>
+                                    <Process paso={0}/>:<Skeleton variant="text" height={150} animation="wave"/>
                                 }
                                 </Box>
                                 <Box component="div" p={1}>
@@ -192,7 +192,10 @@ export default function Direccion_de_envio(props){
                                         </Paper>
                                     </Box>
                                     :
-                                    <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                                    <Box sx={{ px: 1.5 }}>
+                                        <Skeleton width="40%" animation="wave"/>
+                                        <Skeleton animation="wave" />
+                                    </Box>
                                     }
                                     <Box component="div" px={2}>
                                         {(data.hasOwnProperty('jsonResumen'))?  
@@ -236,7 +239,9 @@ export default function Direccion_de_envio(props){
                                             </div>
                                         </Box>
                                         :
-                                        <Skeleton variant="rectangular"  height={80} animation="wave"/>
+                                        <Box sx={{ pt: 1.5 }}>
+                                            <Skeleton variant="rectangle" height={200} animation="wave"/>
+                                        </Box>
                                         }
                                         <Box component="div" py={2}>
                                             <RadioGroup name='direccion_envio' value={direccion.dir_num}  onChange={salectOption}>
@@ -342,6 +347,7 @@ export default function Direccion_de_envio(props){
                                             </RadioGroup>
                                         </Box>
                                     </Box>
+                                    
                                 </Box>
                             </div>
                         </Grid>     
@@ -352,7 +358,7 @@ export default function Direccion_de_envio(props){
                                     <ConFactura continuarCompra={continuarCompra} loading={loading}/>
                                 </>
                                 :
-                                <Skeleton variant="rectangular"  height={400} animation="wave"/>
+                                <Skeleton variant="rectangular"  height={600} animation="wave"/>
                             }                    
                         </Grid> 
                     </Grid>
