@@ -105,7 +105,7 @@ export  default function ItemFavorites({favoritos,add}){
                             <Box component="div" m={1}>
                                 {                                    
                                 (item.estatus==='A')?
-                                    <Button sx={{borderColor:'common.darkgray', color:'common.darkgray'}} variant="outlined" fullWidth size="large"  onClick={()=>add(item.itemNum)}>
+                                    <Button sx={{borderColor:'#A6ADB9', color:'#A6ADB9'}} variant="outlined" fullWidth size="large"  onClick={()=>add(item.itemNum)}>
                                         <AddIcon/>
                                     </Button>
                                     :

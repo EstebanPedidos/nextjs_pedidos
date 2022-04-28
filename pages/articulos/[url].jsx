@@ -370,7 +370,7 @@ export default function FichaTecnica(props){
                                                                     <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
                                                                         <Grid item xs={1}><MopedOutlinedIcon color="primary"/></Grid>
                                                                         <Grid item xs={11}>
-                                                                            <Typography variant="subtitle2">Entrega EXPRESS,<Box component="span" sx={{ color:'primary.main' }}> CDMX {datos.horarioEntrega.horarioLocal}</Box> </Typography>
+                                                                            <Typography variant="subtitle2">Entrega EXPRESS,<Box component="span" sx={{ color:'primary' }}> CDMX {datos.horarioEntrega.horarioLocal}</Box> </Typography>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
@@ -378,7 +378,7 @@ export default function FichaTecnica(props){
                                                                     <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
                                                                         <Grid item xs={1}><LocalShippingOutlinedIcon color="primary"/></Grid>
                                                                         <Grid item xs={11}>
-                                                                            <Typography variant="subtitle2">Entregas <Box component="span" sx={{ color:'primary.main' }}>al país {horentr.horarioForaneo}</Box></Typography>
+                                                                            <Typography variant="subtitle2">Entregas <Box component="span" sx={{ color:'primary' }}>al país {horentr.horarioForaneo}</Box></Typography>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>

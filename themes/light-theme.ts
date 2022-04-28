@@ -4,18 +4,17 @@ export const lightTheme = createTheme({
 	palette: {
 		mode: 'light',
 		common: {
-			blue: '#3655a5',
-			orange: '#f1861c',
 			white: '#ffffff',
-			gray: '#CCCCCC',
-			lightgray: 'rgba(166, 173, 185, 0.48)',
-			lightgrayb: '#E7ECF3',
-			darkgray: '#A6ADB9',
+			black:'#1D232E',
+			//gray: '#CCCCCC',
+			//lightgray: 'rgba(166, 173, 185, 0.48)',
+			//lightgrayb: '#E7ECF3',
+			//darkgray: '#A6ADB9',
 		},
 		primary: {
 			light: '#99B2F2',
 			main: '#3655a5',
-			gray: '#9298A7',
+			//gray: '#9298A7',
 			dark: '#002d75',
 			contrastText: '#fff',
 		},
@@ -37,8 +36,8 @@ export const lightTheme = createTheme({
 		background: {
 			paper: '#ffffff',
 			default: '#ffffff',
-			defaultGrey: 'grey[300]',
-			blue: '#3655a5',
+			//defaultGrey: 'grey[300]',
+			//blue: '#3655a5',
 		},
 	},
 	typography: {
