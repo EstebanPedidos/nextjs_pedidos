@@ -225,7 +225,28 @@ export default function FichaTecnica(props){
                     data-sku={datos.descripcion.descripcion.sort_name}
                     data-country="MX"
                     data-source="SCRIPT"
-                    data-brand="HP"></Script>                    
+                    data-brand="HP"></Script>                                      
+                }
+                {(datos.hasOwnProperty('item_num'))&&
+                    <Script id="show-banner" strategy="lazyOnload">
+                    {`var ccs_cc_args = ccs_cc_args || [];
+                    // HP Content Product Page
+                    ccs_cc_args.push(['cpn', 'CPN']);
+                    ccs_cc_args.push(['mf', '${datos.marca}']);
+                    ccs_cc_args.push(['pn', '${datos.descripcion.descripcion.sort_name}']);
+                    ccs_cc_args.push(['upcean', 'UPC_EAN_CODE']);
+                    ccs_cc_args.push(['ccid', 'CATALOG_CODE']);
+                    ccs_cc_args.push(['lang', 'es']);
+                    ccs_cc_args.push(['market', 'MX']);
+
+                    (function () {
+                            var o = ccs_cc_args; o.push(['_SKey', '74b5eb60']); o.push(['_ZoneId', 'hp-auto-pp']);
+                    var sc = document.createElement('script'); sc.type = 'text/javascript'; sc.async = true;
+                            sc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.cnetcontent.com/jsc/h.js';
+                    var n = document.getElementsByTagName('script')[0]; n.parentNode.insertBefore(sc, n);
+                    })();`
+                    }                
+                    </Script>
                 }
                 <Box component="div" p={2} my={2}>
                     <Grid container direction="row" justifyContent="space-between">
@@ -360,7 +381,6 @@ export default function FichaTecnica(props){
                                             <Box p={1}><Typography variant="h4" component="subtitle1"> ${(precio > 0)?Precios('formato',precio):``}</Typography></Box>
                                             <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
                                                 <Typography variant="subtitle1">
-                                                    asdfsdfsdfs
                                                 ${(cortadosPA.indexOf(datos.cortado) >= 0 || articulosPA.indexOf(datos.item_num) >= 0)?(datos.precio_anterior > 0 && datos.precio_anterior > precio)?Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0,formato:true}):``:Precios('redondear_arriba',{subtotal:(((parseFloat(precio)*10)/100)+parseFloat(precio)),iva:0,formato:true})}
                                                 </Typography> 
                                             </Box>
