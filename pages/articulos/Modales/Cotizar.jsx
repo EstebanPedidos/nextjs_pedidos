@@ -78,17 +78,13 @@ export default function Cotizar({item_num}) {
                         <Button type="button" variant="outlined" fullWidth size="large" onClick={()=>{Cotizar(1);}}>Personal</Button>
                       </Grid>
                       <Grid item xs={6}>
-                        <Button type="button" variant="contained" fullWidth size="large" color="primary" disableElevation onClick={()=>{Cotizar(2)}}>Empresa</Button>
+                        <Button type="button" variant="outlined" fullWidth size="large" color="primary" disableElevation onClick={()=>{Cotizar(2)}}>Empresa</Button>
                       </Grid>
                     </Grid>
                   </Box>
-                  <Box component="div" justifyContet="center">
-                    <Grid container direction="row"justifyContent="center" alignItems="center" spacing={2}>
-                      <Grid item xs={12}>
-                            Contáctanos: 55 5015-8100 ó 01 800 8138181<br/>
-                            Los tiempos de respuesta pueden variar
-                      </Grid>
-                    </Grid>
+                  <Box component="div" textAlign="center" mt={3}>
+                      <Typography variant="body2" color="textSecondary">Contáctanos: 55 5015-8100 ó 01 800 8138181</Typography>
+                      <Typography variant="subtitle2" color="textSecondary">Los tiempos de respuesta pueden variar</Typography>
                   </Box>
                 </div>                        
             </div>

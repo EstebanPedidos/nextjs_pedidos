@@ -85,7 +85,7 @@ export default function ProductTab({datos}) {
                     justifyContent="space-between"
                     alignItems="flex-start" spacing={1}>
                       <Grid item>                   
-                        <Typography variant="subtitle1" sx={{fontWeight:'600'}}>
+                        <Typography variant='h6' component="h5" sx={{fontWeight:'600'}}>
                           Beneficios
                         </Typography>                      
                       </Grid>
@@ -96,7 +96,7 @@ export default function ProductTab({datos}) {
                           justifyContent="space-between"
                           alignItems="center" >                         
                             <StorefrontOutlinedIcon />
-                            <Typography ml={2} variant="subtitle2">
+                            <Typography ml={2} variant='subtitle1' component="body1">
                               Recoge en PickUp Center*
                             </Typography>
                         </Grid>
@@ -110,7 +110,7 @@ export default function ProductTab({datos}) {
                             
                               <MopedOutlinedIcon />
                             
-                            <Typography ml={2} variant="subtitle2">
+                            <Typography ml={2} variant='subtitle1' component="body1">
                               Envío Express CDMX -3 hrs
                             </Typography>
                         </Grid>
@@ -124,7 +124,7 @@ export default function ProductTab({datos}) {
                             
                               <Inventory2OutlinedIcon />
                             
-                            <Typography ml={2} variant="subtitle2">
+                            <Typography ml={2} variant='subtitle1' component="body1">
                               Devoluciones con producto cerrado
                             </Typography>
                         </Grid>
@@ -138,7 +138,7 @@ export default function ProductTab({datos}) {
                             
                               <PaymentOutlinedIcon />
                             
-                            <Typography ml={2} variant="subtitle2">
+                            <Typography ml={2} variant='subtitle1' component="body1">
                               Paga al recibir y Programa tu entrega CDMX y Guadalajara
                             </Typography>
                         </Grid>
@@ -163,18 +163,18 @@ export default function ProductTab({datos}) {
                           {/* <Avatar>
                             <MopedOutlinedIcon />
                           </Avatar> */}
-                          <Typography variant="subtitle1" sx={{fontWeight:'600'}}>
+                          <Typography variant='h6' component="h5" sx={{fontWeight:'600'}}>
                             Meses sin intereses
                           </Typography>
                       </Grid>
                     </Grid>
                     <Grid item>
-                      <Typography variant="body2">
+                      <Typography variant="body1">
                          18 MSI con tarjetas participantes
                       </Typography>
                     </Grid>
                     <Grid item>
-                        <Typography variant="body2">
+                        <Typography variant="body1">
                            24 MSI con tarjetas CitiBanamex
                         </Typography>
                     </Grid>
