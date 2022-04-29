@@ -2,6 +2,7 @@ import {useState,useEffect} from "react";
 //next js
 import { useRouter } from 'next/router'
 import Script from 'next/script'
+import Head from 'next/head'
 //Servicios
 import Services from '../services/Services'
 import Precios from '../services/Precios'
@@ -12,6 +13,8 @@ import ListDescription from './ListDescription';
 import ProductTab   from './ProductTab';
 import Alertas from '../checkout/Alertas'
 import { Layout } from 'layout/Layout';
+//Modales
+import Cotizar from "./Modales/Cotizar";
 
 //Carousel
 import { Swiper } from 'swiper/react';
@@ -179,15 +182,15 @@ export default function FichaTecnica(props){
             Services('POST','/fichaTecnica/esMotoExpress?item_num='+datos.item_num+'&codigo_postal='+cp,{})
             .then( response =>{
                 if(response.data >= 0){
-                    setAlerta({severity:'success',mensaje:'Disponible Envío Express',vertical:'bottom',horizontal:'right'})
+                    setAlerta({severity:'success',mensaje:'Disponible Envío Express',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }else{
-                    setAlerta({severity:'error',mensaje:'Este producto aún no esta disponible para envío express.',vertical:'bottom',horizontal:'right'})
+                    setAlerta({severity:'error',mensaje:'Este producto aún no esta disponible para envío express.',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }
                 setLoading(false)
                 
             })
         }else{
-            setAlerta({severity:'error',mensaje:'Ingresa un CP',vertical:'bottom',horizontal:'right'})
+            setAlerta({severity:'error',mensaje:'Ingresa un CP',vertical:'bottom',horizontal:'right',variant:'filled'})
             setLoading(false)
         }   
     }
@@ -195,7 +198,7 @@ export default function FichaTecnica(props){
     async function add(isCarrito,item_num){   
         setLoading(true)
         if(item_num === '' && (cantidad === '' || parseInt(cantidad) === 0)){
-            setAlerta({severity:'error',mensaje:'Se requiere una cantidad',vertical:'bottom',horizontal:'right'})
+            setAlerta({severity:'error',mensaje:'Se requiere una cantidad',vertical:'bottom',horizontal:'right',variant:'filled'})
             setLoading(false)
             return
         }
@@ -207,18 +210,21 @@ export default function FichaTecnica(props){
                     ruter.push('/checkout/verifica-pedido')
                 }else{
                     setLoading(false)
-                    setAlerta({severity:'success',mensaje:'Agregado',vertical:'bottom',horizontal:'right'})
+                    setAlerta({severity:'success',mensaje:'Agregado',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }                
             }else{
-                setAlerta({severity:'error',mensaje:'Error al agregar',vertical:'bottom',horizontal:'right'})
+                setAlerta({severity:'error',mensaje:'Error al agregar',vertical:'bottom',horizontal:'right',variant:'filled'})
                 setLoading(false)
             }
         })         
     }
 
     return (
-        <>
+        <div>          
             <Layout>
+                <Head>
+                    <title> | Pedidos.com</title>
+                </Head>
                 {(datos.hasOwnProperty('item_num'))&&
                     (datos.item_num.includes('HP-') || datos.item_num.includes('hp-') || datos.item_num.includes('PDIR-') || datos.item_num.includes('pdir-'))&&
                     <Script type="text/javascript" src="https://storage.googleapis.com/indexado/assets/alquimioIndexado.v2.js" 
@@ -462,13 +468,23 @@ export default function FichaTecnica(props){
                                                         }
                                                     </Grid>
                                                     <Grid item xs={8}>
-                                                        <Button variant="outlined" color="secondary"  size="large" py={1} fullWidth elevation={0} onClick={()=>{add(false,'')}}>Agregar a carrito</Button>
+                                                        <LoadingButton variant="outlined" color="secondary"  size="large" py={1} fullWidth elevation={0}
+                                                        onClick={()=>{add(false,'')}}
+                                                        loading={loading}
+                                                        loadingIndicator="Agregando..."
+                                                        >
+                                                            Agregar a carrito
+                                                        </LoadingButton>                                                         
                                                     </Grid>
                                                     <Grid item xs={12}>
                                                         {(datos.disponibilidad  > 0)&&
-                                                            <Button onClick={()=>{add(true,'')}} variant="contained" color="secondary" onclick="" type="button" fullWidth size="large" elevation={0}>
+                                                            <LoadingButton variant="contained" color="secondary" onclick="" type="button" fullWidth size="large" elevation={0}
+                                                            onClick={()=>{add(true,'')}}
+                                                            loading={loading}
+                                                            loadingIndicator="Agregando..."
+                                                            >
                                                                 Comprar ahora
-                                                            </Button> 
+                                                            </LoadingButton>
                                                         }
                                                     </Grid>
                                             </Grid>
@@ -482,7 +498,7 @@ export default function FichaTecnica(props){
                                         </Box>
                                         <Divider middle/>
                                         <Box component="div" py={3}>
-                                            <Button variant="outlined" to="https://api.whatsapp.com/send?phone=5215562947884&amp;text=Hola, me ayudas a cotizar el precio de este producto por volumen >" fullWidth size="large" target="_blank" >Cotizar por volumen</Button>
+                                            <Cotizar item_num={datos.item_num}/>
                                         </Box>
                                         <Divider middle/>
                                         <Box component="div">
@@ -630,8 +646,6 @@ export default function FichaTecnica(props){
                     } 
                 </Box>
             </Layout>
-        </>
-
-        
+        </div>     
     )    
 }

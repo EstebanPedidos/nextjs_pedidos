@@ -13,7 +13,7 @@ export default function Alertas({setAlerta,alerta}) {
       <Snackbar open={true} autoHideDuration={6000} onClose={()=>{setAlerta({})}}
       anchorOrigin={{vertical: alerta.vertical, horizontal: alerta.horizontal }}
       >
-        <Alert severity={alerta.severity}>
+        <Alert severity={alerta.severity} variant={(alerta.hasOwnProperty('variant'))?alerta.variant:'outlined'} >
           {(alerta.hasOwnProperty('titulo'))&&
             <AlertTitle>{alerta.titulo}</AlertTitle>
           }
