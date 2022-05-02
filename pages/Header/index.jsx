@@ -1,96 +1,169 @@
-import React, { useRef, useState, useEffect } from 'react';
-
-// Third parties import
-// import { makeStyles } from '@material-ui/core/styles';
-
-// Componentes - material UI
-// import AppBar from '@material-ui/core/AppBar';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import IconButton from '@material-ui/core/IconButton';
-// import Typography from '@material-ui/core/Typography';
-// import Menu from '@material-ui/core/Menu';
-// import Box from '@material-ui/core/Box';
-// import Hidden from '@material-ui/core/Hidden';
-// import TextField from '@material-ui/core/TextField';
-// import { Button, Divider } from '@material-ui/core';
-// import InputAdornment from '@material-ui/core/InputAdornment';
-
-//Components @mui/material
-import {
-	AppBar,
-	Toolbar,
-	IconButton,
-	Typography,
-	Menu,
-	Box,
-	Hidden,
-	TextField,
-	Button,
-	Divider,
-	InputAdornment,
-} from '@mui/material';
-
-import {
-	FavoriteBorder,
-	HelpOutline as HelpOutlineIcon,
-	ShoppingCart as ShoppingCartIcon,
-	Search as SearchIcon,
-} from '@mui/icons-material';
-
-import MenuItem from '@material-ui/core/MenuItem';
-import Badge from '@material-ui/core/Badge';
-import Drawer from '@material-ui/core/Drawer';
+import React, {useState, useEffect} from 'react';
 import { alpha, makeStyles,useTheme } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import InputBase from '@material-ui/core/InputBase';
+import Badge from '@material-ui/core/Badge';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import MoreIcon from '@material-ui/icons/MoreVert';
 import clsx from 'clsx';
+import Drawer from '@material-ui/core/Drawer';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
+import algoliasearch from 'algoliasearch/lite';
+import Avatar from '@material-ui/core/Avatar';
 
+import Services from '../services/Services'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-
-// Icons
-// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-// import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-// import SearchIcon from '@material-ui/icons/Search';
-
-// Variables imports
-import { logoUrl } from '../constants';
-
-import { HelpModal } from './modals';
-
-import { content, logo, iconhca } from './Navbar.module.css';
+import logo from '../../assets/pedidos-logo.svg';
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
+import Button from '@material-ui/core/Button';
 
 const drawerWidth = 240;
 
-//Nextjs
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-
+const searchClient = algoliasearch(
+  '12YTHFXXB5',
+  '235f66e4531637d52c48f4a91ad6fa3f'
+);
 
 const useStyles = makeStyles((theme) => ({
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: drawerWidth,
-    },
-    list: {
-      width: 250
-    },
-    fullList: {
-      width: "auto"
-    }
-  }));
+  logo: {
+    height:"1.5em",
+  },
+  button: {
+    padding:"0 25px",
+    marginLeft:"20px",
+    textTransform:"none",
+   height:"45px"
+  },
 
-export function Navbar() {
-	const [openModal, setOpenModal] = useState(false);
-	const [openMenu, setOpenMenu] = useState(false);
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    padding: "0 20px",
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
 
+
+  root: {
+    display: 'flex',
+  },
+  appBar: {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  list: {
+    width: 250
+  },
+  fullList: {
+    width: "auto"
+  }
+}));
+
+export default function Header() {
     const ruter = useRouter() 
     const classes = useStyles();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [inputs, setInputs] = useState({});
@@ -103,15 +176,10 @@ export function Navbar() {
         bottom: false,
         right: false
     });
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    
     const [sesPartidas, setSesPartidas] = useState(0);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-
 
     let Cliente = 0;
     let Favoritos = 0;
@@ -155,18 +223,6 @@ export function Navbar() {
         ejecutivoNum = localStorage.getItem('ejecutivoNum');
         nombre = localStorage.getItem('Usu_Nomb');
     }, [])
-
-	const anchorEl2 = useRef();
-	const handleClose = () => {
-		setOpenMenu(false);
-	};
-	const handleClick = (event) => {
-		setOpenMenu(true);
-	};
-
-	const handleOpenModal = () => {
-		setOpenModal(!openModal);
-	};
 
 
     const handleDrawerOpen = (event) => {
@@ -1309,7 +1365,7 @@ export function Navbar() {
         );
       };
 
-      function CerrarSesion(){
+    function CerrarSesion(){
         setLogged(false);
         localStorage.setItem('Usu_Nomb', '')
         localStorage.setItem('Cliente', 0)
@@ -1376,150 +1432,118 @@ export function Navbar() {
         </Menu>
     );
 
+    const mobileMenuId = 'primary-search-account-menu-mobile';
+    const renderMobileMenu = (
+        <Menu
+            anchorEl={mobileMoreAnchorEl}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            id={mobileMenuId}
+            keepMounted
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            open={isMobileMenuOpen}
+            onClose={handleMobileMenuClose}
+        >
+            <MenuItem>
+                <IconButton aria-label="show 4 new mails" color="inherit">
+                    <Badge badgeContent={isLogged ? Favoritos : null} color="secondary">
+                        <Link href="/misFavoritos"><FavoriteIcon/></Link>
+                    </Badge>
+                </IconButton>
+                <p>Favoritos </p>
+            </MenuItem>
+            <MenuItem>
+                <IconButton aria-label="show 11 new notifications" color="inherit">
+                    <Badge badgeContent={isLogged ? sesPartidas : null} color="secondary">
+                        <Link href="/checkout/verifica-pedido"><ShoppingCartIcon/></Link>
+                    </Badge>
+                </IconButton>
+                <p>Carrito</p>
+            </MenuItem>
+            <MenuItem onClick={handleProfileMenuOpen}>
+            
+                <IconButton
+                aria-label="account of current user"
+                aria-controls="primary-search-account-menu"
+                aria-haspopup="true"
+                color="inherit"
+                >
+                <AccountCircle />
+                </IconButton>
+                <p>Mi Cuenta</p>
+            </MenuItem>
+        </Menu>
+    );
 
-	return (
-		<>
-			<AppBar position='sticky' color='white'>
-				<Toolbar className={content}>
-					<Box component={'div'} alignItems={'center'} display='flex'>
-						<Hidden smDown={true}>
-							{/* Crear una variante del logo que sea adaptable / Por
-							ejemplo una "p" para esos casos de usos */}
-							<img
-								className={logo}
-								src={logoUrl}
-								alt='logo pedidos'
-							/>
-						</Hidden>
+    return (
+        <div> {/* className={classes.root} */}
+        <CssBaseline />
+            <AppBar position="sticky" color="transparent" elevation={0} variant="outlined" className={clsx(classes.appBar, {  [classes.appBarShift]: open, })}>
+                <Toolbar>
+                    <Button onClick={toggleDrawer("left", true)}>
+                        <MenuIcon /> 
+                    </Button>
+                    
+                    <Link href="/Home">
+                    <img alt='Pedidos.com' src= {logo} className={classes.logo} />
+                    </Link> 
+                    <form onSubmit={searchBoxSubmit}>
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                        <SearchIcon />
+                        </div>
+                        <InputBase
+                        placeholder="Buscar..."
+                        classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                        }}
+                        inputProps={{ 'aria-label': 'search' }}
+                        name="query"
+                        onChange={handleChange}
+                        
+                        />
+                    </div>
+                    </form>
+                    <div className={classes.grow} />
+                    <div className={classes.sectionDesktop}>
+                    <Button color="primary">Se Pro </Button> 
 
-						<Box component={'span'} marginLeft='2%'>
-							<IconButton onClick={toggleDrawer("left", true)}>
-								<img
-									className={iconhca}
-									src='https://pedidos.com/myfotos/pedidos-com/pagina/header/catego.svg'
-									alt='categories'
-								/>
-							</IconButton>
-						</Box>
-						<Hidden smDown={true}>
-							<Box component={'span'} padding={'1rem'}>
-								<Typography>Categorías</Typography>
-							</Box>
-						</Hidden>
-					</Box>
-					{/* <Hidden smDown='hide'> */}
-					<Hidden smDown='hide'>
-						<Box width='30%'>
-							<TextField
-								size='small'
-								id='outlined-basic'
-								fullWidth
-								// label='Outlined'
-								variant='outlined'
-								placeholder='Buscar..'
-								InputProps={{
-									endAdornment: (
-										<InputAdornment position='start'>
-											<SearchIcon />
-										</InputAdornment>
-									),
-								}}
-							/>
-						</Box>
-					</Hidden>
-
-					<Box
-						display={'flex'}
-						flexDirection='row'
-						alignItems={'center'}
-						justifyContent='center'
-						flexWrap='nowrap'
-						component={'div'}>
-						{/* This inline styles is temporaly, when add link router component, remove */}
-						<Hidden smDown={true}>
-							<Box
-								component={'span'}
-								style={{ cursor: 'pointer' }}>
-								<Typography component='span'>Para </Typography>
-								<Typography component='span' color='primary'>
-									empresas
-								</Typography>
-							</Box>
-						</Hidden>
-
-						<Box component={'span'}>
-							<IconButton onClick={handleClick}>
-                                <Badge badgeContent={isLogged ? Favoritos : null} color="secondary">
-                                    <Link href="/misFavoritos"><FavoriteBorder /></Link>
-                                </Badge>
-							</IconButton>
-							<Menu
-								anchorEl={anchorEl}
-								keepMounted
-								open={openMenu}
-								onClose={handleClose}>
-								<Box padding={'1em'}>
-									{/* <MenuItem onClick={handleClose}> */}
-									<Typography
-										variant='subtitle2'
-										align='center'>
-										Aún no tienes favoritos
-									</Typography>
-									{/* </MenuItem> */}
-									<Divider />
-									<Box
-										paddingTop={'1em'}
-										display='flex'
-										alignItems='center'
-										flexDirection={'column'}>
-										<IconButton>
-											<FavoriteBorder fontSize='large' />
-										</IconButton>
-										<Typography>
-											Iniciar sesión para añadir
-										</Typography>
-									</Box>
-								</Box>
-							</Menu>
-							<div ref={anchorEl} id='menu'></div>
-						</Box>
-						<IconButton onClick={handleOpenModal}>
+                    <IconButton>
+                        <Badge color="secondary">
+                            <HelpOutlineOutlinedIcon />
+                        </Badge>
+                        </IconButton>
+                        <IconButton aria-label="show 17 new notifications">
+                            <Badge badgeContent={isLogged ? Favoritos : null} color="secondary">
+                                <Link href="/misFavoritos"><FavoriteBorderOutlinedIcon /></Link>
+                            </Badge>
+                        </IconButton>
+                        <IconButton aria-label="show 4 new mails">
                             <Badge badgeContent={isLogged ? sesPartidas : null} color="secondary">
                                 <Link href="/checkout/verifica-pedido"><HelpOutlineIcon /></Link>
                             </Badge>
-						</IconButton>
-						<IconButton color='primary'>
-							<ShoppingCartIcon />
-						</IconButton>
-					</Box>
-					<Box>
+                        </IconButton>
+                        
                         {isLogged 
                         ?<Button aria-controls={menuId} onClick={handleProfileMenuOpen}><Avatar>{nombre.substring(0,2)}</Avatar></Button>
-                        :<Button variant='contained' color='primary'>
-                        Ingresar
+                        :<Button variant="contained" className={classes.button} color="primary" aria-controls={menuId}  onClick={handleProfileMenuOpen}>
+                            Ingresa
                         </Button>}
-
-					</Box>
-				</Toolbar>
-				<Hidden mdUp={true}>
-					<Box mt={'1rem'}>
-						<TextField
-							size='medium'
-							id='outlined-basic'
-							fullWidth
-							variant='outlined'
-							placeholder='Buscar..'
-							InputProps={{
-								endAdornment: (
-									<InputAdornment position='start'>
-										<SearchIcon />
-									</InputAdornment>
-								),
-							}}
-						/>
-					</Box>
-				</Hidden>
-			</AppBar>
+                        
+                    </div>
+                    <div className={classes.sectionMobile}>
+                        <IconButton
+                        aria-label="show more"
+                        aria-controls={mobileMenuId}
+                        aria-haspopup="true"
+                        onClick={handleMobileMenuOpen}
+                        color="inherit"
+                        >
+                        <MoreIcon />
+                        </IconButton>
+                    </div>
+                </Toolbar>
+            </AppBar>
 
             <Drawer
                 anchor="left"
@@ -1539,6 +1563,10 @@ export function Navbar() {
                 
                 {drawer("left")}
             </Drawer>
-		</>
-	);
+        
+
+            {renderMobileMenu}
+            {isLogged ? menuLogin : menuLogout}
+        </div>
+    );
 }

@@ -7,6 +7,11 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Grid, Paper } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
+
+//Componentes
+import { Layout } from 'layout/Layout';
+
+
 //Servicios
 import Services from '../services/Services'
 import { useRouter } from 'next/router'
@@ -48,43 +53,35 @@ export default function Login(){
         console.log(params);
         let services        = await Services('POST','/registrov2/validaCredencial'+params,{})
         let data            = await services.data
-        alert(JSON.stringify(data))
-        ruter.push('/Contra')
-        /*LoginService.validaCredencial(params)
-            .then( response =>{
-                console.log(response);
-    
-                if(response.data.error === 'Usuario o Password Invalido'){
-                  localStorage.setItem('Cliente','201221')
-                  localStorage.setItem('Token', '')
-                  localStorage.setItem('Login', 'NO')
-                  localStorage.setItem('Usuario', '0')
-                  localStorage.setItem('iniciales', false)
-                  localStorage.setItem('iniciales', "")
-                  localStorage.setItem('Nombre_corto', "")
-                  
-    
-                  history.push("/Contra")
-                }else{
-                  localStorage.setItem('Usu_Nomb', response.data.usuario.nombre)
-                  localStorage.setItem('Email', response.data.usuario.email)
-                  localStorage.setItem('Cliente', response.data.usuario.clienteNum)
-                  localStorage.setItem('Usuario', response.data.usuario.usuarioNum)
-                  localStorage.setItem('Favoritos', response.data.usuario.favoritos)
-                  localStorage.setItem('SesPartidas', response.data.usuario.partidas)
-                  localStorage.setItem('Token', response.data.usuario.token)
-                  localStorage.setItem('Login', 'Ok')
-                  localStorage.setItem('afiliado', response.data.usuario.afiliado)
-                  setLogged(true);
-                  history.push("/Home")
-                  refreshPage();
-                }
-            }
-          )*/
+
+        if(data.error === 'Usuario o Password Invalido'){
+            localStorage.setItem('Cliente','201221')
+            localStorage.setItem('Token', '')
+            localStorage.setItem('Login', 'NO')
+            localStorage.setItem('Usuario', '0')
+            localStorage.setItem('iniciales', false)
+            localStorage.setItem('iniciales', "")
+            localStorage.setItem('Nombre_corto', "")
+            ruter.push('/Contra')
+        }else{
+            localStorage.setItem('Usu_Nomb', data.usuario.nombre)
+            localStorage.setItem('Email', data.usuario.email)
+            localStorage.setItem('Cliente', data.usuario.clienteNum)
+            localStorage.setItem('Usuario', data.usuario.usuarioNum)
+            localStorage.setItem('Favoritos', data.usuario.favoritos)
+            localStorage.setItem('SesPartidas', data.usuario.partidas)
+            localStorage.setItem('Token', data.usuario.token)
+            localStorage.setItem('Login', 'Ok')
+            localStorage.setItem('afiliado', data.usuario.afiliado)
+            setLogged(true);
+            ruter.push('/home')
+            // refreshPage();
+        }
       }
     
     return(
         <React.Fragment>
+            <Layout>
             <CssBaseline />
             <Grid>
                     <Paper variant="outlined" elevation={0} style={paperStyle}>
@@ -123,7 +120,8 @@ export default function Login(){
                             </form>
                         </Box>
                     </Paper>
-            </Grid>   
+            </Grid> 
+            </Layout>  
         </React.Fragment>  
     )
 }
