@@ -169,7 +169,7 @@ export default function Busquedas(props) {
                             <Grid container direction="row" justifyContent="space-between" alignItems="flex-end" spacing={2}>
                                 <Grid item xs={12} sm={12} lg={6}>
                                     <Box component="div">
-                                        <Typography variant="h1">{url}</Typography>
+                                        <Typography variant="h3" component="h1" sx={{fontWeight:'500'}}>{url}</Typography>
                                         <Typography variant="subtitle1">
                                         <Stats
                                         translations={{
