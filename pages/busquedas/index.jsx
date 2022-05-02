@@ -4,7 +4,7 @@ import { InstantSearch,
         RefinementList, 
         Breadcrumb,
         connectSearchBox,
-        SearchBox, 
+        SearchBox,  
         Hits,
         Highlight,
         ToggleRefinement, 
@@ -19,10 +19,10 @@ import { InstantSearch,
         from 'react-instantsearch-dom';
 import {Box, Grid, Paper, Typography,
     Button, Select, TextField, Divider, 
-    Card, CardContent, CardMedia, Link, FormControl, InputLabel, MenuItem  } from '@mui/material';
+    Card, CardContent, CardMedia, FormControl, InputLabel, MenuItem  } from '@mui/material';
 
 import { makeStyles } from '@material-ui/core/styles';
-import 'styles/algolia.module.css';
+// import '../styles/Algolia.module.css';
 import YoutubeSearchedForIcon from '@material-ui/icons/YoutubeSearchedFor';
 
 //Componentes
@@ -30,6 +30,7 @@ import { Layout } from 'layout/Layout';
 
 //NextJs
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
     const searchClient = algoliasearch(
     '12YTHFXXB5',
@@ -135,14 +136,18 @@ rootCardI:{
 export default function Busquedas(props) {
   const classes = useStyles();
 
+  const router = useRouter()
+  const url = router.query.query;
+// const { url } = 'lapiz';
+
   const [index, setIndex] = React.useState('Pedidos');
   const [filtros, setFiltros] = React.useState(false);
   const ruter = useRouter() 
 
-  //useEffect( () => {
-  //  let url             = this.props.router.query.query;
- // alert(url)
-  //}, [])  
+
+  useEffect( () => {
+
+  }, [router])  
 
   const handleChange = (event) => {
     setIndex(event.target.value);
@@ -152,6 +157,7 @@ export default function Busquedas(props) {
 
 
   return(
+    <Layout>
     <div className={classes.bgcontent}>
         <InstantSearch 
             indexName={index}
@@ -164,7 +170,7 @@ export default function Busquedas(props) {
                             <Grid container direction="row" justifyContent="space-between" alignItems="flex-end" spacing={2}>
                                 <Grid item xs={12} sm={12} lg={6}>
                                     <Box component="div">
-                                        <Typography variant="h1">{/* {resultado} */}</Typography>
+                                        <Typography variant="h1">{url}</Typography>
                                         <Typography variant="subtitle1">
                                         <Stats
                                         translations={{
@@ -177,8 +183,8 @@ export default function Busquedas(props) {
                                         />
                                         </Typography>
                                         {/* NOTA: Lo siguiente que requiere? */}
-                                        <div sx={{ display: 'none' }}>
-                                            <SearchBox /* defaultRefinement={props.location.state.query} *//>
+                                        <div style={{ display: 'none' }}>
+                                            <SearchBox defaultRefinement={url}/>
                                         </div>
                                     </Box>
                                 </Grid>
@@ -598,7 +604,7 @@ export default function Busquedas(props) {
                                         <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/page-info/notfound.svg" alt="Sin resutado de busquedas" />
                                     </Box>
                                     <Box component="div" textAlign="center">
-                                        <Typography component="h3" variant="h4">No encontramos "{resultado}"</Typography>
+                                        <Typography component="h3" variant="h4">No encontramos "{url}"</Typography>
                                         <Typography component="p" variant="subtitle1">Intente con un término de búsqueda diferente o contáctanos para ayudarte.</Typography>
                                     </Box>
                             </Box>
@@ -621,6 +627,7 @@ export default function Busquedas(props) {
             <Configure clickAnalytics />
         </InstantSearch>
     </div>
+    </Layout>
     
   );
 
@@ -629,13 +636,15 @@ export default function Busquedas(props) {
         let button; 
         if (props.hit.STOCK) {
         button = 
-        <Link to={`/articulos/${props.hit.URL}`} className={classes.CTAlink} >
+        <Link href={`/articulos/${props.hit.URL}`} className={classes.CTAlink} >
+            <a>
             <Button variant="contained" size="large" color="secondary" fullWidth >
             Comprar
-            </Button>;
+            </Button>
+            </a>
         </Link>
         } else {
-        button = <Button variant="contained" color="disabled" size="large" disableElevation >
+        button = <Button variant="contained" size="large" disableElevation disabled>
                     Agotado
                 </Button>;
         }
@@ -646,15 +655,17 @@ export default function Busquedas(props) {
               <Box py={2} px={2} component="div" className={classes.root}>
                 <Grid container   direction="row" justifyContent="space-around" alignItems="center" spacing={3}>
                   <Grid item xs={12} sm={4} lg={4} justify="center">
-                    <Link to={`/articulos/${props.hit.URL}`}>  
-                      <CardMedia
-                        className={classes.cover}
-                        component="img"
-                        alt={props.hit.ITEM_NUM}
-                        height="180"
-                        image={"https://pedidos.com/myfotos/large/(L)" + props.hit.ITEM_NUM + ".jpg"}
-                        title={props.hit.ITEM_NUM}
-                        />
+                    <Link href={`/articulos/${props.hit.URL}`}>  
+                        <a>
+                        <CardMedia
+                            className={classes.cover}
+                            component="img"
+                            alt={props.hit.ITEM_NUM}
+                            height="180"
+                            image={"https://pedidos.com/myfotos/large/(L)" + props.hit.ITEM_NUM + ".jpg"}
+                            title={props.hit.ITEM_NUM}
+                            />
+                        </a>
                     </Link>      
                   </Grid>
                   <Grid item xs={12} sm={8} lg={5}>
@@ -676,14 +687,16 @@ export default function Busquedas(props) {
                             </Paper>
                             : ''}
                         </Box>
-                      <Link to={`/articulos/${props.hit.URL}`} className={classes.productLink}>
-                        <Typography component="body2" variant="p" textAlign="left">
-                          {props.hit.FILTROS.MARCA}
-                        </Typography>
-                        <Typography variant="subtitle1" className="hit-name" color="textSecondary">
-                          <Highlight attribute="TITULO" hit={props.hit} />
-                        </Typography>
-                      </Link>
+                        <Link href={`/articulos/${props.hit.URL}`} className={classes.productLink}>
+                            <a>
+                                <Typography component="body2" variant="p" textAlign="left">
+                                {props.hit.FILTROS.MARCA}
+                                </Typography>
+                                <Typography variant="subtitle1" className="hit-name" color="textSecondary">
+                                <Highlight attribute="TITULO" hit={props.hit} />
+                                </Typography>
+                            </a>
+                        </Link>
                         <div className="hit-description">
                           <Typography component="body2" variant="p">Clave alterna: <Highlight attribute="SORT_NAME" hit={props.hit} /></Typography>
                         </div>

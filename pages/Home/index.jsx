@@ -132,7 +132,7 @@ export default function Home() {
                 console.log(error.response)
             });
         }
-        // getData()
+        getData()
     }, []) 
 
     const validaSesion= () =>{
@@ -273,7 +273,7 @@ export default function Home() {
                                                 row.tipo === 'B' ? 
                                                     <Card className={classes.root}>
                                                         <CardContent>
-                                                            <Link href={`/articulos/${row.url}`}>
+                                                            <Link href={`/articulos/${row.itemNum}`}>
                                                                 <a>
                                                                 <CardMedia
                                                                 className={classes.cover}
@@ -304,7 +304,7 @@ export default function Home() {
                                                 row.tipo === 'V' ? 
                                                     <Card className={classes.root}>
                                                         <CardContent>
-                                                            <Link href={`/articulos/${row.url}`}>
+                                                            <Link href={`/articulos/${row.itemNum}`}>
                                                                 <a>
                                                                 <CardMedia
                                                                 className={classes.cover}
@@ -335,7 +335,7 @@ export default function Home() {
                                                 row.tipo === 'F' ? 
                                                     <Card className={classes.root}>
                                                         <CardContent>
-                                                            <Link href={`/articulos/${row.url}`}>}
+                                                            <Link href={`/articulos/${row.itemNum}`}>}
                                                                 <a>
                                                                 <CardMedia
                                                                 className={classes.cover}
@@ -363,155 +363,7 @@ export default function Home() {
                 </Grid>
             </Grid>
 
-            {show.Carrito &&                                
-                    <Grid item xs={12}>
-                        <Typography variant="h5" component="h5">
-                            Carrito
-                        </Typography>
-                        <Carousel emulateTouch={true} showStatus={false} showIndicators={false} showThumbs={false} centerMode={true} centerSlidePercentage={20}>
-                            { Object.keys(itemsHome).map((oneKey,i)=>{
-                                    return (
-                                    <div key={i}>
-                                        {itemsHome[oneKey].tipo  === 'B' &&
-                                        <Card className={classes.productCard} elevation={3} >
-                                        <CardActionArea component={Link} to={`/articulos/${itemsHome[oneKey].url}`} >
-                                            <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                {itemsHome[oneKey].marca}
-                                            </Typography>
-                                            <CardMedia
-                                            className={classes.media}
-                                            image={`https://pedidos.com/myfotos/large/(L)${itemsHome[oneKey].itemNum}.webp`}
-                                            onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
-                                            alt={itemsHome[oneKey].itemNum}
-                                            title={itemsHome[oneKey].itemNum} />
-                                            <CardContent>
-                                            <Divider />
-                                            <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                {itemsHome[oneKey].tituloCompuesto} 
-                                            </Typography>
-                                            <p>${itemsHome[oneKey].precio}</p> 
-                                            <p style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>${itemsHome[oneKey].precioDeLista} </p>
-                                            </CardContent>
-                                        </CardActionArea>
-                                        <CardActions>
-                                            <Button
-                                            size="medium"
-                                            variant="outlined"
-                                            color="primary"
-                                            fullWidth
-                                            >
-                                            Ver Detalle
-                                            </Button>
-                                        </CardActions>
-                                        </Card>                 
-                                        }
-                                    </div>
-                                    );
-                                })
-                            }
-                        </Carousel>
-                    </Grid>                                         
-            }
 
-            {show.Vistos &&                                
-                <Grid item xs={12}>
-                    <Typography variant="h5" component="h5">
-                        Vistos
-                    </Typography>
-                    <Carousel emulateTouch={true} showStatus={false} showIndicators={false} showThumbs={false} centerMode={true} centerSlidePercentage={20}>
-                        { Object.keys(itemsHome).map((oneKey,i)=>{
-                                return (
-                                <div key={i}>
-                                    {itemsHome[oneKey].tipo  === 'V' &&
-                                    <Card className={classes.productCard} elevation={3} >
-                                    <CardActionArea component={Link} to={`/articulos/${itemsHome[oneKey].url}`} >
-                                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                            {itemsHome[oneKey].marca}
-                                        </Typography>
-                                        <CardMedia
-                                        className={classes.media}
-                                        image={`https://pedidos.com/myfotos/large/(L)${itemsHome[oneKey].itemNum}.webp`}
-                                        onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
-                                        alt={itemsHome[oneKey].itemNum}
-                                        title={itemsHome[oneKey].itemNum} />
-                                        <CardContent>
-                                        <Divider />
-                                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                            {itemsHome[oneKey].tituloCompuesto} 
-                                        </Typography>
-                                        <p>${itemsHome[oneKey].precio}</p> 
-                                        <p style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>${itemsHome[oneKey].precioDeLista} </p>
-                                        </CardContent>
-                                    </CardActionArea>
-                                    <CardActions>
-                                        <Button
-                                        size="medium"
-                                        variant="outlined"
-                                        color="primary"
-                                        fullWidth
-                                        >
-                                        Ver Detalle
-                                        </Button>
-                                    </CardActions>
-                                    </Card>                 
-                                    }
-                                </div>
-                                );
-                            })
-                        }
-                    </Carousel>
-                </Grid>                                         
-            }
-
-            {show.Favoritos &&                                
-                <Grid item xs={12}>
-                    <Typography variant="h5" component="h5">
-                        Favoritos
-                    </Typography>
-                    <Carousel emulateTouch={true} showStatus={false} showIndicators={false} showThumbs={false} centerMode={true} centerSlidePercentage={20}>
-                        { Object.keys(itemsHome).map((oneKey,i)=>{
-                                return (
-                                <div key={i}>
-                                    {itemsHome[oneKey].tipo  === 'F' &&
-                                    <Card className={classes.productCard} elevation={3} >
-                                    <CardActionArea component={Link} to={`/articulos/${itemsHome[oneKey].url}`} >
-                                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                            {itemsHome[oneKey].marca}
-                                        </Typography>
-                                        <CardMedia
-                                        className={classes.media}
-                                        image={`https://pedidos.com/myfotos/large/(L)${itemsHome[oneKey].itemNum}.webp`}
-                                        onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
-                                        alt={itemsHome[oneKey].itemNum}
-                                        title={itemsHome[oneKey].itemNum} />
-                                        <CardContent>
-                                        <Divider />
-                                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                            {itemsHome[oneKey].tituloCompuesto} 
-                                        </Typography>
-                                        <p>${itemsHome[oneKey].precio}</p> 
-                                        <p style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>${itemsHome[oneKey].precioDeLista} </p>
-                                        </CardContent>
-                                    </CardActionArea>
-                                    <CardActions>
-                                        <Button
-                                        size="medium"
-                                        variant="outlined"
-                                        color="primary"
-                                        fullWidth
-                                        >
-                                        Ver Detalle
-                                        </Button>
-                                    </CardActions>
-                                    </Card>                 
-                                    }
-                                </div>
-                                );
-                            })
-                        }
-                    </Carousel>
-                </Grid>                                         
-            }
 
             <Modal
                 aria-labelledby="transition-modal-title"
