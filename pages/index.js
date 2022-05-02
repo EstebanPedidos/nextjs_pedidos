@@ -1,4 +1,5 @@
 import { Typography } from '@mui/material';
+import Link from 'next/link'
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
@@ -15,12 +16,12 @@ export default function Home() {
         Header
       </nav>
 			<main className={styles.main}>
-				<Typography variant='h1' color='primary'>
-					prueba MUI lista
-				</Typography>
-
 				<h1 className={styles.title}>
-					Ir a <a href='/'>Home</a>
+                <Link href="/Home">
+                    <a>
+					Ir a HOME
+                    </a>
+                </Link>
 				</h1>
 
 				<p className={styles.description}>
