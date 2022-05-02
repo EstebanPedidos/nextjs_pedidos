@@ -1,14 +1,13 @@
 import React from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+//MUI
+import {Dialog, DialogContent, DialogContentText, Box, 
+	Divider, Paper, Typography, Button, Card, 
+    CardActionArea, CardContent, CardActions,CardMedia
+   } from '@mui/material';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import IconButton from '@material-ui/core/IconButton';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import { Divider, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -54,16 +53,15 @@ export function HelpModal({ isOpen, onClose }) {
 							</Paper>
 						</Box>
 					))}
-					<Box
-						marginY={'1rem'}
-						color='gray'
-						fontSize='14px'
-						textAlign={'center'}>
-						Contáctanos: 55 5015-8100 ó 01 800 8138181
-					</Box>
-					<Divider />
-					<Box marginY={'1rem'}>
-						<Typography align='center'>
+					<Box m={1} textAlign="center">
+						<Typography
+							variant="body2" color="textSecondary">
+							Contáctanos: 55 5015-8100 ó 01 800 8138181
+						</Typography>
+						<Box my={1} textAlign="center">
+							<Divider />
+						</Box>
+						<Typography align='center' color="textSecondary" variant="body2">
 							Los tiempos de respuesta pueden variar
 						</Typography>
 					</Box>
