@@ -74,7 +74,7 @@ export default function Login(){
             localStorage.setItem('Login', 'Ok')
             localStorage.setItem('afiliado', data.usuario.afiliado)
             setLogged(true);
-            ruter.push('/home')
+            ruter.push('/Home')
             // refreshPage();
         }
       }

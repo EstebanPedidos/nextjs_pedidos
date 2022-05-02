@@ -1328,9 +1328,8 @@ export function Navbar() {
         var busquedaUrl = inputs.query;
         var busquedaUrl1 = busquedaUrl.replace(/\s+/g,'+'); 
         ruter.push({
-        pathname: '/Busquedas',
-        search: '?query='+busquedaUrl1,
-        state: { query: inputs.query }
+        pathname: '/busquedas',
+        query: {query: inputs.query },
         })
     }
 
@@ -1409,6 +1408,7 @@ export function Navbar() {
 					</Box>
 					{/* <Hidden smDown='hide'> */}
 					<Hidden smDown='hide'>
+                        <form onSubmit={searchBoxSubmit}>
 						<Box width='30%'>
 							<TextField
 								size='small'
@@ -1424,8 +1424,11 @@ export function Navbar() {
 										</InputAdornment>
 									),
 								}}
+                                name="query"
+                                onChange={handleChange}
 							/>
 						</Box>
+                        </form>
 					</Hidden>
 
 					<Box
@@ -1495,10 +1498,9 @@ export function Navbar() {
 					<Box>
                         {isLogged 
                         ?<Button aria-controls={menuId} onClick={handleProfileMenuOpen}><Avatar>{nombre.substring(0,2)}</Avatar></Button>
-                        :<Button variant='contained' color='primary'>
+                        :<Button variant='contained' color='primary' aria-controls={menuId}  onClick={handleProfileMenuOpen}>
                         Ingresar
                         </Button>}
-
 					</Box>
 				</Toolbar>
 				<Hidden mdUp={true}>
@@ -1539,6 +1541,9 @@ export function Navbar() {
                 
                 {drawer("left")}
             </Drawer>
+
+
+            {isLogged ? menuLogin : menuLogout}
 		</>
 	);
 }
