@@ -68,7 +68,7 @@ BoxMsi: {
     padding: '8px',
     height: '7.5rem',
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
   },
   rootCard:{ 
   flexWrap: 'wrap',
@@ -187,15 +187,15 @@ export default function Busquedas(props) {
                                         <Grid item xs={12} sm={6}>
                                             <Paper elevation={4} className={classes.BoxMsi}>
                                             <Typography variant="overline" display="block">Hasta</Typography>
-                                                <Typography  component="body1" variant="h6"><Typography component="span" variant="h6" color="primary">18</Typography> MSI</Typography>
-                                                <Typography variant="caption" display="block" gutterBottom>Meses sin Intereses*</Typography>
+                                                <Typography  component="body1" variant="h4" sx={{fontWeight:'600'}}><Typography component="span" variant="h4" color="primary">18</Typography> MSI</Typography>
+                                                <Typography variant="caption" display="block" gutterBottom color="textSecondary">Meses sin Intereses*</Typography>
                                             </Paper>
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                             <Paper elevation={4} className={classes.BoxMsi}> 
                                                 <Typography variant="overline" display="block">Hasta</Typography>
-                                                <Typography component="body1" variant="h6"><Typography component="span" variant="h6" color="primary">24</Typography> MSI*</Typography>
-                                                <Typography variant="caption" display="block" gutterBottom>con CitiBanamex</Typography>
+                                                <Typography component="body1" variant="h4" sx={{fontWeight:'600'}}><Typography component="span" variant="h4" color="primary">24</Typography> MSI*</Typography>
+                                                <Typography variant="caption" display="block" gutterBottom color="textSecondary">con CitiBanamex</Typography>
                                             </Paper>
                                         </Grid>
                                     </Grid>  
@@ -252,19 +252,19 @@ export default function Busquedas(props) {
                     </Grid>
                     <Grid item xs={12} sm={4} md={3}>
                         <Box className="left-panel" textAlign="left">
-                        <Box component="div" textAlign="left" px={4}>
-                            <Typography variant="h6" component="h2" >
-                            <ToggleRefinement 
-                                color="primary"
-                                attribute="DISPONIBILIDAD"
-                                label="Disponibilidad"
-                                value={true}
-                                variant="h6"
-                            />
+                        <Box component="div" textAlign="left" px={4} py={1}>
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
+                                <ToggleRefinement 
+                                    color="primary"
+                                    attribute="DISPONIBILIDAD"
+                                    label="Disponibilidad"
+                                    value={true}
+                                    
+                                />
                             </Typography>
                         </Box>
-                        <Box component="div" textAlign="left" px={4}>
-                            <Typography variant="h6" component="h2" >
+                        <Box component="div" textAlign="left" px={4} py={1}>
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                                 <ToggleRefinement
                                     attribute="ENVIO_GRATIS"
                                     label="Envío Gratis"
@@ -272,8 +272,8 @@ export default function Busquedas(props) {
                                 />
                             </Typography>
                         </Box>
-                        <Box component="div" textAlign="left" px={4}>
-                            <Typography variant="h6" component="h2" >
+                        <Box component="div" textAlign="left" px={4} py={1}>
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                                 <ToggleRefinement
                                     attribute="APLICA_EXPRESS"
                                     label="Entrega Express"
@@ -281,8 +281,8 @@ export default function Busquedas(props) {
                                 />
                             </Typography>  
                         </Box>
-                        <Box component="div" textAlign="left" px={4}>
-                            <Typography variant="h6" component="h2">
+                        <Box component="div" textAlign="left" px={4} py={1}>
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}}>
                                 <ToggleRefinement
                                     attribute="REGALO"
                                     label="Con Regalo"
@@ -296,7 +296,7 @@ export default function Busquedas(props) {
 
                         
                         <Box component="div" px={4}>
-                            <Typography variant="h6" component="h2" >Marca</Typography>
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >Marca</Typography>
                             <RefinementList
                                 attribute="MARCA"
                                 limit={3}
@@ -305,7 +305,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Precio
                             </Typography>
                             <RangeInput 
@@ -316,7 +316,7 @@ export default function Busquedas(props) {
                             }}/>
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Pulgadas[](..\..\..\..\..\..\..\algolia\react-instantsearch)
                             </Typography>
                             <RefinementList 
@@ -339,7 +339,7 @@ export default function Busquedas(props) {
                         </Panel>
                         </Box> 
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Sistema Operativo
                             </Typography>
                             <RefinementList 
@@ -350,7 +350,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Tipo de Impresión
                             </Typography>
                             <RefinementList 
@@ -361,7 +361,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Tipo
                             </Typography>
                             <RefinementList 
@@ -372,7 +372,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Tamaño
                             </Typography>
                             <RefinementList 
@@ -383,7 +383,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Tamaño
                             </Typography>
                             <RefinementList 
@@ -394,7 +394,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Almacenamiento
                             </Typography>
                             <RefinementList 
@@ -405,7 +405,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Capacidad
                             </Typography>
                             <RefinementList 
@@ -416,7 +416,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Interfaz
                             </Typography>
                             <RefinementList 
@@ -427,7 +427,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Medidas
                             </Typography>
                             <RefinementList 
@@ -438,7 +438,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Tipo de arillo
                             </Typography>
                             <RefinementList 
@@ -449,7 +449,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Material
                             </Typography>
                             <RefinementList 
@@ -460,7 +460,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Caja con
                             </Typography>
                             <RefinementList 
@@ -471,7 +471,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Piezas
                             </Typography>
                             <RefinementList 
@@ -482,7 +482,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Voltaje
                             </Typography>
                             <RefinementList 
@@ -493,7 +493,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Tipo de entrada
                             </Typography>
                             <RefinementList 
@@ -504,7 +504,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Tipo de conexión
                             </Typography>
                             
@@ -516,7 +516,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Color
                             </Typography>
                             <RefinementList 
@@ -527,7 +527,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Tipo de punta 
                             </Typography>
                             <RefinementList 
@@ -538,7 +538,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Orificios
                             </Typography>
                             <RefinementList 
@@ -549,7 +549,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Forma
                             </Typography>
                             <RefinementList 
@@ -560,7 +560,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Número
                             </Typography>
                             <RefinementList 
@@ -571,7 +571,7 @@ export default function Busquedas(props) {
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
-                            <Typography variant="h6" component="h2" >
+                            <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
                             Posición
                             </Typography>
                             <RefinementList 
