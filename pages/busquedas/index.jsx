@@ -17,25 +17,12 @@ import { InstantSearch,
         Panel, 
         DynamicWidgets } 
         from 'react-instantsearch-dom';
-import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-
+import {Box, Grid, Paper, Typography,
+    Button, Select, TextField, Divider, 
+    Card, CardContent, CardMedia, Link, FormControl, InputLabel, MenuItem  } from '@mui/material';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import '../css/Algolia.css';
-
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-
+import 'styles/algolia.module.css';
 import YoutubeSearchedForIcon from '@material-ui/icons/YoutubeSearchedFor';
 
 //Componentes
@@ -152,10 +139,10 @@ export default function Busquedas(props) {
   const [filtros, setFiltros] = React.useState(false);
   const ruter = useRouter() 
 
-  useEffect( () => {
-    let url             = this.props.router.query.query;
-    alert(url)
-  }, [])  
+  //useEffect( () => {
+  //  let url             = this.props.router.query.query;
+ // alert(url)
+  //}, [])  
 
   const handleChange = (event) => {
     setIndex(event.target.value);
@@ -177,7 +164,7 @@ export default function Busquedas(props) {
                             <Grid container direction="row" justifyContent="space-between" alignItems="flex-end" spacing={2}>
                                 <Grid item xs={12} sm={12} lg={6}>
                                     <Box component="div">
-                                        <Typography variant="h1">{resultado}</Typography>
+                                        <Typography variant="h1">{/* {resultado} */}</Typography>
                                         <Typography variant="subtitle1">
                                         <Stats
                                         translations={{
@@ -190,8 +177,8 @@ export default function Busquedas(props) {
                                         />
                                         </Typography>
                                         {/* NOTA: Lo siguiente que requiere? */}
-                                        <div style={{ display: 'none' }}>
-                                            <SearchBox defaultRefinement={props.location.state.query}/>
+                                        <div sx={{ display: 'none' }}>
+                                            <SearchBox /* defaultRefinement={props.location.state.query} *//>
                                         </div>
                                     </Box>
                                 </Grid>
