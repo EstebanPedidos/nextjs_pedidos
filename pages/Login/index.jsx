@@ -1,11 +1,8 @@
 import React, {useState} from "react";
 import Link from 'next/link'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import { Grid, Paper } from '@mui/material';
+//MUI
+import {Container, Box, Grid, Paper, Button, Typography, FormControl, Tab,AppBar,Table,TableBody,
+    TableCell,TableContainer,TableRow, Avatar, TextField } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 
 //Componentes
@@ -82,19 +79,34 @@ export default function Login(){
     return(
         <React.Fragment>
             <Layout>
-            <CssBaseline />
-            <Grid>
+                <Container maxWidth="sm">
                     <Paper variant="outlined" elevation={0} style={paperStyle}>
-                        <Grid align='center' mb={2}>
-                            <Typography variant="h1" textAlign="center" mb={8}>Inicia Sesión</Typography>
+                        <Box textAlign='center' my={2}>
+                            <Typography variant="h4" component="h1" textAlign="center" sx={{ fontWeight:'600' }}>Inicia Sesión</Typography>
                             <Typography variant="subtitle1">Hola ¡Que bueno verte!</Typography>   
-                        </Grid>
+                        </Box>
                         <Box my={4}>
-                            <form noValidate onSubmit={handleSubmit} className="classes.margin" >
-                                <TextField id="outlined-basic" margin="normal" label="Correo" variant="outlined" autoComplete="on" name="correo" onChange={handleChange} fullWidth autoFocus sx={{ p: 2, }} />
+                            <FormControl fullWidth noValidate onSubmit={handleSubmit} className="classes.margin" >
+                                <TextField id="outlined-basic" margin="normal" label="Correo" variant="outlined" autoComplete="on" name="correo" onChange={handleChange} fullWidth focused/>
                                 <TextField id="outlined-basic" margin="normal"  label="Contraseña" variant="outlined" type="password" name="pass" onChange={handleChange} fullWidth />
-                                <Box my={2} fontWeight="bold">
-                                    <Typography variant="subtitled2"   >
+                                
+                                <Box mt={2}>
+                                    <Button className={classes.button} type="submit" variant="contained" size="large" color="primary"  onClick={handleSubmit} fullWidth>
+                                        Inicia Sesión
+                                    </Button>
+                                </Box>
+                                <Box textAlign="center" pt={4} fontWeight="bold" color="textSecondary">
+                                    <Typography variant="subtitle2"  >
+                                            ¿Eres nuevo? &nbsp;
+                                        <Box component="span" sx={{ color:'primary' }}>
+                                            <Link href="/RegistroUsuario"  sx={{ color:'primary', fontWeight:'600' }}>
+                                                Crea tu cuenta
+                                            </Link>
+                                        </Box>
+                                    </Typography>
+                                </Box>
+                                <Box my={1} textAlign="center">
+                                    <Typography variant="subtitle1" color="primary" sx={{ fontWeight:'600' }}>
                                         <Link href="/Contra" color="primary" >
                                             <a>
                                             ¿Olvide mi contraseña?
@@ -102,25 +114,10 @@ export default function Login(){
                                         </Link>
                                     </Typography>
                                 </Box>
-                                <Box mt={3}>
-                                    <Button className={classes.button} type="submit" variant="contained" size="large" color="primary"  onClick={handleSubmit} fullWidth>
-                                        Inicia Sesión
-                                    </Button>
-                                </Box>
-                                <Box align="center" pt={4} fontWeight="bold" color="textSecondary">
-                                    <Typography variant="subtitled2"  >
-                                         ¿Eres nuevo? &nbsp;
-                                        <Link href="/RegistroUsuario" color="primary">
-                                            <a>
-                                             Crea tu cuenta
-                                             </a>
-                                        </Link>
-                                    </Typography>
-                                </Box>
-                            </form>
+                            </FormControl>
                         </Box>
                     </Paper>
-            </Grid> 
+                </Container> 
             </Layout>  
         </React.Fragment>  
     )

@@ -1346,16 +1346,25 @@ export function Navbar() {
     const menuLogout = (
         <Menu
         anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         id={menuId}
         keepMounted
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={isMenuOpen}
         onClose={handleMenuClose}
+		PaperProps={{
+			elevation: 0,
+			sx: {
+			  overflow: 'visible',
+			  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+			  mt: 1.5,
+			  
+			},
+		}}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
             <div>
-                <MenuItem onClick={handleMenuClose}><Link href="/Login">Iniciar Sesión</Link></MenuItem>
-                <MenuItem onClick={handleMenuClose}><Link href="/RegistroUsuario">Registrarse</Link></MenuItem>
+                <MenuItem onClick={handleMenuClose} ><Link href="/Login">Iniciar Sesión</Link></MenuItem>
+                <MenuItem onClick={handleMenuClose}><Link href="/RegistroUsuario">Crear Cuenta</Link></MenuItem>
             </div>
 
         </Menu>
@@ -1364,7 +1373,7 @@ export function Navbar() {
 
 	return (
 		<>
-			<AppBar position='sticky' color='white'>
+			<AppBar position='sticky' sx={{backgroundColor:'#ffffff',}}>
 				<Toolbar className={content}>
 					<Box component={'div'} alignItems={'center'} display='flex'>
 						<Hidden smDown={true}>
@@ -1388,7 +1397,7 @@ export function Navbar() {
 						</Box>
 						<Hidden smDown={true}>
 							<Box component={'span'} padding={'1rem'}>
-								<Typography>Categorías</Typography>
+								<Typography color="textPrimary">Categorías</Typography>
 							</Box>
 						</Hidden>
 					</Box>
@@ -1429,7 +1438,7 @@ export function Navbar() {
 							<Box
 								component={'span'}
 								style={{ cursor: 'pointer' }}>
-								<Typography component='span'>Para </Typography>
+								<Typography component='span' color="textPrimary">Para </Typography>
 								<Typography component='span' color='primary'>
 									empresas
 								</Typography>

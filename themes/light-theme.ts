@@ -30,9 +30,9 @@ export const lightTheme = createTheme({
 			dark: '#d32f2f',
 			contrastText: '#fff',
 		},
-		white: {
-			main: '#FFFFFF',
-		},
+		//white: {
+		//	main: '#FFFFFF',
+		//},
 		background: {
 			paper: '#ffffff',
 			default: '#ffffff',

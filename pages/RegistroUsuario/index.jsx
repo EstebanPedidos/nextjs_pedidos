@@ -1,14 +1,11 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 
-import Button from '@material-ui/core/Button';
+//MUI
+import {Container,Box, Grid, Paper, Button, Typography, FormControl,
+    FormControlLabel, Checkbox, TextField } from '@mui/material';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 //Componentes
@@ -108,61 +105,67 @@ export default function RegistroUsuario(){
         checked: false
     });
 
-    const paperStyle={padding:40, height:'60vh', width:450, margin:"80px auto"}
+    const paperStyle={padding:40, height:'66vh', width:450, margin:"80px auto"}
     return(
 
         <React.Fragment>
         <Layout>
-        <CssBaseline />
-            {first === false &&
-            <Grid>
+            <Container maxWidth="sm">
+                {first === false &&
+                
                     <Paper variant="outlined" elevation={0} style={paperStyle}>
-                        <Grid align='center' mb={2}>
-                            <Typography variant="h1" textAlign="center" mb={8}>Crear cuenta</Typography>
+                        <Box textAlign='center' mb={2}>
+                            <Typography  variant="h4" component="h1" textAlign="center" sx={{ fontWeight:'600' }}>Crear cuenta</Typography>
                             <Typography variant="subtitle1">Bienvenido ¡Nos da gusto que estes aquí!</Typography>   
-                        </Grid>
-                        <Box my={4}>
-                            
-                <form onSubmit={handleSubmit} className="classes.margin">
-                    <TextField name="usuario" variant="outlined" autoComplete="on"  onChange={handleChange} type="text" placeholder="Nombre"  expresionRegular={expresiones.nombre} />
-                    <TextField name="correo" variant="outlined" autoComplete="on" onChange={handleChange} type="text" placeholder="Correo"  expresionRegular={expresiones.correo} />
-                    <TextField name="telefono" variant="outlined" autoComplete="on"  onChange={handleChange} type="number" placeholder="Teléfono"  expresionRegular={expresiones.telefono} />             
-                    <TextField name="password" variant="outlined" onChange={handleChange} type="password" placeholder="Contraseña" expresionRegular={expresiones.password} />
-                    <TextField name="password2" variant="outlined"  onChange={handleChange} type="password" placeholder="Confirmación" funcion={validarPassword2} />
-                    <FormControlLabel 
-                    control={
-                        <Checkbox checked={state.checked} onChange={handleChange} name="checked" color="primary"/>
-                    }
-                        label="Soy Empresa"
-                    />
+                        </Box>
+                        <Box my={2}>
+                            <FormControl fullWidth onSubmit={handleSubmit} className="classes.margin">
+                                <TextField margin="dense" name="usuario" label="Nombre" variant="outlined" type="text" onChange={handleChange}  expresionRegular={expresiones.nombre} />
+                                <TextField margin="dense" name="correo" variant="outlined" autoComplete="on" onChange={handleChange} type="text" label="Correo"   />
+                                <TextField margin="dense" name="telefono" variant="outlined" autoComplete="on"  onChange={handleChange} type="number" label="Teléfono"  expresionRegular={expresiones.telefono} />             
+                                <TextField margin="dense" name="password" variant="outlined" onChange={handleChange} type="password" label="Contraseña" expresionRegular={expresiones.password} />
+                                <TextField margin="dense" name="password2" variant="outlined"  onChange={handleChange} type="password" label="Confirmación" funcion={validarPassword2} />
+                                <FormControlLabel 
+                                control={
+                                    <Checkbox checked={state.checked} onChange={handleChange} name="checked" color="primary"/>
+                                }
+                                    label="Soy Empresa"
+                                />
 
-                    <Box mt={3}>
-                        <Button type="submit" variant="contained" size="large" color="primary"  onClick={handleSubmit} fullWidth>
-                                Crea tu cuenta
-                        </Button>
-                    </Box>
-                </form>
+                                <Box mt={3}>
+                                    <Button type="submit" variant="contained" size="large" color="primary"  onClick={handleSubmit} fullWidth>
+                                            Crea tu cuenta
+                                    </Button>
+                                </Box>
+                            </FormControl>
                         </Box>
                     </Paper>
-            </Grid>   
-            }
-            {first == true &&
-                <div>
-                    <h2>Ingresa el código que te enviamos por e-mail:</h2>
-                    <p>{inputs.correo}</p>
-                    <form onSubmit={handleSubmitVerificar}>
-                    <TextField variant="outlined" type="number" name="num1" onChange={handleChange}/>
-                    <TextField variant="outlined" type="number" name="num2" onChange={handleChange}/>
-                    <TextField variant="outlined" type="number" name="num3" onChange={handleChange}/>
-                    <TextField variant="outlined" type="number" name="num4" onChange={handleChange}/>
-                    <TextField variant="outlined" type="number" name="num5" onChange={handleChange}/>
-                    <TextField variant="outlined" type="number" name="num6" onChange={handleChange}/>
-                    <div>
-                        <Button type="submit">Verificar el código</Button>
-                    </div>
-                    </form>
-                </div>
-            }
+            
+                }
+                {first == true &&
+                    <Paper variant="outlined" elevation={0} style={paperStyle}>
+                        <Box textAlign='center' my={2}>
+                            <Typography  variant="h4" component="h1" textAlign="center" sx={{ fontWeight:'600' }}>Verifica tu cuenta</Typography>
+                            <Typography variant="subtitle1">Ingresa el código que enviamos al e-mail: {inputs.correo} </Typography>   
+                        </Box>
+                       
+                        <form fullWidth onSubmit={handleSubmitVerificar}>
+                            <Box py={4} sx={{ display: 'flex', flexWrap: 'wrap' }}>
+                                <TextField sx={{ m: 0.5, width: '5ch' }} variant="outlined" type="number" name="num1" onChange={handleChange}/>
+                                <TextField sx={{ m: 0.5, width: '5ch' }} variant="outlined" type="number" name="num2" onChange={handleChange}/>
+                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num3" onChange={handleChange}/>
+                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num4" onChange={handleChange}/>
+                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num5" onChange={handleChange}/>
+                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num6" onChange={handleChange}/>
+                            </Box>
+                            <Box mt={2}>
+                                <Button type="submit" variant="contained" size="large" color="primary" fullWidth >Verificar el código</Button>
+                            </Box>
+                        </form>
+                   
+                    </Paper>
+                } 
+            </Container>   
         </Layout>
     </React.Fragment>  
 
