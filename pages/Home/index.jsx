@@ -132,7 +132,7 @@ export default function Home() {
                 console.log(error.response)
             });
         }
-        getData()
+        // getData()
     }, []) 
 
     const validaSesion= () =>{
