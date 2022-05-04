@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 //Componentes
 import ModalExecutive   from '../modals/ModalExecutive'
+import Eliminar from '../modals/Eliminar'
 export default function Resumen({classes,setEjecutivo,ejecutivo,isEjecutivo,carrito,partidas,total,setCupon,cupon,validaCodigoDescuento}){
     return (
         <>

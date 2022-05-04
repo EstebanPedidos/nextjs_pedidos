@@ -83,8 +83,8 @@ export  default function ItemFavorites({favoritos,add}){
                     >
                  {
                 favoritos.map((item, index) => (
-                    <SwiperSlide className={classes.swiperBox}>
-                        <Box component="div" key={index}>
+                    <SwiperSlide  key={index} className={classes.swiperBox}>
+                        <Box component="div">
                             <Card className={classes.productCardC}>
                                 <CardActionArea>
                                 <CardMedia

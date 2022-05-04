@@ -35,8 +35,8 @@ export default function NotasCredito(props){
                 <Grid container direction="row" justifyContent="space-around" alignItems="center" spacing={2}>
                     {
                     notas.map((nota, index) => (
-                        <Grid item xs={6}>
-                            <div key={index}>  
+                        <Grid  key={index} item xs={6}>
+                            <div>  
                                 <Card variant="outlined">
                                     <CardActionArea>
                                         <CardContent>

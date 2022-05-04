@@ -450,8 +450,8 @@ export default function Forma_de_envio(props){
                                                         {(data.hasOwnProperty('jsonResumen'))&&
                                                             data.jsonResumen.formasEnvio.pactado.fechas.map((fecha, index) => (
                                                             
-                                                            <SwiperSlide className={classes.swiperBox}>
-                                                                    <Box component="div" key={index}>  
+                                                            <SwiperSlide key={index} className={classes.swiperBox}>
+                                                                    <Box component="div" >  
                                                                         <Card className={classes.CardSDay} variant="outlined">
                                                                             <Box component="div" m={1}>
                                                                                 <FormControlLabel fullWidth value={fecha.fecha.replace(' de ','-').replace(' ','-')} label={
@@ -486,8 +486,8 @@ export default function Forma_de_envio(props){
                                                             
                                                             {
                                                             horarios.map((horario, index) => (
-                                                            <Grid item xs={12}>
-                                                                <Box component="div" key={index}>   
+                                                            <Grid key={index} item xs={12}>
+                                                                <Box component="div" >   
                                                                     <Card variant="outlined"> 
                                                                         <ListItem button>                                      
                                                                                 {(data.hasOwnProperty('jsonResumen'))&&
@@ -583,8 +583,8 @@ export default function Forma_de_envio(props){
                                                         <Grid container spacing={2}>                                                 
                                                             {(data.hasOwnProperty('jsonResumen'))&&
                                                                 Object.entries(data.jsonResumen.formasEnvio.paqueteria).reverse().map(([key, value]) => (
-                                                                    <Grid item xs={12}> 
-                                                                    <Box component="Div" key={key}>                                                          
+                                                                    <Grid key={key} item xs={12}> 
+                                                                    <Box component="Div" >                                                          
                                                                         <Card variant="outlined">
                                                                             <ListItem variant="outlined" button> 
                                                                                 <FormControlLabel value={key} label={                                                                    
