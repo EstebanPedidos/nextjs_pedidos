@@ -105,7 +105,7 @@ export default function RegistroUsuario(){
         checked: false
     });
 
-    const paperStyle={padding:40, height:'69vh', width:450, margin:"30px auto"}
+    const paperStyle={padding:40, height: 'auto', width:450, margin:"30px auto"}
     return(
 
         <React.Fragment>

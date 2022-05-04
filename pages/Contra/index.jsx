@@ -40,7 +40,7 @@ export default function Contra(){
         ruter.push("/home")
 
     }
-    const paperStyle={padding:40, height:'50vh', width:450, margin:"60px auto"}
+    const paperStyle={padding:40, height:'auto', width:450, margin:"60px auto"}
 
     return(
         <Layout>
