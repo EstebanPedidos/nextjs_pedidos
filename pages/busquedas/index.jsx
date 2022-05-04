@@ -322,7 +322,7 @@ export default function Busquedas(props) {
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
                             <Typography variant="subtitle1" component="h2" sx={{fontWeight:'600'}} >
-                            Pulgadas[](..\..\..\..\..\..\..\algolia\react-instantsearch)
+                            Pulgadas
                             </Typography>
                             <RefinementList 
                                 attribute="FILTROS.PULGADAS"

@@ -83,20 +83,20 @@ export default function Home() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [modal, setModal] = React.useState('');
+    const [nombre, setNombre] = React.useState('');
     const [isLogged, setLogged] = React.useState(false);
     const [mostrarEmpresas, setMostrarEmpresas] = React.useState(true);
     const [itemsHome, setItemsHome] = useState([]);
     const [show, setShow] = useState({});
 
     let Login = '';
-    let nombre = '';
     let Cliente= 0;
     let UsuarioNum = 0;
 
     useEffect(() => {
 
         Login = localStorage.getItem('Login');
-        nombre = localStorage.getItem('Usu_nomb');
+        setNombre(localStorage.getItem('Usu_Nomb'));
         Cliente= localStorage.getItem('Cliente');
         UsuarioNum = localStorage.getItem('Usuario');
         console.log("Cliente"+Cliente)
@@ -124,7 +124,7 @@ export default function Home() {
                 console.log(error.response)
             });
         }
-        // getData()
+        getData()
     }, []) 
 
     const validaSesion= () =>{
@@ -257,34 +257,34 @@ export default function Home() {
                         <Card className={classes.root} style={{backgroundColor:'#343F95'}}>
                             <CardContent> 
                                 <Grid item xs={4}> 
-                                    <Card className={classes.root}>
-                                        <CardContent>
-                                            {itemsHome.map((row) => (
-                                                row.tipo === 'B' ? 
-                                                    <Card className={classes.root}>
-                                                        <CardContent>
-                                                            <Link href={`/articulos/${row.itemNum}`}>
-                                                                <a>
-                                                                <CardMedia
-                                                                className={classes.cover}
-                                                                component="img"
-                                                                alt={row.itemNum}
-                                                                image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
-                                                                title={row.itemNum}
-                                                                />
-                                                                </a>
-                                                            </Link>
-                                                        </CardContent>
-                                                    </Card>
+                                        <Card className={classes.root}>
+                                            <CardContent>
+                                                {itemsHome.map((row) => (
+                                                    row.tipo === 'B' ? 
+                                                        <Card className={classes.root}>
+                                                            <CardContent>
+                                                                <Link href={`/articulos/${row.itemNum}`}>
+                                                                    <a>
+                                                                    <CardMedia
+                                                                    className={classes.cover}
+                                                                    component="img"
+                                                                    alt={row.itemNum}
+                                                                    image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
+                                                                    title={row.itemNum}
+                                                                    />
+                                                                    </a>
+                                                                </Link>
+                                                            </CardContent>
+                                                        </Card>
+                                                        
+                                                    : ''
                                                     
-                                                : ''
-                                               
-                                            ))}
-                                            <Typography variant="h6" component="h6">
-                                                Carrito
-                                            </Typography>
-                                        </CardContent>
-                                    </Card>
+                                                ))}
+                                                <Typography variant="h6" component="h6">
+                                                    Carrito
+                                                </Typography>
+                                            </CardContent>
+                                        </Card>
                                 </Grid> 
 
                                 <Grid item xs={4}> 
@@ -325,7 +325,7 @@ export default function Home() {
                                                 row.tipo === 'F' ? 
                                                     <Card className={classes.root}>
                                                         <CardContent>
-                                                            <Link href={`/articulos/${row.itemNum}`}>}
+                                                            <Link href={`/articulos/${row.itemNum}`}>
                                                                 <a>
                                                                 <CardMedia
                                                                 className={classes.cover}
@@ -352,8 +352,6 @@ export default function Home() {
                         </Card>
                 </Grid>
             </Grid>
-
-
 
             <Modal
                 aria-labelledby="transition-modal-title"

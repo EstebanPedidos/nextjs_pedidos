@@ -1213,9 +1213,9 @@ export default function MisDatos() {
 
   return(
     <Layout> 
-    <MiCuentaSiderBar/> 
+    
     <div>
-        
+    <MiCuentaSiderBar/> 
         {primeraVez ? formPrimeraVez : formMisDatos}
 
         <Snackbar

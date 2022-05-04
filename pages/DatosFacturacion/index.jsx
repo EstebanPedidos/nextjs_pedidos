@@ -130,7 +130,7 @@ export default function DatosFacturacion() {
 
     function eliminaRfc(rfcNum, rfc){
         Services('POST','/miCuenta/eliminaRfc?rfcNum='+rfcNum+'&rfc='+rfc+'&clienteNum='+clienteNum,{})
-        then( response =>{
+        .then( response =>{
             refreshPage();
     }).catch(error => {
         console.log("falló")
@@ -231,6 +231,7 @@ export default function DatosFacturacion() {
 
     return(
         <Layout>
+        <MiCuentaSiderBar/> 
         <div>
             <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
