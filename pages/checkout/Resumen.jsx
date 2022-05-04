@@ -230,7 +230,7 @@ export default function Resumen(props){
                                                                             Día de envío {data.jsonResumen.resumen.envio.fecha}
                                                                         </Typography>
                                                                         <Typography variant="body2">
-                                                                            Horario '{data.jsonResumen.resumen.envio.tipo}' de {data.jsonResumen.resumen.envio.horario}
+                                                                            Horario {data.jsonResumen.resumen.envio.tipo} de {data.jsonResumen.resumen.envio.horario}
                                                                         </Typography>
                                                                     </Box>
                                                                     :

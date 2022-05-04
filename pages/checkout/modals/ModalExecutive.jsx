@@ -97,7 +97,7 @@ export default function ModalExecutive({resenapedidos,setEjecutivo,ejecutivo}) {
                     <List dense fullWidth>
                       {
                       resenapedidos.map((ejecu, index) => (
-                        <ListItem fullWidth>
+                        <ListItem key={index} fullWidth>
                           <FormControlLabel key={index} value={ejecu.nombre} control={<Radio id={ejecu.slmn}/>} label={ejecu.nombre} fullWidth/>
                         </ListItem>
                       )) 

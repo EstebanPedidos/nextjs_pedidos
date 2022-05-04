@@ -68,7 +68,7 @@ export default function Verifica_pedido(){
             let afiliado        = await localStorage.getItem('afiliado') 
             let services        = await Services('GET','/carritoyreservado/getCarrito?clienteNum='+cliente+'&usuarioNum='+usuario+'&top=10&afiliado='+afiliado,{})
             let carritoS        = await services.data
-            let totalS          = await carritoS.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+            let totalS          = await carritoS.configCarrito.precarrito.map(item => ((item.precio*item.cantidad) +(item.precioSeguro*item.cantSeguro)+(item.precioGarant1*item.cantGarant1))).reduce((prev, curr) => prev + curr, 0)
             let isEjecutivo     = await (carritoS.configCarrito.resenapedidos.length > 0)
             let num_partidas    = await carritoS.configCarrito.precarrito.length
             let pyitemsfavoritos= await carritoS.configCarrito.pyitemsfavoritos 
@@ -95,7 +95,7 @@ export default function Verifica_pedido(){
                 })
                 return f
             }
-            let articulos =  await carritoS.configCarrito.precarrito.map((item) => item.item_num)
+            let articulos =  await carritoS.configCarrito.precarrito.map((item) => ((item.precio*item.cantidad) +(item.precioSeguro*item.cantSeguro)+(item.precioGarant1*item.cantGarant1)))
 
             setCarrito(carritoS)
             setPartidas(num_partidas)
@@ -141,7 +141,7 @@ export default function Verifica_pedido(){
         }else{
             carrito.configCarrito.precarrito[name].cantidad = await value 
         }  
-        let totalR  =  await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+        let totalR  =  await carrito.configCarrito.precarrito.map(item => item.precio*item.cantidad).reduce((prev, curr) => prev + curr, 0)
         setTotal(totalR)
     }
 

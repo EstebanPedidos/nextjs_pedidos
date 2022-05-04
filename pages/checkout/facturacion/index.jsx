@@ -279,8 +279,8 @@ export default function Facturacion(props){
                                                                 <Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
                                                                         {
                                                                             rfcs.map((rfc, index) => (  
-                                                                                <Grid item xs={6}>
-                                                                                    <Box component="div" key={index}>
+                                                                                <Grid item xs={6} key={index}>
+                                                                                    <Box component="div">
                                                                                         <Card className={classes.rootcardi} variant="outlined">  
                                                                                             <Box component="div" >
                                                                                                 {(rfc.cantNotas > 0)&&
@@ -386,7 +386,7 @@ export default function Facturacion(props){
                                         >
                                         {(cfdis.length > 0)&&
                                             cfdis.map((cfdi, index) => (
-                                                <option value={cfdi.idUsu}>{cfdi.descripcion}</option>
+                                                <option key={index} value={cfdi.idUsu}>{cfdi.descripcion}</option>
                                             ))
                                         }                    
                                         </Select>
@@ -412,7 +412,7 @@ export default function Facturacion(props){
                                         >
                                         {(pagos.length > 0)&&
                                             pagos.map((pago, index) => (
-                                                <option value={pago.mpago}>{pago.descripcion}</option>
+                                                <option key={index} value={pago.mpago}>{pago.descripcion}</option>
                                             ))
                                         }                    
                                         </Select>

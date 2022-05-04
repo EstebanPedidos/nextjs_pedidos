@@ -1,11 +1,17 @@
-
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
+//next js
+import { useRouter } from 'next/router'
+//PAYPAL
 import {
 	PayPalScriptProvider,
 	PayPalHostedFieldsProvider,
 	PayPalHostedField,
 	usePayPalHostedFields,
 } from "@paypal/react-paypal-js";
+//SERVICIOS
+import Services from '../../services/Services'
+//Componentes
+import Alertas from "../Alertas";
 
 const CUSTOM_FIELD_STYLE = {"border":"1px solid #606060","boxShadow":"2px 2px 10px 2px rgba(0,0,0,0.1)"};
 const INVALID_COLOR = {
@@ -13,43 +19,42 @@ const INVALID_COLOR = {
 };
 
 // Example of custom component to handle form submit
-const SubmitPayment = ({ customStyle }) => {
-	const [paying, setPaying] = useState(false);
-	const cardHolderName = useRef(null);
-	const hostedField = usePayPalHostedFields();
+const SubmitPayment = ({ customStyle,evento }) => {
+	const [paying, setPaying] 	= useState(false);
+	const cardHolderName 		= useRef(null);
+	const hostedField 			= usePayPalHostedFields();
+	const router    			= useRouter()
+	const [alerta,setAlerta]   	= useState({})
 
 	const handleClick = () => {
 		if (hostedField) {
+			alert(Object.values(hostedField.cardFields))
 			if (
-				Object.values(hostedField.getState().fields).some(
+				Object.values(hostedField.cardFields.getState().fields).some(
 					(field) => !field.isValid
 				) ||
 				!cardHolderName?.current?.value
 			) {
-				return alert(
-					"The payment form is invalid, please check it before execute the payment"
-				);
+				setAlerta({severity:'success',mensaje:'Ingresa un Nombre de Titular valido',vertical:'bottom',horizontal:'right'})
+				return
 			}
 			setPaying(true);
-			hostedField
+			hostedField.cardFields
 				.submit({
 					cardholderName: cardHolderName?.current?.value,
 				})
 				.then((data) => {
-					// Your logic to capture the transaction
-					fetch("url_to_capture_transaction", {
-						method: "post",
-					})
-						.then((response) => response.json())
-						.then((data) => {
-							// Here use the captured info
-						})
-						.catch((err) => {
-							// Here handle error
-						})
-						.finally(() => {
-							setPaying(false);
-						});
+                    async function liberar(){
+                        let services    = await Services('POST-NOT','/registrov2/getOrderPayPal',{evento:evento,orderID:data.orderId,address:'192.10.2.166',isSTC:'S',id_PayTok:'', term:'',interval_duration:''})
+                        let dataResp    = await services.data
+                        alert(JSON.stringify(dataResp))
+                        if(dataResp.estatus == "COMPLETED" || dataResp.estatus == "completed"){
+                            router.push('/checkout/confirmacion-de-pago')
+                        }else{
+							setAlerta({severity:'success',mensaje:dataResp.estatus,vertical:'bottom',horizontal:'right'})
+                        }
+                    }
+                    liberar()
 				})
 				.catch((err) => {
 					// Here handle error
@@ -61,14 +66,14 @@ const SubmitPayment = ({ customStyle }) => {
 	return (
 		<>
             <label title="This represents the full name as shown in the card">
-				Card Holder Name
+				Nombre
 				<input
 					id="card-holder"
 					ref={cardHolderName}
 					className="card-field"
 					style={{ ...customStyle, outline: "none" }}
 					type="text"
-					placeholder="Full name"
+					placeholder="Nombre.."
 				/>
 				</label>
 			<button
@@ -76,34 +81,28 @@ const SubmitPayment = ({ customStyle }) => {
 				style={{ float: "right" }}
 				onClick={handleClick}
 			>
-				{paying ? <div className="spinner tiny" /> : "Pay"}
+				{paying ? <div className="spinner tiny" /> : "Pagar"}
 			</button>
+			{(alerta.hasOwnProperty('severity'))&&
+				<Alertas setAlerta={setAlerta} alerta={alerta}/>
+			}
 		</>
 	);
 };
 
-export default function PaypalHos() {
-	const [clientToken, setClientToken] = useState(null);
-
-	useEffect(() => {
-		(async () => {
-			const response = await (
-				await fetch(
-					"https://braintree-sdk-demo.herokuapp.com/api/paypal/hosted-fields/auth"
-				)
-			).json();
-			setClientToken(response?.client_token || response?.clientToken);
-		})();
-	}, []);
+export default function Fields({clientToken,evento}) {
 
 	return (
 		<>
+			<h6>Pagar Evento {evento}</h6>
 			{clientToken ? (
 				<PayPalScriptProvider
 					options={{
-						"client-id":"AdOu-W3GPkrfuTbJNuW9dWVijxvhaXHFIRuKrLDwu14UDwTTHWMFkUwuu9D8I1MAQluERl9cFOd7Mfqe",
+						"client-id":"ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_",
 						components: "buttons,hosted-fields",
 						"data-client-token": clientToken,
+						currency: "MXN",
+    					locale:"es_MX",
 						intent: "capture",
 						vault: false,
 					}}
@@ -111,38 +110,16 @@ export default function PaypalHos() {
 					<PayPalHostedFieldsProvider
 						styles={{".valid":{"color":"#28a745"},".invalid":{"color":"#dc3545"},"input":{"font-family":"monospace","font-size":"16px"}}}
 						createOrder={function () {
-							return fetch(
-								"your_custom_server_to_create_orders",
-								{
-									method: "post",
-									headers: {
-										"Content-Type": "application/json",
-									},
-									body: JSON.stringify({
-										purchase_units: [
-											{
-												amount: {
-													value: "2", // Here change the amount if needed
-													currency_code: "undefined", // Here change the currency if needed
-												},
-											},
-										],
-										intent: "capture",
-									}),
-								}
-							)
-								.then((response) => response.json())
-								.then((order) => {
-									// Your code here after create the order
-									return order.id;
-								})
-								.catch((err) => {
-									alert(err);
-								});
+							async function orden(){
+                                let services    = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'})
+                                let data        = await services.data
+                                return data
+                            }       
+                            return orden()
 						}}
 					>
                         <label htmlFor="card-number">
-                            Card Number
+                           Numero de Trajeta
                             <span style={INVALID_COLOR}>*</span>
                         </label>
                         <PayPalHostedField
@@ -152,7 +129,7 @@ export default function PaypalHos() {
                             hostedFieldType="number"
                             options={{
                                 selector: "#card-number",
-                                placeholder: "4111 1111 1111 1111",
+                                placeholder: "111 111...",
                             }}
                         />
                         <label htmlFor="cvv">
@@ -165,12 +142,12 @@ export default function PaypalHos() {
                             hostedFieldType="cvv"
                             options={{
                                 selector: "#cvv",
-                                placeholder: "123",
+                                placeholder: "000",
                                 maskInput: true,
                             }}
                         />
                         <label htmlFor="expiration-date">
-                            Expiration Date
+                            Fecha
                             <span style={INVALID_COLOR}>*</span>
                         </label>
                         <PayPalHostedField
@@ -183,11 +160,11 @@ export default function PaypalHos() {
                                 placeholder: "MM/YYYY",
                             }}
                         />
-						<SubmitPayment customStyle={{"border":"1px solid #606060","boxShadow":"2px 2px 10px 2px rgba(0,0,0,0.1)"}} />
+						<SubmitPayment customStyle={{"border":"1px solid #606060","boxShadow":"2px 2px 10px 2px rgba(0,0,0,0.1)"}} evento={evento}/>
 					</PayPalHostedFieldsProvider>
 				</PayPalScriptProvider>
 			) : (
-				<h1>Loading token...</h1>
+				<h1>Cargando token...</h1>
 			)}
 		</>
 	);

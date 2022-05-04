@@ -424,6 +424,7 @@ export default function misPedidos() {
 
     return(
         <Layout>
+        <MiCuentaSiderBar/> 
         <div>
              <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>

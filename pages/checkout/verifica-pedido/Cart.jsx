@@ -135,7 +135,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                                     {item.descripcion}
                                                                 </Typography>
                                                                 <Typography variant="body2" gutterBottom>
-                                                                    Precio Unitario: <span>${Precios('formatcurrency',{subtotal:item.precio,fixed:2})}</span>
+                                                                    Precio Unitario:  <span>${Precios('formatcurrency',{subtotal:item.precio,fixed:2})}</span>
                                                                 </Typography>
                                                                 <Typography variant="body2" color="textSecondary">
                                                                     SKU: <span>{item.item_num}</span>
@@ -229,10 +229,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                     <Box m={1} p={1} justifyContent="center">
                                                         <Typography variant="subtitle1" >
                                                             <Box pt={2} fontWeight="fontWeightMedium" textAlign="center">$
-                                                            {Precios('formatcurrency',{subtotal:
-                                                            (Precios('formatcurrency',{subtotal:item.precio,fixed:2}))*item.cantidad+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2)
-                                                            ,fixed:2})    }   
-
+                                                            {Precios('formatcurrency',{subtotal:((item.precio*item.cantidad) +(item.precioSeguro*item.cantSeguro)+(item.precioGarant1*item.cantGarant1)),fixed:2})}  
                                                             </Box>
                                                         </Typography>
                                                     </Box>

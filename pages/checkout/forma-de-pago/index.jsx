@@ -557,14 +557,14 @@ export default function Forma_de_pago(){
                                 {(data.hasOwnProperty('jsonResumen'))&&
                                 (sub_forma_pago !== '')?
                                     (sub_forma_pago === '7')?
-                                        <SDKPayPalBotones/>
+                                        <SDKPayPalBotones evento={evento}/>
                                         :
                                         (sub_forma_pago === '1')?
                                         
                                         <Box component="div" m={1} >
                                             <Divider light/>
                                         <Box component="div"  p={2}>
-                                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave}/>
+                                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave} evento={data.jsonResumen.resumen.eventoNum}/>
                                         </Box>
                                         </Box>
                                         :

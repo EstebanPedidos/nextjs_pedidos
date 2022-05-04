@@ -12,7 +12,7 @@ const initialOptions = {
     "disable-funding":"card"
 };
 
-export default function SDKPayPalBotones(){  
+export default function SDKPayPalBotones({evento}){  
     const router    = useRouter()
     return (
         <>
@@ -20,7 +20,7 @@ export default function SDKPayPalBotones(){
             <PayPalButtons
                 createOrder={() => { 
                     async function orden(){
-                        let services    = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:3250091,isSTC:'S'})
+                        let services    = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'})
                         let data        = await services.data
                         return data
                     }       
@@ -28,7 +28,7 @@ export default function SDKPayPalBotones(){
                 }}
                 onApprove={() => { 
                     async function liberar(){        
-                        let services    = await Services('POST','/registrov2/getOrderPayPal',{evento:3250091,orderID:props.data,address:'192.10.2.166',isSTC:'S',id_PayTok:'', term:'',interval_duration:''})
+                        let services    = await Services('POST','/registrov2/getOrderPayPal',{evento:evento,orderID:props.data,address:'192.10.2.166',isSTC:'S',id_PayTok:'', term:'',interval_duration:''})
                         let data        = await services.data
                         if(data.estatus == "COMPLETED" || data.estatus == "completed"){
                             router.push('/checkout/confirmacion-de-pago')

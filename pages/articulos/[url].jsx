@@ -143,7 +143,7 @@ export default function FichaTecnica(props){
                     data.horarioEntrega = await JSON.parse(data.horarioEntrega)
                     data.relacionados   = await JSON.parse(data.relacionados)
 
-                        services        = await Services('POST','/fichaTecnica/disponibilidad?itemNum='+data.item_num,{})
+                        /*services        = await Services('POST','/fichaTecnica/disponibilidad?itemNum='+data.item_num,{})
                     let horarios        = await services.data
                 
                         services        = await Services('POST','/fichaTecnica/obtienePrecio?cliente_num='+cliente+'&item_num='+data.item_num,{})
@@ -157,13 +157,14 @@ export default function FichaTecnica(props){
                     let garantext1      = await services.data
                     
                         services        = await Services('POST','/fichaTecnica/obtienePrecioGarantia?precio='+precio+'&opcion=G2',{})
-                    let garantext2      = await services.data
+                    let garantext2      = await services.data*/
+
                     setDatos(data)
-                    setPrecio(precio)
-                    setHdi(hdi)
-                    setGarnatExt1(garantext1)
-                    setGarnatExt2(garantext2)
-                    setHorEntr(horarios)
+                    setPrecio(data.precio)
+                    setHdi(data.precioSeguro)
+                    setGarnatExt1(data.garantia1)
+                    setGarnatExt2(data.garantia1)
+                    setHorEntr(data.horarioEntrega)
 
                     
                 }else{
@@ -296,7 +297,7 @@ export default function FichaTecnica(props){
                                                         </div>
                                                         <div> 
                                                             <img width="50" height="50" src={`https://pedidos.com/myfotos/Xlarge/(x)video.webp`} />
-                                                            <iframe height="500" src={datos.descripcion.descripcion.link.replace('watch?v=','embed/')} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                            <iframe height="500" src={datos.descripcion.descripcion.link.replace('watch?v=','embed/')} title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                                                         </div>
                                                     </Carousel>: 
                                                     <Carousel showStatus={false}>

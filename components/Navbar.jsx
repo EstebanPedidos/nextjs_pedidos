@@ -20,7 +20,7 @@ import {
 	AppBar,Toolbar,IconButton,Typography,
 	Menu, Box,Hidden, TextField, Button,
 	Divider,InputAdornment,MenuItem, Badge,Drawer,
-	List, ListItem, ListIcon, ListItemText, } from '@mui/material';
+	List, ListItem, ListIcon, ListItemText, Avatar } from '@mui/material';
 
 import {
 	FavoriteBorder,
@@ -80,6 +80,7 @@ export function Navbar() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [inputs, setInputs] = useState({});
+    const [nombre, setNombre] = React.useState('');
     const [isLogged, setLogged] = React.useState(false);
     const [menuName, setMenuName] = React.useState(null);
     const [lista, setLista] = React.useState({});
@@ -102,22 +103,17 @@ export function Navbar() {
     let Cliente = 0;
     let Favoritos = 0;
     let Token = '';
-    let Login = '';
     let Usuario = 0;
     let ejecutivoNum = 0;
-    let nombre = '';
-
-    const validaSesion= () =>{
-        
-        if(Login === 'Ok'){
-        setLogged(true);
-        } else if(Login === 'NO' || Login === null){
-        setLogged(false);
-        }
-    }
 
     useEffect( () => {
-        validaSesion();
+
+        setNombre(localStorage.getItem('Usu_Nomb'));
+        if(localStorage.getItem('Login') === 'Ok'){
+            setLogged(true);
+            } else if(localStorage.getItem('Login') === 'NO' || localStorage.getItem('Login') === null){
+            setLogged(false);
+            }
         setSesPartidas(localStorage.getItem('SesPartidas'))
     }, [])  
 
@@ -136,10 +132,8 @@ export function Navbar() {
         Cliente = localStorage.getItem('Cliente');
         Favoritos = localStorage.getItem('Favoritos');
         Token = localStorage.getItem('Token');
-        Login = localStorage.getItem('Login');
         Usuario = localStorage.getItem('Usuario');
         ejecutivoNum = localStorage.getItem('ejecutivoNum');
-        nombre = localStorage.getItem('Usu_Nomb');
     }, [])
 
 	const anchorEl2 = useRef();
@@ -1373,19 +1367,23 @@ export function Navbar() {
 
 	return (
 		<>
+            <HelpModal isOpen={openModal} onClose={handleOpenModal} />
 			<AppBar position='sticky' sx={{backgroundColor:'#ffffff',}}>
 				<Toolbar className={content}>
 					<Box component={'div'} alignItems={'center'} display='flex'>
 						<Hidden smDown={true}>
 							{/* Crear una variante del logo que sea adaptable / Por
 							ejemplo una "p" para esos casos de usos */}
-							<img
-								className={logo}
-								src={logoUrl}
-								alt='logo pedidos'
-							/>
+                            <Link href="/Home">
+                                <a>
+                                    <img
+                                        className={logo}
+                                        src={logoUrl}
+                                        alt='logo pedidos'
+                                    />
+                                </a>
+                            </Link>
 						</Hidden>
-
 						<Box component={'span'} marginLeft='2%'>
 							<IconButton onClick={toggleDrawer("left", true)}>
 								<img
@@ -1403,8 +1401,8 @@ export function Navbar() {
 					</Box>
 					{/* <Hidden smDown='hide'> */}
 					<Hidden smDown='hide'>
-                        <form onSubmit={searchBoxSubmit}>
 						<Box width='30%'>
+                        <form onSubmit={searchBoxSubmit}>
 							<TextField
 								size='small'
 								id='outlined-basic'
@@ -1422,8 +1420,8 @@ export function Navbar() {
                                 name="query"
                                 onChange={handleChange}
 							/>
+                        </form>    
 						</Box>
-                        </form>
 					</Hidden>
 
 					<Box
@@ -1482,12 +1480,12 @@ export function Navbar() {
 							<div ref={anchorEl} id='menu'></div>
 						</Box>
 						<IconButton onClick={handleOpenModal}>
-                            <Badge badgeContent={isLogged ? sesPartidas : null} color="secondary">
-                                <Link href="/checkout/verifica-pedido"><HelpOutlineIcon /></Link>
-                            </Badge>
+                                <HelpOutlineIcon />
 						</IconButton>
 						<IconButton color='primary'>
-							<ShoppingCartIcon />
+                            <Badge badgeContent={isLogged ? sesPartidas : null} color="secondary">
+                                <Link href="/checkout/verifica-pedido"><ShoppingCartIcon /></Link>
+                            </Badge>
 						</IconButton>
 					</Box>
 					<Box>

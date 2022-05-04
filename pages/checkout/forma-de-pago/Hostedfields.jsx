@@ -1,13 +1,10 @@
-import {
-    PayPalScriptProvider,
-    PayPalHostedFieldsProvider,
-    PayPalHostedField,
-    usePayPalHostedFields,
-} from "@paypal/react-paypal-js";
+
 //Material
 import { Radio,RadioGroup,FormControlLabel,FormControl,
     ListItemText,Box,Grid,Button,Avatar,Typography,Card, CardActions, Divider,} from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+//Componentes
+import Fields from './Fields';
 import makeStyles from '@mui/styles/makeStyles';
 const useStyles = makeStyles((theme) => ({
     rootcardi: {
@@ -16,40 +13,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const initialOptions = {
-    "client-id": "ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_",
-    "data-client-token": "eyJicmFpbnRyZWUiOnsiYXV0aG9yaXphdGlvbkZpbmdlcnByaW50IjoiNjI0YmJkOTc1MjkyMDc0M2M2ZDcyNzRiNTU0MmJhN2RkMjUzMWJhNTE2YjdkMjIxZWRhNzQzOWJkMTUxZjQ2YnxtZXJjaGFudF9pZD1yd3dua3FnMnhnNTZobTJuJnB1YmxpY19rZXk9ajJmYzJqcHhkZzZ2cDg0ZiZjcmVhdGVkX2F0PTIwMjItMDQtMTlUMTM6MTE6NTIuMDM0WiZjdXN0b21lcl9pZD04Mzk0OTMiLCJ2ZXJzaW9uIjoiMy1wYXlwYWwifSwicGF5cGFsIjp7ImlkVG9rZW4iOm51bGwsImFjY2Vzc1Rva2VuIjoiQTIxQUFQbjRUNFh0V3hTR3FVODQ1SzJZMlJRenlGcVVDNURKZHoySXNaTnV2d0lSN1ZBcWdjaDBGeHF0aWtYOW9YbFlKdERBNmpiQTdQRDNoTFB5WHg3LTkwNjRDSDEwdyJ9fQ==",
-    currency: "MXN",
-    locale:"es_MX",
-    components: "buttons,hosted-fields",
-    intent: "capture",
-	vault: false,
-};
-
-
-const SubmitPayment = () => {
-    // Here declare the variable containing the hostedField instance
-    const fields = usePayPalHostedFields();
-
-    const submitHandler = () => {
-        alert(Object.values(fields))
-        if (!typeof fields.submit !== "function") return; // validate that `submit()` exists before using it
-        alert('Paso')
-        /*hostedFields
-            .submit({
-                // The full name as shown in the card and billing address
-                cardholderName: "John Wick",
-            })
-            .then((order) => {
-                alert(order)
-            });*/
-    };
-
-    return <button onClick={submitHandler}>Pay</button>;
-};
-
-export default function Hostedfields({clientToken,salectOption,tajetaSave}) {
-    const classes                           = useStyles()
+export default function Hostedfields({clientToken,salectOption,tajetaSave,evento}) {
+    const classes  = useStyles()
     const brand ={
     VISA:       'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/visa.svg',
     MASTERCARD: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/mastercard.svg',
@@ -100,10 +65,10 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave}) {
                                 </Grid>
                                 <Grid item xs={6} sm={12}>
                                 {clientToken.getPaymentTokens.map((tarjeta, index) => (  
-                                <Box component="div">
+                                <Box key={index} component="div">
                                     <Card variant="outlined">
                                         <Box component="div" m={2}>
-                                            <FormControlLabel key={index} value={tarjeta.id} fullWidth label={                                                            
+                                            <FormControlLabel  value={tarjeta.id} fullWidth label={                                                            
                                                 <Box component="div">
                                                     <Grid container direction="row-reverse"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
                                                         <Grid item xs={4}>
@@ -128,8 +93,6 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave}) {
                                         </CardActions>     
                                     </Card>
                                 </Box>
-                                    
-
                                 ))
                                 }
                             
@@ -141,45 +104,7 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave}) {
             </FormControl>
             </Box>           
         :        
-        <PayPalScriptProvider
-            options={initialOptions}
-        >
-            <PayPalHostedFieldsProvider
-                createOrder={() => {
-                    // Here define the call to create and order
-                    async function orden(){
-                        let services    = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:3250091,isSTC:'S'})
-                        let data        = await services.data
-                        alert(data)
-                        return data
-                    }       
-                    return orden()
-                }}
-            >
-                <PayPalHostedField
-                    id="card-number"
-                    hostedFieldType="number"
-                    options={{ selector: "#card-number",
-                    placeholder: "Tarjeta"
-                    }}
-                />
-                <PayPalHostedField
-                    id="cvv"
-                    hostedFieldType="cvv"
-                    options={{ selector: "#cvv" ,
-                    placeholder: "CVV"}}
-                />
-                <PayPalHostedField
-                    id="expiration-date"
-                    hostedFieldType="expirationDate"
-                    options={{
-                        selector: "#expiration-date",
-                        placeholder: "MM/YY",
-                    }}
-                />
-                <SubmitPayment />
-            </PayPalHostedFieldsProvider>
-        </PayPalScriptProvider>
+        <Fields clientToken={clientToken.clienteToken} evento={evento}/>
         }
         </>
         
