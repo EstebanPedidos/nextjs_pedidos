@@ -24,7 +24,7 @@ export default function Login(){
     const ruter = useRouter() 
     const classes = useStyles();
 
-    const paperStyle={padding:40, height:'60vh', width:450, margin:"80px auto"}
+    const paperStyle={padding:40, height:'60vh', width:450, margin:"30px auto"}
 
     const [inputs, setInputs] = useState({});
     const [isLogged, setLogged] = useState(false);
@@ -95,17 +95,18 @@ export default function Login(){
                                         Inicia Sesión
                                     </Button>
                                 </Box>
-                                <Box textAlign="center" pt={4} fontWeight="bold" color="textSecondary">
-                                    <Typography variant="subtitle2"  >
+                                
+                                <Box textAlign="center" pt={4}>
+                                    <Typography variant="subtitle2" sx={{ fontWeight:'600' }}  >
                                             ¿Eres nuevo? &nbsp;
-                                        <Box component="span" sx={{ color:'primary' }}>
-                                            <Link href="/RegistroUsuario"  sx={{ color:'primary', fontWeight:'600' }}>
+                                        <Box component="span" color="primary" sx={{ color:'#3655a5' }}>
+                                            <Link href="/RegistroUsuario">
                                                 Crea tu cuenta
                                             </Link>
                                         </Box>
                                     </Typography>
                                 </Box>
-                                <Box my={1} textAlign="center">
+                                <Box my={2} textAlign="center">
                                     <Typography variant="subtitle1" color="primary" sx={{ fontWeight:'600' }}>
                                         <Link href="/Contra" color="primary" >
                                             <a>

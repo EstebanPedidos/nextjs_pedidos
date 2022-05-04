@@ -1,14 +1,17 @@
 import React, {useState} from "react";
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@mui/material/Button'
+//MUI
+import {Container, Box, Grid, Paper, Button, Typography, FormControl, Tab,AppBar,Table,TableBody,
+    TableCell,TableContainer,TableRow, Avatar, TextField } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+
+//Componentes
+import { Layout } from 'layout/Layout';
 
 //Servicios
 import Services from '../services/Services'
 import Router, { withRouter } from 'next/router'
 
-//Componentes
-import { Layout } from 'layout/Layout';
 
 export default function Contra(){  
 
@@ -37,23 +40,31 @@ export default function Contra(){
         ruter.push("/home")
 
     }
+    const paperStyle={padding:40, height:'50vh', width:450, margin:"60px auto"}
 
     return(
         <Layout>
-            <div>
-                <h2>Recupera tu contraseña</h2>
-                <h2>Estimado usuario:</h2>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <p>Por favor ingresa tu correo registrado. Le enviaremos un correo para el cambio de su contraseña.</p>
-                        
-                    </div>
-                    <TextField id="outlined-basic" label="Correo" variant="outlined" type="text" name="correo" onChange={handleChange}/>
-                    <div>
-                        <Button type="submit" variant="contained" onClick={handleSubmit}>Recuperar</Button>
-                    </div>
-                </form>
-            </div>
+
+                <Container maxWidth="sm">
+                    <Paper variant="outlined" elevation={0} style={paperStyle}>
+                        <Box textAlign='center' my={2}>
+                            <Typography variant="h4" component="h1" textAlign="center" sx={{ fontWeight:'600' }}>Restablecer contraseña</Typography>
+                            <Typography variant="subtitle1">Enviaremos instrucciones a tu correo electrónico de registro para restablecer la contraseña</Typography>   
+                        </Box>
+                        <Box my={4}>
+                            <FormControl fullWidth  onSubmit={handleSubmit} >
+                                <TextField id="outlined-basic" label="Correo" variant="outlined" type="text" name="correo" onChange={handleChange} focused/>
+                                <Box mt={2}>
+                                    <Button type="submit" variant="contained" size="large" color="primary"  onClick={handleSubmit} fullWidth>
+                                       Envíar
+                                    </Button>
+                                </Box>
+                                
+                            </FormControl>
+                        </Box>
+                    </Paper>
+                </Container> 
+            
         </Layout>
     )
 }

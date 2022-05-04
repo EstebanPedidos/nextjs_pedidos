@@ -3,7 +3,7 @@ import axios from 'axios'
 
 //MUI
 import {Container,Box, Grid, Paper, Button, Typography, FormControl,
-    FormControlLabel, Checkbox, TextField } from '@mui/material';
+    FormControlLabel, Checkbox, TextField,Link } from '@mui/material';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -105,7 +105,7 @@ export default function RegistroUsuario(){
         checked: false
     });
 
-    const paperStyle={padding:40, height:'66vh', width:450, margin:"80px auto"}
+    const paperStyle={padding:40, height:'69vh', width:450, margin:"30px auto"}
     return(
 
         <React.Fragment>
@@ -118,9 +118,9 @@ export default function RegistroUsuario(){
                             <Typography  variant="h4" component="h1" textAlign="center" sx={{ fontWeight:'600' }}>Crear cuenta</Typography>
                             <Typography variant="subtitle1">Bienvenido ¡Nos da gusto que estes aquí!</Typography>   
                         </Box>
-                        <Box my={2}>
+                        <Box my={1}>
                             <FormControl fullWidth onSubmit={handleSubmit} className="classes.margin">
-                                <TextField margin="dense" name="usuario" label="Nombre" variant="outlined" type="text" onChange={handleChange}  expresionRegular={expresiones.nombre} />
+                                <TextField margin="dense" name="usuario" label="Nombre" variant="outlined" type="text" onChange={handleChange}  expresionRegular={expresiones.nombre} focused />
                                 <TextField margin="dense" name="correo" variant="outlined" autoComplete="on" onChange={handleChange} type="text" label="Correo"   />
                                 <TextField margin="dense" name="telefono" variant="outlined" autoComplete="on"  onChange={handleChange} type="number" label="Teléfono"  expresionRegular={expresiones.telefono} />             
                                 <TextField margin="dense" name="password" variant="outlined" onChange={handleChange} type="password" label="Contraseña" expresionRegular={expresiones.password} />
@@ -132,10 +132,31 @@ export default function RegistroUsuario(){
                                     label="Soy Empresa"
                                 />
 
-                                <Box mt={3}>
+                                <Box mt={1}>
                                     <Button type="submit" variant="contained" size="large" color="primary"  onClick={handleSubmit} fullWidth>
                                             Crea tu cuenta
                                     </Button>
+                                    <Box my={1} textAlign="center">
+                                        <Typography variant="body2"  >
+                                            Al registrarte aceptas los &nbsp;
+                                            <Box component="span" >
+                                                <Link href="/" color="textSecondary" sx={{ color:'textSecondary', fontWeight:'600' }}>
+                                                    Términos y condiciones
+                                                </Link>
+                                            </Box>
+                                        </Typography>
+                                    </Box>
+                                    <Box textAlign="center" pt={1}>
+                                        <Typography variant="subtitle2">
+                                                ¿Tienes una cuenta? &nbsp;
+                                            <Box component="span" color="primary" sx={{ color:'primary' }}>
+                                                <Link href="/Login"  sx={{ color:'primary', fontWeight:'600' }}>
+                                                    Inicia Sesión
+                                                </Link>
+                                            </Box>
+                                        </Typography>
+                                    </Box>
+                                    
                                 </Box>
                             </FormControl>
                         </Box>
@@ -144,7 +165,7 @@ export default function RegistroUsuario(){
                 }
                 {first == true &&
                     <Paper variant="outlined" elevation={0} style={paperStyle}>
-                        <Box textAlign='center' my={2}>
+                        <Box textAlign='center' my={9}>
                             <Typography  variant="h4" component="h1" textAlign="center" sx={{ fontWeight:'600' }}>Verifica tu cuenta</Typography>
                             <Typography variant="subtitle1">Ingresa el código que enviamos al e-mail: {inputs.correo} </Typography>   
                         </Box>
@@ -160,6 +181,11 @@ export default function RegistroUsuario(){
                             </Box>
                             <Box mt={2}>
                                 <Button type="submit" variant="contained" size="large" color="primary" fullWidth >Verificar el código</Button>
+                            </Box>
+                            <Box my={1} textAlign="center">
+                                <Button component={Link} to="/Contra" type="submit" variant="outlined" size="large" color="primary" fullWidth >
+                                    Reenvíar código
+                                </Button>
                             </Box>
                         </form>
                    
