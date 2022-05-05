@@ -35,6 +35,7 @@ li .ais-Hits-item::marker{display: none!important}
 .ais-ToggleRefinement-labelText{padding:0 15px;font-weight:500;font-size: 1.25rem;  }
 .ais-header{padding-top:30px}
 /* PAGINATION */ 
+.ais-Pagination-list {list-style: none;}
 .pagination{margin:30px auto}
 .pagination ul{font-size:0;list-style-type:none;text-align:center;display:block}
 .pagination li{font-size:1.2rem;display:inline; font-weight: 500;}
