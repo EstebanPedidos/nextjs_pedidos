@@ -16,9 +16,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function NotasCredito(props){
+export default function NotasCredito({notas,salectOption,aplicar}){
     const classes = useStyles();
-    let   notas   = props.notas
+
     return(
         <div>
             {(notas.length > 0)&&          
@@ -43,9 +43,9 @@ export default function NotasCredito(props){
                                             <Box component="div">
                                                 <Grid container alignItems="center">
                                                     <Grid item xs={12}>
-                                                    <FormControlLabel name='nota' value={nota.invoiceNum} onChange={props.salectOption}
+                                                    <FormControlLabel name='nota' value={nota.invoiceNum} onChange={salectOption}
                                                         control={
-                                                            <Checkbox checked={(props.aplicar.indexOf(nota.invoiceNum+'') >= 0)} id={nota.aplica}  />
+                                                            <Checkbox checked={(aplicar.indexOf(nota.invoiceNum+'') >= 0)} id={nota.aplica}  />
                                                         }
                                                         label={
                                                             <Grid item xs={8}>
