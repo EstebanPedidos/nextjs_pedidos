@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 import {Container, Radio,RadioGroup,FormControlLabel,FormControl,
         List,ListItem,ListItemText,ListItemAvatar, ListItemSecondaryAction,
-        Box,Grid,Button,Avatar,Typography,Card, Divider,Skeleton} from '@mui/material'
+        Box,Grid,Avatar,Typography,Card, Divider,Skeleton} from '@mui/material'
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -16,6 +16,7 @@ import Resumen from '../Resumen';
 import Process from '../Process';
 import SDKPayPalBotones from './SDKPayPalBotones'
 import Hostedfields from './Hostedfields';
+import Alertas from '../Alertas';
 
 //Servicios
 import Services from '../../services/Services'
@@ -63,9 +64,10 @@ export default function Forma_de_pago(){
     const [forma_pago,setFormaPago]         = useState('linea')
     const [sub_forma_pago,setSubFormaPago]  = useState('1')
     const [clientToken,setClientToken]      = useState({clienteToken:'',getPaymentTokens:[]})
-    const [tajetaSave,setTarjetaSave]       = useState({id:'nueva'})
+    const [tajetaSave,setTarjetaSave]       = useState('nueva')
     const [max_cont_ent,setMaxCE]           = useState(1000)
     const [loading,setLoading]              = useState(false) 
+    const [alerta,setAlerta]                = useState({})
 
     function salectOption({target}){
         const {value,name} = target;
@@ -75,7 +77,7 @@ export default function Forma_de_pago(){
         }else if(name === 'sub_forma_pago'){
             setSubFormaPago(value)
         }else if(name === 'tarjeta_guardada'){
-            setTarjetaSave({...tajetaSave,id:value})         
+            setTarjetaSave(value)         
         }
     }
     function continuarCompra(){
@@ -130,6 +132,30 @@ export default function Forma_de_pago(){
         })
     }
 
+    async function Delete({id,posicion}){
+        let services    = await Services('POST','/registrov2/datelePaymentTokens?id='+id,{})
+        let isEliminado = await services.data      
+        if(isEliminado){            
+            let getPaymentTokensNuevo = clientToken.getPaymentTokens
+            getPaymentTokensNuevo.splice(posicion,1)
+            setClientToken({...clientToken,getPaymentTokens:getPaymentTokensNuevo})
+            if(getPaymentTokensNuevo.length > 0 ){
+                setTarjetaSave(getPaymentTokensNuevo[0].id)
+            }else{
+                setTarjetaSave('nueva')
+            }
+            setAlerta({severity:'success',mensaje:'Se ha eliminado la tarjeta',vertical:'bottom',horizontal:'right'})
+        }else{
+            setAlerta({severity:'error',mensaje:'No se elimino la tarjeta',vertical:'bottom',horizontal:'right'})
+        }
+    }
+
+    async function isMeses(id){
+        let services    = await Services('POST','/registrov2/CalculatedFinancingOptions?value='+((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc)+'&id='+id,{})
+        let meses       = await services.data 
+        return meses;
+    }
+
     useEffect(()=>{
         const getData = async () =>{
             let cliente           = await localStorage.getItem('Cliente')
@@ -149,10 +175,11 @@ export default function Forma_de_pago(){
                                 setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
                                 let tarjetas         = await cliente_l.getPaymentTokens
                                 let getPaymentTokens = await JSON.parse(tarjetas)
-                                setClientToken({clienteToken:cliente_l.clienteToken,getPaymentTokens:getPaymentTokens})
                                 if(getPaymentTokens.length > 0){
-                                    setTarjetaSave({...tajetaSave,id:getPaymentTokens[0].id}) 
+                                    let id = await getPaymentTokens[0].id;
+                                    setTarjetaSave(id) 
                                 }
+                                setClientToken({clienteToken:cliente_l.clienteToken,getPaymentTokens:getPaymentTokens})
                                 setMaxCE((afiliado === 'S')?5000:1000)
                             }else{
                                 router.push('/checkout/forma-de-envio')
@@ -184,7 +211,6 @@ export default function Forma_de_pago(){
                             <Box component="div" pt={1}> 
                                 {(data.hasOwnProperty('jsonResumen'))?                  
                                     <Process paso={3}/>:<Skeleton variant="text" height={150} animation="wave"/>
-                                    
                                 }
                             </Box>
                             <Box component="div" p={2}>
@@ -564,7 +590,7 @@ export default function Forma_de_pago(){
                                         <Box component="div" m={1} >
                                             <Divider light/>
                                         <Box component="div"  p={2}>
-                                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave} evento={data.jsonResumen.resumen.eventoNum}/>
+                                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave} evento={data.jsonResumen.resumen.eventoNum} Delete={Delete}/>
                                         </Box>
                                         </Box>
                                         :
@@ -591,6 +617,9 @@ export default function Forma_de_pago(){
                 </Grid>
             </Box>
         </Container>
+        {(alerta.hasOwnProperty('severity'))&&
+            <Alertas setAlerta={setAlerta} alerta={alerta}/>
+        } 
     </Box>
     )
 }

@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 //next js
 import { useRouter } from 'next/router'
+//Material
+import {Checkbox ,FormControlLabel,FormControl} from '@mui/material';
 //PAYPAL
 import {
 	PayPalScriptProvider,
@@ -25,10 +27,10 @@ const SubmitPayment = ({ customStyle,evento }) => {
 	const hostedField 			= usePayPalHostedFields();
 	const router    			= useRouter()
 	const [alerta,setAlerta]   	= useState({})
+	const [checked,setChecked]  = useState(false)
 
 	const handleClick = () => {
 		if (hostedField) {
-			alert(Object.values(hostedField.cardFields))
 			if (
 				Object.values(hostedField.cardFields.getState().fields).some(
 					(field) => !field.isValid
@@ -38,16 +40,16 @@ const SubmitPayment = ({ customStyle,evento }) => {
 				setAlerta({severity:'success',mensaje:'Ingresa un Nombre de Titular valido',vertical:'bottom',horizontal:'right'})
 				return
 			}
-			setPaying(true);
+			setPaying(true);			
 			hostedField.cardFields
 				.submit({
 					cardholderName: cardHolderName?.current?.value,
+					vault:checked
 				})
 				.then((data) => {
                     async function liberar(){
                         let services    = await Services('POST-NOT','/registrov2/getOrderPayPal',{evento:evento,orderID:data.orderId,address:'192.10.2.166',isSTC:'S',id_PayTok:'', term:'',interval_duration:''})
                         let dataResp    = await services.data
-                        alert(JSON.stringify(dataResp))
                         if(dataResp.estatus == "COMPLETED" || dataResp.estatus == "completed"){
                             router.push('/checkout/confirmacion-de-pago')
                         }else{
@@ -57,7 +59,6 @@ const SubmitPayment = ({ customStyle,evento }) => {
                     liberar()
 				})
 				.catch((err) => {
-					// Here handle error
 					setPaying(false);
 				});
 		}
@@ -76,6 +77,9 @@ const SubmitPayment = ({ customStyle,evento }) => {
 					placeholder="Nombre.."
 				/>
 				</label>
+				<FormControl>
+						<FormControlLabel  onChange={({target})=>{setChecked(target.checked)}} control={<Checkbox checked={checked}/>} label="Guardar" />
+				</FormControl>
 			<button
 				className={`btn${paying ? "" : " btn-primary"}`}
 				style={{ float: "right" }}
@@ -94,7 +98,6 @@ export default function Fields({clientToken,evento}) {
 
 	return (
 		<>
-			<h6>Pagar Evento {evento}</h6>
 			{clientToken ? (
 				<PayPalScriptProvider
 					options={{
@@ -104,7 +107,7 @@ export default function Fields({clientToken,evento}) {
 						currency: "MXN",
     					locale:"es_MX",
 						intent: "capture",
-						vault: false,
+						vault: true,
 					}}
 				>
 					<PayPalHostedFieldsProvider
@@ -116,7 +119,7 @@ export default function Fields({clientToken,evento}) {
                                 return data
                             }       
                             return orden()
-						}}
+						}}					
 					>
                         <label htmlFor="card-number">
                            Numero de Trajeta
@@ -130,7 +133,7 @@ export default function Fields({clientToken,evento}) {
                             options={{
                                 selector: "#card-number",
                                 placeholder: "111 111...",
-                            }}
+                            }}							
                         />
                         <label htmlFor="cvv">
                             CVV<span style={INVALID_COLOR}>*</span>

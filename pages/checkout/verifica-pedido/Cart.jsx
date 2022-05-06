@@ -1,11 +1,9 @@
-//Pauquetes
-import {useState,useEffect} from 'react';
-import * as React from 'react';
-import { useRouter } from 'next/router';
+//next js
+import Link from 'next/link'
 //Material UI
 import {Box, Grid, Paper, Typography, Button, Checkbox,
         ButtonBase, IconButton, TextField, FormControl,
-        Alert, InputLabel, Select, Divider, Card, CardActions,
+        Alert, InputLabel, Select, Divider, CardActions,
        } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -90,7 +88,8 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                             <Grid container alignItems="flex-start" justifyContent="center" spacing={1}>
                                                 <Grid item xs={3}>
                                                     <Box component="div" className={(item.cantSeguro >0 || item.cantGarant1 > 0 || item.cantGarant2 > 0 )?'':''}>
-                                                        <a href={(item.url !== '')?`/articulos/${item.url}`:`#`}> 
+                                                        <Link href={`/articulos/${item.url.toLowerCase()}`}>
+                                                        <a> 
                                                             <ButtonBase className={classes.productimage}>
                                                                 <img className={classes.pimg} src={`https://pedidos.com/myfotos/${item.item_num}.jpg`} alt={item.descripcion}/> 
                                                             </ButtonBase>
@@ -101,6 +100,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                             <i>times</i>   
                                                             }                          
                                                         </a>  
+                                                        </Link>
                                                         <Box component="div" pt={3}>
                                                             {(item.cantSeguro > 0)&&
                                                             <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>    

@@ -16,7 +16,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 //import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 //Componenetes
 import ModalExecutive from './modals/ModalExecutive';
-
+import Precios from '../services/Precios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -281,6 +281,12 @@ export default function Resumen(props){
                                                 Envío
                                             </Typography>
                                         </Grid>
+                                        {(data.hasOwnProperty('jsonResumen'))&&
+                                        (data.jsonResumen.nc.tieneNc !== 'false')&&
+                                            <Typography variant="subtitle1" >
+                                               Descuento
+                                            </Typography>
+                                        }
                                         <Grid item>
                                             <Typography variant="subtitle1" >
                                                 Total
@@ -296,7 +302,7 @@ export default function Resumen(props){
                                             {(data.hasOwnProperty('jsonResumen'))&&
                                             <Typography variant="subtitle1"  >
                                                 <Box component="span" >
-                                                ${(data.jsonResumen.resumen.descuento > 0)?data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.descuento:data.jsonResumen.resumen.subtotal}
+                                                ${(data.jsonResumen.resumen.descuento > 0)?Precios('formatcurrency',{subtotal:data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.descuento,fixed:2}):Precios('formatcurrency',{subtotal:data.jsonResumen.resumen.subtotal,fixed:2})}
                                                 </Box>
                                             </Typography>
                                             }
@@ -304,19 +310,19 @@ export default function Resumen(props){
                                         <Grid item>
                                             {(data.hasOwnProperty('jsonResumen'))&&
                                             <Typography variant="body2">
-                                                    {(data.jsonResumen.resumen.costoEnvio <  0)?`Cotiza con nosotros`:(data.jsonResumen.resumen.costoEnvio === 0)?`Gratis`:data.jsonResumen.resumen.costoEnvio}
+                                                    {(data.jsonResumen.resumen.costoEnvio <  0)?`Cotiza con nosotros`:(data.jsonResumen.resumen.costoEnvio === 0)?`Gratis`:Precios('formatcurrency',{subtotal:data.jsonResumen.resumen.costoEnvio,fixed:2})}
                                             </Typography>
                                             }
                                             {(data.hasOwnProperty('jsonResumen'))&&
                                             (data.jsonResumen.resumen.descuento > 0)&&
                                             <Typography variant="body2">
-                                                {data.jsonResumen.resumen.descuento}
+                                                {Precios('formatcurrency',{subtotal:data.jsonResumen.resumen.descuento,fixed:2})}
                                             </Typography>
                                             }
                                             {(data.hasOwnProperty('jsonResumen'))&&
                                             (data.jsonResumen.nc.tieneNc !== 'false')&&
                                             <Typography variant="body2">
-                                                ${data.jsonResumen.nc.montoNc}
+                                                ${Precios('formatcurrency',{subtotal:data.jsonResumen.nc.montoNc,fixed:2})}
                                             </Typography>
                                             }
                                         </Grid>
@@ -324,7 +330,7 @@ export default function Resumen(props){
                                             <Typography variant="subtitle1"  >
                                                     <Box component="span" fontWeight="fontWeightBold">
                                                         ${(data.hasOwnProperty('jsonResumen'))&&
-                                                            ((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc)
+                                                            Precios('formatcurrency',{subtotal:((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc),fixed:2})
                                                         }
                                                     </Box>
                                             </Typography>

@@ -3,10 +3,11 @@ import {useState,useEffect} from 'react'
 import * as React from 'react';
 //next js
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 //Paquetes
 import {Box, Grid, Paper, Typography,
         Button, TextField, Divider, 
-        Alert, Stack, AlertTitle,  Link  } from '@mui/material';
+        Alert, Stack, AlertTitle} from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import LoadingButton from '@mui/lab/LoadingButton';
 //Componentes MUI4
@@ -50,7 +51,6 @@ export default function Verifica_pedido(){
     const [ejecutivo,setEjecutivo]              = useState({ejecutivo:'', slmn:0})
     const [cupon,setCupon]                      = useState('')
     const [alerta,setAlerta]                    = useState({})
-
     const [carrito,setCarrito]                  = useState({})
     const [partidas,setPartidas]                = useState(0)
     const [isEjecutivo,setisEjecutivo]          = useState(false)
@@ -95,8 +95,7 @@ export default function Verifica_pedido(){
                 })
                 return f
             }
-            let articulos =  await carritoS.configCarrito.precarrito.map((item) => ((item.precio*item.cantidad) +(item.precioSeguro*item.cantSeguro)+(item.precioGarant1*item.cantGarant1)))
-
+            let articulos =  await carritoS.configCarrito.precarrito.map((item) => item.item_num)
             setCarrito(carritoS)
             setPartidas(num_partidas)
             setisEjecutivo(isEjecutivo)
@@ -107,26 +106,31 @@ export default function Verifica_pedido(){
         getData()   
     },[partidas])
 
+
     function add(item_num){
+        setLoading(true)
         Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: localStorage.getItem('Cliente'),usuario_num : localStorage.getItem('Usuario'),cantidad : 1,item_num : item_num,seguro : '',garantia : ''})
         .then( response =>{
             if(response.data > 0){
                 setPartidas(response.data)
+                setLoading(false)
             }
         }) 
     }
 
     async function Delete(item_num){
+        setLoading(true)
         if(deleteAll && Remove.length===0){
-            alert('sin item')
+            setAlerta({severity:'error',mensaje:'Selecciona un articulo',vertical:'bottom',horizontal:'right'})
+            setLoading(false)
             return 
         }
 
         let articulosD   = await (item_num === 'V' || item_num === 'E')?(deleteAll)?Remove.toString():articulos.toString():item_num
-        
         Services('DELETE','/carritoyreservado/deleteCarrito?clienteNum='+localStorage.getItem('Cliente')+'&usuarioNum='+localStorage.getItem('Usuario')+'&items='+articulosD,{})
         .then( response =>{
-            setPartidas(response.data)                        
+            setLoading(false)
+            setPartidas(response.data)                                   
         })        
         
     }
@@ -215,6 +219,7 @@ export default function Verifica_pedido(){
                         <ItemFavorites 
                         favoritos={favoritos}
                         add={add}
+                        loading={loading}
                         />
                         {partidas > 0 ? (
                             <Box component="div" m={2} >                        
@@ -300,7 +305,8 @@ export default function Verifica_pedido(){
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <Button component={Link} to={'/home'} variant="contained" color="secondary">Comenzar</Button>     
+                                            <Link variant="contained" color="secondary" href="/"><a>Comenzar</a></Link>
+                                            {/* <Button component={Link} to={'/home'} variant="contained" color="secondary">Comenzar</Button>      */}
                                         </Grid>
                                     </Grid>
                                 </Box>
@@ -423,6 +429,9 @@ export default function Verifica_pedido(){
                                             <Divider light />
                                         </Box>
                                         <Box component="div" py={2} >
+                                        {carrito.configCarrito.precarrito.find((items) => {
+                                            return items.exis === "X";
+                                        }) === undefined &&
                                             <LoadingButton variant="contained"
                                             fullWidth
                                             size="large"
@@ -433,6 +442,7 @@ export default function Verifica_pedido(){
                                             >
                                                 Continuar compra
                                             </LoadingButton>
+                                        }
                                         </Box>
                                         {(deleteAll)  ? (
                                             <Box component="div">

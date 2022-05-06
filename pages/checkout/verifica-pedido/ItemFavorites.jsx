@@ -1,21 +1,20 @@
-import React,{useState,useEffect} from 'react';
 //next js
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 //Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
 //MUI
-import {Box, Grid, Paper, Typography, Button, Card, 
-    CardActionArea, CardContent, CardActions,CardMedia
+import {Box, Grid, Typography, Button, Card, 
+    CardActionArea, CardContent, CardMedia
    } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import AddIcon from '@mui/icons-material/Add';
 import DoneIcon from '@mui/icons-material/Done';
+import LoadingButton from '@mui/lab/LoadingButton';
 //Funciones
 import Precios from '../../services/Precios'
-//Servicos
-import Services from '../../services/Services'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export  default function ItemFavorites({favoritos,add}){
+export  default function ItemFavorites({favoritos,add,loading}){
     const classes                   = useStyles();
     const ruter                     = useRouter()       
 
@@ -82,10 +81,12 @@ export  default function ItemFavorites({favoritos,add}){
                     }}
                     >
                  {
-                favoritos.map((item, index) => (
+                favoritos.map((item, index) => (                    
                     <SwiperSlide  key={index} className={classes.swiperBox}>
                         <Box component="div">
                             <Card className={classes.productCardC}>
+                                <Link href={`/articulos/${item.url.toLowerCase()}`}>
+                                <a>
                                 <CardActionArea>
                                 <CardMedia
                                     className={classes.media}
@@ -102,12 +103,18 @@ export  default function ItemFavorites({favoritos,add}){
                                     </Typography>
                                 </CardContent>
                                 </CardActionArea>
+                                </a>
+                                </Link>
                             <Box component="div" m={1}>
                                 {                                    
                                 (item.estatus==='A')?
-                                    <Button sx={{borderColor:'#A6ADB9', color:'#A6ADB9'}} variant="outlined" fullWidth size="large"  onClick={()=>add(item.itemNum)}>
+                                    <LoadingButton sx={{borderColor:'#A6ADB9', color:'#A6ADB9'}} variant="outlined" fullWidth size="large"
+                                    onClick={()=>add(item.itemNum)}
+                                    loading={loading}
+                                    loadingIndicator="Espera..."
+                                    >
                                         <AddIcon/>
-                                    </Button>
+                                    </LoadingButton>
                                     :
                                     <Button variant="outlined" color="secondary" fullWidth size="large">
                                         <DoneIcon/>

@@ -5,6 +5,8 @@ import { Radio,RadioGroup,FormControlLabel,FormControl,
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 //Componentes
 import Fields from './Fields';
+import Eliminar from '../modals/Eliminar';
+
 import makeStyles from '@mui/styles/makeStyles';
 const useStyles = makeStyles((theme) => ({
     rootcardi: {
@@ -13,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Hostedfields({clientToken,salectOption,tajetaSave,evento}) {
+export default function Hostedfields({clientToken,salectOption,tajetaSave,evento,Delete}) {
     const classes  = useStyles()
     const brand ={
     VISA:       'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/visa.svg',
@@ -36,12 +38,11 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
 
     return (    
         <>
-        {(clientToken.getPaymentTokens.length > 0)?
+        {(clientToken.getPaymentTokens.length > 0 && tajetaSave !== 'nueva')?           
            <Box component="div">
             <FormControl component="fieldset" fullWidth>
-                <div className={classes.root}>
-                    <>
-                        <RadioGroup aria-label="gender" name="tarjeta_guardada" value={tajetaSave.id} onChange={salectOption}>
+                <div className={classes.root}>                    <>
+                        <RadioGroup aria-label="gender" name="tarjeta_guardada" value={tajetaSave} onChange={salectOption}>
                             <Grid container direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
                                 <Grid item xs={12}>
                                     <FormControlLabel key="nueva" value="nueva" fullWidth label={                                                            
@@ -78,7 +79,7 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
                                                             <Box component="div" ml={1}>                                 
                                                                 <ListItemText id="list-label-payment-method" primary={
                                                                     <Typography component="subtitle2" sx={{ fontWeight:'500',}} >
-                                                                        {tarjeta.id}
+                                                                        XXX..{tarjeta.last_digits}
                                                                     </Typography>
                                                                 }/>
                                                             </Box> 
@@ -89,7 +90,13 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
                                         </Box>
                                         <Divider variant="middle" light />
                                         <CardActions>
-                                            <Button size="small" fullWidth>Eliminar</Button>
+                                            <Eliminar
+                                            Delete={Delete}
+                                            object={{id:tarjeta.id,posicion:index}}
+                                            ms_but={'Eliminar'}
+                                            titilo={'Eliminar'}
+                                            mensaje={'Estás seguro de eliminar la tarjeta '+tarjeta.brand+' con terminacion '+tarjeta.last_digits+'?'}
+                                            />
                                         </CardActions>     
                                     </Card>
                                 </Box>
