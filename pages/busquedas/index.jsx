@@ -154,6 +154,12 @@ export default function Busquedas(props) {
 
 //   const resultado = props.location.state.query;
 
+    // const autoHideRefinementList = instantsearch.widgets.panel({
+    // hidden({ results }) {
+    //   return results.getFacetValues('FILTROS.PROCESADOR').length === 0;
+    // },
+//   })
+
 
   return(
     <Layout>
@@ -307,6 +313,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -329,6 +339,13 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },
+                                }}
+                                    
                             />
                         </Box>
                         
@@ -339,7 +356,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
-                                
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Panel>
                         </Box> 
@@ -352,6 +372,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -363,6 +387,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -374,6 +402,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -385,6 +417,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -396,6 +432,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -407,6 +447,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -418,6 +462,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -429,6 +477,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -440,6 +492,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -451,6 +507,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -462,6 +522,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -473,6 +537,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -484,6 +552,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -495,6 +567,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -506,6 +582,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -518,6 +598,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -529,6 +613,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -540,6 +628,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -551,6 +643,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -562,6 +658,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -573,6 +673,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Box component="div" textAlign="left" p={4}>
@@ -584,6 +688,10 @@ export default function Busquedas(props) {
                                 limit={3}
                                 showMoreLimit={15}
                                 showMore={true}
+                                translations={{
+                                    showMore(expanded) {
+                                      return expanded ? 'Mostrar Menos' : 'Mostrar Mas';
+                                    },}}
                             />
                         </Box>
                         <Configure hitsPerPage={20} />

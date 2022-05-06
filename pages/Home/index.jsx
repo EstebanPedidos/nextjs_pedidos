@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
     },
     paper: {
+      position: 'absolute',
       backgroundColor: theme.palette.background.paper,
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
