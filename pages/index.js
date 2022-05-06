@@ -112,13 +112,7 @@ export default function Home() {
 										</Box>
 									</Grid>
 									<Grid item xs={4} md={4}>
-										<img 
-											src="https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/paperline.png"
-											alt=""
-											layout="responsive"
-											objectFit="cover"
-											objectPosition="bottom center"											
-										/>
+										
 									</Grid>
 								</Grid>
 						</Paper>
