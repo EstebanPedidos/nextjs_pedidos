@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 //Material UI
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -18,10 +18,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NotasCredito({notas,salectOption,aplicar}){
     const classes = useStyles();
+    const [notasDos,setNotasDos] = useState([])
+    useEffect(()=>{
+        setNotasDos(notas)
+    },[])
 
     return(
         <div>
-            {(notas.length > 0)&&          
+            {(notasDos.length > 0)&&          
             <>
             <Box component="div" pt={4} className={classes.root}>
                 <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
@@ -34,7 +38,7 @@ export default function NotasCredito({notas,salectOption,aplicar}){
             <Box py={2}>
                 <Grid container direction="row" justifyContent="space-around" alignItems="center" spacing={2}>
                     {
-                    notas.map((nota, index) => (
+                    notasDos.map((nota, index) => (
                         <Grid  key={index} item xs={6}>
                             <div>  
                                 <Card variant="outlined">

@@ -1,3 +1,4 @@
+import {useState,useEffect} from 'react'
 //next js
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -42,7 +43,12 @@ const useStyles = makeStyles((theme) => ({
 
 export  default function ItemFavorites({favoritos,add,loading}){
     const classes                   = useStyles();
-    const ruter                     = useRouter()       
+    const ruter                     = useRouter()   
+    const [favoritosF,setFavoritosF] = useState([])
+
+    useEffect(()=>{
+        setFavoritosF(favoritos) 
+    },[])    
 
     return (
         <Box m={1}>
@@ -58,7 +64,7 @@ export  default function ItemFavorites({favoritos,add,loading}){
                 </Grid>
             </Box>
             <Box component="div" m={1}>
-            {(favoritos.length > 0)&&
+            {(favoritosF.length > 0)&&
                 <Swiper
                     spaceBetween={5}
                     slidesPerView={4}
@@ -81,7 +87,7 @@ export  default function ItemFavorites({favoritos,add,loading}){
                     }}
                     >
                  {
-                favoritos.map((item, index) => (                    
+                favoritosF.map((item, index) => (                    
                     <SwiperSlide  key={index} className={classes.swiperBox}>
                         <Box component="div">
                             <Card className={classes.productCardC}>

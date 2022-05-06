@@ -1,5 +1,5 @@
 
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 //next js
 import { useRouter } from 'next/router'
 //Material UI
@@ -36,9 +36,13 @@ export default function Resumen(props){
     const classes   = useStyles();
     const enviosF   = ['DHL','FEDEX','ESTAFETA','REDPACK'];
     let   router    = useRouter();
-    let   data      = props.data
     const [iscambio,setIsCambio] = useState(false)
-    
+    const [dataT,setDataT] = useState({})
+
+    useEffect(()=>{
+        setDataT(props.data) 
+    },[])
+
     function cambio(index){
         setIsCambio(true)
         router.push(
@@ -50,11 +54,13 @@ export default function Resumen(props){
     }
 
     return (
+        <>
+        {(dataT.hasOwnProperty('jsonResumen'))&&
         <div>
             <Box component="div" pt={1}>
                 <div>
-                    {(data.hasOwnProperty('jsonResumen'))&&
-                    <ModalExecutive resenapedidos={data.jsonResumen.resumen.resenaPedidos} setEjecutivo={props.setEjecutivo} ejecutivo={props.ejecutivo.ejecutivo}/>
+                    {(dataT.hasOwnProperty('jsonResumen'))&&
+                    <ModalExecutive resenapedidos={dataT.jsonResumen.resumen.resenaPedidos} setEjecutivo={props.setEjecutivo} ejecutivo={props.ejecutivo.ejecutivo}/>
                     }
                 </div>
                 <Box component="div">
@@ -62,15 +68,15 @@ export default function Resumen(props){
                         <Grid container  alignItems="center" spacing={1}>
                             <Grid item xs={6} sm={12} lg={6}>
                                 <Box textAlign="left">  
-                                    <Typography component="h2" variant="h6">Pedido #{data.pedido} </Typography>
+                                    <Typography component="h2" variant="h6">Pedido #{dataT.pedido} </Typography>
                                 </Box>  
                             </Grid>
                             <Grid item xs={6} sm={12} lg={6}>
-                                {(data.hasOwnProperty('jsonResumen'))&&
+                                {(dataT.hasOwnProperty('jsonResumen'))&&
                                 <Paper variant="outlined"> 
                                     <Typography variant="body2">   
                                         <Box py={1} fontWeight="fontWeightMedium" textAlign="center">    
-                                            {data.jsonResumen.resumen.partidas} {(data.jsonResumen.resumen.partidas > 1)?`productos`:`producto`}
+                                            {dataT.jsonResumen.resumen.partidas} {(dataT.jsonResumen.resumen.partidas > 1)?`productos`:`producto`}
                                         </Box>
                                     </Typography>
                                 </Paper>
@@ -82,15 +88,15 @@ export default function Resumen(props){
                 <Box component="div" py={2}>    
                     <div className={classes.root}>
                         <Grid container spacing={1}>
-                            {(data.hasOwnProperty('jsonResumen'))&&
-                            (data.jsonResumen.resumen.direccion.dirNum > 0 && data.jsonResumen.resumen.direccion.nombreDireccion !== '')&&
+                            {(dataT.hasOwnProperty('jsonResumen'))&&
+                            (dataT.jsonResumen.resumen.direccion.dirNum > 0 && dataT.jsonResumen.resumen.direccion.nombreDireccion !== '')&&
                             <Grid item xs={12}>
                                 <Paper variant="outlined">
                                     <Box component="div" m={1}>
                                         <div className={classes.root}>
                                             <Grid container justifyContent="space-around" alignItems="center">
                                                 <Grid item xs={2} sm={3} md={2} lg={2} >
-                                                    {(data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
+                                                    {(dataT.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
                                                     <Avatar className={classes.orangeL}>
                                                         <LocalShippingOutlinedIcon/>
                                                     </Avatar>
@@ -103,21 +109,21 @@ export default function Resumen(props){
                                                 <Grid item xs={6} sm={9} md={7} lg={8}>
                                                     <Box component="div">
                                                         {
-                                                            (data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
+                                                            (dataT.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
                                                                 <Box component="div">
                                                                     <Typography variant="body2" sx={{fontWeight:'600',}}>
-                                                                        Entregar en {/*  {data.jsonResumen.resumen.direccion.dirNum}. */}
-                                                                        {data.jsonResumen.resumen.direccion.nombreDireccion}
+                                                                        Entregar en {/*  {dataT.jsonResumen.resumen.direccion.dirNum}. */}
+                                                                        {dataT.jsonResumen.resumen.direccion.nombreDireccion}
                                                                     </Typography>  
                                                                     <Typography variant="body2">
                                                                         
-                                                                        {data.jsonResumen.resumen.direccion.direccion.substring(0, 38)}...
+                                                                        {dataT.jsonResumen.resumen.direccion.direccion.substring(0, 38)}...
                                                                     </Typography> 
                                                                 </Box> 
                                                             :
                                                             <Box component="div">
                                                                 <Typography variant="body2" sx={{fontWeight:'600',}}>
-                                                                    {data.jsonResumen.resumen.entregaPickup} en PickUp Center
+                                                                    {dataT.jsonResumen.resumen.entregaPickup} en PickUp Center
                                                                 </Typography>
                                                                 <Typography variant="body2">
                                                                     Alejandro Dumas 135, C.P 11550, CDMX, Polanco.
@@ -140,8 +146,8 @@ export default function Resumen(props){
                                 </Paper>
                             </Grid>
                             }           
-                            {(data.hasOwnProperty('jsonResumen'))&&
-                            (data.jsonResumen.resumen.facturas.rfc !== '' && data.jsonResumen.resumen.facturas.rfc !== 'XAXX010101000')&&
+                            {(dataT.hasOwnProperty('jsonResumen'))&&
+                            (dataT.jsonResumen.resumen.facturas.rfc !== '' && dataT.jsonResumen.resumen.facturas.rfc !== 'XAXX010101000')&&
                                 <Grid item xs={12}>
                                     <Paper variant="outlined">
                                         <Box component="div" m={1}>
@@ -158,7 +164,7 @@ export default function Resumen(props){
                                                                 Facturar a RFC 
                                                             </Typography>
                                                             <Typography variant="body2" >
-                                                                {data.jsonResumen.resumen.facturas.rfc}
+                                                                {dataT.jsonResumen.resumen.facturas.rfc}
                                                             </Typography>
                                                         </Box>
                                                     </Grid>
@@ -175,15 +181,15 @@ export default function Resumen(props){
                                     </Paper>
                                 </Grid>
                             }
-                            {(data.hasOwnProperty('jsonResumen'))&&
-                            (data.jsonResumen.resumen.envio.tipo.trim() !== '') &&
+                            {(dataT.hasOwnProperty('jsonResumen'))&&
+                            (dataT.jsonResumen.resumen.envio.tipo.trim() !== '') &&
                                 <Grid item xs={12}>
                                     <Paper variant="outlined">
                                         <Box component="div" m={1}>
                                             <div className={classes.root}>
                                                 <Grid container justifyContent="space-around" alignItems="center">                            
                                                     {
-                                                    (enviosF.includes(data.jsonResumen.resumen.envio.tipo))?
+                                                    (enviosF.includes(dataT.jsonResumen.resumen.envio.tipo))?
                                                         <Grid container justifyContent="space-around" alignItems="center">
                                                             <Grid item xs={2} sm={3} md={2} lg={2} >
                                                                 <Avatar className={classes.blueD}>
@@ -193,7 +199,7 @@ export default function Resumen(props){
                                                             <Grid item xs={6} sm={9} md={7} lg={8}>
                                                                 <Box component="div">
                                                                     <Typography variant="body2">
-                                                                        <b>Paquetería {data.jsonResumen.resumen.envio.tipo}</b><br/>
+                                                                        <b>Paquetería {dataT.jsonResumen.resumen.envio.tipo}</b><br/>
                                                                         Demoras por COVID-19
                                                                     </Typography>
                                                                 </Box>
@@ -205,13 +211,13 @@ export default function Resumen(props){
                                                             :
                                                         <Grid container justifyContent="space-around" alignItems="center">
                                                             <Grid item xs={2} sm={3} md={2} lg={2} >
-                                                                {(data.hasOwnProperty('jsonResumen'))&&
-                                                                (data.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP')?
+                                                                {(dataT.hasOwnProperty('jsonResumen'))&&
+                                                                (dataT.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP')?
                                                                 <Avatar className={classes.blueD}>
                                                                     <MarkEmailUnreadOutlinedIcon/> 
                                                                 </Avatar>
                                                                 :
-                                                                (data.jsonResumen.resumen.envio.tipo === 'Express')?                                                                
+                                                                (dataT.jsonResumen.resumen.envio.tipo === 'Express')?                                                                
                                                                     <Avatar className={classes.blueD}>
                                                                         <MopedOutlinedIcon />
                                                                     </Avatar>
@@ -224,19 +230,19 @@ export default function Resumen(props){
                                                             </Grid>
                                                             <Grid item xs={6} sm={9} md={7} lg={8}>
                                                                 <Box component="div">
-                                                                    {(data.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
+                                                                    {(dataT.jsonResumen.resumen.direccion.nombreDireccion !== 'PickUP')?
                                                                     <Box component="div">
                                                                         <Typography variant="body2" sx={{fontWeight:'600',}}>
-                                                                            Día de envío {data.jsonResumen.resumen.envio.fecha}
+                                                                            Día de envío {dataT.jsonResumen.resumen.envio.fecha}
                                                                         </Typography>
                                                                         <Typography variant="body2">
-                                                                            Horario {data.jsonResumen.resumen.envio.tipo} de {data.jsonResumen.resumen.envio.horario}
+                                                                            Horario {dataT.jsonResumen.resumen.envio.tipo} de {dataT.jsonResumen.resumen.envio.horario}
                                                                         </Typography>
                                                                     </Box>
                                                                     :
                                                                     <Box component="div">
                                                                         <Typography variant="body2" sx={{fontWeight:'600',}}>
-                                                                            Entrega:  {data.jsonResumen.resumen.entregaPickup}
+                                                                            Entrega:  {dataT.jsonResumen.resumen.entregaPickup}
                                                                         </Typography>
                                                                         <Typography variant="body2">
                                                                             Notificación vía e-mail para poder recoger
@@ -281,8 +287,8 @@ export default function Resumen(props){
                                                 Envío
                                             </Typography>
                                         </Grid>
-                                        {(data.hasOwnProperty('jsonResumen'))&&
-                                        (data.jsonResumen.nc.tieneNc !== 'false')&&
+                                        {(dataT.hasOwnProperty('jsonResumen'))&&
+                                        (dataT.jsonResumen.nc.tieneNc !== 'false')&&
                                             <Typography variant="subtitle1" >
                                                Descuento
                                             </Typography>
@@ -299,38 +305,38 @@ export default function Resumen(props){
                                 <Box textAlign="right"> 
                                     <Grid container direction="column" justifyContent="center" spacing={1}>
                                         <Grid item>
-                                            {(data.hasOwnProperty('jsonResumen'))&&
+                                            {(dataT.hasOwnProperty('jsonResumen'))&&
                                             <Typography variant="subtitle1"  >
                                                 <Box component="span" >
-                                                ${(data.jsonResumen.resumen.descuento > 0)?Precios('formatcurrency',{subtotal:data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.descuento,fixed:2}):Precios('formatcurrency',{subtotal:data.jsonResumen.resumen.subtotal,fixed:2})}
+                                                ${(dataT.jsonResumen.resumen.descuento > 0)?Precios('formatcurrency',{subtotal:dataT.jsonResumen.resumen.subtotal+dataT.jsonResumen.resumen.descuento,fixed:2}):Precios('formatcurrency',{subtotal:dataT.jsonResumen.resumen.subtotal,fixed:2})}
                                                 </Box>
                                             </Typography>
                                             }
                                         </Grid>
                                         <Grid item>
-                                            {(data.hasOwnProperty('jsonResumen'))&&
+                                            {(dataT.hasOwnProperty('jsonResumen'))&&
                                             <Typography variant="body2">
-                                                    {(data.jsonResumen.resumen.costoEnvio <  0)?`Cotiza con nosotros`:(data.jsonResumen.resumen.costoEnvio === 0)?`Gratis`:Precios('formatcurrency',{subtotal:data.jsonResumen.resumen.costoEnvio,fixed:2})}
+                                                    {(dataT.jsonResumen.resumen.costoEnvio <  0)?`Cotiza con nosotros`:(dataT.jsonResumen.resumen.costoEnvio === 0)?`Gratis`:Precios('formatcurrency',{subtotal:dataT.jsonResumen.resumen.costoEnvio,fixed:2})}
                                             </Typography>
                                             }
-                                            {(data.hasOwnProperty('jsonResumen'))&&
-                                            (data.jsonResumen.resumen.descuento > 0)&&
+                                            {(dataT.hasOwnProperty('jsonResumen'))&&
+                                            (dataT.jsonResumen.resumen.descuento > 0)&&
                                             <Typography variant="body2">
-                                                {Precios('formatcurrency',{subtotal:data.jsonResumen.resumen.descuento,fixed:2})}
+                                                {Precios('formatcurrency',{subtotal:dataT.jsonResumen.resumen.descuento,fixed:2})}
                                             </Typography>
                                             }
-                                            {(data.hasOwnProperty('jsonResumen'))&&
-                                            (data.jsonResumen.nc.tieneNc !== 'false')&&
+                                            {(dataT.hasOwnProperty('jsonResumen'))&&
+                                            (dataT.jsonResumen.nc.tieneNc !== 'false')&&
                                             <Typography variant="body2">
-                                                ${Precios('formatcurrency',{subtotal:data.jsonResumen.nc.montoNc,fixed:2})}
+                                                ${Precios('formatcurrency',{subtotal:dataT.jsonResumen.nc.montoNc,fixed:2})}
                                             </Typography>
                                             }
                                         </Grid>
                                         <Grid item>
                                             <Typography variant="subtitle1"  >
                                                     <Box component="span" fontWeight="fontWeightBold">
-                                                        ${(data.hasOwnProperty('jsonResumen'))&&
-                                                            Precios('formatcurrency',{subtotal:((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc),fixed:2})
+                                                        ${(dataT.hasOwnProperty('jsonResumen'))&&
+                                                            Precios('formatcurrency',{subtotal:((dataT.jsonResumen.resumen.subtotal+dataT.jsonResumen.resumen.costoEnvio)-dataT.jsonResumen.nc.montoNc),fixed:2})
                                                         }
                                                     </Box>
                                             </Typography>
@@ -354,5 +360,7 @@ export default function Resumen(props){
                 <Divider light />
             </Box>    
         </div>
+        }
+        </>
     )
 }

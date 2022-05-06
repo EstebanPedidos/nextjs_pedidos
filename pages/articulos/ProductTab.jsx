@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {Paper,Tab,AppBar,Typography,Grid,Table,TableBody,
   TableCell,TableContainer,TableRow,Box, Avatar, Button, Skeleton} from '@mui/material';
 import MopedOutlinedIcon from '@mui/icons-material/MopedOutlined';
@@ -12,12 +12,18 @@ import ReviewItem from './ReviewItem';
 
 export default function ProductTab({datos}) {
   const [value, setValue] = useState('1');
+  const [datosD,setDatosD] = useState({})
+  useEffect(()=>{
+    setDatosD(datos) 
+  },[])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
+    <>
+    {(datosD.hasOwnProperty('item_num'))&&
     <Paper elevation={0} >      
       <div>
       <TabContext value={value}>
@@ -29,17 +35,17 @@ export default function ProductTab({datos}) {
           </TabList>
         </AppBar>
         <TabPanel value='1'>
-          <ReviewItem item_num={datos.item_num.trim()} />
+          <ReviewItem item_num={datosD.item_num.trim()} />
         </TabPanel>
         <TabPanel value='2'>
           <Box component='div' py={2}>
             <div>
                 <Grid container spacing={2}>
-                    <Typography variant='h6' component="h5" mt={4} px={2}>{(datos.hasOwnProperty('item_num'))?(datos.descripcion.descripcion.hasOwnProperty('titulo'))?`Información sobre ${datos.descripcion.descripcion.titulo}`:``:<Skeleton animation='wave'/>}</Typography> 
+                    <Typography variant='h6' component="h5" mt={4} px={2}>{(datosD.hasOwnProperty('item_num'))?(datosD.descripcion.descripcion.hasOwnProperty('titulo'))?`Información sobre ${datosD.descripcion.descripcion.titulo}`:``:<Skeleton animation='wave'/>}</Typography> 
                     <Grid item xs={12}></Grid>
                     <Grid item xs={12}>
                         <Box component='div'>
-                            {(datos.hasOwnProperty('item_num'))&&
+                            {(datosD.hasOwnProperty('item_num'))&&
                             <>
                             <Box component='div' >
                                 <Typography variant='h6' color="textSecondary">Especificaciones</Typography>
@@ -48,11 +54,11 @@ export default function ProductTab({datos}) {
                                 <Table  aria-label='simple table'>
                                     <TableBody component='ul'>
                                         {
-                                            Object.keys(datos.detalle).map((oneKey,i)=>{
+                                            Object.keys(datosD.detalle).map((oneKey,i)=>{
                                                 return (   
                                                 <TableRow component='li'key={i}>
                                                   <TableCell>{oneKey}</TableCell>
-                                                  <TableCell align='right' >{datos.detalle[oneKey]}</TableCell>
+                                                  <TableCell align='right' >{datosD.detalle[oneKey]}</TableCell>
                                                 </TableRow> 
                                                 )  
                                             })
@@ -194,5 +200,7 @@ export default function ProductTab({datos}) {
       </TabContext>
     </div>
     </Paper>
+    }
+    </>
   );
 } 

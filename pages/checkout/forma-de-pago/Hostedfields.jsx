@@ -1,4 +1,4 @@
-
+import {useState,useEffect} from 'react'
 //Material
 import { Radio,RadioGroup,FormControlLabel,FormControl,
     ListItemText,Box,Grid,Button,Avatar,Typography,Card, CardActions, Divider,} from '@mui/material';
@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Hostedfields({clientToken,salectOption,tajetaSave,evento,Delete}) {
     const classes  = useStyles()
+    const [clientTokenC,setClientTokenC] = useState({})
+    useEffect(()=>{
+        setClientTokenC(clientToken) 
+    },[])
+
     const brand ={
     VISA:       'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/visa.svg',
     MASTERCARD: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/mastercard.svg',
@@ -38,7 +43,8 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
 
     return (    
         <>
-        {(clientToken.getPaymentTokens.length > 0 && tajetaSave !== 'nueva')?           
+        {(clientTokenC.hasOwnProperty('getPaymentTokens'))&&
+        (clientTokenC.getPaymentTokens.length > 0 && tajetaSave !== 'nueva')?           
            <Box component="div">
             <FormControl component="fieldset" fullWidth>
                 <div className={classes.root}>                    <>
@@ -65,7 +71,7 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
                                     } control={<Radio />}/> 
                                 </Grid>
                                 <Grid item xs={6} sm={12}>
-                                {clientToken.getPaymentTokens.map((tarjeta, index) => (  
+                                {clientTokenC.getPaymentTokens.map((tarjeta, index) => (  
                                 <Box key={index} component="div">
                                     <Card variant="outlined">
                                         <Box component="div" m={2}>
@@ -111,7 +117,7 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
             </FormControl>
             </Box>           
         :        
-        <Fields clientToken={clientToken.clienteToken} evento={evento}/>
+        <Fields clientToken={clientTokenC.clienteToken} evento={evento}/>
         }
         </>
         

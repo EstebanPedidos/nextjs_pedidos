@@ -1,3 +1,4 @@
+import {useState,useEffect} from 'react'
 //next js
 import Link from 'next/link'
 //Material UI
@@ -61,6 +62,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,UpdateCantidad,modificar}){
     const classes   = useStyles();
+    const [precarritoP,setPrecarritoP] = useState([])
+
+    useEffect(()=>{
+        setPrecarritoP(precarrito) 
+    },[])
 
     function NewRemove(item_num){        
         let existe = Remove.indexOf(item_num)
@@ -75,11 +81,11 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
     return(
         <Box component="div">
             <div className={classes.root}>
-            {(precarrito.length > 0)&&
+            {(precarritoP.length > 0)&&
                 <div>    
                     <Box component="div">
                         {
-                        precarrito.map((item, index) => (
+                        precarritoP.map((item, index) => (
                             (!item.item_num.includes('CON-REG'))?
                             <div key={index}>
                                 <Box component="div" m={1} py={1}>
