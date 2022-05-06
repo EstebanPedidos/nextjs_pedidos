@@ -77,7 +77,7 @@ export default function Home() {
 									</Grid>
 									<Grid item xs={4} md={4}>
 									<Box >
-										<Box >
+										{/* <Box >
 											<img 
 												src="https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/paperline.png"
 												alt=""
@@ -85,7 +85,7 @@ export default function Home() {
 												objectFit="cover"
 												objectPosition="bottom center"											
 											/>
-										</Box>
+										</Box> */}
 									</Box>	
 									</Grid>
 								</Grid>

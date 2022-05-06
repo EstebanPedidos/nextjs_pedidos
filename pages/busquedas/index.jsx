@@ -643,7 +643,7 @@ export default function Busquedas(props) {
             </a>
         </Link>
         } else {
-        button = <Button variant="contained" size="large" disableElevation disabled>
+        button = <Button variant="outlined" size="large" fullWidth disableElevation disabled>
                     Agotado
                 </Button>;
         }

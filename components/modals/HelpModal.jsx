@@ -22,7 +22,7 @@ export function HelpModal({ isOpen, onClose }) {
 		<Dialog open={isOpen} onClose={onClose}>
 			<Box padding={'1rem'}>
 				<Box marginTop={'1rem'}>
-					<Typography align='center' variant='h4'>
+					<Typography align='center' component="h3" variant="h5" fontWeight="fontWeightMedium">
 						Ayuda
 					</Typography>
 				</Box>
@@ -30,29 +30,31 @@ export function HelpModal({ isOpen, onClose }) {
 					<DialogContentText>
 						Horario de Atención Lunes a Domingo de 9 a 18:30hrs
 					</DialogContentText>
-					{items.map(({ description, icon: Icon, title }) => (
-						<Box key={title} marginBottom={'1.5rem'}>
-							<Paper>
-								<Box
-									className={`${pointer}`}
-									paddingY='0.5rem'
-									paddingLeft={'1rem'}
-									display='flex'
-									alignItems='center'
-									gridGap={'0.5rem'}>
-									<Box>
-										<IconButton>
-											<Icon fontSize='large' />
-										</IconButton>
+					<Box component="div" pt={2}>
+						{items.map(({ description, icon: Icon, title }) => (
+							<Box key={title} marginBottom={'1em'}>
+								<Paper variant="outlined">
+									<Box sx={{borderRadius:'8px'}}
+										className={`${pointer}`}
+										paddingY='0.5rem'
+										paddingLeft={'1rem'}
+										display='flex'
+										alignItems='center'
+										gridGap={'0.5rem'}>
+										<Box>
+											<IconButton>
+												<Icon fontSize='large' />
+											</IconButton>
+										</Box>
+										<Box>
+											<Box>{title}</Box>
+											<Box>{description}</Box>
+										</Box>
 									</Box>
-									<Box>
-										<Box>{title}</Box>
-										<Box>{description}</Box>
-									</Box>
-								</Box>
-							</Paper>
-						</Box>
-					))}
+								</Paper>
+							</Box>
+						))}
+					</Box>
 					<Box m={1} textAlign="center">
 						<Typography
 							variant="body2" color="textSecondary">

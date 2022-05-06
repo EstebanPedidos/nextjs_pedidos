@@ -10,7 +10,10 @@ import { Grid, Box, Paper,
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
-
+//Swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/css';
+import 'swiper/css/navigation';
 //Componentes
 import { Layout } from 'layout/Layout';
 
@@ -208,16 +211,23 @@ export default function Home() {
             <Grid item xs={12}> 
                 <Button  onClick={(event) => { event.preventDefault();setMostrarEmpresas(false)}}>Empresas</Button>
             </Grid>
-           
-            <Grid item xs={12}> 
-                <Card className={classes.root}>
-                    <CardContent>
-                        {validaSesion ? <h2>Hola de nuevo, {nombre}</h2> : ''}
-                        <Button variant="outlined" name="Modal1" onClick={handleOpen}><WhatsAppIcon fontSize="large" /></Button>
-                        <Button variant="outlined" onClick={() => window.open('mailto:info@pedidos.com?subject=Necesito%20apoyo%20con&body=')}><MailOutlineIcon fontSize="large" /> </Button>
-                    </CardContent>
-                </Card>
+            <Grid container spacing={2}>
+                <Grid item xs={8}>
+                    {validaSesion ? <Typography variant="h5" component="h1" xs={{fontWeight:'600'}}>
+                        Hola de nuevo, {nombre}</Typography>: ''}
+                </Grid>
+                <Grid item xs={2}>
+                    <Button fullWidth variant="outlined" name="Modal1" onClick={handleOpen}>
+                        <WhatsAppIcon fontSize="large" />
+                    </Button>
+                </Grid>
+                <Grid item xs={2}>
+                    <Button fullWidth variant="outlined" onClick={() => window.open('mailto:info@pedidos.com?subject=Necesito%20apoyo%20con&body=')}>
+                        <MailOutlineIcon fontSize="large" /> 
+                        </Button>
+                </Grid> 
             </Grid>
+           
             <Grid item xs={12}> 
                 <a href={'/Direcciones'}><Chip label="Mis Direcciones"/></a>
                 <a href={'/MisFacturas'}><Chip label="Mis Facturas"/></a>
@@ -231,127 +241,149 @@ export default function Home() {
                 <a href={'/MisDatos'}><Chip label="Configurar" variant="outlined"/></a>
             </Grid>
             <Divider/>
-            <Grid container justifyContent="center" spacing={0}> 
-                <Grid item xs={6} container justifyContent="center"> 
-                    <Card className={classes.root}>
-                        <CardContent>
-                            <Typography variant="h4" component="h4">
-                                Todo para tu espacio de trabajo
-                            </Typography>
+            <Box component="div" py={2}>
+            <Grid container spacing={2}>
+                <Grid item xs={12} md={5}>
+                    <Box component="div" py={4} textAlign="center">
+                        <Typography variant="h6" component="h2">
+                            Todo para tu espacio de trabajo
+                        </Typography>
+                        <Box  p={4}>
                             <Link href="/MisPedidos">
                                 <a>
-                                <FilterNoneIcon style={{ fontSize: 50 }}/>
+                                    <FilterNoneIcon style={{ fontSize: 40 }}/>
+                                
+                                    <Typography variant="h6" component="p">
+                                        Ver mis pedidos
+                                    </Typography>
                                 </a>
                             </Link>
-                            <Link href="/MisPedidos">
-                                <a>
-                                <Typography variant="h6" component="h6">
-                                    Ver mis pedidos
-                                </Typography>
-                                </a>
-                            </Link>
-                        </CardContent>
-                    </Card>
+                        </Box>
+                    </Box>
                 </Grid>
-                <Grid item xs={6} container justifyContent="center">
-                        <Card className={classes.root} style={{backgroundColor:'#343F95'}}>
-                            <CardContent> 
-                                <Grid item xs={4}> 
-                                        <Card className={classes.root}>
-                                            <CardContent>
-                                                {itemsHome.map((row) => (
-                                                    row.tipo === 'B' ? 
-                                                        <Card className={classes.root}>
-                                                            <CardContent>
-                                                                <Link href={`/articulos/${row.itemNum}`}>
-                                                                    <a>
-                                                                    <CardMedia
-                                                                    className={classes.cover}
-                                                                    component="img"
-                                                                    alt={row.itemNum}
-                                                                    image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
-                                                                    title={row.itemNum}
-                                                                    />
-                                                                    </a>
-                                                                </Link>
-                                                            </CardContent>
-                                                        </Card>
-                                                        
-                                                    : ''
-                                                    
-                                                ))}
-                                                <Typography variant="h6" component="h6">
-                                                    Carrito
-                                                </Typography>
-                                            </CardContent>
-                                        </Card>
-                                </Grid> 
+                <Grid item xs={12} md={7}>
 
-                                <Grid item xs={4}> 
-                                    <Card className={classes.root}>
-                                        <CardContent>
-                                            {itemsHome.map((row) => (
-                                                row.tipo === 'V' ? 
-                                                    <Card className={classes.root}>
-                                                        <CardContent>
-                                                            <Link href={`/articulos/${row.itemNum}`}>
-                                                                <a>
-                                                                <CardMedia
-                                                                className={classes.cover}
-                                                                component="img"
-                                                                alt={row.itemNum}
-                                                                image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
-                                                                title={row.itemNum}
-                                                                />
-                                                                </a>
-                                                            </Link>
-                                                        </CardContent>
-                                                    </Card>
-                                                    
-                                                : ''
-                                               
-                                            ))}
-                                            <Typography variant="h6" component="h6">
-                                                Vistos
-                                            </Typography>
-                                        </CardContent>
-                                    </Card>
-                                </Grid> 
+                <Swiper
+        //modules={[Autoplay]}
+        lazy={true}
+        spaceBetween={10}
+        slidesPerView={3}
+        //centeredSlides={true}
+        //autoplay={{
+        //"delay": 2500,
+        //"disableOnInteraction": false}}
+       
+        onSlideChange={() => console.log('slide change')}
+        onSwiper={(swiper) => console.log(swiper)}>
+        
+        <SwiperSlide  className={classes.swiperBox}>
+            <Box component="div" >
+                <Card elevation={12} className={classes.root}>
+                    <CardContent>
+                        {itemsHome.map((row) => (
+                            row.tipo === 'B' ? 
+                                <Card className={classes.root}>
+                                    <CardContent>
+                                        <Link href={`/articulos/${row.itemNum}`}>
+                                            <a>
+                                            <CardMedia
+                                            className={classes.cover}
+                                            component="img"
+                                            alt={row.itemNum}
+                                            image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
+                                            title={row.itemNum}
+                                            />
+                                            </a>
+                                        </Link>
+                                    </CardContent>
+                                </Card>
+                                
+                            : ''
+                            
+                        ))}
+                        <Typography variant="h6" component="h6">
+                            Carrito
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Box>
+        </SwiperSlide>
+        
+        <SwiperSlide> 
+            <Card elevation={10} className={classes.root}>
+                <CardContent>
+                    <Box sx={{ width: '100%' }}>
+                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                            {itemsHome.map((row) => (
+                                row.tipo === 'V' ? 
+                                <Grid item xs={6}>
+                                    <Link href={`/articulos/${row.itemNum}`}>
+                                        <a>
+                                        <CardMedia
+                                        className={classes.cover}
+                                        component="img"
+                                        alt={row.itemNum}
+                                        image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
+                                        title={row.itemNum}
+                                        />
+                                        </a>
+                                    </Link>
+                                </Grid>
+                                    
+                                : ''
+                            
+                            ))}
+                        </Grid>
+                    </Box>
+                    <Divider light />
+                    <Box component="div"  textAlign="center" py={2}>
+                        <Typography variant="subtitle1" >
+                            Vistos
+                        </Typography>
+                    </Box>
+                </CardContent>
+            </Card>
+        </SwiperSlide>
+        <SwiperSlide> 
+            <Card elevation={10} className={classes.root}>
+                <CardContent>
+                    <Box sx={{ width: '100%' }}>
+                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                        {itemsHome.map((row) => (
+                            row.tipo === 'F' ? 
+                            <Grid item xs={6}>
+                                <Link href={`/articulos/${row.itemNum}`}>
+                                    <a>
+                                    <CardMedia
+                                    className={classes.cover}
+                                    component="img"
+                                    alt={row.itemNum}
+                                    image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
+                                    title={row.itemNum}
+                                    />
+                                    </a>
+                                </Link>
+                            </Grid>
+                            : ''
+                        
+                        ))}
+                        <Typography variant="h6" component="h6">
+                            Favoritos
+                        </Typography>
+                        </Grid>
+                    </Box>
 
-                                <Grid item xs={4}> 
-                                    <Card className={classes.root}>
-                                        <CardContent>
-                                            {itemsHome.map((row) => (
-                                                row.tipo === 'F' ? 
-                                                    <Card className={classes.root}>
-                                                        <CardContent>
-                                                            <Link href={`/articulos/${row.itemNum}`}>
-                                                                <a>
-                                                                <CardMedia
-                                                                className={classes.cover}
-                                                                component="img"
-                                                                alt={row.itemNum}
-                                                                image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
-                                                                title={row.itemNum}
-                                                                />
-                                                                </a>
-                                                            </Link>
-                                                        </CardContent>
-                                                    </Card>
-                                                    
-                                                : ''
-                                               
-                                            ))}
-                                            <Typography variant="h6" component="h6">
-                                                Favoritos
-                                            </Typography>
-                                        </CardContent>
-                                    </Card>
-                                </Grid> 
-                            </CardContent>
-                        </Card>
-                </Grid>
+                </CardContent>
+            </Card>
+        </SwiperSlide>
+       
+        
+
+        </Swiper>
+                </Grid> 
             </Grid>
+
+            </Box>
 
             <Modal
                 aria-labelledby="transition-modal-title"
