@@ -1,5 +1,6 @@
 import { Box, Container, Typography } from '@material-ui/core';
 import { Layout } from 'layout/Layout';
+import Link from 'next/link'
 
 export const AvisoPrivacidad = () => {
 	return (
@@ -334,11 +335,11 @@ export const AvisoPrivacidad = () => {
 					<Typography variant='body2' component={'p'}>
 						“PayPal es un controlador independiente utilizado para
 						procesar los datos del cliente, información aquí:{' '}
-						<a
-							href='https://www.paypal.com/mx/webapps/mpp/ua/privacy-full'
-							target='_blank'>
-							https://www.paypal.com/mx/webapps/mpp/ua/privacy-full”
-						</a>
+                        <Link href='https://www.paypal.com/mx/webapps/mpp/ua/privacy-full'target='_blank' rel="noopener noreferrer">
+                            <a>
+                                https://www.paypal.com/mx/webapps/mpp/ua/privacy-full”
+                            </a>
+                        </Link>
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
@@ -551,7 +552,7 @@ export const AvisoPrivacidad = () => {
 						<br />
 						Uso de Cookies. El correcto funcionamiento de los sitios
 						Web de PEDIDOS.COM requieren de la habilitación de
-						“cookies” en tu navegador de Internet. Las "cookies" son
+						“cookies” en tu navegador de Internet. Las &ldquo;cookies&ldquo; son
 						pequeños archivos de datos transferidos por el sitio Web
 						al disco duro de tu computadora o dispositivo móvil
 						cuando navegas por sitios Web. En la mayoría de los
