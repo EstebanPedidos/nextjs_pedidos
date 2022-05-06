@@ -14,7 +14,7 @@ import PromoSlides from 'components/home/promoSlides';
 import ServiceSlides from 'components/home/serviceSlides';
 import Trends from 'components/home/trendSlides';
 import Brands from 'components/home/Brands';
-import ForBusiness from 'components/home/ForBusiness';
+import ForBusiness from 'components/home/forBusiness';
 // Import Swiper styles
 import { Swiper, SwiperSlide } from "swiper/react";
 //import SwiperCore, {Autoplay,Pagination,Navigation} from 'swiper';

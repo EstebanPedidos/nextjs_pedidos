@@ -22,7 +22,7 @@ import {Box, Grid, Paper, Typography,
     Card, CardContent, CardMedia, FormControl, InputLabel, MenuItem  } from '@mui/material';
 
 import { makeStyles } from '@material-ui/core/styles';
-import 'styles/Algolia.module.css';
+import 'styles/algolia.module.css';
 
 //Componentes
 import { Layout } from 'layout/Layout';
