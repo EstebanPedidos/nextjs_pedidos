@@ -7,7 +7,7 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     Card, CardContent, CardActions, CardMedia, CardActionArea, TextareaAutosize,
     FormHelperText, FormControl, MenuItem, IconButton,
     Input, InputLabel, InputAdornment, Chip, Snackbar, 
-    Alert, Stack, Rating } from '@mui/material';
+    Alert, Stack, Rating  } from '@mui/material';
 
 import DateFnsUtils from '@date-io/date-fns';
 import SearchIcon from '@mui/icons-material/Search';
@@ -20,6 +20,7 @@ import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCi
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 
+import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
+    position: 'absolute',
     backgroundColor: theme.palette.background.paper,
     borderRadius: '8px',
     boxShadow: theme.shadows[5],
@@ -77,7 +79,7 @@ export default function misFacturas() {
     const [result, setResult] = useState([]);
     const [resultado, setResultado] = useState(true);
     const [titulo, setTitulo] = useState('');
-    const [clienteNum, setClienteNum] = useState('');
+    const [clienteNum, setClienteNum] = useState(0);
     const [snack, setSnack] = React.useState('');
     const [statusRFC, setStatusRFC] = React.useState(false);
     const [cfdiSelect, setCfdiSelect] = React.useState([]);
@@ -185,7 +187,7 @@ export default function misFacturas() {
                 setSnack('uno')
                 let tipoPersona = (inputs.rfc == 13) ? 'fisica' : 'moral';
                 console.log('tipo de persona: '+tipoPersona)
-                Services('POST','/miCuenta/obtieneCfdi??tipoPersona='+tipoPersona,{})
+                Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
                 .then( response =>{
                     console.log('obtieneCfdi servicio')
                     console.log(response.data)
@@ -231,8 +233,7 @@ export default function misFacturas() {
 
     function consultarCp(){
         console.log("consultar CP");
-        MiCuentaService.consultaCp(inputs.cp)
-        Services('POST','/miCuenta/consultaCp?cp='+cp,{})
+        Services('POST','/miCuenta/consultaCp?cp='+inputs.cp,{})
         .then( response =>{
             console.log("Consultar CP service");
             console.log(response.data);
@@ -261,23 +262,24 @@ export default function misFacturas() {
 
 
     function getRefacturacion(){
-        Services('POST','/miCuenta/getRefacturacion',{
-            clienteNum:clienteNum,
-		    clienteRfc:inputs.rfc,
+        Services('POST-NOT','/miCuenta/getRefacturacion',{
+            clienteNum:parseInt(clienteNum),
+		    clienteRfc:inputs.rfc.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
             usoCfdi: inputs.cfdi,
-		    razonSocial:inputs.razonSocial,
+		    razonSocial:inputs.razonSocial.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
 		    telefono:inputs.telefono,
-		    contact:inputs.contacto,
-		    direccion:inputs.direccion,
+		    contact:inputs.contacto.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    direccion:inputs.direccion.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
 		    cp:inputs.cp,
-		    colonia:inputs.colonia,
-		    estado:inputs.estadoDelegacion,
+		    colonia:inputs.colonia.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    estado:inputs.estadoDelegacion.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
             invoice_num:invoicePedido.invoice_num,
             pedido_num:invoicePedido.pedido_num,
-		    delegacion:inputs.estadoDelegacion,
-		    mpago:inputs.metodoPago
+		    delegacion:inputs.estadoDelegacion.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    mpago:parseInt(inputs.metodoPago)
         })
         .then( response =>{  
+            alert("Respuesta:"+response.data)
         })
     }
 
@@ -509,7 +511,7 @@ export default function misFacturas() {
                     </Select>
                 </Grid>
                 <Grid item xs={12}>
-                    <Button color="primary" fullWidth >Generar</Button>
+                    <Button color="primary" fullWidth onClick={getRefacturacion}>Generar</Button>
                 </Grid>
             </Grid>
         </Box>
@@ -631,37 +633,37 @@ export default function misFacturas() {
                 }}
             >
                 <Fade in={open}>
-                <div className={classes.paper}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}> 
-                            <h2>{usu_nombre}, ¿Necesitas Refacturar?</h2> 
-                        </Grid>
+                    <div className={classes.paper}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}> 
+                                <h2>{usu_nombre}, ¿Necesitas Refacturar?</h2> 
+                            </Grid>
 
-                        <Grid item xs={12}> 
-                            <div className="video-responsive">
-                                <iframe
-                                width="360"
-                                height="420"
-                                src={`https://www.youtube.com/embed/MGuOo1_xpBI`}
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                title="Embedded youtube"
-                                />
-                            </div>
-                        </Grid>
+                            <Grid item xs={12}> 
+                                <div className="video-responsive">
+                                    <iframe
+                                    width="360"
+                                    height="420"
+                                    src={`https://www.youtube.com/embed/MGuOo1_xpBI`}
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    title="Embedded youtube"
+                                    />
+                                </div>
+                            </Grid>
 
-                        <Grid item xs={12}> 
-                            <Button onClick={handleClose}>
-                                <Chip label="Después" variant="outlined"/>
-                            </Button>
-                            <Button onClick={handleClose}>
-                                <Chip label="Entendido" color="primary"/>
-                            </Button>
-                        </Grid>
+                            <Grid item xs={12}> 
+                                <Button onClick={handleClose}>
+                                    <Chip label="Después" variant="outlined"/>
+                                </Button>
+                                <Button onClick={handleClose}>
+                                    <Chip label="Entendido" color="primary"/>
+                                </Button>
+                            </Grid>
 
-                    </Grid>
-                </div>
+                        </Grid>
+                    </div>
                 </Fade>
             </Modal>
 
@@ -719,7 +721,9 @@ export default function misFacturas() {
                 </Fade>
             </Modal>
 
-            <Snackbar
+            
+        </div>
+        <Snackbar
             anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'right',
@@ -727,37 +731,42 @@ export default function misFacturas() {
             open={openSnack && snack === 'uno'}
             autoHideDuration={6000}
             onClose={handleCloseSnack}>
+                <div>
             <Alert onClose={handleCloseSnack} severity="success">
             La estructura de la clave de RFC es valida
             </Alert>
-            </Snackbar>
+            </div>
+        </Snackbar>
 
-            <Snackbar
-                anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-                }}
-                open={openSnack && snack === 'dos'}
-                autoHideDuration={6000}
-                onClose={handleCloseSnack}>
-                <Alert onClose={handleCloseSnack} severity="warning">
-                Por favor ingrese un RFC
-                </Alert>
-            </Snackbar>
+        <Snackbar
+            anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+            }}
+            open={openSnack && snack === 'dos'}
+            autoHideDuration={6000}
+            onClose={handleCloseSnack}>
+                <div>
+            <Alert onClose={handleCloseSnack} severity="warning">
+            Por favor ingrese un RFC
+            </Alert>
+            </div>
+        </Snackbar>
 
-            <Snackbar
-                anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-                }}
-                open={openSnack && snack === 'tres'}
-                autoHideDuration={6000}
-                onClose={handleCloseSnack}>
-                <Alert onClose={handleCloseSnack} severity="error">
-                Lo sentimos, el RFC no es valido.
-                </Alert>
-            </Snackbar>  
-        </div>
+        <Snackbar
+            anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+            }}
+            open={openSnack && snack === 'tres'}
+            autoHideDuration={6000}
+            onClose={handleCloseSnack}>
+                <div>
+            <Alert onClose={handleCloseSnack} severity="error">
+            Lo sentimos, el RFC no es valido.
+            </Alert>
+            </div>
+        </Snackbar>  
         </Layout>
     );
 }
