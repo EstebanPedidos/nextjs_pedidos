@@ -14,6 +14,7 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
+import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Layout } from 'layout/Layout';
@@ -22,6 +23,7 @@ import Services from '../services/Services'
 
 //NextJs
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -61,7 +63,7 @@ imgProduct: {
 },
 }));
 
-export default function pedido(props) {
+export default function Pedido(props) {
 
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(2);
@@ -539,7 +541,7 @@ export default function pedido(props) {
                                                                                     alt="servicio de pedidos.com" width="50px" height="50"/>                                                              
                                                                                 </span>
                                                                             }
-                                                                            No. certificado: {result.guia.guiaLink === "" && result.guia.certifNum} {result.guia.guiaLink != "" && <a href={result.guia.guiaLink} target="_blank">{result.guia.certifNum}</a>} 
+                                                                            No. certificado: {result.guia.guiaLink === "" && result.guia.certifNum} {result.guia.guiaLink != "" && <Link href={result.guia.guiaLink} target="_blank" rel="noopener noreferrer"><a>{result.guia.certifNum}</a></Link>} 
                                                                             <p>Transportista: {result.guia.nombreChofer+" "+result.guia.maternoChofer}</p>
                                                                         </Typography>
                                                                     </span>
@@ -692,7 +694,7 @@ export default function pedido(props) {
                                         </Grid>
                                         <Grid item xs={12}>
                                         {result.pedido.listPyPedidoDet.map((row, index) => (                        
-                                            <Box component="div" py={2}>                       
+                                            <Box component="div" py={2} key={row.itemNum}>                       
                                                 <Paper className={classes.paperBox}>
                                                     <Box component="div" py={2} textAlign="center">
                                                         

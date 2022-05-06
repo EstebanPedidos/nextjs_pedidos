@@ -207,7 +207,7 @@ export default function Direcciones() {
                       <Grid item xs={12}>
                           <Grid container justifyContent="center" spacing={spacing}>
                             {result.map((row) => (
-                              <Grid item xs={6} sm={6} lg={4}> 
+                              <Grid item xs={6} sm={6} lg={4} key={row.rfcNum}> 
                                   <Card className={classes.boxCardI}>
                                       <CardContent>
                                         <Box component="div" pb={2} display="flex" alignItems="center" justifyContent="center" mx="auto">
@@ -216,7 +216,7 @@ export default function Direcciones() {
                                             </Avatar>
                                         </Box>
                                         <Box component="div" className={classes.boxContent}>  
-                                          <Typography variant="h6" component="h2" key={row.rfcNum}>
+                                          <Typography variant="h6" component="h2">
                                           {row.nombre}
                                           </Typography>
                                           <Typography gutterBottom>
@@ -350,7 +350,7 @@ export default function Direcciones() {
                     >
                     <MenuItem value="-">Selecciona</MenuItem>
                     {resultCP.map((select) => (
-                    <MenuItem value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
+                    <MenuItem key={select.delegacion} value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
                     ))}
                     </Select>
               </Grid>

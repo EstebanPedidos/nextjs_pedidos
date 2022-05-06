@@ -15,6 +15,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 
+import MuiAlert from '@material-ui/lab/Alert';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Layout } from 'layout/Layout';
@@ -684,7 +686,7 @@ export default function MisDatos() {
                                                                 Seleccionar
                                                             </MenuItem>
                                                             {todosMisTelefonos.listPyTelefonoCliente.map((row) => (
-                                                                <MenuItem value={row.telefono}>{row.telefono}</MenuItem>
+                                                                <MenuItem key={row.telefono} value={row.telefono}>{row.telefono}</MenuItem>
                                                             ))}
                                                             </Select>
                                                             <FormHelperText>Seleccionar</FormHelperText>
@@ -709,7 +711,7 @@ export default function MisDatos() {
                                                             Seleccionar
                                                         </MenuItem>
                                                         {todosMisTelefonos.listPyCelularSms.map((row) => (
-                                                            <MenuItem value={row.celular}>{row.celular}</MenuItem>
+                                                            <MenuItem key={row.celular} value={row.celular}>{row.celular}</MenuItem>
                                                         ))}
                                                         </Select>
                                                         <FormHelperText>Seleccionar</FormHelperText>
@@ -1021,7 +1023,7 @@ export default function MisDatos() {
                                     <em>Selecciona</em>
                                 </MenuItem>
                                 {tipoTelefonos.map((row) => (
-                                    <MenuItem value={row.tipoNum}>{row.tipo}</MenuItem>
+                                    <MenuItem key={row.tipoNum} value={row.tipoNum}>{row.tipo}</MenuItem>
                                     ))
                                 }
                                 </Select>
@@ -1062,7 +1064,7 @@ export default function MisDatos() {
                 <Box component="div" textAlign="center" py={2}>
                     <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}> 
                         {todosMisTelefonos.listPyTelefonoCliente.map((row) => (
-                        <Grid item xs={12}>
+                        <Grid item xs={12} key={row.telefono}>
                             <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
                                 <Grid item xs={8} sm={6}>
                                     <TextField fullWidth
@@ -1118,7 +1120,7 @@ export default function MisDatos() {
                             <Divider variant="middle"/>
                         </Box>
                         {todosMisTelefonos.listPyCelularSms.map((row) => (
-                        <Grid item xs={12}>
+                        <Grid item xs={12} key={row.celular}>
                             <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}> 
                                 <Grid item xs={9}>
                                     <TextField fullWidth

@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-export default function drawerCategorias() {
+export default function DrawerCategorias() {
 
     const [openModal, setOpenModal] = useState(false);
 	const [openMenu, setOpenMenu] = useState(false);
@@ -247,7 +247,7 @@ export default function drawerCategorias() {
           >
             
               {arr.map((text, index) => (
-                <List>
+                <List key={index}>
                     {(() => {
                         if(text === "Gomas" || text === "Sacapuntas" || text === "Clips" || text === "Pin" || text ==="Chinchetas" || text ==="Kit" || text === "Broche Baco" || text === "Sujetadocumentos" || text === "Grapas" || text === "Ligas de hule" || text === "Gafete" || text === "Broche para gafete" || text === "Calculadora" || text === "Dedales" || text === "Sumadoras"){
                             return  <ListItem button key={text}>

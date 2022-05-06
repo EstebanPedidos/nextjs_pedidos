@@ -19,7 +19,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 //Componentes
 import { Layout } from 'layout/Layout';
-import ProductTab   from '../Articulos/ProductTab';
 
 import Services from '../services/Services'
 import Link from 'next/link'

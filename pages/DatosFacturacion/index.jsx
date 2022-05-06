@@ -12,6 +12,8 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined';
 
 import { makeStyles } from '@material-ui/core/styles';
+import MuiAlert from '@material-ui/lab/Alert';
+
 
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
@@ -275,7 +277,7 @@ export default function DatosFacturacion() {
                                         <Grid item xs={12}>
                                             <Grid container justifyContent="flex-start" spacing={spacing}>
                                                 {result.map((row) => (
-                                                    <Grid item xs={6} sm={6} lg={4}> 
+                                                    <Grid item xs={6} sm={6} lg={4} key={row.rfcNum}> 
                                                         <Card className={classes.boxCardF}>
                                                             <CardContent>
                                                                 <Box component="div" pb={2} display="flex" alignItems="center" justifyContent="center" mx="auto">

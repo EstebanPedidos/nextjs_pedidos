@@ -63,7 +63,7 @@ paperBox: {
 },
 }));
 
-export default function misNotasCredito() {
+export default function MisNotasCredito() {
 
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(2);
@@ -162,7 +162,7 @@ export default function misNotasCredito() {
 
     const Contenido = (
         result.map((row) => (
-            <Grid container justifyContent="space-between" alignItems='center' spacing={2}>
+            <Grid container justifyContent="space-between" alignItems='center' spacing={2} key={row.invoice}>
                 <Grid item xs={4}> 
                     <Card className={classes.paperBox}>
                         <CardContent>

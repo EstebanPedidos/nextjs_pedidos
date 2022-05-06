@@ -711,7 +711,7 @@ export default function Busquedas(props) {
                                         <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/page-info/notfound.svg" alt="Sin resutado de busquedas" />
                                     </Box>
                                     <Box component="div" textAlign="center">
-                                        <Typography component="h3" variant="h4">No encontramos "{url}"</Typography>
+                                        <Typography component="h3" variant="h4">No encontramos &ldquo;{url}&ldquo;</Typography>
                                         <Typography component="p" variant="subtitle1">Intente con un término de búsqueda diferente o contáctanos para ayudarte.</Typography>
                                     </Box>
                             </Box>

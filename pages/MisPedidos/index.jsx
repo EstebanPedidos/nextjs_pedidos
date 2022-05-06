@@ -8,6 +8,7 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     Input, InputLabel, InputAdornment, Chip, Snackbar, 
     Alert, Stack, Rating } from '@mui/material';
 
+import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
@@ -61,7 +62,7 @@ paperBox: {
 },
 }));
 
-export default function misPedidos() {
+export default function MisPedidos() {
 
     const [spacing, setSpacing] = React.useState(2);
     const classes = useStyles();
@@ -235,7 +236,7 @@ export default function misPedidos() {
 
     const Contenido = (
         result.map((row) => (
-            <Grid container justifyContent="space-between" alignItems='center' spacing={2}>
+            <Grid container justifyContent="space-between" alignItems='center' spacing={2} key={row.pedidoNum}>
                 <Grid item xs={12} sm={4}> 
                     <Card className={classes.paperBox}>
                         <CardContent>

@@ -1,8 +1,8 @@
 import { Box, Grid, Container, Typography, Button } from '@material-ui/core';
 import React from 'react';
-import { COLORS } from '../app/theme';
+// import { COLORS } from '../app/theme';
 import { Carousel } from '/components';
-import { Layout } from '/layout';
+import { Layout } from 'layout/Layout';
 import { useMediaQuery } from '@material-ui/core';
 
 export const Empresas = () => {

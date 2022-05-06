@@ -36,7 +36,7 @@ export default function promoSlides() {
         </SwiperSlide>
         <SwiperSlide> 
           <Typography variant="subtitle1">
-            Meses Sin Intereses en compras mayores a $500 MXN. <a class="t-underline c-white" href="/meses-sin-intereses.asp" target="_blank">Consulta tarjetas participantes.</a>
+            {/* Meses Sin Intereses en compras mayores a $500 MXN. <a class="t-underline c-white" href="/meses-sin-intereses.asp" target="_blank">Consulta tarjetas participantes.</a> */}
           </Typography>
         </SwiperSlide>
         <SwiperSlide> 

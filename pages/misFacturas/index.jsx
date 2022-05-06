@@ -66,7 +66,7 @@ paperBox: {
 },
 }));
 
-export default function misFacturas() {
+export default function MisFacturas() {
 
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(2);
@@ -307,7 +307,7 @@ export default function misFacturas() {
             container
             direction="row"
             justifyContent="center"
-            alignItems="center">
+            alignItems="center" key={row.pedidoNum}>
                 <Grid item xs={12}>
                     <Box component="div" py={2}>
                         <Paper className={classes.paperBox}>
@@ -392,7 +392,7 @@ export default function misFacturas() {
                     label="Uso de CDFI"
                     >
                         {cfdiSelect.map((select) => (
-                            <MenuItem value={select.idUsu}>{select.descripcion}</MenuItem>
+                            <MenuItem key={row.idUsu} value={select.idUsu}>{select.descripcion}</MenuItem>
                         ))}
                     </Select>
                 </Grid>
@@ -482,7 +482,7 @@ export default function misFacturas() {
                     >
                         <MenuItem value="-">Selecciona</MenuItem>
                         {resultCP.map((select) => (
-                            <MenuItem value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
+                            <MenuItem key={row.delegacion} value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
                         ))}
                     </Select>
                 </Grid>
