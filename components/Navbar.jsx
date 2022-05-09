@@ -101,7 +101,7 @@ export function Navbar() {
 						</Hidden>
 					</Box>
 					{/* <Hidden smDown='hide'> */}
-					<Hidden smDown='hide'>
+					<Hidden smDown>
 						<Box width='30%'>
 							<TextField
 								size='small'
@@ -129,7 +129,7 @@ export function Navbar() {
 						flexWrap='nowrap'
 						component={'div'}>
 						{/* This inline styles is temporaly, when add link router component, remove */}
-						<Hidden smDown={true}>
+						<Hidden smDown>
 							<Box
 								component={'span'}
 								style={{ cursor: 'pointer' }}>

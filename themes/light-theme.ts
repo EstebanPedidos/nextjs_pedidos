@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material';
 
 export const lightTheme = createTheme({
 	palette: {
-		mode: 'light',
+		// mode: 'light',
 		common: {
 			blue: '#3655a5',
 			orange: '#f1861c',
@@ -54,12 +54,12 @@ export const lightTheme = createTheme({
 		// h3: {
 		// 	fontWeight: '600',
 		// },
-		button: {
-			textTransform: 'none',
-			height: '2.5rem',
-			// no borrar el padding, ya que impacta en el diseno general, 12px es el padding por defecto, por alguna razon al no pasarle padding, sobre escribia el original y lo seteaba en 0, por favor no eliminar
-			padding: '0.8rem',
-		},
+		// button: {
+		// 	textTransform: 'none',
+		// 	height: '2.5rem',
+		// no borrar el padding, ya que impacta en el diseno general, 12px es el padding por defecto, por alguna razon al no pasarle padding, sobre escribia el original y lo seteaba en 0, por favor no eliminar
+		// 	padding: '0.8rem',
+		// },
 	},
 });
 export default lightTheme;
