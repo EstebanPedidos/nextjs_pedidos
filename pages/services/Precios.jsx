@@ -7,6 +7,9 @@ function Precios(accion,json){
         case 'formatcurrency':
           return formatcurrency(json)
           break;
+        case 'formato':
+          return formato(json)
+          break;
         default:
           return null
     }
@@ -24,16 +27,27 @@ function Precios(accion,json){
                 decimales       = (sepDec[1] > 4)?(parseFloat(sepDec[0])+1).toString()+'0':sepDec[0]+'0';
     
                 if(parseFloat(decimales) >= 100){
-                    enteros     = (parseInt(enteros)+1).toString();
+                    enteros     = (parseInt(enteros)+1).toString()
                     decimales   = '00'
                 }
             }        
-        }  
-        return enteros+"."+decimales;
+        } 
+        if(json.hasOwnProperty('formato')){
+            if(json.formato){
+                enteros = formato(enteros)
+            }
+        }
+        return enteros+"."+decimales
     }
 
     function formatcurrency(json){
-        return parseFloat(json.subtotal).toFixed(json.fixed);
+        return formato(parseFloat(json.subtotal).toFixed(json.fixed));
+    }
+
+    function formato(numb) {
+        var str = numb.toString().split(".");
+        str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return str.join(".");
     }
 }
 

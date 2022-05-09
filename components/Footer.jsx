@@ -1,11 +1,8 @@
 import React from 'react';
 // import { Link as RouterLink} from 'react-router-dom';
-
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import {Grid, Box, Typography,Skeleton,Divider,Button } from '@mui/material';
 // import logo from '../assets/pedidos-logo.svg';
 import { logoUrl as logo } from '../constants';
-import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -25,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 		position: 'relative',
 	},
 	gridItem: {
-		margin: '4.5rem',
+		margin: '5%',
 	},
 	titlefooter: {
 		fontWeight: '600',
@@ -69,7 +66,70 @@ export function FooterDesktop() {
 	const classes = useStyles();
 
 	return (
+		
 		<footer className='classes.footer'>
+			<Box component="div" py={2}>
+				<Grid
+					container
+					direction='row'
+					justifyContent='center'
+					alignItems='flex-end'
+					spacing={4}
+					>
+						<Grid item>
+							<Box component="div" p={1}>
+								<img
+									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/hp-partner.svg"
+									srcSet=""
+									alt="HP Partner First Platinum"
+									loading="lazy"
+								/>
+							</Box>
+						</Grid>	
+						<Grid item>
+							<Box component="div" p={1}>
+								<img
+									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/apple-ar.svg"
+									srcSet=""
+									alt="Apple  Authorized  Reseller"
+									loading="lazy"
+								/>
+							</Box>
+						</Grid>	
+						<Grid item>
+							<Box component="div" p={1}>
+								<img 
+									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/afiliado-amvo1.png"
+									srcSet=""
+									alt="Amvo"
+									loading="lazy"
+									
+								/>
+							</Box>
+						</Grid>	
+						<Grid item>
+							<Box component="div" p={1}>
+								<img
+									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/epson.svg"
+									srcSet=""
+									alt="EPSON"
+									loading="lazy"
+								/>
+							</Box>
+						</Grid>	
+						<Grid item>
+							<Box component="div" p={1}>
+								<img
+									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/norton.svg"
+									srcSet=""
+									alt="Norton Secured"
+									loading="lazy"
+								/>
+							</Box>
+						</Grid>	
+				</Grid>
+			</Box>
+			<Divider />
 			<Grid
 				container
 				direction='row'
@@ -196,24 +256,19 @@ export function FooterDesktop() {
 					</Grid>
 				</Grid>
 				<Grid item className={classes.gridItem}>
-					<Grid container direction='column' spacing={3}>
+					<Grid container direction='column' spacing={2}>
 						<Grid item className={classes.titlefooter}>
 							Contacto
 						</Grid>
 						<Grid item>Horario de atención 9:00 a 18:30 hrs</Grid>
+						
 						<Grid item>
-							<Button variant='outlined' color='primary'>
-								Ver opciones
-							</Button>
-						</Grid>
-
-						<Grid item>
-							<Button variant='outlined' color='primary'>
-								Cotizar por volumen
+							<Button variant='outlined' color='primary' fullWidth>
+								Cotizar precio por volumen
 							</Button>
 						</Grid>
 						<Grid item>
-							<Button color='primary'>
+							<Button variant='outlined' color='primary' fullWidth>
 								Comunícate con ventas
 							</Button>
 						</Grid>

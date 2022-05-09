@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 //Material UI
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -16,12 +16,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function NotasCredito(props){
+export default function NotasCredito({notas,salectOption,aplicar}){
     const classes = useStyles();
-    let   notas   = props.notas
+    const [notasDos,setNotasDos] = useState([])
+    useEffect(()=>{
+        setNotasDos(notas)
+    },[])
+
     return(
         <div>
-            {(notas.length > 0)&&          
+            {(notasDos.length > 0)&&          
             <>
             <Box component="div" pt={4} className={classes.root}>
                 <Grid container  direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
@@ -34,18 +38,18 @@ export default function NotasCredito(props){
             <Box py={2}>
                 <Grid container direction="row" justifyContent="space-around" alignItems="center" spacing={2}>
                     {
-                    notas.map((nota, index) => (
-                        <Grid item xs={6}>
-                            <div key={index}>  
+                    notasDos.map((nota, index) => (
+                        <Grid  key={index} item xs={6}>
+                            <div>  
                                 <Card variant="outlined">
                                     <CardActionArea>
                                         <CardContent>
                                             <Box component="div">
                                                 <Grid container alignItems="center">
                                                     <Grid item xs={12}>
-                                                    <FormControlLabel name='nota' value={nota.invoiceNum} onChange={props.salectOption}
+                                                    <FormControlLabel name='nota' value={nota.invoiceNum} onChange={salectOption}
                                                         control={
-                                                            <Checkbox checked={(props.aplicar.indexOf(nota.invoiceNum+'') >= 0)} id={nota.aplica}  />
+                                                            <Checkbox checked={(aplicar.indexOf(nota.invoiceNum+'') >= 0)} id={nota.aplica}  />
                                                         }
                                                         label={
                                                             <Grid item xs={8}>

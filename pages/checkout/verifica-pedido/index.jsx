@@ -3,10 +3,11 @@ import {useState,useEffect} from 'react'
 import * as React from 'react';
 //next js
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 //Paquetes
 import {Box, Grid, Paper, Typography,
         Button, TextField, Divider, 
-        Alert, Stack, AlertTitle,  Link  } from '@mui/material';
+        Alert, Stack, AlertTitle} from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import LoadingButton from '@mui/lab/LoadingButton';
 //Componentes MUI4
@@ -16,12 +17,11 @@ import Services from '../../services/Services'
 //Funciones
 import Precios from '../../services/Precios'
 //Componentes
-import DataContext from './Context/DataContext'
+import Alertas from '../Alertas';
 import ItemFavorites from './ItemFavorites'
 import Cart from './Cart'
 import Eliminar from '../modals/Eliminar'
 import ModalExecutive   from '../modals/ModalExecutive'
-import { RestorePageOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,8 +50,7 @@ export default function Verifica_pedido(){
     const [modificar,setModificar]              = useState(0)
     const [ejecutivo,setEjecutivo]              = useState({ejecutivo:'', slmn:0})
     const [cupon,setCupon]                      = useState('')
-    
-
+    const [alerta,setAlerta]                    = useState({})
     const [carrito,setCarrito]                  = useState({})
     const [partidas,setPartidas]                = useState(0)
     const [isEjecutivo,setisEjecutivo]          = useState(false)
@@ -69,7 +68,7 @@ export default function Verifica_pedido(){
             let afiliado        = await localStorage.getItem('afiliado') 
             let services        = await Services('GET','/carritoyreservado/getCarrito?clienteNum='+cliente+'&usuarioNum='+usuario+'&top=10&afiliado='+afiliado,{})
             let carritoS        = await services.data
-            let totalS          = await carritoS.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+            let totalS          = await carritoS.configCarrito.precarrito.map(item => ((item.precio*item.cantidad) +(item.precioSeguro*item.cantSeguro)+(item.precioGarant1*item.cantGarant1))).reduce((prev, curr) => prev + curr, 0)
             let isEjecutivo     = await (carritoS.configCarrito.resenapedidos.length > 0)
             let num_partidas    = await carritoS.configCarrito.precarrito.length
             let pyitemsfavoritos= await carritoS.configCarrito.pyitemsfavoritos 
@@ -97,7 +96,6 @@ export default function Verifica_pedido(){
                 return f
             }
             let articulos =  await carritoS.configCarrito.precarrito.map((item) => item.item_num)
-
             setCarrito(carritoS)
             setPartidas(num_partidas)
             setisEjecutivo(isEjecutivo)
@@ -108,26 +106,31 @@ export default function Verifica_pedido(){
         getData()   
     },[partidas])
 
+
     function add(item_num){
+        setLoading(true)
         Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: localStorage.getItem('Cliente'),usuario_num : localStorage.getItem('Usuario'),cantidad : 1,item_num : item_num,seguro : '',garantia : ''})
         .then( response =>{
             if(response.data > 0){
                 setPartidas(response.data)
+                setLoading(false)
             }
         }) 
     }
 
     async function Delete(item_num){
+        setLoading(true)
         if(deleteAll && Remove.length===0){
-            alert('sin item')
+            setAlerta({severity:'error',mensaje:'Selecciona un articulo',vertical:'bottom',horizontal:'right'})
+            setLoading(false)
             return 
         }
 
         let articulosD   = await (item_num === 'V' || item_num === 'E')?(deleteAll)?Remove.toString():articulos.toString():item_num
-        
         Services('DELETE','/carritoyreservado/deleteCarrito?clienteNum='+localStorage.getItem('Cliente')+'&usuarioNum='+localStorage.getItem('Usuario')+'&items='+articulosD,{})
         .then( response =>{
-            setPartidas(response.data)                        
+            setLoading(false)
+            setPartidas(response.data)                                   
         })        
         
     }
@@ -138,11 +141,11 @@ export default function Verifica_pedido(){
             carrito.configCarrito.precarrito[name].modificar = await true    
             carrito.configCarrito.precarrito[name].cantidad  = await 6        
         }else if(id === 'input'){
-            carrito.configCarrito.precarrito[name].cantidad = await value            
+            carrito.configCarrito.precarrito[name].cantidad = await (parseInt(value) > carrito.configCarrito.precarrito[name].existencia)?carrito.configCarrito.precarrito[name].existencia:value
         }else{
             carrito.configCarrito.precarrito[name].cantidad = await value 
         }  
-        let totalR  =  await carrito.configCarrito.precarrito.map(item => ((Precios('formatcurrency',{subtotal:item.precio,fixed:2})*item.cantidad)+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2))).reduce((prev, curr) => prev + curr, 0)
+        let totalR  =  await carrito.configCarrito.precarrito.map(item => item.precio*item.cantidad).reduce((prev, curr) => prev + curr, 0)
         setTotal(totalR)
     }
 
@@ -152,13 +155,13 @@ export default function Verifica_pedido(){
             Services('GET','/carritoyreservado/validaCodigoDescuento?clienteNum='+localStorage.getItem('Cliente')+'&usuarioNum='+localStorage.getItem('Usuario')+'&cupon='+cupon,{})
             .then( response =>{
                 if(response.data)  {
-                    alert("Continua para ver el descuento")
+                    setAlerta({severity:'success',mensaje:'Continua para ver el descuento',vertical:'bottom',horizontal:'right'})
                 }else{
-                    alert('Algo salió mal Es posible que el código sea incorrecto o no aplique en tú carrito')
+                    setAlerta({severity:'error',mensaje:'Algo salió mal Es posible que el código sea incorrecto o no aplique en tú carrito',vertical:'bottom',horizontal:'right'})
                 } 
             }) 
         }else{
-            alert('Ingresa un código de descuento')
+            setAlerta({severity:'error',mensaje:'Ingresa un código de descuento',vertical:'bottom',horizontal:'right'})
         }
 
     }
@@ -167,21 +170,27 @@ export default function Verifica_pedido(){
         setLoading(true)
         if(carrito.configCarrito.precarrito.length > 0){
             var arraySkus = new Array();
-            carrito.configCarrito.precarrito.map(function(item) {                
-                if(item.cantidad > 0){
-                    var objeto      = new Object()
-                    objeto.sku        = item.item_num.replace(' ', '');
-                    objeto.cantidad   = item.cantidad;
-                    objeto.seguro     = 0;
-                    objeto.gaex       = 0 ;
-                    objeto.itemGarant = "";
-                    arraySkus.push(objeto)
+            carrito.configCarrito.precarrito.map(function(item) {    
+                if(item.exis !== 'X' ){
+                    if(item.cantidad > 0){
+                        var objeto      = new Object()
+                        objeto.sku        = item.item_num.replace(' ', '');
+                        objeto.cantidad   = item.cantidad;
+                        objeto.seguro     = 0;
+                        objeto.gaex       = 0 ;
+                        objeto.itemGarant = "";
+                        arraySkus.push(objeto)
+                    }else{
+                        setLoading(false)
+                        setAlerta({severity:'error',mensaje:'El articulo '+item.item_num+' no se puede reservar con cantidad 0',vertical:'bottom',horizontal:'right'})
+                        return ;
+                    }
                 }else{
                     setLoading(false)
-                    alert("El articulo "+item.item_num+' no se puede reservar con cantidad 0')
-                    return false;
-                }
-                
+                    arraySkus = [];
+                    setAlerta({severity:'error',mensaje:'El articulo '+item.item_num+' no cuenta con existencia',vertical:'bottom',horizontal:'right'})
+                    return
+                }                
             })
 
             if(arraySkus.length > 0){
@@ -191,10 +200,12 @@ export default function Verifica_pedido(){
                         localStorage.setItem('Pedido', response.data.pedido)
                         ruter.push('/checkout/direccion-de-envio')
                     }else{
+                        setAlerta({severity:'error',mensaje:'Error en reservar',vertical:'bottom',horizontal:'right'})
                         setLoading(false)
                     }                    
                 }) 
             }else{
+                setAlerta({severity:'error',mensaje:'No se cuenta con ningun articulo',vertical:'bottom',horizontal:'right'})
                 setLoading(false)
             }           
         }
@@ -202,13 +213,13 @@ export default function Verifica_pedido(){
 
     return (
             <Box component="div"m={1}>
-                sdfsfds
                 <div className={classes.root}>
                     <Grid container justifyContent="space-around" alignItems="flex-start">
                         <Grid item xs={12} sm={8}>
                         <ItemFavorites 
                         favoritos={favoritos}
                         add={add}
+                        loading={loading}
                         />
                         {partidas > 0 ? (
                             <Box component="div" m={2} >                        
@@ -231,7 +242,7 @@ export default function Verifica_pedido(){
                                                 Cancelar
                                             </Button>
                                         ) : (
-                                            <Button variant="outlined" size="large" fullWidth sx={{borderColor:'common.lightgray', color:'common.darkgray'}}
+                                            <Button variant="outlined" size="large" fullWidth sx={{borderColor:'rgba(166, 173, 185, 0.48)', color:'#A6ADB9'}}
                                                 onClick={() => {
                                                     setDeleteAll(true);
                                                 }}
@@ -258,7 +269,7 @@ export default function Verifica_pedido(){
                                 </Box>
                             )}
                             {carrito.configCarrito.precarrito.find((items) => {
-                                return items.exis === "N";
+                                return items.exis === "X";
                             }) !== undefined && (
                                 <Box component="div">
                                     <Alert severity="error"><strong>Sin disponibilidad</strong> de producto</Alert>
@@ -294,7 +305,8 @@ export default function Verifica_pedido(){
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <Button component={Link} to={'/home'} variant="contained" color="secondary">Comenzar</Button>     
+                                            <Link variant="contained" color="secondary" href="/"><a>Comenzar</a></Link>
+                                            {/* <Button component={Link} to={'/home'} variant="contained" color="secondary">Comenzar</Button>      */}
                                         </Grid>
                                     </Grid>
                                 </Box>
@@ -349,7 +361,7 @@ export default function Verifica_pedido(){
                                                             variant="contained"
                                                             fullWidth
                                                             size="large"
-                                                            sx={{ backgroundColor:'primary.gray' }}
+                                                            sx={{ backgroundColor:'#A6ADB9' }}
                                                             
                                                             onClick={validaCodigoDescuento}
                                                             >
@@ -417,6 +429,9 @@ export default function Verifica_pedido(){
                                             <Divider light />
                                         </Box>
                                         <Box component="div" py={2} >
+                                        {carrito.configCarrito.precarrito.find((items) => {
+                                            return items.exis === "X";
+                                        }) === undefined &&
                                             <LoadingButton variant="contained"
                                             fullWidth
                                             size="large"
@@ -427,6 +442,7 @@ export default function Verifica_pedido(){
                                             >
                                                 Continuar compra
                                             </LoadingButton>
+                                        }
                                         </Box>
                                         {(deleteAll)  ? (
                                             <Box component="div">
@@ -464,6 +480,9 @@ export default function Verifica_pedido(){
 
                     </Grid>
                 </div>
+                {(alerta.hasOwnProperty('severity'))&&
+                    <Alertas setAlerta={setAlerta} alerta={alerta}/>
+                } 
             </Box>
     )
 }

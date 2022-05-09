@@ -1,4 +1,4 @@
-
+import {useState,useEffect} from 'react'
 import {Box,Grid,Alert,Paper,Divider,Typography} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 //MUI
@@ -10,6 +10,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function ResumeConfirmation({data}){
 	const classes   = useStyles();	
+	const [dataT,setDataT] = useState({})
+
+    useEffect(()=>{
+        setDataT(data) 
+    },[])
+
 	function FormaPago(formaPago){
 		switch (formaPago) {
 			case 1:
@@ -30,6 +36,8 @@ export default function ResumeConfirmation({data}){
 	}
 
     return (
+		<>
+        {(dataT.hasOwnProperty('jsonResumen'))&&
         <div>
 		<Paper variant="outlined">
 			<Box component="div" m={1} p={1}>
@@ -49,27 +57,27 @@ export default function ResumeConfirmation({data}){
 				<div>
 					<Typography component="h2" variant="subtitle1">
 						<Box component="span" fontWeight="fontWeightMedium">
-							Entrega a {data.jsonResumen.resumen.direccion.nombreDireccion}
+							Entrega a {dataT.jsonResumen.resumen.direccion.nombreDireccion}
 						</Box>
 					</Typography>
-					<Typography component="body2" variant="body2">{data.jsonResumen.resumen.direccion.direccion}</Typography>
-					{(data.jsonResumen.resumen.direccion.nombreDireccion === "PickUP")&&
+					<Typography component="body2" variant="body2">{dataT.jsonResumen.resumen.direccion.direccion}</Typography>
+					{(dataT.jsonResumen.resumen.direccion.nombreDireccion === "PickUP")&&
 					 <Alert severity="info">Te notificaremos por correo cuando tu pedido se encuentre listo en el PickUp Center</Alert>
 					}
 				</div>
 				<Box component="div" pt={2}>
 				<Typography component="h2" variant="subtitle1">
 						<Box component="span" fontWeight="fontWeightMedium">
-							Fecha de entrega: {data.jsonResumen.resumen.envio.fecha}
+							Fecha de entrega: {dataT.jsonResumen.resumen.envio.fecha}
 						</Box>
-						<Typography component="span" variant="subtitle1"> con envío {data.jsonResumen.resumen.envio.tipo}</Typography>
+						<Typography component="span" variant="subtitle1"> con envío {dataT.jsonResumen.resumen.envio.tipo}</Typography>
 				</Typography>
 				</Box>
 			</Box>
 			<Box component="div" pb={2}>
 				<Typography component="h3" variant="subtitle1">
 					<Box component="span" fontWeight="fontWeightMedium">
-						Facturar a RFC: {data.jsonResumen.resumen.facturas.rfc}
+						Facturar a RFC: {dataT.jsonResumen.resumen.facturas.rfc}
 					</Box>
 				</Typography>
 			</Box>
@@ -77,7 +85,7 @@ export default function ResumeConfirmation({data}){
 			<Box component="div" py={2}>
 				<Typography component="h3" variant="subtitle1">
 					<Box component="span" fontWeight="fontWeightMedium">
-						Forma de Pago: {FormaPago(parseInt(data.jsonResumen.resumen.formaPago))}
+						Forma de Pago: {FormaPago(parseInt(dataT.jsonResumen.resumen.formaPago))}
 					</Box>
 				</Typography>
 			</Box>
@@ -93,14 +101,14 @@ export default function ResumeConfirmation({data}){
 												Envío
 											</Typography>
 										</Grid>
-										{(data.jsonResumen.nc.tieneNc !== 'false')&&
+										{(dataT.jsonResumen.nc.tieneNc !== 'false')&&
 										<Grid item>
 											<Typography variant="subtitle1" >
 												Nota de crédito:
 											</Typography>
 										</Grid>
 										}
-										{(data.jsonResumen.nc.tieneNc !== 'false')?
+										{(dataT.jsonResumen.nc.tieneNc !== 'false')?
 											<Grid item>
 												<Typography variant="subtitle1" >
 													Total:
@@ -128,32 +136,32 @@ export default function ResumeConfirmation({data}){
 										
 										<Grid item>
 											<Typography variant="body2">
-											{(data.jsonResumen.resumen.costoEnvio === 0 )?
+											{(dataT.jsonResumen.resumen.costoEnvio === 0 )?
 												<span>Gratis</span> 
 											:
-											<span>${data.jsonResumen.resumen.costoEnvio}</span>
+											<span>${dataT.jsonResumen.resumen.costoEnvio}</span>
 											}
 											</Typography>
 											
 										</Grid>
-										{(data.jsonResumen.nc.tieneNc !== 'false')&&
+										{(dataT.jsonResumen.nc.tieneNc !== 'false')&&
 											<Grid item>
 												<Typography variant="subtitle1" >
-												{data.jsonResumen.nc.montoNc}
+												{dataT.jsonResumen.nc.montoNc}
 												</Typography>
 											</Grid>
 										}
 										<Grid item>
-										{(data.jsonResumen.nc.tieneNc !== 'false')?
+										{(dataT.jsonResumen.nc.tieneNc !== 'false')?
 											<Grid item>
 												<Typography variant="subtitle1"  >
 													<Box component="span" fontWeight="fontWeightBold">
-														{((data.jsonResumen.resumen.subtotal + data.jsonResumen.resumen.costoEnvio) - data.jsonResumen.nc.montoNc)}
+														{((dataT.jsonResumen.resumen.subtotal + dataT.jsonResumen.resumen.costoEnvio)-dataT.jsonResumen.nc.montoNc)}
 													</Box>
 												</Typography>
 												<Typography variant="subtitle1"  >
 													<Box component="span" fontWeight="fontWeightBold">
-														{FormaPago(parseInt(data.jsonResumen.resumen.formaPago))}
+														{FormaPago(parseInt(dataT.jsonResumen.resumen.formaPago))}
 													</Box>
 												</Typography>
 											</Grid>
@@ -161,12 +169,12 @@ export default function ResumeConfirmation({data}){
 											<Grid item>
 												<Typography variant="subtitle1"  >
 													<Box component="span" fontWeight="fontWeightBold">
-													{(data.jsonResumen.resumen.subtotal + data.jsonResumen.resumen.costoEnvio)}	
+													{(dataT.jsonResumen.resumen.subtotal + dataT.jsonResumen.resumen.costoEnvio)}	
 													</Box>
 												</Typography>
 												<Typography variant="subtitle1"  >
 													<Box component="span" fontWeight="fontWeightBold">
-														{FormaPago(parseInt(data.jsonResumen.resumen.formaPago))}
+														{FormaPago(parseInt(dataT.jsonResumen.resumen.formaPago))}
 													</Box> 
 												</Typography>
 											</Grid>
@@ -184,7 +192,7 @@ export default function ResumeConfirmation({data}){
 			</Box> 
 				
 				
-				{(data.jsonResumen.resumen.formaPago === 7 || data.jsonResumen.resumen.formaPago === 1)&&
+				{(dataT.jsonResumen.resumen.formaPago === 7 || dataT.jsonResumen.resumen.formaPago === 1)&&
 				<Box component="div" pt={4} pb={2} mx="auto">
 					<Typography component="h4" variant="subtitle1">
 					<Box component="span" fontWeight="fontWeightMedium" textAlign="center"  justifyContent="center">
@@ -198,5 +206,7 @@ export default function ResumeConfirmation({data}){
 				</Box>
 				</Paper>
             </div> 
+		}
+		</>
     )
 }

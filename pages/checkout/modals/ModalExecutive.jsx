@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import {useState,useEffect} from 'react'
 import makeStyles from '@mui/styles/makeStyles';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.white,
     '&:hover': {
       backgroundColor: theme.palette.common.white,
-      borderColor: theme.palette.common.lightgray,
+      borderColor: 'rgba(166, 173, 185, 0.48)',
       },
     }, 
   boxEjecutivo: {
@@ -55,7 +55,12 @@ const useStyles = makeStyles((theme) => ({
 export default function ModalExecutive({resenapedidos,setEjecutivo,ejecutivo}) {
   const classes         = useStyles();
   const [modalStyle]    = useState(getModalStyle);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);resenapedidos
+  const [resenapedidosR,setResenapedidosR] = useState([])
+
+  useEffect(()=>{
+    setResenapedidosR(resenapedidos) 
+  },[])
 
   return (
     <div>
@@ -88,7 +93,7 @@ export default function ModalExecutive({resenapedidos,setEjecutivo,ejecutivo}) {
               </Box>
             </Box>
             
-            {(resenapedidos.length > 0)&&
+            {(resenapedidosR.length > 0)&&
             
             <FormControl component="fieldset" fullWidth>
               <FormLabel component="legend">Selecciona el ejecutivo que te atendio</FormLabel>
@@ -96,8 +101,8 @@ export default function ModalExecutive({resenapedidos,setEjecutivo,ejecutivo}) {
                   <RadioGroup aria-label="gender" name="ejecutivo" value={ejecutivo} onChange={(event)=>{setEjecutivo({ejecutivo:event.target.value,slmn:event.target.id});setOpen(false);}}>
                     <List dense fullWidth>
                       {
-                      resenapedidos.map((ejecu, index) => (
-                        <ListItem fullWidth>
+                      resenapedidosR.map((ejecu, index) => (
+                        <ListItem key={index} fullWidth>
                           <FormControlLabel key={index} value={ejecu.nombre} control={<Radio id={ejecu.slmn}/>} label={ejecu.nombre} fullWidth/>
                         </ListItem>
                       )) 
