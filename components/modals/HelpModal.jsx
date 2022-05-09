@@ -1,9 +1,14 @@
 import React from 'react';
 //MUI
-import {Dialog, DialogContent, DialogContentText, Box, 
-	Divider, Paper, Typography, Button, Card, 
-    CardActionArea, CardContent, CardActions,CardMedia
-   } from '@mui/material';
+import {
+	Dialog,
+	DialogContent,
+	DialogContentText,
+	Box,
+	Divider,
+	Paper,
+	Typography,
+} from '@mui/material';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import IconButton from '@material-ui/core/IconButton';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -22,7 +27,11 @@ export function HelpModal({ isOpen, onClose }) {
 		<Dialog open={isOpen} onClose={onClose}>
 			<Box padding={'1rem'}>
 				<Box marginTop={'1rem'}>
-					<Typography align='center' component="h3" variant="h5" fontWeight="fontWeightMedium">
+					<Typography
+						align='center'
+						component='h3'
+						variant='h5'
+						fontWeight='fontWeightMedium'>
 						Ayuda
 					</Typography>
 				</Box>
@@ -30,11 +39,12 @@ export function HelpModal({ isOpen, onClose }) {
 					<DialogContentText>
 						Horario de Atención Lunes a Domingo de 9 a 18:30hrs
 					</DialogContentText>
-					<Box component="div" pt={2}>
+					<Box component='div' pt={2}>
 						{items.map(({ description, icon: Icon, title }) => (
 							<Box key={title} marginBottom={'1em'}>
-								<Paper variant="outlined">
-									<Box sx={{borderRadius:'8px'}}
+								<Paper variant='outlined'>
+									<Box
+										sx={{ borderRadius: '8px' }}
 										className={`${pointer}`}
 										paddingY='0.5rem'
 										paddingLeft={'1rem'}
@@ -55,15 +65,17 @@ export function HelpModal({ isOpen, onClose }) {
 							</Box>
 						))}
 					</Box>
-					<Box m={1} textAlign="center">
-						<Typography
-							variant="body2" color="textSecondary">
+					<Box m={1} textAlign='center'>
+						<Typography variant='body2' color='textSecondary'>
 							Contáctanos: 55 5015-8100 ó 01 800 8138181
 						</Typography>
-						<Box my={1} textAlign="center">
+						<Box my={1} textAlign='center'>
 							<Divider />
 						</Box>
-						<Typography align='center' color="textSecondary" variant="body2">
+						<Typography
+							align='center'
+							color='textSecondary'
+							variant='body2'>
 							Los tiempos de respuesta pueden variar
 						</Typography>
 					</Box>

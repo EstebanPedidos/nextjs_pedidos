@@ -1,12 +1,28 @@
-import React, { useRef, useState, useEffect } from 'react';
-
+import React, { useState, useEffect } from 'react';
 
 //Components @mui/material
 import {
-	AppBar,Toolbar,IconButton,Typography,
-	Menu, Box,Hidden, TextField, Button,
-	Divider,InputAdornment,MenuItem, Badge,Drawer,
-	List, ListItem, ListIcon, ListItemText, Avatar,Tooltip, } from '@mui/material';
+	AppBar,
+	Toolbar,
+	IconButton,
+	Typography,
+	Menu,
+	Box,
+	Hidden,
+	TextField,
+	Button,
+	Divider,
+	InputAdornment,
+	MenuItem,
+	Badge,
+	Drawer,
+	List,
+	ListItem,
+	ListIcon,
+	ListItemText,
+	Avatar,
+	Tooltip,
+} from '@mui/material';
 
 import {
 	FavoriteBorder,
@@ -15,107 +31,103 @@ import {
 	Search as SearchIcon,
 } from '@mui/icons-material';
 
-import { alpha, makeStyles,useTheme } from '@material-ui/core/styles';
-import clsx from 'clsx';
-
+import { makeStyles, useTheme } from '@mui/styles';
 
 // Variables imports
 import { logoUrl } from '../constants';
 
 import { HelpModal } from './modals';
 
-import { content, logo, iconhca } from './Navbar.module.css';
+import { content, logo } from './Navbar.module.css';
 
-import DrawerCategorias from './drawers/drawer'
+import DrawerCategorias from './drawers/drawer';
 
 const drawerWidth = 240;
 
 //Nextjs
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const useStyles = makeStyles((theme) => ({
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: drawerWidth,
-    },
-    list: {
-      width: 250
-    },
-    fullList: {
-      width: "auto"
-    }
-  }));
+	drawer: {
+		width: drawerWidth,
+		flexShrink: 0,
+	},
+	drawerPaper: {
+		width: drawerWidth,
+	},
+	list: {
+		width: 250,
+	},
+	fullList: {
+		width: 'auto',
+	},
+}));
 
 export function Navbar() {
 	const [openModal, setOpenModal] = useState(false);
 	const [openMenu, setOpenMenu] = useState(false);
 
-    const ruter = useRouter() 
-    const classes = useStyles();
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-    const [inputs, setInputs] = useState({});
-    const [nombre, setNombre] = React.useState('');
-    const [isLogged, setLogged] = React.useState(false);
-    const [menuName, setMenuName] = React.useState(null);
-    const [lista, setLista] = React.useState({});
-    const [state, setState] = React.useState({
-        top: false,
-        left: false,
-        bottom: false,
-        right: false
-    });
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    
-    const [sesPartidas, setSesPartidas] = useState(0);
+	const ruter = useRouter();
+	const classes = useStyles();
+	const theme = useTheme();
+	const [open, setOpen] = React.useState(false);
+	const [inputs, setInputs] = useState({});
+	const [nombre, setNombre] = React.useState('');
+	const [isLogged, setLogged] = React.useState(false);
+	const [menuName, setMenuName] = React.useState(null);
+	const [lista, setLista] = React.useState({});
+	const [state, setState] = React.useState({
+		top: false,
+		left: false,
+		bottom: false,
+		right: false,
+	});
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+	const [sesPartidas, setSesPartidas] = useState(0);
 
+	const isMenuOpen = Boolean(anchorEl);
+	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+	let Cliente = 0;
+	let Favoritos = 0;
+	let Token = '';
+	let Usuario = 0;
+	let ejecutivoNum = 0;
 
-    let Cliente = 0;
-    let Favoritos = 0;
-    let Token = '';
-    let Usuario = 0;
-    let ejecutivoNum = 0;
+	useEffect(() => {
+		setNombre(localStorage.getItem('Usu_Nomb'));
+		if (localStorage.getItem('Login') === 'Ok') {
+			setLogged(true);
+		} else if (
+			localStorage.getItem('Login') === 'NO' ||
+			localStorage.getItem('Login') === null
+		) {
+			setLogged(false);
+		}
+		setSesPartidas(localStorage.getItem('SesPartidas'));
+	}, []);
 
-    useEffect( () => {
+	useEffect(() => {
+		function checkUserData() {
+			const CountPartidas = localStorage.getItem('SesPartidas');
+			if (CountPartidas) {
+				setSesPartidas(CountPartidas);
+			}
+		}
+		window.addEventListener('storage', checkUserData);
+		return () => {
+			window.removeEventListener('storage', checkUserData);
+		};
 
-        setNombre(localStorage.getItem('Usu_Nomb'));
-        if(localStorage.getItem('Login') === 'Ok'){
-            setLogged(true);
-            } else if(localStorage.getItem('Login') === 'NO' || localStorage.getItem('Login') === null){
-            setLogged(false);
-            }
-        setSesPartidas(localStorage.getItem('SesPartidas'))
-    }, [])  
-
-    useEffect(() => {
-        function checkUserData() {
-            const CountPartidas = localStorage.getItem('SesPartidas')                   
-            if (CountPartidas) {
-                setSesPartidas(CountPartidas)                
-            }
-        }        
-        window.addEventListener('storage', checkUserData)        
-        return () => {
-            window.removeEventListener('storage', checkUserData)
-        }
-
-        Cliente = localStorage.getItem('Cliente');
-        Favoritos = localStorage.getItem('Favoritos');
-        Token = localStorage.getItem('Token');
-        Usuario = localStorage.getItem('Usuario');
-        ejecutivoNum = localStorage.getItem('ejecutivoNum');
-    }, [])
-
+		Cliente = localStorage.getItem('Cliente');
+		Favoritos = localStorage.getItem('Favoritos');
+		Token = localStorage.getItem('Token');
+		Usuario = localStorage.getItem('Usuario');
+		ejecutivoNum = localStorage.getItem('ejecutivoNum');
+	}, []);
 
 	const handleClose = () => {
 		setOpenMenu(false);
@@ -128,206 +140,216 @@ export function Navbar() {
 		setOpenModal(!openModal);
 	};
 
+	const handleDrawerOpen = (event) => {
+		const name = event.target.name;
+		setOpen(true);
+	};
 
-    const handleDrawerOpen = (event) => {
-        const name = event.target.name;
-        setOpen(true);
-        
-    };
+	const handleDrawerClose = () => {
+		setOpen(false);
+	};
 
-    const handleDrawerClose = () => {
-        setOpen(false);
-        
-    };
+	const handleProfileMenuOpen = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
 
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+	const handleMobileMenuClose = () => {
+		setMobileMoreAnchorEl(null);
+	};
 
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
+	const handleMenuClose = () => {
+		setAnchorEl(null);
+		handleMobileMenuClose();
+	};
 
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
+	const handleMobileMenuOpen = (event) => {
+		setMobileMoreAnchorEl(event.currentTarget);
+	};
 
-    const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
+	const handleChange = (event) => {
+		const name = event.target.name;
+		const value = event.target.value;
+		setInputs((values) => ({ ...values, [name]: value }));
+	};
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))
-    }
+	const toggleDrawer = (anchor, open) => (event) => {
+		if (
+			event.type === 'keydown' &&
+			(event.key === 'Tab' || event.key === 'Shift')
+		) {
+			return;
+		}
 
-    const toggleDrawer = (anchor, open) => event => {
-        if (
-          event.type === "keydown" &&
-          (event.key === "Tab" || event.key === "Shift")
-        ) {
-          return;
-        }
-    
-        setState({ ...state, [anchor]: open });
-    };
+		setState({ ...state, [anchor]: open });
+	};
 
+	function CerrarSesion() {
+		setLogged(false);
+		localStorage.setItem('Usu_Nomb', '');
+		localStorage.setItem('Cliente', 0);
+		localStorage.setItem('Favoritos', 0);
+		localStorage.setItem('SesPartidas', 0);
+		localStorage.setItem('Token', '');
+		localStorage.setItem('Login', 'NO');
+		localStorage.setItem('Email', '');
+		localStorage.setItem('Usuario', 0);
+		localStorage.setItem('afiliado', '');
+		ruter.push('/Home');
+	}
 
-      function CerrarSesion(){
-        setLogged(false);
-        localStorage.setItem('Usu_Nomb', '')
-        localStorage.setItem('Cliente', 0)
-        localStorage.setItem('Favoritos', 0)
-        localStorage.setItem('SesPartidas', 0)
-        localStorage.setItem('Token', '')
-        localStorage.setItem('Login', 'NO')
-        localStorage.setItem('Email', '')
-        localStorage.setItem('Usuario', 0)
-        localStorage.setItem('afiliado', '')
-        ruter.push("/Home")
-    }
-  
-    function searchBoxSubmit(e){
-        e.preventDefault();
-        var busquedaUrl = inputs.query;
-        var busquedaUrl1 = busquedaUrl.replace(/\s+/g,'+'); 
-        ruter.push({
-        pathname: '/busquedas',
-        query: {query: inputs.query },
-        })
-    }
+	function searchBoxSubmit(e) {
+		e.preventDefault();
+		var busquedaUrl = inputs.query;
+		var busquedaUrl1 = busquedaUrl.replace(/\s+/g, '+');
+		ruter.push({
+			pathname: '/busquedas',
+			query: { query: inputs.query },
+		});
+	}
 
-    const menuId = 'primary-search-account-menu';
-    const menuLogin = (
-        <Menu
-            anchorEl={anchorEl}
-            id={menuId}
-            keepMounted
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-            PaperProps={{
-                elevation: 0,
-                sx: {
-                  overflow: 'visible',
-                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                  mt: 1.5,
-                  '& .MuiAvatar-root': {
-                    width: 32,
-                    height: 32,
-                    ml: -0.5,
-                    mr: 1,
-                  },
-                  '&:before': {
-                    content: '""',
-                    display: 'block',
-                    position: 'absolute',
-                    top: 0,
-                    right: 14,
-                    width: 10,
-                    height: 10,
-                    bgcolor: 'background.paper',
-                    transform: 'translateY(-50%) rotate(45deg)',
-                    zIndex: 0,
-                  },
-                },
-              }}
-            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
-            <div>
-                <MenuItem onClick={handleMenuClose}><Link href="/MisDatos">Mis Datos</Link></MenuItem>
-                <MenuItem onClick={handleMenuClose}><Link href="/misPedidos">Pedidos</Link></MenuItem>
-                <MenuItem onClick={handleMenuClose}><Link href="/Direcciones">Direcciones</Link></MenuItem>
-                <MenuItem onClick={handleMenuClose}><Link href="/misFacturas">Facturas</Link></MenuItem>
-                <MenuItem onClick={handleMenuClose}><Link href="/misFavoritos">Favoritos</Link></MenuItem>
-                <MenuItem onClick={handleMenuClose}><Link href="/misNotasCredito">Notas de Credito</Link></MenuItem>
-                <Divider />
-                <MenuItem onClick={() => (handleMenuClose(), CerrarSesion())}>Salir</MenuItem>
-            </div>
-        </Menu>
-    );
+	const menuId = 'primary-search-account-menu';
+	const menuLogin = (
+		<Menu
+			anchorEl={anchorEl}
+			id={menuId}
+			keepMounted
+			open={isMenuOpen}
+			onClose={handleMenuClose}
+			PaperProps={{
+				elevation: 0,
+				sx: {
+					overflow: 'visible',
+					filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+					mt: 1.5,
+					'& .MuiAvatar-root': {
+						width: 32,
+						height: 32,
+						ml: -0.5,
+						mr: 1,
+					},
+					'&:before': {
+						content: '""',
+						display: 'block',
+						position: 'absolute',
+						top: 0,
+						right: 14,
+						width: 10,
+						height: 10,
+						bgcolor: 'background.paper',
+						transform: 'translateY(-50%) rotate(45deg)',
+						zIndex: 0,
+					},
+				},
+			}}
+			transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+			anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+			<div>
+				<MenuItem onClick={handleMenuClose}>
+					<Link href='/MisDatos'>Mis Datos</Link>
+				</MenuItem>
+				<MenuItem onClick={handleMenuClose}>
+					<Link href='/misPedidos'>Pedidos</Link>
+				</MenuItem>
+				<MenuItem onClick={handleMenuClose}>
+					<Link href='/Direcciones'>Direcciones</Link>
+				</MenuItem>
+				<MenuItem onClick={handleMenuClose}>
+					<Link href='/misFacturas'>Facturas</Link>
+				</MenuItem>
+				<MenuItem onClick={handleMenuClose}>
+					<Link href='/misFavoritos'>Favoritos</Link>
+				</MenuItem>
+				<MenuItem onClick={handleMenuClose}>
+					<Link href='/misNotasCredito'>Notas de Credito</Link>
+				</MenuItem>
+				<Divider />
+				<MenuItem onClick={() => (handleMenuClose(), CerrarSesion())}>
+					Salir
+				</MenuItem>
+			</div>
+		</Menu>
+	);
 
-
-    const menuLogout = (
-        <Menu
-        anchorEl={anchorEl}
-        id={menuId}
-        keepMounted
-        open={isMenuOpen}
-        onClose={handleMenuClose}
-		PaperProps={{
-			elevation: 0,
-			sx: {
-			  overflow: 'visible',
-			  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-			  mt: 1.5,
-			  
-			},
-		}}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
-            <div>
-                <MenuItem onClick={handleMenuClose} ><Link href="/Login">Iniciar Sesión</Link></MenuItem>
-                <MenuItem onClick={handleMenuClose}><Link href="/RegistroUsuario">Crear Cuenta</Link></MenuItem>
-            </div>
-
-        </Menu>
-    );
-
+	const menuLogout = (
+		<Menu
+			anchorEl={anchorEl}
+			id={menuId}
+			keepMounted
+			open={isMenuOpen}
+			onClose={handleMenuClose}
+			PaperProps={{
+				elevation: 0,
+				sx: {
+					overflow: 'visible',
+					filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+					mt: 1.5,
+				},
+			}}
+			transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+			anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+			<div>
+				<MenuItem onClick={handleMenuClose}>
+					<Link href='/Login'>Iniciar Sesión</Link>
+				</MenuItem>
+				<MenuItem onClick={handleMenuClose}>
+					<Link href='/RegistroUsuario'>Crear Cuenta</Link>
+				</MenuItem>
+			</div>
+		</Menu>
+	);
 
 	return (
 		<>
-            <HelpModal isOpen={openModal} onClose={handleOpenModal} />
-			<AppBar position='sticky' sx={{backgroundColor:'#ffffff',}}>
+			<HelpModal isOpen={openModal} onClose={handleOpenModal} />
+			<AppBar position='sticky' sx={{ backgroundColor: '#ffffff' }}>
 				<Toolbar className={content}>
 					<Box component={'div'} alignItems={'center'} display='flex'>
 						<Hidden smDown={true}>
 							{/* Crear una variante del logo que sea adaptable / Por
 							ejemplo una "p" para esos casos de usos */}
-                            <Link href="/Home">
-                                <a>
-                                    <img
-                                        className={logo}
-                                        src={logoUrl}
-                                        alt='logo pedidos'
-                                    />
-                                </a>
-                            </Link>
+							<Link href='/Home'>
+								<a>
+									<img
+										className={logo}
+										src={logoUrl}
+										alt='logo pedidos'
+									/>
+								</a>
+							</Link>
 						</Hidden>
 						<Box component={'span'} marginLeft='2%'>
-                            <DrawerCategorias/>
+							<DrawerCategorias />
 						</Box>
 						<Hidden smDown={true}>
 							<Box component={'span'} padding={'1rem'}>
-								<Typography color="textPrimary">Categorías</Typography>
+								<Typography color='textPrimary'>
+									Categorías
+								</Typography>
 							</Box>
 						</Hidden>
 					</Box>
 					{/* <Hidden smDown='hide'> */}
 					<Hidden smDown>
 						<Box width='30%'>
-                        <form onSubmit={searchBoxSubmit}>
-							<TextField
-								size='small'
-								id='outlined-basic'
-								fullWidth
-								// label='Outlined'
-								variant='outlined'
-								placeholder='Buscar..'
-								InputProps={{
-									endAdornment: (
-										<InputAdornment position='start'>
-											<SearchIcon />
-										</InputAdornment>
-									),
-								}}
-                                name="query"
-                                onChange={handleChange}
-							/>
-                        </form>    
+							<form onSubmit={searchBoxSubmit}>
+								<TextField
+									size='small'
+									id='outlined-basic'
+									fullWidth
+									// label='Outlined'
+									variant='outlined'
+									placeholder='Buscar..'
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position='start'>
+												<SearchIcon />
+											</InputAdornment>
+										),
+									}}
+									name='query'
+									onChange={handleChange}
+								/>
+							</form>
 						</Box>
 					</Hidden>
 
@@ -343,7 +365,11 @@ export function Navbar() {
 							<Box
 								component={'span'}
 								style={{ cursor: 'pointer' }}>
-								<Typography component='span' color="textPrimary">Para </Typography>
+								<Typography
+									component='span'
+									color='textPrimary'>
+									Para{' '}
+								</Typography>
 								<Typography component='span' color='primary'>
 									empresas
 								</Typography>
@@ -352,9 +378,13 @@ export function Navbar() {
 
 						<Box component={'span'}>
 							<IconButton onClick={handleClick}>
-                                <Badge badgeContent={isLogged ? Favoritos : null} color="secondary">
-                                    <Link href="/misFavoritos"><FavoriteBorder /></Link>
-                                </Badge>
+								<Badge
+									badgeContent={isLogged ? Favoritos : null}
+									color='secondary'>
+									<Link href='/misFavoritos'>
+										<FavoriteBorder />
+									</Link>
+								</Badge>
 							</IconButton>
 							<Menu
 								anchorEl={anchorEl}
@@ -387,20 +417,38 @@ export function Navbar() {
 							<div ref={anchorEl} id='menu'></div>
 						</Box>
 						<IconButton onClick={handleOpenModal}>
-                                <HelpOutlineIcon />
+							<HelpOutlineIcon />
 						</IconButton>
 						<IconButton color='primary'>
-                            <Badge badgeContent={isLogged ? sesPartidas : null} color="secondary">
-                                <Link href="/checkout/verifica-pedido"><ShoppingCartIcon /></Link>
-                            </Badge>
+							<Badge
+								badgeContent={isLogged ? sesPartidas : null}
+								color='secondary'>
+								<Link href='/checkout/verifica-pedido'>
+									<ShoppingCartIcon />
+								</Link>
+							</Badge>
 						</IconButton>
 					</Box>
 					<Box>
-                        {isLogged 
-                        ?<IconButton size="large" aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen}><Avatar sx={{ width: 32, height: 32 }}>{nombre.substring(0,2)}</Avatar></IconButton>
-                        :<Button variant='contained' color='primary' aria-controls={menuId}  onClick={handleProfileMenuOpen}>
-                        Ingresar
-                        </Button>}
+						{isLogged ? (
+							<IconButton
+								size='large'
+								aria-controls={menuId}
+								aria-haspopup='true'
+								onClick={handleProfileMenuOpen}>
+								<Avatar sx={{ width: 32, height: 32 }}>
+									{nombre.substring(0, 2)}
+								</Avatar>
+							</IconButton>
+						) : (
+							<Button
+								variant='contained'
+								color='primary'
+								aria-controls={menuId}
+								onClick={handleProfileMenuOpen}>
+								Ingresar
+							</Button>
+						)}
 					</Box>
 				</Toolbar>
 				<Hidden mdUp={true}>
@@ -423,7 +471,7 @@ export function Navbar() {
 				</Hidden>
 			</AppBar>
 
-            {isLogged ? menuLogin : menuLogout}
+			{isLogged ? menuLogin : menuLogout}
 		</>
 	);
 }
