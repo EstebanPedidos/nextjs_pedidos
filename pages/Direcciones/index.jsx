@@ -168,7 +168,6 @@ export default function Direcciones() {
 
   return(
     <Layout>
-    <MiCuentaSiderBar/> 
     <div>
       <Box className={classes.bgcontent} component="div">
         <Box component="div" m={1}>
@@ -178,82 +177,84 @@ export default function Direcciones() {
             justifyContent="space-between"
             alignItems="flex-start"
           >
-            <Grid item xs={12} sm={12} lg={3}>
-
+            <Grid item xs={12} sm={4} lg={3}>
+              <MiCuentaSiderBar/> 
             </Grid>
-            <Grid item xs={12} sm={12} lg={9}>
-              <Box component="div">
-                <Grid 
-              container
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center">
-                <Grid item xs={9}>   
-                  <Box component="div" py={2}>
-                        <Typography variant="h3" component="h1">
-                          Direcciones
-                        </Typography>
-                    </Box>
-                </Grid>
-                <Grid item xs={3}>   
-                  <Box component="div" py={2}>
-                    <Button variant="contained" elevation={0} fullWidth color="primary" size="large" name="Modal1" onClick={handleOpen}>Agregar Dirección</Button>
-                  </Box>
-                </Grid>
-                </Grid>
-                <Divider light/>
-                <Box component="div" m={1} py={4}>
-                  <Grid container className={classes.root} spacing={2}>
-                      <Grid item xs={12}>
-                          <Grid container justifyContent="center" spacing={spacing}>
-                            {result.map((row) => (
-                              <Grid item xs={6} sm={6} lg={4} key={row.rfcNum}> 
-                                  <Card className={classes.boxCardI}>
-                                      <CardContent>
-                                        <Box component="div" pb={2} display="flex" alignItems="center" justifyContent="center" mx="auto">
-                                            <Avatar>
-                                              <LocationOnOutlinedIcon />
-                                            </Avatar>
-                                        </Box>
-                                        <Box component="div" className={classes.boxContent}>  
-                                          <Typography variant="h6" component="h2">
-                                          {row.nombre}
-                                          </Typography>
-                                          <Typography gutterBottom>
-                                            <Box component="span" fontWeight="fontWeightMedium">{row.contact}</Box>
-                                          </Typography>
-                                          <Typography gutterBottom>
-                                            <Box component="span" fontWeight="fontweightMedium">
-                                            Telefóno: {' '+row.phone} &nbsp;
-                                            Ext.{' '+row.extension} 
-                                            </Box>
-                                          </Typography>
-                                          <Typography color="textSecondary" component="body2" gutterBottom>
-                                          <Box component="div" className={classes.adressBox}>
-                                            {' '+row.address1} 
-                                            {' '+row.interior} entre calle 
-                                            {' '+row.entreCalle1} y
-                                            {' '+row.entreCalle2}, Col. 
-                                            {' '+row.colonia} 
-                                            {' '+row.city} 
-                                            {' '+row.postalCode} 
-                                            {' '+row.province} 
-                                          </Box>
-                                          </Typography>
-                                        </Box>
-                                      </CardContent>
-                                      <Divider variant="middle" light/>
-                                      <CardActions>
-                                          <Button size="small" fullWidth color="primary" name="Modal2" onClick={(event) => { handleOpen(event); setDirNum(row.dirNum);} }>ELIMINAR</Button>
-                                      </CardActions>
-                                  </Card>
-                              </Grid>
-                            ))}
-                          </Grid>
-                      </Grid>
+            <Grid item xs={12} sm={8} lg={9}>
+              <Container maxWidth="lg">
+                <Box component="div">
+                  <Grid 
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center">
+                  <Grid item xs={8}>   
+                    <Box component="div" py={2}>
+                          <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
+                            Direcciones
+                          </Typography>
+                      </Box>
                   </Grid>
+                  <Grid item xs={4}>   
+                    <Box component="div" py={2}>
+                      <Button variant="contained" elevation={0} fullWidth color="primary" size="large" name="Modal1" onClick={handleOpen}>Agregar Dirección</Button>
+                    </Box>
+                  </Grid>
+                  </Grid>
+                  <Divider light/>
+                  <Box component="div" m={1} py={4}>
+                    <Grid container className={classes.root} spacing={2}>
+                        <Grid item xs={12}>
+                            <Grid container justifyContent="center" spacing={spacing}>
+                              {result.map((row) => (
+                                <Grid item xs={6} sm={6} lg={4} key={row.rfcNum}> 
+                                    <Card className={classes.boxCardI}>
+                                        <CardContent>
+                                          <Box component="div" pb={2} display="flex" alignItems="center" justifyContent="center" mx="auto">
+                                              <Avatar>
+                                                <LocationOnOutlinedIcon />
+                                              </Avatar>
+                                          </Box>
+                                          <Box component="div" className={classes.boxContent}>  
+                                            <Typography variant="h6" component="h2">
+                                            {row.nombre}
+                                            </Typography>
+                                            <Typography gutterBottom>
+                                              <Box component="span" fontWeight="fontWeightMedium">{row.contact}</Box>
+                                            </Typography>
+                                            <Typography gutterBottom>
+                                              <Box component="span" fontWeight="fontweightMedium">
+                                              Telefóno: {' '+row.phone} &nbsp;
+                                              Ext.{' '+row.extension} 
+                                              </Box>
+                                            </Typography>
+                                            <Typography color="textSecondary" component="body2" gutterBottom>
+                                            <Box component="div" className={classes.adressBox}>
+                                              {' '+row.address1} 
+                                              {' '+row.interior} entre calle 
+                                              {' '+row.entreCalle1} y
+                                              {' '+row.entreCalle2}, Col. 
+                                              {' '+row.colonia} 
+                                              {' '+row.city} 
+                                              {' '+row.postalCode} 
+                                              {' '+row.province} 
+                                            </Box>
+                                            </Typography>
+                                          </Box>
+                                        </CardContent>
+                                        <Divider variant="middle" light/>
+                                        <CardActions>
+                                            <Button size="small" fullWidth color="primary" name="Modal2" onClick={(event) => { handleOpen(event); setDirNum(row.dirNum);} }>ELIMINAR</Button>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                              ))}
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                  </Box>
                 </Box>
-              </Box>
+              </Container>
             </Grid>
           </Grid>
         </Box> 

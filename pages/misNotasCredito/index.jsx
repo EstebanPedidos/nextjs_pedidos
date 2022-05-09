@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 paperBox: {
     padding: theme.spacing(1), 
     boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',
-    height: '90px',
+    height: '100%',
     marginBottom: theme.spacing(1), 
     
 },
@@ -162,12 +162,12 @@ export default function MisNotasCredito() {
 
     const Contenido = (
         result.map((row) => (
-            <Grid container justifyContent="space-between" alignItems='center' spacing={2} key={row.invoice}>
-                <Grid item xs={4}> 
-                    <Card className={classes.paperBox}>
-                        <CardContent>
+            <Card className={classes.paperBox}>
+                <CardContent>
+                    <Grid container justifyContent="space-between" alignItems='center' spacing={2} key={row.invoice}>
+                        <Grid item xs={12} sm={12} lg={4}> 
                             <Grid container direction="row" alignItems="center" justifyContent="center">
-                                <Grid item xs={12}>
+                                <Grid item xs={12} sm={12} lg={8}>
                                     <Typography variant="h6" component="subtitle2" color="textPrimary" gutterBottom>
                                         #{row.invoice}
                                     </Typography>
@@ -176,41 +176,36 @@ export default function MisNotasCredito() {
                                     </Typography>
                                 </Grid>
                             </Grid>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={8} direction="row" justifyContent="center"alignItems="center" flexDirection="row"> 
-                    <Paper className={classes.paperBox}>
-                        <Box component="div" m={1} py={2}>
+                        </Grid>
+                        <Grid item xs={12} sm={8}>
                             <Grid container justifyContent="center" alignItems='center' spacing={2}>
-                                <Grid item xs={3}> 
+                                <Grid item xs={3} sm={2}> 
                                     <Typography variant="body2">${row.monto}</Typography>
                                 </Grid>
-                                <Grid item xs={3}> 
+                                <Grid item xs={3} sm={4}> 
                                     <Typography variant="body2">{row.rfc}</Typography>
                                 </Grid>
-                                <Grid item xs={3}> 
+                                <Grid item xs={3} sm={3}> 
                                     <Typography variant="body2">
                                     {row.aplicada && row.pedidoNc > 0 && row.pedidoNc }
                                         
                                     {!(row.aplicada) && row.pedidoNc === 0 && 'Pendiente'}    
                                     </Typography>
                                 </Grid>
-                                <Grid item xs={3}> 
+                                <Grid item xs={3} sm={3}> 
                                     <Typography variant="body2">
                                         {row.aplicada ?
                                         'Procesando'
                                         :'Sin aplicar'
                                         }
                                     </Typography>
-                                </Grid>
-                                
+                                </Grid> 
                             </Grid>
-                        </Box>
-                    </Paper>
-                </Grid>
-            </Grid>
-          
+                        </Grid>    
+                        
+                    </Grid>
+                </CardContent>
+           </Card>
             ))
     )
 
@@ -231,7 +226,7 @@ export default function MisNotasCredito() {
 
     return(
         <Layout>
-        <MiCuentaSiderBar/> 
+        
         <div>
             <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
@@ -241,10 +236,10 @@ export default function MisNotasCredito() {
                     justifyContent="space-between"
                     alignItems="flex-start"
                 >
-                    <Grid item xs={12} sm={12} lg={3}>
-
+                    <Grid item xs={12} sm={4} lg={3}>
+                    <MiCuentaSiderBar/> 
                     </Grid>
-                    <Grid item xs={12} sm={12} lg={9}>
+                    <Grid item xs={12} sm={8} lg={9}>
                         <Box component="div">
                             <Grid 
                             container
@@ -253,7 +248,7 @@ export default function MisNotasCredito() {
                             alignItems="center">
                                 <Grid item xs={12} sm={6}>   
                                     <Box component="div" py={2}>
-                                        <Typography variant="h3" component="h1">
+                                        <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
                                          Notas de crédito
                                         </Typography>
                                     </Box>
@@ -267,7 +262,7 @@ export default function MisNotasCredito() {
                                             alignItems="center" spacing={1}>
                                                 <Grid item xs={12} sm={6}>
                                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                        <Box display="flex" justifyContent="flex-start" p={1} bgcolor="background.paper">
+                                                        <Box display="flex" justifyContent="flex-start" >
                                                             <DatePicker fullWidth
                                                                 variant="inline"
                                                                 openTo="year"

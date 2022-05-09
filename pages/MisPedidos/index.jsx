@@ -8,16 +8,13 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     Input, InputLabel, InputAdornment, Chip, Snackbar, 
     Alert, Stack, Rating } from '@mui/material';
 
-import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import SearchIcon from '@mui/icons-material/Search';
-import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -348,16 +345,16 @@ export default function MisPedidos() {
                     <Paper className={classes.paperBox}>
                         <Box component="div" m={1} py={2}>
                             <Grid container justifyContent="space-evenly" alignItems='center' spacing={spacing}>
-                                <Grid item xs={3}> 
+                                <Grid item xs={8} sm={6} lg={3}> 
                                     <Typography variant="body2">{row.formaEnvio}</Typography>
                                 </Grid>
-                                <Grid item xs={2}> 
+                                <Grid item xs={4} sm={3} lg={2}> 
                                     <Typography variant="body2">{row.fechaEntrega}</Typography>
                                 </Grid>
-                                <Grid item xs={2}> 
+                                <Grid item xs={4} sm={3} lg={2}> 
                                     <Typography variant="body2">{row.horario}</Typography>
                                 </Grid>
-                                <Grid item xs={3}> 
+                                <Grid item xs={4} sm={8} lg={3}> 
                                     {row.estatusEnvio == "Procesando." && 
                                         <Typography variant="body2">Procesando.</Typography>
                                     }
@@ -392,7 +389,7 @@ export default function MisPedidos() {
                                         <Typography variant="body2">Reembolso Parcial</Typography>
                                     }
                                 </Grid>
-                                <Grid item xs={2}>
+                                <Grid item xs={2} sm={4} lg={2}>
                                     <IconButton onClick={(event) => { event.preventDefault();agregarAlCarrito(row.pedidoNum)}}><ShoppingCartOutlinedIcon/></IconButton>
                                 </Grid>
                             </Grid>
@@ -425,7 +422,6 @@ export default function MisPedidos() {
 
     return(
         <Layout>
-        <MiCuentaSiderBar/> 
         <div>
              <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
@@ -435,10 +431,10 @@ export default function MisPedidos() {
                     justifyContent="space-between"
                     alignItems="flex-start"
                 >
-                    <Grid item xs={12} sm={12} lg={3}>
-
+                    <Grid item xs={12} sm={4} lg={3}>
+                        <MiCuentaSiderBar/> 
                     </Grid>
-                    <Grid item xs={12} sm={12} lg={9}>
+                    <Grid item xs={12} sm={8} lg={9}>
                         <Box component="div">
                             <Grid 
                             container
@@ -447,7 +443,7 @@ export default function MisPedidos() {
                             alignItems="center">
                                 <Grid item xs={12} sm={4}>   
                                     <Box component="div" py={2}>
-                                        <Typography variant="h3" component="h1">
+                                        <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
                                         Pedidos
                                         </Typography>
                                     </Box>

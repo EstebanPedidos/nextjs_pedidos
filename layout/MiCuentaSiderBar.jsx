@@ -1,24 +1,24 @@
 import React, {useState, useEffect} from 'react';
 
 //MUI
-import {Box, Grid, Paper, Typography, Container,
+import {Box, Grid, Avatar,Paper, Typography, Container,
     Button,TextField, Divider, Modal, Backdrop,
     Fade, Card, FadeCard, CardActions, CardContent} from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined'
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import Shop2OutlinedIcon from '@mui/icons-material/Shop2Outlined';
-import FilterNoneIcon from '@material-ui/icons/FilterNone';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import WhatsappOutlinedIcon from '@mui/icons-material/WhatsappOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -75,95 +75,224 @@ export default function MiCuentaSiderBar() {
 
 	return (
 		<>
-			<div>
-                <Box component="div" className={classes.bgcontent}>
-                    <Container maxWidth="lg">
-                        <Box component="div" mx="auto" py={2} >
-                            <Box component="div" textAlign="center">
-                                <Typography component="h3" variant="h6">{nombre}</Typography>
+			<Box component="div"  m={1} px={1}>
+                <Box component="div" py={2} >
+                <Box component="div" textAlign="center" m="auto" p={2}>
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={3}
+                        
+                        >
+                        <Grid item>
+                            <Avatar>
+                                <AccountCircleOutlinedIcon />
+                            </Avatar>
+                        </Grid>
+                        <Grid item>
+                            <Typography component="h2" variant="h6">{nombre}</Typography>
+                        </Grid>
+                    </Grid>
+                </Box>   
+                <Divider light/>
+                    <Grid
+                    container
+                    //direction="row"
+                    justifyContent="center"
+                    alignItems="flex-start"
+                    spacing={2}
+                   
+                    >
+                        <Grid item xs={12} >
+                            <Box component="div" textAlign="center" m="auto" p={2}>
+                                <Typography variant="caption" color="textSecondary">MI CUENTA</Typography>
                             </Box>
-                            <Divider/>
-                            <Box component="div" py={2}>
-                                <Typography variant="h6" component="h3" color="textSecondary" gutterBottom>
-                                    Mi Cuenta
-                                </Typography>
-                            </Box>
-                            <Box component="div" py={2}>
-                                <Typography variant="h6" component="h3" color="textSecondary" gutterBottom>
-                                    <Link href="/MisDatos">
-                                        <a>
-                                            <SettingsOutlinedIcon/> Mis datos
-                                        </a>
-                                    </Link>
-                                </Typography>
-                                <Typography variant="h6" component="h3" color="textSecondary" gutterBottom>
-                                    <Link href="/MisPedidos">
-                                        <a>
-                                            <Shop2OutlinedIcon/>  Pedidos
-                                        </a>
-                                    </Link>
-                                </Typography>
-                                <Typography variant="h6" component="h3" color="textSecondary" gutterBottom>
-                                    <Link href="/MisPedidos">
-                                        <a>
-                                            <LocationOnOutlinedIcon/> Direcciones
-                                        </a>
-                                    </Link>
-                                </Typography>
-                                <Typography variant="h6" component="h3" color="textSecondary" gutterBottom>
-                                    <Link href="/MisFacturas">
-                                        <a>
-                                    <FilterNoneIcon/>  Facturas
-                                        </a>
-                                    </Link>
-                                </Typography>
-                                <Typography variant="h6" component="h3" color="textSecondary" gutterBottom>
-                                    <ShuffleIcon/>  
-                                    <Button variant="text"
-                                        onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones'
-                                        +'&body=Completar%20la%20siguiente%20información%0D%0A'+
-                                        'Pedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
-                                    >
-                                        Garantias y Devoluciones
-                                    </Button>
-                                </Typography>
-                                <Typography variant="h6" component="h3" color="textSecondary" gutterBottom>
-                                    <Link href="/MisFacturas">
-                                        <a>
-                                            <FavoriteBorderIcon/>  Favoritos
-                                        </a>
-                                    </Link>
-                                </Typography>
-                                <Typography variant="h6" component="h3" color="textSecondary" gutterBottom>
-                                    <Link href="/MisNotasCredito">
-                                        <a>
-                                            <NoteAltOutlinedIcon/>  Notas de credito
-                                        </a>
-                                    </Link>
-                                </Typography>
-                            </Box>
-                            <Divider/>
-                            <Box component="div" py={2}>
-                                <Typography variant="h6" component="h3" color="textSecondary" gutterBottom>
-                                    <CreateOutlinedIcon/>
-                                        <Button variant="text"
-                                            onClick={() => window.open('mailto:quejas@pedidos.com.mx?subject=Queja%20sobre')}
+                        </Grid>
+                        <Grid item sm={12}>
+                            <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                <Link href="/MisDatos">
+                                    <a>
+                                        <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="flex-start"
+                                        alignItems="center"
+                                        spacing={2}
                                         >
-                                            Levantar queja
-                                        </Button>
-                                </Typography>
-                            </Box>
-
-                            <Grid item xs={3}>
-                                <Button variant="outlined" color="primary" fullWidth size="large" name="Modal1" onClick={handleOpen}><HelpOutlineOutlinedIcon color="primary"/>&nbsp; Necesito Ayuda</Button>
-                            </Grid>
-                            <Box component="div" py={3}>
-                                <Button variant="contained" color="primary" fullWidth  name="editarDatos" ><ArrowForwardOutlinedIcon color="white"/>&nbsp; Cerrar sesión</Button>
-                            </Box>
-                        </Box>
-                    </Container>
+                                            <Grid item>
+                                                <SettingsOutlinedIcon/>
+                                            </Grid> 
+                                            <Grid item>
+                                                <Box component="span">Mis datos</Box>
+                                            </Grid>
+                                        </Grid>
+                                    </a>
+                                </Link>
+                            </Typography>
+                        </Grid>
+                        <Grid item sm={12}>
+                            <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                <Link href="/MisPedidos">
+                                    <a>
+                                        <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="flex-start"
+                                        alignItems="center"
+                                        spacing={1}
+                                        >
+                                            <Grid item>
+                                                <Inventory2OutlinedIcon/>
+                                            </Grid> 
+                                            <Grid item>
+                                                <Box component="span">Pedidos</Box>
+                                            </Grid>
+                                        </Grid>
+                                    </a>
+                                </Link>
+                            </Typography>
+                        </Grid>
+                        <Grid item sm={12}>
+                            <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                <Link href="/Direcciones">
+                                    <a>
+                                        <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="flex-start"
+                                        alignItems="center"
+                                        spacing={1}
+                                        >
+                                            <Grid item>
+                                                <FmdGoodOutlinedIcon/>
+                                            </Grid> 
+                                            <Grid item>
+                                                <Box component="span">Direcciones</Box>
+                                            </Grid>
+                                        </Grid>
+                                    </a>
+                                </Link>
+                            </Typography>
+                        </Grid>
+                        <Grid item sm={12}>
+                            <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                <Link href="/misFacturas">
+                                    <a>
+                                        <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="flex-start"
+                                        alignItems="center"
+                                        spacing={1}
+                                        >
+                                            <Grid item>
+                                                <DescriptionOutlinedIcon/>
+                                            </Grid> 
+                                            <Grid item>
+                                                <Box component="span">Facturas</Box>
+                                            </Grid>
+                                        </Grid>
+                                    </a>
+                                </Link>
+                            </Typography>
+                        </Grid>
+                        {/* <Grid item sm={12}>
+                            <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                <Link href="/MisFacturas">
+                                    <a>
+                                        <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="flex-start"
+                                        alignItems="center"
+                                        spacing={1}
+                                        >
+                                            <Grid item>
+                                                <DescriptionOutlinedIcon/>
+                                            </Grid> 
+                                            <Grid item>
+                                                <Box component="span">Garantías y Devoluciones</Box>
+                                            </Grid>
+                                        </Grid>
+                                    </a>
+                                </Link>
+                            </Typography>
+                        </Grid> */}
+                        <Grid item sm={12}>
+                            <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                <Link href="/misFavoritos">
+                                    <a>
+                                        <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="flex-start"
+                                        alignItems="center"
+                                        spacing={1}
+                                        >
+                                            <Grid item>
+                                                <FavoriteBorderIcon/>
+                                            </Grid> 
+                                            <Grid item>
+                                                <Box component="span">Favoritos</Box>
+                                            </Grid>
+                                        </Grid>
+                                    </a>
+                                </Link>
+                            </Typography>
+                        </Grid>
+                        <Grid item sm={12}>
+                            <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                <Link href="/MisNotasCredito">
+                                    <a>
+                                        <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="flex-start"
+                                        alignItems="center"
+                                        spacing={1}
+                                        >
+                                            <Grid item>
+                                                <ReceiptOutlinedIcon/>
+                                            </Grid> 
+                                            <Grid item>
+                                                <Box component="span">Notas de crédito</Box>
+                                            </Grid>
+                                        </Grid>
+                                    </a>
+                                </Link>
+                            </Typography>
+                        </Grid>
+                       
+                    </Grid>
                 </Box>
+                <Divider />
+                    <Box component="divider" py={2}>
+                    <Box component="div" py={1}>
+                        <Button startIcon={<ShuffleIcon />} onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones'
+                                            +'&body=Completar%20la%20siguiente%20información%0D%0A'+
+                                            'Pedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A')}>
+                            Garantías & Devoluciones
+                        </Button>
 
+                        <Button startIcon={<FeedbackOutlinedIcon />}
+                            onClick={() => window.open('mailto:quejas@pedidos.com.mx?subject=Queja%20sobre')}
+                        >
+                            Levantar queja
+                        </Button>
+                    </Box>   
+                    <Divider />
+                    <Box component="div" pt={3} >
+                        <Box component="div" pb={2}>
+                            <Button startIcon={<HelpOutlineOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="Modal1" onClick={handleOpen}>Necesito Ayuda</Button>
+                        </Box>
+                        <Box component="div" >
+                           <Button startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
+                        </Box>
+                        
+                    </Box>
+                    </Box>                   
                 <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
@@ -225,7 +354,7 @@ export default function MiCuentaSiderBar() {
                     </div>
                     </Fade>
                 </Modal>
-            </div>
+            </Box>
 		</>
 	);
 }

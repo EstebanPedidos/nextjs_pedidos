@@ -9,18 +9,16 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     FormHelperText, FormControl, MenuItem, IconButton,
     Input, InputLabel, InputAdornment, Chip, Snackbar, 
     Alert, Stack, Rating } from '@mui/material';
-
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
-
-import MuiAlert from '@material-ui/lab/Alert';
-
+//import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
-
+//Component
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
+
 import Services from '../services/Services'
 
 //Nextjs
@@ -296,28 +294,27 @@ export default function MisDatos() {
 
   const formPrimeraVez = (
     <div>
-        <Box component="div" className={classes.bgcontent}>
-            <Container maxWidth="lg">
-                <Box component="div" mx="auto" py={8} >
-                        <Box component="div" textAlign="center">
-                            <Typography component="h3" variant="h6">Gestiona tu cuenta, tu eliges</Typography>
-                        </Box>
-                        <Box component="div" width="15%" mx="auto" py={4}>
-                            <img className={classes.opacityBox} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/modal/edit.svg" alt="Perfil de usuario" />
-                        </Box>
-                        <Box component="div"  width="40%" mx="auto" textAlign="center" py={2}>
-                            <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
-                                <Grid item xs={6}>
-                                    <Button variant="outlined" fullWidth size="large" name="Modal1" onClick={handleOpen}>Personal</Button>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Button variant="outlined" fullWidth  size="large" name="Modal2" onClick={handleOpen}>Empresarial</Button>
-                                </Grid>
-                            </Grid>
-                        </Box>
+        <Container maxWidth="lg">
+            <Box component="div" mx="auto" py={8} >
+                <Box component="div" textAlign="center">
+                    <Typography component="h3" variant="h6">Gestiona tu cuenta, tu eliges</Typography>
                 </Box>
-            </Container>
-        </Box>
+                <Box component="div" width="15%" mx="auto" py={4}>
+                    <img className={classes.opacityBox} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/modal/edit.svg" alt="Perfil de usuario" />
+                </Box>
+                <Box component="div"  width="40%" mx="auto" textAlign="center" py={2}>
+                    <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
+                        <Grid item xs={6}>
+                            <Button variant="outlined" fullWidth size="large" name="Modal1" onClick={handleOpen}>Personal</Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant="outlined" fullWidth  size="large" name="Modal2" onClick={handleOpen}>Empresarial</Button>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Box>
+        </Container>
+        
 
       <Modal
         aria-labelledby="transition-modal-title"
@@ -511,247 +508,260 @@ export default function MisDatos() {
 
   const formMisDatos = (
     <div>
-        <Box className={classes.bgcontent} component="div">
-            <Box component="div" m={1}>
-                <Grid
-                    container
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="flex-start"
-                >
-                    <Grid item xs={12} sm={12} lg={3}>
-
-                    </Grid>
-                    <Grid item xs={12} sm={12} lg={9}>
-                        <Box component="div">
-                            <Grid 
-                            container
-                            direction="row"
-                            justifyContent="space-around"
-                            alignItems="center">
-                                <Grid item xs={12} sm={9}>   
-                                    <Box component="div" py={2}>
-                                        <Typography variant="h3" component="h1">
-                                            Mis Datos
-                                        </Typography>
-                                        
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} sm={3}>   
-                                <Box component="div" py={2}>
-                                    <Button variant="contained" color="primary" fullWidth size="large" name="editarDatos" onClick={handleOpen}>Editar</Button>
-                                </Box>
-                                </Grid>
-                            </Grid>
-                            <Divider light/>
-                            <Box component="div" m={1} py={4}>
-                                {misDatos.tipoCuenta === "P" &&
-                                <Box component="div" py={2}>
-                                    <Typography variant="h6" component="h2" color="textSecondary" gutterBottom>
-                                        Cuenta Personal
-                                    </Typography>
-                                </Box>
-                                }     
-                                {misDatos.tipoCuenta === "N" &&
-                                <Box component="div" py={2}>
-                                    <Typography variant="h6" component="h2" color="textSecondary" gutterBottom>
-                                        Cuenta Negocios
-                                    </Typography>
-                                </Box>
-                                }         
-                                <Grid container 
-                                direction="row"
-                                className={classes.root}
-                                justifyContent="space-around"
-                                alignItems="center" spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Grid container justifyContent="flex-start" spacing={2}>                                                
-                                            <Grid item xs={12}>
-                                                <Grid container justifyContent="center" spacing={2}>
-                                                    <Grid item xs={6}>
-                                                        <TextField fullWidth
-                                                            id="outlined-read-only-input"
-                                                            label="Nombre(s)"
-                                                            defaultValue={misDatos.nombre}
-                                                            InputProps={{
-                                                                readOnly: true,
-                                                            }}
-                                                            variant="outlined"
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={6}>
-                                                        <TextField fullWidth
-                                                            id="outlined-read-only-input"
-                                                            label="Apellidos(s)"
-                                                            defaultValue={misDatos.apellido}
-                                                            InputProps={{
-                                                                readOnly: true,
-                                                            }}
-                                                            variant="outlined"
-                                                        />
-                                                    </Grid>
-                                                    {misDatos.tipoCuenta === "N" &&
-                                                    <Grid item xs={12}>
-                                                        <TextField fullWidth
-                                                            id="outlined-read-only-input"
-                                                            label="Empresa"
-                                                            defaultValue={misDatos.empresa}
-                                                            InputProps={{
-                                                                readOnly: true,
-                                                            }}
-                                                            variant="outlined"
-                                                        />
-                                                    </Grid>
-                                                    }
-                                                    <Grid item xs={6}>
-                                                        <TextField fullWidth
-                                                            id="outlined-read-only-input"
-                                                            label="Correo"
-                                                            defaultValue={correo}
-                                                            InputProps={{
-                                                                readOnly: true,
-                                                            }}
-                                                            variant="outlined"
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={6}>
-                                                        <TextField fullWidth
-                                                        id="outlined-full-width" 
-                                                        label="Fecha de nacimiento" 
-                                                        defaultValue={fecha}
-                                                        InputLabelProps={{
-                                                            shrink: true,
-                                                        }}
-                                                        disabled
-                                                        variant="outlined"
-                                                        />
-                                                    </Grid>
-                                                </Grid> 
-                                            </Grid> 
-                                            <Grid item xs={12}>
-                                                <Divider variant="middle" light/>
-                                                <Box component="div" py={4}>
-                                                    <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                                                        <Grid item xs={6}>
-                                                            <Typography variant="h6" component="h4" >
-                                                            <Box component="div" textAlign="left">Contraseña</Box>
-                                                            </Typography>
-                                                        </Grid>
-                                                        <Grid item xs={6}>
-                                                            <Button variant="outlined" color="primary" fullWidth size="large" name="modificarPass" onClick={handleOpen}>
-                                                            Cambiar
-                                                            </Button>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Box>
-                                                <Divider variant="middle" light/>
-                                            </Grid>  
-                                            <Grid item xs={12}>
-                                                <Grid container>
-                                                    <Grid item xs={6}>
-                                                        <Typography variant="h6" component="h5" gutterBottom>
-                                                            Teléfono(s)
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={6}>
-                                                        <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
-                                                            <Grid item xs={6}>
-                                                                <Button variant="outlined" color="primary" fullWidth size="large" name="agregaTel" onClick={handleOpen}>Agregar</Button>
-                                                            </Grid>
-                                                            <Grid item xs={6}>
-                                                                <Button variant="outlined" color="primary"  fullWidth size="large" name="modificarTel" onClick={handleOpen}>Modificar</Button>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>  
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
-                                                    <Grid item xs={6}>
-                                                        <Typography variant="h6" component="h5" color="textSecondary" gutterBottom>
-                                                            Principal: {misDatos.telefonoPrinc} {/* si no tiene poner "ninguno aún" */}
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={6}>
-                                                        <FormControl fullWidth className={classes.formControl}>
-                                                            <Select variant="outlined" 
-                                                            value={telPrincipal}
-                                                            onChange={handleChange}
-                                                            displayEmpty
-                                                            className={classes.selectEmpty}
-                                                            inputProps={{ 'aria-label': 'Without label' }}
-                                                            name="telPrincipal"
-                                                            >
-                                                            <MenuItem value="" disabled>
-                                                                Seleccionar
-                                                            </MenuItem>
-                                                            {todosMisTelefonos.listPyTelefonoCliente.map((row) => (
-                                                                <MenuItem key={row.telefono} value={row.telefono}>{row.telefono}</MenuItem>
-                                                            ))}
-                                                            </Select>
-                                                            <FormHelperText>Seleccionar</FormHelperText>
-                                                        </FormControl>
-                                                    </Grid>
-                                                    <Grid item xs={6}>
-                                                    <Typography variant="h6" component="h5" color="textSecondary" gutterBottom>
-                                                        Celular: {misDatos.telefonoPrinc}  {/* si no tiene poner "ninguno aún" */}
-                                                    </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={6}>
-                                                    <FormControl fullWidth className={classes.formControl}>
-                                                        <Select variant="outlined"
-                                                        value={celPrincipal}
-                                                        onChange={handleChange}
-                                                        displayEmpty
-                                                        className={classes.selectEmpty}
-                                                        inputProps={{ 'aria-label': 'Without label' }}
-                                                        name="celPrincipal"
-                                                        >
-                                                        <MenuItem value="" disabled>
-                                                            Seleccionar
-                                                        </MenuItem>
-                                                        {todosMisTelefonos.listPyCelularSms.map((row) => (
-                                                            <MenuItem key={row.celular} value={row.celular}>{row.celular}</MenuItem>
-                                                        ))}
-                                                        </Select>
-                                                        <FormHelperText>Seleccionar</FormHelperText>
-                                                        
-                                                    </FormControl>
-                                                    </Grid>
-
-                                                    <Grid item xs={6}>
-                                                    </Grid>
-                                                    <Grid item xs={6}>
-                                                        <Typography variant="h6" component="h5" >
-                                                        <Box component="div" textAlign="left">TE ENTREGÓ TU ÚLTIMO PEDIDO</Box>
-                                                        </Typography>
-                                                        <Card className={classes.root}>
-                                                            <CardContent>
-                                                            <LocalShippingOutlinedIcon fontSize="large"/>
-                                                            <Typography variant="h6" component="h4" >
-                                                            <Box component="div" textAlign="left">{ultimoEjectuvo.nombre} {ultimoEjectuvo.paterno}</Box>
-                                                            </Typography>
-                                                            <Typography variant="h6" component="h6" >
-                                                            <Box component="div" textAlign="left">{ultimoEjectuvo.invoiceNum} Entrega Local</Box>
-                                                            </Typography>
-                                                            </CardContent>
-                                                            <Button variant="outlined" name="Modal4" onClick={handleOpen}>Evaluar </Button>
-                                                        </Card>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                                                
-
-                                        </Grid>
-                                    </Grid>
-
-                                </Grid>
-                            </Box>
+        <Container maxWidth="lg">
+            <Box component="div">
+                <Grid 
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center">
+                    <Grid item xs={8} sm={9}>   
+                        <Box component="div" py={2}>
+                            <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
+                                Mis Datos
+                            </Typography>
+                            
                         </Box>
                     </Grid>
+                    <Grid item xs={4} sm={3}>   
+                    <Box component="div" py={2}>
+                        <Button variant="contained" color="primary" fullWidth size="large" name="editarDatos" onClick={handleOpen}>Editar</Button>
+                    </Box>
+                    </Grid>
                 </Grid>
-            </Box> 
-        </Box>
+                <Divider light/>
+                <Box component="div" m={1} pb={4}>
+                    {misDatos.tipoCuenta === "P" &&
+                    <Box component="div" py={2}>
+                        <Typography variant="h6" component="h2" color="textSecondary" gutterBottom>
+                            Cuenta Personal
+                        </Typography>
+                    </Box>
+                    }     
+                    {misDatos.tipoCuenta === "N" &&
+                    <Box component="div" py={2}>
+                        <Typography variant="h6" component="h2" color="textSecondary" gutterBottom>
+                            Cuenta Negocios
+                        </Typography>
+                    </Box>
+                    }         
+                    <Grid container 
+                    direction="row"
+                    className={classes.root}
+                    justifyContent="space-around"
+                    alignItems="center" spacing={2}>
+                        <Grid item xs={12}>
+                            <Grid container justifyContent="flex-start" spacing={2}>                                                
+                                <Grid item xs={12}>
+                                    <Grid container justifyContent="center" spacing={2}>
+                                        <Grid item xs={6}>
+                                            <TextField fullWidth
+                                                id="outlined-read-only-input"
+                                                label="Nombre(s)"
+                                                defaultValue={misDatos.nombre}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }}
+                                                variant="outlined"
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <TextField fullWidth
+                                                id="outlined-read-only-input"
+                                                label="Apellidos(s)"
+                                                defaultValue={misDatos.apellido}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }}
+                                                variant="outlined"
+                                            />
+                                        </Grid>
+                                        {misDatos.tipoCuenta === "N" &&
+                                        <Grid item xs={12}>
+                                            <TextField fullWidth
+                                                id="outlined-read-only-input"
+                                                label="Empresa"
+                                                defaultValue={misDatos.empresa}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }}
+                                                variant="outlined"
+                                            />
+                                        </Grid>
+                                        }
+                                        <Grid item xs={6}>
+                                            <TextField fullWidth
+                                                id="outlined-read-only-input"
+                                                label="Correo"
+                                                defaultValue={correo}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }}
+                                                variant="outlined"
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <TextField fullWidth
+                                            id="outlined-full-width" 
+                                            label="Fecha de nacimiento" 
+                                            defaultValue={fecha}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            disabled
+                                            variant="outlined"
+                                            />
+                                        </Grid>
+                                    </Grid> 
+                                </Grid> 
+                                <Grid item xs={12}>
+                                    <Box component="div" py={2}>
+                                        <Divider variant="middle" light/>
+                                    </Box>
+                                    <Box component="div" py={2}>
+                                        <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
+                                            <Grid item xs={6}>
+                                                <Typography variant="h6" component="h4" >
+                                                <Box component="div" textAlign="left">Contraseña</Box>
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <Button variant="outlined" color="primary" fullWidth size="large" name="modificarPass" onClick={handleOpen}>
+                                                Cambiar
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Box>
+                                    <Box component="div" py={2}>
+                                        <Divider variant="middle" light/>
+                                    </Box>
+                                </Grid>  
+                                <Grid item xs={12}>
+                                    <Grid container>
+                                        <Grid item xs={6}>
+                                            <Typography variant="h6" component="h5" gutterBottom>
+                                                Teléfono(s)
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
+                                                <Grid item xs={6}>
+                                                    <Button variant="outlined" color="primary" fullWidth size="large" name="agregaTel" onClick={handleOpen}>Agregar</Button>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Button variant="outlined" color="primary"  fullWidth size="large" name="modificarTel" onClick={handleOpen}>Modificar</Button>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>  
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
+                                        <Grid item xs={6}>
+                                            <Typography variant="h6" component="h5" color="textSecondary" gutterBottom>
+                                                Principal: {misDatos.telefonoPrinc} {/* si no tiene poner "ninguno aún" */}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <FormControl fullWidth className={classes.formControl}>
+                                                <Select variant="outlined" 
+                                                value={telPrincipal}
+                                                onChange={handleChange}
+                                                displayEmpty
+                                                className={classes.selectEmpty}
+                                                inputProps={{ 'aria-label': 'Without label' }}
+                                                name="telPrincipal"
+                                                >
+                                                <MenuItem value="" disabled>
+                                                    Seleccionar
+                                                </MenuItem>
+                                                {todosMisTelefonos.listPyTelefonoCliente.map((row) => (
+                                                    <MenuItem key={row.telefono} value={row.telefono}>{row.telefono}</MenuItem>
+                                                ))}
+                                                </Select>
+                                                <FormHelperText>Seleccionar</FormHelperText>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                        <Typography variant="h6" component="h5" color="textSecondary" gutterBottom>
+                                            Celular: {misDatos.telefonoPrinc}  {/* si no tiene poner "ninguno aún" */}
+                                        </Typography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                        <FormControl fullWidth className={classes.formControl}>
+                                            <Select variant="outlined"
+                                            value={celPrincipal}
+                                            onChange={handleChange}
+                                            displayEmpty
+                                            className={classes.selectEmpty}
+                                            inputProps={{ 'aria-label': 'Without label' }}
+                                            name="celPrincipal"
+                                            >
+                                            <MenuItem value="" disabled>
+                                                Seleccionar
+                                            </MenuItem>
+                                            {todosMisTelefonos.listPyCelularSms.map((row) => (
+                                                <MenuItem key={row.celular} value={row.celular}>{row.celular}</MenuItem>
+                                            ))}
+                                            </Select>
+                                            <FormHelperText>Seleccionar</FormHelperText>
+                                            
+                                        </FormControl>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                        <Box component="div" py={2}>
+                                            <Divider variant="middle" light/>
+                                        </Box>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Box component="div" textAlign="left" pb={2}>
+                                                <Typography variant="body1" color="textSecondary">
+                                                    <Box component="div" textAlign="left">TE ENTREGO TU ÚLTIMO PEDIDO</Box>
+                                                </Typography>
+                                            </Box>
+                                            <Card className={classes.root}elevation={10}>
+                                                <Box component="div" m={1}>
+                                                    <CardContent >
+                                                    <Grid
+                                                        container
+                                                        direction="row"
+                                                        justifyContent="space-around"
+                                                        alignItems="center"
+                                                    >
+                                                        <Grid item>
+                                                            <LocalShippingOutlinedIcon color="textSecondary" fontSize="large"/>
+                                                        </Grid>
+                                                        <Grid item>
+                                                            <Box component="div" py={1} textAlign="left">
+                                                                <Typography variant="subtitle1" sx={{fontWeight:'500'}} >
+                                                                    {ultimoEjectuvo.invoiceNum} Entrega Local
+                                                                </Typography>
+                                                                <Typography variant="subtitle2" color="textSecondary" >
+                                                                {ultimoEjectuvo.nombre} {ultimoEjectuvo.paterno}
+                                                                </Typography>
+                                                            </Box>
+                                                            <Button fullWidth variant="outlined" name="Modal4" onClick={handleOpen}>Evaluar </Button>
+
+                                                        </Grid>
+                                                    </Grid>
+                                                    </CardContent>
+                                                </Box>
+                                            </Card>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                                    
+
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+                </Box>
+            </Box>
+        </Container>
+    
 
         <Modal
             aria-labelledby="transition-modal-title"
@@ -1216,11 +1226,26 @@ export default function MisDatos() {
 
   return(
     <Layout> 
-    
+        <Box className={classes.bgcontent} component="div">
+            <Box component="div" m={1}>
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="flex-start"
+                >
+                    <Grid item xs={12} sm={4} lg={3}>
+                        <MiCuentaSiderBar/> 
+                    </Grid>
+                    <Grid item xs={12} sm={8} lg={9}>
+                        <Box component="div" m={1}>
+                            {primeraVez ? formPrimeraVez : formMisDatos}
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Box> 
+        </Box>
     <div>
-    <MiCuentaSiderBar/> 
-        {primeraVez ? formPrimeraVez : formMisDatos}
-
         <Snackbar
             anchorOrigin={{
             vertical: 'bottom',
