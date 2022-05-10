@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import styles from 'styles/Home.module.css';
 import { makeStyles} from '@material-ui/core/styles';
-import { Carousel } from 'react-responsive-carousel';
 import { Grid, Box, Paper,
 	Typography, Button, Modal,
     Card, CardContent, CardActions, CardMedia, CardActionArea, Backdrop,
@@ -12,14 +12,14 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
 //Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from 'swiper';
+import { Navigation, Lazy } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 //Componentes
 import { Layout } from 'layout/Layout';
-
+import PromoSlides from 'components/home/promoSlides';
 import Services from '../services/Services'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -64,9 +64,9 @@ const useStyles = makeStyles((theme) => ({
   },
 
   productCard: {
-    maxWidth: 345,
-    margin:10,
+    boxShadow: '0px 0px 16px rgb(54 85 166 / 8%), 0px 1px 4px rgb(54 85 166 / 8%)',
     padding:5,
+    margin:5,
   },
 /*plussss*/ 
   rootqty: {
@@ -216,106 +216,124 @@ export default function Home() {
                 <Button  onClick={(event) => { event.preventDefault();setMostrarEmpresas(false)}}>Empresas</Button>
             </Grid> */}
             <Grid container spacing={2}>
-                <Grid item xs={8}>
-                    <Box component="div" px={4} xs={{fontWeight:'600'}}>
+                <Grid item xs={12}>
+                    <Box component="div" py={2} px={4} xs={{fontWeight:'600'}}>
                         {validaSesion ? <Typography variant="h4" component="h1" >
                             Hola de nuevo, {nombre}</Typography>: ''}
                     </Box>
                 </Grid>
-                {/* <Grid item xs={2}>
-                    <Button fullWidth variant="outlined" name="Modal1" onClick={handleOpen}>
-                        <WhatsAppIcon fontSize="large" />
-                    </Button>
-                </Grid>
-                <Grid item xs={2}>
-                    <Button fullWidth variant="outlined" onClick={() => window.open('mailto:info@pedidos.com?subject=Necesito%20apoyo%20con&body=')}>
-                        <MailOutlineIcon fontSize="large" /> 
-                        </Button>
-                </Grid>  */}
+                
             </Grid>
             <Box component="div" py={2}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={4} md={5}>
-                            <Box component="div"  m='auto' p={4}>
+                        <Grid item xs={12} sm={6} md={5}>
+                            <Box component="div" px={6}>
                                 <Box component="div">
+                                <Grid container spacing={2}>
+                                   <Grid item xs={6}>
+                                        <Button fullWidth variant="outlined" name="Modal1" onClick={handleOpen}>
+                                            <WhatsAppIcon fontSize="large" />
+                                        </Button>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Button fullWidth variant="outlined" onClick={() => window.open('mailto:info@pedidos.com?subject=Necesito%20apoyo%20con&body=')}>
+                                            <MailOutlineIcon fontSize="large" /> 
+                                            </Button>
+                                    </Grid> 
+                                    {/* <Grid item xs={12}>
+                                        <Link
+                                        href={`/MisPedidos`}
+                                        passHref>
+                                            <Button component="a" variant="outlined" color="primary">
+                                                Solicita ayuda
+                                            </Button>
+                                    </Link>
+                                    </Grid>   */}
+                                </Grid>
+                                    
+                                </Box>
+                                <Box component="div"  py={2}>
                                     <Paper variant="outlined">
                                         <Box component="div" m="auto" p={2}> 
-                                        <Grid container alignItems="center" spacing={2}>
-                                            <Grid item>
-                                                <Box component="div" sx={{ width: '85px', bottom: 0,right: 0,display: 'block',}} >
-                                                    <Box component="div"p={2} sx={{backgroundColor:'#3655a5', borderRadius:'8px', width:'auto',height:'auto', justifyContent:'center', margin:'auto'}}>
-                                                        <img sx={{ justifyContent:'center', margin:'auto'}}
-                                                        src="https://pedidos.com/myfotos/pedidos-com/pagina/home22/servicios/pickup.svg"
-                                                        alt=""
-                                                        layout="responsive"
-                                                        />
+                                            <Grid container alignItems="center" spacing={2}>
+                                                <Grid item>
+                                                    <Box component="div" sx={{ width: '85px', bottom: 0,right: 0,display: 'block',}} >
+                                                        <Box component="div"p={2} sx={{backgroundColor:'#3655a5', borderRadius:'8px', width:'auto',height:'auto', justifyContent:'center', margin:'auto'}}>
+                                                            <img sx={{ justifyContent:'center', margin:'auto'}}
+                                                            src="https://pedidos.com/myfotos/pedidos-com/pagina/home22/servicios/pickup.svg"
+                                                            alt=""
+                                                            layout="responsive"
+                                                            />
+                                                        </Box>
                                                     </Box>
-                                                </Box>
-                                            </Grid>
-                                            <Grid item>
-                                                <Typography variant="h6" component="p">
-                                                    Pedidos
-                                                </Typography>
-                                                <Link
-                                                    href={`/MisPedidos`}
-                                                    passHref>
-                                                    <Button fullWidth component="a" variant="outlined" color="primary">
-                                                        Ver todos
-                                                    </Button>
-                                                </Link>
-                                            </Grid>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Typography variant="h6" component="p">
+                                                         Mis Pedidos
+                                                    </Typography>
+                                                    <Link
+                                                        href={`/MisPedidos`}
+                                                        passHref>
+                                                        <Button fullWidth component="a" variant="outlined" color="primary">
+                                                            Ver todos
+                                                        </Button>
+                                                    </Link>
+                                                </Grid>
 
-                                        </Grid>
-                                            
-                                            
+                                            </Grid>
                                         </Box>
                                     </Paper>
-                            </Box>
-                                <Box component="div" py={2}>
-                                    <Link
-                                        href={`/MisPedidos`}
-                                        passHref>
-                                    <Button component="a" variant="outlined" color="primary">
-                                            Solicita ayuda
-                                        </Button>
-                                    </Link>
-                                </Box>
+                                </Box>                                
                                 <Box component="div">
-                                    <Paper elevation={12}>
-                                        <Box component="div" sx={{ width: '85px', bottom: 0,right: 0,display: 'block',}} >
-                                            <Box component="div"p={2} sx={{backgroundColor:'#3655a5', borderRadius:'8px', width:'auto',height:'auto', justifyContent:'center', margin:'auto'}}>
-                                                <img sx={{ justifyContent:'center', margin:'auto'}}
-                                                src="https://pedidos.com/myfotos/pedidos-com/pagina/home22/servicios/pickup.svg"
-                                                alt=""
-                                                layout="responsive"
-                                                />
+                                    <Box component="div">
+                                        <Paper variant="outlined">
+                                            <Box component="div" m="auto" p={2}> 
+                                                <Grid container alignItems="center" spacing={2}>
+                                                    <Grid item>
+                                                        <Box component="div" sx={{ width: '85px', bottom: 0,right: 0,display: 'block',}} >
+                                                            <Box component="div"p={2} sx={{backgroundColor:'#3655a5', borderRadius:'8px', width:'auto',height:'auto', justifyContent:'center', margin:'auto'}}>
+                                                                <img width={53} sx={{ justifyContent:'center', margin:'auto' }}
+                                                                src="https://pedidos.com/myfotos/pedidos-com/pagina/home22/servicios/tech.png"
+                                                                alt="Soporte Técnico"
+                                                                layout="responsive"
+                                                                />
+                                                            </Box>
+                                                        </Box>
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Link href={`/`} passHref>
+                                                            <a>
+                                                                <Typography variant="h6" component="p">
+                                                                    Soporte técnico
+                                                                </Typography>
+                                                            </a>
+                                                        </Link>
+                                                        <Typography variant="subtitle2" component="p" color="textSecondary">
+                                                        De Lun a Vier de 9:00 a 18:30
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={12} lg={6}>
+                                                        <Link href={`/MisPedidos`} passHref>
+                                                            <Button fullWidth component="a" variant="outlined" color="primary">
+                                                                Ayuda
+                                                            </Button>
+                                                        </Link>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={12} lg={6}>
+                                                            <Link
+                                                                href={`/MisPedidos`}
+                                                                passHref>
+                                                            <Button fullWidth component="a" variant="outlined" color="primary">
+                                                                Agenda videollamada
+                                                                </Button>
+                                                            </Link>
+                                                    </Grid>
+                                                    
+
+                                                </Grid>
                                             </Box>
-                                        </Box>
-                                    <Typography variant="h6" component="p">
-                                        Soporte tecnico
-                                    </Typography>
-                                    <Link
-                                        href={`/MisPedidos`}
-                                        passHref>
-                                    <Button component="a" color="primary">
-                                            Ver detalles
-                                        </Button>
-                                    </Link>
-                                    <Link
-                                        href={`/MisPedidos`}
-                                        passHref>
-                                    <Button component="a" variant="outlined" color="primary">
-                                            Comenzar
-                                        </Button>
-                                    </Link>
-                                    <Link
-                                        href={`/MisPedidos`}
-                                        passHref>
-                                    <Button component="a" variant="outlined" color="primary">
-                                        Agenda videollamada
-                                        </Button>
-                                    </Link>
-                                    </Paper>
+                                        </Paper>
+                                    </Box>
                                 </Box>
                             </Box>
                                 {/* <Box component="div" py={4} textAlign="center">
@@ -336,128 +354,174 @@ export default function Home() {
                                 </Box> */}
                         </Grid>
 
-                        <Grid item xs={12} sm={4} md={7}>
-                            <Swiper
-                            //modules={[Autoplay]}
-                            lazy={true}
-                            spaceBetween={10}
-                            slidesPerView={3}
-                            //centeredSlides={true}
-                            //autoplay={{
-                            //"delay": 2500,
-                            //"disableOnInteraction": false}}
-                        
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}>
-                    
-                                {show.Carrito && 
-                                <SwiperSlide  className={classes.swiperBox}>
-                                    <Box component="div" >
-                                        <Card elevation={12} className={classes.root}>
-                                            <CardContent>
-                                                {itemsHome.map((row) => (
-                                                    row.tipo === 'B' ? 
-                                                        <Card className={classes.root}>
-                                                            <CardContent>
+                        <Grid item xs={12} sm={6} md={7}>
+                            <Box component="div" sx={{ position:'relative'}}>
+                                <Box component="div" sx={{ position: 'absolute', top: 0,right: 0,display: 'block',}} >
+                                    <Box component="div" p={2} sx={{backgroundColor:'#3655a5', borderRadius:'10px 0 0 10px', width:'55vw',height:'350px', justifyContent:'center', margin:'auto'}}> </Box>
+                                </Box>
+                                <Box component="div" py={2}>
+                                    <Swiper
+                                    //modules={[Autoplay]}
+                                    lazy={true}
+                                    spaceBetween={10}
+                                    slidesPerView={3}
+                                    //centeredSlides={true}
+                                    //autoplay={{
+                                    //"delay": 2500,
+                                    //"disableOnInteraction": false}}
+                                    onSlideChange={() => console.log('slide change')}
+                                    onSwiper={(swiper) => console.log(swiper)}
+                                    breakpoints={{
+                                        640: {
+                                          slidesPerView: 1.5,
+                                          
+                                        },
+                                        768: {
+                                          slidesPerView: 2.5,
+                                          
+                                        },
+                                        1024: {
+                                          slidesPerView: 3,
+                                         
+                                        },
+                                    }}
+                                    >
+                            
+                                        {show.Carrito && 
+                                        <SwiperSlide  className={classes.swiperBox}>
+                                            <Box component="div" >
+                                                <Card elevation={12} className={classes.root}>
+                                                    
+                                                        <CardContent>
+                                                            {itemsHome.map((row) => (
+                                                                row.tipo === 'B' ? 
+                                                                    <CardActionArea>
+                                                                        <Card variant="outlined" >
+                                                                            <CardContent>
+                                                                                <Link href={`/articulos/${row.itemNum}`}>
+                                                                                    <a>
+                                                                                    <CardMedia
+                                                                                    className={classes.cover}
+                                                                                    component="img"
+                                                                                    alt={row.itemNum}
+                                                                                    image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
+                                                                                    title={row.itemNum}
+                                                                                    />
+                                                                                    </a>
+                                                                                </Link>
+                                                                            </CardContent>
+                                                                        </Card>
+                                                                    </CardActionArea>
+                                                                : ''
+                                                                
+                                                            ))}
+                                                        <Box component="div"  textAlign="center" py={2}>
+                                                            <Divider light />
+                                                        </Box>
+                                                        <Box component="div"  textAlign="center">
+                                                            <Typography variant="subtitle1" >
+                                                                Carrito
+                                                            </Typography>
+                                                        </Box>
+                                                        </CardContent>
+                                                    
+                                                </Card>
+                                            </Box>
+                                        </SwiperSlide>
+                                        }
+                                        
+                                        {show.Vistos && 
+                                        <SwiperSlide> 
+                                            <Card elevation={10} className={classes.root}>    
+                                                    <CardContent>
+                                                        <Box sx={{ width: '100%'}}>
+                                                            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} >
+                                                                {itemsHome.map((row) => (
+                                                                    row.tipo === 'V' ? 
+                                                                    <Grid item xs={6}>
+                                                                        <Link href={`/articulos/${row.itemNum}`}>
+                                                                            <a>
+                                                                            <CardActionArea>
+                                                                                <Card variant="outlined" >
+                                                                                    <CardMedia
+                                                                                    className={classes.cover}
+                                                                                    component="img"
+                                                                                    alt={row.itemNum}
+                                                                                    image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
+                                                                                    title={row.itemNum}
+                                                                                    />
+                                                                                </Card>
+                                                                            </CardActionArea>
+                                                                            </a>
+                                                                        </Link>
+                                                                    </Grid>
+                                                                        
+                                                                    : ''
+                                                                
+                                                                ))}
+                                                            </Grid>
+                                                        </Box>
+                                                        <Box component="div"  textAlign="center" py={2}>
+                                                            <Divider light />
+                                                        </Box>
+                                                        <Box component="div"  textAlign="center">
+                                                            <Typography variant="subtitle1" >
+                                                                Vistos
+                                                            </Typography>
+                                                        </Box>
+                                                    </CardContent>
+                                                
+                                            </Card>
+                                        </SwiperSlide>
+                                        }
+
+                                        {show.Favoritos && 
+                                        <SwiperSlide> 
+                                            <Card elevation={10} className={classes.root}>    
+                                                <CardContent>
+                                                    <Box sx={{ width: '100%' }}>
+                                                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
+                                                        {itemsHome.map((row) => (
+                                                            row.tipo === 'F' ? 
+                                                            <Grid item xs={6}>
                                                                 <Link href={`/articulos/${row.itemNum}`}>
                                                                     <a>
-                                                                    <CardMedia
-                                                                    className={classes.cover}
-                                                                    component="img"
-                                                                    alt={row.itemNum}
-                                                                    image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
-                                                                    title={row.itemNum}
-                                                                    />
+                                                                    <CardActionArea>
+                                                                        <Card variant="outlined" >
+                                                                            <CardMedia
+                                                                            className={classes.cover}
+                                                                            component="img"
+                                                                            alt={row.itemNum}
+                                                                            image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
+                                                                            title={row.itemNum}
+                                                                            />
+                                                                        </Card>
+                                                                    </CardActionArea>
                                                                     </a>
                                                                 </Link>
-                                                            </CardContent>
-                                                        </Card>
-                                                        
-                                                    : ''
-                                                    
-                                                ))}
-                                                <Typography variant="h6" component="h6">
-                                                    Carrito
-                                                </Typography>
-                                            </CardContent>
-                                        </Card>
-                                    </Box>
-                                </SwiperSlide>
-                                }
-                                
-                                {show.Vistos && 
-                                <SwiperSlide> 
-                                    <Card elevation={10} className={classes.root}>
-                                        <CardContent>
-                                            <Box sx={{ width: '100%' }}>
-                                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                                                    {itemsHome.map((row) => (
-                                                        row.tipo === 'V' ? 
-                                                        <Grid item xs={6}>
-                                                            <Link href={`/articulos/${row.itemNum}`}>
-                                                                <a>
-                                                                <CardMedia
-                                                                className={classes.cover}
-                                                                component="img"
-                                                                alt={row.itemNum}
-                                                                image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
-                                                                title={row.itemNum}
-                                                                />
-                                                                </a>
-                                                            </Link>
+                                                            </Grid>
+                                                            : ''
+                                                        ))}
+                                                        <Grid item xs={12}>
+                                                            <Box component="div"  textAlign="center" py={2}>
+                                                                <Divider light />
+                                                            </Box>
+                                                            <Box component="div"  textAlign="center">
+                                                                <Typography variant="subtitle1" >
+                                                                    Favoritos
+                                                                </Typography>
+                                                            </Box>
                                                         </Grid>
-                                                            
-                                                        : ''
-                                                    
-                                                    ))}
-                                                </Grid>
-                                            </Box>
-                                            <Divider light />
-                                            <Box component="div"  textAlign="center" py={2}>
-                                                <Typography variant="subtitle1" >
-                                                    Vistos
-                                                </Typography>
-                                            </Box>
-                                        </CardContent>
-                                    </Card>
-                                </SwiperSlide>
-                                }
+                                                        </Grid>
+                                                    </Box>
 
-                                {show.Favoritos && 
-                                <SwiperSlide> 
-                                    <Card elevation={10} className={classes.root}>
-                                        <CardContent>
-                                            <Box sx={{ width: '100%' }}>
-                                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                                                {itemsHome.map((row) => (
-                                                    row.tipo === 'F' ? 
-                                                    <Grid item xs={6}>
-                                                        <Link href={`/articulos/${row.itemNum}`}>
-                                                            <a>
-                                                            <CardMedia
-                                                            className={classes.cover}
-                                                            component="img"
-                                                            alt={row.itemNum}
-                                                            image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
-                                                            title={row.itemNum}
-                                                            />
-                                                            </a>
-                                                        </Link>
-                                                    </Grid>
-                                                    : ''
-                                                
-                                                ))}
-                                                <Typography variant="h6" component="h6">
-                                                    Favoritos
-                                                </Typography>
-                                                </Grid>
-                                            </Box>
-
-                                        </CardContent>
-                                    </Card>
-                                </SwiperSlide>
-                                }
-                            </Swiper>
+                                                </CardContent>
+                                            </Card>
+                                        </SwiperSlide>
+                                        }
+                                    </Swiper>
+                                </Box>
+                            </Box>
                         </Grid>
                     </Grid>
             </Box>
@@ -489,6 +553,9 @@ export default function Home() {
                         
                     </Grid>
             </Box>
+            <Box component="div" className={styles.promoContainer}>
+ 				<PromoSlides />
+ 			</Box>
             <Box component="div" py={2}>
                 <Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
                     Todo para tu espacio de trabajo
@@ -496,147 +563,47 @@ export default function Home() {
             </Box>
             {/* Inicio de sugerencias */}
             <Box component="div" py={2}>
-                <Grid container spacing={2}>
-                    {show.Carrito &&                                
-                        <Grid item xs={12}>
-                            <Typography variant="h6" component="h3" sx={{fontWeight:'600'}}>
-                                Carrito
-                            </Typography>
-                            <Swiper
-                            //modules={[Autoplay]}
-                            lazy={true}
-                            spaceBetween={10}
-                            slidesPerView={3}
-                            //centeredSlides={true}
-                            //autoplay={{
-                            //"delay": 2500,
-                            //"disableOnInteraction": false}}
-                        
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}>
-                    
-                               { Object.keys(itemsHome).map((oneKey,i)=>{
-                                        return (
-                                <SwiperSlide  className={classes.swiperBox} key={i}>
-                                    <Box component="div" >
-                                        <div>
-                                            {itemsHome[oneKey].tipo  === 'B' &&
-                                            <Card className={classes.productCard} elevation={3} >
-                                            <CardActionArea >
-                                                <Link href={`/articulos/${itemsHome[oneKey].url}`}>
-                                                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                        {itemsHome[oneKey].marca}
-                                                    </Typography>
-                                                </Link>
-                                                <CardMedia
-                                                className={classes.media}
-                                                image={`https://pedidos.com/myfotos/large/(L)${itemsHome[oneKey].itemNum}.webp`}
-                                                onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
-                                                alt={itemsHome[oneKey].itemNum}
-                                                title={itemsHome[oneKey].itemNum} />
-                                                <CardContent>
-                                                <Divider />
-                                                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                    {itemsHome[oneKey].tituloCompuesto} 
-                                                </Typography>
-                                                <p>${itemsHome[oneKey].precio}</p> 
-                                                <p style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>${itemsHome[oneKey].precioDeLista} </p>
-                                                </CardContent>
-                                            </CardActionArea>
-                                            <CardActions>
-                                                <Button
-                                                size="medium"
-                                                variant="outlined"
-                                                color="primary"
-                                                fullWidth
-                                                >
-                                                    <Link href={`/articulos/${itemsHome[oneKey].url}`}>
-                                                        Ver Detalle
-                                                    </Link>
-                                                </Button>
-                                            </CardActions>
-                                            </Card>                 
-                                            }
-                                        </div>
-                                    </Box>
-                                </SwiperSlide>
-                                );
-                                    })
-                                }
-                               
-                            </Swiper>
-                            <Carousel emulateTouch={true} showStatus={false} showIndicators={false} showThumbs={false} centerMode={true} centerSlidePercentage={20}>
-                                { Object.keys(itemsHome).map((oneKey,i)=>{
-                                        return (
-                                        <div key={i}>
-                                            {itemsHome[oneKey].tipo  === 'B' &&
-                                            <Card className={classes.productCard} elevation={3} >
-                                            <CardActionArea >
-                                                <Link href={`/articulos/${itemsHome[oneKey].url}`}>
-                                                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                        {itemsHome[oneKey].marca}
-                                                    </Typography>
-                                                </Link>
-                                                <CardMedia
-                                                className={classes.media}
-                                                image={`https://pedidos.com/myfotos/large/(L)${itemsHome[oneKey].itemNum}.webp`}
-                                                onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
-                                                alt={itemsHome[oneKey].itemNum}
-                                                title={itemsHome[oneKey].itemNum} />
-                                                <CardContent>
-                                                <Divider />
-                                                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                    {itemsHome[oneKey].tituloCompuesto} 
-                                                </Typography>
-                                                <p>${itemsHome[oneKey].precio}</p> 
-                                                <p style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>${itemsHome[oneKey].precioDeLista} </p>
-                                                </CardContent>
-                                            </CardActionArea>
-                                            <CardActions>
-                                                <Button
-                                                size="medium"
-                                                variant="outlined"
-                                                color="primary"
-                                                fullWidth
-                                                >
-                                                    <Link href={`/articulos/${itemsHome[oneKey].url}`}>
-                                                        Ver Detalle
-                                                    </Link>
-                                                </Button>
-                                            </CardActions>
-                                            </Card>                 
-                                            }
-                                        </div>
-                                        );
-                                    })
-                                }
-                            </Carousel>
-                        </Grid>                                         
-                    }
-
-                    {show.Vistos &&                                
-                        <Grid item xs={12}>
-                            <Typography variant="h6" component="h3" sx={{fontWeight:'600'}}>
-                            Productos Vistos
-                            </Typography>
-                            <Swiper
-                            //modules={[Autoplay]}
-                            lazy={true}
-                            spaceBetween={10}
-                            slidesPerView={4.2}
-                            //centeredSlides={true}
-                            //autoplay={{
-                            //"delay": 2500,
-                            //"disableOnInteraction": false}}
-                        
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}>
-                    
+                {show.Carrito &&                                
+                    <Box component="div" py={2}>
+                        <Box component="div" pb={2}>
+                        <Typography variant="h6" component="h3" sx={{fontWeight:'600'}}>
+                            Carrito
+                        </Typography>
+                        </Box>
+                        <Swiper
+                        modules={[Lazy, Navigation]}
+                        navigation
+                        lazy={true}
+                        spaceBetween={15}
+                        slidesPerView={4}
+                        loop={true}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        //centeredSlides={true}
+                        onSlideChange={() => console.log('slide change')}
+                        onSwiper={(swiper) => console.log(swiper)}
+                        breakpoints={{
+                            640: {
+                                slidesPerView: 1.9,
+                                
+                            },
+                            768: {
+                                slidesPerView: 3.8,
+                                
+                            },
+                            1024: {
+                                slidesPerView: 4,
+                                
+                            },
+                        }}
+                        >
                             { Object.keys(itemsHome).map((oneKey,i)=>{
-                                 return (
-                                <SwiperSlide  className={classes.swiperBox} key={i}>
-                                    <Box component="div" >
-                                        {itemsHome[oneKey].tipo  === 'V' &&
+                                    return (
+                            <SwiperSlide className={classes.swiperBox}>
+                                <Box component="div" >
+                                    <div key={i}>
+                                        {itemsHome[oneKey].tipo  === 'B' &&
                                         <Card className={classes.productCard} >
                                             <CardActionArea  to={`/articulos/${itemsHome[oneKey].url}`} >
                                                 <Box component="div" textAlign="center">
@@ -682,83 +649,223 @@ export default function Home() {
                                                     </Link>
                                                 </Button>
                                             </CardActions>
-                                        </Card>                
+                                        </Card> 
+                                                      
                                         }
-                                    </Box>
-                                </SwiperSlide>
-                                    );
+                                    </div>
+                                </Box>
+                            </SwiperSlide>
+                            );
                                 })
                             }
-                            </Swiper>
-                            
-                        </Grid>                                         
-                    }
-
-                    {show.Favoritos &&                                
-                        <Grid item xs={12}>
-                            <Typography variant="h5" component="h5">
+                        </Swiper>                       
+                    </Box>                                         
+                } 
+                {show.Vistos &&                                
+                    <Box component="div" py={2}> 
+                        <Box component="div" pb={2}>   
+                            <Typography variant="h6" component="h3" sx={{fontWeight:'600'}}>
+                            Productos Vistos
+                            </Typography>
+                        </Box>
+                        <Swiper
+                        modules={[Lazy, Navigation]}
+                        navigation
+                        lazy={true}
+                        spaceBetween={15}
+                        slidesPerView={4}
+                        loop={true}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        //centeredSlides={true}
+                        //autoplay={{
+                        //"delay": 2500,
+                        //"disableOnInteraction": false}}
+                        onSlideChange={() => console.log('slide change')}
+                        onSwiper={(swiper) => console.log(swiper)}
+                        breakpoints={{
+                            640: {
+                                slidesPerView: 1.9,
+                                
+                            },
+                            768: {
+                                slidesPerView: 3.8,
+                                
+                            },
+                            1024: {
+                                slidesPerView: 4,
+                                
+                            },
+                        }}
+                        >
+                
+                        { Object.keys(itemsHome).map((oneKey,i)=>{
+                                return (
+                            <SwiperSlide  className={classes.swiperBox}>
+                                <Box component="div" key={i}>
+                                    {itemsHome[oneKey].tipo  === 'V' &&
+                                    <Card className={classes.productCard} >
+                                        <CardActionArea  to={`/articulos/${itemsHome[oneKey].url}`} >
+                                            <Box component="div" textAlign="center">
+                                                <Typography variant="caption" color="textSecondary" gutterBottom>
+                                                    {itemsHome[oneKey].marca}
+                                                </Typography>
+                                            </Box>
+                                            <CardMedia
+                                            className={classes.media}
+                                            image={`https://pedidos.com/myfotos/large/(L)${itemsHome[oneKey].itemNum}.webp`}
+                                            onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
+                                            alt={itemsHome[oneKey].itemNum}
+                                            title={itemsHome[oneKey].itemNum}
+                                            />
+                                            <CardContent>
+                                            <Divider light />
+                                            <Typography mt={2} sx={{ height:'44px', overflow: 'hidden'}}
+                                                variant="body2"
+                                                color="textSecondary"
+                                                component="p">
+                                                {itemsHome[oneKey].tituloCompuesto} 
+                                            </Typography>
+                                            <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
+                                                <Typography  variant="caption">
+                                                ${itemsHome[oneKey].precioDeLista}
+                                                </Typography> 
+                                            </Box>
+                                            <Typography variant="subtitle1" display="block" gutterBottom color="textPrimary">
+                                                <Box component="span" fontWeight="fontWeightBold"> ${itemsHome[oneKey].precio}</Box>
+                                            </Typography>
+                                            
+                                            </CardContent>
+                                        </CardActionArea>
+                                        <CardActions>
+                                            <Button
+                                            size="medium"
+                                            variant="outlined"
+                                            color="primary"
+                                            fullWidth
+                                            >
+                                                <Link href={`/articulos/${itemsHome[oneKey].url}`}>
+                                                    Ver Detalle
+                                                </Link>
+                                            </Button>
+                                        </CardActions>
+                                    </Card>                
+                                    }
+                                </Box>
+                            </SwiperSlide>
+                                );
+                            })
+                        }
+                        </Swiper>
+                    </Box>                                      
+                }
+                {show.Favoritos &&
+                    <Box component="div" py={2}>
+                         <Box display="flex" alignItems="center" component="div" pb={2}>
+                            <Typography variant="h6" component="h3" sx={{fontWeight:'600'}}>
                                 Productos Favoritos
                             </Typography>
-                            <Button
-                            size="medium"
-                            variant="outlined"
-                            color="primary"
-                            >
                             <Link href="/misFavoritos">
-                            Ver Todo
+                                <Button component="a" color="primary">
+                                    VER TODOS                                   
+                                </Button>
                             </Link>
-                            </Button>
-                            <Carousel emulateTouch={true} showStatus={false} showIndicators={false} showThumbs={false} centerMode={true} centerSlidePercentage={20}>
-                                { Object.keys(itemsHome).map((oneKey,i)=>{
-                                        return (
-                                        <div key={i}>
-                                            {itemsHome[oneKey].tipo  === 'F' &&
-                                            <Card className={classes.productCard} elevation={3} >
-                                            <CardActionArea>
-                                                <Link href={`/articulos/${itemsHome[oneKey].url}`}>
-                                                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                        {itemsHome[oneKey].marca}
-                                                    </Typography>
-                                                </Link>
-                                                <CardMedia
-                                                className={classes.media}
-                                                image={`https://pedidos.com/myfotos/large/(L)${itemsHome[oneKey].itemNum}.webp`}
-                                                onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
-                                                alt={itemsHome[oneKey].itemNum}
-                                                title={itemsHome[oneKey].itemNum} />
-                                                <CardContent>
-                                                <Divider />
-                                                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                    {itemsHome[oneKey].tituloCompuesto} 
+                        </Box>
+                        <Swiper
+                        modules={[Lazy, Navigation]}
+                        navigation
+                        lazy={true}
+                        spaceBetween={15}
+                        slidesPerView={4}
+                        loop={true}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        //centeredSlides={true}
+                        //autoplay={{
+                        //"delay": 2500,
+                        //"disableOnInteraction": false}}
+                        onSlideChange={() => console.log('slide change')}
+                        onSwiper={(swiper) => console.log(swiper)}
+                        breakpoints={{
+                            640: {
+                                slidesPerView: 1.9,
+                                
+                            },
+                            768: {
+                                slidesPerView: 3.8,
+                                
+                            },
+                            1024: {
+                                slidesPerView: 4,
+                                
+                            },
+                        }}
+                        >
+                
+                        { Object.keys(itemsHome).map((oneKey,i)=>{
+                                return (
+                            <SwiperSlide  className={classes.swiperBox}>
+                                <Box component="div" key={i}>
+                                {itemsHome[oneKey].tipo  === 'F' &&
+                                    <Card className={classes.productCard} >
+                                        <CardActionArea  to={`/articulos/${itemsHome[oneKey].url}`} >
+                                            <Box component="div" textAlign="center">
+                                                <Typography variant="caption" color="textSecondary" gutterBottom>
+                                                    {itemsHome[oneKey].marca}
                                                 </Typography>
-                                                <p>${itemsHome[oneKey].precio}</p> 
-                                                <p style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>${itemsHome[oneKey].precioDeLista} </p>
-                                                </CardContent>
-                                            </CardActionArea>
-                                            <CardActions>
-                                                <Button
-                                                size="medium"
-                                                variant="outlined"
-                                                color="primary"
-                                                fullWidth
-                                                >
-                                                    <Link href={`/articulos/${itemsHome[oneKey].url}`}>
-                                                        Ver Detalle
-                                                    </Link>
-                                                </Button>
-                                            </CardActions>
-                                            </Card>                 
-                                            }
-                                        </div>
-                                        );
-                                    })
-                                }
-                            </Carousel>
-                        </Grid>                                         
-                    }
+                                            </Box>
+                                            <CardMedia
+                                            className={classes.media}
+                                            image={`https://pedidos.com/myfotos/large/(L)${itemsHome[oneKey].itemNum}.webp`}
+                                            onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
+                                            alt={itemsHome[oneKey].itemNum}
+                                            title={itemsHome[oneKey].itemNum}
+                                            />
+                                            <CardContent>
+                                            <Divider light />
+                                            <Typography mt={2} sx={{ height:'44px', overflow: 'hidden'}}
+                                                variant="body2"
+                                                color="textSecondary"
+                                                component="p">
+                                                {itemsHome[oneKey].tituloCompuesto} 
+                                            </Typography>
+                                            <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
+                                                <Typography  variant="caption">
+                                                ${itemsHome[oneKey].precioDeLista}
+                                                </Typography> 
+                                            </Box>
+                                            <Typography variant="subtitle1" display="block" gutterBottom color="textPrimary">
+                                                <Box component="span" fontWeight="fontWeightBold"> ${itemsHome[oneKey].precio}</Box>
+                                            </Typography>
+                                            
+                                            </CardContent>
+                                        </CardActionArea>
+                                        <CardActions>
+                                            <Button
+                                            size="medium"
+                                            variant="outlined"
+                                            color="primary"
+                                            fullWidth
+                                            >
+                                                <Link href={`/articulos/${itemsHome[oneKey].url}`}>
+                                                    Ver Detalle
+                                                </Link>
+                                            </Button>
+                                        </CardActions>
+                                    </Card>                
+                                    }
+                                </Box>
+                            </SwiperSlide>
+                                );
+                            })
+                        }
+                        </Swiper>
 
+                    </Box>
+                }
 
-                </Grid>
             </Box>            
             <Modal
                 aria-labelledby="transition-modal-title"
