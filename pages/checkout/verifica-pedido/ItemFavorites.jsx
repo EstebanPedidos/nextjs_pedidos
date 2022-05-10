@@ -48,7 +48,7 @@ export  default function ItemFavorites({favoritos,add,loading}){
 
     useEffect(()=>{
         setFavoritosF(favoritos) 
-    },[])    
+    },[favoritos])    
 
     return (
         <Box m={1}>

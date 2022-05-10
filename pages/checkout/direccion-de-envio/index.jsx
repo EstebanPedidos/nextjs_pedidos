@@ -64,9 +64,10 @@ export default function Direccion_de_envio(props){
             if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
                 if(parseInt(cliente) !== 201221){
                     let pedido       = await localStorage.getItem('Pedido')
+                    let Usu_Nomb     = await localStorage.getItem('Usu_Nomb')
                     if(pedido !== undefined && pedido !== null){
                         let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=1',{})
-                        let json         = await {jsonResumen:services.data,pedido:pedido}
+                        let json         = await {jsonResumen:services.data,pedido:pedido,Usu_Nomb:Usu_Nomb}
                         if(json.jsonResumen.resumen.estatus === 'R' && json.jsonResumen.resumen.pvse === 'N'){
                             /*if(json.jsonResumen.resumen.envio.tipo !== ''){
                                 if(json.jsonResumen.resumen.facturas.idMetodo !== 0  || json.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP'){
@@ -178,7 +179,7 @@ export default function Direccion_de_envio(props){
                                                         <Grid item xs={11}>
                                                             <Typography variant="h6" component="p"sx={{ fontWeight:'600'}} >
                                                                {/*  <Box  px={6} > */}
-                                                                    Nomcort,
+                                                                    {data.Usu_Nomb},
                                                                 {/* </Box> */}
                                                             </Typography> 
                                                         </Grid>
@@ -362,7 +363,7 @@ export default function Direccion_de_envio(props){
                             }                    
                         </Grid> 
                     </Grid>
-                    {(alerta.hasOwnProperty('severity'))&
+                    {(alerta.hasOwnProperty('severity'))&&
                         <Alertas setAlerta={setAlerta} alerta={alerta}/>
                     } 
                 </Box> 

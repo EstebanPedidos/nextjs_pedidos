@@ -66,7 +66,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
 
     useEffect(()=>{
         setPrecarritoP(precarrito) 
-    },[])
+    },[precarrito])
 
     function NewRemove(item_num){        
         let existe = Remove.indexOf(item_num)
