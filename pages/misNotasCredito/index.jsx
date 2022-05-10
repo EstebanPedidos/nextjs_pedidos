@@ -162,9 +162,9 @@ export default function MisNotasCredito() {
 
     const Contenido = (
         result.map((row) => (
-            <Card className={classes.paperBox}>
+            <Card className={classes.paperBox} key={row.invoice}>
                 <CardContent>
-                    <Grid container justifyContent="space-between" alignItems='center' spacing={2} key={row.invoice}>
+                    <Grid container justifyContent="space-between" alignItems='center' spacing={2} >
                         <Grid item xs={12} sm={12} lg={4}> 
                             <Grid container direction="row" alignItems="center" justifyContent="center">
                                 <Grid item xs={12} sm={12} lg={8}>

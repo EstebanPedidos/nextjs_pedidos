@@ -517,9 +517,9 @@ export default function Home() {
                     
                                { Object.keys(itemsHome).map((oneKey,i)=>{
                                         return (
-                                <SwiperSlide  className={classes.swiperBox}>
+                                <SwiperSlide  className={classes.swiperBox} key={i}>
                                     <Box component="div" >
-                                        <div key={i}>
+                                        <div>
                                             {itemsHome[oneKey].tipo  === 'B' &&
                                             <Card className={classes.productCard} elevation={3} >
                                             <CardActionArea >
@@ -634,8 +634,8 @@ export default function Home() {
                     
                             { Object.keys(itemsHome).map((oneKey,i)=>{
                                  return (
-                                <SwiperSlide  className={classes.swiperBox}>
-                                    <Box component="div" key={i}>
+                                <SwiperSlide  className={classes.swiperBox} key={i}>
+                                    <Box component="div" >
                                         {itemsHome[oneKey].tipo  === 'V' &&
                                         <Card className={classes.productCard} >
                                             <CardActionArea  to={`/articulos/${itemsHome[oneKey].url}`} >
