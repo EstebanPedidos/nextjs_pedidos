@@ -13,7 +13,7 @@ import ListDescription from './ListDescription';
 import ProductTab   from './ProductTab';
 import Alertas from '../checkout/Alertas'
 import { Layout } from 'layout/Layout';
-import Reviews from './Reviews';
+import ReviewItem from './ReviewItem';
 //Modales
 import Cotizar from "./Modales/Cotizar";
 
@@ -313,30 +313,30 @@ export default function FichaTecnica(props){
                                                     </SwiperSlide>
                                                     
                                                     </Swiper>
-                                                <Swiper
-                                                    onSwiper={setThumbsSwiper}
-                                                    
-                                                    spaceBetween={10}
-                                                    slidesPerView={4}
-                                                    freeMode={true}
-                                                    watchSlidesProgress={true}
-                                                    modules={[FreeMode, Navigation, Thumbs]}
-                                                    className="mySwiper"
-                                                >
-                                                    <SwiperSlide>
-                                                    <img src={`https://pedidos.com/myfotos/${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
-                                                    </SwiperSlide>
-                                                    <SwiperSlide>
-                                                    <img src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
-                                                    </SwiperSlide>
-                                                    <SwiperSlide>
-                                                    <img src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
-                                                    </SwiperSlide>
-                                                    <SwiperSlide>
-                                                    img video
-                                                    </SwiperSlide>
-                                                    
-                                                </Swiper>
+                                                    <Swiper
+                                                        onSwiper={setThumbsSwiper}
+                                                        
+                                                        spaceBetween={10}
+                                                        slidesPerView={4}
+                                                        freeMode={true}
+                                                        watchSlidesProgress={true}
+                                                        modules={[FreeMode, Navigation, Thumbs]}
+                                                        className="mySwiper"
+                                                    >
+                                                        <SwiperSlide>
+                                                        <img src={`https://pedidos.com/myfotos/${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                        <img src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                        <img src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                        img video
+                                                        </SwiperSlide>
+                                                        
+                                                    </Swiper>
                                                     {/* {(datos.hasOwnProperty('item_num'))?
                                                     (datos.descripcion.descripcion.link !== "" && 
                                                     datos.descripcion.descripcion.link !== undefined)?
@@ -613,7 +613,7 @@ export default function FichaTecnica(props){
                                                         <FormLabel component="legend">Protección contra daños</FormLabel>
                                                             <RadioGroup aria-label="duración" name="proteccion" value={isHDI} onChange={({target})=>{setisHDI(target.value)}}>
                                                                 <FormControlLabel value='ZZZSEGURO' control={<Radio />} label={
-                                                                <Typography>1 AÑO {hdi}</Typography>
+                                                                <Typography>1 AÑO ${hdi}</Typography>
                                                                 }/>
                                                                 <FormControlLabel value='' control={<Radio />} label="No, por el momento" />
                                                             </RadioGroup>
@@ -628,10 +628,10 @@ export default function FichaTecnica(props){
                                                         <FormLabel component="legend">Protección contra daños</FormLabel>
                                                             <RadioGroup aria-label="duración" name="garantiaext" value={isGarn} onChange={({target})=>{setIsGarn(target.value)}}>
                                                                 <FormControlLabel value="ZZZGAEXT1" control={<Radio />} label={
-                                                                <Typography>1 AÑO  {garantext1}</Typography>
+                                                                <Typography>1 AÑO  ${garantext1}</Typography>
                                                                 }/>
                                                                 <FormControlLabel value="ZZZGAEXT2" control={<Radio />} label={
-                                                                <Typography>2 AÑOs  {garantext2}</Typography>
+                                                                <Typography>2 AÑOs  ${garantext2}</Typography>
                                                                 }/>
                                                                 <FormControlLabel value="" control={<Radio />} label="No, por el momento" />
                                                             </RadioGroup>
@@ -732,6 +732,12 @@ export default function FichaTecnica(props){
                                         </Box>     
                                     </Box>
                                     }
+                                    {(datos.hasOwnProperty('item_num'))?
+                                    <ReviewItem item_num={datos.item_num.trim()} />
+                                    :
+                                    <Skeleton variant="rectangular"  height={250} animation="wave"/>
+                                    }  
+                                    
                                     {(datos.hasOwnProperty('item_num'))?
                                     <ProductTab datos={datos}/>
                                     :
