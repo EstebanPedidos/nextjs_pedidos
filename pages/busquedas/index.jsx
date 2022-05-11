@@ -195,14 +195,14 @@ export default function Busquedas(props) {
                                 </Grid>
                                 <Grid item xs={12} sm={6} lg={3}>
                                     <Grid container spacing={2}>
-                                        <Grid item xs={12} sm={6}>
+                                        <Grid item xs={6} sm={6}>
                                             <Paper elevation={4} className={classes.BoxMsi}>
                                             <Typography variant="overline" display="block">Hasta</Typography>
                                                 <Typography  component="body1" variant="h4" sx={{fontWeight:'600'}}><Typography component="span" variant="h4" color="primary">18</Typography> MSI</Typography>
                                                 <Typography variant="caption" display="block" gutterBottom color="textSecondary">Meses sin Intereses*</Typography>
                                             </Paper>
                                         </Grid>
-                                        <Grid item xs={12} sm={6}>
+                                        <Grid item xs={6} sm={6}>
                                             <Paper elevation={4} className={classes.BoxMsi}> 
                                                 <Typography variant="overline" display="block">Hasta</Typography>
                                                 <Typography component="body1" variant="h4" sx={{fontWeight:'600'}}><Typography component="span" variant="h4" color="primary">24</Typography> MSI*</Typography>
