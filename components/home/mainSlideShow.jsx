@@ -1,6 +1,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image';
+import styles from 'styles/Home.module.css';
 //MUI
 import {Box, Grid, Paper, Typography, Button, Divider, Card, 
     CardActionArea, CardContent, CardActions,CardMedia, Avatar,
@@ -67,7 +68,7 @@ export default function MainSlideShow() {
 				<SwiperSlide> 
 
                     <a class="bannerlin" href="/busquedas.asp?query=impresora+epson" aria-label="impresion">
-					<Box component="div">
+					<Box component="div" sx={{position:'relative'}}>
 						<img src="https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/impresion-epson-ecotank-l3210.png"
 						srcSet="
 						https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/impresion-epson-ecotank-l3210-xs.png 800w,
@@ -77,20 +78,51 @@ export default function MainSlideShow() {
 						layout="fill"
 						objectFit="cover"
 						objectPosition="bottom center"/>
-					</Box>   
-					<Box component="div">
-						<div class="content">
-							<p class="titleb l-spacen1"><span class="c-blue">$4,175</span></p>
-							<p class="caption2 l-spacen1 opacity-80">
-								<span data-swiper-parallax="-20%">Multifuncional EPSON EcoTank L3210</span>
-								<br/>
-								<span class="opacity-70 f500 c-grayxs"> Inyección de tinta Heat Free </span>
-							</p> 
-							<p class="caption2 l-spacen1 pt-12 hidden" >
-								<span class="msibluesquare" data-swiper-parallax="-20%"> <span class="f500 fs15"><span></span></span></span>
-							</p>  
-						</div>
-					</Box>
+					</Box>  
+                    <Box component="div" >
+                        <Box component="div" className={styles.infopbox}>
+                            <Grid  spacing={2}
+                            container
+                            direction="row"
+                            justifyContent="space-between"
+                            alignItems="center">
+                                <Grid item xs={6} sm={4}>
+                                    <Box component="div" >
+                                        <Paper elevation={4} p={1} >
+                                            <Box component="div" textAlign="center" py={2} px={3}> 
+                                                <Typography variant="overline" display="block">Hasta</Typography>
+                                                    <Typography  component="body1" variant="h5" sx={{fontWeight:'600'}}>
+                                                    <Box component="span" sx={{color:'#3655a5'}}>18</Box> MSI</Typography>
+                                                    <Typography variant="caption" display="block" gutterBottom color="textSecondary">Tarjetas participantes*</Typography>
+                                                   
+                                            </Box>
+                                        </Paper>
+                                    </Box>
+                                </Grid>
+                                <Divider orientation="vertical" flexItem />
+                                <Grid item xs={6} sm={7}>
+                                    <Box component="div" >
+                                        <div class="content">
+                                            <Typography className={styles.title} variant="h4" component="body1" > 
+                                            Desde <Box component="span" sx={{color:'#3655a5'}}>$4,175</Box>
+                                            </Typography>
+
+                                            <Typography variant="Subtitle1" component="p" >
+                                            EPSON EcoTank L3210
+                                            </Typography> 
+                                            <Typography variant="Subtitle1" component="p" color="textSecondary" >								
+                                                Inyección de tinta Heat Free 
+                                            </Typography> 
+                                            <p class="caption2 l-spacen1 pt-12 hidden" >
+                                                <span class="msibluesquare" data-swiper-parallax="-20%"> <span class="f500 fs15"><span></span></span></span>
+                                            </p>  
+                                        </div>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Box> 
+					
 						</a>
 				</SwiperSlide>
 				<SwiperSlide> 

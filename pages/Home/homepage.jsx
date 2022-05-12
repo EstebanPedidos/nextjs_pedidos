@@ -10,6 +10,7 @@
 import MainSlideShow from 'components/home/mainSlideShow';
 import PromoSlides from 'components/home/promoSlides';
 import ServiceSlides from 'components/home/serviceSlides';
+import SecondaryCard from 'components/home/SecondaryCards';
 import Trends from 'components/home/trendSlides';
 import Brands from 'components/home/Brands';
 import ForBusiness from 'components/home/forBusiness';
@@ -36,41 +37,13 @@ export const HomeSite = () => {
 			</Box>
 		</Box>
 		<Box component="div" py={2} textAlign="left">
+		<SecondaryCard />	
 			<Grid container direction="row" justifyContent="center" alignItems="center" spacing={4}>
 				<Grid item xs={6} >
 					<Link href="/posts/first-post">
-							<a>
-					<Paper variant="outlined">							
-							<Grid container justifyContent="space-between" alignItems="center">
-								<Grid item xs={8} md={8}>
-									<Box component="div" textAlign="left">
-										<Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
-											Desde 
-										</Typography>
-										<Typography variant="subtitle2">
-										Papel Bond PAPERLINE 
-										</Typography>
-										<Typography variant="subtitle2" color="textSecondary">
-										Caja con 10 Resmas de 500 HOJAS c/u
-										</Typography>
-									</Box>
-								</Grid>
-								<Grid item xs={4} md={4}>
-								<Box >
-									{/* <Box >
-										<img 
-											src="https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/paperline.png"
-											alt=""
-											layout="responsive"
-											objectFit="cover"
-											objectPosition="bottom center"											
-										/>
-									</Box> */}
-								</Box>	
-								</Grid>
-							</Grid>
-					</Paper>
-					</a>
+						<a>
+											
+						</a>
 					</Link>
 				</Grid>
 				<Grid item xs={6} >
