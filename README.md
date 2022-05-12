@@ -45,3 +45,8 @@ o
 ```bash
 npm run dev
 ```
+
+## Visualizando las landings page
+
+Visitando la ruta
+http://localhost:3000/ladings
