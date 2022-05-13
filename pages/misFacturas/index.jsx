@@ -519,7 +519,7 @@ export default function MisFacturas() {
 
     return(
         <Layout>
-        <MiCuentaSiderBar/> 
+        
         <div>
             <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
@@ -529,10 +529,10 @@ export default function MisFacturas() {
                     justifyContent="space-between"
                     alignItems="flex-start"
                 >
-                    <Grid item xs={12} sm={12} lg={3}>
-
+                    <Grid item xs={12} sm={4} lg={3}>
+                        <MiCuentaSiderBar/> 
                     </Grid>
-                    <Grid item xs={12} sm={12} lg={9}>
+                    <Grid item xs={12} sm={8} lg={9}>
                         <Box component="div">
                             <Grid 
                             container
@@ -541,7 +541,7 @@ export default function MisFacturas() {
                             alignItems="center">
                                 <Grid item xs={12} sm={4}>   
                                     <Box component="div" py={2}>
-                                        <Typography variant="h3" component="h1">
+                                        <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
                                         Facturas
                                         </Typography>
                                     </Box>
@@ -555,7 +555,7 @@ export default function MisFacturas() {
                                         alignItems="center" spacing={1}>
                                             <Grid item xs={12} sm={6}>
                                                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                    <Box display="flex" justifyContent="flex-start" p={1} bgcolor="background.paper">
+                                                    <Box display="flex" justifyContent="flex-start" p={1} >
                                                         <DatePicker fullWidth
                                                             variant="outlined"
                                                             openTo="year"

@@ -82,7 +82,7 @@ export default function Facturacion(props){
                             let total        = await ((json.resumen.subtotal+json.resumen.costoEnvio)-json.nc.montoNc)
                             let jsonP        = await Services('POST','/miCuenta/obtieneMPago',{})
                             let pagos        = await jsonP.data 
-                            let rfc_ini      = ((await json.facturas.length) > 0)?json.facturas[1]:rfc
+                            let rfc_ini      = ((await json.facturas.length) > 0)?json.facturas[0]:rfc
                             let tipoPersona  = (rfc_ini.rfc.length === 13)?'fisica':'moral';
                             let jsonC        = await Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
                             let cfdis        = await jsonC.data 
@@ -139,10 +139,16 @@ export default function Facturacion(props){
             if(id !== 'No'){
                 let existe = aplicar.indexOf(value)
                 if( existe>= 0){ 
-                    await aplicar.splice(existe, 1 )                   
+                    await aplicar.splice(existe, 1 )                                   
                     setAplicar([...aplicar]) 
                 }else{
-                    setAplicar([...aplicar,value])
+                    let totalNc = await notas.map(nota => (nota.invoiceNum+''=== value || aplicar.indexOf(nota.invoiceNum+'') >= 0)?nota.monto:0).reduce((prev, curr) => prev + curr, 0) 
+                    if(parseFloat(totalNc) < total){
+                        setAplicar([...aplicar,value])
+                    }else{
+                        setAplicar([...aplicar]) 
+                        setAlerta({severity:'error',mensaje:'La suma de la NC seleccionadas, es mayor que el monto del pedido',vertical:'bottom',horizontal:'right'})
+                    }                   
                 }                
             }else{
                 setAlerta({severity:'error',mensaje:'La NC es mayor que el monto del pedido',vertical:'bottom',horizontal:'right'})

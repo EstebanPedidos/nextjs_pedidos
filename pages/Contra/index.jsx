@@ -10,12 +10,13 @@ import { Layout } from 'layout/Layout';
 
 //Servicios
 import Services from '../services/Services'
-import Router, { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 
 export default function Contra(){  
 
     const [inputs, setInputs] = useState({});
+    const ruter = useRouter() 
     const params = 
             '?email='+inputs.correo;
     

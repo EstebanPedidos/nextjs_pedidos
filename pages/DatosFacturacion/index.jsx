@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-
+import Link from 'next/link';
 import {Box, Grid, Paper, Typography, Container, Backdrop,
     Button, Select, TextField, Divider, Modal, Fade,
     Card, CardContent, CardActions, CardMedia, CardActionArea, TextareaAutosize,
@@ -234,7 +234,7 @@ export default function DatosFacturacion() {
 
     return(
         <Layout>
-        <MiCuentaSiderBar/> 
+         
         <div>
             <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
@@ -244,27 +244,34 @@ export default function DatosFacturacion() {
                         justifyContent="space-between"
                         alignItems="flex-start"
                     >
-                        <Grid item xs={12} sm={12} lg={3}>
-
+                        <Grid item xs={12} sm={4} lg={3}>
+                            <MiCuentaSiderBar/>
                         </Grid>
-                        <Grid item xs={12} sm={12} lg={9}>
+                        <Grid item xs={12} sm={8} lg={9}>
                             <Box component="div">
                                 <Grid 
                                 container
                                 direction="row"
                                 justifyContent="space-around"
-                                alignItems="center">
-                                    <Grid item xs={12} sm={9}>   
+                                alignItems="center" spacing={2}>
+                                    <Grid item xs={12} sm={8}>   
                                         <Box component="div" py={2}>
-                                            <Typography variant="h3" component="h1">
+                                            <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
                                                 Datos de Facturación
                                             </Typography>
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={3} sm={3}>   
-                                    <Box component="div" py={2}>
-                                        <Button variant="contained" elevation={0} fullWidth color="primary" size="large" name="Modal1" onClick={handleOpen}>Agregar RFC</Button>
-                                    </Box>
+                                    <Grid item xs={6} sm={2}>   
+                                        <Box component="div" py={2}>
+                                        <Link href="/misFacturas">
+                                            <Button component="a" variant="outlined" fullWidth color="primary" size="large"  >Regresar</Button>
+                                        </Link>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={6} sm={2}>   
+                                        <Box component="div" py={2}>
+                                            <Button variant="contained" elevation={0} fullWidth color="primary" size="large" name="Modal1" onClick={handleOpen}>Agregar RFC</Button>
+                                        </Box>
                                     </Grid>
                                 </Grid>
                                 <Divider light/>
@@ -377,28 +384,45 @@ export default function DatosFacturacion() {
         >
         <Fade in={open}>
         <div className={classes.paper}>
-            <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <h2>Datos de Facturación</h2>
-            </Grid>
-            <Grid item xs={12}>
-                <h3>RFC: XAXX010101000RAZÓN </h3>
-            </Grid>
-            <Grid item xs={12}>
-                <h3>RAZÓN SOCIAL: </h3>PEDIDOS SA DE CV
-            </Grid>
-            <Grid item xs={12}>
-                <h3>PERSONA: </h3>Fisica
-            </Grid>
-            <Grid item xs={12}>
-                <h3>DIRECCIÓN: </h3>LAGO SILVERIO 258 ANAHUAC II MIGUEL HIDALGO
-                11320 CIUDAD DE MEXICO
-            </Grid>
-
-            <Grid item xs={12}>
-                <Button color="primary" onClick={handleClose}>Cerrar</Button>
-            </Grid>
-            </Grid>
+            <Box component="div" textAlign="center" m={1} py={2}>
+                    <Typography component="h3" variant="h5">
+                        <Box component="span" fontWeight="fontWeightMedium">
+                        Datos de Facturación
+                        </Box>
+                    </Typography>
+                    <Box component="div" py={1}>
+                    <Divider/>
+                    </Box>
+                    <Box component="div" textAlign="left" py={1}>
+                    <Typography component="subtitle1"  gutterBottom>
+                        RFC: XAXX010101000RAZÓN
+                    </Typography>
+                    <br/>
+                    <Typography component="subtitle1"  gutterBottom>
+                        RAZÓN SOCIAL: PEDIDOS SA DE CV
+                    </Typography>
+                    <br/>
+                    <Typography component="subtitle1"  gutterBottom>
+                        PERSONA:
+                    </Typography>
+                    <br/><br/>
+                    <Typography component="subtitle1"  gutterBottom>
+                        Dirección:
+                    </Typography>
+                    <br />
+                    <Typography component="body2"  gutterBottom>
+                    LAGO SILVERIO 258 ANAHUAC II MIGUEL HIDALGO
+                    11320 CIUDAD DE MEXICO
+                    </Typography>
+                    </Box>
+            </Box>  
+            <Box component="div" justifyContet="center">
+                    <Grid container direction="row"justifyContent="center" alignItems="center" spacing={2}>
+                      <Grid item xs={12}>
+                        <Button fullWidth color="primary" onClick={handleClose}>Cerrar</Button>
+                      </Grid>
+                    </Grid>
+                </Box>          
         </div>
         </Fade>
         </Modal>

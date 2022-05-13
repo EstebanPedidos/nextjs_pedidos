@@ -15,15 +15,42 @@ import 'swiper/css';
 //
 import 'swiper/css/pagination';
 import { margin } from '@mui/system';
-const useStyles = makeStyles((theme) => ({
-  boxImg: {
-    position: 'absolute',
-    width: '40%',
-    bottom: 0,
-    right: 0,
-    display: 'block',
-  },
-}));
+
+const Boxservice = ({data})=>{
+  return(
+  <>
+  <Paper variant='outlined' elevation={12} m={2} sx={{padding: '1rem',}}>
+  <Link href="/posts/first-post">
+  <a>
+    <Box component="div" sx={{position:'relative', height:'200px'}}>
+      <Box component="div" textAlign="left" sx={{position: 'absolute', top: 0,left: 0,display: 'block',}}>
+        <Typography variant="caption" color="textSecondary">
+          {data.texto1}
+        </Typography>
+        <Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
+          {data.texto2}
+        </Typography>
+        <Typography variant="subtitle2">
+          {data.texto3}
+        </Typography>
+      </Box>
+      <Box component="div" sx={{position: 'absolute', width: '85px', bottom: 0,right: 0,display: 'block',}} >
+        <Box component="div"p={2} sx={{backgroundColor:'#3655a5', borderRadius:'8px', width:'auto',height:'auto', justifyContent:'center', margin:'auto'}}>
+          <img sx={{ justifyContent:'center', margin:'auto'}}
+            src="https://pedidos.com/myfotos/pedidos-com/pagina/home22/servicios/pickup.svg"
+            alt=""
+            layout="responsive"
+          />
+        </Box>
+        
+      </Box>
+    </Box>
+  </a>
+  </Link>
+  </Paper>
+  </> 
+  )
+}
 export default function serviceSlides() {
 
   return (
@@ -55,39 +82,15 @@ export default function serviceSlides() {
       >
         <SwiperSlide> 
         <Box component="div">
-          <Paper variant='outlined' elevation={12} m={2} sx={{padding: '1rem',}}>
-            <Link href="/posts/first-post">
-            <a>
-              <Box component="div" sx={{position:'relative', height:'200px'}}>
-                <Box component="div" textAlign="left" sx={{position: 'absolute', top: 0,left: 0,display: 'block',}}>
-                  <Typography variant="caption" color="textSecondary">
-                    Forma de entrega
-                  </Typography>
-                  <Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
-                    PickUp Center
-                  </Typography>
-                  <Typography variant="subtitle2">
-                    Solo pide en línea y recoge
-                  </Typography>
-                </Box>
-                <Box component="div" sx={{position: 'absolute', width: '85px', bottom: 0,right: 0,display: 'block',}} >
-                  <Box component="div"p={2} sx={{backgroundColor:'#3655a5', borderRadius:'8px', width:'auto',height:'auto', justifyContent:'center', margin:'auto'}}>
-                    <img sx={{ justifyContent:'center', margin:'auto'}}
-                      src="https://pedidos.com/myfotos/pedidos-com/pagina/home22/servicios/pickup.svg"
-                      alt=""
-                      layout="responsive"
-                    />
-                  </Box>
-                  
-                </Box>
-              </Box>
-            </a>
-            </Link>
-          </Paper>
+          <Boxservice 
+          data={{texto1:'Forma de entrega2', texto2:'Pick Up Center', texto3: 'Solo pide en línea y recoge' }}
+          />
         </Box>
         </SwiperSlide>
         <SwiperSlide> 
-        2
+        <Boxservice 
+          data={{texto1:'Forma de entrega3', texto2:'Pick Up Center', texto3: 'Solo pide en línea y recoge' }}
+          />
         </SwiperSlide>
         <SwiperSlide> 
         3

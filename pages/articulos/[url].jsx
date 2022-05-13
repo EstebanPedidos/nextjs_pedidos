@@ -13,18 +13,23 @@ import ListDescription from './ListDescription';
 import ProductTab   from './ProductTab';
 import Alertas from '../checkout/Alertas'
 import { Layout } from 'layout/Layout';
+import ReviewItem from './ReviewItem';
 //Modales
 import Cotizar from "./Modales/Cotizar";
 
 //Carousel
-import { Swiper } from 'swiper/react';
-import { Navigation } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation, Thumbs, FreeMode, Lazy, } from 'swiper';
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/navigation';
-import { SwiperSlide } from 'swiper/react';
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import 'swiper/css/pagination';
+
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 
 
 import PropTypes from 'prop-types';
@@ -48,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
       },
     breadcrumb:{padding: theme.spacing(2),},
     width_carousel: {
-        width: 500,
+        width: 'auto',
     },
 
    media: {
@@ -219,7 +224,7 @@ export default function FichaTecnica(props){
             }
         })         
     }
-
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
     return (
         <div>          
             <Layout>
@@ -282,15 +287,66 @@ export default function FichaTecnica(props){
                                             </Grid>
                                             <Grid item xs={12} sm={12} lg={7}>
                                                 <Box className={classes.width_carousel}>  
-                                                    {(datos.hasOwnProperty('item_num'))?
+                                                    <Swiper
+                                                    style={{
+                                                    "--swiper-navigation-color": "#fff",
+                                                    "--swiper-pagination-color": "#fff",
+                                                    }}
+                                                    loop={true}
+                                                    spaceBetween={10}
+                                                    navigation={true}
+                                                    thumbs={{ swiper: thumbsSwiper }}
+                                                    modules={[FreeMode, Navigation, Thumbs]}
+                                                    className="mySwiper2"
+                                                >
+                                                    <SwiperSlide>
+                                                    <img width={'100%'}  src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'" alt={datos.item_num} />
+                                                    </SwiperSlide>
+                                                    <SwiperSlide>
+                                                    <img width={'100%'} src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num} />
+                                                    </SwiperSlide>
+                                                    <SwiperSlide>
+                                                    <img width={'100%'} src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                    </SwiperSlide>
+                                                    <SwiperSlide>
+                                                    <img width={'100%'} src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                    </SwiperSlide>
+                                                    
+                                                    </Swiper>
+                                                    <Swiper
+                                                        onSwiper={setThumbsSwiper}
+                                                        
+                                                        spaceBetween={10}
+                                                        slidesPerView={4}
+                                                        freeMode={true}
+                                                        watchSlidesProgress={true}
+                                                        modules={[FreeMode, Navigation, Thumbs]}
+                                                        className="mySwiper"
+                                                    >
+                                                        <SwiperSlide>
+                                                        <img src={`https://pedidos.com/myfotos/${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                        <img src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                        <img src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                        img video
+                                                        </SwiperSlide>
+                                                        
+                                                    </Swiper>
+                                                    {/* {(datos.hasOwnProperty('item_num'))?
                                                     (datos.descripcion.descripcion.link !== "" && 
                                                     datos.descripcion.descripcion.link !== undefined)?
-                                                    <Carousel showStatus={false}>
+                                                   
+                                                   <Carousel showStatus={false}>
                                                         <div>
                                                             <img src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'" alt={datos.item_num}/>
                                                         </div>
                                                         <div>
-                                                            <img src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                          1  <img src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </div>
                                                         <div>
                                                             <img src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
@@ -302,10 +358,10 @@ export default function FichaTecnica(props){
                                                     </Carousel>: 
                                                     <Carousel showStatus={false}>
                                                         <div>
-                                                            <img src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'" alt={datos.item_num}/>
+                                                           1 <img src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'" alt={datos.item_num}/>
                                                         </div>
                                                         <div>
-                                                            <img src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                           2 <img src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </div>
                                                         <div>
                                                             <img src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
@@ -313,7 +369,7 @@ export default function FichaTecnica(props){
                                                     </Carousel>
                                                     :
                                                     <Skeleton variant="rectangular"  height={500} animation="wave"/>
-                                                    }
+                                                    } */}
                                                 </Box>
                                             </Grid>
                                             <Grid item xs={12} sm={12} lg={5}>
@@ -557,7 +613,7 @@ export default function FichaTecnica(props){
                                                         <FormLabel component="legend">Protección contra daños</FormLabel>
                                                             <RadioGroup aria-label="duración" name="proteccion" value={isHDI} onChange={({target})=>{setisHDI(target.value)}}>
                                                                 <FormControlLabel value='ZZZSEGURO' control={<Radio />} label={
-                                                                <Typography>1 AÑO {hdi}</Typography>
+                                                                <Typography>1 AÑO ${hdi}</Typography>
                                                                 }/>
                                                                 <FormControlLabel value='' control={<Radio />} label="No, por el momento" />
                                                             </RadioGroup>
@@ -572,10 +628,10 @@ export default function FichaTecnica(props){
                                                         <FormLabel component="legend">Protección contra daños</FormLabel>
                                                             <RadioGroup aria-label="duración" name="garantiaext" value={isGarn} onChange={({target})=>{setIsGarn(target.value)}}>
                                                                 <FormControlLabel value="ZZZGAEXT1" control={<Radio />} label={
-                                                                <Typography>1 AÑO  {garantext1}</Typography>
+                                                                <Typography>1 AÑO  ${garantext1}</Typography>
                                                                 }/>
                                                                 <FormControlLabel value="ZZZGAEXT2" control={<Radio />} label={
-                                                                <Typography>2 AÑOs  {garantext2}</Typography>
+                                                                <Typography>2 AÑOs  ${garantext2}</Typography>
                                                                 }/>
                                                                 <FormControlLabel value="" control={<Radio />} label="No, por el momento" />
                                                             </RadioGroup>
@@ -677,10 +733,18 @@ export default function FichaTecnica(props){
                                     </Box>
                                     }
                                     {(datos.hasOwnProperty('item_num'))?
+                                    <ReviewItem item_num={datos.item_num.trim()} />
+                                    :
+                                    <Skeleton variant="rectangular"  height={250} animation="wave"/>
+                                    }  
+                                    
+                                    {(datos.hasOwnProperty('item_num'))?
                                     <ProductTab datos={datos}/>
                                     :
                                     <Skeleton variant="rectangular"  height={250} animation="wave"/>
-                                    }    
+                                    }  
+                                   
+                                      
                                     <div id="contenidoIndexado"></div>
                                     <section>
                                         <div>

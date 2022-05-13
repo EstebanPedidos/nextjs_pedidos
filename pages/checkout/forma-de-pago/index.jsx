@@ -583,7 +583,7 @@ export default function Forma_de_pago(){
                                 {(data.hasOwnProperty('jsonResumen'))&&
                                 (sub_forma_pago !== '')?
                                     (sub_forma_pago === '7')?
-                                        <SDKPayPalBotones evento={evento}/>
+                                        <SDKPayPalBotones evento={data.jsonResumen.resumen.eventoNum}/>
                                         :
                                         (sub_forma_pago === '1')?
                                         

@@ -26,17 +26,15 @@ export default function ListDescription({detalle}) {
   const [detalleD,setDetalleD] = useState([])
   useEffect(()=>{
     setDetalleD(detalle) 
-  },[])
+  },[detalle])
 
   return (
-    <>
-    {(detalleD.length > 0)&&
+    <>   
     <div className={classes.root}>
       <Grid container spacing={1}>
         <Grid item xs={12} md={12}>
           <div className={classes.demo}>
-            <List dense={dense}>
-                
+            <List dense={dense}>                
                 {   
                     Object.keys(detalle).map((oneKey,i)=>{
                         if(i < 4){
@@ -56,7 +54,6 @@ export default function ListDescription({detalle}) {
         </Grid>
       </Grid>
     </div>
-    }
     </>
   );
 }
