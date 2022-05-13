@@ -67,7 +67,7 @@ export default function MainSlideShow() {
 				onSwiper={(swiper) => console.log(swiper)}>
 				<SwiperSlide> 
 
-                    <a class="bannerlin" href="/busquedas.asp?query=impresora+epson" aria-label="impresion">
+                    
 					<Box component="div" sx={{position:'relative'}}>
 						<img src="https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/impresion-epson-ecotank-l3210.png"
 						srcSet="
@@ -102,7 +102,7 @@ export default function MainSlideShow() {
                                 <Divider orientation="vertical" flexItem />
                                 <Grid item xs={6} sm={7}>
                                     <Box component="div" >
-                                        <div class="content">
+                                        <div>
                                             <Typography className={styles.title} variant="h4" component="body1" > 
                                             Desde <Box component="span" sx={{color:'#3655a5'}}>$4,175</Box>
                                             </Typography>
@@ -112,10 +112,7 @@ export default function MainSlideShow() {
                                             </Typography> 
                                             <Typography variant="Subtitle1" component="p" color="textSecondary" >								
                                                 Inyección de tinta Heat Free 
-                                            </Typography> 
-                                            <p class="caption2 l-spacen1 pt-12 hidden" >
-                                                <span class="msibluesquare" data-swiper-parallax="-20%"> <span class="f500 fs15"><span></span></span></span>
-                                            </p>  
+                                            </Typography>  
                                         </div>
                                     </Box>
                                 </Grid>
@@ -123,7 +120,7 @@ export default function MainSlideShow() {
                         </Box>
                     </Box> 
 					
-						</a>
+					
 				</SwiperSlide>
 				<SwiperSlide> 
 					2

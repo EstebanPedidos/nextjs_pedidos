@@ -1,4 +1,4 @@
-import { makeStyles } from '@mui/styles'
+/*import { makeStyles } from '@mui/styles'
 import clsx from 'clsx'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
@@ -42,12 +42,13 @@ const useStyles = makeStyles( theme => ({
     },
   },
 }))
-
+*/
 export const Schedule = () => {
-  const classes = useStyles()
+  //const classes = useStyles()
 
   return (
-    <Container className={clsx([classes.containerPadding, classes.centered])}>
+    <h1>Revisar</h1>
+    /*<Container className={clsx([classes.containerPadding, classes.centered])}>
       <Typography className={classes.title} gutterBottom>
         Horario de atención
       </Typography>
@@ -85,7 +86,7 @@ export const Schedule = () => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </Container>*/
   )
 }
 

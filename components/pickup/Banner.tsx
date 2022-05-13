@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 
-export interface ChildrenProps {
+/* export interface ChildrenProps {
 	children: JSX.Element | JSX.Element[] | string;
 }
 
@@ -84,13 +84,14 @@ export const SubTitle: React.FC<ChildrenProps> = ({ children }) => (
 	<BaseText component='h2' textClass='subtitle'>
 		{children}
 	</BaseText>
-);
+); */
 
 export const Banner = () => {
-	const classes = useStyles();
+	//const classes = useStyles();
 
 	return (
-		<Paddined>
+		<h1>Revisar</h1>
+		/*<Paddined>
 			<Grid container spacing={2}>
 				<Medium className={classes.paddined}>
 					<Container>
@@ -114,7 +115,7 @@ export const Banner = () => {
 					/>
 				</Medium>
 			</Grid>
-		</Paddined>
+		</Paddined>*/
 	);
 };
 

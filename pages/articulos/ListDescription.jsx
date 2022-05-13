@@ -36,13 +36,13 @@ export default function ListDescription({detalle}) {
           <div className={classes.demo}>
             <List dense={dense}>                
                 {   
-                    Object.keys(detalle).map((oneKey,i)=>{
+                    Object.keys(detalleD).map((oneKey,i)=>{
                         if(i < 4){
                             return (
                                 <ListItem>
                                 <ListItemText    
                                 primary={oneKey}
-                                secondary={detalle[oneKey]}
+                                secondary={detalleD[oneKey]}
                                 />
                                 </ListItem>
                              )

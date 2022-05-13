@@ -1,4 +1,4 @@
-import { FC } from 'react'
+/*import { FC } from 'react'
 import Grid from '@mui/material/Grid'
 import { makeStyles } from '@mui/styles'
 import { Medium } from './Banner'
@@ -34,18 +34,19 @@ export const Container: FC<IContainerProps> = ({ children }) => {
       {children}
     </div>
   )
-}
+}*/
 
 export const Schedule = () => {
-  const classes = useStyles()
+  //const classes = useStyles()
 
   return (
-    <Grid container spacing={2}>
+    <h1>Revisar</h1>
+    /* <Grid container spacing={2}>
       <Medium>
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.5378320116656!2d-99.19765348509333!3d19.432364986884462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d202022793a35b%3A0xcf4931efcb3e7df3!2sAlejandro%20Dumas%20135%2C%20Polanco%2C%20Polanco%20IV%20Secc%2C%20Miguel%20Hidalgo%2C%2011550%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1645141224178!5m2!1ses-419!2smx" style={{ border: 0 }} allowFullScreen loading="lazy" width="100%" height="420px"></iframe>
       </Medium>
       <Medium>
-        <Container>
+         <Container>
           <Typography variant="h4" component="h4" className={classes.paddingTop40}>
             PickUp Center: Horario de atención
           </Typography>
@@ -68,9 +69,9 @@ export const Schedule = () => {
           <Typography>
             Recuerda que si agendaste una cita con soporte técnico es importante respetar los horarios de la cita programada.
           </Typography>
-        </Container>
+        </Container> 
       </Medium>
-    </Grid>
+    </Grid> */
   )
 }
 

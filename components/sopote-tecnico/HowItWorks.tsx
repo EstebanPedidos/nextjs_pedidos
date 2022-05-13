@@ -1,4 +1,4 @@
-import { makeStyles } from '@mui/styles'
+/*import { makeStyles } from '@mui/styles'
 import { useState } from 'react'
 import { HowItWorksItem, DataItem } from './HowItWorksItem'
 import Card from '@mui/material/Card'
@@ -15,9 +15,9 @@ const useStyles = makeStyles({
     boxShadow: 'none !important',
   },
 })
-
+*/
 export const HowItWorks = () => {
-  const classes = useStyles()
+  /*const classes = useStyles()
   const [data] = useState<DataItem[]>([
     {
       title: "¿Cómo funciona?",
@@ -44,9 +44,10 @@ export const HowItWorks = () => {
       icon: HelpOutlineIcon,
     },
   ])
-
+*/
   return (
-    <Card className={classes.withoutShadow}>
+    <h1>Revisar</h1>
+    /*<Card className={classes.withoutShadow}>
       <CardContent>
         <Paddined>
           <Grid container spacing={2}>
@@ -59,7 +60,7 @@ export const HowItWorks = () => {
           </Grid>
         </Paddined>
       </CardContent>
-    </Card>
+    </Card>*/
   )
 }
 

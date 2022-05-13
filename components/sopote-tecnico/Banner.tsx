@@ -1,4 +1,4 @@
-import React from 'react'
+/*import React from 'react'
 import clsx from 'clsx'
 import { useTheme, makeStyles } from '@mui/styles'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
@@ -129,13 +129,14 @@ export const Hint: React.FC<ChildrenProps> = ({ children }) => (
   >
     {children}
   </BaseText>
-)
+)*/
 
 export const Banner = () => {
-  const classes = useStyles()
+  //const classes = useStyles()
 
   return (
-    <Paddined>
+    <h1>Revisar</h1>
+    /*<Paddined>
       <Grid container spacing={2}>
         <Medium className={classes.paddined}>
           <div>
@@ -187,7 +188,7 @@ export const Banner = () => {
           <img src="/sp-day.png" alt="sp-day" width="100%" height="auto" />
         </Medium>
       </Grid>
-    </Paddined>
+    </Paddined>*/
   )
 }
 
