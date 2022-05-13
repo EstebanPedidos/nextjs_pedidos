@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import {useState,useEffect} from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   title: {
-    margin: theme.spacing(4, 0, 2),
+    margin: theme.spacing(2, 0, 1),
   },
 }));
 
@@ -23,10 +23,16 @@ const useStyles = makeStyles((theme) => ({
 export default function ListDescription({detalle}) {
   const classes = useStyles();
   const [dense, setDense] = useState(false);
+  const [detalleD,setDetalleD] = useState([])
+  useEffect(()=>{
+    setDetalleD(detalle) 
+  },[])
 
   return (
+    <>
+    {(detalleD.length > 0)&&
     <div className={classes.root}>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         <Grid item xs={12} md={12}>
           <div className={classes.demo}>
             <List dense={dense}>
@@ -50,5 +56,7 @@ export default function ListDescription({detalle}) {
         </Grid>
       </Grid>
     </div>
+    }
+    </>
   );
 }

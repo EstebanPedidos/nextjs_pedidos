@@ -1,11 +1,16 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
+
+import {
+	Accordion,
+	AccordionSummary,
+	AccordionDetails,
+	Typography,
+	List,
+	ListItem,
+} from '@mui/material';
+// import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { List, ListItem } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -20,19 +25,23 @@ const useStyles = makeStyles((theme) => ({
 
 const itemsConocenos = [
 	{
+		content: 'Google',
+		to: '/',
+	},
+	{
 		content: 'Prensa',
 		to: '/',
 	},
 	{
-		content: 'Comerciales',
+		content: 'Reviews',
 		to: '/',
 	},
 	{
-		content: 'Se proveedor',
+		content: 'Se Proveedor',
 		to: '/',
 	},
 	{
-		content: 'Comentarios',
+		content: 'Hot Sale',
 		to: '/',
 	},
 	{
@@ -42,63 +51,58 @@ const itemsConocenos = [
 ];
 const itemsServicios = [
 	{
-		content: 'Modificas Facturas',
+		content: 'Pick Up Center',
 		to: '/',
 	},
 	{
-		content: 'Soporte técnico',
+		content: 'Para empresas',
 		to: '/',
 	},
 	{
-		content: 'Unclick',
+		content: 'Planes de protección',
 		to: '/',
 	},
 	{
-		content: 'Punto de venta',
+		content: 'Programa de reciclaje',
 		to: '/',
 	},
 	{
-		content: 'Protección para dispositivos',
-		to: '/',
-	},
-	{
-		content: '¿Que computadora HP comprar?',
-		to: '/',
-	},
-];
-const itemsTiendas = [
-	{
-		content: 'Tienda oficial HP',
-		to: '/',
-	},
-	{
-		content: 'Multifuncionales Epson',
-		to: '/',
-	},
-	{
-		content: 'Papelería',
-		to: '/',
-	},
-	{
-		content: 'Newell',
-		to: '/',
-	},
-	{
-		content: 'Muebles',
+		content: 'Uniclick: Crédito PYME',
 		to: '/',
 	},
 ];
 const itemsAyuda = [
 	{
-		content: 'Políticas de envío',
+		content: 'Facturación',
 		to: '/',
 	},
 	{
-		content: 'Formas de pago',
+		content: 'Forma de pago',
 		to: '/',
 	},
 	{
-		content: 'Terminos y condiciones',
+		content: 'Forma de Envíos',
+		to: '/',
+	},
+	{
+		content: 'Soporte Técnico',
+		to: '/',
+	},
+	{
+		content: 'Garantías & Devoluciones',
+		to: '/',
+	},
+];
+const itemsContacto = [
+	{
+		content: 'Horario de atención 9:00 a 18:30 hrs',
+	},
+	{
+		content: 'Cotizar por volumen',
+		to: '/',
+	},
+	{
+		content: 'Comunícate con ventas',
 		to: '/',
 	},
 ];
@@ -108,17 +112,17 @@ export function FooterAccordion() {
 
 	return (
 		<div className={classes.root}>
-			<CustomAcordion title='Conoceno'>
+			<CustomAcordion title='Conocenos'>
 				<CustomList data={itemsConocenos} />
 			</CustomAcordion>
 			<CustomAcordion title='Servicios'>
 				<CustomList data={itemsServicios} />
 			</CustomAcordion>
-			<CustomAcordion title={'Tiendas'}>
-				<CustomList data={itemsTiendas} />
-			</CustomAcordion>
 			<CustomAcordion title={'Ayuda'}>
 				<CustomList data={itemsAyuda} />
+			</CustomAcordion>
+			<CustomAcordion title={'Contacto'}>
+				<CustomList data={itemsContacto} />
 			</CustomAcordion>
 		</div>
 	);

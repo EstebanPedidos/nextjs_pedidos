@@ -1,12 +1,6 @@
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 
-// import { Box } from '@material-ui/core';
-// import Typography from '@material-ui/core/Typography';
-// import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-// import Link from '@material-ui/core/Link';
-// import Hidden from '@material-ui/core/Hidden';
-
 // @meterial-ui/icons
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 // Custom components

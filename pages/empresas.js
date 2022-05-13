@@ -1,8 +1,7 @@
-import { Box, Grid, Container, Typography, Button } from '@material-ui/core';
+import { Box, Grid, Container, Typography, Button } from '@mui/material';
 import React from 'react';
-import { COLORS } from '../app/theme';
-import { Carousel } from '/components';
-import { Layout } from '/layout';
+import { COLORS } from '../themes/light-theme';
+import { Layout } from '/layout/Layout';
 import { useMediaQuery } from '@material-ui/core';
 
 export const Empresas = () => {
@@ -85,3 +84,5 @@ export const Empresas = () => {
 		</Layout>
 	);
 };
+
+export default Empresas;

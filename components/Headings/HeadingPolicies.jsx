@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Box, Typography } from '@material-ui/core';
 import { Box, Typography } from '@mui/material';
 
 export const HeadingPolicies = ({

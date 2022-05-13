@@ -181,12 +181,12 @@ export default function DevolucionesGarantias() {
 								</li>
 								<li>
 									Para el caso específico de equipos :
-									monitores, quemadores, DVD's, CD ROM´S,
-									impresoras, reguladores, no break's,
+									monitores, quemadores, DVD&quot;s, CD ROM´S,
+									impresoras, reguladores, no break&quot;s,
 									multifuncionales, faxes, copiadoras,
-									laptop's, cámaras digitales, máquinas de
-									escribir, video cámaras, iPod's, escáners,
-									PDA's, proyectores, notebook's, teléfonos,
+									laptop&quot;s, cámaras digitales, máquinas de
+									escribir, video cámaras, iPod&quot;s, escáners,
+									PDA&quot;s, proyectores, notebook&quot;s, teléfonos,
 									MP3, etc., la garantía se tramitará en el
 									centro de servicio respectivo de cada marca,
 									el tiempo de respuesta y reparación
@@ -218,7 +218,7 @@ export default function DevolucionesGarantias() {
 									presentarse el paquete en perfectas
 									condiciones, de lo contrario no se recibirá
 									el paquete por la mensajería que se envíe.
-									Tiempo de respuesta: En Componentes de PC's
+									Tiempo de respuesta: En Componentes de PC&quot;s
 									tenemos 2 tipos de garantías: Garantía
 									express:
 								</li>

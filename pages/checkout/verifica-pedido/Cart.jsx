@@ -1,28 +1,22 @@
-//Pauquetes
-import {useState,useEffect} from 'react';
-import * as React from 'react';
-import { useRouter } from 'next/router';
+import {useState,useEffect} from 'react'
+//next js
+import Link from 'next/link'
 //Material UI
 import {Box, Grid, Paper, Typography, Button, Checkbox,
         ButtonBase, IconButton, TextField, FormControl,
-        InputBase, InputLabel, Select, Divider, Card, CardActions,
+        Alert, InputLabel, Select, Divider, CardActions,
        } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import MenuItem from '@mui/material/MenuItem';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 //Funciones
 import Precios from '../../services/Precios'
-//Servicos
-import Services from '../../services/Services'
 
 const useStyles = makeStyles((theme) => ({
     root: { flexGrow: 1 
     },
     paperpp: { padding: "5px", marginBottom:"5px", textAlign: 'center', width:'100%',
-    backgroundColor: theme.palette.common.lightgrayb, borderColor: theme.palette.common.lightgrayb,
+    backgroundColor: '#E7ECF3', borderColor: '#E7ECF3',
     
     },
     productimage: { width: "100%", borderRadius:"8px",
@@ -68,6 +62,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,UpdateCantidad,modificar}){
     const classes   = useStyles();
+    const [precarritoP,setPrecarritoP] = useState([])
+
+    useEffect(()=>{
+        setPrecarritoP(precarrito) 
+    },[])
 
     function NewRemove(item_num){        
         let existe = Remove.indexOf(item_num)
@@ -82,11 +81,11 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
     return(
         <Box component="div">
             <div className={classes.root}>
-            {(precarrito.length > 0)&&
+            {(precarritoP.length > 0)&&
                 <div>    
                     <Box component="div">
                         {
-                        precarrito.map((item, index) => (
+                        precarritoP.map((item, index) => (
                             (!item.item_num.includes('CON-REG'))?
                             <div key={index}>
                                 <Box component="div" m={1} py={1}>
@@ -95,7 +94,8 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                             <Grid container alignItems="flex-start" justifyContent="center" spacing={1}>
                                                 <Grid item xs={3}>
                                                     <Box component="div" className={(item.cantSeguro >0 || item.cantGarant1 > 0 || item.cantGarant2 > 0 )?'':''}>
-                                                        <a href={(item.url !== '')?`/articulos/${item.url}`:`#`}> 
+                                                        <Link href={`/articulos/${item.url.toLowerCase()}`}>
+                                                        <a> 
                                                             <ButtonBase className={classes.productimage}>
                                                                 <img className={classes.pimg} src={`https://pedidos.com/myfotos/${item.item_num}.jpg`} alt={item.descripcion}/> 
                                                             </ButtonBase>
@@ -106,6 +106,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                             <i>times</i>   
                                                             }                          
                                                         </a>  
+                                                        </Link>
                                                         <Box component="div" pt={3}>
                                                             {(item.cantSeguro > 0)&&
                                                             <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>    
@@ -140,7 +141,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                                     {item.descripcion}
                                                                 </Typography>
                                                                 <Typography variant="body2" gutterBottom>
-                                                                    Precio Unitario: <span>${Precios('formatcurrency',{subtotal:item.precio,fixed:2})}</span>
+                                                                    Precio Unitario:  <span>${Precios('formatcurrency',{subtotal:item.precio,fixed:2})}</span>
                                                                 </Typography>
                                                                 <Typography variant="body2" color="textSecondary">
                                                                     SKU: <span>{item.item_num}</span>
@@ -180,7 +181,10 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                         </Grid>                        
                                         <Grid item xs={3} sm={3}>
                                                 <Box m={1}>
-                                                    {(item.modificar !== undefined )?                                                            
+                                                    { (item.exis === 'X') ?
+                                                    <Alert severity="error">Sin Disponibilidad</Alert>
+                                                    :                                                    
+                                                    (item.modificar !== undefined )?                                                            
                                                     <TextField fullWidth  id='input' type="number" value={item.cantidad} name={index}  onChange={UpdateCantidad} label="Cantidad"/>
                                                     :
                                                     <FormControl variant="outlined" className={classes.formControl}>
@@ -197,6 +201,10 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                         {Array.apply(0, Array((item.existencia >= 5)?5:item.existencia)).map(function (x, i) {
                                                             return <option key={i+1} value={i+1}>{i+1}</option>;
                                                         })}  
+
+                                                        {(item.cantidad > 5)&&
+                                                            <option key={item.cantidad} value={item.cantidad}>{item.cantidad}</option>
+                                                        }
                                                         {(item.existencia >= 5)&&
                                                             <option key={0} value="0">+5</option>
                                                         }                
@@ -227,10 +235,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                     <Box m={1} p={1} justifyContent="center">
                                                         <Typography variant="subtitle1" >
                                                             <Box pt={2} fontWeight="fontWeightMedium" textAlign="center">$
-                                                            {Precios('formatcurrency',{subtotal:
-                                                            (Precios('formatcurrency',{subtotal:item.precio,fixed:2}))*item.cantidad+(Precios('formatcurrency',{subtotal:item.precioSeguro,fixed:2})*item.cantSeguro)+(Precios('formatcurrency',{subtotal:item.precioGarant1,fixed:2})*item.cantGarant1)+(Precios('formatcurrency',{subtotal:item.precioGarant2,fixed:2})*item.cantGarant2)
-                                                            ,fixed:2})    }   
-
+                                                            {Precios('formatcurrency',{subtotal:((item.precio*item.cantidad) +(item.precioSeguro*item.cantSeguro)+(item.precioGarant1*item.cantGarant1)),fixed:2})}  
                                                             </Box>
                                                         </Typography>
                                                     </Box>

@@ -1,3 +1,4 @@
+import {useState,useEffect} from 'react'
 //Material
 import makeStyles from '@mui/styles/makeStyles';
 import Box from '@mui/material/Box';
@@ -28,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Transferencia({data}){
     const classes = useStyles();
+    const [dataT,setDataT] = useState({})
+
+    useEffect(()=>{
+        setDataT(data) 
+    },[])
 
     function printDiv(){
         var contenido= document.getElementById('info-transfer').innerHTML;
@@ -38,8 +44,10 @@ export default function Transferencia({data}){
     }
 
     return (
+        <>
+        {(dataT.hasOwnProperty('jsonResumen'))&&
         <div id='info-transfer'>
-        {(parseInt(data.jsonResumen.resumen.formaPago) === 3 )?
+        {(parseInt(dataT.jsonResumen.resumen.formaPago) === 3 )?
             <Box component="div" pt={4}>
                 <Box component="div">
                     <Typography component="p" variant="h6">
@@ -71,7 +79,7 @@ export default function Transferencia({data}){
                                             Sucursal: 1824 
                                         </Typography>
                                         <Typography variant="subtitle2" color="textPrimary" component="p">
-                                            Referencia: {data.jsonResumen.referencia} 
+                                            Referencia: {dataT.jsonResumen.referencia} 
                                         </Typography>
                                     </Box>
                                     <Typography variant="caption" color="textPrimary" component="p">
@@ -116,7 +124,7 @@ export default function Transferencia({data}){
                 </Box> 
             </Box>
             :
-            ( parseInt(data.jsonResumen.resumen.formaPago) === 4)&&
+            ( parseInt(dataT.jsonResumen.resumen.formaPago) === 4)&&
             <Box component="div" pt={4}>
                 <Box component="div">
                     <Typography component="p" variant="h6">
@@ -154,12 +162,12 @@ export default function Transferencia({data}){
                                         Sucursal: 1824 
                                     </Typography>
                                     <Typography variant="subtitle2" color="textPrimary" component="p">
-                                        Referencia: {data.jsonResumen.referencia}
+                                        Referencia: {dataT.jsonResumen.referencia}
                                     </Typography>
                                 </Box>
                                 <Box component="div" textAlign="left">
                                     <Typography variant="caption" color="textPrimary" component="p">
-                                        <Alert severity="info">
+                                        <Alert severity="warning">
                                             Coloca el n&uacute;mero de referencia para identificar tu pago y
                                             env&iacute;a tu comprobante de pago a 
                                             <b><Link disable typography href="mailto:pagos@pedidos.com.mx" target="_blank">
@@ -214,5 +222,7 @@ export default function Transferencia({data}){
             
         }
         </div>
+        }
+        </>
     )
 }
