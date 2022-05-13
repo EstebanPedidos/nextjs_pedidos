@@ -23,8 +23,8 @@ const Boxsecondarycard = ({data})=>{
     <Box component="div" mt={1} pb={2}>
         <Paper elevation={8}  sx={{padding: '1rem',}}>
             <Box component="div" sx={{position:'relative', height:'200px'}}>
-                <Grid container justifyContent="space-between" alignItems="center">
-					<Grid item xs={8} md={8}>
+                <Grid container justifyContent="center" alignItems="center">
+					<Grid item>
                         <Box component="div" textAlign="left" sx={{position: 'absolute', top: 0,left: 0,display: 'block',}}>
                         
                         <Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
@@ -38,16 +38,16 @@ const Boxsecondarycard = ({data})=>{
                         {data.subtitle}
                         </Typography>
                         <Typography variant="subtitle2" color="textSecondary">
-                        {data.text} 
+                        {data.text1} 
                         </Typography>
                         </Box> 
                     </Grid>
-                    <Grid item xs={4} md={4}>
+                    <Grid item>
                        
                         <img 
                             src= {data.imgcard}
-                            alt= {data.texto4}
-                            layout="fill"
+                            alt= {data.keyw}
+                            layout="responsive"
                         />
                         
                     </Grid>
@@ -71,8 +71,9 @@ export default function SecondaryCards() {
                     titulo:'Desde ',
                     precio:'$999', 
                     subtitle: 'Papel Bond PAPERLINE ', 
-                    text:'Caja con 10 Resmas de 500 HOJAS c/u',
-                    text:'Productos para oficina, papelería, papel, cajas de papel, resma de papel' }}
+                    text1:'Caja con 10 Resmas de 500 HOJAS c/u',
+                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/paperline-xs.png',
+                    keyw:'Productos para oficina, papelería, papel, cajas de papel, resma de papel' }}
                 />				
                 </a>
             </Link>
