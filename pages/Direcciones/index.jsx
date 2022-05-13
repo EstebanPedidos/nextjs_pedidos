@@ -137,7 +137,7 @@ export default function Direcciones() {
 
 	function eliminarDireccion() {
 		console.log('Entró a método eliminar, el dirNum es: ' + dirNum);
-		MiCuentaService.eliminaDireccion(dirNum, clienteNum)
+        Services('POST','/miCuenta/eliminaDireccion?dirNum='+dirNum+'&clienteNum='+clienteNum,{})
 			.then((response) => {
 				refreshPage();
 			})
@@ -148,11 +148,12 @@ export default function Direcciones() {
 
 	function consultarCp() {
 		console.log('consultar CP');
-		MiCuentaService.consultaCp(inputs.postalCode).then((response) => {
-			console.log('Consultar CP service');
-			console.log(response.data);
-			setResultCP(response.data);
-		});
+        Services('POST','/miCuenta/consultaCp?cp='+inputs.cp,{})
+        .then( response =>{
+            console.log("Consultar CP service");
+            console.log(response.data);
+            setResultCP(response.data);
+        })
 	}
 
 	function guardarDireccion() {

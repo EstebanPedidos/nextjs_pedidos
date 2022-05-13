@@ -392,7 +392,7 @@ export default function MisFacturas() {
                     label="Uso de CDFI"
                     >
                         {cfdiSelect.map((select) => (
-                            <MenuItem key={row.idUsu} value={select.idUsu}>{select.descripcion}</MenuItem>
+                            <MenuItem key={select.idUsu} value={select.idUsu}>{select.descripcion}</MenuItem>
                         ))}
                     </Select>
                 </Grid>
@@ -519,7 +519,6 @@ export default function MisFacturas() {
 
     return(
         <Layout>
-        
         <div>
             <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
