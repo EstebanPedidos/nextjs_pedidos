@@ -20,7 +20,7 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
     const [clientTokenC,setClientTokenC] = useState({})
     useEffect(()=>{
         setClientTokenC(clientToken) 
-    },[])
+    },[clientToken])
 
     const brand ={
     VISA:       'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/visa.svg',

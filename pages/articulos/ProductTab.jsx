@@ -29,15 +29,13 @@ export default function ProductTab({datos}) {
       <TabContext value={value}>
         <AppBar elevation={0} position='static' color='transparent'  >
           <TabList onChange={handleChange} indicatorColor='primary' textColor='primary' variant='outlined' centered aria-label='Detalles de producto'>
-            <Tab label='Comentarios y Q&A' value='1' />
-            <Tab label='Especificaciones' value='2' />
-            <Tab label='Beneficios y promociones' value='3' />
+           
+            <Tab label='Especificaciones' value='1' />
+            <Tab label='Beneficios y promociones' value='2' />
           </TabList>
         </AppBar>
+       
         <TabPanel value='1'>
-          <ReviewItem item_num={datosD.item_num.trim()} />
-        </TabPanel>
-        <TabPanel value='2'>
           <Box component='div' py={2}>
             <div>
                 <Grid container spacing={2}>
@@ -74,7 +72,7 @@ export default function ProductTab({datos}) {
             </div>
           </Box>
         </TabPanel>    
-        <TabPanel value='3'>
+        <TabPanel value='2'>
           <Box component="div" py={4} >
             <Grid
             container

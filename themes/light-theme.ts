@@ -2,10 +2,10 @@ import { createTheme } from '@mui/material';
 
 export const lightTheme = createTheme({
 	palette: {
-		mode: 'light',
+		// mode: 'light',
 		common: {
 			white: '#ffffff',
-			black:'#1D232E',
+			black: '#1D232E',
 			//gray: '#CCCCCC',
 			//lightgray: 'rgba(166, 173, 185, 0.48)',
 			//lightgrayb: '#E7ECF3',

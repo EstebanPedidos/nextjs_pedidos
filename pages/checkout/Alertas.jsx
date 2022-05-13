@@ -10,7 +10,7 @@ export default function Alertas({setAlerta,alerta}) {
   const [alertaA,setAlertaA]= useState({})
   useEffect(()=>{
     setAlertaA(alerta)
-  },[])
+  },[alerta])
 
   return (
     <>

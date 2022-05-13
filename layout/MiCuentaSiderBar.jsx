@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 //MUI
 import {Box, Grid, Avatar,Paper, Typography, Container,
@@ -23,55 +23,53 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 //Nextjs
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    position: 'absolute',
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: '8px',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    margin: theme.spacing(2),
-  },
-  bgcontent: {
-    backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
-    // background: '#F7F7F9',
-},
-opacityBox: {
-    opacity:'0.40',
-},
+	modal: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	paper: {
+		position: 'absolute',
+		backgroundColor: theme.palette.background.paper,
+		borderRadius: '8px',
+		boxShadow: theme.shadows[5],
+		padding: theme.spacing(2, 4, 3),
+		margin: theme.spacing(2),
+	},
+	bgcontent: {
+		backgroundImage:
+			'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
+		// background: '#F7F7F9',
+	},
+	opacityBox: {
+		opacity: '0.40',
+	},
 }));
 
-
 export default function MiCuentaSiderBar() {
+	const classes = useStyles();
 
-    const classes = useStyles();
+	const [nombre, setNombre] = React.useState('');
+	const [open, setOpen] = React.useState(false);
+	const [modal, setModal] = React.useState('');
 
-    const [nombre, setNombre] = React.useState('');
-    const [open, setOpen] = React.useState(false);
-    const [modal, setModal] = React.useState('');
+	useEffect(() => {
+		setNombre(localStorage.getItem('Usu_Nomb'));
+	}, [nombre]);
 
-    useEffect( () => {
-        setNombre(localStorage.getItem('Usu_Nomb'));
+	const handleOpen = (event) => {
+		const name = event.target.name;
+		setModal(name);
+		setOpen(true);
+	};
 
-    }, [nombre]) 
-
-    const handleOpen = (event) => {
-        const name = event.target.name;
-        setModal(name)
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+	const handleClose = () => {
+		setOpen(false);
+	};
 
 	return (
 		<>
@@ -321,37 +319,64 @@ export default function MiCuentaSiderBar() {
                                     </CardContent>
                                 </Card>
                             </Grid>
-
-                            <Grid item xs={12}> 
-                                <Card className={classes.root}>
-                                    <CardContent>
-                                        <WhatsappOutlinedIcon fontSize="large" /> 
-                                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                        WhatsApp
-                                        </Typography>
-                                        <Typography variant="h5" component="h2">
-                                        Envía un mensaje
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-
-                            <Grid item xs={12}> 
-                                <Card className={classes.root}>
-                                    <CardContent>
-                                        <EmailOutlinedIcon fontSize="large" /> 
-                                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                        Correo
-                                        </Typography>
-                                        <Typography variant="h5" component="h2">
-                                        En breve responderemos
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-
                         </Grid>
                     </div>
+                    </Fade>
+                </Modal>
+				<Modal
+					aria-labelledby='transition-modal-title'
+					aria-describedby='transition-modal-description'
+					className={classes.modal}
+					open={open && modal === 'Modal1'}
+					onClose={handleClose}
+					closeAfterTransition
+					BackdropComponent={Backdrop}
+					BackdropProps={{
+						timeout: 500,
+					}}>
+					<Fade in={open}>
+						<div className={classes.paper}>
+							<Grid container spacing={2}>
+								<Grid item xs={12}>
+									<Card className={classes.root}>
+										<CardContent>
+											<ChatBubbleOutlineOutlinedIcon fontSize='large' />
+											<Typography
+												className={classes.title}
+												color='textSecondary'
+												gutterBottom>
+												Chat
+											</Typography>
+											<Typography
+												variant='h5'
+												component='h2'>
+												Inicia una conversación
+											</Typography>
+										</CardContent>
+									</Card>
+								</Grid>
+
+								<Grid item xs={12}>
+									<Card className={classes.root}>
+										<CardContent>
+											<WhatsappOutlinedIcon fontSize='large' />
+											<Typography
+												className={classes.title}
+												color='textSecondary'
+												gutterBottom>
+												WhatsApp
+											</Typography>
+											<Typography
+												variant='h5'
+												component='h2'>
+												Envía un mensaje
+											</Typography>
+										</CardContent>
+									</Card>
+								</Grid>
+
+                        </Grid>
+                         </div>
                     </Fade>
                 </Modal>
             </Box>

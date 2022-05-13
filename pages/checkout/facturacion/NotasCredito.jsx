@@ -20,7 +20,7 @@ export default function NotasCredito({notas,salectOption,aplicar}){
     const classes = useStyles();
     const [notasDos,setNotasDos] = useState([])
     useEffect(()=>{
-        setNotasDos(notas)
+        setNotasDos(notas) 
     },[])
 
     return(

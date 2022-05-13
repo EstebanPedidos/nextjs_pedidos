@@ -33,7 +33,7 @@ export default function Transferencia({data}){
 
     useEffect(()=>{
         setDataT(data) 
-    },[])
+    },[data])
 
     function printDiv(){
         var contenido= document.getElementById('info-transfer').innerHTML;
