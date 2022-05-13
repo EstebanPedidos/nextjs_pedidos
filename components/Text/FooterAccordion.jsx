@@ -1,9 +1,16 @@
 import React from 'react';
 
-import {Accordion, AccordionSummary, AccordionDetails,Grid, Box, Typography,Skeleton,Divider,List, ListItem } from '@mui/material';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+	Accordion,
+	AccordionSummary,
+	AccordionDetails,
+	Typography,
+	List,
+	ListItem,
+} from '@mui/material';
+// import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -63,7 +70,6 @@ const itemsServicios = [
 		content: 'Uniclick: Crédito PYME',
 		to: '/',
 	},
-	
 ];
 const itemsAyuda = [
 	{
@@ -90,7 +96,6 @@ const itemsAyuda = [
 const itemsContacto = [
 	{
 		content: 'Horario de atención 9:00 a 18:30 hrs',
-		
 	},
 	{
 		content: 'Cotizar por volumen',

@@ -52,10 +52,10 @@ const year = currentDate.getFullYear();
 export function Footer() {
 	return (
 		<>
-			<Hidden smDown='hiden'>
+			<Hidden smDown={true}>
 				<FooterDesktop />
 			</Hidden>
-			<Hidden smUp='hiden'>
+			<Hidden smUp={true}>
 				<FooterAccordion />
 			</Hidden>
 		</>
