@@ -23,6 +23,7 @@ import {
 	Avatar,
 	Tooltip,
 } from '@mui/material';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 import {
 	FavoriteBorder,
@@ -48,6 +49,26 @@ const drawerWidth = 240;
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
+function ElevationScroll(props) {
+	const { children, window } = props;
+	// Note that you normally won't need to set the window ref as useScrollTrigger
+	// will default to window.
+	// This is only being set here because the demo is in an iframe.
+	const trigger = useScrollTrigger({
+		disableHysteresis: true,
+		threshold: 0,
+		target: window ? window() : undefined,
+	});
+
+	return React.cloneElement(children, {
+		elevation: trigger ? 3 : 0,
+		sx: {
+			backgroundColor: '#FFF',
+			borderBottom: trigger ? '1px solid transparent' : '1px solid #e5e5e5',
+		},
+	});
+}
+
 const useStyles = makeStyles((theme) => ({
 	drawer: {
 		width: drawerWidth,
@@ -64,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export function Navbar() {
+export function Navbar(props) {
 	const [openModal, setOpenModal] = useState(false);
 	const [openMenu, setOpenMenu] = useState(false);
 
@@ -301,175 +322,163 @@ export function Navbar() {
 	return (
 		<>
 			<HelpModal isOpen={openModal} onClose={handleOpenModal} />
-			<AppBar position='sticky' sx={{ backgroundColor: '#ffffff' }}>
-				<Toolbar className={content}>
-					<Box component={'div'} alignItems={'center'} display='flex'>
-						<Hidden smDown={true}>
-							{/* Crear una variante del logo que sea adaptable / Por
+			<ElevationScroll {...props}>
+				<AppBar position='sticky'>
+					<Toolbar className={content}>
+						<Box component={'div'} alignItems={'center'} display='flex'>
+							<Hidden smDown={true}>
+								{/* Crear una variante del logo que sea adaptable / Por
 							ejemplo una "p" para esos casos de usos */}
-							<Link href='/Home'>
-								<a>
-									<img
-										className={logo}
-										src={logoUrl}
-										alt='logo pedidos'
-									/>
-								</a>
-							</Link>
-						</Hidden>
-						<Box component={'span'} marginLeft='2%'>
-							<DrawerCategorias />
-						</Box>
-						<Hidden smDown={true}>
-							<Box component={'span'} padding={'1rem'}>
-								<Typography color='textPrimary'>
-									Categorías
-								</Typography>
+								<Link href='/Home'>
+									<a>
+										<img className={logo} src={logoUrl} alt='logo pedidos' />
+									</a>
+								</Link>
+							</Hidden>
+							<Box component={'span'} marginLeft='2%'>
+								<DrawerCategorias />
 							</Box>
-						</Hidden>
-					</Box>
-					{/* <Hidden smDown='hide'> */}
-					<Hidden smDown>
-						<Box width='30%'>
-							<form onSubmit={searchBoxSubmit}>
-								<TextField
-									size='small'
-									id='outlined-basic'
-									fullWidth
-									// label='Outlined'
-									variant='outlined'
-									placeholder='Buscar..'
-									InputProps={{
-										endAdornment: (
-											<InputAdornment position='start'>
-												<SearchIcon />
-											</InputAdornment>
-										),
-									}}
-									name='query'
-									onChange={handleChange}
-								/>
-							</form>
+							<Hidden smDown={true}>
+								<Box component={'span'} padding={'1rem'}>
+									<Typography color='textPrimary'>Categorías</Typography>
+								</Box>
+							</Hidden>
 						</Box>
-					</Hidden>
-
-					<Box
-						display={'flex'}
-						flexDirection='row'
-						alignItems={'center'}
-						justifyContent='center'
-						flexWrap='nowrap'
-						component={'div'}>
-						{/* This inline styles is temporaly, when add link router component, remove */}
+						{/* <Hidden smDown='hide'> */}
 						<Hidden smDown>
-							<Box
-								component={'span'}
-								style={{ cursor: 'pointer' }}>
-								<Typography
-									component='span'
-									color='textPrimary'>
-									Para{' '}
-								</Typography>
-								<Typography component='span' color='primary'>
-									empresas
-								</Typography>
+							<Box width='30%'>
+								<form onSubmit={searchBoxSubmit}>
+									<TextField
+										size='small'
+										id='outlined-basic'
+										fullWidth
+										// label='Outlined'
+										variant='outlined'
+										placeholder='Buscar..'
+										InputProps={{
+											endAdornment: (
+												<InputAdornment position='start'>
+													<SearchIcon />
+												</InputAdornment>
+											),
+										}}
+										name='query'
+										onChange={handleChange}
+									/>
+								</form>
 							</Box>
 						</Hidden>
 
-						<Box component={'span'}>
-							<IconButton onClick={handleClick}>
+						<Box
+							display={'flex'}
+							flexDirection='row'
+							alignItems={'center'}
+							justifyContent='center'
+							flexWrap='nowrap'
+							component={'div'}>
+							{/* This inline styles is temporaly, when add link router component, remove */}
+							<Hidden smDown>
+								<Box component={'span'} style={{ cursor: 'pointer' }}>
+									<Typography component='span' color='textPrimary'>
+										Para{' '}
+									</Typography>
+									<Typography component='span' color='primary'>
+										empresas
+									</Typography>
+								</Box>
+							</Hidden>
+
+							<Box component={'span'}>
+								<IconButton onClick={handleClick}>
+									<Badge
+										badgeContent={isLogged ? Favoritos : null}
+										color='secondary'>
+										<Link href='/misFavoritos'>
+											<FavoriteBorder />
+										</Link>
+									</Badge>
+								</IconButton>
+								<Menu
+									anchorEl={anchorEl}
+									keepMounted
+									open={openMenu}
+									onClose={handleClose}>
+									<Box padding={'1em'}>
+										{/* <MenuItem onClick={handleClose}> */}
+										<Typography variant='subtitle2' align='center'>
+											Aún no tienes favoritos
+										</Typography>
+										{/* </MenuItem> */}
+										<Divider />
+										<Box
+											paddingTop={'1em'}
+											display='flex'
+											alignItems='center'
+											flexDirection={'column'}>
+											<IconButton>
+												<FavoriteBorder fontSize='large' />
+											</IconButton>
+											<Typography>Iniciar sesión para añadir</Typography>
+										</Box>
+									</Box>
+								</Menu>
+								<div ref={anchorEl} id='menu'></div>
+							</Box>
+							<IconButton onClick={handleOpenModal}>
+								<HelpOutlineIcon />
+							</IconButton>
+							<IconButton color='primary'>
 								<Badge
-									badgeContent={isLogged ? Favoritos : null}
+									badgeContent={isLogged ? sesPartidas : null}
 									color='secondary'>
-									<Link href='/misFavoritos'>
-										<FavoriteBorder />
+									<Link href='/checkout/verifica-pedido'>
+										<ShoppingCartIcon />
 									</Link>
 								</Badge>
 							</IconButton>
-							<Menu
-								anchorEl={anchorEl}
-								keepMounted
-								open={openMenu}
-								onClose={handleClose}>
-								<Box padding={'1em'}>
-									{/* <MenuItem onClick={handleClose}> */}
-									<Typography
-										variant='subtitle2'
-										align='center'>
-										Aún no tienes favoritos
-									</Typography>
-									{/* </MenuItem> */}
-									<Divider />
-									<Box
-										paddingTop={'1em'}
-										display='flex'
-										alignItems='center'
-										flexDirection={'column'}>
-										<IconButton>
-											<FavoriteBorder fontSize='large' />
-										</IconButton>
-										<Typography>
-											Iniciar sesión para añadir
-										</Typography>
-									</Box>
-								</Box>
-							</Menu>
-							<div ref={anchorEl} id='menu'></div>
 						</Box>
-						<IconButton onClick={handleOpenModal}>
-							<HelpOutlineIcon />
-						</IconButton>
-						<IconButton color='primary'>
-							<Badge
-								badgeContent={isLogged ? sesPartidas : null}
-								color='secondary'>
-								<Link href='/checkout/verifica-pedido'>
-									<ShoppingCartIcon />
-								</Link>
-							</Badge>
-						</IconButton>
-					</Box>
-					<Box>
-						{isLogged ? (
-							<IconButton
-								size='large'
-								aria-controls={menuId}
-								aria-haspopup='true'
-								onClick={handleProfileMenuOpen}>
-								<Avatar sx={{ width: 32, height: 32 }}>
-									{nombre.substring(0, 2)}
-								</Avatar>
-							</IconButton>
-						) : (
-							<Button
-								variant='contained'
-								color='primary'
-								aria-controls={menuId}
-								onClick={handleProfileMenuOpen}>
-								Ingresar
-							</Button>
-						)}
-					</Box>
-				</Toolbar>
-				<Hidden mdUp={true}>
-					<Box mt={'1rem'}>
-						<TextField
-							size='medium'
-							id='outlined-basic'
-							fullWidth
-							variant='outlined'
-							placeholder='Buscar..'
-							InputProps={{
-								endAdornment: (
-									<InputAdornment position='start'>
-										<SearchIcon />
-									</InputAdornment>
-								),
-							}}
-						/>
-					</Box>
-				</Hidden>
-			</AppBar>
+						<Box>
+							{isLogged ? (
+								<IconButton
+									size='large'
+									aria-controls={menuId}
+									aria-haspopup='true'
+									onClick={handleProfileMenuOpen}>
+									<Avatar sx={{ width: 32, height: 32 }}>
+										{nombre.substring(0, 2)}
+									</Avatar>
+								</IconButton>
+							) : (
+								<Button
+									variant='contained'
+									color='primary'
+									aria-controls={menuId}
+									onClick={handleProfileMenuOpen}>
+									Ingresar
+								</Button>
+							)}
+						</Box>
+					</Toolbar>
+					<Hidden mdUp={true}>
+						<Box mt={'1rem'}>
+							<TextField
+								size='medium'
+								id='outlined-basic'
+								fullWidth
+								variant='outlined'
+								placeholder='Buscar..'
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position='start'>
+											<SearchIcon />
+										</InputAdornment>
+									),
+								}}
+							/>
+						</Box>
+					</Hidden>
+				</AppBar>
+			</ElevationScroll>
 
 			{isLogged ? menuLogin : menuLogout}
 		</>

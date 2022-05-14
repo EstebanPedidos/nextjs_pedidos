@@ -13,12 +13,12 @@ export default class MyDocument extends Document {
 						href='/images/pedidos-icon-x48.png'></link>
 					<meta name='theme-color' content='#fff' />
 					{/* <meta
-						name='viewport'
-						content='initial-scale=1, width=device-width'
-					/> */}
+							name='viewport'
+							content='initial-scale=1, width=device-width'
+						/> */}
 					<link
 						rel='stylesheet'
-						href='https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;800&display=swap'
+						href='https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700;800&display=swap'
 					/>
 					{this.props.emotionStyleTags}
 				</Head>
