@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Head from 'next/head';
-import Script from 'next/script';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -16,7 +15,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 // import required modules
-import { Layout } from '/layout/Layout';
+import { Layout } from 'layout/Layout';
+import HPSearchScript from 'components/HPSearchScript';
+import HPPcSelectorScript from 'components/HPPcSelectorScript';
 
 const productCategories = [
 	{
@@ -70,6 +71,7 @@ const TiendaOficialHP = () => {
 					rel='stylesheet'
 				/>
 			</Head>
+
 			<Box height='27vw' position='relative'>
 				<Image
 					src={require('../../public/images/landing/tiendaoftxt.jpg')}
@@ -79,17 +81,8 @@ const TiendaOficialHP = () => {
 				/>
 			</Box>
 
-			<Box>
-				<Box id='pcSelectorDiv' py={3}>
-					{' '}
-				</Box>
-				<Script
-					src='https://storage.googleapis.com/indexado/pcselector/insert.min.js'
-					type='text/javascript'
-					strategy='beforeInteractive'
-					data-retail='PEDIDOS'
-					data-country='MEXICO'
-				/>
+			<Box py={3}>
+				<HPPcSelectorScript />
 			</Box>
 
 			<Divider
@@ -109,11 +102,11 @@ const TiendaOficialHP = () => {
 
 					<Box>
 						<Swiper
-							slidesPerView={1.5}
-							spaceBetween={20}
 							pagination={{
 								clickable: true,
 							}}
+							slidesPerView={1.5}
+							spaceBetween={20}
 							breakpoints={{
 								768: {
 									slidesPerView: 4,
@@ -160,18 +153,7 @@ const TiendaOficialHP = () => {
 
 			<Container maxWidth='md' sx={{ py: 8 }}>
 				<Box mb={10}>
-					<Box
-						id='hpocf'
-						data-resellerid='a091ddaa-8d16-11eb-9b54-191b88c03aff'
-						data-lang='mx'
-						data-loc='mx'
-						data-privacy='true'
-					/>
-					<Script
-						src='https://e-commerce-online-pub.ext.hp.com/main.js'
-						type='text/javascript'
-						strategy='afterInteractive'
-					/>
+					<HPSearchScript />
 				</Box>
 				<Grid spacing={2} container>
 					<Grid xs={12} md={6} item>
@@ -220,7 +202,7 @@ const TiendaOficialHP = () => {
 				sx={{ borderColor: 'rgba(0, 0, 0, 0.075)', borderBottomWidth: '2px' }}
 			/>
 
-			<Box py={5}>
+			<Box py={5} display={{ xs: 'none', md: 'block' }}>
 				<Container maxWidth='md'>
 					<Box display='flex' gap={6}>
 						<Box display='flex' gap={3}>
