@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import Script from 'next/script'
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 //Servicios
 import Services from '../services/Services'
 import Precios from '../services/Precios'
@@ -45,7 +46,7 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import LoadingButton from '@mui/lab/LoadingButton';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
-
+import YouTube from 'react-youtube';
 
 const variants = ['h1'];
 
@@ -132,7 +133,19 @@ export default function FichaTecnica(props){
     const cortadosPA    = ['HP-TIN','HP-TO-'];
     const articulosPA   = ['HP-LAP-2C3C3LA','ASU-LAP-C4G500','HP-MFC-Z4B04A','HP-MFC-Z4B53A','PDIR-LAP-2C3E1L','PDIR-LAP-2Z748L','HP-LAP-151F5LT','PDIR-LAP-22A98L','PDIR-IMP-1TJ09A','PDIR-ACC-2UF58A','LG-PAN-32LM570','BRO-MFC-T220','PF-LOG-G920','PF-LOG-G29','HP-IMP-CZ993A','CAN-MFC-G2160','BRO-MFC-DCP2551','PDIR-MFC-2LB19A','HP-ALL-140P8AA','ACE-MON-V246HQL','LEN-LAP-CHRB0US'];
     const subfamilia    = {'Desktops':3,'Laptops':3,'Tablets':2,'Escáneres':2,'Multifuncionales':3,'Impresoras':3,'Escaneres':2,'Plotters':2,'Videoproyector':2 ,'Teclado y mouse':1,'All in One':1,'Teclados':1}
-   
+    const opts = {
+        height: '390',
+        width: '640',
+        playerVars: {
+          // https://developers.google.com/youtube/player_parameters
+          autoplay: 1,
+        },
+    }
+
+    function Ready({target}) {
+        target.pauseVideo();
+    }
+
     useEffect(()=>{
         const getdata= async ()=>{
             let url             = await ruter.query.url;
@@ -213,9 +226,10 @@ export default function FichaTecnica(props){
         })         
     }
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
     return (
         <div>          
-            <Layout>
+            <Layout>            
                 <Head>
                     <title> | Pedidos.com</title>
                 </Head>
@@ -248,7 +262,7 @@ export default function FichaTecnica(props){
                     }                
                     </Script>
                 }
-                <Container maxWidth="xl">
+                <Container maxWidth="xl">                
                     <Box component="div" my={2}>
                         <Grid container direction="row" justifyContent="space-between" spacing={3}>
                             <Grid xs={12} sm={12} >
@@ -274,6 +288,7 @@ export default function FichaTecnica(props){
                                                 </Typography> 
                                             </Grid>
                                             <Grid item xs={12} sm={12} lg={7}>
+                                                {(datos.hasOwnProperty('item_num'))&&
                                                 <Box className={classes.width_carousel}>  
                                                     <Swiper
                                                     style={{
@@ -286,24 +301,26 @@ export default function FichaTecnica(props){
                                                     thumbs={{ swiper: thumbsSwiper }}
                                                     modules={[FreeMode, Navigation, Thumbs]}
                                                     className="mySwiper2"
-                                                >
-                                                    <SwiperSlide>
-                                                    <img width={'100%'}  src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`}  alt={datos.item_num} />
-                                                    </SwiperSlide>
-                                                    <SwiperSlide>
-                                                    <img width={'100%'} src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num} />
-                                                    </SwiperSlide>
-                                                    <SwiperSlide>
-                                                    <img width={'100%'} src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                    </SwiperSlide>
-                                                    <SwiperSlide>
-                                                    <img width={'100%'} src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                    </SwiperSlide>
-                                                    
+                                                    >
+                                                        <SwiperSlide>
+                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`}  alt={datos.item_num} />
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                        </SwiperSlide>
+                                                        {
+                                                        datos.descripcion.descripcion.link.split(',').map((link, index) => (
+                                                            <SwiperSlide>                                                                
+                                                                <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts}/>
+                                                            </SwiperSlide>
+                                                        ))
+                                                        }                                                                                                           
                                                     </Swiper>
                                                     <Swiper
-                                                        onSwiper={setThumbsSwiper}
-                                                        
+                                                        onSwiper={setThumbsSwiper}                                                        
                                                         spaceBetween={10}
                                                         slidesPerView={4}
                                                         freeMode={true}
@@ -312,53 +329,24 @@ export default function FichaTecnica(props){
                                                         className="mySwiper"
                                                     >
                                                         <SwiperSlide>
-                                                        <img src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num} />
+                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num}/>
                                                         </SwiperSlide>
                                                         <SwiperSlide>
-                                                        <img src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num} />
+                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
                                                         <SwiperSlide>
-                                                        <img src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} alt={datos.item_num} />
+                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
-                                                        <SwiperSlide>
-                                                        img video
-                                                        </SwiperSlide>
-                                                        
+                                                        {
+                                                        datos.descripcion.descripcion.link.split(',').map((link, index) => (
+                                                            <SwiperSlide key={index}>
+                                                                <Image width={'80%'}  height={'80%'} layout="responsive" src={`https://img.youtube.com/vi${(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length)}/0.jpg`} alt={datos.item_num}/>
+                                                            </SwiperSlide>
+                                                        ))
+                                                        }                                                        
                                                     </Swiper>
-                                                    {/* {(datos.hasOwnProperty('item_num'))?
-                                                    (datos.descripcion.descripcion.link !== "" && 
-                                                    datos.descripcion.descripcion.link !== undefined)?
-                                                   
-                                                   <Carousel showStatus={false}>
-                                                        <div>
-                                                            <img src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'" alt={datos.item_num}/>
-                                                        </div>
-                                                        <div>
-                                                          1  <img src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </div>
-                                                        <div>
-                                                            <img src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </div>
-                                                        <div> 
-                                                            <img width="50" height="50" src={`https://pedidos.com/myfotos/Xlarge/(x)video.webp`} />
-                                                            <iframe height="500" src={datos.descripcion.descripcion.link.replace('watch?v=','embed/')} title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                                                        </div>
-                                                    </Carousel>: 
-                                                    <Carousel showStatus={false}>
-                                                        <div>
-                                                           1 <img src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'" alt={datos.item_num}/>
-                                                        </div>
-                                                        <div>
-                                                           2 <img src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </div>
-                                                        <div>
-                                                            <img src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </div>
-                                                    </Carousel>
-                                                    :
-                                                    <Skeleton variant="rectangular"  height={500} animation="wave"/>
-                                                    } */}
                                                 </Box>
+                                                }
                                             </Grid>
                                             <Grid item xs={12} sm={12} lg={5}>
                                                 <Box>   

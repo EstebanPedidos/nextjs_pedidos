@@ -6,4 +6,7 @@ module.exports = withPWA({
     register: true,
     skipWaiting: true,
   },
+  images: {
+    domains: ['pedidos.com','img.youtube.com'],
+  },
 });
