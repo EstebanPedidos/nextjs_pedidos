@@ -29,10 +29,7 @@ export default function Login(){
     const [inputs, setInputs] = useState({});
     const [isLogged, setLogged] = useState(false);
     
-    const params = 
-            '?email='+inputs.correo+
-            '&pass='+inputs.pass+
-            '&user_m=0';
+    
     
     const handleChange = (event) => {
         const name = event.target.name;
@@ -46,9 +43,8 @@ export default function Login(){
 
     async function handleSubmit(e) {       
         e.preventDefault();
-        console.log("Entro al servicio Registrar Usuario");
-        console.log(params);
-        let services        = await Services('POST','/registrov2/validaCredencial'+params,{})
+        let usuario         = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?0:localStorage.getItem('Usuario')
+        let services        = await Services('POST','/registrov2/validaCredencial?email='+inputs.correo+'&pass='+inputs.pass+'&user_m='+usuario,{})
         let data            = await services.data
 
         if(data.error === 'Usuario o Password Invalido'){
