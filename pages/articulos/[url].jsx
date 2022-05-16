@@ -3,9 +3,11 @@ import {useState,useEffect} from "react";
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import Head from 'next/head'
+import Link from 'next/link'
 //Servicios
 import Services from '../services/Services'
 import Precios from '../services/Precios'
+import RandomUser  from '../services/RandomUser'
 
 //Componentes
 import Breadcrumb from './Breadcrumb';
@@ -135,8 +137,9 @@ export default function FichaTecnica(props){
         const getdata= async ()=>{
             let url             = await ruter.query.url;
             if(url !== undefined && url !==  null){
-                let cliente         = await localStorage.getItem('Cliente')
-                let services        = await Services('POST','/fichaTecnica/obtieneItemCompleto?url='+url,{})
+                let cliente_num     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
+                    cliente_num     = await (parseInt(cliente_num) === 0)?201221:cliente_num 
+                let services        = await Services('POST','/fichaTecnica/obtieneItemCompleto?url='+url+'&cliente_num='+cliente_num,{})
                 let data            = await services.data
                 if((data.hasOwnProperty('item_num'))){
                     data.item_num       = await data.item_num.trim()
@@ -147,31 +150,12 @@ export default function FichaTecnica(props){
                     data.breadcrumb     = await data.breadcrumb.split(',')
                     data.horarioEntrega = await JSON.parse(data.horarioEntrega)
                     data.relacionados   = await JSON.parse(data.relacionados)
-
-                        /*services        = await Services('POST','/fichaTecnica/disponibilidad?itemNum='+data.item_num,{})
-                    let horarios        = await services.data
-                
-                        services        = await Services('POST','/fichaTecnica/obtienePrecio?cliente_num='+cliente+'&item_num='+data.item_num,{})
-                    let subtotal        = await services.data
-                    let precio          = await Precios('redondear_arriba',{subtotal:subtotal,iva:data.iva})
-                
-                        services        = await Services('POST','/fichaTecnica/obtienePrecioSeguro?precio='+precio,{})
-                    let hdi             = await services.data
-                
-                        services        = await Services('POST','/fichaTecnica/obtienePrecioGarantia?precio='+precio+'&opcion=G1',{})
-                    let garantext1      = await services.data
-                    
-                        services        = await Services('POST','/fichaTecnica/obtienePrecioGarantia?precio='+precio+'&opcion=G2',{})
-                    let garantext2      = await services.data*/
-
                     setDatos(data)
-                    setPrecio(data.precio)
+                    setPrecio(parseFloat(data.precio)+(parseFloat(data.precio)*parseFloat(data.iva)))
                     setHdi(data.precioSeguro)
                     setGarnatExt1(data.garantia1)
                     setGarnatExt2(data.garantia1)
-                    setHorEntr(data.horarioEntrega)
-
-                    
+                    setHorEntr(data.horarioEntrega)                  
                 }else{
                     ruter.push('/')
                 }                
@@ -192,8 +176,7 @@ export default function FichaTecnica(props){
                 }else{
                     setAlerta({severity:'error',mensaje:'Este producto aún no esta disponible para envío express.',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }
-                setLoading(false)
-                
+                setLoading(false)                
             })
         }else{
             setAlerta({severity:'error',mensaje:'Ingresa un CP',vertical:'bottom',horizontal:'right',variant:'filled'})
@@ -208,7 +191,12 @@ export default function FichaTecnica(props){
             setLoading(false)
             return
         }
-        Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: localStorage.getItem('Cliente'),usuario_num : localStorage.getItem('Usuario'),cantidad : (item_num==='')?parseInt(cantidad):1,item_num :(item_num==='')?datos.item_num:item_num,seguro :(item_num==='')?isHDI:'',garantia :(item_num==='')?isGarn:''})
+        let cliente_num     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
+            cliente_num     = await (parseInt(cliente_num) === 0)?201221:cliente_num            
+        
+        let usuario         = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
+            usuario         = await (parseInt(usuario) === 0)?RandomUser():usuario 
+        Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: cliente_num,usuario_num : usuario,cantidad : (item_num==='')?parseInt(cantidad):1,item_num :(item_num==='')?datos.item_num:item_num,seguro :(item_num==='')?isHDI:'',garantia :(item_num==='')?isGarn:''})
         .then( response =>{
             if(response.data > 0){
                 setAgregado([...agregado,(item_num==='')?datos.item_num:item_num])
@@ -300,7 +288,7 @@ export default function FichaTecnica(props){
                                                     className="mySwiper2"
                                                 >
                                                     <SwiperSlide>
-                                                    <img width={'100%'}  src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'" alt={datos.item_num} />
+                                                    <img width={'100%'}  src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`}  alt={datos.item_num} />
                                                     </SwiperSlide>
                                                     <SwiperSlide>
                                                     <img width={'100%'} src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num} />
@@ -324,13 +312,13 @@ export default function FichaTecnica(props){
                                                         className="mySwiper"
                                                     >
                                                         <SwiperSlide>
-                                                        <img src={`https://pedidos.com/myfotos/${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
+                                                        <img src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num} />
                                                         </SwiperSlide>
                                                         <SwiperSlide>
-                                                        <img src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
+                                                        <img src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num} />
                                                         </SwiperSlide>
                                                         <SwiperSlide>
-                                                        <img src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} onError="this.onerror=null;this.src='https://pedidos.com/myfotos/logitinPed.png" alt={datos.item_num} />
+                                                        <img src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} alt={datos.item_num} />
                                                         </SwiperSlide>
                                                         <SwiperSlide>
                                                         img video
@@ -484,7 +472,7 @@ export default function FichaTecnica(props){
                                                         <Grid item>
                                                             <Box p={1}>
                                                                 <Typography variant="h4" component="subtitle1"> 
-                                                                ${(precio > 0)?Precios('formato',precio):``}
+                                                                ${(precio > 0)?Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):``}
                                                                 </Typography>
                                                             </Box>
                                                         </Grid>
@@ -681,11 +669,12 @@ export default function FichaTecnica(props){
                                                                 return (
                                                     <SwiperSlide key={i}>
                                                         <Card className={classes.productCard} >
-                                                            <CardActionArea  to={`/articulos/${datos.relacionados.listaRelacionados[oneKey].url}`} >
+                                                            <Link href={`/articulos/${datos.relacionados.listaRelacionados[oneKey].url.toLowerCase()}`}>
+                                                            <a>
+                                                            <CardActionArea>
                                                                 <CardMedia
                                                                 className={classes.media}
                                                                 image={`https://pedidos.com/myfotos/large/(L)${datos.relacionados.listaRelacionados[oneKey].item_rel}.webp`}
-                                                                onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
                                                                 alt={datos.item_num}
                                                                 title={datos.item_num} />
                                                                 <CardContent>
@@ -698,7 +687,8 @@ export default function FichaTecnica(props){
                                                                 </Typography>
                                                                 </CardContent>
                                                             </CardActionArea>
-                                                        
+                                                            </a>
+                                                            </Link>
                                                             <CardActions>
                                                                 {(agregado.indexOf(datos.relacionados.listaRelacionados[oneKey].item_rel) >= 0)?
                                                                 <Button color="secondary"
