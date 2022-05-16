@@ -16,7 +16,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { margin } from '@mui/system';
 
-const Boxsecondarycard = ({data})=>{
+const Boxcard = ({data})=>{
   return(
   <>
     
@@ -26,7 +26,7 @@ const Boxsecondarycard = ({data})=>{
                 <Grid container justifyContent="space-between" alignItems="center">
 					<Grid item xs={12} sm={6} md={6} lg={7}>
                         <Box component="div" textAlign="left" p={4} >
-                        
+                        <Typography variant="caption" color="textSecondary">Limpieza</Typography><br/>
                         <Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
                             {data.titulo}
                         <Box component="span" sx={{color:'#f1861c'}}>
@@ -61,29 +61,42 @@ export default function SecondaryCards() {
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center" spacing={4}>
-        <Grid item xs={12} sm={12} md={6} lg={6} >
+        <Grid item xs={12} sm={12} md={4} lg={4} >
             <Link href="/">
                 <a>
-                <Boxsecondarycard 
+                <Boxcard 
                     data={{
-                    titulo:'Desde ',
-                    precio:'$999', 
-                    subtitle: 'Papel Bond PAPERLINE ', 
-                    text1:'Caja con 10 Resmas de 500 HOJAS c/u',
-                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/paperline-xs.png',
+                    titulo:'Salud y Cuidado',
+                    subtitle: 'Productos clave para cuidarte a ti y a los demás.', 
+                    text1:'Gel antibacterial, Cubrebocas y más...',
+                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home20/principales/salud-150.webp',
                     keyw:'Productos para oficina, papelería, papel, cajas de papel, resma de papel' }}
                 />				
                 </a>
             </Link>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} >
+        <Grid item xs={12} sm={12} md={4} lg={4} >
             <Link href="/">
                 <a>
-                <Boxsecondarycard 
+                <Boxcard 
                     data={{
-                    titulo:'Encuentra tu computadora ',
-                    subtitle: 'variedad de opciones para tu día a día. ', 
-                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/computo-pedidos-xs.png',
+                    titulo:'Productos con Envío Gratis',
+                    subtitle: 'Descubre cientos de productos', 
+                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home20/principales/envio-150.webp',
+                   keyw:'cómputo, hardware, laptops, all in one, aio, tablets' }}
+                />				
+                </a>
+            </Link>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4} lg={4} >
+            <Link href="/">
+                <a>
+                <Boxcard 
+                    data={{
+                    titulo:'Ahorra con Pedidos.com Outlet',
+                    subtitle: 'Encuentra productos reacondicionados o de caja abierta.', 
+                    text1:'Conoce todos los detalles ',
+                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home20/principales/caja-150.webp',
                    keyw:'cómputo, hardware, laptops, all in one, aio, tablets' }}
                 />				
                 </a>

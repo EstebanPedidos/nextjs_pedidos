@@ -33,7 +33,7 @@ export default function TrendSlides() {
         //modules={[Autoplay]}
         lazy={true}
         spaceBetween={10}
-        slidesPerView={2}
+        slidesPerView={1}
         //centeredSlides={true}
         //autoplay={{
         //"delay": 2500,
@@ -53,10 +53,10 @@ export default function TrendSlides() {
                 <CardContent sx={{ flex: '1 0 auto' }}>                       
                         <Box component="div">
                             <Typography variant="caption" color="textSecondary">Planes</Typography>
-                            <Typography variant="subtitle1" component="h6" sx={{fontWeight:'600'}}>Protecciones para tus dispositivos</Typography>
+                            <Typography variant="h5" component="h6" sx={{fontWeight:'600'}}>Protecciones para tus dispositivos</Typography>
                         </Box>
                         <CardActions>
-                            <Button variant="contained" fullWidth>
+                            <Button variant="contained">
                                 Ver Detalles
                             </Button>
                         </CardActions>
