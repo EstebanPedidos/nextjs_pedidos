@@ -25,12 +25,14 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Services from '../../services/Services';
 //Funciones
 import Precios from '../../services/Precios';
+import RandomUser from '../../services/RandomUser'
 //Componentes
 import Alertas from '../Alertas';
 import ItemFavorites from './ItemFavorites';
 import Cart from './Cart';
 import Eliminar from '../modals/Eliminar';
 import ModalExecutive from '../modals/ModalExecutive';
+import { Layout } from 'layout/Layout';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -70,33 +72,23 @@ export default function Verifica_pedido() {
 
 	useEffect(() => {
 		const getData = async () => {
-			let cliente = await localStorage.getItem('Cliente');
-			let usuario = await localStorage.getItem('Usuario');
-			let afiliado = await localStorage.getItem('afiliado');
-			let services = await Services(
-				'GET',
-				'/carritoyreservado/getCarrito?clienteNum=' +
-					cliente +
-					'&usuarioNum=' +
-					usuario +
-					'&top=10&afiliado=' +
-					afiliado,
-				{}
-			);
-			let carritoS = await services.data;
-			let totalS = await carritoS.configCarrito.precarrito
-				.map(
-					(item) =>
+			let cliente     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
+            	cliente     = await (parseInt(cliente) === 0)?201221:cliente            
+        	let usuario     = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
+            	usuario     = await (parseInt(usuario) === 0)?RandomUser():usuario 
+			let afiliado 	= await localStorage.getItem('afiliado');
+			let services 	= await Services('GET','/carritoyreservado/getCarrito?clienteNum='+cliente+'&usuarioNum='+usuario +'&top=10&afiliado='+afiliado,{});
+			let carritoS 	= await services.data;
+			let totalS 		= await carritoS.configCarrito.precarrito
+				.map((item) =>
 						item.precio * item.cantidad +
 						item.precioSeguro * item.cantSeguro +
 						item.precioGarant1 * item.cantGarant1
 				)
 				.reduce((prev, curr) => prev + curr, 0);
-			let isEjecutivo = await (carritoS.configCarrito.resenapedidos
-				.length > 0);
+			let isEjecutivo = await (carritoS.configCarrito.resenapedidos.length > 0);
 			let num_partidas = await carritoS.configCarrito.precarrito.length;
-			let pyitemsfavoritos = await carritoS.configCarrito
-				.pyitemsfavoritos;
+			let pyitemsfavoritos = await carritoS.configCarrito.pyitemsfavoritos;
 			let favoritos = await getFavoritos(pyitemsfavoritos);
 			async function getFavoritos(pyitemsfavoritos) {
 				let f = [];
@@ -136,11 +128,15 @@ export default function Verifica_pedido() {
 		getData();
 	}, [partidas]);
 
-	function add(item_num) {
+	async function add(item_num) {
 		setLoading(true);
+		let cliente     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
+            cliente     = await (parseInt(cliente) === 0)?201221:cliente            
+		let usuario     = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
+			usuario     = await (parseInt(usuario) === 0)?RandomUser():usuario
 		Services('POST-NOT', '/carritoyreservado/agregaCarrito', {
-			cliente_num: localStorage.getItem('Cliente'),
-			usuario_num: localStorage.getItem('Usuario'),
+			cliente_num: cliente,
+			usuario_num: usuario,
 			cantidad: 1,
 			item_num: item_num,
 			seguro: '',
@@ -165,6 +161,10 @@ export default function Verifica_pedido() {
 			setLoading(false);
 			return;
 		}
+		let cliente     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
+            cliente     = await (parseInt(cliente) === 0)?201221:cliente            
+		let usuario     = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
+			usuario     = await (parseInt(usuario) === 0)?RandomUser():usuario
 
 		let articulosD = (await (item_num === 'V' || item_num === 'E'))
 			? deleteAll
@@ -174,9 +174,9 @@ export default function Verifica_pedido() {
 		Services(
 			'DELETE',
 			'/carritoyreservado/deleteCarrito?clienteNum=' +
-				localStorage.getItem('Cliente') +
+				cliente +
 				'&usuarioNum=' +
-				localStorage.getItem('Usuario') +
+				usuario +
 				'&items=' +
 				articulosD,
 			{}
@@ -206,129 +206,152 @@ export default function Verifica_pedido() {
 		setTotal(totalR);
 	}
 
-	function validaCodigoDescuento() {
-		if (cupon !== '') {
-			Services(
-				'GET',
-				'/carritoyreservado/validaCodigoDescuento?clienteNum=' +
-					localStorage.getItem('Cliente') +
-					'&usuarioNum=' +
-					localStorage.getItem('Usuario') +
-					'&cupon=' +
-					cupon,
-				{}
-			).then((response) => {
-				if (response.data) {
-					setAlerta({
-						severity: 'success',
-						mensaje: 'Continua para ver el descuento',
-						vertical: 'bottom',
-						horizontal: 'right',
-					});
-				} else {
-					setAlerta({
-						severity: 'error',
-						mensaje:
-							'Algo salió mal Es posible que el código sea incorrecto o no aplique en tú carrito',
-						vertical: 'bottom',
-						horizontal: 'right',
-					});
-				}
-			});
-		} else {
+	async function validaCodigoDescuento() {
+		let cliente     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
+            cliente     = await (parseInt(cliente) === 0)?201221:cliente            
+		let usuario     = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
+			usuario     = await (parseInt(usuario) === 0)?RandomUser():usuario
+		if(cliente !== 201221){
+			if (cupon !== '') {
+				Services(
+					'GET',
+					'/carritoyreservado/validaCodigoDescuento?clienteNum=' +
+					cliente+
+						'&usuarioNum=' +
+						usuario +
+						'&cupon=' +
+						cupon,
+					{}
+				).then((response) => {
+					if (response.data) {
+						setAlerta({
+							severity: 'success',
+							mensaje: 'Continua para ver el descuento',
+							vertical: 'bottom',
+							horizontal: 'right',
+						});
+					} else {
+						setAlerta({
+							severity: 'error',
+							mensaje:
+								'Algo salió mal Es posible que el código sea incorrecto o no aplique en tú carrito',
+							vertical: 'bottom',
+							horizontal: 'right',
+						});
+					}
+				});
+			} else {
+				setAlerta({
+					severity: 'error',
+					mensaje: 'Ingresa un código de descuento',
+					vertical: 'bottom',
+					horizontal: 'right',
+				});
+			}
+		}else{
 			setAlerta({
 				severity: 'error',
-				mensaje: 'Ingresa un código de descuento',
+				mensaje:
+					'Inicia Session',
 				vertical: 'bottom',
 				horizontal: 'right',
 			});
 		}
 	}
 
-	function reservaCarrito() {
+	async function reservaCarrito() {
 		setLoading(true);
-		if (carrito.configCarrito.precarrito.length > 0) {
-			var arraySkus = new Array();
-			carrito.configCarrito.precarrito.map(function (item) {
-				if (item.exis !== 'X') {
-					if (item.cantidad > 0) {
-						var objeto = new Object();
-						objeto.sku = item.item_num.replace(' ', '');
-						objeto.cantidad = item.cantidad;
-						objeto.seguro = 0;
-						objeto.gaex = 0;
-						objeto.itemGarant = '';
-						arraySkus.push(objeto);
+		let cliente     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
+            cliente     = await (parseInt(cliente) === 0)?201221:cliente            
+		let usuario     = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
+			usuario     = await (parseInt(usuario) === 0)?RandomUser():usuario
+		if(cliente !== 201221){
+			if (carrito.configCarrito.precarrito.length > 0) {
+				var arraySkus = new Array();
+				carrito.configCarrito.precarrito.map(function (item) {
+					if (item.exis !== 'X') {
+						if (item.cantidad > 0) {
+							var objeto = new Object();
+							objeto.sku = item.item_num.replace(' ', '');
+							objeto.cantidad = item.cantidad;
+							objeto.seguro = 0;
+							objeto.gaex = 0;
+							objeto.itemGarant = '';
+							arraySkus.push(objeto);
+						} else {
+							setLoading(false);
+							setAlerta({
+								severity: 'error',
+								mensaje:
+									'El articulo ' +
+									item.item_num +
+									' no se puede reservar con cantidad 0',
+								vertical: 'bottom',
+								horizontal: 'right',
+							});
+							return;
+						}
 					} else {
 						setLoading(false);
+						arraySkus = [];
 						setAlerta({
 							severity: 'error',
 							mensaje:
 								'El articulo ' +
 								item.item_num +
-								' no se puede reservar con cantidad 0',
+								' no cuenta con existencia',
 							vertical: 'bottom',
 							horizontal: 'right',
 						});
 						return;
 					}
+				});
+
+				if (arraySkus.length > 0) {
+					Services(
+						'POST',
+						'/carritoyreservado/reservaCarrito?clienteNum=' +
+							cliente +
+							'&usuarioNum=' +
+							usuario+
+							'&afiliado=' +
+							localStorage.getItem('afiliado') +
+							'&cupon=' +
+							cupon +
+							'&ip=192.10.1.166&ejecutivo=' +
+							ejecutivo.slmn,
+						arraySkus
+					).then((response) => {
+						if (response.data.pedido > 0) {
+							localStorage.setItem('Pedido', response.data.pedido);
+							ruter.push('/checkout/direccion-de-envio');
+						} else {
+							setAlerta({
+								severity: 'error',
+								mensaje: 'Error en reservar',
+								vertical: 'bottom',
+								horizontal: 'right',
+							});
+							setLoading(false);
+						}
+					});
 				} else {
-					setLoading(false);
-					arraySkus = [];
 					setAlerta({
 						severity: 'error',
-						mensaje:
-							'El articulo ' +
-							item.item_num +
-							' no cuenta con existencia',
+						mensaje: 'No se cuenta con ningun articulo',
 						vertical: 'bottom',
 						horizontal: 'right',
 					});
-					return;
+					setLoading(false);
 				}
-			});
-
-			if (arraySkus.length > 0) {
-				Services(
-					'POST',
-					'/carritoyreservado/reservaCarrito?clienteNum=' +
-						localStorage.getItem('Cliente') +
-						'&usuarioNum=' +
-						localStorage.getItem('Usuario') +
-						'&afiliado=' +
-						localStorage.getItem('afiliado') +
-						'&cupon=' +
-						cupon +
-						'&ip=192.10.1.166&ejecutivo=' +
-						ejecutivo.slmn,
-					arraySkus
-				).then((response) => {
-					if (response.data.pedido > 0) {
-						localStorage.setItem('Pedido', response.data.pedido);
-						ruter.push('/checkout/direccion-de-envio');
-					} else {
-						setAlerta({
-							severity: 'error',
-							mensaje: 'Error en reservar',
-							vertical: 'bottom',
-							horizontal: 'right',
-						});
-						setLoading(false);
-					}
-				});
-			} else {
-				setAlerta({
-					severity: 'error',
-					mensaje: 'No se cuenta con ningun articulo',
-					vertical: 'bottom',
-					horizontal: 'right',
-				});
-				setLoading(false);
 			}
+		}else{
+			ruter.push('/Login')
 		}
 	}
 
 	return (
+		<Layout>
 		<Box component='div' m={1}>
 			<div className={classes.root}>
 				<Grid
@@ -750,5 +773,6 @@ export default function Verifica_pedido() {
 				<Alertas setAlerta={setAlerta} alerta={alerta} />
 			)}
 		</Box>
+		</Layout>
 	);
 }
