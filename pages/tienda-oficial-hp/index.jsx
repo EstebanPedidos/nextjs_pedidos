@@ -63,7 +63,7 @@ const TiendaOficialHP = () => {
 	return (
 		<Layout>
 			<HeroImage
-				src={require('../../public/images/landing/tiendaoftxt.jpg')}
+				src='https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/tiendaoftxt.jpg'
 				alt='Tienda oficial HP'
 			/>
 
