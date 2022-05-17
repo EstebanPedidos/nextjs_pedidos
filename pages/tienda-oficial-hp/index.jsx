@@ -1,23 +1,20 @@
-import Image from 'next/image';
-import Head from 'next/head';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import HeadsetMicOutlinedIcon from '@mui/icons-material/HeadsetMicOutlined';
-import 'swiper/css';
-import 'swiper/css/pagination';
 
 // import required modules
 import { Layout } from 'layout/Layout';
 import HPSearchScript from 'components/HPSearchScript';
 import HPPcSelectorScript from 'components/HPPcSelectorScript';
+import HeroImage from 'components/HeroImage';
+import CategoryCarousel from 'components/CategoryCarousel';
 
 const productCategories = [
 	{
@@ -65,21 +62,10 @@ const productCategories = [
 const TiendaOficialHP = () => {
 	return (
 		<Layout>
-			<Head>
-				<link
-					href='https://e-commerce-online-pub.ext.hp.com/main.css'
-					rel='stylesheet'
-				/>
-			</Head>
-
-			<Box height='27vw' position='relative'>
-				<Image
-					src={require('../../public/images/landing/tiendaoftxt.jpg')}
-					alt='Tienda oficial HP'
-					layout='fill'
-					priority
-				/>
-			</Box>
+			<HeroImage
+				src={require('../../public/images/landing/tiendaoftxt.jpg')}
+				alt='Tienda oficial HP'
+			/>
 
 			<Box py={3}>
 				<HPPcSelectorScript />
@@ -101,47 +87,7 @@ const TiendaOficialHP = () => {
 					</Typography>
 
 					<Box>
-						<Swiper
-							pagination={{
-								clickable: true,
-							}}
-							slidesPerView={1.5}
-							spaceBetween={20}
-							breakpoints={{
-								768: {
-									slidesPerView: 4,
-									spaceBetween: 40,
-								},
-								1024: {
-									slidesPerView: 5,
-									spaceBetween: 50,
-								},
-							}}
-							className='mySwiper'>
-							{productCategories.map((category) => (
-								<SwiperSlide key={category.label}>
-									<Box component='a' href={category.url}>
-										<Box
-											sx={{
-												'&>img': {
-													width: '100%',
-													position: 'relative',
-													display: 'block',
-													margin: '0 auto',
-												},
-											}}>
-											<img src={category.img} alt={category.label} />
-										</Box>
-										<Typography
-											textAlign='center'
-											color='text.secondary'
-											fontWeight='500'>
-											{category.label}
-										</Typography>
-									</Box>
-								</SwiperSlide>
-							))}
-						</Swiper>
+						<CategoryCarousel productCategories={productCategories} />
 					</Box>
 				</Container>
 			</Box>
