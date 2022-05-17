@@ -71,25 +71,17 @@ export const HeroSection = () => {
 				display='flex'
 				flexDirection='column'
 				paddingX='3%'
-				paddingY='1rem'>
-				<Box
-					display='flex'
-					justifyContent='space-between'
-					alignItems='center'>
+				bgcolor='#f6f7f9'
+				py={1}>
+				<Box display='flex' justifyContent='space-between' alignItems='center'>
 					<Box>
 						<Breadcrumbs
 							separator={<NavigateNextIcon />}
 							aria-label='breadcrumb'>
-							<Link
-								color='inherit'
-								href='/'
-								onClick={handleClick}>
+							<Link color='inherit' href='/' onClick={handleClick}>
 								Empresas
 							</Link>
-							<Link
-								color='inherit'
-								href='/'
-								onClick={handleClick}>
+							<Link color='inherit' href='/' onClick={handleClick}>
 								{'  '}
 							</Link>
 						</Breadcrumbs>
@@ -105,10 +97,9 @@ export const HeroSection = () => {
 									height: '0.6rem',
 									marginRight: '0.3rem',
 								}}></span>
-							<Box component='span'>
-								Horario de Atención Lunes a Domingo de 9 a
-								18:30hrs
-							</Box>
+							<Typography variant='body2'>
+								Horario de Atención Lunes a Domingo de 9 a 18:30hrs
+							</Typography>
 						</Box>
 					</Hidden>
 				</Box>
@@ -144,11 +135,7 @@ export const HeroSection = () => {
 
 const HeroItem = ({ icon, title, description }) => {
 	return (
-		<Box
-			component={'div'}
-			width={'350px'}
-			marginY='5px'
-			marginRight={'5px'}>
+		<Box component={'div'} width={'350px'} marginY='5px' marginRight={'5px'}>
 			<Box
 				display='flex'
 				borderRight={'0.5px solid rgb(229, 229, 229)'}
