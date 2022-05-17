@@ -95,7 +95,7 @@ const Newell = () => {
 	return (
 		<Layout>
 			<HeroImage
-				src={require('../../public/images/landing/newellback1.png')}
+				src='https://pedidos.com/myfotos/pedidos-com/pagina/newell/newellback1.png'
 				alt='Newell'
 			/>
 
