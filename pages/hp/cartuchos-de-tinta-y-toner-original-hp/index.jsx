@@ -8,6 +8,28 @@ import HPSearchScript from 'components/HPSearchScript';
 const TintaTonerHP = () => {
 	return (
 		<Layout>
+			<Box pt={8} position='relative'>
+				<Box
+					bgcolor='#f6f7f9'
+					position='absolute'
+					top='0'
+					left='0'
+					right='0'
+					bottom='6rem'
+					zIndex={-1}
+				/>
+				<img
+					src='https://pedidos.com/myfotos/pedidos-com/pagina/hp/toner-hp/HP_Q421.webp'
+					alt='Toner original HP'
+					width='49%'
+					style={{
+						boxShadow: '0 10px 20px rgb(0 0 0 / 20%)',
+						borderRadius: '.5rem',
+						margin: 'auto',
+						display: 'block',
+					}}
+				/>
+			</Box>
 			<Box py={5}>
 				<Container maxWidth='md'>
 					<HPSearchScript />
