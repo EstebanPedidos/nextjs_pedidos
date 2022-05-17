@@ -49,11 +49,25 @@ export default function TrendSlides() {
         //autoplay={{
         //"delay": 2500,
         //"disableOnInteraction": false}}
-       
         onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}>
+        onSwiper={(swiper) => console.log(swiper)}
+        breakpoints={{
+            640: {
+              slidesPerView: 2.2,
+              
+            },
+            768: {
+              slidesPerView: 3.2,
+              
+            },
+            1024: {
+              slidesPerView: 3.1,
+             
+            }
+        }}
+        >
         <SwiperSlide> 
-            <Card>
+            <Card sx={{width: '280px'}}>
                 <CardActionArea>
                     <CardMedia sx={{height: 220}}
                         
@@ -92,20 +106,45 @@ export default function TrendSlides() {
             </Card>
         </SwiperSlide>
         <SwiperSlide> 
-        2
+            <Card >
+                <CardActionArea>
+                    <CardMedia sx={{height: 220}}
+                        
+                        image={
+                        'https://pedidos.com/myfotos/Pedidos-com/pagina/home19/tiendas/intel.webp'
+                        }
+                    />
+                </CardActionArea>
+                <Avatar sx={{ 
+                    width: 70,
+                    height: 70,
+                    border: '2px solid #fff',
+                    margin: '-50px 1rem auto',
+                    '& > img': {
+                        margin: 0,}} } 
+                    alt="Intel" src="https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/intel.png" />
+                
+                <CardContent>
+                    <Grid container>
+                        <Grid item xs={9} >
+                            <Box component="div">
+                                <Typography variant="caption" color="textSecondary">Procesadores</Typography>
+                                <Typography variant="subtitle1" component="h6" sx={{fontWeight:'600'}}>Intel®</Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={3}>
+                        <CardActions>
+                            <IconButton>
+                                <NavigateNextOutlinedIcon />
+                            </IconButton>
+                        </CardActions>
+                        </Grid>
+                    </Grid>
+                    
+                </CardContent>
+            </Card>
         </SwiperSlide>
-        <SwiperSlide> 
-        3
-        </SwiperSlide>
-        <SwiperSlide> 
-        4
-        </SwiperSlide>
-        <SwiperSlide> 
-        4
-        </SwiperSlide>
-        <SwiperSlide> 
-        4
-        </SwiperSlide>
+    
         </Swiper>
 	)
 }

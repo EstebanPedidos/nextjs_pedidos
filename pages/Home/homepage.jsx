@@ -66,11 +66,8 @@ export const HomeSite = () => {
 					</Box>
 				</Box>
 				<Box component="div" py={2} textAlign="left">
-					{/* <Typography variant="h6" component="h2" sx={{fontWeight:'600'}}>
-						Marcas
-					</Typography> */}
 					<Box component="div" py={2}>
-						<Brands />
+						<Brands/>
 					</Box>
 				</Box>
 				{/* <Box component="div" py={2} textAlign="left">
@@ -83,18 +80,16 @@ export const HomeSite = () => {
 						Tintas & tóners
 						Papelería
 						Papel
-	
-					
-	
-						
 					</Box>
 				</Box> */}
 				<Divider light />
-				<Box component="div" pt={4} textAlign="center">
-					<Typography variant="h4" component="h5" sx={{fontWeight:'600'}}>
-					Servicio personalizado enfocado a tus necesidades
-					</Typography>
-					<Box component="div" py={4}>
+				<Box component="div" py={6} textAlign="center">
+					<Box component="div" pt={6} textAlign="center">
+						<Typography variant="h4" component="h5" sx={{fontWeight:'600'}}>
+						Servicio personalizado enfocado a tus necesidades
+						</Typography>
+					</Box>
+					<Box component="div" pt={4} pb={6}>
 						<Button variant="contained">
 								Ver Centro de Ayuda
 						</Button>
