@@ -66,10 +66,11 @@ export default function TrendSlides() {
             }
         }}
         >
-        <SwiperSlide> 
-            <Card sx={{width: '280px'}}>
+        <SwiperSlide>
+            <Box component="div" p={2}>
+            <Card variant="outlined" sx={{width: '280px'}}>
                 <CardActionArea>
-                    <CardMedia sx={{height: 220}}
+                    <CardMedia sx={{height: '350px'}}
                         
                         image={
                         'https://pedidos.com/myfotos/Pedidos-com/pagina/home19/tiendas/intel.webp'
@@ -80,23 +81,23 @@ export default function TrendSlides() {
                     width: 70,
                     height: 70,
                     border: '2px solid #fff',
-                    margin: '-50px 1rem auto',
+                    margin: '-90px 1rem auto',
                     '& > img': {
                         margin: 0,}} } 
                     alt="Intel" src="https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/intel.png" />
                 
                 <CardContent>
-                    <Grid container>
+                    <Grid container alignItems="center">
                         <Grid item xs={9} >
                             <Box component="div">
-                                <Typography variant="caption" color="textSecondary">Procesadores</Typography>
-                                <Typography variant="subtitle1" component="h6" sx={{fontWeight:'600'}}>Intel®</Typography>
+                                <Typography  variant="subtitle1" component="caption" color="textSecondary">Procesadores</Typography>
+                                <Typography variant="h4" component="h6" sx={{fontWeight:'600'}}>Intel®</Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={3}>
                         <CardActions>
-                            <IconButton>
-                                <NavigateNextOutlinedIcon />
+                            <IconButton size="large">
+                                <NavigateNextOutlinedIcon/>
                             </IconButton>
                         </CardActions>
                         </Grid>
@@ -104,45 +105,10 @@ export default function TrendSlides() {
                     
                 </CardContent>
             </Card>
+            </Box> 
         </SwiperSlide>
         <SwiperSlide> 
-            <Card >
-                <CardActionArea>
-                    <CardMedia sx={{height: 220}}
-                        
-                        image={
-                        'https://pedidos.com/myfotos/Pedidos-com/pagina/home19/tiendas/intel.webp'
-                        }
-                    />
-                </CardActionArea>
-                <Avatar sx={{ 
-                    width: 70,
-                    height: 70,
-                    border: '2px solid #fff',
-                    margin: '-50px 1rem auto',
-                    '& > img': {
-                        margin: 0,}} } 
-                    alt="Intel" src="https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/intel.png" />
-                
-                <CardContent>
-                    <Grid container>
-                        <Grid item xs={9} >
-                            <Box component="div">
-                                <Typography variant="caption" color="textSecondary">Procesadores</Typography>
-                                <Typography variant="subtitle1" component="h6" sx={{fontWeight:'600'}}>Intel®</Typography>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={3}>
-                        <CardActions>
-                            <IconButton>
-                                <NavigateNextOutlinedIcon />
-                            </IconButton>
-                        </CardActions>
-                        </Grid>
-                    </Grid>
-                    
-                </CardContent>
-            </Card>
+          
         </SwiperSlide>
     
         </Swiper>
