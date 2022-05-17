@@ -111,7 +111,6 @@ TypographyDemo.propTypes = {
 };
 
 
-
 export default function FichaTecnica(props){
     const classes                       = useStyles()
     const ruter                         = useRouter() 
@@ -133,18 +132,7 @@ export default function FichaTecnica(props){
     const cortadosPA    = ['HP-TIN','HP-TO-'];
     const articulosPA   = ['HP-LAP-2C3C3LA','ASU-LAP-C4G500','HP-MFC-Z4B04A','HP-MFC-Z4B53A','PDIR-LAP-2C3E1L','PDIR-LAP-2Z748L','HP-LAP-151F5LT','PDIR-LAP-22A98L','PDIR-IMP-1TJ09A','PDIR-ACC-2UF58A','LG-PAN-32LM570','BRO-MFC-T220','PF-LOG-G920','PF-LOG-G29','HP-IMP-CZ993A','CAN-MFC-G2160','BRO-MFC-DCP2551','PDIR-MFC-2LB19A','HP-ALL-140P8AA','ACE-MON-V246HQL','LEN-LAP-CHRB0US'];
     const subfamilia    = {'Desktops':3,'Laptops':3,'Tablets':2,'Escáneres':2,'Multifuncionales':3,'Impresoras':3,'Escaneres':2,'Plotters':2,'Videoproyector':2 ,'Teclado y mouse':1,'All in One':1,'Teclados':1}
-    const opts = {
-        height: '390',
-        width: '640',
-        playerVars: {
-          // https://developers.google.com/youtube/player_parameters
-          autoplay: 1,
-        },
-    }
-
-    function Ready({target}) {
-        target.pauseVideo();
-    }
+    const opts          = {height: '390',width: '640',playerVars: {autoplay: 1,},}
 
     useEffect(()=>{
         const getdata= async ()=>{
@@ -311,12 +299,13 @@ export default function FichaTecnica(props){
                                                         <SwiperSlide>
                                                             <Image width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
-                                                        {
+                                                        {/*(datos.hasOwnProperty('item_num'))&&
+                                                        (datos.descripcion.descripcion.link !== '')&&
                                                         datos.descripcion.descripcion.link.split(',').map((link, index) => (
                                                             <SwiperSlide>                                                                
                                                                 <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts}/>
                                                             </SwiperSlide>
-                                                        ))
+                                                        ))*/
                                                         }                                                                                                           
                                                     </Swiper>
                                                     <Swiper
@@ -329,7 +318,7 @@ export default function FichaTecnica(props){
                                                         className="mySwiper"
                                                     >
                                                         <SwiperSlide>
-                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num}/>
+                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num} />
                                                         </SwiperSlide>
                                                         <SwiperSlide>
                                                             <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num}/>
@@ -337,14 +326,16 @@ export default function FichaTecnica(props){
                                                         <SwiperSlide>
                                                             <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
-                                                        {
-                                                        datos.descripcion.descripcion.link.split(',').map((link, index) => (
-                                                            <SwiperSlide key={index}>
-                                                                <Image width={'80%'}  height={'80%'} layout="responsive" src={`https://img.youtube.com/vi${(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length)}/0.jpg`} alt={datos.item_num}/>
-                                                            </SwiperSlide>
-                                                        ))
-                                                        }                                                        
+                                                        {(datos.hasOwnProperty('item_num'))&&
+                                                            (datos.descripcion.descripcion.hasOwnProperty("link"))&&
+                                                                datos.descripcion.descripcion.link.split(',').map((link, index) => (
+                                                                    <SwiperSlide key={index}>
+                                                                        <Image width={'80%'}  height={'80%'} layout="responsive" src={`https://img.youtube.com/vi${(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length)}/0.jpg`} alt={datos.item_num}/>
+                                                                    </SwiperSlide>
+                                                                ))
+                                                        }                                                       
                                                     </Swiper>
+                                                    
                                                 </Box>
                                                 }
                                             </Grid>
