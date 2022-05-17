@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Box from '@mui/material/Box';
 
 const HeroImage = (props) => {
@@ -6,7 +5,7 @@ const HeroImage = (props) => {
 
 	return (
 		<Box height='27vw' position='relative'>
-			<Image src={src} alt={alt} layout='fill' priority />
+			<img src={src} alt={alt} layout='fill' priority width='100%' />
 		</Box>
 	);
 };

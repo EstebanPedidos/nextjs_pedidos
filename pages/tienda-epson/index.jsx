@@ -51,7 +51,7 @@ const TiendaEpson = () => {
 	return (
 		<Layout>
 			<HeroImage
-				src={require('../../public/images/landing/tiendaepson.jpg')}
+				src='https://pedidos.com/myfotos/pedidos-com/pagina/epson/tiendaepson.jpg'
 				alt='Tienda Epson'
 			/>
 
