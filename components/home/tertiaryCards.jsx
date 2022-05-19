@@ -18,8 +18,7 @@ import { margin } from '@mui/system';
 
 const Boxcard = ({data})=>{
   return(
-  <>
-    
+  <>  
     <Box component="div" mt={1} p={2}>
         <Paper elevation={8}>
             <Box component="div" sx={{position:'relative'}}>

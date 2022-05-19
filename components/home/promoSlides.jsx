@@ -26,7 +26,7 @@ export default function promoSlides() {
         /* autoplay={{
         "delay": 2500,
         "disableOnInteraction": false}} */
-       
+        className="mySwiper1"
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}>
         <SwiperSlide> 
