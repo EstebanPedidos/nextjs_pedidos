@@ -21,7 +21,7 @@ const INVALID_COLOR = {
 };
 
 // Example of custom component to handle form submit
-const SubmitPayment = ({ customStyle,evento }) => {
+const SubmitPayment = ({ customStyle,evento}) => {
 	const [paying, setPaying] 	= useState(false);
 	const cardHolderName 		= useRef(null);
 	const hostedField 			= usePayPalHostedFields();
@@ -94,10 +94,11 @@ const SubmitPayment = ({ customStyle,evento }) => {
 	);
 };
 
-export default function Fields({clientToken,evento}) {
-
+export default function Fields({clientToken,evento,total}) {
+	const [appendOption,setAppendOption]  = useState({ type: 'no_installments_option' })
 	return (
 		<>
+			{total}
 			{clientToken ? (
 				<PayPalScriptProvider
 					options={{
@@ -119,6 +120,41 @@ export default function Fields({clientToken,evento}) {
                                 return data
                             }       
                             return orden()
+						}}
+						installments={{
+							onInstallmentsRequested() {	
+								alert("Entro")				
+								return {amount:total,currencyCode: 'MXN'}					
+							},					
+							onInstallmentsAvailable(availableInstallments) {					
+								var qualifyingOptions = installments && installments.financing_options && installments.financing_options.filter(function (financialOption) {
+									return financialOption.product === 'CARD_ISSUER_INSTALLMENTS';
+								  });
+						
+								  var hasCardIssuerInstallment = Boolean(qualifyingOptions && qualifyingOptions.length >= 1 && qualifyingOptions[0].qualifying_financing_options.length > 1);
+								  if (!hasCardIssuerInstallment) {
+									return;
+								  }
+
+								  qualifyingOptions.forEach(function (financialOption) {						
+									financialOption.qualifying_financing_options.forEach(function (qualifyingFinancingOption) {
+									  setAppendOption({
+										type: 'installment_option',
+										data: {
+										  value: qualifyingFinancingOption.monthly_payment.value,
+										  currency_code: qualifyingFinancingOption.monthly_payment.currency_code,
+										  interval: qualifyingFinancingOption.credit_financing.interval,
+										  term: qualifyingFinancingOption.credit_financing.term,
+										  interval_duration: qualifyingFinancingOption.credit_financing.interval_duration,
+										  discount_percentage: qualifyingFinancingOption.discount_percentage
+										}
+									  })
+									})						
+								  })
+							},					
+							onInstallmentsError() {					
+								alert('Error')					
+							},					
 						}}					
 					>
                         <label htmlFor="card-number">
@@ -163,6 +199,11 @@ export default function Fields({clientToken,evento}) {
                                 placeholder: "MM/YYYY",
                             }}
                         />
+						{(appendOption.type === 'no_installments_option')?
+						<h1>NO Aplica</h1>
+						:
+						<h1>Aplica</h1>
+						}
 						<SubmitPayment customStyle={{"border":"1px solid #606060","boxShadow":"2px 2px 10px 2px rgba(0,0,0,0.1)"}} evento={evento}/>
 					</PayPalHostedFieldsProvider>
 				</PayPalScriptProvider>

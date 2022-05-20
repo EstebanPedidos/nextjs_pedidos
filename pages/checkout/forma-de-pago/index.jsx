@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 //next js
 import { useRouter } from 'next/router'
 //Material
-
 import {Container, Radio,RadioGroup,FormControlLabel,FormControl,
         List,ListItem,ListItemText,ListItemAvatar, ListItemSecondaryAction,
         Box,Grid,Avatar,Typography,Card, Divider,Skeleton} from '@mui/material'
@@ -20,7 +19,8 @@ import Alertas from '../Alertas';
 
 //Servicios
 import Services from '../../services/Services'
-
+//Funciones
+import Precios from '../../services/Precios' 
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -590,7 +590,7 @@ export default function Forma_de_pago(){
                                         <Box component="div" m={1} >
                                             <Divider light/>
                                         <Box component="div"  p={2}>
-                                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave} evento={data.jsonResumen.resumen.eventoNum} Delete={Delete}/>
+                                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave} evento={data.jsonResumen.resumen.eventoNum} Delete={Delete} total={Precios('formatcurrency',{subtotal:((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc),fixed:2})}/>
                                         </Box>
                                         </Box>
                                         :

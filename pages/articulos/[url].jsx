@@ -37,14 +37,17 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import PropTypes from 'prop-types';
 import {Container,Grid,Box,Typography,Skeleton,Divider,Button,Avatar,TextField,Paper,FormControl,InputLabel,
-    Select,MenuItem,FormLabel,RadioGroup,Radio,
-    Card,CardActionArea,CardActions,CardContent,CardMedia,FormControlLabel} 
+    Select,MenuItem,FormLabel,RadioGroup,Radio,CircularProgress,
+    Card,CardActionArea,CardActions,CardContent,CardMedia,FormControlLabel,Checkbox} 
 from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import MopedOutlinedIcon from '@mui/icons-material/MopedOutlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
-import LoadingButton from '@mui/lab/LoadingButton';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import LoadingButton from '@mui/lab/LoadingButton';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+
 
 import YouTube from 'react-youtube';
 
@@ -111,23 +114,27 @@ TypographyDemo.propTypes = {
 };
 
 
+
 export default function FichaTecnica(props){
-    const classes                       = useStyles()
-    const ruter                         = useRouter() 
-    const [datos,setDatos]              = useState({})
-    const [horentr,setHorEntr]          = useState([])
-    const [precio,setPrecio]            = useState(0)
-    const [hdi,setHdi]                  = useState(0)
-    const [garantext1,setGarnatExt1]    = useState(0)
-    const [garantext2,setGarnatExt2]    = useState(0)
-    const [isGarn,setIsGarn]            = useState('')
-    const [isHDI,setisHDI]              = useState('')
-    const [cantidad,setCantidad]        = useState(1)
-    const [isManual,setIsManual]        = useState(false)
-    const [loading,setLoading]          = useState(false) 
-    const [agregado,setAgregado]        = useState([]) 
-    const [alerta,setAlerta]            = useState({})
-    const [cp,setCP]                    = useState('')
+    const classes                           = useStyles()
+    const ruter                             = useRouter() 
+    const [datos,setDatos]                  = useState({})
+    const [horentr,setHorEntr]              = useState([])
+    const [precio,setPrecio]                = useState(0)
+    const [subTotal,setSubTotal]            = useState(0)
+    const [hdi,setHdi]                      = useState(0)
+    const [garantext1,setGarnatExt1]        = useState(0)
+    const [garantext2,setGarnatExt2]        = useState(0)
+    const [isGarn,setIsGarn]                = useState('')
+    const [isHDI,setisHDI]                  = useState('')
+    const [cantidad,setCantidad]            = useState(1)
+    const [isManual,setIsManual]            = useState(false)
+    const [loading,setLoading]              = useState(false) 
+    const [agregado,setAgregado]            = useState([]) 
+    const [alerta,setAlerta]                = useState({})
+    const [cp,setCP]                        = useState('')
+    const [isFavorito,setIsFavorito]        = useState(false)
+    const [thumbsSwiper, setThumbsSwiper]   = useState(null);
 
     const cortadosPA    = ['HP-TIN','HP-TO-'];
     const articulosPA   = ['HP-LAP-2C3C3LA','ASU-LAP-C4G500','HP-MFC-Z4B04A','HP-MFC-Z4B53A','PDIR-LAP-2C3E1L','PDIR-LAP-2Z748L','HP-LAP-151F5LT','PDIR-LAP-22A98L','PDIR-IMP-1TJ09A','PDIR-ACC-2UF58A','LG-PAN-32LM570','BRO-MFC-T220','PF-LOG-G920','PF-LOG-G29','HP-IMP-CZ993A','CAN-MFC-G2160','BRO-MFC-DCP2551','PDIR-MFC-2LB19A','HP-ALL-140P8AA','ACE-MON-V246HQL','LEN-LAP-CHRB0US'];
@@ -153,6 +160,7 @@ export default function FichaTecnica(props){
                     data.relacionados   = await JSON.parse(data.relacionados)
                     setDatos(data)
                     setPrecio(parseFloat(data.precio)+(parseFloat(data.precio)*parseFloat(data.iva)))
+                    setSubTotal(data.precio)
                     setHdi(data.precioSeguro)
                     setGarnatExt1(data.garantia1)
                     setGarnatExt2(data.garantia1)
@@ -213,7 +221,41 @@ export default function FichaTecnica(props){
             }
         })         
     }
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+    async function addFavorito(){
+        setLoading(true)
+        let cliente_num     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
+            cliente_num     = await (parseInt(cliente_num) === 0)?201221:cliente_num 
+        if(cliente_num !== 201221){
+            if(isFavorito){
+                Services('POST','/miCuenta/eliminaFavorito?cliente='+cliente_num+'&itemNum='+datos.item_num,{})
+                .then( response =>{
+                    setLoading(false)
+                    if(response.data === 'OK'){
+                        setAlerta({severity:'success',mensaje:'Eliminado de Favoritos',vertical:'bottom',horizontal:'right',variant:'filled'})
+                        setIsFavorito(false)              
+                    }else{
+                        setAlerta({severity:'error',mensaje:'Error al eliminar Favorito',vertical:'bottom',horizontal:'right',variant:'filled'})
+                    }
+                })
+            }else{
+                let precio = Precios('redondear_arriba',{subtotal:(parseFloat(subTotal)*parseFloat(datos.iva)),iva:0,formato:true})
+                Services('POST-NOT','/miCuenta/agregarFavorito?cliente_num='+cliente_num+'&item_num='+datos.item_num+'&notificacion=1&precio='+precio,{})
+                .then( response =>{
+                    setLoading(false)
+                    if(response.data === 'OK'){
+                        setAlerta({severity:'success',mensaje:'Agregado a Favoritos',vertical:'bottom',horizontal:'right',variant:'filled'})
+                        setIsFavorito(true)               
+                    }else{
+                        setAlerta({severity:'error',mensaje:'Error al agregar a Favoritos',vertical:'bottom',horizontal:'right',variant:'filled'})
+                    }
+                }) 
+            }                        
+        }else{
+            ruter.push('/Login')
+        }        
+    }
+    
 
     return (
         <div>          
@@ -291,21 +333,57 @@ export default function FichaTecnica(props){
                                                     className="mySwiper2"
                                                     >
                                                         <SwiperSlide>
+                                                            {(loading)?
+                                                            <CircularProgress />
+                                                            :
+                                                            <FormControlLabel name='favoritos'  onChange={addFavorito}
+                                                            control={
+                                                                <Checkbox checked={isFavorito} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+                                                            } 
+                                                            />
+                                                            }
                                                             <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`}  alt={datos.item_num} />
                                                         </SwiperSlide>
                                                         <SwiperSlide>
+                                                            {(loading)?
+                                                            <CircularProgress />
+                                                            :
+                                                            <FormControlLabel name='favoritos'  onChange={addFavorito}
+                                                            control={
+                                                                <Checkbox checked={isFavorito} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+                                                            }
+                                                            />
+                                                            }
                                                             <Image width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
                                                         <SwiperSlide>
+                                                            {(loading)?
+                                                            <CircularProgress />
+                                                            :
+                                                            <FormControlLabel name='favoritos'  onChange={addFavorito}
+                                                            control={
+                                                                <Checkbox checked={isFavorito} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+                                                            }
+                                                            />
+                                                            }
                                                             <Image width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
-                                                        {/*(datos.hasOwnProperty('item_num'))&&
-                                                        (datos.descripcion.descripcion.link !== '')&&
-                                                        datos.descripcion.descripcion.link.split(',').map((link, index) => (
-                                                            <SwiperSlide>                                                                
-                                                                <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts}/>
-                                                            </SwiperSlide>
-                                                        ))*/
+                                                        {(datos.hasOwnProperty('item_num'))&&
+                                                            (datos.descripcion.descripcion.hasOwnProperty("link"))&&
+                                                                datos.descripcion.descripcion.link.split(',').map((link, index) => (
+                                                                    <SwiperSlide key={index}>  
+                                                                        {(loading)?
+                                                                        <CircularProgress />
+                                                                        :
+                                                                        <FormControlLabel name='favoritos'  onChange={addFavorito}
+                                                                        control={
+                                                                            <Checkbox checked={isFavorito} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+                                                                        }
+                                                                        />
+                                                                        }
+                                                                        <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts}/>
+                                                                    </SwiperSlide>
+                                                                ))
                                                         }                                                                                                           
                                                     </Swiper>
                                                     <Swiper
@@ -367,8 +445,7 @@ export default function FichaTecnica(props){
                                                 </Grid>
                                                 <Divider />
                                                 <Grid item>
-                                                    <Box component="div">
-                                                    
+                                                    <Box component="div">                                                    
                                                         <Card elevation={0} sx={{backgroundColor:'#3655a51f'}}>
                                                             <CardContent>
                                                                 <Grid container justifyContent="center" alignItems="center">
@@ -441,8 +518,7 @@ export default function FichaTecnica(props){
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} sm={4}>
-                                        {(datos.hasOwnProperty('item_num'))?
-                                        
+                                        {(datos.hasOwnProperty('item_num'))?                                        
                                             <Paper variant="outlined" >
                                                 <Box component="div" m={4}>
                                                 <Typography>Precio unitario</Typography>
