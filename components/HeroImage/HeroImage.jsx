@@ -11,7 +11,8 @@ const HeroImage = (props) => {
 			position='relative'
 			sx={{
 				backgroundImage: `url(${src})`,
-				backgroundSize: { xs: 'cover', md: '100%' },
+				backgroundSize: { xs: 'cover', lg: '100%' },
+				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'center',
 			}}>
 			{gradient && (
@@ -26,17 +27,27 @@ const HeroImage = (props) => {
 				/>
 			)}
 			{(title || subtitle) && (
-				<Box position='absolute' bottom='1rem' width='100%'>
+				<Box
+					position='absolute'
+					display='flex'
+					alignItems='center'
+					height='100%'
+					width='100%'>
 					<Container>
 						<Box width={{ lg: '42%' }} mt={4}>
 							{title && (
 								<Typography
 									variant='h4'
-									fontSize='38px'
+									fontSize={{ xs: '38px', lg: '45px' }}
 									fontWeight={700}
 									color='#333'
 									dangerouslySetInnerHTML={{
 										__html: title,
+									}}
+									sx={{
+										'& > span': {
+											color: '#3655a5',
+										},
 									}}
 									gutterBottom
 								/>

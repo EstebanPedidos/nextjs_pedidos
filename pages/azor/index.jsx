@@ -68,7 +68,7 @@ const Azor = () => {
 				alt='Azor'
 				title='Escritura y<br/>mucho más.'
 				subtitle='Encuentra artículos de escritura, oficina y escolares.'
-				height='272px'
+				height='43vh'
 				gradient
 			/>
 			<Box>

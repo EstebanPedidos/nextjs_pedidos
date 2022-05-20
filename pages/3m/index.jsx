@@ -10,49 +10,6 @@ import MSIBanner from 'components/MSIBanner';
 import ShippingBanner from 'components/ShippingBanner';
 import CommentsButton from 'components/CommentsButton';
 
-const productCategories = [
-	{
-		label: 'Plumas',
-		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/papermate.png',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ESCRITURA/BOLIGRAFO&m=BEROL',
-	},
-	{
-		label: 'Colores',
-		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/prismacolor.png',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ESCRITURA/LAPICES-DE-COLOR&m=BEROL',
-	},
-	{
-		label: 'Marcadores',
-		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/sharpie.png',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ESCRITURA/MARCADORES-Y-MARCATEXTOS&m=BEROL',
-	},
-	{
-		label: 'Pegamento',
-		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/elmers.png',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ADHESIVOS&m=BEROL',
-	},
-	{
-		label: 'Lapices',
-		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/lapices.png',
-		url: '/busquedas.asp?query=lapiz&m=BEROL',
-	},
-	{
-		label: 'Cintas',
-		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/dymo.png',
-		url: '/busquedas.asp?query=DYMO&m=BEROL',
-	},
-	{
-		label: 'Marcatextos',
-		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/marcas/marcatextos.png',
-		url: '/busquedas.asp?query=marcatextos&m=BEROL',
-	},
-	{
-		label: 'Corrector',
-		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/berol.png',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ESCRITURA/CORRECTORES&m=BEROL',
-	},
-];
-
 const brands = [
 	{
 		label: 'Post-It®',
@@ -100,9 +57,10 @@ const ThreeM = () => {
 				alt='3M'
 				title='Ciencia.<br/>Aplicada a la vida.™'
 				subtitle='3M busca iniciar el progreso e inspirar la innovación en las vidas y comunidades del mundo.'
-				height='272px'
+				height='43vh'
 				gradient
 			/>
+
 			<Box>
 				<BrandCarouselSection
 					id='3m'
@@ -113,9 +71,8 @@ const ThreeM = () => {
 					centered
 				/>
 			</Box>
-			<Box
-				py={7}
-				sx={{ backgroundImage: 'linear-gradient(to bottom,#fafafb,#f6f7f9);' }}>
+
+			<Box py={7}>
 				<Grid
 					direction='row'
 					justifyContent='center'

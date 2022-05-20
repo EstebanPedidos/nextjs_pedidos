@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import BrandCarouselSectionItem from './BrandCarouselSectionItem';
 
 const BrandCarouselSection = (props) => {
-	const { title, subtitle, brands, id, centered, ctaLink } = props;
+	const { title, subtitle, brands, id, centered, ctaLabel, ctaLink } = props;
 
 	return (
 		<Box pt={8} pb={5}>
@@ -25,10 +25,15 @@ const BrandCarouselSection = (props) => {
 					<Button
 						href={ctaLink}
 						variant='outlined'
-						sx={{ px: 5, py: 4, borderRadius: '10px' }}>
-						Ver
-						<br />
-						todo
+						sx={{ px: 5, py: 2, borderRadius: '10px' }}>
+						{ctaLabel && <>{ctaLabel}</>}
+						{!ctaLabel && (
+							<>
+								Ver
+								<br />
+								todo
+							</>
+						)}
 					</Button>
 				</Box>
 			</Container>
