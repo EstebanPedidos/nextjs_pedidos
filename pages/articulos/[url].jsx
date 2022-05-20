@@ -342,7 +342,7 @@ export default function FichaTecnica(props){
                                                             } 
                                                             />
                                                             }
-                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`}  alt={datos.item_num} />
+                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`}  alt={datos.item_num} />
                                                         </SwiperSlide>
                                                         <SwiperSlide>
                                                             {(loading)?
@@ -354,7 +354,7 @@ export default function FichaTecnica(props){
                                                             }
                                                             />
                                                             }
-                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
                                                         <SwiperSlide>
                                                             {(loading)?
@@ -366,7 +366,7 @@ export default function FichaTecnica(props){
                                                             }
                                                             />
                                                             }
-                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
                                                         {(datos.hasOwnProperty('item_num'))&&
                                                             (datos.descripcion.descripcion.hasOwnProperty("link"))&&
@@ -396,19 +396,19 @@ export default function FichaTecnica(props){
                                                         className="mySwiper"
                                                     >
                                                         <SwiperSlide>
-                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num} />
+                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num} />
                                                         </SwiperSlide>
                                                         <SwiperSlide>
-                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
                                                         <SwiperSlide>
-                                                            <Image width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
                                                         {(datos.hasOwnProperty('item_num'))&&
                                                             (datos.descripcion.descripcion.hasOwnProperty("link"))&&
                                                                 datos.descripcion.descripcion.link.split(',').map((link, index) => (
                                                                     <SwiperSlide key={index}>
-                                                                        <Image width={'80%'}  height={'80%'} layout="responsive" src={`https://img.youtube.com/vi${(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length)}/0.jpg`} alt={datos.item_num}/>
+                                                                        <img width={'80%'}  height={'80%'} layout="responsive" src={`https://img.youtube.com/vi${(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length)}/0.jpg`} alt={datos.item_num}/>
                                                                     </SwiperSlide>
                                                                 ))
                                                         }                                                       
