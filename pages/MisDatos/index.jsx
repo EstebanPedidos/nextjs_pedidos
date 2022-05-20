@@ -60,7 +60,20 @@ export default function MisDatos() {
     const [misDatos, setMisDatos] = useState({clienteNum:0,usuarioNum:0,nombre:"",apellido:"",empresa:"",fechaNac:"",fechaReg:"",enviaMsg:"",entregaCliente:"",tipoCuenta:"",celularPrinc:"",telefonoPrinc:""});
     const [misTelefonos, setMisTelefonos] = useState([]);
     const [misCelulares, setMisCelulares] = useState([]);
-    const [ultimoTransportista, setUltimoTransportista] = useState({});
+    const [ultimoTransportista, setUltimoTransportista] = useState({certifNum: 0,
+        invoiceNum: 0,
+        choferNum: 0,
+        nombre: '',
+        paterno: '',
+        materno: '',
+        layoutMail: {
+            id_evaluacion: '',
+            invoice_num: '',
+            certif_num: '',
+            evaluacion: 0,
+            comentario: '',
+            fecha: ''
+        }});
     const [tipoTelefonos, setTipoTelefonos] = useState([]);
     const [todosMisTelefonos, setTodosMisTelefonos] = 
         useState({listPyCelularSms:[
@@ -75,6 +88,12 @@ export default function MisDatos() {
     const [fecha, setFecha] = React.useState("");
     const [tipoTelefono, setTipoTelefono] = React.useState('');
     const [alerta,setAlerta]            = useState({})
+    const [correo, setCorreo] = React.useState('');
+    const [cliente, setCliente ] = React.useState('');
+    const [usuarioNum, setUsuarioNum] = React.useState('');
+    const [usu_nomb, setUsu_nomb] = React.useState('');
+    const [nivelAcceso, setNivelAcceso] = React.useState('');
+    const [ejecutivoNum, setEjecutivoNum] = React.useState('');
 
     const [values, setValues] = React.useState({
         password: '',
@@ -87,26 +106,34 @@ export default function MisDatos() {
     
     const test = new Date('2014-08-18T21:11:54');
 
-    let correo = '';
-    let cliente = '';
-    let usuarioNum = '';
-    let usu_nomb = '';
-    let nivelAcceso = '';
-    let ejectuvoNum  = '';
+    let correo1 = '';
+    let cliente1 = '';
+    let usuarioNum1 = '';
+    let usu_nomb1 = '';
+    let nivelAcceso1 = '';
+    let ejectuvoNum1  = '';
 
     useEffect( () => {
-        correo = localStorage.getItem('Email')
-        cliente = localStorage.getItem('Cliente')
-        usuarioNum = localStorage.getItem('Usuario')
-        usu_nomb = localStorage.getItem('Usu_Nomb')
-        nivelAcceso = localStorage.getItem('nivelAcceso')
-        ejectuvoNum = localStorage.getItem('EjecutivoNum')
-    }, [correo,cliente, usuarioNum, usu_nomb, nivelAcceso, ejectuvoNum]) 
+        correo1 = localStorage.getItem('Email')
+        cliente1 = localStorage.getItem('Cliente')
+        usuarioNum1 = localStorage.getItem('Usuario')
+        usu_nomb1 = localStorage.getItem('Usu_Nomb')
+        nivelAcceso1 = localStorage.getItem('nivelAcceso')
+        ejectuvoNum1 = localStorage.getItem('EjecutivoNum')
+    }, [correo1,cliente1, usuarioNum1, usu_nomb1, nivelAcceso1, ejectuvoNum1]) 
 
     useEffect( () => {
-
+        
         const getData= async ()=>{
-            Services('POST','/miCuenta/obtieneMisDatos?usuarioNum='+usuarioNum,{})
+
+            setCorreo(correo1);
+            setCliente(cliente1);
+            setUsuarioNum(usuarioNum1);
+            setUsu_nomb(usu_nomb1);
+            setNivelAcceso(nivelAcceso1);
+            setEjecutivoNum(ejectuvoNum1);
+
+            Services('POST','/miCuenta/obtieneMisDatos?usuarioNum='+usuarioNum1,{})
                 .then( response =>{
                 setMisDatos(response.data);
                 setFecha(format(new Date(response.data.fechaNac), 'yyyy-MM-dd'));
@@ -116,12 +143,20 @@ export default function MisDatos() {
                     }else{
                     setPrimeraVez(false);
                 }
+                
+                if(response.data.telefonoPrinc !== "" || response.data.telefonoPrinc !== null || response.data.telefonoPrinc !== undefined){
+                    setTelPrincipal(response.data.telefonoPrinc); 
+                }
+
+                if(response.data.celularPrinc !== "" || response.data.celularPrinc !== null || response.data.celularPrinc !== undefined){
+                    setCelPrincipal(response.data.celularPrinc); 
+                }
                 }).catch(error => {
                     console.log("falló obtieneMisDatos")
                     console.log(error.response)
             });
 
-            Services('POST','/miCuenta/obtieneTelefonos?usuarioNum='+usuarioNum,{})
+            Services('POST','/miCuenta/obtieneTelefonos?usuarioNum='+usuarioNum1,{})
                 .then( response =>{
                 setMisTelefonos(response.data);
                 console.log("obtieneTelefonos Exitoso")
@@ -130,7 +165,7 @@ export default function MisDatos() {
                 console.log(error.response)
             });
             
-            Services('POST','/miCuenta/obtieneTelefonos?cliente_num='+cliente,{})
+            Services('POST','/miCuenta/obtieneTelefonos?cliente_num='+cliente1,{})
                 .then( response =>{
                 setMisCelulares(response.data);
                 console.log("obtieneNoCelulares Exitoso")
@@ -148,7 +183,7 @@ export default function MisDatos() {
                     console.log(error.response)
             });
 
-            Services('POST','/miCuenta/todosMisTelefonos?clienteNum='+cliente+'&usuarioNum='+usuarioNum,{})
+            Services('POST','/miCuenta/todosMisTelefonos?clienteNum='+cliente1+'&usuarioNum='+usuarioNum1,{})
             .then( response =>{
                 setTodosMisTelefonos(response.data);
                 console.log("todosMisTelefonos Exitoso")
@@ -157,9 +192,10 @@ export default function MisDatos() {
                     console.log(error.response)
             });
 
-            Services('POST','/miCuenta/consultaTransportista?clienteNum='+cliente,{})
+            Services('POST','/miCuenta/consultaTransportista?clienteNum='+cliente1,{})
             .then( response =>{
                 setUltimoTransportista(response.data);
+                console.log(response.data)
                 console.log("consultaTransportista Exitoso")
                 }).catch(error => {
                     console.log("falló consultaTransportista")
@@ -555,6 +591,7 @@ export default function MisDatos() {
                                 <Grid item xs={12}>
                                     <Grid container justifyContent="center" spacing={2}>
                                         <Grid item xs={6}>
+                                            {misDatos.nombre !== "" &&
                                             <TextField fullWidth
                                                 id="outlined-read-only-input"
                                                 label="Nombre(s)"
@@ -564,8 +601,10 @@ export default function MisDatos() {
                                                 }}
                                                 variant="outlined"
                                             />
+                                            }
                                         </Grid>
                                         <Grid item xs={6}>
+                                            {misDatos.nombre !== "" &&
                                             <TextField fullWidth
                                                 id="outlined-read-only-input"
                                                 label="Apellidos(s)"
@@ -575,6 +614,7 @@ export default function MisDatos() {
                                                 }}
                                                 variant="outlined"
                                             />
+                                            }
                                         </Grid>
                                         {misDatos.tipoCuenta === "N" &&
                                         <Grid item xs={12}>
@@ -590,6 +630,7 @@ export default function MisDatos() {
                                         </Grid>
                                         }
                                         <Grid item xs={6}>
+                                            {correo !== "" &&
                                             <TextField fullWidth
                                                 id="outlined-read-only-input"
                                                 label="Correo"
@@ -599,18 +640,21 @@ export default function MisDatos() {
                                                 }}
                                                 variant="outlined"
                                             />
+                                            }
                                         </Grid>
                                         <Grid item xs={6}>
+                                            {misDatos.fechaNac !== "" &&
                                             <TextField fullWidth
                                             id="outlined-full-width" 
                                             label="Fecha de nacimiento" 
-                                            defaultValue={fecha}
+                                            defaultValue={misDatos.fechaNac}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
                                             disabled
                                             variant="outlined"
                                             />
+                                            }
                                         </Grid>
                                     </Grid> 
                                 </Grid> 
@@ -715,6 +759,7 @@ export default function MisDatos() {
                                         </Grid>
                                         <Grid item xs={6}>
                                         </Grid>
+                                        {ultimoTransportista.layoutMail.comentario !=="NOHAYPEDIDOSENTREGADOS" || ultimoTransportista.layoutMail.comentario !=="ENTREGADOSINRESENANULL" || ultimoTransportista.layoutMail.comentario !=="ERRORALCONSULTARTRANSPORTISTA" &&
                                         <Grid item xs={12} sm={6}>
                                             <Box component="div" textAlign="left" pb={2}>
                                                 <Typography variant="body1" color="textSecondary">
@@ -736,10 +781,10 @@ export default function MisDatos() {
                                                         <Grid item>
                                                             <Box component="div" py={1} textAlign="left">
                                                                 <Typography variant="subtitle1" sx={{fontWeight:'500'}} >
-                                                                    {ultimoEjectuvo.invoiceNum} Entrega Local
+                                                                    {ultimoTransportista.invoiceNum} Entrega Local
                                                                 </Typography>
                                                                 <Typography variant="subtitle2" color="textSecondary" >
-                                                                {ultimoEjectuvo.nombre} {ultimoEjectuvo.paterno}
+                                                                {ultimoTransportista.nombre} {ultimoTransportista.paterno}
                                                                 </Typography>
                                                             </Box>
                                                             <Button fullWidth variant="outlined" name="Modal4" onClick={handleOpen}>Evaluar </Button>
@@ -750,6 +795,7 @@ export default function MisDatos() {
                                                 </Box>
                                             </Card>
                                         </Grid>
+                                        }
                                     </Grid>
                                 </Grid>
                                                     
@@ -1191,7 +1237,7 @@ export default function MisDatos() {
 
                         <Typography component="h3" variant="h6">
                             <Box component="span" fontWeight="fontWeightMedium">
-                                Nos gustaría saber como te atendió {ultimoTransportista.nombre} {ultimoTransportista.paterno} 
+                                Nos gustaría saber como te atendió {ultimoEjectuvo.nombre} {ultimoEjectuvo.paterno} 
                             </Box>
                         </Typography>
                         <Box component="div" py={1}>

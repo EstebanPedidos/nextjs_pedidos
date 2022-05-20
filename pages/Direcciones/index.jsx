@@ -201,17 +201,20 @@ export default function Direcciones() {
 
 	return (
 		<Layout>
-			<MiCuentaSiderBar />
-			<div>
+			
+			
 				<Box className={classes.bgcontent} component='div'>
 					<Box component='div' m={1}>
 						<Grid
 							container
 							direction='row'
 							justifyContent='space-between'
-							alignItems='flex-start'>
-							<Grid item xs={12} sm={12} lg={3}></Grid>
-							<Grid item xs={12} sm={12} lg={9}>
+							alignItems='flex-start'
+                        >
+							<Grid item xs={12} sm={12} lg={3}>
+                                <MiCuentaSiderBar/> 
+                            </Grid>
+							<Grid item xs={12} sm={8} lg={9}>
 								<Box component='div'>
 									<Grid
 										container
@@ -382,6 +385,7 @@ export default function Direcciones() {
 						</Grid>
 					</Box>
 				</Box>
+
 				<Modal
 					aria-labelledby='transition-modal-title'
 					aria-describedby='transition-modal-description'
@@ -616,6 +620,7 @@ export default function Direcciones() {
 						</div>
 					</Fade>
 				</Modal>
+
 				<Modal
 					aria-labelledby='transition-modal-title'
 					aria-describedby='transition-modal-description'
@@ -682,7 +687,7 @@ export default function Direcciones() {
 						</div>
 					</Fade>
 				</Modal>
-			</div>
+
 		</Layout>
 	);
 }
