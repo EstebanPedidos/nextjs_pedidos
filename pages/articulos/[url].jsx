@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Script from 'next/script'
 import Head from 'next/head'
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from 'next/image' 
 //Servicios
 import Services from '../services/Services'
 import Precios from '../services/Precios'
