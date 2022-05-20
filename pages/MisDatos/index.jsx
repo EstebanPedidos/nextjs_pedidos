@@ -7,17 +7,16 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     Button, Select, TextField, Divider, Modal, Fade,
     Card, CardContent, CardMedia, CardActionArea, TextareaAutosize,
     FormHelperText, FormControl, MenuItem, IconButton,
-    Input, InputLabel, InputAdornment, Chip, Snackbar, 
-    Alert, Stack, Rating } from '@mui/material';
+    Input, InputLabel, InputAdornment, Chip, Stack, Rating } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
-import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 //Component
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
+import Alertas from '../checkout/Alertas'
 
 import Services from '../services/Services'
 
@@ -55,8 +54,7 @@ export default function MisDatos() {
     const [open, setOpen] = React.useState(false);
     const [modal, setModal] = React.useState('');
     const [inputs, setInputs] = useState({});
-    const [snack, setSnack] = React.useState('');
-    const [value, setValue] = React.useState(5);
+    const [value, setValue] = React.useState();
     const [celPrincipal, setCelPrincipal] = React.useState(0);
     const [telPrincipal, setTelPrincipal] = React.useState(0);
     const [misDatos, setMisDatos] = useState({clienteNum:0,usuarioNum:0,nombre:"",apellido:"",empresa:"",fechaNac:"",fechaReg:"",enviaMsg:"",entregaCliente:"",tipoCuenta:"",celularPrinc:"",telefonoPrinc:""});
@@ -74,20 +72,9 @@ export default function MisDatos() {
                 });
     const [ultimoEjectuvo, setUltimoEjecutivo] = useState([]);
     const [primeraVez, setPrimeraVez] = React.useState(false);
-    const [nombre, setNombre] = React.useState("");
     const [fecha, setFecha] = React.useState("");
     const [tipoTelefono, setTipoTelefono] = React.useState('');
-
-
-    let cliente = '';
-    let usu_nomb = '';
-    let correo = ''
-    let usuarioNum = '';
-    let nivelAcceso ='';
-    let ejectuvoNum ='';
-    let telefonoPrinc = 0;
-    let celularPrinc = 0;
-    let extensionPrinc = 0;
+    const [alerta,setAlerta]            = useState({})
 
     const [values, setValues] = React.useState({
         password: '',
@@ -100,28 +87,34 @@ export default function MisDatos() {
     
     const test = new Date('2014-08-18T21:11:54');
 
-    useEffect( () => {
+    let correo = '';
+    let cliente = '';
+    let usuarioNum = '';
+    let usu_nomb = '';
+    let nivelAcceso = '';
+    let ejectuvoNum  = '';
 
-        cliente = localStorage.getItem('Cliente');
-        usu_nomb = localStorage.getItem('Usu_Nomb');
-        correo = localStorage.getItem('Email');
-        usuarioNum = localStorage.getItem('Usuario');
-        nivelAcceso = localStorage.getItem('nivelAcceso');
-        ejectuvoNum = localStorage.getItem('EjecutivoNum');
+    useEffect( () => {
+        correo = localStorage.getItem('Email')
+        cliente = localStorage.getItem('Cliente')
+        usuarioNum = localStorage.getItem('Usuario')
+        usu_nomb = localStorage.getItem('Usu_Nomb')
+        nivelAcceso = localStorage.getItem('nivelAcceso')
+        ejectuvoNum = localStorage.getItem('EjecutivoNum')
+    }, [correo,cliente, usuarioNum, usu_nomb, nivelAcceso, ejectuvoNum]) 
+
+    useEffect( () => {
 
         const getData= async ()=>{
             Services('POST','/miCuenta/obtieneMisDatos?usuarioNum='+usuarioNum,{})
                 .then( response =>{
                 setMisDatos(response.data);
-                // setNombre(response.data.nombre);
                 setFecha(format(new Date(response.data.fechaNac), 'yyyy-MM-dd'));
                 if (response.data.nombre === "" || response.data.nombre === null || response.data.nombre === undefined){
                     setPrimeraVez(true);
-                    alert(SI)
                     console.log('SI esta ejecutando')
                     }else{
                     setPrimeraVez(false);
-                    alert(No)
                 }
                 }).catch(error => {
                     console.log("falló obtieneMisDatos")
@@ -172,7 +165,6 @@ export default function MisDatos() {
                     console.log("falló consultaTransportista")
                     console.log(error.response)
             });
-
         }
         getData();
     }, []) 
@@ -185,12 +177,7 @@ export default function MisDatos() {
 
     const handleClose = () => {
         setOpen(false);
-        setSnack('')
     };
-
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-    }
 
     const handleChangePass = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -207,7 +194,6 @@ export default function MisDatos() {
         }
         else if(name === "telPrincipal"){
             setTelPrincipal(event.target.value);
-
         }
         else if(name === "celPrincipal"){
             setCelPrincipal(event.target.value);
@@ -232,19 +218,27 @@ export default function MisDatos() {
     }
 
     function handleSubmit(tipoCuenta) {
-        
         console.log("Entro al servicio Actualizar Usuario");
         console.log(cliente+' '+usuarioNum+' '+inputs.nombre+' '+inputs.apellido+' '+(inputs.empresa === undefined ? "" : inputs.empresa)+' '+inputs.fechaNac+' '+tipoCuenta)
-        RegistroUsuarioService.registraMisDatos(cliente,usuarioNum,inputs.nombre,inputs.apellido,(inputs.empresa === undefined ? "" : inputs.empresa),inputs.fechaNac,tipoCuenta)
-            .then( response =>{
-                console.log("Exito registraMisDatos")
-                console.log(response.data);
-                refreshPage();
-            }).catch(error => {
-                console.log("falló registraMisDatos")
-                console.log(error.response)
-            });
-            
+        Services('POST','/miCuenta/registraMisDatos',{
+            clienteNum:cliente,
+            usuarioNum:usuarioNum,
+            nombre:inputs.nombre,
+            apellido:inputs.apellido,
+            empresa:(inputs.empresa === undefined ? "" : inputs.empresa),
+            fechaNac:inputs.fechaNac,
+            tipoCuenta:tipoCuenta
+        })
+        .then( response =>{
+            if(response.data === "ERROR"){
+                setAlerta({severity:'Error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
+            }else{
+            setAlerta({severity:'success',mensaje:'Exito, tus datos se actualizaron',vertical:'bottom',horizontal:'right',variant:'filled'})
+            refreshPage();
+            }
+        }).catch(error => {
+            setAlerta({severity:'Error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
+        });
     };
 
     function registraMisDatos() {
@@ -253,7 +247,17 @@ export default function MisDatos() {
     };
 
     function agregaTelCel(){
-        MiCuentaService.agregaTelCel(inputs.telNum, cliente, usuarioNum, inputs.telefono, inputs.extension, inputs.tipoNum, "", 'A', 0)
+        Services('POST','/miCuenta/agregaTelCel',{
+            telNum:inputs.telNum,
+		    clienteNum:cliente,
+            usuarioNum:usuarioNum,
+		    telefono:inputs.telefono,
+		    extension:inputs.extension,
+		    tipoNum:inputs.tipoNum,
+		    fechaRegistro:"",
+		    status:"A",
+		    rolNum:0
+        })
         .then( response =>{
             console.log("Exito registraMisDatos")
             console.log(response.data);
@@ -265,20 +269,16 @@ export default function MisDatos() {
     }
 
     function cambioContrasena(){
-        MiCuentaService.cambioContrasena(usuarioNum,values.password,values.password2, values.password3)
+        Services('POST','/miCuenta/cambioContrasena?usuarioNum='+localStorage.getItem('Usuario')+'&contrasenaA='+values.password+'&contrasenaN='+values.password2+'&contrasenaN2='+values.password3,{})
             .then( response =>{
                 if(response.data > 0){
-                    setOpen(true);
-                    setSnack('uno')
+                    setAlerta({severity:'success',mensaje:'Exito, Contraseña Actualizada',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }else if(response.data === -1){
-                    setOpen(true);
-                    setSnack('dos')
+                    setAlerta({severity:'info',mensaje:'Las contraseñas no coinciden',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }else if(response.data === -2){
-                    setOpen(true);
-                    setSnack('tres')
+                    setAlerta({severity:'info',mensaje:'Contraseña incorrecta',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }else{
-                    setOpen(true);
-                    setSnack('cuatro')
+                    setAlerta({severity:'error',mensaje:'Verifica los datos, Algo salió mal',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }
             }).catch(error => {
                 console.log("falló registraMisDatos")
@@ -344,7 +344,7 @@ export default function MisDatos() {
                   variant="outlined" 
                   type="text" 
                   name="nombre"
-                  placeholder="Nombre de Usuario" 
+                  placeholder="Nombre de Usuario " 
                   onChange={handleChange}
                   margin="normal"
                   InputLabelProps={{
@@ -802,7 +802,7 @@ export default function MisDatos() {
                         variant="outlined" 
                         type="text" 
                         name="nombre"
-                        defaultValue={nombre}
+                        defaultValue={misDatos.nombre}
                         placeholder="Nombre de Usuario" 
                         onChange={handleChange}
                         margin="normal"
@@ -834,12 +834,11 @@ export default function MisDatos() {
                         type="text" 
                         name="correo" 
                         defaultValue={correo}
-                        onChange={handleChange}
                         margin="normal"
                         InputLabelProps={{
                             readOnly: true,
                         }}
-                        />
+                        disabled/>
                     </Grid>
                     <Grid item xs={6}>
                         <TextField fullWidth
@@ -848,7 +847,7 @@ export default function MisDatos() {
                         variant="outlined" 
                         type="date" 
                         name="fechaNac" 
-                        defaultValue={fecha}
+                        defaultValue={misDatos.fechaNac}
                         onChange={handleChange}
                         margin="normal"
                         InputLabelProps={{
@@ -1246,57 +1245,10 @@ export default function MisDatos() {
             </Box> 
         </Box>
     <div>
-        <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={open && snack === 'uno'}
-            autoHideDuration={6000}
-            onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success">
-            Exito, Contraseña Actualizada
-            </Alert>
-        </Snackbar>
 
-        <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={open && snack === 'dos'}
-            autoHideDuration={6000}
-            onClose={handleClose}>
-            <Alert onClose={handleClose} severity="info">
-            Las contraseñas no coinciden
-            </Alert>
-        </Snackbar>
-
-        <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={open && snack === 'tres'}
-            autoHideDuration={6000}
-            onClose={handleClose}>
-            <Alert onClose={handleClose} severity="info">
-            Contraseña incorrecta
-            </Alert>
-        </Snackbar>
-
-        <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={open && snack === 'cuatro'}
-            autoHideDuration={6000}
-            onClose={handleClose}>
-            <Alert onClose={handleClose} severity="error">
-            Verifica los datos, Algo salió mal
-            </Alert>
-        </Snackbar>
+    {(alerta.hasOwnProperty('severity'))&&
+        <Alertas setAlerta={setAlerta} alerta={alerta}/>
+    } 
     </div>
     </Layout>
       

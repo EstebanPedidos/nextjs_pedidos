@@ -482,7 +482,7 @@ export default function MisFacturas() {
                     >
                         <MenuItem value="-">Selecciona</MenuItem>
                         {resultCP.map((select) => (
-                            <MenuItem key={row.delegacion} value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
+                            <MenuItem key={select.delegacion} value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
                         ))}
                     </Select>
                 </Grid>

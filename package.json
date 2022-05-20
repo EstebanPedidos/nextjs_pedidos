@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@algolia/client-common": "^4.13.0",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.9.0",
     "@emotion/server": "^11.4.0",
@@ -30,9 +31,11 @@
     "next-pwa": "^5.4.7",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
+    "react-chat-widget": "^3.1.4",
     "react-dom": "^17.0.2",
     "react-image-gallery": "^1.2.7",
     "react-instantsearch-dom": "^6.23.4",
+    "react-instantsearch-hooks-web": "^6.25.0",
     "react-responsive-carousel": "^3.2.23",
     "react-responsive-embed": "^2.1.0",
     "react-youtube": "^9.0.1",

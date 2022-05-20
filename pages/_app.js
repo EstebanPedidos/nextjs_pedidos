@@ -7,12 +7,14 @@ import lightTheme from '../themes/light-theme';
 import '../styles/globals.css';
 const clientSideEmotionCache = createEmotionCache();
 
+
 const MyApp = (props) => {
 	const {
 		Component,
 		emotionCache = clientSideEmotionCache,
 		pageProps,
 	} = props;
+
 
 	return (
 		<CacheProvider value={emotionCache}>

@@ -94,11 +94,13 @@ export default function Home() {
     const [isLogged, setLogged] = React.useState(false);
     const [mostrarEmpresas, setMostrarEmpresas] = React.useState(true);
     const [itemsHome, setItemsHome] = useState([]);
+    const [itemsF, setItemsF] = useState([]);
     const [show, setShow] = useState({});
 
     let Login = '';
     let Cliente= 0;
     let UsuarioNum = 0;
+    let z = 0;
 
     useEffect(() => {
 
@@ -114,17 +116,20 @@ export default function Home() {
         const getData = async () => {
             Services('POST','/registrov2/obtieneItemsHome?clienteNum='+Cliente+'&top='+10+'&usuarioNum='+UsuarioNum,{})
             .then( response =>{
-                response.data.favoritosFrecuentes.map ((row) => {
+                response.data.favoritosFrecuentes.map ((row, index) => {
                 if( row.tipo === 'B'){
                     setShow(values => ({...values, ['Carrito']: true}))
-                }else if(row.tipo === 'F'){
+                    
+                }else if(row.tipo === 'F' || row.tipo === 'C'){
                     setShow(values => ({...values, ['Favoritos']: true}))
+                    setItemsF(values => ({...values, [index]: row}))
+                    console.log(itemsF.tipo)
                 }else if(row.tipo === 'V'){
                     setShow(values => ({...values, ['Vistos']: true}))
+                    
                 }
                 })
 
-                console.log(response.data.favoritosFrecuentes)
                 setItemsHome(response.data.favoritosFrecuentes)
             }).catch(error => {
                 console.log("falló")
@@ -439,6 +444,7 @@ export default function Home() {
                                                                 {itemsHome.map((row) => (
                                                                     row.tipo === 'V' ? 
                                                                     <Grid item xs={6}>
+                                                                        
                                                                         <Link href={`/articulos/${row.itemNum}`}>
                                                                             <a>
                                                                             <CardActionArea>
@@ -454,8 +460,8 @@ export default function Home() {
                                                                             </CardActionArea>
                                                                             </a>
                                                                         </Link>
-                                                                    </Grid>
                                                                         
+                                                                    </Grid>
                                                                     : ''
                                                                 
                                                                 ))}
@@ -482,7 +488,7 @@ export default function Home() {
                                                     <Box sx={{ width: '100%' }}>
                                                         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
                                                         {itemsHome.map((row) => (
-                                                            row.tipo === 'F' ? 
+                                                            row.tipo === 'F' || row.tipo === 'C' ? 
                                                             <Grid item xs={6}>
                                                                 <Link href={`/articulos/${row.itemNum}`}>
                                                                     <a>

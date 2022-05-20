@@ -358,7 +358,7 @@ export function Navbar(props) {
 										InputProps={{
 											endAdornment: (
 												<InputAdornment position='start'>
-													<SearchIcon />
+													<Button onclick={(event) => { event.preventDefault(); searchBoxSubmit()}}></Button>
 												</InputAdornment>
 											),
 										}}

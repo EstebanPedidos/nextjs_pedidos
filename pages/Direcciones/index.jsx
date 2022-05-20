@@ -110,6 +110,9 @@ export default function Direcciones() {
 		const name = event.target.name;
 		const value = event.target.value;
 		setInputs((values) => ({ ...values, [name]: value }));
+        if(event.target.name === "estadoDelegacion"){
+            setEstadoDelegacion(event.target.value);
+        }
 	};
 
 	useEffect(() => {
@@ -529,7 +532,7 @@ export default function Direcciones() {
 												id='outlined-basic'
 												label='C.P.'
 												variant='outlined'
-												name='postalCode'
+												name='cp'
 												onChange={handleChange}
 											/>
 										</Grid>
@@ -543,43 +546,23 @@ export default function Direcciones() {
 									</Grid>
 								</Grid>
 								<Grid item xs={12}>
-									<InputLabel id='demo-simple-select-outlined-label'>
-										Estado | Delegación
-									</InputLabel>
-									<Select
-										fullWidth
-										variant='outlined'
-										labelId='demo-simple-select-outlined-label'
-										id='demo-simple-select-outlined'
-										value={estadoDelegacion}
-										name='estadoDelegacion'
-										onChange={handleChange}
-										onFocus={consultarCp}>
-										<MenuItem value='-'>
-											Selecciona
-										</MenuItem>
-										{resultCP.map((select) => (
-											<MenuItem
-												key={select.delegacion}
-												value={
-													select.estado
-														.replace(
-															'MEXICO',
-															'MÉXICO'
-														)
-														.toLowerCase() +
-													'-' +
-													select.delegacion.toLowerCase()
-												}>
-												{select.estado.replace(
-													'MEXICO',
-													'MÉXICO'
-												) +
-													' - ' +
-													select.delegacion}
-											</MenuItem>
-										))}
-									</Select>
+                                    <InputLabel id="demo-simple-select-outlined-label">
+                                        Estado | Delegación
+                                    </InputLabel>
+                                    <Select fullWidth variant="outlined"
+                                    label="Estado | Delegación"
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
+                                    value={estadoDelegacion}
+                                    name="estadoDelegacion"
+                                    onChange={handleChange}
+                                    onFocus={consultarCp}
+                                    >
+                                        <MenuItem value="-">Selecciona</MenuItem>
+                                        {resultCP.map((select) => (
+                                            <MenuItem key={select.delegacion} value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
+                                        ))}
+                                    </Select>
 								</Grid>
 								<Grid item xs={6}>
 									<TextField
