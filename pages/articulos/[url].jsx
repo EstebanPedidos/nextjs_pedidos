@@ -141,6 +141,11 @@ export default function FichaTecnica(props){
     const subfamilia    = {'Desktops':3,'Laptops':3,'Tablets':2,'Escáneres':2,'Multifuncionales':3,'Impresoras':3,'Escaneres':2,'Plotters':2,'Videoproyector':2 ,'Teclado y mouse':1,'All in One':1,'Teclados':1}
     const opts          = {height: '390',width: '640',playerVars: {autoplay: 1,},}
 
+    const onPlayerReady = (event) => {
+        // access to player in all event handlers via event.target
+        event.target.pauseVideo();
+    }
+
     useEffect(()=>{
         const getdata= async ()=>{
             let url             = await ruter.query.url;
@@ -381,7 +386,7 @@ export default function FichaTecnica(props){
                                                                         }
                                                                         />
                                                                         }
-                                                                        <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts}/>
+                                                                        <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts} onReady={onPlayerReady}/>
                                                                     </SwiperSlide>
                                                                 ))
                                                         }                                                                                                           
