@@ -1,13 +1,15 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const BrandCarouselSectionItem = (props) => {
-	const { brand } = props;
+import Link from 'components/Link';
+
+const CardsCarouselSectionItem = (props) => {
+	const { item } = props;
 
 	return (
 		<Box
-			component='a'
-			href={brand.url}
+			component={Link}
+			href={item.url}
 			position='relative'
 			display='block'
 			borderRadius={2}
@@ -31,7 +33,7 @@ const BrandCarouselSectionItem = (props) => {
 						transition: 'transform 2s cubic-bezier(.19,1,.22,1) 0s',
 					},
 				}}>
-				<img src={brand.img} alt={brand.label} />
+				<img src={item.img} alt={item.label} />
 			</Box>
 			<Box
 				position='absolute'
@@ -51,9 +53,9 @@ const BrandCarouselSectionItem = (props) => {
 						transform: 'translateY(2.25rem)',
 						transition: 'all 0.5s ease 0.15s',
 					}}>
-					<Typography color='white'>{brand.description}</Typography>
+					<Typography color='white'>{item.description}</Typography>
 					<Typography fontWeight='500' color='white' fontSize={24} gutterBottom>
-						{brand.label}
+						{item.label}
 					</Typography>
 					<Typography color='white' variant='body2'>
 						Ver productos
@@ -64,4 +66,4 @@ const BrandCarouselSectionItem = (props) => {
 	);
 };
 
-export default BrandCarouselSectionItem;
+export default CardsCarouselSectionItem;

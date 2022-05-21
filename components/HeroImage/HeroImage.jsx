@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 const HeroImage = (props) => {
-	const { src, alt, title, subtitle, gradient, height } = props;
+	const { src, alt, title, subtitle, gradient, height, sx } = props;
 
 	return (
 		<Box
@@ -14,6 +14,7 @@ const HeroImage = (props) => {
 				backgroundSize: { xs: 'cover', lg: '100%' },
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'center',
+				...sx,
 			}}>
 			{gradient && (
 				<Box

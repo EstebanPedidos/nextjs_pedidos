@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
-import BrandCarouselSection from 'components/BrandCarouselSection/BrandCarouselSection';
+import CardsCarouselSection from 'components/CardsCarouselSection/CardsCarouselSection';
 import MSIBanner from 'components/MSIBanner';
 import ShippingBanner from 'components/ShippingBanner';
 import CommentsButton from 'components/CommentsButton';
@@ -62,11 +62,11 @@ const ThreeM = () => {
 			/>
 
 			<Box>
-				<BrandCarouselSection
+				<CardsCarouselSection
 					id='3m'
 					title='Marcas de 3M'
 					subtitle='Las marcas más importantes para todos los días.'
-					brands={brands}
+					items={brands}
 					ctaLink='/busquedas.asp?query=3m&m=3M'
 					centered
 				/>

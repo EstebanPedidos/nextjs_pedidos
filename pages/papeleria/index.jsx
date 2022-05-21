@@ -7,7 +7,7 @@ import Link from '@mui/material/Link';
 
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
-import BrandCarouselSection from 'components/BrandCarouselSection/BrandCarouselSection';
+import CardsCarouselSection from 'components/CardsCarouselSection/CardsCarouselSection';
 import MSIBanner from 'components/MSIBanner';
 import ShippingBanner from 'components/ShippingBanner';
 import TipsBanner from 'components/TipsBanner';
@@ -132,10 +132,10 @@ const Papeleria = () => {
 
 			<Box>
 				<Container>
-					<BrandCarouselSection
+					<CardsCarouselSection
 						id='3m'
 						title='Productos para oficina'
-						brands={brands}
+						items={brands}
 						ctaLabel='Ver'
 						ctaLink='/busquedas.asp?/PRODUCTOS-PARA-OFICINA'
 						centered

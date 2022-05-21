@@ -3,10 +3,14 @@ import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
-const MSIBanner = () => {
+const MSIBanner = (props) => {
+	const { shadow } = props;
 	return (
 		<Box
-			sx={{ backgroundImage: 'linear-gradient(to bottom,#fafafb,#f6f7f9)' }}
+			sx={{
+				backgroundImage: 'linear-gradient(to bottom,#fafafb,#f6f7f9)',
+				boxShadow: shadow ? '0 8px 16px 0 rgb(51 51 51 / 8%)' : null,
+			}}
 			pl={4}>
 			<Grid
 				direction='row'

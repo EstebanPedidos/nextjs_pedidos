@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
-import BrandCarouselSection from 'components/BrandCarouselSection/BrandCarouselSection';
+import CardsCarouselSection from 'components/CardsCarouselSection/CardsCarouselSection';
 import MSIBanner from 'components/MSIBanner';
 import ShippingBanner from 'components/ShippingBanner';
 import CommentsButton from 'components/CommentsButton';
@@ -72,11 +72,11 @@ const Azor = () => {
 				gradient
 			/>
 			<Box>
-				<BrandCarouselSection
+				<CardsCarouselSection
 					id='azor'
 					title='Marcas de Azor'
 					subtitle='Las marcas y productos de escritura'
-					brands={brands}
+					items={brands}
 					ctaLink='/busquedas.asp?m=FORTEC&m=AZOR'
 				/>
 			</Box>
@@ -98,7 +98,7 @@ const Azor = () => {
 			<Divider
 				variant='middle'
 				sx={{ borderColor: 'rgba(0, 0, 0, 0.075)', borderBottomWidth: '2px' }}
-			/>{' '}
+			/>
 		</Layout>
 	);
 };

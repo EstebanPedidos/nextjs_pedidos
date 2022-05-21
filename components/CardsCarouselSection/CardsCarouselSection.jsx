@@ -5,10 +5,19 @@ import Button from '@mui/material/Button';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
-import BrandCarouselSectionItem from './BrandCarouselSectionItem';
+import CardsCarouselSectionItem from './CardsCarouselSectionItem';
 
-const BrandCarouselSection = (props) => {
-	const { title, subtitle, brands, id, centered, ctaLabel, ctaLink } = props;
+const CardsCarouselSection = (props) => {
+	const {
+		title,
+		subtitle,
+		items,
+		id,
+		centered,
+		ctaLabel,
+		ctaLink,
+		breakpoints,
+	} = props;
 
 	return (
 		<Box pt={8} pb={5}>
@@ -46,19 +55,21 @@ const BrandCarouselSection = (props) => {
 					}}
 					slidesPerView={1.5}
 					spaceBetween={25}
-					breakpoints={{
-						768: {
-							slidesPerView: 4,
-							spaceBetween: 25,
-						},
-						1024: {
-							slidesPerView: 4,
-							spaceBetween: 25,
-						},
-					}}>
-					{brands.map((brand) => (
+					breakpoints={
+						breakpoints ?? {
+							768: {
+								slidesPerView: 3,
+								spaceBetween: 25,
+							},
+							1024: {
+								slidesPerView: 4,
+								spaceBetween: 25,
+							},
+						}
+					}>
+					{items.map((brand) => (
 						<SwiperSlide key={brand.label}>
-							<BrandCarouselSectionItem brand={brand} />
+							<CardsCarouselSectionItem item={items} />
 						</SwiperSlide>
 					))}
 				</Swiper>
@@ -67,4 +78,4 @@ const BrandCarouselSection = (props) => {
 	);
 };
 
-export default BrandCarouselSection;
+export default CardsCarouselSection;
