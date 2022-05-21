@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
 const MSIBanner = () => {
@@ -24,7 +25,10 @@ const MSIBanner = () => {
 							Paga a meses sin intereses
 						</Typography>
 						<Typography variant='body2' color='#333'>
-							Consulta todos los requisitos para los MSI <a href='#'>aquí</a>
+							Consulta todos los requisitos para los MSI{' '}
+							<Link underline='none' href='#'>
+								aquí
+							</Link>
 						</Typography>
 					</Box>
 				</Grid>

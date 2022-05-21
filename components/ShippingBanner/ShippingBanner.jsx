@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
 const items = [
@@ -29,9 +30,12 @@ const ShippingBanner = () => {
 				</Typography>
 				<Typography variant='body2'>
 					*Consulta restricciones{' '}
-					<a href='/soho/Politicas/politicas.asp' target='_blank'>
+					<Link
+						underline='none'
+						href='/soho/Politicas/politicas.asp'
+						target='_blank'>
 						aquí.
-					</a>
+					</Link>
 				</Typography>
 			</Grid>
 			{items.map((item) => (
