@@ -62,7 +62,7 @@ const productCategories = [
 
 const TiendaOficialHP = () => {
 	return (
-		<Layout>
+		<Layout title='Tienda Oficial HP en Pedidos.com'>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/tiendaoftxt.jpg'
 				alt='Tienda oficial HP'

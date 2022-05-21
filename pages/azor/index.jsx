@@ -62,7 +62,7 @@ const brands = [
 
 const Azor = () => {
 	return (
-		<Layout>
+		<Layout title='Azor | Pedidos.com'>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/azor/back-azor.webp'
 				alt='Azor'

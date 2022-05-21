@@ -7,7 +7,7 @@ import HPSearchScript from 'components/HPSearchScript';
 
 const TintaTonerHP = () => {
 	return (
-		<Layout>
+		<Layout title='Cartuchos originales HP | Pedidos.com'>
 			<Box pt={8} position='relative'>
 				<Box
 					bgcolor='#f6f7f9'

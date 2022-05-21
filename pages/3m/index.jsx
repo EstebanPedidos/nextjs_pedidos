@@ -51,7 +51,7 @@ const brandLogos = [
 
 const ThreeM = () => {
 	return (
-		<Layout>
+		<Layout title='3M | Pedidos.com'>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/3m/3m-back.png'
 				alt='3M'

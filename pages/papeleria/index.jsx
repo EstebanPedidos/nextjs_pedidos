@@ -111,7 +111,7 @@ const tips = [
 
 const Papeleria = () => {
 	return (
-		<Layout>
+		<Layout title='Todos los artículos de papelería que necesitas | Pedidos.com'>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/papeleria/back-papeleria.jpg'
 				alt='Papeleria'

@@ -68,7 +68,7 @@ const OriginalSuppliesPerformanceSlides = [
 
 const OriginalSupplies = () => {
 	return (
-		<Layout>
+		<Layout title='Busca tus Cartuchos de tinta y tóner laser HP en Pedidos.com'>
 			<Box pt={8} position='relative'>
 				<Box
 					bgcolor='#f6f7f9'

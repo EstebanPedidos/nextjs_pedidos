@@ -61,7 +61,7 @@ const brands = [
 
 const Muebles = () => {
 	return (
-		<Layout>
+		<Layout title='Los mejores muebles de oficina | Pedidos.com'>
 			<Box
 				sx={{
 					backgroundImage: {

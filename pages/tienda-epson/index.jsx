@@ -49,7 +49,7 @@ const productCategories = [
 
 const TiendaEpson = () => {
 	return (
-		<Layout>
+		<Layout title='Gran variedad de productos Epson | Pedidos.com '>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/epson/tiendaepson.jpg'
 				alt='Tienda Epson'
