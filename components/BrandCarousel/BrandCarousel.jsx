@@ -1,16 +1,14 @@
 import Box from '@mui/material/Box';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import 'swiper/css/pagination';
 
 const BrandCarousel = (props) => {
-	const { brands } = props;
+	const { id, brands } = props;
 
 	return (
 		<Swiper
-			pagination={{
-				clickable: true,
-			}}
+			id={`brand-carousel-${id}`}
+			className={`brand-carousel-${id}`}
 			slidesPerView={1.5}
 			spaceBetween={20}
 			breakpoints={{

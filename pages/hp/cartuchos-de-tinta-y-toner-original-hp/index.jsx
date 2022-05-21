@@ -18,23 +18,27 @@ const TintaTonerHP = () => {
 					bottom='6rem'
 					zIndex={-1}
 				/>
-				<img
-					src='https://pedidos.com/myfotos/pedidos-com/pagina/hp/toner-hp/HP_Q421.webp'
-					alt='Toner original HP'
-					width='49%'
-					style={{
-						boxShadow: '0 10px 20px rgb(0 0 0 / 20%)',
-						borderRadius: '.5rem',
-						margin: 'auto',
-						display: 'block',
-					}}
-				/>
+				<Box width={{ xs: '95%', lg: '50%' }} mx='auto'>
+					<img
+						src='https://pedidos.com/myfotos/pedidos-com/pagina/hp/toner-hp/HP_Q421.webp'
+						alt='Toner original HP'
+						width='100%'
+						style={{
+							boxShadow: '0 10px 20px rgb(0 0 0 / 20%)',
+							borderRadius: '.5rem',
+							margin: 'auto',
+							display: 'block',
+						}}
+					/>
+				</Box>
 			</Box>
+
 			<Box py={5}>
 				<Container maxWidth='md'>
 					<HPSearchScript />
 				</Container>
 			</Box>
+
 			<Divider
 				variant='middle'
 				sx={{ borderColor: 'rgba(0, 0, 0, 0.075)', borderBottomWidth: '2px' }}

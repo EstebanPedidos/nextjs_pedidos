@@ -4,7 +4,6 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import 'swiper/css/pagination';
 
 import BrandCarouselSectionItem from './BrandCarouselSectionItem';
 
@@ -41,9 +40,6 @@ const BrandCarouselSection = (props) => {
 			<Box mt={5}>
 				<Swiper
 					className={`brand-carousel-${id}`}
-					pagination={{
-						clickable: true,
-					}}
 					style={{
 						paddingRight: '2rem',
 						paddingLeft: '2rem',
