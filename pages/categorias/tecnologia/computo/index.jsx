@@ -197,16 +197,21 @@ const Computer = () => {
 				sx={{ borderColor: 'rgba(0, 0, 0, 0.075)', borderBottomWidth: '2px' }}
 			/>
 
-			<Box py={6} sx={{ opacity: 0.8 }}>
-				<Container maxWidth={false}>
+			<Box py={4} sx={{ opacity: 0.7 }}>
+				<Container maxWidth='xl'>
 					<Grid spacing={4} container>
 						<Grid xs={12} item>
-							<Typography fontWeight={600} gutterBottom>
+							<Typography fontSize={15} fontWeight={500} gutterBottom>
 								Productos de computo para tu oficina
 							</Typography>
-							<Typography textAlign='justify' variant='body2' gutterBottom>
+							<Typography
+								textAlign='justify'
+								fontSize={12}
+								variant='body2'
+								gutterBottom>
 								¿Estás buscando{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									{' '}
@@ -216,7 +221,10 @@ const Computer = () => {
 								planeas renovar el equipo de tu empresa, tendrás que pensar en
 								cuáles son los mejores productos de cómputo y qué hardware es
 								más conveniente. Para tu hogar, PYME u oficina encuentra{' '}
-								<Link href='/busquedas.asp?/TECNOLOGIA/COMPUTO' target='_blank'>
+								<Link
+									underline='none'
+									href='/busquedas.asp?/TECNOLOGIA/COMPUTO'
+									target='_blank'>
 									las mejores marcas de cómputo en Pedidos.com
 								</Link>{' '}
 								. A continuación, conoce opciones, características, ventajas y
@@ -226,15 +234,21 @@ const Computer = () => {
 						<Grid xs={12} lg={4} item>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontWeight={500}
 								textAlign='justify'
+								fontSize={12}
 								gutterBottom>
 								Desktops para oficina vs All in One: Las mejores marcas de
 								computo en Pedidos.com
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								textAlign='justify'
+								fontSize={12}
+								gutterBottom>
 								Comencemos por lo básico: ¿existen grandes diferencias entre las{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									{' '}
@@ -242,6 +256,7 @@ const Computer = () => {
 								</Link>{' '}
 								y las conocidas como{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/ALL-IN-ONE'
 									target='_blank'>
 									{' '}
@@ -249,6 +264,7 @@ const Computer = () => {
 								</Link>{' '}
 								? Las primeras incluyen monitores para PC,{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/TECLADO-Y-MOUSE/TECLADOS'
 									target='_blank'>
 									{' '}
@@ -278,24 +294,34 @@ const Computer = () => {
 							</Typography>
 						</Grid>
 						<Grid xs={12} lg={4} item>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								textAlign='justify'
+								fontSize={12}
+								gutterBottom>
 								Si bien no querrás llevarlo en el avión contigo, es mucho más
 								fácil de transportar.
 							</Typography>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontWeight={500}
 								textAlign='justify'
+								fontSize={12}
 								gutterBottom>
 								Laptops baratas y tablets
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								textAlign='justify'
+								fontSize={12}
+								gutterBottom>
 								Para los nómadas, que no buscan productos de cómputos muy
 								complejos, los equipos portátiles, sin duda, son los más
 								apropiados. Por ejemplo, si estás de viaje con regularidad es
 								posible que desees adquirir laptops baratas. Podrás escoger de
 								acuerdo a tus necesidades entre variedad de marcas como{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=HP'
 									target='_blank'>
 									{' '}
@@ -303,6 +329,7 @@ const Computer = () => {
 								</Link>
 								,{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=MAC'
 									target='_blank'>
 									{' '}
@@ -310,6 +337,7 @@ const Computer = () => {
 								</Link>
 								,{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=Dell'
 									target='_blank'>
 									{' '}
@@ -317,6 +345,7 @@ const Computer = () => {
 								</Link>
 								,{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=ACER'
 									target='_blank'>
 									{' '}
@@ -324,6 +353,7 @@ const Computer = () => {
 								</Link>
 								,{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=Asus'
 									target='_blank'>
 									{' '}
@@ -331,6 +361,7 @@ const Computer = () => {
 								</Link>{' '}
 								o{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=Lenovo'
 									target='_blank'>
 									{' '}
@@ -340,6 +371,7 @@ const Computer = () => {
 								características, procesadores y memoria que sea requerido. Si
 								deseas mayor comodidad y simpleza, también puedes elegir{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/TABLETS'
 									target='_blank'>
 									{' '}
@@ -347,7 +379,10 @@ const Computer = () => {
 								</Link>{' '}
 								baratas como las de la marca Huawei, que rondan los $3,200 pesos
 								aproximadamente, u opciones más avanzadas como Samsung o{' '}
-								<Link href='/busquedas.asp?query=Tablet+ipad' target='_blank'>
+								<Link
+									underline='none'
+									href='/busquedas.asp?query=Tablet+ipad'
+									target='_blank'>
 									{' '}
 									Apple
 								</Link>{' '}
@@ -355,12 +390,17 @@ const Computer = () => {
 							</Typography>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontWeight={500}
 								textAlign='justify'
+								fontSize={12}
 								gutterBottom>
 								Monitores: una de las claves
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								textAlign='justify'
+								fontSize={12}
+								gutterBottom>
 								Si va a comprar desktops para oficina, también tendrás que
 								comprar un monitor para acompañarlo. Los monitores modernos
 								tienden a ser delgados, eficientes en el consumo de energía y
@@ -368,6 +408,7 @@ const Computer = () => {
 								modelos de gama alta tienen un costo elevado, debido a sus
 								pantallas súper detalladas. Y si de{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
 									target='_blank'>
 									{' '}
@@ -382,12 +423,17 @@ const Computer = () => {
 						<Grid xs={12} lg={4} item>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontWeight={500}
 								textAlign='justify'
+								fontSize={12}
 								gutterBottom>
 								¿Cómo elegir un monitor?
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								textAlign='justify'
+								fontSize={12}
+								gutterBottom>
 								La resolución de la pantalla es clave al comprar un monitor y
 								debe ser tu principal preocupación. Si estás utilizando tu
 								desktop para la mayoría de las tareas de oficina, Full HD será
@@ -399,14 +445,22 @@ const Computer = () => {
 							</Typography>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontWeight={500}
 								textAlign='justify'
+								fontSize={12}
 								gutterBottom>
 								Hardware: los esenciales{' '}
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								textAlign='justify'
+								fontSize={12}
+								gutterBottom>
 								Al momento de elegir tipos de{' '}
-								<Link href='/busquedas.asp?/TECNOLOGIA/COMPUTO' target='_blank'>
+								<Link
+									underline='none'
+									href='/busquedas.asp?/TECNOLOGIA/COMPUTO'
+									target='_blank'>
 									hardware
 								</Link>{' '}
 								, las opciones elegidas se deberán adaptar a tus necesidades.
@@ -417,6 +471,7 @@ const Computer = () => {
 								los dispositivos que están instalados en la computadora.
 								Ejemplos hay muchos:{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/ACCESORIOS/COMPONENTES-DE-COMPUTO/DISCOS-DUROS-EXTERNOS'
 									target='_blank'>
 									{' '}
@@ -424,6 +479,7 @@ const Computer = () => {
 								</Link>{' '}
 								,{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/ACCESORIOS/COMPONENTES-DE-COMPUTO/DISCOS-DUROS-EXTERNOS'
 									target='_blank'>
 									{' '}
@@ -439,12 +495,17 @@ const Computer = () => {
 						<Grid xs={12} item>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontWeight={500}
 								textAlign='justify'
+								fontSize={12}
 								gutterBottom>
 								Equipa tu casa u oficina
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								textAlign='justify'
+								fontSize={12}
+								gutterBottom>
 								Trabajar desde casa ya es un hábito común para muchos. Pero qué
 								productos de cómputo son imprescindibles. Probablemente pienses
 								en un buen monitor. Si es sí, vas bien encaminado. También
@@ -457,14 +518,21 @@ const Computer = () => {
 								una desktop, All in One o un equipo portátil, conoce cuáles son
 								los hardware más útiles, que no pueden faltar en tu hogar.
 							</Typography>
+						</Grid>
+						<Grid xs={12} item>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontWeight={500}
 								textAlign='justify'
+								fontSize={12}
 								gutterBottom>
 								¿Cómo mejorar un home office?
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								textAlign='justify'
+								fontSize={12}
+								gutterBottom>
 								Los tipos de hardware que mencionamos mejoran el funcionamiento
 								de tu equipo y lo hacen más eficiente. Pensemos en cómo mejorar
 								un home office: si usas mucho las llamadas y videoconferencias,
@@ -481,6 +549,7 @@ const Computer = () => {
 								materia de almacenamiento es probable que , según el tipo de
 								trabajo que realices, desees algo físico y tradicional como los{' '}
 								<Link
+									underline='none'
 									href='/busquedas.asp?/ACCESORIOS/COMPONENTES-DE-COMPUTO/DISCOS-DUROS-EXTERNOS'
 									target='_blank'>
 									{' '}
