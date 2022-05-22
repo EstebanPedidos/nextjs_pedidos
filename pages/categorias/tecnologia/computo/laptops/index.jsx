@@ -185,14 +185,14 @@ const Laptops = () => {
 				sx={{ borderColor: 'rgba(0, 0, 0, 0.075)', borderBottomWidth: '2px' }}
 			/>
 
-			<Box py={6} sx={{ opacity: 0.8 }}>
-				<Container maxWidth={false}>
+			<Box py={6} sx={{ opacity: 0.7 }}>
+				<Container maxWidth='xl'>
 					<Grid spacing={4} container>
 						<Grid xs={12} item>
-							<Typography fontWeight={600} gutterBottom>
+							<Typography fontWeight={500} fontSize={15} gutterBottom>
 								Laptops para tu casa u oficina
 							</Typography>
-							<Typography textAlign='justify' variant='body2'>
+							<Typography textAlign='justify' fontSize={12} variant='body2'>
 								Si estás buscando computadoras laptop para hacer home office o
 								equipar una oficina, quizás sientas un poco de desconcierto
 								frente a todas las opciones que existen. Después de todo, hay
@@ -216,10 +216,10 @@ const Laptops = () => {
 							</Typography>
 						</Grid>
 						<Grid xs={12} item>
-							<Typography fontWeight={600} gutterBottom>
+							<Typography fontWeight={500} fontSize={15} gutterBottom>
 								Tips para elegir computadoras laptop
 							</Typography>
-							<Typography textAlign='justify' variant='body2'>
+							<Typography textAlign='justify' fontSize={12} variant='body2'>
 								Si buscas{' '}
 								<Link
 									underline='none'
@@ -234,12 +234,17 @@ const Laptops = () => {
 						<Grid xs={12} lg={4} item>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontSize={12}
+								fontWeight={500}
 								textAlign='justify'
 								gutterBottom>
 								1. El tamaño importa.
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								fontSize={12}
+								textAlign='justify'
+								gutterBottom>
 								Una máquina más rápida necesita componentes internos más grandes
 								y más espacio para mantenerlos fríos, lo que significa que
 								terminará siendo más grande, más pesada y consumirá más batería
@@ -262,7 +267,11 @@ const Laptops = () => {
 								capaz de realizar tareas más exigentes, principalmente juegos y
 								edición de videos, tendrá que ser relativamente voluminosa.
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								fontSize={12}
+								textAlign='justify'
+								gutterBottom>
 								<strong>Consejo:</strong> El otro factor obvio que afecta la
 								portabilidad es el tamaño de la pantalla, que generalmente
 								aparece en primer lugar en las especificaciones de una{' '}
@@ -279,12 +288,17 @@ const Laptops = () => {
 							</Typography>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontSize={12}
+								fontWeight={500}
 								textAlign='justify'
 								gutterBottom>
 								2. Elige un sistema operativo.
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								fontSize={12}
+								textAlign='justify'
+								gutterBottom>
 								Si ya te has adaptado con un sistema operativo, es posible que
 								prefieras seguir con este en lugar de cambiar las cosas.
 								Windows, macOS, Chrome OS: Todos son rápidos, estables, seguros
@@ -308,7 +322,11 @@ const Laptops = () => {
 							</Typography>
 						</Grid>
 						<Grid xs={12} lg={4} item>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								fontSize={12}
+								textAlign='justify'
+								gutterBottom>
 								MacOS de Apple tiene una reputación más sólida en cuanto a
 								estabilidad y seguridad, y viene con una gran cantidad de
 								software, desde aplicaciones de oficina hasta herramientas para
@@ -321,7 +339,11 @@ const Laptops = () => {
 								OS están disponibles en una variedad de diseños y, por lo
 								general, también tienen un precio competitivo.
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								fontSize={12}
+								textAlign='justify'
+								gutterBottom>
 								<strong>Consejo:</strong> A menos que estés comprando tu primera
 								computadora portátil, ya estarás familiarizado con al menos uno
 								de estos sistemas operativos. Si estás pensando en cambiarte a
@@ -330,12 +352,17 @@ const Laptops = () => {
 							</Typography>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontSize={12}
+								fontWeight={500}
 								textAlign='justify'
 								gutterBottom>
-								3.La importancia del CPU.
+								3. La importancia del CPU.
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								fontSize={12}
+								textAlign='justify'
+								gutterBottom>
 								Al elegir un procesador, asegúrate de saber qué generación es y
 								qué significan todos esos números. Examina las{' '}
 								<Link
@@ -350,7 +377,11 @@ const Laptops = () => {
 								presta atención a la cantidad de núcleos, que son básicamente
 								mini CPU: más núcleos significa más pensamiento simultáneo.
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								fontSize={12}
+								textAlign='justify'
+								gutterBottom>
 								Ten cuidado también con la generación del chip (las CPU de
 								décima generación de Intel son las mejores de la línea en 2020):
 								una nueva generación significa un mejor rendimiento con menos
@@ -362,12 +393,17 @@ const Laptops = () => {
 						<Grid xs={12} lg={4} item>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontSize={12}
+								fontWeight={500}
 								textAlign='justify'
 								gutterBottom>
 								4. RAM ¿es importante?
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								fontSize={12}
+								textAlign='justify'
+								gutterBottom>
 								Otra especificación importante es la RAM, que esencialmente
 								controla cuánto puede pensar tu computadora portátil en un
 								momento dado. Más RAM significa más soporte para muchas pestañas
@@ -377,7 +413,11 @@ const Laptops = () => {
 								absoluto en estos días es de 4 GB, aunque tus necesidades son
 								incluso algo exigentes, probablemente querrás ir más allá.
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								fontSize={12}
+								textAlign='justify'
+								gutterBottom>
 								<strong>Consejo:</strong> el procesador de gráficos, o GPU es
 								básicamente una CPU dedicada a los gráficos. Es importante para
 								los juegos y la edición de video. Si las imágenes son
@@ -386,12 +426,17 @@ const Laptops = () => {
 							</Typography>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontSize={12}
+								fontWeight={500}
 								textAlign='justify'
 								gutterBottom>
 								5. Tamaño del disco duro.
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								fontSize={12}
+								textAlign='justify'
+								gutterBottom>
 								Hay algunas otras especificaciones a considerar. El tamaño del
 								disco duro indica la cantidad de espacio que ofrece una
 								computadora para archivos y aplicaciones. Si planeas mantener
@@ -413,12 +458,17 @@ const Laptops = () => {
 						<Grid xs={12} item>
 							<Typography
 								variant='body2'
-								fontWeight={600}
+								fontSize={15}
+								fontWeight={500}
 								textAlign='justify'
 								gutterBottom>
 								Laptops baratas: 4 opciones
 							</Typography>
-							<Typography variant='body2' textAlign='justify' gutterBottom>
+							<Typography
+								variant='body2'
+								fontSize={12}
+								textAlign='justify'
+								gutterBottom>
 								El precio de un equipo de cómputo es una de las claves para
 								decirse por tal o cual modelo. Si tienes un presupuesto
 								limitado, esta es otra forma de reducir rápidamente tu elección
