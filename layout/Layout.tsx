@@ -1,4 +1,6 @@
+import Script from 'next/script';
 import Head from 'next/head';
+
 import { Footer, Navbar, HeroSection, CategoriesDrawer } from '../components';
 
 export const Layout = (props) => {
@@ -9,6 +11,10 @@ export const Layout = (props) => {
 			<Head>
 				<title>{title ?? 'Pedidos.com'}</title>
 			</Head>
+			<Script
+				src='https://kit.fontawesome.com/57c5aaf07a.js'
+				crossOrigin='anonymous'
+			/>
 			<Navbar />
 			<HeroSection />
 			<CategoriesDrawer />

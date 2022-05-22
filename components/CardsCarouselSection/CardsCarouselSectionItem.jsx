@@ -35,6 +35,20 @@ const CardsCarouselSectionItem = (props) => {
 				}}>
 				<img src={item.img} alt={item.label} />
 			</Box>
+			{item.icon && (
+				<Box
+					position='absolute'
+					zIndex={3}
+					sx={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+					<Box
+						color='white'
+						component='i'
+						className={`fas ${item.icon}`}
+						fontSize={60}
+						aria-hidden='true'
+					/>
+				</Box>
+			)}
 			<Box
 				position='absolute'
 				bottom={0}
@@ -53,7 +67,9 @@ const CardsCarouselSectionItem = (props) => {
 						transform: 'translateY(2.25rem)',
 						transition: 'all 0.5s ease 0.15s',
 					}}>
-					<Typography color='white'>{item.description}</Typography>
+					{item.description && (
+						<Typography color='white'>{item.description}</Typography>
+					)}
 					<Typography fontWeight='500' color='white' fontSize={24} gutterBottom>
 						{item.label}
 					</Typography>

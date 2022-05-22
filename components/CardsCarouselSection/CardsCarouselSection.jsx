@@ -67,9 +67,9 @@ const CardsCarouselSection = (props) => {
 							},
 						}
 					}>
-					{items.map((brand) => (
-						<SwiperSlide key={brand.label}>
-							<CardsCarouselSectionItem item={items} />
+					{items.map((item) => (
+						<SwiperSlide key={item.label}>
+							<CardsCarouselSectionItem item={item} />
 						</SwiperSlide>
 					))}
 				</Swiper>

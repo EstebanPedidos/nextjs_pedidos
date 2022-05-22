@@ -122,7 +122,7 @@ const Computer = () => {
 					items={categories}
 					ctaLabel='Ver todo'
 					ctaLink='/busquedas.asp?/TECNOLOGIA/COMPUTO'
-					brakpoints={{
+					breakpoints={{
 						768: {
 							slidesPerView: 3,
 							spaceBetween: 25,
@@ -199,7 +199,7 @@ const Computer = () => {
 
 			<Box py={6} sx={{ opacity: 0.8 }}>
 				<Container maxWidth={false}>
-					<Grid spacing={6} container>
+					<Grid spacing={4} container>
 						<Grid xs={12} item>
 							<Typography fontWeight={600} gutterBottom>
 								Productos de computo para tu oficina

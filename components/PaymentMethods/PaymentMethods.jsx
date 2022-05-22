@@ -10,10 +10,6 @@ import Link from '@mui/material/Link';
 const PaymentMethods = () => {
 	return (
 		<Container>
-			<Script
-				src='https://kit.fontawesome.com/57c5aaf07a.js'
-				crossorigin='anonymous'
-			/>
 			<Grid container>
 				<Grid xs={12} md={5} display={{ xs: 'none', md: 'block' }} item>
 					<Box pt={2} height='100%' display='flex' alignItems='end'>
