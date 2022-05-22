@@ -6,7 +6,12 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     Card, CardContent, CardActions, CardMedia, CardActionArea, TextareaAutosize,
     FormHelperText, FormControl, MenuItem, IconButton,
     Input, InputLabel, InputAdornment, Chip, Snackbar, 
-    Alert, Stack, Rating } from '@mui/material';
+    Alert, Rating } from '@mui/material';
+
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import Stack from '@mui/material/Stack';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -16,14 +21,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from '@date-io/date-fns';
+
 
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
 import Services from '../services/Services'
 
-//import { esES } from "date-fns/locale";
 
 
 
@@ -67,8 +70,8 @@ export default function MisNotasCredito() {
 
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(2);
-    const [selectedDate, handleDateChange] = useState(null);
-    //const [dateLang,setDateLang] = React.useState(esES);
+    // const [selectedDate, handleDateChange] = useState(null);
+    const [valueDate, setValueDate] = React.useState(new Date());
 
     const [open, setOpen] = React.useState(false);
     const [modal, setModal] = React.useState('');
@@ -261,21 +264,19 @@ export default function MisNotasCredito() {
                                             justifyContent="flex-end"
                                             alignItems="center" spacing={1}>
                                                 <Grid item xs={12} sm={6}>
-                                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                        <Box display="flex" justifyContent="flex-start" >
-                                                            <DatePicker fullWidth
-                                                                variant="inline"
-                                                                openTo="year"
-                                                                views={["year", "month"]}
-                                                                helperText="Notas pasadas"
-                                                                value={selectedDate}
-                                                                onChange={handleDateChange}
-                                                            />
-                                                            <IconButton onClick={consultaPorFecha}>
-                                                                <SearchIcon/>
-                                                            </IconButton>
-                                                        </Box>
-                                                    </MuiPickersUtilsProvider>                                         
+                                                <LocalizationProvider dateAdapter={AdapterDateFns}>      
+                                                    <DatePicker
+                                                        views={['year', 'month']}
+                                                        label="Year and Month"
+                                                        minDate={new Date('2012-03-01')}
+                                                        maxDate={new Date('2023-06-01')}
+                                                        value={valueDate}
+                                                        onChange={(newValue) => {
+                                                            setValueDate(newValue);
+                                                        }}
+                                                        renderInput={(params) => <TextField {...params} helperText={null} />}
+                                                        />         
+                                                </LocalizationProvider>                         
                                                 </Grid>
                                         </Grid>
                                     </Box>

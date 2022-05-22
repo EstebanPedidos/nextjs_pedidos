@@ -110,6 +110,9 @@ export default function Direcciones() {
 		const name = event.target.name;
 		const value = event.target.value;
 		setInputs((values) => ({ ...values, [name]: value }));
+        if(event.target.name === "estadoDelegacion"){
+            setEstadoDelegacion(event.target.value);
+        }
 	};
 
 	useEffect(() => {
@@ -198,17 +201,20 @@ export default function Direcciones() {
 
 	return (
 		<Layout>
-			<MiCuentaSiderBar />
-			<div>
+			
+			
 				<Box className={classes.bgcontent} component='div'>
 					<Box component='div' m={1}>
 						<Grid
 							container
 							direction='row'
 							justifyContent='space-between'
-							alignItems='flex-start'>
-							<Grid item xs={12} sm={12} lg={3}></Grid>
-							<Grid item xs={12} sm={12} lg={9}>
+							alignItems='flex-start'
+                        >
+							<Grid item xs={12} sm={12} lg={3}>
+                                <MiCuentaSiderBar/> 
+                            </Grid>
+							<Grid item xs={12} sm={8} lg={9}>
 								<Box component='div'>
 									<Grid
 										container
@@ -379,6 +385,7 @@ export default function Direcciones() {
 						</Grid>
 					</Box>
 				</Box>
+
 				<Modal
 					aria-labelledby='transition-modal-title'
 					aria-describedby='transition-modal-description'
@@ -529,7 +536,7 @@ export default function Direcciones() {
 												id='outlined-basic'
 												label='C.P.'
 												variant='outlined'
-												name='postalCode'
+												name='cp'
 												onChange={handleChange}
 											/>
 										</Grid>
@@ -543,43 +550,23 @@ export default function Direcciones() {
 									</Grid>
 								</Grid>
 								<Grid item xs={12}>
-									<InputLabel id='demo-simple-select-outlined-label'>
-										Estado | Delegación
-									</InputLabel>
-									<Select
-										fullWidth
-										variant='outlined'
-										labelId='demo-simple-select-outlined-label'
-										id='demo-simple-select-outlined'
-										value={estadoDelegacion}
-										name='estadoDelegacion'
-										onChange={handleChange}
-										onFocus={consultarCp}>
-										<MenuItem value='-'>
-											Selecciona
-										</MenuItem>
-										{resultCP.map((select) => (
-											<MenuItem
-												key={select.delegacion}
-												value={
-													select.estado
-														.replace(
-															'MEXICO',
-															'MÉXICO'
-														)
-														.toLowerCase() +
-													'-' +
-													select.delegacion.toLowerCase()
-												}>
-												{select.estado.replace(
-													'MEXICO',
-													'MÉXICO'
-												) +
-													' - ' +
-													select.delegacion}
-											</MenuItem>
-										))}
-									</Select>
+                                    <InputLabel id="demo-simple-select-outlined-label">
+                                        Estado | Delegación
+                                    </InputLabel>
+                                    <Select fullWidth variant="outlined"
+                                    label="Estado | Delegación"
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
+                                    value={estadoDelegacion}
+                                    name="estadoDelegacion"
+                                    onChange={handleChange}
+                                    onFocus={consultarCp}
+                                    >
+                                        <MenuItem value="-">Selecciona</MenuItem>
+                                        {resultCP.map((select) => (
+                                            <MenuItem key={select.delegacion} value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
+                                        ))}
+                                    </Select>
 								</Grid>
 								<Grid item xs={6}>
 									<TextField
@@ -633,6 +620,7 @@ export default function Direcciones() {
 						</div>
 					</Fade>
 				</Modal>
+
 				<Modal
 					aria-labelledby='transition-modal-title'
 					aria-describedby='transition-modal-description'
@@ -699,7 +687,7 @@ export default function Direcciones() {
 						</div>
 					</Fade>
 				</Modal>
-			</div>
+
 		</Layout>
 	);
 }

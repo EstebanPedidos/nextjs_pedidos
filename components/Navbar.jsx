@@ -358,7 +358,7 @@ export function Navbar(props) {
 										InputProps={{
 											endAdornment: (
 												<InputAdornment position='start'>
-													<SearchIcon />
+													<Button type="submit"><SearchIcon /></Button>
 												</InputAdornment>
 											),
 										}}
@@ -461,20 +461,24 @@ export function Navbar(props) {
 					</Toolbar>
 					<Hidden mdUp={true}>
 						<Box mt={'1rem'}>
-							<TextField
-								size='medium'
-								id='outlined-basic'
-								fullWidth
-								variant='outlined'
-								placeholder='Buscar..'
-								InputProps={{
-									endAdornment: (
-										<InputAdornment position='start'>
-											<SearchIcon />
-										</InputAdornment>
-									),
-								}}
-							/>
+                            <form onSubmit={searchBoxSubmit}>
+                                <TextField
+                                    size='medium'
+                                    id='outlined-basic'
+                                    fullWidth
+                                    variant='outlined'
+                                    placeholder='Buscar..'
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position='start'>
+                                                <Button type="submit"><SearchIcon /></Button>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    name='query'
+									onChange={handleChange}
+                                />
+                            </form>
 						</Box>
 					</Hidden>
 				</AppBar>

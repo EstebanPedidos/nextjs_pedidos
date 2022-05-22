@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 //Next js
 import Script from 'next/script'
 //Material UI
@@ -8,9 +8,28 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function ReviewItem({item_num}) {  
   const [expanded,setExpanded]= useState(true)
+  const [sku,setSku]          = useState('')
+
+  useEffect(() => {
+    // Creamos una función para actualizar el estado con el clientWidth
+    const updateSku = () => {
+      setSku(item_num)
+    }
+    // Actualizaremos el width al montar el componente
+    updateSku()
+    // Nos suscribimos al evento resize de window
+    window.addEventListener("resize", updateSku)
+
+    // Devolvemos una función para anular la suscripción al evento
+    return () => {
+      window.removeEventListener("resize", updateSku)
+    }
+  })
+
   return (
     <div>
-      <Accordion expanded={expanded} onChange={()=>{setExpanded((expanded)?false:true)}}>
+      {(sku !== '')&&
+      /* <Accordion expanded={expanded} onChange={()=>{setExpanded((expanded)?false:true)}}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon/>}
           aria-controls="panel1a-content"
@@ -18,7 +37,7 @@ export default function ReviewItem({item_num}) {
         >
           <Typography>Comentarios</Typography>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails> */
           <Box> 
             <Script type="text/javascript" src="https://widget.reviews.io/polaris/build.js" 
               onLoad={() => {
@@ -37,7 +56,7 @@ export default function ReviewItem({item_num}) {
                         //Product specific settings. Provide product SKU for which reviews should be displayed:
                         product_review:{
                             //Display product reviews - include multiple product SKUs seperated by Semi-Colons (Main Indentifer in your product catalog )
-                            sku: `${item_num}`,
+                            sku: `${sku}`,
                             hide_if_no_results: false,
                         },
                         //Questions settings:
@@ -253,8 +272,9 @@ export default function ReviewItem({item_num}) {
               ></Script>
             <div id="ReviewsWidget"></div>
           </Box>
-        </AccordionDetails>
-      </Accordion>
+      /*  </AccordionDetails>
+      </Accordion> */
+      }
     </div>
   )
 }

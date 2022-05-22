@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Hostedfields({clientToken,salectOption,tajetaSave,evento,Delete}) {
+export default function Hostedfields({clientToken,salectOption,tajetaSave,evento,Delete,total}) {
     const classes  = useStyles()
     const [clientTokenC,setClientTokenC] = useState({})
     useEffect(()=>{
@@ -117,7 +117,7 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
             </FormControl>
             </Box>           
         :        
-        <Fields clientToken={clientTokenC.clienteToken} evento={evento}/>
+        <Fields clientToken={clientTokenC.clienteToken} evento={evento} total={total}/>
         }
         </>
         

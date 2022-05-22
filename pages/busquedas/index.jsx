@@ -44,10 +44,17 @@ import { Layout } from 'layout/Layout';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
+
+import { shuffle } from '@algolia/client-common';
+
+
 const searchClient = algoliasearch(
 	'12YTHFXXB5',
 	'235f66e4531637d52c48f4a91ad6fa3f'
 );
+
+const client = algoliasearch('12YTHFXXB5', '235f66e4531637d52c48f4a91ad6fa3f');
+
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -156,22 +163,59 @@ export default function Busquedas(props) {
 	// const { url } = 'lapiz';
 
 	const [index, setIndex] = React.useState('Pedidos');
-	const [filtros, setFiltros] = React.useState(false);
+	const [filtros, setFiltros] = React.useState(0);
 	const ruter = useRouter();
 
-	useEffect(() => {}, [router]);
+	useEffect(() => {
+        const places = (appId = '', apiKey = '', options) => {
+            const placesClient = algoliasearch(appId, apiKey, {
+              hosts: [{ url: 'places-dsn.algolia.net' }].concat(
+                shuffle([
+                  { url: 'places-1.algolia.net' },
+                  { url: 'places-2.algolia.net' },
+                  { url: 'places-3.algolia.net' }
+                ])
+              ),
+              ...options
+            });
+            return (query, requestOptions) => {
+              return placesClient.transporter.read(
+                {
+                  method: 'POST',
+                  path: '1/places/query',
+                  data: {
+                    query
+                  },
+                  cacheable: true
+                },
+                requestOptions
+              );
+            };
+          };
+          
+          const search = places('12YTHFXXB5', '235f66e4531637d52c48f4a91ad6fa3f');
+          function test (){
+          search('lapiz').then(results => {
+            if(results !== null || results !== undefined || results !== '')
+            {
+            console.log("MANUAL");
+            console.log(results.nbHits);
+            setFiltros(results[0].nbHits)
+            }
+          });
+          
+        }
+          test();
+    }, []
+    );
+
+    useEffect(() => {}, [router]
+    );
 
 	const handleChange = (event) => {
 		setIndex(event.target.value);
 	};
 
-	//   const resultado = props.location.state.query;
-
-	// const autoHideRefinementList = instantsearch.widgets.panel({
-	// hidden({ results }) {
-	//   return results.getFacetValues('FILTROS.PROCESADOR').length === 0;
-	// },
-	//   })
 
   return(
     <Layout>
@@ -359,9 +403,9 @@ export default function Busquedas(props) {
 											translations={{
 												showMore(expanded) {
 													return expanded
-														? 'Mostrar Menos'
-														: 'Mostrar Mas';
+														? 'Mostrar Menos' : 'Mostrar Mas';
 												},
+                                                noResults: 'No results',
 											}}
 										/>
 									</Box>
