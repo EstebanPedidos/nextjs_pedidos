@@ -1,7 +1,6 @@
 import { Box, Grid, Container, Typography, Button } from '@mui/material';
 import React from 'react';
-import { COLORS } from '../themes/light-theme';
-import { Layout } from '/layout/Layout';
+import { Layout } from 'layout/Layout';
 import { useMediaQuery } from '@material-ui/core';
 
 export const Empresas = () => {
@@ -38,10 +37,7 @@ export const Empresas = () => {
 									}}
 									gutterBottom>
 									La solución para las{' '}
-									<span
-										style={{
-											color: COLORS.primary,
-										}}>
+									<span>
 										empresas.
 									</span>
 								</Typography>

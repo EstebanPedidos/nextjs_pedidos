@@ -16,7 +16,7 @@ export const TechnicalSupport = () => {
 	return (
 		<Layout>
 			<div className={classes.container}>
-				{/* <h1>Hola</h1> */}
+				
 				<Banner />
 				<HowItWorks />
 				<Schedule />

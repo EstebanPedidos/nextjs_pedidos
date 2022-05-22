@@ -1,7 +1,7 @@
 import { makeStyles } from '@mui/styles'
 import clsx from 'clsx'
-import Typography from '@mui/material/Typography'
-import Grid from '@mui/material/Grid'
+import {Grid, Typography,} from '@mui/material';
+
 
 const useStyles = makeStyles({
   bigTitle: {
@@ -41,8 +41,8 @@ export const HowItWorksItem: React.FC<IHowItWorksItemProps> = ({ item }) => {
           )}
         </Grid>
         <Grid item xs={10.5}>
-          <Typography
-            component={item.bigTitle ? "h1" : "h4"}
+          <Typography component="h1" variant="h5"
+            // component={item.bigTitle ? "h1" : "h4"}
             className={titleClassName}
             gutterBottom
           >
