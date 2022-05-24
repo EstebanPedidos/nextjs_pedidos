@@ -94,9 +94,14 @@ export default function TrendSlides({favoritos,add}) {
         //"disableOnInteraction": false}}
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}
+        className="mySwiper3"
         breakpoints={{
+            320: {
+                slidesPerView: 2.2,
+                
+              },
             640: {
-              slidesPerView: 2.2,
+              slidesPerView: 2.5,
               
             },
             768: {

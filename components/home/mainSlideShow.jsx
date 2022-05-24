@@ -63,6 +63,8 @@ export default function MainSlideShow() {
 				pagination={{
 					"clickable": true
 				  }}
+
+                className="mySwiper"
 				onSlideChange={() => console.log('slide change')}
 				onSwiper={(swiper) => console.log(swiper)}>
 				<SwiperSlide> 

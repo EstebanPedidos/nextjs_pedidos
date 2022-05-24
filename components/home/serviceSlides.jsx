@@ -67,8 +67,9 @@ export default function serviceSlides() {
         //"disableOnInteraction": false}}
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}
+        className="mySwiper2"
         breakpoints={{
-          640: {
+          320: {
             slidesPerView: 2.2,
             
           },

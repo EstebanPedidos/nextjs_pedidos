@@ -1,11 +1,14 @@
 import React from 'react';
 import clsx from 'clsx';
+ //MUI
+ import {Container,Box, Grid, Paper, Typography, Button, Divider, Card, 
+    CardActionArea, CardContent, CardActions,CardMedia
+   } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
 
-/* export interface ChildrenProps {
+
+
+export interface ChildrenProps {
 	children: JSX.Element | JSX.Element[] | string;
 }
 
@@ -84,16 +87,16 @@ export const SubTitle: React.FC<ChildrenProps> = ({ children }) => (
 	<BaseText component='h2' textClass='subtitle'>
 		{children}
 	</BaseText>
-); */
+);
 
 export const Banner = () => {
 	//const classes = useStyles();
 
 	return (
-		<h1>Revisar</h1>
-		/*<Paddined>
+		
+		<Paddined>
 			<Grid container spacing={2}>
-				<Medium className={classes.paddined}>
+				 <Medium>{/*className={classes.paddined}*/}
 					<Container>
 						<SubTitle>Entregas PickUp Center</SubTitle>
 						<Head>
@@ -115,7 +118,7 @@ export const Banner = () => {
 					/>
 				</Medium>
 			</Grid>
-		</Paddined>*/
+		</Paddined>
 	);
 };
 

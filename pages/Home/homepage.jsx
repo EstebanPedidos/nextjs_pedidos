@@ -14,11 +14,12 @@ import SecondaryCard from 'components/home/secondaryCards';
 import Trends from 'components/home/trendSlides';
 import ThreeCards from 'components/home/tertiaryCards';
 import Brands from 'components/home/Brands';
+import CarouselBrands from 'components/home/CarouselBrands';
 import ForBusiness from 'components/home/forBusiness';
 
 export const HomeSite = () => {
 	return (
-	<Container maxWidth="lg">
+	<Container >
 		<Box component="div">
 			<MainSlideShow />
 			<Box component="div" className={styles.promoContainer}>
@@ -53,19 +54,16 @@ export const HomeSite = () => {
 					<ThreeCards />
 				</Box>
 				<Box component="div" py={2} textAlign="left">
-					<Typography variant="h6" component="h2" sx={{fontWeight:'600'}}>
+					{/* <Typography variant="h6" component="h2" sx={{fontWeight:'600'}}>
 						Conoce las soluciones para las empresas
-					</Typography>
-					<Box component="div" py={2}>
+					</Typography> */}
+					<Box component="div" py={4}>
 						<ForBusiness />
 					</Box>
-					<Box component="div" py={2}>
-						<Card>
-							Apple
-						</Card>
-					</Box>
+					
 				</Box>
 				<Box component="div" py={2} textAlign="left">
+					
 					<Box component="div" py={2}>
 						<Brands/>
 					</Box>
