@@ -11,7 +11,9 @@ const MSIBanner = (props) => {
 				backgroundImage: 'linear-gradient(to bottom,#fafafb,#f6f7f9)',
 				boxShadow: shadow ? '0 8px 16px 0 rgb(51 51 51 / 8%)' : null,
 			}}
-			pl={4}>
+			pt={{ xs: 5, md: 0 }}
+			pl={{ xs: 0, md: 4 }}
+			px={{ xs: 2, md: 0 }}>
 			<Grid
 				direction='row'
 				justifyContent='space-between'
@@ -23,12 +25,16 @@ const MSIBanner = (props) => {
 						<Typography
 							variant='h5'
 							fontSize={24}
+							textAlign={{ xs: 'center', md: 'inherit' }}
 							fontWeight={700}
 							color='#333'
 							gutterBottom>
 							Paga a meses sin intereses
 						</Typography>
-						<Typography variant='body2' color='#333'>
+						<Typography
+							variant='body2'
+							color='#333'
+							textAlign={{ xs: 'center', md: 'inherit' }}>
 							Consulta todos los requisitos para los MSI{' '}
 							<Link underline='none' href='#'>
 								aquí
@@ -38,12 +44,17 @@ const MSIBanner = (props) => {
 				</Grid>
 
 				<Grid xs={12} md={4} item>
-					<Box display='flex' gap={1} sx={{ transform: 'translateY(3rem)' }}>
+					<Box
+						display='flex'
+						gap={1}
+						sx={{ transform: 'translateY(3rem)' }}
+						justifyContent='center'>
 						<Box>
 							<img
 								src='https://pedidos.com/myfotos/pedidos-com/pagina/busquedas/msi/18msi.webp'
 								data-src='https://pedidos.com/myfotos/pedidos-com/pagina/busquedas/msi/18msi.webp'
 								alt='18 MSI, Meses sin intereses, tarjetas de crédito, PayPal'
+								width='100%'
 							/>
 						</Box>
 						<Box>
@@ -51,6 +62,7 @@ const MSIBanner = (props) => {
 								src='https://pedidos.com/myfotos/pedidos-com/pagina/busquedas/msi/24msi.webp'
 								data-src='https://pedidos.com/myfotos/pedidos-com/pagina/busquedas/msi/24msi.webp'
 								alt='24 MSI, Meses sin intereses, tarjetas de crédito, Citibanamex, PayPal'
+								width='100%'
 							/>
 						</Box>
 					</Box>

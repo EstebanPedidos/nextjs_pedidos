@@ -8,8 +8,12 @@ const TipsBanner = (props) => {
 	return (
 		<Grid spacing={5} justifyContent='center' container>
 			{items.map((item) => (
-				<Grid xs={12} md={3} key={item.label} item>
-					<Box display='flex' gap={2}>
+				<Grid xs={12} sm={4} md={3} key={item.label} item>
+					<Box
+						display='flex'
+						gap={2}
+						flexDirection={{ sm: 'column', lg: 'row' }}
+						alignItems='center'>
 						<img
 							width={45}
 							height={45}
@@ -22,6 +26,7 @@ const TipsBanner = (props) => {
 							<Typography
 								fontWeight={700}
 								color='#333'
+								textAlign={{ sm: 'center', lg: 'left' }}
 								dangerouslySetInnerHTML={{
 									__html: item.label,
 								}}
@@ -33,6 +38,7 @@ const TipsBanner = (props) => {
 							/>
 							<Typography
 								color='#333'
+								textAlign={{ sm: 'center', lg: 'left' }}
 								dangerouslySetInnerHTML={{
 									__html: item.description,
 								}}

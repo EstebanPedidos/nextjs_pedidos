@@ -35,13 +35,7 @@ const CardsCarouselSection = (props) => {
 						variant='outlined'
 						sx={{ px: 5, py: 2, borderRadius: '10px' }}>
 						{ctaLabel && <>{ctaLabel}</>}
-						{!ctaLabel && (
-							<>
-								Ver
-								<br />
-								todo
-							</>
-						)}
+						{!ctaLabel && 'Ver todo'}
 					</Button>
 				</Box>
 			</Container>

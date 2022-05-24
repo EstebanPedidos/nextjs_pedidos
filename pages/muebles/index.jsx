@@ -82,7 +82,7 @@ const Muebles = () => {
 					height='100%'
 					minHeight='45vw'
 					color='#333'
-					px={10}>
+					px={{ xs: 2, lg: 10 }}>
 					<Box width='100%' textAlign={{ xs: 'left', md: 'right' }}>
 						<Typography
 							variant='h1'
@@ -275,7 +275,7 @@ const Muebles = () => {
 				pb={30}
 				sx={{
 					backgroundImage: {
-						xs: 'linear-gradient(90deg,#ffffff88 0%, #ffffff88 100%),url(https://pedidos.com/include/css/responsivo/imagenes/muebles/silla.jpg)',
+						xs: 'linear-gradient(90deg,#ffffffbb 0%, #ffffffff 100%),url(https://pedidos.com/include/css/responsivo/imagenes/muebles/silla.jpg)',
 						xl: 'url(https://pedidos.com/include/css/responsivo/imagenes/muebles/silla.jpg)',
 					},
 					backgroundPosition: 'left top',

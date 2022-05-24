@@ -121,7 +121,7 @@ const Papeleria = () => {
 				gradient
 			/>
 
-			<Box py={8}>
+			<Box py={8} px={{ xs: 4, md: 0 }}>
 				<TipsBanner items={tips} />
 			</Box>
 
@@ -143,22 +143,23 @@ const Papeleria = () => {
 				</Container>
 			</Box>
 
-			<Box py={7}>
-				<Grid
-					direction='row'
-					justifyContent='center'
-					alignItems='center'
-					spacing={6}
-					wrap
-					container>
-					{brandLogos.map((brand) => (
-						<Grid key={brand.label} item>
-							<Link href={brand.url}>
-								<img src={brand.img} alt={brand.label} width={brand.width} />
-							</Link>
-						</Grid>
-					))}
-				</Grid>
+			<Box
+				py={7}
+				px={{ xs: 2, lg: 0 }}
+				gap={2}
+				display='flex'
+				flexWrap='wrap'
+				alignItems='center'
+				justifyContent='center'>
+				{brandLogos.map((brand) => (
+					<Box key={brand.label}>
+						<Link href={brand.url}>
+							<Box maxWidth={`${brand.width}px`}>
+								<img src={brand.img} alt={brand.label} width='100%' />
+							</Box>
+						</Link>
+					</Box>
+				))}
 			</Box>
 
 			<Container sx={{ mt: 5 }}>

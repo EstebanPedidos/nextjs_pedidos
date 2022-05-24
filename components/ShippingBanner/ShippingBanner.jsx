@@ -23,8 +23,8 @@ const items = [
 
 const ShippingBanner = () => {
 	return (
-		<Grid spacing={8} container>
-			<Grid xs={12} md={3} item>
+		<Grid spacing={{ xs: 3, md: 5 }} justifyContent='center' container>
+			<Grid xs={12} lg={3} item>
 				<Typography variant='h5' fontSize={24} fontWeight={700} color='#333'>
 					CDMX y Guadalajara
 				</Typography>
@@ -39,22 +39,29 @@ const ShippingBanner = () => {
 				</Typography>
 			</Grid>
 			{items.map((item) => (
-				<Grid xs={12} md={3} key={item.label} item>
-					<Box display='flex' gap={2}>
-						<img
-							width='100'
-							data-sizes='auto'
-							src={item.img}
-							data-src={item.img}
-							alt={item.label}
-							sizes='86px'
-							style={{ padding: '12px' }}
-						/>
+				<Grid xs={12} sm={4} lg={3} key={item.label} item>
+					<Box
+						display='flex'
+						flexDirection={{ sm: 'column', lg: 'row' }}
+						alignItems='center'
+						gap={4}>
+						<Box height={{ sm: 100, lg: 'inherit' }}>
+							<img
+								width='100'
+								data-sizes='auto'
+								src={item.img}
+								data-src={item.img}
+								alt={item.label}
+								sizes='86px'
+								style={{ padding: '12px' }}
+							/>
+						</Box>
 						<Box>
 							<Typography
 								variant='body2'
 								fontWeight={700}
 								color='#333'
+								textAlign={{ sm: 'center', lg: 'left' }}
 								dangerouslySetInnerHTML={{
 									__html: item.label,
 								}}
@@ -62,6 +69,7 @@ const ShippingBanner = () => {
 							<Typography
 								variant='body2'
 								color='#333'
+								textAlign={{ sm: 'center', lg: 'left' }}
 								dangerouslySetInnerHTML={{
 									__html: item.description,
 								}}

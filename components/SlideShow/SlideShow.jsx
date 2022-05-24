@@ -10,8 +10,9 @@ import 'swiper/css/pagination';
 // import required modules
 const SlideShow = (props) => {
 	const { id, title, slides } = props;
+
 	return (
-		<Box pt={8} pb={2} bgcolor='#f5f5f5'>
+		<Box pt={8} pb={2} px={{ md: 2 }} bgcolor='#f5f5f5'>
 			<Typography
 				dangerouslySetInnerHTML={{
 					__html: title,
@@ -31,19 +32,15 @@ const SlideShow = (props) => {
 				id={`brand-carousel-${id}`}
 				className={`brand-carousel-${id}`}
 				slidesPerView={1}
-				style={{
-					paddingLeft: '2rem',
-					paddingRight: '2rem',
-				}}
 				autoHeight>
 				{slides.map((slide) => (
 					<SwiperSlide key={slide.title}>
-						<Box px={4} pb={6}>
+						<Box px={{ xs: 2, lg: 3 }} pb={6}>
 							<Grid spacing={10} container>
 								<Grid xs={12} md={5} item>
 									<img src={slide.img} alt={slide.title ?? ''} width='100%' />
 								</Grid>
-								<Grid xs={12} md={6} item>
+								<Grid xs={12} md={7} lg={6} item>
 									{slide.title && (
 										<Typography
 											fontSize={24}
@@ -53,14 +50,16 @@ const SlideShow = (props) => {
 											gutterBottom
 										/>
 									)}
-									<Typography
-										textAlign='justify'
-										lineHeight={1.75}
-										dangerouslySetInnerHTML={{
-											__html: slide.content,
-										}}
-										gutterBottom
-									/>
+
+									{slide.content && (
+										<Box
+											textAlign='justify'
+											lineHeight={1.75}
+											dangerouslySetInnerHTML={{
+												__html: slide.content,
+											}}
+										/>
+									)}
 
 									<Divider sx={{ my: 5 }} />
 

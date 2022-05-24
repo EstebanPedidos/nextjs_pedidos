@@ -17,19 +17,21 @@ const OriginalSuppliesAdvantagesSlides = [
 		title:
 			'Debemos tener en cuenta que los cartuchos de tinta tienen gran relevancia en nuestro proceso de impresión, por lo que debemos prestar debida atención y cuidado al momento de remplazarlos.',
 		content:
-			'Puede que estemos tentados en adquirir cartuchos que no sean originales debido al factor precio, pero no hacemos la comparativa calidad – precio. De hecho, a la hora de cambiar el cartucho de tinta por uno no original, estás cambiando el 70% del sistema de impresión, es decir, que la mayor parte de la utilidad de su impresora depende de los cartuchos de tinta. Alguno de los beneficios que los cartuchos originales nos brindan son: Máximo aprovechamiento del consumible, lo que nos indica que imprime correctamente desde el principio hasta el fin del producto, algo que no suele ocurrir con los no originales, que empiezan a imprimir mal cuando tienen poca tinta, entre un 30 y un 15%.',
+			'Puede que estemos tentados en adquirir cartuchos que no sean originales debido al factor precio, pero no hacemos la comparativa calidad - precio. De hecho, a la hora de cambiar el cartucho de tinta por uno no original, estás cambiando el 70% del sistema de impresión, es decir, que la mayor parte de la utilidad de su impresora depende de los cartuchos de tinta. Alguno de los beneficios que los cartuchos originales nos brindan son: Máximo aprovechamiento del consumible, lo que nos indica que imprime correctamente desde el principio hasta el fin del producto, algo que no suele ocurrir con los no originales, que empiezan a imprimir mal cuando tienen poca tinta, entre un 30 y un 15%.',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/HP/fam.png',
 	},
 	{
-		content: `<ul><li>Nos indica exactamente cuanta tinta nos queda, mientras que en los cartuchos no originales no transmiten siempre la información de forma correcta.</li>
+		content: `<ul>
+			<li>Nos indica exactamente cuanta tinta nos queda, mientras que en los cartuchos no originales no transmiten siempre la información de forma correcta.</li>
 			<li>Las tintas de los cartuchos no originales son de una calidad mucho menor. A diferencia de los cartuchos originales que dan una mayor viveza de colores, con negros más profundos y colores más vivos.</li>
 			<li>La rapidez de secado de las tintas en los cartuchos originales nos garantiza que no nos vamos a manchar las manos de tinta al manipularlo.</li>
-			<li>No dejemos de lado que los cartuchos de tinta originales preservan la garantía de la impresora, y generan menores gastos de mantenimiento.</li></ul>`,
+			<li>No dejemos de lado que los cartuchos de tinta originales preservan la garantía de la impresora, y generan menores gastos de mantenimiento.</li>
+			</ul>`,
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/HP/fam.png',
 	},
 	{
 		title:
-			'¿Y todo esto en que se traduce? <strong>En fiabilidad, calidad de impresión</strong> y <strong>ahorro</strong>.',
+			'¿Y todo esto en qué se traduce? <strong>En fiabilidad, calidad de impresión</strong> y <strong>ahorro</strong>.',
 		content:
 			'Nuestros cartuchos garantizan un 99% de fiabilidad, mientras que cartuchos no originales pueden fallar a menudo. Los cartuchos originales nos brindan calidad de impresión porque evitan goteos y obstrucciones, obteniendo documentos impresos que duran 50 veces más que cualquier otro; y contribuyen al ahorro porque un cartucho original de le ofrece un 50% más de páginas, por lo que no tendrá que cambiar tan a menudo de cartucho. Como podemos ver, el uso de cartuchos originales para su impresora brinda beneficios tanto para sus impresiones como para su bolsillo. ¡¡Así que no dudes en comprar cartuchos Originales HP!!',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/HP/fam.png',
