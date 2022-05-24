@@ -17,12 +17,18 @@ const CardsCarouselSection = (props) => {
 		ctaLabel,
 		ctaLink,
 		breakpoints,
+		ctaNewLine,
 	} = props;
 
 	return (
 		<Box pt={8} pb={5}>
 			<Container>
-				<Box display='flex' alignItem='end' justifyContent='space-between'>
+				<Box
+					display='flex'
+					alignItem='end'
+					justifyContent='space-between'
+					flexDirection={{ xs: ctaNewLine ? 'column' : 'row', md: 'row' }}
+					gap={2}>
 					<Box>
 						<Typography variant='h3' fontSize={24} fontWeight={700}>
 							{title}
@@ -30,22 +36,27 @@ const CardsCarouselSection = (props) => {
 						<Typography variante='body2'>{subtitle}</Typography>
 					</Box>
 
-					<Button
-						href={ctaLink}
-						variant='outlined'
-						sx={{ px: 5, py: 2, borderRadius: '10px' }}>
-						{ctaLabel && <>{ctaLabel}</>}
-						{!ctaLabel && 'Ver todo'}
-					</Button>
+					<Box>
+						<Button
+							href={ctaLink}
+							variant='outlined'
+							sx={{ px: 5, py: 2, borderRadius: '10px' }}>
+							{ctaLabel && <>{ctaLabel}</>}
+							{!ctaLabel && 'Ver todo'}
+						</Button>
+					</Box>
 				</Box>
 			</Container>
 
-			<Box mt={5} component={centered ? Container : 'div'}>
+			<Box
+				mt={5}
+				component={centered ? Container : 'div'}
+				sx={{ px: '0!important' }}>
 				<Swiper
 					className={`brand-carousel-${id}`}
 					style={{
-						paddingRight: '2rem',
-						paddingLeft: '2rem',
+						paddingRight: '1rem',
+						paddingLeft: '1rem',
 					}}
 					slidesPerView={1.5}
 					spaceBetween={25}

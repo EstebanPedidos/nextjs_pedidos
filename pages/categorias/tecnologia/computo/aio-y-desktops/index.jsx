@@ -82,6 +82,7 @@ const AIOAndDesktops = () => {
 					ctaLabel='Ver todo'
 					ctaLink='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
 					centered
+					ctaNewLine
 				/>
 			</Container>
 

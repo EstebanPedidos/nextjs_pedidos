@@ -14,7 +14,7 @@ const ExpandableCard = (props) => {
 			position='relative'
 			display='block'
 			overflow='hidden'
-			pt='110%'
+			pt='120%'
 			borderRadius={2}
 			sx={{
 				'&:hover > div > .description-container': {

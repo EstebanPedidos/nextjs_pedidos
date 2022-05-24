@@ -130,6 +130,7 @@ const Laptops = () => {
 					ctaLabel='Ver todo'
 					ctaLink='/busquedas.asp?/TECNOLOGIA/COMPUTO'
 					centered
+					ctaNewLine
 				/>
 			</Container>
 
