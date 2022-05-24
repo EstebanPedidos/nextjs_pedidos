@@ -2,16 +2,12 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import 'swiper/css/pagination';
 
 const Carousel = (props) => {
 	const { productCategories } = props;
 
 	return (
 		<Swiper
-			pagination={{
-				clickable: true,
-			}}
 			slidesPerView={1.5}
 			spaceBetween={20}
 			breakpoints={{

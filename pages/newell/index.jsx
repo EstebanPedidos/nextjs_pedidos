@@ -93,7 +93,7 @@ const brands = [
 
 const Newell = () => {
 	return (
-		<Layout>
+		<Layout title='Explora todos los productos Newell | Pedidos.com'>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/newell/newellback1.png'
 				alt='Newell'

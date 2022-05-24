@@ -3,7 +3,7 @@ import HPPcSelectorScript from 'components/HPPcSelectorScript';
 
 const PCSelector = () => {
 	return (
-		<Layout>
+		<Layout title='Descubre todo sobre el asistente virtual HP | Pedidos.com'>
 			<HPPcSelectorScript />
 		</Layout>
 	);

@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
@@ -61,7 +62,7 @@ const productCategories = [
 
 const TiendaOficialHP = () => {
 	return (
-		<Layout>
+		<Layout title='Tienda Oficial HP en Pedidos.com'>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/tiendaoftxt.jpg'
 				alt='Tienda oficial HP'
@@ -201,7 +202,7 @@ const TiendaOficialHP = () => {
 			/>
 
 			<Box py={5} opacity={0.8}>
-				<Container maxWidth='lg'>
+				<Container maxWidth='xl'>
 					<Grid spacing={4} container>
 						<Grid xs={12} item>
 							<Typography
@@ -250,12 +251,13 @@ const TiendaOficialHP = () => {
 								textAlign='justify'
 								fontWeight={500}>
 								Las{' '}
-								<a
+								<Link
+									underline='none'
 									className='c-blue'
 									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&m=HP'
 									target='_blank'>
 									laptops HP
-								</a>{' '}
+								</Link>{' '}
 								son la mejor opción para el trabajo de oficina, sobre todo ahora
 								que la mayoría del trabajo puede realizarse también en casa. Es
 								una marca considerada de un alto estándar de calidad desde hace
@@ -271,12 +273,13 @@ const TiendaOficialHP = () => {
 								memoria RAM para el trabajo o gaming, son siempre la mejor
 								opción cuando se busca el mejor desempeño y que en ningún
 								momento se sienta sobrecalentar el equipo. Un ejemplo es la{' '}
-								<a
+								<Link
+									underline='none'
 									className='c-blue'
 									href='/articulos/laptop-hp-envy-x360-convertible-15-ed1501la-procesador-intel-core-i5-ram-12-gb-ssd-512-gb-windows-10-home'
 									target='_blank'>
 									HP Envy X360
-								</a>
+								</Link>
 								, que tiene 12 GB de memoria RAM y un procesador Intel Core i5
 								de onceava generación. Con su pantalla de 15.6 pulgadas es
 								perfecta para trabajos especializados y gaming. También las
@@ -287,12 +290,13 @@ const TiendaOficialHP = () => {
 								cargas). Una larga vida en la batería es crucial para el tipo de
 								trabajo híbrido que ha tenido un crecimiento exponencial en los
 								últimos dos años. La laptop{' '}
-								<a
+								<Link
+									underline='none'
 									className='c-blue'
 									href='articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-3050u-ram-4-gb-ssd-256-gb-windows-10-home'
 									target='_blank'>
 									HP 14 DK1015LA
-								</a>{' '}
+								</Link>{' '}
 								tiene una larga duración en su batería, además de un precio muy
 								adecuado para uso personal. Por otro lado, es también muy
 								importante el diseño. Aunque es subjetivo lo que le puede
@@ -309,12 +313,13 @@ const TiendaOficialHP = () => {
 								textAlign='justify'
 								fontWeight={500}>
 								Las laptops HP tienen los mejores diseños y más en tendencia. La{' '}
-								<a
+								<Link
+									underline='none'
 									className='c-blue'
 									href='/articulos/laptop-hp-spectre-x360-convertible-13-aw0001la-intel-core-i7-ram-de-8-gb-ssd-512-gb-mas-32-gb'
 									target='_blank'>
 									HP Spectre X360
-								</a>{' '}
+								</Link>{' '}
 								puede voltearse para usarse como tablet y tiene el diseño más
 								innovador en las dos de sus formas.
 							</Typography>
@@ -344,12 +349,13 @@ const TiendaOficialHP = () => {
 								requiere imprimir texto, mientras que las de inyección de tinta
 								se consideran mejor para imprimir fotografías. Si no se requiere
 								imprimir a color, el modelo de impresora multifuncional{' '}
-								<a
+								<Link
+									underline='none'
 									className='c-blue'
 									href='/articulos/multifuncional-hp-mfp-137fnw-printer-laser-blanco-y-negro'
 									target='_blank'>
 									HP MFP 137FNW
-								</a>{' '}
+								</Link>{' '}
 								es una perfecta opción. Es de los modelos más económicos de
 								impresora láser, por lo que es la más adecuada para imprimir
 								documentos de texto en grandes cantidades y en poco tiempo. Al
@@ -357,21 +363,23 @@ const TiendaOficialHP = () => {
 								escanear, de forma que se tiene todo un sistema de impresión en
 								el mismo lugar. Si se requiere imprimir fotografías o documentos
 								a color, un modelo más accesible es la impresora multifuncional{' '}
-								<a
+								<Link
+									underline='none'
 									className='c-blue'
 									href='/articulos/multifuncional-hp-ink-tank-wireless-415-inyeccion-de-tinta-color'
 									target='_blank'>
 									HP Ink Tank Wireless 415
-								</a>
+								</Link>
 								. Es de inyección de tinta y permite imprimir remotamente desde
 								un dispositivo móvil, de forma que no se requiere tener los
 								documentos en una computadora. Igualmente el modelo{' '}
-								<a
+								<Link
+									underline='none'
 									className='c-blue'
 									href='/articulos/multifuncional-hp-deskjet-ink-advantage-5275-inyeccion-de-tinta'
 									target='_blank'>
 									HP Deskjet Ink Advantage 5275
-								</a>
+								</Link>
 								, tiene estas funciones y es de inyección de tinta, además de
 								tener impresión automática a doble cara para ahorrar papel.
 							</Typography>
