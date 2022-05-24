@@ -40,7 +40,7 @@ const CardsCarouselSection = (props) => {
 				</Box>
 			</Container>
 
-			<Box mt={5}>
+			<Box mt={5} component={centered ? Container : 'div'}>
 				<Swiper
 					className={`brand-carousel-${id}`}
 					style={{

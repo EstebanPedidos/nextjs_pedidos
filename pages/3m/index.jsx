@@ -68,6 +68,12 @@ const ThreeM = () => {
 					subtitle='Las marcas más importantes para todos los días.'
 					items={brands}
 					ctaLink='/busquedas.asp?query=3m&m=3M'
+					breakpoints={{
+						1024: {
+							slidesPerView: 3,
+							spaceBetween: 25,
+						},
+					}}
 					centered
 				/>
 			</Box>
