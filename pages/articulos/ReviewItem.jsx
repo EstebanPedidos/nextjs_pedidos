@@ -9,11 +9,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 export default function ReviewItem({item_num}) {  
   const [expanded,setExpanded]= useState(true)
   const [sku,setSku]          = useState('')
+  const [cambio,setCambio]    = useState(0)
 
   useEffect(() => {
     // Creamos una función para actualizar el estado con el clientWidth
-    const updateSku = () => {
+    const updateSku = async () => {      
       setSku(item_num)
+      setCambio(cambio+1)
     }
     // Actualizaremos el width al montar el componente
     updateSku()
@@ -24,12 +26,11 @@ export default function ReviewItem({item_num}) {
     return () => {
       window.removeEventListener("resize", updateSku)
     }
-  })
+  },[item_num])
 
   return (
-    <div>
-      {(sku !== '')&&
-      /* <Accordion expanded={expanded} onChange={()=>{setExpanded((expanded)?false:true)}}>
+    <div>      
+       <Accordion expanded={expanded} onChange={()=>{setExpanded((expanded)?false:true)}}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon/>}
           aria-controls="panel1a-content"
@@ -37,10 +38,12 @@ export default function ReviewItem({item_num}) {
         >
           <Typography>Comentarios</Typography>
         </AccordionSummary>
-        <AccordionDetails> */
+        <AccordionDetails> 
           <Box> 
-            <Script type="text/javascript" src="https://widget.reviews.io/polaris/build.js" 
-              onLoad={() => {
+            {(cambio > 0)&&
+            <> 
+            <Script id={sku+''+cambio} type="text/javascript" src="https://widget.reviews.io/polaris/build.js"  strategy='afterInteractive' 
+              onLoad={async () => {
                 new ReviewsWidget('#ReviewsWidget', {
                     //Your REVIEWS.io account ID and widget type:
                     store: 'pedidos.com',
@@ -270,11 +273,12 @@ export default function ReviewItem({item_num}) {
                   })
                 }}
               ></Script>
-            <div id="ReviewsWidget"></div>
+              <div id="ReviewsWidget"></div>
+              </>
+              }            
           </Box>
-      /*  </AccordionDetails>
-      </Accordion> */
-      }
+        </AccordionDetails>
+      </Accordion>
     </div>
   )
 }

@@ -9,7 +9,12 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     Input, InputLabel, InputAdornment, Chip, Snackbar, 
     Alert, Stack, Rating  } from '@mui/material';
 
-import DateFnsUtils from '@date-io/date-fns';
+import esLocale from 'date-fns/locale/es'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
+
 import SearchIcon from '@mui/icons-material/Search';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -20,16 +25,10 @@ import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCi
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 
-import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-
+import makeStyles from '@mui/styles/makeStyles';
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
 import Services from '../services/Services'
-
-//import { esES } from "date-fns/locale";
-
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -70,7 +69,7 @@ export default function MisFacturas() {
 
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(2);
-    const [selectedDate, handleDateChange] = useState(null);
+    const [valueDate, setValueDate] = React.useState(null);
 
     const [open, setOpen] = React.useState(false);
     const [openSnack, setOpenSnack] = React.useState(false);
@@ -88,6 +87,10 @@ export default function MisFacturas() {
     const [metodoPago, setMetodoPago] = React.useState('');
     const [cfdi, setCfdi] = React.useState('');
     const [invoicePedido, setInvoicePedido] = React.useState({invoice_num:'',pedido_num:0});
+
+    const localeMap = {
+        es: esLocale,
+    };
 
     let usu_nombre = '';
     let fechaFacturas = '';
@@ -201,10 +204,6 @@ export default function MisFacturas() {
         }     
     }
 
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-    }
-
     function descargaPdf(factura){
         console.log('Entro a descarga')
         window.open("/Soho/MiCuenta/factura.asp?factura="+factura+".pdf", "_blank");
@@ -241,14 +240,12 @@ export default function MisFacturas() {
         })
     }
 
-    function consultaPorFecha(){
-        console.log("consultaPorFecha")
+    function consultaPorFecha(date){
         let rangoFecha = new Date()
-        if(selectedDate !== null || selectedDate !== '')
-        rangoFecha = (selectedDate.getMonth()+1)+'/'+selectedDate.getFullYear();
+        if(date !== null || date !== '')
+        rangoFecha = (date.getMonth()+1)+'/'+date.getFullYear();
         localStorage.setItem('fechaFacturas', rangoFecha)
         refreshPage();
-
     }
 
     // function guardaNuevoDato(){
@@ -553,22 +550,23 @@ export default function MisFacturas() {
                                         justifyContent="flex-end"
                                         alignItems="center" spacing={1}>
                                             <Grid item xs={12} sm={6}>
-                                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                    <Box display="flex" justifyContent="flex-start" p={1} >
-                                                        <DatePicker fullWidth
-                                                            variant="outlined"
-                                                            openTo="year"
-                                                            views={["year", "month"]}
-                                                            helperText="Consultar facturas pasadas"
-                                                            value={selectedDate}
-                                                            onChange={handleDateChange}
-                                                            
-                                                        />
-                                                        <IconButton aria-label="consulta" onClick={consultaPorFecha}>
-                                                            <SearchIcon/>
-                                                        </IconButton >
-                                                    </Box>
-                                                </MuiPickersUtilsProvider>
+                                                <LocalizationProvider
+                                                dateAdapter={AdapterDateFns}
+                                                adapterLocale={esLocale}
+                                                >
+                                                    <DatePicker
+                                                    views={['month','year']}
+                                                    label='Consulta facturas pasadas'
+                                                    minDate={new Date('2015-01-02')}
+                                                    maxDate={new Date()}
+                                                    value={valueDate}
+                                                    onChange={(newValue) => {
+                                                        consultaPorFecha(newValue); 
+                                                    }}
+                                                    renderInput={(params) => <TextField {...params} helperText='Mes / Año' />}
+                                                    />
+                                                </LocalizationProvider>  
+
                                             </Grid>
                                             <Grid item xs={12} sm={6}>
                                                 <Button variant="contained" color="primary" fullWidth size="large" href="/DatosFacturacion">Datos de Facturación</Button>

@@ -8,7 +8,6 @@ import makeStyles from '@mui/styles/makeStyles';
 //Componentes
 import { Layout } from 'layout/Layout';
 
-
 //Servicios
 import Services from '../services/Services'
 import { useRouter } from 'next/router'
@@ -66,6 +65,7 @@ export default function Login(){
             localStorage.setItem('Token', data.usuario.token)
             localStorage.setItem('Login', 'Ok')
             localStorage.setItem('afiliado', data.usuario.afiliado)
+            localStorage.setItem('nivelAcceso', data.usuario.nivelAcceso)
             setLogged(true);
             ruter.push('/Home')
             // refreshPage();

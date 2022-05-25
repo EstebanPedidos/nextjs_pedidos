@@ -5,11 +5,18 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     Button, Select, TextField, Divider, Modal, Fade,
     Card, CardContent, CardActions, CardMedia, CardActionArea, TextareaAutosize,
     FormHelperText, FormControl, MenuItem, IconButton,
-    Input, InputLabel, InputAdornment, Chip, Snackbar, 
-    Alert, Stack, Rating } from '@mui/material';
+    Input, InputLabel, InputAdornment, Chip, 
+    Stack, Rating } from '@mui/material';
 
-import { makeStyles } from '@material-ui/core/styles';
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import makeStyles from '@mui/styles/makeStyles';
+
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+import esLocale from 'date-fns/locale/es'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
@@ -19,11 +26,8 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-import MuiAlert from '@material-ui/lab/Alert';
-
 //Component
 import { Layout } from 'layout/Layout';
-
 
 //Nextjs
 import Link from 'next/link'
@@ -33,8 +37,7 @@ import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
 import Services from '../services/Services'
 
 import axios from 'axios'
-import DateFnsUtils from '@date-io/date-fns';
-//import { esES } from "date-fns/locale";
+
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -67,9 +70,6 @@ export default function MisPedidos() {
 
     const [spacing, setSpacing] = React.useState(2);
     const classes = useStyles();
-    const [selectedDate, handleDateChange] = useState(null);
-    //const [dateLang,setDateLang] = React.useState(esES);
-    const [inputs, setInputs] = useState({});
     const [open, setOpen] = React.useState(false);
     const [modal, setModal] = React.useState('');
     const [result, setResult] = useState([]);
@@ -77,6 +77,8 @@ export default function MisPedidos() {
     const [snack, setSnack] = React.useState('');
     const [file, setFile] = useState();
     const [pedido, setPedido] = useState(0);
+    const [valueDate, setValueDate] = React.useState(null);
+
 
     let clienteNum = '';
     let fechaPedido = '';
@@ -131,7 +133,7 @@ export default function MisPedidos() {
                 });
             }else{
                 console.log("if positivo fechaPedido: "+fechaPedido)
-                Services('POST','/miCuenta/consultaPedidosFecha?clienteNum='+clienteNum+'&fechaPedidos='+fechaPedidos,{})
+                Services('POST','/miCuenta/consultaPedidosFecha?clienteNum='+clienteNum+'&fechaPedidos='+fechaPedido,{})
                 .then( response =>{
                     console.log("por mes")
                     setResult(response.data)
@@ -154,11 +156,10 @@ export default function MisPedidos() {
         getData();
     }, []) 
 
-    function consultaPorFecha(){
-        console.log("consultaPorFecha")
+    function consultaPorFecha(date){
         let rangoFecha = new Date()
-        if(selectedDate !== null || selectedDate !== '')
-        rangoFecha = (selectedDate.getMonth()+1)+'/'+selectedDate.getFullYear();
+        if(date !== null || date !== '')
+        rangoFecha = (date.getMonth()+1)+'/'+date.getFullYear();
         localStorage.setItem('fechaPedido', rangoFecha)
         refreshPage();
     }
@@ -460,21 +461,22 @@ export default function MisPedidos() {
                                         justifyContent="flex-end"
                                         alignItems="center" spacing={1}>
                                             <Grid item xs={12} sm={6}>
-                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                <Box display="flex" justifyContent="flex-start" p={1} bgcolor="background.paper">
-                                                    <DatePicker  fullWidth
-                                                        variant="outlined"
-                                                        openTo="year"
-                                                        views={["year", "month"]}
-                                                        helperText="Consultar por mes/año"
-                                                        value={selectedDate}
-                                                        onChange={handleDateChange}
+                                                <LocalizationProvider
+                                                dateAdapter={AdapterDateFns}
+                                                adapterLocale={esLocale}
+                                                >
+                                                    <DatePicker
+                                                    views={['month','year']}
+                                                    label='Consulta pedidos pasados'
+                                                    minDate={new Date('2015-01-02')}
+                                                    maxDate={new Date()}
+                                                    value={valueDate}
+                                                    onChange={(newValue) => {
+                                                        consultaPorFecha(newValue); 
+                                                    }}
+                                                    renderInput={(params) => <TextField {...params} helperText='Consultar por mes/año' />}
                                                     />
-                                                    <IconButton aria-label="consulta" onClick={consultaPorFecha}>
-                                                        <SearchIcon/>
-                                                    </IconButton>
-                                                </Box>
-                                            </MuiPickersUtilsProvider>
+                                                </LocalizationProvider>  
                                             </Grid>
                                             
                                     </Grid>
