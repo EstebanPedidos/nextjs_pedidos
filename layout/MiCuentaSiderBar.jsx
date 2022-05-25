@@ -132,7 +132,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="/MisPedidos">
+                                <Link href="/misPedidos">
                                     <a>
                                         <Grid
                                         container
@@ -286,7 +286,11 @@ export default function MiCuentaSiderBar() {
                             <Button startIcon={<HelpOutlineOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="Modal1" onClick={handleOpen}>Necesito Ayuda</Button>
                         </Box>
                         <Box component="div" >
-                           <Button startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
+                            <Link href="/MisNotasCredito">
+                                <a>
+                                    <Button startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
+                                </a>
+                            </Link>
                         </Box>
                         
                     </Box>

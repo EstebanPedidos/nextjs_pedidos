@@ -8,10 +8,10 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     Input, InputLabel, InputAdornment, Chip, Snackbar, 
     Alert, Rating } from '@mui/material';
 
+import esLocale from 'date-fns/locale/es'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Stack from '@mui/material/Stack';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -71,7 +71,7 @@ export default function MisNotasCredito() {
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(2);
     // const [selectedDate, handleDateChange] = useState(null);
-    const [valueDate, setValueDate] = React.useState(new Date());
+    const [valueDate, setValueDate] = React.useState(null);
 
     const [open, setOpen] = React.useState(false);
     const [modal, setModal] = React.useState('');
@@ -79,6 +79,10 @@ export default function MisNotasCredito() {
     const [result, setResult] = useState([]);
     const [resultado, setResultado] = useState(true);
     const [titulo, setTitulo] = useState('');
+
+    const localeMap = {
+        es: esLocale,
+    };
 
     let clienteNum = '';
     let fechaNotas = '';
@@ -95,8 +99,8 @@ export default function MisNotasCredito() {
 
     const handleChange = (event) => {
         const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))
+        const valueDate = event.target.value;
+        setInputs(valueDate => ({...values, [name]: valueDate}))
     }
 
     useEffect(() => {
@@ -106,7 +110,6 @@ export default function MisNotasCredito() {
 
         if(fechaNotas === null || fechaNotas ===''){
             setTitulo('Notas recientes')
-            console.log("if falso fechaNotas: "+fechaNotas)
             Services('POST','/miCuenta/consultaNotasFecha?clienteNum='+clienteNum+'&fechaNotas=',{})
             .then( response =>{
                     console.log("Service consultaNotasFecha ")
@@ -126,7 +129,6 @@ export default function MisNotasCredito() {
                 console.log(error.response)
             });
         }else{
-            console.log("if positivo fechaNotas: "+fechaNotas)
             Services('POST','/miCuenta/consultaNotasFecha?clienteNum='+clienteNum+'&fechaNotas='+fechaNotas,{})
             .then( response =>{
                 setTitulo('Mis Notas del '+fechaNotas)
@@ -149,11 +151,10 @@ export default function MisNotasCredito() {
         }
     }, []) 
 
-    function consultaPorFecha(){
-        console.log("consultaPorFecha")
+    function consultaPorFecha(date){
         let rangoFecha = new Date()
-        if(selectedDate !== null || selectedDate !== '')
-        rangoFecha = (selectedDate.getMonth()+1)+'/'+selectedDate.getFullYear();
+        if(date !== null || date !== '')
+        rangoFecha = (date.getMonth()+1)+'/'+date.getFullYear();
         localStorage.setItem('fechaNotas', rangoFecha)
         refreshPage();
 
@@ -264,19 +265,22 @@ export default function MisNotasCredito() {
                                             justifyContent="flex-end"
                                             alignItems="center" spacing={1}>
                                                 <Grid item xs={12} sm={6}>
-                                                <LocalizationProvider dateAdapter={AdapterDateFns}>      
-                                                    <DatePicker
-                                                        views={['year', 'month']}
-                                                        label="Year and Month"
-                                                        minDate={new Date('2012-03-01')}
-                                                        maxDate={new Date('2023-06-01')}
+                                                    <LocalizationProvider
+                                                    dateAdapter={AdapterDateFns}
+                                                    adapterLocale={esLocale}
+                                                    >
+                                                        <DatePicker
+                                                        views={['month','year']}
+                                                        label='Consulta notas pasadas'
+                                                        minDate={new Date('2015-01-02')}
+                                                        maxDate={new Date()}
                                                         value={valueDate}
                                                         onChange={(newValue) => {
-                                                            setValueDate(newValue);
+                                                            consultaPorFecha(newValue); 
                                                         }}
-                                                        renderInput={(params) => <TextField {...params} helperText={null} />}
-                                                        />         
-                                                </LocalizationProvider>                         
+                                                        renderInput={(params) => <TextField {...params} helperText='Mes / Año' />}
+                                                        />
+                                                    </LocalizationProvider>                      
                                                 </Grid>
                                         </Grid>
                                     </Box>

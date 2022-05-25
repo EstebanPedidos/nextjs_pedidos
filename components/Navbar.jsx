@@ -215,7 +215,7 @@ export function Navbar(props) {
 		localStorage.setItem('Email', '');
 		localStorage.setItem('Usuario', 0);
 		localStorage.setItem('afiliado', '');
-		ruter.push('/Home');
+		ruter.push('/');
 	}
 
 	function searchBoxSubmit(e) {

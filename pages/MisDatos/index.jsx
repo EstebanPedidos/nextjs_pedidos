@@ -12,7 +12,13 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
+
+import esLocale from 'date-fns/locale/es'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
 //Component
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
@@ -55,6 +61,8 @@ export default function MisDatos() {
     const [modal, setModal] = React.useState('');
     const [inputs, setInputs] = useState({});
     const [value, setValue] = React.useState();
+    const [valueDate, setValueDate] = React.useState(new Date());
+    const [fechaNac, setFechaNac] = React.useState(null);
     const [celPrincipal, setCelPrincipal] = React.useState(0);
     const [telPrincipal, setTelPrincipal] = React.useState(0);
     const [misDatos, setMisDatos] = useState({clienteNum:0,usuarioNum:0,nombre:"",apellido:"",empresa:"",fechaNac:"",fechaReg:"",enviaMsg:"",entregaCliente:"",tipoCuenta:"",celularPrinc:"",telefonoPrinc:""});
@@ -87,13 +95,19 @@ export default function MisDatos() {
     const [primeraVez, setPrimeraVez] = React.useState(false);
     const [fecha, setFecha] = React.useState("");
     const [tipoTelefono, setTipoTelefono] = React.useState('');
-    const [alerta,setAlerta]            = useState({})
+    const [alerta,setAlerta] = useState({})
     const [correo, setCorreo] = React.useState('');
     const [cliente, setCliente ] = React.useState('');
     const [usuarioNum, setUsuarioNum] = React.useState('');
     const [usu_nomb, setUsu_nomb] = React.useState('');
     const [nivelAcceso, setNivelAcceso] = React.useState('');
     const [ejecutivoNum, setEjecutivoNum] = React.useState('');
+    const [telefonoPrinc, setTelefonoPrinc] = React.useState(0);
+
+    const localeMap = {
+        es: esLocale,
+    };
+    
 
     const [values, setValues] = React.useState({
         password: '',
@@ -120,6 +134,7 @@ export default function MisDatos() {
         usu_nomb1 = localStorage.getItem('Usu_Nomb')
         nivelAcceso1 = localStorage.getItem('nivelAcceso')
         ejectuvoNum1 = localStorage.getItem('EjecutivoNum')
+        ejectuvoNum1 = localStorage.getItem('EjecutivoNum')
     }, [correo1,cliente1, usuarioNum1, usu_nomb1, nivelAcceso1, ejectuvoNum1]) 
 
     useEffect( () => {
@@ -144,8 +159,10 @@ export default function MisDatos() {
                     setPrimeraVez(false);
                 }
                 
-                if(response.data.telefonoPrinc !== "" || response.data.telefonoPrinc !== null || response.data.telefonoPrinc !== undefined){
-                    setTelPrincipal(response.data.telefonoPrinc); 
+                if(response.data.telefonoPrinc === 0 || response.data.telefonoPrinc !== "" ){
+                    setTelefonoPrinc(0); 
+                }else{
+                    
                 }
 
                 if(response.data.celularPrinc !== "" || response.data.celularPrinc !== null || response.data.celularPrinc !== undefined){
@@ -215,6 +232,11 @@ export default function MisDatos() {
         setOpen(false);
     };
 
+    const handleChangeDate = (newValue) => {
+        setValueDate(newValue);
+        setFechaNac((newValue.getFullYear()+'-'+newValue.getMonth()+1)+'-'+newValue.getDay())
+      };
+
     const handleChangePass = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
         console.log("Passoword2: "+event.target.value)
@@ -254,8 +276,37 @@ export default function MisDatos() {
     }
 
     function handleSubmit(tipoCuenta) {
-        console.log("Entro al servicio Actualizar Usuario");
-        console.log(cliente+' '+usuarioNum+' '+inputs.nombre+' '+inputs.apellido+' '+(inputs.empresa === undefined ? "" : inputs.empresa)+' '+inputs.fechaNac+' '+tipoCuenta)
+        alert('Fecha parseada: '+fechaNac)
+         Services('POST-NOT','/miCuenta/actualizaDatos',{
+            nombre:inputs.nombre === undefined || inputs.nombre === null? misDatos.nombre : inputs.nombre,
+            apellido:inputs.apellido === undefined || inputs.apellido === null ? misDatos.apellido : inputs.apellido,
+            statEmp:tipoCuenta,
+            empresa:inputs.empresa === undefined || inputs.empresa === null ? misDatos.empresa : inputs.empresa,
+            email:correo,
+            fechaNac:fechaNac === null ? misDatos.fechaNac : valueDate,
+            usuarioNum:parseInt(usuarioNum),
+            tipoCuenta:tipoCuenta,
+            nivelAcceso: parseInt(nivelAcceso)
+        })
+        .then( response =>{
+            if(response.data === "ERRORNo tiene permiso para actualizar los datos"){
+                setAlerta({severity:'error',mensaje:'No tiene permiso para actualizar los datos',vertical:'bottom',horizontal:'right',variant:'filled'})
+            }else if(response.data === "ERROROcurrio un error al actualizar los datos"){
+                setAlerta({severity:'error',mensaje:'Ocurrio un error al actualizar los datos',vertical:'bottom',horizontal:'right',variant:'filled'})
+            }else if(response.data === "ERRORNo se actualizaron los datos"){
+                setAlerta({severity:'error',mensaje:'No se actualizaron los datos',vertical:'bottom',horizontal:'right',variant:'filled'})
+            }else{
+                setAlerta({severity:'success',mensaje:'Exito, tus datos se actualizaron',vertical:'bottom',horizontal:'right',variant:'filled'})
+                refreshPage();
+            }
+        }).catch(error => {
+            setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
+        });
+    };
+
+    function registraMisDatos() {
+        console.log("Entro al servicio Registrar Mis Datos");
+        console.log(cliente+' '+usuarioNum+' Nombre:'+(inputs.nombre === undefined ? "" : misDatos.nombre)+' Apellido:'+(inputs.apellido === undefined ? "" : misDatos.apellido)+' Empresa:'+(inputs.empresa === undefined ? "" : misDatos.empresa)+' FechaNac:'+(inputs.fechaNac === undefined ? "" : misDatos.fechaNac)+' '+tipoCuenta)
         Services('POST','/miCuenta/registraMisDatos',{
             clienteNum:cliente,
             usuarioNum:usuarioNum,
@@ -267,18 +318,14 @@ export default function MisDatos() {
         })
         .then( response =>{
             if(response.data === "ERROR"){
-                setAlerta({severity:'Error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
+                setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
             }else{
             setAlerta({severity:'success',mensaje:'Exito, tus datos se actualizaron',vertical:'bottom',horizontal:'right',variant:'filled'})
             refreshPage();
             }
         }).catch(error => {
-            setAlerta({severity:'Error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
+            setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
         });
-    };
-
-    function registraMisDatos() {
-        console.log("Entro al servicio Registrar Mis Datos");
 
     };
 
@@ -872,6 +919,27 @@ export default function MisDatos() {
                         }}
                         />
                     </Grid>
+                    {misDatos.tipoCuenta === "N" &&
+                        <span>
+                        <Grid item xs={6}>
+                            <TextField fullWidth
+                            id="outlined-full-width" 
+                            label="Empresa" 
+                            variant="outlined" 
+                            type="text" 
+                            name="empresa" 
+                            defaultValue={misDatos.empresa}
+                            onChange={handleChange}
+                            margin="normal"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                        </Grid>
+                        </span>
+                    }
                     <Grid item xs={6}>
                         <TextField fullWidth
                         id="outlined-full-width" 
@@ -887,7 +955,7 @@ export default function MisDatos() {
                         disabled/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField fullWidth
+                        {/* <TextField fullWidth
                         id="outlined-full-width" 
                         label="Fecha de nacimiento" 
                         variant="outlined" 
@@ -899,7 +967,21 @@ export default function MisDatos() {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        />
+                        /> */}
+
+                        <LocalizationProvider
+                        dateAdapter={AdapterDateFns}
+                        adapterLocale={esLocale}
+                        dateFormats=""
+                        >
+                            <DatePicker
+                            label='Fecha de nacimiento'
+                            name="fechaNac" 
+                            value={valueDate}
+                            onChange={handleChangeDate}
+                            renderInput={(params) => <TextField {...params} />}
+                            />
+                        </LocalizationProvider>  
                     </Grid>
                     <Grid item xs={12}>
                         <Button fullWidth size="large" color="primary"  onClick={(event) => { event.preventDefault();handleSubmit(misDatos.tipoCuenta)}}>Guardar</Button>

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styles from 'styles/Home.module.css';
-import { makeStyles} from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import { Grid, Box, Paper,
 	Typography, Button, Modal,
     Card, CardContent, CardActions, CardMedia, CardActionArea, Backdrop,
