@@ -1,4 +1,6 @@
 import {useState,useEffect} from "react";
+//hooks
+import {useLocalStorage} from "../../hooks/useLocalStorage";
 //next js
 import { useRouter } from 'next/router'
 import Script from 'next/script'
@@ -118,6 +120,7 @@ TypographyDemo.propTypes = {
 export default function FichaTecnica(props){
     const classes                           = useStyles()
     const ruter                             = useRouter() 
+    const [urlTem,setUrlTem]                = useState(ruter.query.url)
     const [datos,setDatos]                  = useState({})
     const [horentr,setHorEntr]              = useState([])
     const [precio,setPrecio]                = useState(0)
@@ -135,6 +138,7 @@ export default function FichaTecnica(props){
     const [cp,setCP]                        = useState('')
     const [isFavorito,setIsFavorito]        = useState(false)
     const [thumbsSwiper, setThumbsSwiper]   = useState(null);
+    const [text,setText]                    = useLocalStorage('SesPartidas',0)
 
     const cortadosPA    = ['HP-TIN','HP-TO-'];
     const articulosPA   = ['HP-LAP-2C3C3LA','ASU-LAP-C4G500','HP-MFC-Z4B04A','HP-MFC-Z4B53A','PDIR-LAP-2C3E1L','PDIR-LAP-2Z748L','HP-LAP-151F5LT','PDIR-LAP-22A98L','PDIR-IMP-1TJ09A','PDIR-ACC-2UF58A','LG-PAN-32LM570','BRO-MFC-T220','PF-LOG-G920','PF-LOG-G29','HP-IMP-CZ993A','CAN-MFC-G2160','BRO-MFC-DCP2551','PDIR-MFC-2LB19A','HP-ALL-140P8AA','ACE-MON-V246HQL','LEN-LAP-CHRB0US'];
@@ -142,7 +146,6 @@ export default function FichaTecnica(props){
     const opts          = {height: '390',width: '640',playerVars: {autoplay: 1,},}
 
     const onPlayerReady = (event) => {
-        // access to player in all event handlers via event.target
         event.target.pauseVideo();
     }
 
@@ -150,6 +153,7 @@ export default function FichaTecnica(props){
         const getdata= async ()=>{
             let url             = await ruter.query.url;
             if(url !== undefined && url !==  null){
+                setUrlTem(url)
                 let cliente_num     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
                     cliente_num     = await (parseInt(cliente_num) === 0)?201221:cliente_num 
                 let services        = await Services('POST','/fichaTecnica/obtieneItemCompleto?url='+url+'&cliente_num='+cliente_num,{})
@@ -163,13 +167,22 @@ export default function FichaTecnica(props){
                     data.breadcrumb     = await data.breadcrumb.split(',')
                     data.horarioEntrega = await JSON.parse(data.horarioEntrega)
                     data.relacionados   = await JSON.parse(data.relacionados)
+                    data.metas          = await JSON.parse(data.metas)
+
                     setDatos(data)
                     setPrecio(parseFloat(data.precio)+(parseFloat(data.precio)*parseFloat(data.iva)))
                     setSubTotal(data.precio)
                     setHdi(data.precioSeguro)
                     setGarnatExt1(data.garantia1)
                     setGarnatExt2(data.garantia1)
-                    setHorEntr(data.horarioEntrega)                  
+                    setHorEntr(data.horarioEntrega) 
+                    
+                    data.metas.metasList.forEach( function(valor, indice, array) {
+                        var meta = document.createElement('meta')
+                        meta.setAttribute(valor.type, valor.name);
+                        meta.setAttribute('content', valor.content);                        
+                        document.head.appendChild(meta);
+                    });
                 }else{
                     ruter.push('/')
                 }                
@@ -198,7 +211,7 @@ export default function FichaTecnica(props){
         }   
     }
 
-    async function add(isCarrito,item_num){   
+    async function add(isCarrito,item_num){          
         setLoading(true)
         if(item_num === '' && (cantidad === '' || parseInt(cantidad) === 0)){
             setAlerta({severity:'error',mensaje:'Se requiere una cantidad',vertical:'bottom',horizontal:'right',variant:'filled'})
@@ -212,7 +225,9 @@ export default function FichaTecnica(props){
             usuario         = await (parseInt(usuario) === 0)?RandomUser():usuario 
         Services('POST-NOT','/carritoyreservado/agregaCarrito',{cliente_num: cliente_num,usuario_num : usuario,cantidad : (item_num==='')?parseInt(cantidad):1,item_num :(item_num==='')?datos.item_num:item_num,seguro :(item_num==='')?isHDI:'',garantia :(item_num==='')?isGarn:''})
         .then( response =>{
-            if(response.data > 0){
+            let partidas =  response.data
+            if(partidas > 0){
+                setText(parseInt(partidas))
                 setAgregado([...agregado,(item_num==='')?datos.item_num:item_num])
                 if(isCarrito){
                     ruter.push('/checkout/verifica-pedido')
@@ -264,10 +279,22 @@ export default function FichaTecnica(props){
 
     return (
         <div>          
-            <Layout>            
+            <Layout> 
+                {text}                         
+                {(datos.hasOwnProperty('item_num'))&&
                 <Head>
-                    <title> | Pedidos.com</title>
+                    <title>{datos.descripcion.descripcion.urlName.substring(0,34)}| Pedidos.com</title>
+                    <link rel="canonical" href={`https://pedidos.com/articulos/${urlTem}`} />
+                    {(!JSON.stringify(datos.metas.metasList).includes('description'))&&
+                        <meta name="description" content={`Compra ${datos.descripcion.descripcion.urlName.substring(0,34)} y Paga a MSI en compras mayores a $500 MXN. Envio EXPRESS CDMX.`} />
+                    }
+                    {(!JSON.stringify(datos.metas.metasList).includes('keywords'))&&
+                        <meta name="keywords" content={datos.descripcion.descripcion.urlName.substring(0,34)} />
+                    }
                 </Head>
+
+                }
+               
                 {(datos.hasOwnProperty('item_num'))&&
                     (datos.item_num.includes('HP-') || datos.item_num.includes('hp-') || datos.item_num.includes('PDIR-') || datos.item_num.includes('pdir-'))&&
                     <Script type="text/javascript" src="https://storage.googleapis.com/indexado/assets/alquimioIndexado.v2.js" 
@@ -324,7 +351,7 @@ export default function FichaTecnica(props){
                                             </Grid>
                                             <Grid item xs={12} sm={12} lg={7}>
                                                 {(datos.hasOwnProperty('item_num'))&&
-                                                <Box className={classes.width_carousel}>  
+                                                <Box className={classes.width_carousel}>
                                                     <Swiper
                                                     style={{
                                                     "--swiper-navigation-color": "#fff",
