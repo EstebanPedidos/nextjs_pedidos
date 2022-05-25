@@ -5,10 +5,13 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     Button, Select, TextField, Divider, Modal, Fade,
     Card, CardContent, CardActions, CardMedia, CardActionArea, TextareaAutosize,
     FormHelperText, FormControl, MenuItem, IconButton,
-    Input, InputLabel, InputAdornment, Chip, Snackbar, 
-    Alert, Stack, Rating } from '@mui/material';
+    Input, InputLabel, InputAdornment, Chip, 
+    Stack, Rating } from '@mui/material';
 
 import makeStyles from '@mui/styles/makeStyles';
+
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import esLocale from 'date-fns/locale/es'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
