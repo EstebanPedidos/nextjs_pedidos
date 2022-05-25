@@ -27,8 +27,8 @@ import {
 	Grid,
 } from '@mui/material';
 
-import { HeadingPolicies, PoliciesMenu } from '/components';
-import { Layout } from '/layout/Layout';
+import { HeadingPolicies, PoliciesMenu }  from 'components';
+import { Layout } from 'layout/Layout';
 
 const rows = [
 	{
@@ -53,11 +53,16 @@ export default function CondicionesDeEnvio() {
 	return (
 		<Layout>
 			<Container maxWidth='xl'>
-				<HeadingPolicies>Condiciones de Envío</HeadingPolicies>
+				<HeadingPolicies />
 				<PoliciesMenu />
 				<Container fluid>
-					<Box marginTop='3rem'>
-						<Typography variant='h5' component='h3'>
+					<Box my={2}>
+						<Typography
+							variant='h5'
+							component={'h2'}
+							color='primary'
+							gutterBottom
+						>
 							Condiciones de envío
 						</Typography>
 						<Box marginTop={'0.8rem'}>
@@ -71,9 +76,9 @@ export default function CondicionesDeEnvio() {
 							</Typography>
 							<br />
 							<Typography variant='h6' component='h3'>
-								Envio grátis
+								Envío gratis
 							</Typography>
-							<Typography variant='body1'>
+							<Typography variant='body1' component='p' >
 								Aplica únicamente a los productos seleccionados
 								con un peso de hasta 25kg.
 							</Typography>
@@ -81,7 +86,7 @@ export default function CondicionesDeEnvio() {
 							<Typography variant='h6' component='h3'>
 								Peso
 							</Typography>
-							<Typography variant='body1'>
+							<Typography variant='body1' component='p'>
 								En caso de que tu pedido tenga un peso mayor a
 								15 kg. el tiempo de entrega aumenta de 5 a 10
 								días hábiles. Esto se debe a que los pedidos
@@ -92,25 +97,28 @@ export default function CondicionesDeEnvio() {
 							<Typography variant='h6' component='h3'>
 								Costo
 							</Typography>
-							<Typography variant='body1'>
+							<Typography variant='body1' component='p'>
 								Si eres cliente Local o Foráneo, habrá un cobro
 								de envío como se muestra en la siguiente tabla:
 							</Typography>
 							<br />
 							<Grid container spacing={2}>
 								{/* First Column */}
-								<Grid item md='6'>
+								<Grid item xs={12} lg={6}>
 									<Box margin='auto'>
-										<TableContainer component={Paper}>
+										<TableContainer variant='outlined' component={Paper}>
 											<Table>
 												<TableHead>
 													<TableRow>
 														<TableCell>
-															Monto del Pedido
+															<Typography variant='h6' component='h3'>
+																Monto del Pedido
+															</Typography>
 														</TableCell>
 														<TableCell align='right'>
-															Costo Mínimo de
-															Envío
+															<Typography variant='h6' component='h3'>Costo Mínimo de
+																Envío
+															</Typography>
 														</TableCell>
 													</TableRow>
 												</TableHead>
@@ -136,19 +144,19 @@ export default function CondicionesDeEnvio() {
 									</Box>
 								</Grid>
 								{/* Second Column */}
-								<Grid item md='6'>
+								<Grid item xs={12} lg={6}>
 									<Box>
-										<Typography variant='h6'>
-											Es importante
+										<Typography variant='h6' component='h3'>
+											Importante
 										</Typography>
-										<Typography variant='body1'>
+										<Typography variant='body1' component='p' align='justify'>
 											Si el pedido es Foráneo y tiene un
 											peso mayor a 25kg el costo se deberá
 											cotizar el costo con nuestros
 											ejecutivos.
 										</Typography>
 										<br />
-										<Typography variant='body1'>
+										<Typography variant='body1' component='p' align='justify' >
 											Los costos de envío incluyen IVA Es
 											importante: Si el pedido es Foráneo
 											y tiene un peso mayor a 25kg el
@@ -160,7 +168,7 @@ export default function CondicionesDeEnvio() {
 											los costos de la tabla +$45 pesos.
 										</Typography>
 										<br />
-										<Typography variant='body1'>
+										<Typography variant='body1' component='p' align='justify'>
 											En caso de que el pedido sea Foráneo
 											y compre papel, se hará un cobro de
 											costo por caja más los costos de
@@ -171,10 +179,10 @@ export default function CondicionesDeEnvio() {
 							</Grid>
 
 							<Box>
-								<Typography variant='subtitle1'>
+								<Typography variant='body1' component='p' align='justify'>
 									Los costos de envío incluyen IVA
 								</Typography>
-								<Typography variant='caption'>
+								<Typography variant='body1' component='p' color='textSecondary' align='justify'>
 									*Si tienes alguna duda, consulta con
 									nuestros ejecutivos de ventas para que
 									puedan asesorarte.
@@ -184,7 +192,7 @@ export default function CondicionesDeEnvio() {
 							<Typography variant='h6' component='h3'>
 								Empaque
 							</Typography>
-							<Typography variant='body1'>
+							<Typography variant='body1' component='p' align='justify'>
 								Es posible que existan pedidos que se entreguen
 								partidos; lo cual quiere decir que lleguen en
 								paquetes diferentes en tiempos diferentes. Esto

@@ -10,17 +10,17 @@ export const AvisoPrivacidad = () => {
 					<Typography
 						align='center'
 						variant='h3'
-						component={'h2'}
+						component={'h1'}
 						color='primary'>
 						Aviso de privacidad
 					</Typography>
 				</Box>
 				<Box marginTop={'2rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						1. IDENTIDAD Y DOMICILIO DEL RESPONSABLE
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'p'}>
+					<Typography variant='body1' component={'p'} align='justify'>
 						El presente aviso de privacidad rige el tratamiento de los datos
 						personales por parte sitio web pedidos.com.mx perteneciente a
 						Operadora de Soluciones para Oficina S.A. de C.V. , en adelante
@@ -36,11 +36,11 @@ export const AvisoPrivacidad = () => {
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						2. DEFINICIONES
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'p'}>
+					<Typography variant='body1' component={'p'} align='justify'>
 						Para efectos del presente Aviso, las definiciones de los términos
 						“Datos Personales”, “Datos Personales Sensibles”, “Días”,
 						“Tratamiento”, “Titular de los Datos”, “Responsable”,
@@ -52,11 +52,11 @@ export const AvisoPrivacidad = () => {
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						3. DATOS PERSONALES QUE RECOLECTAMOS Y TRATAMOS
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'div'}>
+					<Typography variant='body1' component={'p'} align='justify' >
 						En PEDIDOS.COM utilizamos el candado de seguridad SSL para proteger
 						la información de usuarios. Recolectamos y procesamos los datos
 						personales que a continuación se indican, según el caso aplicable:
@@ -136,11 +136,11 @@ export const AvisoPrivacidad = () => {
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						4. FINALIDADES
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'p'}>
+					<Typography variant='body1' component={'p'} align='justify'>
 						En PEDIDOS.COM tratamos tus datos personales con el objeto de llevar
 						a cabo las actividades y gestiones enfocadas a dar cumplimiento a
 						las obligaciones originadas y derivadas de cualquier relación
@@ -239,11 +239,11 @@ export const AvisoPrivacidad = () => {
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						5. CONSENTIMIENTO
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'p'}>
+					<Typography variant='body1' component={'p'} align='justify'>
 						Para la recolección, tratamiento y transferencia de tus datos
 						personales, que no sean financieros, patrimoniales ni sensibles, nos
 						proporcionarás tu consentimiento tácito en los términos del presente
@@ -262,27 +262,24 @@ export const AvisoPrivacidad = () => {
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						6. PAGO EN LINEA CON PayPal
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'p'}>
+					<Typography variant='body1' component={'p'} align='justify'>
 						“PayPal es un controlador independiente utilizado para procesar los
 						datos del cliente, información aquí:{' '}
-						<Link
-							href='https://www.paypal.com/mx/webapps/mpp/ua/privacy-full'
-							target='_blank'
-							rel='noopener noreferrer'>
-							<a>https://www.paypal.com/mx/webapps/mpp/ua/privacy-full”</a>
+						<Link href='https://www.paypal.com/mx/webapps/mpp/ua/privacy-full' passHref>
+							<a target="_blank" rel="noopener noreferrer"> https://www.paypal.com/mx/webapps/mpp/ua/privacy-full”</a>
 						</Link>
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						7. TRANSFERENCIAS
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'p'}>
+					<Typography variant='body1' component={'p'} align='justify'>
 						PEDIDOS.COM no lleva acabo ningún tipo de transferencia de datos
 						personales, aunque conforme a la LFPDPPP podrá transferir los datos
 						personales recolectados a empresas de su mismo grupo, existentes o
@@ -300,12 +297,12 @@ export const AvisoPrivacidad = () => {
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						8. PROCEDIMIENTO PARA EJERCER LOS DERECHOS ARCO Y REVOCACIÓN DEL
 						CONSENTIMIENTO.
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'p'}>
+					<Typography variant='body1' component={'p'} align='justify'>
 						En todo momento tienes el derecho de acceder, rectificar y cancelar
 						tus datos personales, así como a oponerte al tratamiento de los
 						mismos o a revocar tu consentimiento para el tratamiento con
@@ -389,11 +386,11 @@ export const AvisoPrivacidad = () => {
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						9. OFICIAL DE PRIVACIDAD.
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'p'}>
+					<Typography variant='body1' component={'p'} align='justify'>
 						Para cualquier consulta que tengas en torno a la protección de tus
 						datos personales, sírvete contactar a nuestro Oficial de Privacidad
 						en nuestras oficinas ubicadas en Alejandro Dumas 135 Planta baja
@@ -402,11 +399,11 @@ export const AvisoPrivacidad = () => {
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						10. LIMITACIÓN DE USO Y DIVULGACIÓN DE LA INFORMACIÓN
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'p'}>
+					<Typography variant='body1' component={'p'} align='justify'>
 						PEDIDOS.COM conservará tus datos personales durante el tiempo que
 						sea necesario para gestionar la relación jurídica contigo, así como
 						para mantener los registros que exigen la LFPDPPP, su Reglamento, la
@@ -482,11 +479,11 @@ export const AvisoPrivacidad = () => {
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						11. CAMBIOS AL AVISO.
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'p'}>
+					<Typography variant='body1' component={'p'} align='justify'>
 						PEDIDOS.COM podrá actualizar el presente Aviso a efecto de reflejar
 						los cambios en nuestras prácticas en materia de protección de datos
 						derivados de nuestro proceso de mejora continua, así como de los
@@ -505,11 +502,11 @@ export const AvisoPrivacidad = () => {
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>
-					<Typography variant='subtitle2' color='primary' component='h3'>
+					<Typography variant='subtitle1' component='h2' color='primary' >
 						12. MANIFESTACIÓN DEL CONSENTIMIENTO.
 					</Typography>
 					<br />
-					<Typography variant='body2' component={'p'}>
+					<Typography variant='body1' component={'p'} align='justify'>
 						A los efectos de dar tu consentimiento expreso para el tratamiento
 						de datos descrito en este Aviso de Privacidad, te pedimos por favor
 						firmar el presente documento y enviarlo a nuestro Oficial de

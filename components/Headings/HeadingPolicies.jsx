@@ -12,9 +12,9 @@ export const HeadingPolicies = ({
 			<Typography
 				align='center'
 				variant='h3'
-				component={'h2'}
+				component={'h1'}
 				color='primary'>
-				{children}
+				Políticas de envío, devoluciones y cancelaciones {/* {children} */}
 			</Typography>
 		</Box>
 	);

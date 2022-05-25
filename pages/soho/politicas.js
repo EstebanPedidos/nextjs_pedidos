@@ -1,7 +1,7 @@
 import React from 'react';
 // MATERIAL UI COMPONENTS
 // import { Box, Container, Icon, Typography } from '@material-ui/core';
-import { Box, Container, Icon, Typography } from '@mui/material';
+import { Box, Container, Icon, Typography, Button } from '@mui/material';
 
 //CUSTOM COMPONENTS
 import { Layout } from '/layout/Layout';
@@ -11,40 +11,38 @@ export const Politicas = () => {
 	return (
 		<Layout>
 			<Container maxWidth='xl'>
-				<HeadingPolicies>
-					Políticas de envío, devoluciones y cancelaciones
-				</HeadingPolicies>
+				<HeadingPolicies />
 				<PoliciesMenu />
 				<Container maxWidth='md' component={'section'}>
 					<Box marginTop='3em'>
 						<Typography
 							variant='h5'
-							component={'h3'}
+							component={'h2'}
 							color='primary'
 							gutterBottom>
 							Tiempo de entrega
 						</Typography>
-						<Box marginTop='1rem'>
-							<Typography component='p' gutterBottom>
+						<Box my={2} textAlign="justify">
+							<Typography variant='body1' component='p' gutterBottom>
 								Si vives en CDMX te entregamos tu pedido el
 								mismo día con entregas Express o en Pedidos.com
 								PickUp Center siempre y cuando el pedido no se
 								encuentre en diferentes bodegas.
 							</Typography>
-							<Typography gutterBottom component='p'>
+							<Typography gutterBottom variant='body1' component='p'>
 								Con las formas de envío que ofrecemos, el pago
 								debe de ser efectúado en 1 hra como máximo
 								después de haber reservado el producto para
 								poder respetar el horario y fecha de entrega.
 							</Typography>
-							<Typography component='p' gutterBottom>
+							<Typography variant='body1' component='p' gutterBottom>
 								En caso de que el pedido salga de diferentes
 								bodegas el tiempo se prolongará de 1 a 5 días
 								hábiles. Antes de pagar tu pedido aparecerá la
 								leyenda si el pedido sale o no de diferentes
 								bodegas.
 							</Typography>
-							<Typography component='p' gutterBottom>
+							<Typography variant='body1' component='p' gutterBottom>
 								En caso de que el producto tenga el aviso de
 								entrega más dos días, quiere decir que ese
 								producto se demorará 2 días en embarcarse o en
@@ -52,23 +50,23 @@ export const Politicas = () => {
 								mismo día y a su vez el tiempo de entrega se
 								demorará dos días extras.
 							</Typography>
-							<Typography component='p' gutterBottom>
+							<Typography variant='body1' component='p' gutterBottom>
 								El tiempo habitual de entrega de los pedidos es
 								de 1 a 5 días hábiles.
 							</Typography>
-							<Typography component='p' gutterBottom>
+							<Typography variant='body1' component='p' gutterBottom>
 								Existen códigos postales en donde ninguna de
 								nuestras paqueterías cumple con el tiempo de
 								entrega de 1 a 5 días hábiles. Por tal motivo no
 								podemos comprometernos con una fecha.
 							</Typography>
-							<Typography component='p' gutterBottom>
+							<Typography variant='body1' component='p' gutterBottom>
 								En caso de suscitarse algún problema, nos
 								comprometemos para dar un seguimiento oportuno
 								hasta que tu pedido sea entregado en óptimas
 								condiciones.
 							</Typography>
-							<Typography component='p' gutterBottom>
+							<Typography variant='body1' component='p' gutterBottom>
 								Pedidos.com PickUp Center. Este servicio de
 								entrega está disponible de Lunes a Sábado en
 								horarios laborales. Al pedir en línea en
@@ -90,7 +88,7 @@ export const Politicas = () => {
 								hábil y cumpla con los horarios hábiles
 								laborales.
 							</Typography>
-							<Typography component='p' gutterBottom>
+							<Typography variant='body1' component='p' gutterBottom>
 								Entrega Express. El servicio de Entrega Express
 								está disponible de Lunes a Viernes en días
 								laborales en un horario de 9:00hrs a 17:00hrs,

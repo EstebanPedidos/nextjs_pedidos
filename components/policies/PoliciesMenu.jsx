@@ -1,14 +1,12 @@
 import React from 'react';
-// ICONS
-import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
-import LocalShippingIcon from '@material-ui/icons/LocalShipping';
-import CreditCardIcon from '@material-ui/icons/CreditCard';
-import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import MarkunreadMailboxIcon from '@material-ui/icons/MarkunreadMailbox';
-
-//Materil Components
-// import { Box } from '@material-ui/core';
+//MUI5
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
+import AssignmentReturnOutlinedIcon from '@mui/icons-material/AssignmentReturnOutlined';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+//Material Components
 import { Box } from '@mui/material';
 //Custom components
 import { Item } from './PoliciesItem';
@@ -16,32 +14,32 @@ import { Item } from './PoliciesItem';
 // Others
 const items = [
 	{
-		icon: QueryBuilderIcon,
+		icon: AccessTimeOutlinedIcon,
 		title: 'Tiempo de entrega',
-		path: '/soho/politicas/politicas',
+		path: '/soho/politicas',
 	},
 	{
-		icon: LocalShippingIcon,
+		icon: LocalShippingOutlinedIcon,
 		title: 'Condiciones de envio',
-		path: '/soho/politicas/condiones-envio',
+		path: '/soho/politicas/condiciones-de-envio',
 	},
 	{
-		icon: CreditCardIcon,
+		icon: CreditCardOutlinedIcon,
 		title: 'Formas de pago',
-		path: '/soho/politicas/forma-pago',
+		path: '/soho/politicas/forma-de-pago',
 	},
 	{
-		icon: KeyboardReturnIcon,
+		icon: AssignmentReturnOutlinedIcon,
 		title: 'Devoluciones',
 		path: '/soho/politicas/devoluciones-garantias',
 	},
 	{
-		icon: LocalOfferIcon,
+		icon: LocalOfferOutlinedIcon,
 		title: 'Precios y existencia',
 		path: '/soho/politicas/precios',
 	},
 	{
-		icon: MarkunreadMailboxIcon,
+		icon: Inventory2OutlinedIcon,
 		title: 'Cajas de papel',
 		path: '/soho/politicas/cajas',
 	},
@@ -49,7 +47,7 @@ const items = [
 
 export const PoliciesMenu = () => {
 	return (
-		<Box
+		<Box  mb={6}
 			display='flex'
 			flexWrap='wrap'
 			gridGap={'.5rem'}
