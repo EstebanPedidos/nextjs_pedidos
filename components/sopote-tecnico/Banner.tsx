@@ -71,15 +71,15 @@ const useStyles = makeStyles(theme => ({
     },
   },
 
-  buttonA: {
-    border: '2px solid ' + theme.palette.primary.main,
-    color: theme.palette.primary.main,
+//   buttonA: {
+//     border: '2px solid ' + theme.palette.primary.main,
+//     color: theme.palette.primary.main,
     
-    '&:hover': {
-      border: '2px solid ' + theme.palette.primary.main,
-    },
+//     '&:hover': {
+//       border: '2px solid ' + theme.palette.primary.main,
+//     },
   }
-}))
+))
 
 export interface IBaseTextProps {
   children: JSX.Element,
@@ -95,12 +95,13 @@ export const BaseText: React.FC<IBaseTextProps> = ({
   const classes = useStyles()
 
   return (
-    <Typography
-      component={component}
-      className={clsx(classes.alignment, classes[textClass])}
-    >
-      {children}
-    </Typography>
+    // <Typography
+    //   component={component}
+    //   className={clsx(classes.alignment, classes[textClass])}
+    // >
+    //   {children}
+    // </Typography>
+    <span></span>
   )
 }
 
@@ -168,7 +169,7 @@ export const Banner = () => {
                 <Button
                   target="_blank"
                   href="https://calendly.com/pedidoscom/60min?back=1&month=2021-09"
-                  className={classes.buttonA}
+                //   className={classes.buttonA}
                   variant="outlined"
                   fullWidth
                   size="large"
