@@ -30,8 +30,8 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import 'swiper/css/pagination';
 
-import { Carousel } from 'react-responsive-carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+//import { Carousel } from 'react-responsive-carousel';
+//import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 
 
@@ -70,7 +70,8 @@ const useStyles = makeStyles((theme) => ({
 
   productCard: {
     maxWidth: 345,
-    margin:10,
+    marginTop:5,
+    marginBottom:5,
     padding:5,
     boxShadow: '0px 0px 16px rgb(54 85 166 / 8%), 0px 1px 4px rgb(54 85 166 / 8%)',
   },
@@ -298,7 +299,7 @@ export default function FichaTecnica(props){
                     </Script>
                 }
                 <Container maxWidth="xl">                
-                    <Box component="div" my={2}>
+                    <Box component="div" m={2}>
                         <Grid container direction="row" justifyContent="space-between" spacing={3}>
                             <Grid xs={12} sm={12} >
                                 <Box component="div">
@@ -308,23 +309,39 @@ export default function FichaTecnica(props){
                                             <Breadcrumb site='Home' categoria={datos.breadcrumb[0]} subcategoria={datos.breadcrumb[1]} productos={datos.breadcrumb[2]} variant="caption"/>
                                             :
                                             <Box sx={{ pt: 0.5 }}>
-                                                <Skeleton width="60%" />
+                                                <Skeleton width="25%" />
                                             </Box>
                                         } 
                                     </Box>  
                                 </Box>
-                                <Grid container spacing={6}>
+                                <Grid container spacing={2}>
                                     <Grid item xs={12} sm={8}>
                                         <Grid container>
                                             <Grid>
                                                 <Typography variant="h5" component="h1" sx={{fontWeight:'500'}}>
                                                     {(datos.hasOwnProperty('item_num'))?`${datos.descripcion.descripcion.urlName}`
-                                                    :<Skeleton width="80%" variant="text"/>}
+                                                    : 
+                                                    <Box sx={{ pt: 0.2, width: '100vw' }}>
+                                                        <Skeleton width='60%'height={40}/>
+                                                        <Skeleton width='40%' height={40}  />
+                                                    </Box>
+                                                    }
                                                 </Typography> 
                                             </Grid>
                                             <Grid item xs={12} sm={12} lg={7}>
-                                                {(datos.hasOwnProperty('item_num'))&&
-                                                <Box className={classes.width_carousel}>  
+                                                {(datos.hasOwnProperty('item_num'))?
+                                                <Box className={classes.width_carousel} sx={{position:'relative'}}> 
+                                                    <Box sx={{position:'absolute', right:'0', top:'0', zIndex:'2'}}>
+                                                         {(loading)?
+                                                            <CircularProgress />
+                                                            :
+                                                            <FormControlLabel name='favoritos'  onChange={addFavorito}
+                                                            control={
+                                                                <Checkbox checked={isFavorito} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+                                                            } 
+                                                            />
+                                                        }
+                                                    </Box> 
                                                     <Swiper
                                                     style={{
                                                     "--swiper-navigation-color": "#fff",
@@ -338,19 +355,10 @@ export default function FichaTecnica(props){
                                                     className="mySwiper2"
                                                     >
                                                         <SwiperSlide>
-                                                            {(loading)?
-                                                            <CircularProgress />
-                                                            :
-                                                            <FormControlLabel name='favoritos'  onChange={addFavorito}
-                                                            control={
-                                                                <Checkbox checked={isFavorito} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
-                                                            } 
-                                                            />
-                                                            }
                                                             <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`}  alt={datos.item_num} />
                                                         </SwiperSlide>
                                                         <SwiperSlide>
-                                                            {(loading)?
+                                                            {/* {(loading)?
                                                             <CircularProgress />
                                                             :
                                                             <FormControlLabel name='favoritos'  onChange={addFavorito}
@@ -358,19 +366,11 @@ export default function FichaTecnica(props){
                                                                 <Checkbox checked={isFavorito} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
                                                             }
                                                             />
-                                                            }
+                                                            } */}
                                                             <img width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
                                                         <SwiperSlide>
-                                                            {(loading)?
-                                                            <CircularProgress />
-                                                            :
-                                                            <FormControlLabel name='favoritos'  onChange={addFavorito}
-                                                            control={
-                                                                <Checkbox checked={isFavorito} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
-                                                            }
-                                                            />
-                                                            }
+                                                            
                                                             <img width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                         </SwiperSlide>
                                                         {(datos.hasOwnProperty('item_num'))&&
@@ -420,14 +420,20 @@ export default function FichaTecnica(props){
                                                     </Swiper>
                                                     
                                                 </Box>
+                                                :
+                                                <Box sx={{ pt: 0.5 }}>
+                                                    <Skeleton  width="98%" height={600} />
+                                                    <Skeleton width={90} height={90} />
+                                                </Box>
                                                 }
+                                                  
                                             </Grid>
                                             <Grid item xs={12} sm={12} lg={5}>
                                                 <Box>   
                                                     <Grid>
                                                         <Box component="div" pt={4}>
                                                             <Typography variant="subtitle1" component="h3" sx={{fontWeight:'500'}} className={classes.titDescription}>
-                                                                {(datos.hasOwnProperty('item_num'))?(datos.descripcion.descripcion.hasOwnProperty("titulo"))?`Especificaciones de  ${datos.descripcion.descripcion.titulo}`:``:<Skeleton variant="text" height={100} animation="wave"/>}
+                                                                {(datos.hasOwnProperty('item_num'))?(datos.descripcion.descripcion.hasOwnProperty("titulo"))?`Especificaciones de  ${datos.descripcion.descripcion.titulo}`:``:<Skeleton variant="text" height={60} animation="wave"/>}
                                                             </Typography>
                                                         </Box>
                                                         {(datos.hasOwnProperty('item_num'))?
@@ -450,12 +456,13 @@ export default function FichaTecnica(props){
                                                 </Grid>
                                                 <Divider />
                                                 <Grid item>
+                                                     {(datos.hasOwnProperty('item_num'))?
                                                     <Box component="div">                                                    
                                                         <Card elevation={0} sx={{backgroundColor:'#3655a51f'}}>
                                                             <CardContent>
                                                                 <Grid container justifyContent="center" alignItems="center">
                                                                     <Grid item xs>
-                                                                        <Box component="div" textAlign="center" p={2}>
+                                                                        <Box component="div" textAlign="center" >
                                                                             <Typography variant="body1">
                                                                             Hasta
                                                                             </Typography>
@@ -466,7 +473,7 @@ export default function FichaTecnica(props){
                                                                     </Grid>
                                                                     <Divider orientation="vertical" flexItem />
                                                                     <Grid item xs>
-                                                                        <Box component="div" textAlign="center" p={2} >
+                                                                        <Box component="div" textAlign="center" pl={1}>
                                                                             <Typography variant="body1">
                                                                             Pide y recoge en
                                                                             </Typography>
@@ -479,6 +486,9 @@ export default function FichaTecnica(props){
                                                             </CardContent>
                                                         </Card>
                                                     </Box>
+                                                    :
+                                                        <Skeleton variant="rectangle" width="100%" height={120} animation="wave"/>
+                                                    }
                                                 </Grid>
                                                 <Grid item>
                                                     <Box my={2}>
@@ -512,7 +522,9 @@ export default function FichaTecnica(props){
                                                                         </Grid>                                           
                                                                     </Grid>
                                                                 :
-                                                                <Skeleton variant="rectangular"  height={50} animation="wave"/>
+                                                                <Box sx={{ pl: 1 }}>
+                                                                    <Skeleton variant="rectangular" width="100%"  height={50} animation="wave"/>
+                                                                </Box>
                                                                 }
                                                                 </Grid>
                                                             </Grid>
@@ -524,173 +536,172 @@ export default function FichaTecnica(props){
                                     </Grid>
                                     <Grid item xs={12} sm={4}>
                                         {(datos.hasOwnProperty('item_num'))?                                        
-                                            <Paper variant="outlined" >
-                                                <Box component="div" m={4}>
-                                                <Typography>Precio unitario</Typography>
-                                                <Box component="div">
-                                                    <Grid container>
-                                                        <Grid item>
-                                                            <Box p={1}>
-                                                                <Typography variant="h4" component="subtitle1"> 
-                                                                ${(precio > 0)?Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):``}
-                                                                </Typography>
-                                                            </Box>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
-                                                                <Typography variant="subtitle1">
-                                                                ${(cortadosPA.indexOf(datos.cortado) >= 0 || articulosPA.indexOf(datos.item_num) >= 0)?(datos.precio_anterior > 0 && datos.precio_anterior > precio)?Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0,formato:true}):``:Precios('redondear_arriba',{subtotal:(((parseFloat(precio)*10)/100)+parseFloat(precio)),iva:0,formato:true})}
-                                                                </Typography> 
-                                                            </Box>
-                                                        </Grid>
-
+                                        <Paper variant="outlined" >
+                                            <Box component="div" m={4}>
+                                            <Typography>Precio unitario</Typography>
+                                            <Box component="div">
+                                                <Grid container>
+                                                    <Grid item>
+                                                        <Box p={1}>
+                                                            <Typography variant="h4" component="subtitle1"> 
+                                                            ${(precio > 0)?Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):``}
+                                                            </Typography>
+                                                        </Box>
                                                     </Grid>
-                                                </Box> 
+                                                    <Grid item>
+                                                        <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
+                                                            <Typography variant="subtitle1">
+                                                            ${(cortadosPA.indexOf(datos.cortado) >= 0 || articulosPA.indexOf(datos.item_num) >= 0)?(datos.precio_anterior > 0 && datos.precio_anterior > precio)?Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0,formato:true}):``:Precios('redondear_arriba',{subtotal:(((parseFloat(precio)*10)/100)+parseFloat(precio)),iva:0,formato:true})}
+                                                            </Typography> 
+                                                        </Box>
+                                                    </Grid>
+
+                                                </Grid>
+                                            </Box> 
+                                            <Box component="div">
                                                 <Box component="div">
-                                                    <Box component="div">
-                                                        <Box component="div" fullWidth>
-                                                            <div className={classes.root}>
-                                                                <Grid container alignItems="center" justifyContent="flex-start">
-                                                                {(datos.bodega !== "Ninguna")&&
-                                                                    <Box fontWeight="fontWeightBold">
-                                                                        <Grid item>
-                                                                            <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
-                                                                                <Grid item xs={2} sm={3} lg={1}><MopedOutlinedIcon color="primary"/></Grid>
-                                                                                <Grid item xs={10} sm={9} lg={11}>
-                                                                                    <Typography variant="subtitle2">Entrega EXPRESS,<Box component="span" sx={{color:'#3655a5'}}> CDMX {datos.horarioEntrega.horarioLocal}</Box> </Typography>
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                        <Grid item>
-                                                                            <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
-                                                                                <Grid item xs={2} sm={3} lg={1}><LocalShippingOutlinedIcon color="primary"/></Grid>
-                                                                                <Grid item xs={10} sm={9} lg={11}>
-                                                                                    <Typography variant="subtitle2">Entregas <Box component="span" sx={{color:'#3655a5'}}>al país {horentr.horarioForaneo}</Box></Typography>
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Box> 
-                                                                }
-                                                                
-                                                                {(datos.envio_gratis === "Y")&&
+                                                    <Box component="div" fullWidth>
+                                                        <div className={classes.root}>
+                                                            <Grid container alignItems="center" justifyContent="flex-start">
+                                                            {(datos.bodega !== "Ninguna")&&
+                                                                <Box fontWeight="fontWeightBold">
                                                                     <Grid item>
                                                                         <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
-                                                                            <Grid item><LocalShippingOutlinedIcon/></Grid>
-                                                                            <Grid item>
-                                                                                <Typography className={classes.green} variant="subtitle2">Envío GRATIS <span>en producto.</span></Typography>
+                                                                            <Grid item xs={2} sm={3} lg={2}><MopedOutlinedIcon color="primary"/></Grid>
+                                                                            <Grid item xs={10} sm={9} lg={10}>
+                                                                                <Typography variant="subtitle2">Entrega EXPRESS,<Box component="span" sx={{color:'#3655a5'}}> CDMX {datos.horarioEntrega.horarioLocal}</Box> </Typography>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
-                                                                }
+                                                                    <Grid item>
+                                                                        <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
+                                                                            <Grid item xs={2} sm={3} lg={2}><LocalShippingOutlinedIcon color="primary"/></Grid>
+                                                                            <Grid item xs={10} sm={9} lg={10}>
+                                                                                <Typography variant="subtitle2">Entregas <Box component="span" sx={{color:'#3655a5'}}>al país {horentr.horarioForaneo}</Box></Typography>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box> 
+                                                            }
+                                                            
+                                                            {(datos.envio_gratis === "Y")&&
+                                                                <Grid item>
+                                                                    <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
+                                                                        <Grid item><LocalShippingOutlinedIcon/></Grid>
+                                                                        <Grid item>
+                                                                            <Typography className={classes.green} variant="subtitle2">Envío GRATIS <span>en producto.</span></Typography>
+                                                                        </Grid>
+                                                                    </Grid>
                                                                 </Grid>
-                                                            </div>
-                                                        </Box>
-                                                    </Box>
-                                                    <Box component="div" pt={1}>
-                                                        <Typography variant="subtitle1" color="textSecondary">
-                                                            <Box component="span" fontWeight="fontWeightMedium">
-                                                                {(datos.disponibilidad > 20)?`¡Tenemos más de 20 piezas!`:`¡Tenemos ${datos.disponibilidad} piezas!`}
-                                                            </Box>
-                                                        </Typography>
-                                                    </Box> 
-                                                </Box>
-                                                <Box my={2}>
-                                                    <Grid container direction="row" justifyContent="center"
-                                                        alignItems="center" component="form" spacing={2}>
-                                                            <Grid item xs={4} sm={12} lg={4}>
-                                                                {(isManual)?
-                                                                <TextField fullWidth   id='cantidad' type="number" value={cantidad} onChange={({target})=>{setCantidad((parseInt(target.value) > datos.disponibilidad)?datos.disponibilidad:target.value)}} label="Cantidad"/>
-                                                                :
-                                                                <FormControl fullWidth variant="outlined" className={classes.formControl}>
-                                                                    <InputLabel id="demo-simple-select-outlined-label">Cant.</InputLabel>
-                                                                    <Select
-                                                                    id='cantidad'
-                                                                    value={cantidad}
-                                                                    onChange={({target})=>{ setCantidad(target.value); setIsManual((target.value === 6));}}
-                                                                    label="Cantidad"
-                                                                    >
-                                                                    <MenuItem value={1}>1</MenuItem>
-                                                                    <MenuItem value={2}>2</MenuItem>
-                                                                    <MenuItem value={3}>3</MenuItem>
-                                                                    <MenuItem value={4}>4</MenuItem>
-                                                                    <MenuItem value={5}>5</MenuItem>
-                                                                    <MenuItem value={6}>+5</MenuItem>
-                                                                    </Select>
-                                                                </FormControl>
-                                                                }
+                                                            }
                                                             </Grid>
-                                                            <Grid item xs={8} sm={12} lg={8}>
-                                                                <LoadingButton variant="outlined" color="secondary"  size="large" py={1} fullWidth elevation={0}
-                                                                onClick={()=>{add(false,'')}}
+                                                        </div>
+                                                    </Box>
+                                                </Box>
+                                                <Box component="div" pt={1}>
+                                                    <Typography variant="subtitle1" color="textSecondary">
+                                                        <Box component="span" fontWeight="fontWeightMedium">
+                                                            {(datos.disponibilidad > 20)?`¡Tenemos más de 20 piezas!`:`¡Tenemos ${datos.disponibilidad} piezas!`}
+                                                        </Box>
+                                                    </Typography>
+                                                </Box> 
+                                            </Box>
+                                            <Box my={2}>
+                                                <Grid container direction="row" justifyContent="center"
+                                                    alignItems="center" component="form" spacing={2}>
+                                                        <Grid item xs={4} sm={12} lg={4}>
+                                                            {(isManual)?
+                                                            <TextField fullWidth   id='cantidad' type="number" value={cantidad} onChange={({target})=>{setCantidad((parseInt(target.value) > datos.disponibilidad)?datos.disponibilidad:target.value)}} label="Cantidad"/>
+                                                            :
+                                                            <FormControl fullWidth variant="outlined" className={classes.formControl}>
+                                                                <InputLabel id="demo-simple-select-outlined-label">Cant.</InputLabel>
+                                                                <Select
+                                                                id='cantidad'
+                                                                value={cantidad}
+                                                                onChange={({target})=>{ setCantidad(target.value); setIsManual((target.value === 6));}}
+                                                                label="Cantidad"
+                                                                >
+                                                                <MenuItem value={1}>1</MenuItem>
+                                                                <MenuItem value={2}>2</MenuItem>
+                                                                <MenuItem value={3}>3</MenuItem>
+                                                                <MenuItem value={4}>4</MenuItem>
+                                                                <MenuItem value={5}>5</MenuItem>
+                                                                <MenuItem value={6}>+5</MenuItem>
+                                                                </Select>
+                                                            </FormControl>
+                                                            }
+                                                        </Grid>
+                                                        <Grid item xs={8} sm={12} lg={8}>
+                                                            <LoadingButton variant="outlined" color="secondary"  size="large" py={1} fullWidth elevation={0}
+                                                            onClick={()=>{add(false,'')}}
+                                                            loading={loading}
+                                                            loadingIndicator="Agregando..."
+                                                            >
+                                                                Agregar a carrito
+                                                            </LoadingButton>                                                         
+                                                        </Grid>
+                                                        <Grid item xs={12}>
+                                                            {(datos.disponibilidad  > 0)&&
+                                                                <LoadingButton variant="contained" color="secondary" onclick="" type="button" fullWidth size="large" elevation={0}
+                                                                onClick={()=>{add(true,'')}}
                                                                 loading={loading}
                                                                 loadingIndicator="Agregando..."
                                                                 >
-                                                                    Agregar a carrito
-                                                                </LoadingButton>                                                         
-                                                            </Grid>
-                                                            <Grid item xs={12}>
-                                                                {(datos.disponibilidad  > 0)&&
-                                                                    <LoadingButton variant="contained" color="secondary" onclick="" type="button" fullWidth size="large" elevation={0}
-                                                                    onClick={()=>{add(true,'')}}
-                                                                    loading={loading}
-                                                                    loadingIndicator="Agregando..."
-                                                                    >
-                                                                        Comprar ahora
-                                                                    </LoadingButton>
-                                                                }
-                                                            </Grid>
-                                                    </Grid>
-                                                </Box>
-                                                <Box component="div" pb={2}>
-                                                    {(precio > 500)?
-                                                        <Typography variant="subtitle1" color="primary" >
-                                                        Paga a 18 meses sin intereses de ${Precios('redondear_arriba',{subtotal:(precio/18),iva:0}).split('.')[0]}<sup>.{Precios('redondear_arriba',{subtotal:(precio/18),iva:0}).split('.')[1]}</sup>
-                                                        </Typography>:``
-                                                    }
-                                                </Box>
-                                                <Divider middle/>
-                                                <Box component="div" py={3}>
-                                                    <Cotizar item_num={datos.item_num}/>
-                                                </Box>
-                                                <Divider middle/>
-                                                <Box component="div">
-                                                {(subfamilia.hasOwnProperty(datos.descripcion.descripcion.subfamilia))&&
-                                                    ((subfamilia[datos.descripcion.descripcion.subfamilia] === 1 || subfamilia[datos.descripcion.descripcion.subfamilia] === 3) && hdi > 0)&&
-                                                    <Box pt={4}>
-                                                        <FormControl component="fieldset" >
-                                                        <FormLabel component="legend">Protección contra daños</FormLabel>
-                                                            <RadioGroup aria-label="duración" name="proteccion" value={isHDI} onChange={({target})=>{setisHDI(target.value)}}>
-                                                                <FormControlLabel value='ZZZSEGURO' control={<Radio />} label={
-                                                                <Typography>1 AÑO ${hdi}</Typography>
-                                                                }/>
-                                                                <FormControlLabel value='' control={<Radio />} label="No, por el momento" />
-                                                            </RadioGroup>
-                                                        </FormControl>
-                                                    </Box> 
+                                                                    Comprar ahora
+                                                                </LoadingButton>
+                                                            }
+                                                        </Grid>
+                                                </Grid>
+                                            </Box>
+                                            <Box component="div" pb={2}>
+                                                {(precio > 500)?
+                                                    <Typography variant="subtitle1" color="primary" >
+                                                    Paga a 18 meses sin intereses de ${Precios('redondear_arriba',{subtotal:(precio/18),iva:0}).split('.')[0]}<sup>.{Precios('redondear_arriba',{subtotal:(precio/18),iva:0}).split('.')[1]}</sup>
+                                                    </Typography>:``
                                                 }
-                                                </Box>
-                                                {(subfamilia.hasOwnProperty(datos.descripcion.descripcion.subfamilia))&&
-                                                    ((subfamilia[datos.descripcion.descripcion.subfamilia] === 2 || subfamilia[datos.descripcion.descripcion.subfamilia] === 3) && (garantext1 > 0 || garantext2 > 0))&&
-                                                    <Box pt={4}>
-                                                        <FormControl component="fieldset">
-                                                        <FormLabel component="legend">Protección contra daños</FormLabel>
-                                                            <RadioGroup aria-label="duración" name="garantiaext" value={isGarn} onChange={({target})=>{setIsGarn(target.value)}}>
-                                                                <FormControlLabel value="ZZZGAEXT1" control={<Radio />} label={
-                                                                <Typography>1 AÑO  ${garantext1}</Typography>
-                                                                }/>
-                                                                <FormControlLabel value="ZZZGAEXT2" control={<Radio />} label={
-                                                                <Typography>2 AÑOs  ${garantext2}</Typography>
-                                                                }/>
-                                                                <FormControlLabel value="" control={<Radio />} label="No, por el momento" />
-                                                            </RadioGroup>
-                                                        </FormControl>
-                                                    </Box>      
-                                                }
-                                                </Box>
-                                            </Paper>
-                                        
+                                            </Box>
+                                            <Divider middle/>
+                                            <Box component="div" py={3}>
+                                                <Cotizar item_num={datos.item_num}/>
+                                            </Box>
+                                            <Divider middle/>
+                                            <Box component="div">
+                                            {(subfamilia.hasOwnProperty(datos.descripcion.descripcion.subfamilia))&&
+                                                ((subfamilia[datos.descripcion.descripcion.subfamilia] === 1 || subfamilia[datos.descripcion.descripcion.subfamilia] === 3) && hdi > 0)&&
+                                                <Box pt={4}>
+                                                    <FormControl component="fieldset" >
+                                                    <FormLabel component="legend">Protección contra daños</FormLabel>
+                                                        <RadioGroup aria-label="duración" name="proteccion" value={isHDI} onChange={({target})=>{setisHDI(target.value)}}>
+                                                            <FormControlLabel value='ZZZSEGURO' control={<Radio />} label={
+                                                            <Typography>1 AÑO ${hdi}</Typography>
+                                                            }/>
+                                                            <FormControlLabel value='' control={<Radio />} label="No, por el momento" />
+                                                        </RadioGroup>
+                                                    </FormControl>
+                                                </Box> 
+                                            }
+                                            </Box>
+                                            {(subfamilia.hasOwnProperty(datos.descripcion.descripcion.subfamilia))&&
+                                                ((subfamilia[datos.descripcion.descripcion.subfamilia] === 2 || subfamilia[datos.descripcion.descripcion.subfamilia] === 3) && (garantext1 > 0 || garantext2 > 0))&&
+                                                <Box pt={4}>
+                                                    <FormControl component="fieldset">
+                                                    <FormLabel component="legend">Protección contra daños</FormLabel>
+                                                        <RadioGroup aria-label="duración" name="garantiaext" value={isGarn} onChange={({target})=>{setIsGarn(target.value)}}>
+                                                            <FormControlLabel value="ZZZGAEXT1" control={<Radio />} label={
+                                                            <Typography>1 AÑO  ${garantext1}</Typography>
+                                                            }/>
+                                                            <FormControlLabel value="ZZZGAEXT2" control={<Radio />} label={
+                                                            <Typography>2 AÑOs  ${garantext2}</Typography>
+                                                            }/>
+                                                            <FormControlLabel value="" control={<Radio />} label="No, por el momento" />
+                                                        </RadioGroup>
+                                                    </FormControl>
+                                                </Box>      
+                                            }
+                                            </Box>
+                                        </Paper>
                                         :
-                                        <Skeleton variant="rectangular"  height={600} animation="wave"/>
+                                        <Skeleton variant="rectangular"  height={880} animation="wave"/>
                                         }
                                     </Grid>
                                 </Grid>
@@ -707,24 +718,31 @@ export default function FichaTecnica(props){
                                                 <Swiper
                                                     modules={[Navigation]}
                                                     navigation
-                                                    spaceBetween={10}
-                                                    slidesPerView={4.5}
-                                                    onSlideChange={() => console.log('slide change')}
-                                                    onSwiper={(swiper) => console.log(swiper)}
+                                                    pagination={{
+                                                        clickable: true,
+                                                    }}
+                                                    slidesPerView={4}
+                                                    spaceBetween={15}
+                                                    className="mySwiper4"
                                                     breakpoints={{
-                                                        640: {
-                                                        slidesPerView: 2.2,
-                                                        
+                                                        320: {
+                                                            slidesPerView: 1.9,
+                                                            
+                                                          },
+                                                        630:{
+                                                            slidesPerView:2.2,
+                                                            
                                                         },
                                                         768: {
-                                                        slidesPerView: 3.3,
-                                                        
+                                                            slidesPerView: 3.2,
+                                                           
                                                         },
                                                         1024: {
-                                                        slidesPerView: 4.5,
-                                                        
+                                                            slidesPerView: 4.2,
+                                                           
                                                         },
-                                                    }}>
+                                                    }}
+                                                    >
                                                     { Object.keys(datos.relacionados.listaRelacionados).map((oneKey,i)=>{
                                                                 return (
                                                     <SwiperSlide key={i}>
