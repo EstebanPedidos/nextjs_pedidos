@@ -3,13 +3,14 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
 
 import { Layout } from '/layout/Layout';
-import Link from 'components/Link';
 import ArrowsContainer from 'components/ArrowsContainer';
 import AnimatedFigures from 'components/AnimatedFigures';
 import NumberedList from 'components/NumberedList';
+import CreditoUniclickForm from 'components/CreditoUniclickForm';
 
 const benefits = [
 	{
@@ -70,6 +71,33 @@ const list = [
 	},
 ];
 
+const CustomButton = styled(Button)({
+	position: "absolute",
+	boxShadow: 'none',
+	textTransform: 'none',
+	padding: '0 80px',
+	border: 0,
+	height: "80px",
+	fontWeight: 400,
+	lineHeight: 1.5,
+	color: "white",
+	backgroundColor: '#33C1FF',
+	fontSize: 20,
+	bottom: 0,
+	transform: "translateY(50%)",
+	'&:hover': {
+		backgroundColor: '#00b2ff',
+		boxShadow: '3px 3px 9px 1px #7e93eb6b',
+	},
+	'&:active': {
+		boxShadow: 'none',
+		backgroundColor: '#00b2ff',
+	},
+	'&:focus': {
+		boxShadow: '3px 3px 9px 1px #7e93eb6b',
+	},
+});
+
 const UniclickCredito = () => {
 	return (
 		<Layout title='Uniclick credito para empresas | Pedidos.com'>
@@ -88,87 +116,26 @@ const UniclickCredito = () => {
 				<Box width='90%' mx='auto'>
 					<Grid spacing={6} container>
 						<Grid xs={12} lg={6} item>
-							Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui
-							soluta numquam possimus fugiat sequi aliquid dolorum, nesciunt est
-							distinctio eligendi harum pariatur dolore nam iure, minima
-							maiores, tempore animi dignissimos.
-						</Grid>
-						<Grid xs={12} lg={6} item>
-							<Box
-								sx={{
-									width: {
-										sm: '70%',
-									},
-									ml: 'auto',
-									pt: 5,
-									pb: 5,
-									px: 7,
-									border: '1px solid #f5f5f5',
-									borderRadius: '15px',
-									boxShadow: '1px 1px 5px 0px rgb(0 0 0 / 8%)',
-									bgcolor: '#fff',
-									m: '10px auto',
-									position: 'relative',
-									zIndex: 999,
-								}}>
-								<Box
-									component='img'
-									src='https://pedidos.com/myfotos/pedidos-com/pagina/uniclick/uniclick.svg'
-									alt='Uniclick'
-									width='100%'
-									mx='auto'
-								/>
-
-								<Typography
-									fontSize={20}
-									textAlign='center'
-									fontWeight={500}
-									color='#333'>
-									Registra tus datos y en solo
+							<Box display="flex" flexDirection="column" justifyContent="center" height="100%" width="100%">
+								<Typography variant="h1" fontSize={45} fontWeight={400} color="#333" gutterBottom>
+									<strong>Pedidos.com y Uniclick,</strong> La alianza ideal para impulsar tu negocio
 								</Typography>
-								<Typography
-									fontSize={20}
-									textAlign='center'
-									fontWeight={500}
-									color='#4116C4'>
-									5 minutos aprobamos tu crédito.
+								<Typography fontSize={18} fontWeight={400} color="#333" sx={{ opacity: .6 }} lineHeight={1.929}>
+									Este es tu momento de crecer, somos tus aliados de negocio. Consigue hasta 3 millones de forma rápida, sencilla y sin sorpresas.
 								</Typography>
-
-								<Box display='flex' flexDirection='column' gap={1.5} mt={5}>
-									<TextField
-										label='Nombre'
-										variant='outlined'
-										size='small'
-										InputProps={{
-											sx: {
-												borderRadius: 5,
-											},
-										}}
-									/>
-									<TextField
-										label='Correo'
-										variant='outlined'
-										size='small'
-										InputProps={{
-											sx: {
-												borderRadius: 5,
-											},
-										}}
-									/>
-									<TextField
-										label='Teléfono'
-										variant='outlined'
-										size='small'
-										InputProps={{
-											sx: {
-												borderRadius: 5,
-											},
-										}}
-									/>
-								</Box>
 							</Box>
 						</Grid>
+
+						<Grid xs={12} lg={6} item>
+							<CreditoUniclickForm />
+						</Grid>
 					</Grid>
+				</Box>
+
+				<Box display={{ xs: "none", lg: "block" }}>
+					<CustomButton href="https://uniclick.com.mx/3104">
+						Conocer más
+					</CustomButton>
 				</Box>
 				<AnimatedFigures extended />
 			</Box>
@@ -332,7 +299,7 @@ const UniclickCredito = () => {
 					</Box>
 				</Container>
 			</Box>
-		</Layout>
+		</Layout >
 	);
 };
 
