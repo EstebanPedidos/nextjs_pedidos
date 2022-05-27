@@ -28,10 +28,14 @@ export default function ProductTab({datos}) {
       <div>
       <TabContext value={value}>
         <AppBar elevation={0} position='static' color='transparent'  >
-          <TabList onChange={handleChange} indicatorColor='primary' textColor='primary' variant='outlined' centered aria-label='Detalles de producto'>
+          <TabList pt={2} onChange={handleChange} indicatorColor='primary' textColor='primary' variant='outlined' centered aria-label='Detalles de producto'>
            
-            <Tab label='Especificaciones' value='1' />
-            <Tab label='Beneficios y promociones' value='2' />
+            <Tab label={
+              <Typography variant="h6" component="h5" >Especificaciones</Typography>
+              } value='1' />
+            <Tab label={
+              <Typography variant="h6" component="h5" >Beneficios y promociones</Typography>
+              } value='2' />
           </TabList>
         </AppBar>
        
@@ -78,20 +82,16 @@ export default function ProductTab({datos}) {
             container
             direction="row"
             justifyContent="space-around"
-            alignItems="center">
-              <Grid item>
+            alignItems="center" spacing={2}>
+              <Grid item xs={12} sm={12} lg={6}>
                 {/* <Paper elevation={3}>
                   <Box component="div" p={4}> */}
                   <Grid
                     container
                     direction="column"
                     justifyContent="space-between"
-                    alignItems="flex-start" spacing={1}>
-                      <Grid item>                   
-                        <Typography variant='h6' component="h5" sx={{fontWeight:'600'}}>
-                          Beneficios
-                        </Typography>                      
-                      </Grid>
+                    alignItems="flex-start" spacing={2}>
+                      
                       <Grid item>
                         <Grid
                           container
@@ -99,7 +99,7 @@ export default function ProductTab({datos}) {
                           justifyContent="space-between"
                           alignItems="center" >                         
                             <StorefrontOutlinedIcon />
-                            <Typography ml={2} variant='subtitle1' component="body1">
+                            <Typography ml={2} variant='h6' component="body1">
                               Recoge en PickUp Center*
                             </Typography>
                         </Grid>
@@ -113,7 +113,7 @@ export default function ProductTab({datos}) {
                             
                               <MopedOutlinedIcon />
                             
-                            <Typography ml={2} variant='subtitle1' component="body1">
+                            <Typography ml={2} variant='h6' component="body1">
                               Envío Express CDMX -3 hrs
                             </Typography>
                         </Grid>
@@ -127,7 +127,7 @@ export default function ProductTab({datos}) {
                             
                               <Inventory2OutlinedIcon />
                             
-                            <Typography ml={2} variant='subtitle1' component="body1">
+                            <Typography ml={2} variant='h6' component="body1">
                               Devoluciones con producto cerrado
                             </Typography>
                         </Grid>
@@ -141,7 +141,7 @@ export default function ProductTab({datos}) {
                             
                               <PaymentOutlinedIcon />
                             
-                            <Typography ml={2} variant='subtitle1' component="body1">
+                            <Typography ml={2} variant='h6' component="body1">
                               Paga al recibir y Programa tu entrega CDMX y Guadalajara
                             </Typography>
                         </Grid>
@@ -151,7 +151,7 @@ export default function ProductTab({datos}) {
                   {/* </Box>
                 </Paper> */}
               </Grid>
-              <Grid item>
+              <Grid item xs={12} sm={12} lg={6}>
                 <Grid 
                   container
                   direction="column"

@@ -67,6 +67,22 @@ export default function MainSlideShow() {
                 className="mySwiper"
 				onSlideChange={() => console.log('slide change')}
 				onSwiper={(swiper) => console.log(swiper)}>
+				<SwiperSlide>
+					<Box component="div">
+					<img 
+						src="https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/impresion-epson-ecotank-l3210.png"
+						srcSet="
+							https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/impresion-epson-ecotank-l3210-xs.png 800w,
+							https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/impresion-epson-ecotank-l3210-l.png 1200w,
+							https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/impresion-epson-ecotank-l3210.png 1600w,
+							"
+						alt="prueba"
+						layout="fill"
+						objectFit="cover"
+						objectPosition="bottom center"
+						/>
+					</Box>
+				</SwiperSlide>
 				<SwiperSlide> 
 
                     

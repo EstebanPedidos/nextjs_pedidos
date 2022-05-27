@@ -19,26 +19,26 @@ import { margin } from '@mui/system';
 const Boxcard = ({data})=>{
   return(
   <>  
-    <Box component="div" mt={1} p={2}>
+    {/* <Box component="div" mt={1} p={2}> */}
         <Paper elevation={8}>
             <Box component="div" sx={{position:'relative'}}>
                 <Grid container justifyContent="space-between" alignItems="center">
 					<Grid item xs={12} sm={6} md={6} lg={7}>
                         <Box component="div" textAlign="left" p={4} >
-                        <Typography variant="caption" color="textSecondary">Limpieza</Typography><br/>
-                        <Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
-                            {data.titulo}
-                        <Box component="span" sx={{color:'#f1861c'}}>
-                            {data.precio}
-                        </Box>
-                        </Typography>
-                        
-                        <Typography variant="subtitle1" sx={{fontWeight:'500'}}>
-                        {data.subtitle}
-                        </Typography>
-                        <Typography variant="subtitle2" color="textSecondary">
-                        {data.text1} 
-                        </Typography>
+                            <Typography variant="caption" color="textSecondary">Limpieza</Typography><br/>
+                            <Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
+                                {data.titulo}
+                            <Box component="span" sx={{color:'#f1861c'}}>
+                                {data.precio}
+                            </Box>
+                            </Typography>
+                            
+                            <Typography variant="subtitle1" sx={{fontWeight:'500'}}>
+                            {data.subtitle}
+                            </Typography>
+                            <Typography variant="subtitle2" color="textSecondary">
+                            {data.text1} 
+                            </Typography>
                         </Box> 
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={5}>
@@ -51,7 +51,7 @@ const Boxcard = ({data})=>{
                 </Grid>                    
             </Box>
         </Paper>
-    </Box>
+    {/* </Box> */}
         
   </> 
   )
@@ -59,7 +59,7 @@ const Boxcard = ({data})=>{
 export default function SecondaryCards() {
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center" spacing={4}>
+    <Grid container direction="row" justifyContent="center" alignItems="center" spacing={3}>
         <Grid item xs={12} sm={12} md={4} lg={4} >
             <Link href="/">
                 <a>

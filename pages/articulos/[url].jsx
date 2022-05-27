@@ -105,7 +105,7 @@ function TypographyDemo(props) {
         <div>
         {variants.map((variant) => (
             <Typography component="div" key={variant} variant={variant}>
-            {loading ? <Skeleton /> : variant}
+            {loading ? <Skeleton animation="wave" /> : variant}
             </Typography>
         ))}
         </div>
@@ -342,13 +342,13 @@ export default function FichaTecnica(props){
                                     </Box>  
                                 </Box>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={8}>
+                                    <Grid item xs={12} sm={7} md={8} lg={8}>
                                         <Grid container>
                                             <Grid>
                                                 <Typography variant="h5" component="h1" sx={{fontWeight:'500'}}>
                                                     {(datos.hasOwnProperty('item_num'))?`${datos.descripcion.descripcion.urlName}`
                                                     : 
-                                                    <Box sx={{ pt: 0.2, width: '100vw' }}>
+                                                    <Box sx={{ pt: 0.2, width: '80vw' }}>
                                                         <Skeleton width='60%'height={40}/>
                                                         <Skeleton width='40%' height={40}  />
                                                     </Box>
@@ -396,8 +396,9 @@ export default function FichaTecnica(props){
                                                             (datos.descripcion.descripcion.hasOwnProperty("link"))&&
                                                                 datos.descripcion.descripcion.link.split(',').map((link, index) => (
                                                                     <SwiperSlide key={index}>  
-                                                                        
-                                                                        <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts} onReady={onPlayerReady}/>
+                                                                        <Box component="div" py={6} alignItems="center" sx={{backgroundColor:'#000000',borderRadius:'8px'}}>
+                                                                            <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts} onReady={onPlayerReady}/>
+                                                                        </Box>
                                                                     </SwiperSlide>
                                                                 ))
                                                         }                                                                                                           
@@ -424,7 +425,9 @@ export default function FichaTecnica(props){
                                                             (datos.descripcion.descripcion.hasOwnProperty("link"))&&
                                                                 datos.descripcion.descripcion.link.split(',').map((link, index) => (
                                                                     <SwiperSlide key={index}>
+                                                                        <Box component="div" py={2} alignItems="center">
                                                                         <img width={'80%'}  height={'80%'} layout="responsive" src={`https://img.youtube.com/vi${(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length)}/0.jpg`} alt={datos.item_num}/>
+                                                                        </Box>
                                                                     </SwiperSlide>
                                                                 ))
                                                         }                                                       
@@ -450,13 +453,19 @@ export default function FichaTecnica(props){
                                                         {(datos.hasOwnProperty('item_num'))?
                                                         <ListDescription detalle={datos.detalle} />
                                                         :
-                                                        <Skeleton variant="rectangular"  height={400} animation="wave"/>
+                                                        <Box sx={{ pt: 0.5 }}>
+                                                            <Skeleton animation="wave" />
+                                                            <Skeleton width="60%" animation="wave" />
+                                                            <Skeleton animation="wave" />
+                                                            <Skeleton width="60%" animation="wave" />
+                                                        </Box>
+                                                        
                                                         }
                                                     </Grid>
                                                 </Box>
                                                 <Divider />
                                                 <Grid item>
-                                                    <Box my={1}>
+                                                    <Box py={1}>
                                                         {(datos.hasOwnProperty('item_num'))?
                                                         <Button color="primary" to="#more" size="large" fullWidth>
                                                             Ver todo {(cortadosPA.indexOf(datos.cortado) >= 0)? `del `:`de `}   {datos.descripcion.descripcion.titulo}
@@ -468,7 +477,7 @@ export default function FichaTecnica(props){
                                                 <Divider />
                                                 <Grid item>
                                                      {(datos.hasOwnProperty('item_num'))?
-                                                    <Box component="div">                                                    
+                                                    <Box component="div" pt={1}>                                                    
                                                         <Card elevation={0} sx={{backgroundColor:'#3655a51f'}}>
                                                             <CardContent>
                                                                 <Grid container justifyContent="center" alignItems="center">
@@ -545,7 +554,7 @@ export default function FichaTecnica(props){
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xs={12} sm={4}>
+                                    <Grid item xs={12} sm={5} md={4} lg={4}>
                                         {(datos.hasOwnProperty('item_num'))?                                        
                                         <Paper variant="outlined" >
                                             <Box component="div" m={4}>
@@ -577,17 +586,18 @@ export default function FichaTecnica(props){
                                                             {(datos.bodega !== "Ninguna")&&
                                                                 <Box fontWeight="fontWeightBold">
                                                                     <Grid item>
-                                                                        <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
-                                                                            <Grid item xs={2} sm={3} lg={2}><MopedOutlinedIcon color="primary"/></Grid>
-                                                                            <Grid item xs={10} sm={9} lg={10}>
+                                                                        <Grid container alignItems="center" justifyContent="center" spacing={1}>
+                                                                            <Grid item xs={2} sm={3} md={2} lg={1}>
+                                                                                <MopedOutlinedIcon color="primary"/></Grid>
+                                                                            <Grid item xs={10} sm={9} md={10} lg={11}>
                                                                                 <Typography variant="subtitle2">Entrega EXPRESS,<Box component="span" sx={{color:'#3655a5'}}> CDMX {datos.horarioEntrega.horarioLocal}</Box> </Typography>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
                                                                     <Grid item>
                                                                         <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
-                                                                            <Grid item xs={2} sm={3} lg={2}><LocalShippingOutlinedIcon color="primary"/></Grid>
-                                                                            <Grid item xs={10} sm={9} lg={10}>
+                                                                            <Grid item xs={2} sm={3} md={2} lg={1}><LocalShippingOutlinedIcon color="primary"/></Grid>
+                                                                            <Grid item xs={10} sm={9} md={10} lg={11}>
                                                                                 <Typography variant="subtitle2">Entregas <Box component="span" sx={{color:'#3655a5'}}>al país {horentr.horarioForaneo}</Box></Typography>
                                                                             </Grid>
                                                                         </Grid>
@@ -717,7 +727,7 @@ export default function FichaTecnica(props){
                                     </Grid>
                                 </Grid>
                                 <Grid> 
-                                    {(datos.hasOwnProperty('item_num'))&&
+                                    {(datos.hasOwnProperty('item_num'))?
                                     (datos.relacionados.listaRelacionados.length > 0  && datos.descripcion.descripcion.titulo !== undefined )&&
                                     <Box component="div" py={2}>
                                         <Typography variant="h6" component="h5" className={classes.titSuggest} >
@@ -810,11 +820,20 @@ export default function FichaTecnica(props){
                                             </Grid>  
                                         </Box>     
                                     </Box>
+                                    :
+                                    <Box sx={{ pt: 0.5 }}>
+                                        <Skeleton width="60%" />    
+                                        <Skeleton variant="rectangular" width="25%" height={250} animation="wave"/>
+                                    </Box>
                                     }
                                     {(datos.hasOwnProperty('item_num'))?
-                                    <ReviewItem item_num={datos.item_num.trim()} />
-                                    :
-                                    <Skeleton variant="rectangular"  height={250} animation="wave"/>
+                                    <Box pb={2}>
+                                        <ReviewItem item_num={datos.item_num.trim()} />
+                                    </Box>    
+                                        :
+                                    <Box sx={{ py: 0.5 }}>
+                                        <Skeleton variant="rectangular" width='100%'  height={80} animation="wave"/>
+                                    </Box>  
                                     }  
                                     
                                     {(datos.hasOwnProperty('item_num'))?

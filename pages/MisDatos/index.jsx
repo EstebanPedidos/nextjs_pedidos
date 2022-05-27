@@ -7,7 +7,7 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     Button, Select, TextField, Divider, Modal, Fade,
     Card, CardContent, CardMedia, CardActionArea, TextareaAutosize,
     FormHelperText, FormControl, MenuItem, IconButton,
-    Input, InputLabel, InputAdornment, Chip, Stack, Rating } from '@mui/material';
+    Input, InputLabel, InputAdornment, OutlinedInput, Chip, Stack, Rating } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -592,7 +592,7 @@ export default function MisDatos() {
   const formMisDatos = (
     <div>
         <Container maxWidth="lg">
-            <Box component="div">
+            <Box component="div" mt={2}>
                 <Grid 
                 container
                 direction="row"
@@ -602,8 +602,7 @@ export default function MisDatos() {
                         <Box component="div" py={2}>
                             <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
                                 Mis Datos
-                            </Typography>
-                            
+                            </Typography> 
                         </Box>
                     </Grid>
                     <Grid item xs={4} sm={3}>   
@@ -612,7 +611,7 @@ export default function MisDatos() {
                     </Box>
                     </Grid>
                 </Grid>
-                <Divider light/>
+                {/* <Divider light/> */}
                 <Box component="div" m={1} pb={4}>
                     {misDatos.tipoCuenta === "P" &&
                     <Box component="div" py={2}>
@@ -639,7 +638,7 @@ export default function MisDatos() {
                                     <Grid container justifyContent="center" spacing={2}>
                                         <Grid item xs={6}>
                                             {misDatos.nombre !== "" &&
-                                            <TextField fullWidth
+                                            <TextField fullWidth disabled
                                                 id="outlined-read-only-input"
                                                 label="Nombre(s)"
                                                 defaultValue={misDatos.nombre}
@@ -652,7 +651,7 @@ export default function MisDatos() {
                                         </Grid>
                                         <Grid item xs={6}>
                                             {misDatos.nombre !== "" &&
-                                            <TextField fullWidth
+                                            <TextField fullWidth  disabled
                                                 id="outlined-read-only-input"
                                                 label="Apellidos(s)"
                                                 defaultValue={misDatos.apellido}
@@ -665,7 +664,7 @@ export default function MisDatos() {
                                         </Grid>
                                         {misDatos.tipoCuenta === "N" &&
                                         <Grid item xs={12}>
-                                            <TextField fullWidth
+                                            <TextField fullWidth disabled
                                                 id="outlined-read-only-input"
                                                 label="Empresa"
                                                 defaultValue={misDatos.empresa}
@@ -678,7 +677,7 @@ export default function MisDatos() {
                                         }
                                         <Grid item xs={6}>
                                             {correo !== "" &&
-                                            <TextField fullWidth
+                                            <TextField fullWidth disabled
                                                 id="outlined-read-only-input"
                                                 label="Correo"
                                                 defaultValue={correo}
@@ -691,14 +690,13 @@ export default function MisDatos() {
                                         </Grid>
                                         <Grid item xs={6}>
                                             {misDatos.fechaNac !== "" &&
-                                            <TextField fullWidth
+                                            <TextField fullWidth disabled
                                             id="outlined-full-width" 
                                             label="Fecha de nacimiento" 
                                             defaultValue={misDatos.fechaNac}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
-                                            disabled
                                             variant="outlined"
                                             />
                                             }
@@ -707,13 +705,13 @@ export default function MisDatos() {
                                 </Grid> 
                                 <Grid item xs={12}>
                                     <Box component="div" py={2}>
-                                        <Divider variant="middle" light/>
+                                        <Divider  light/>
                                     </Box>
                                     <Box component="div" py={2}>
                                         <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                                             <Grid item xs={6}>
                                                 <Typography variant="h6" component="h4" >
-                                                <Box component="div" textAlign="left">Contraseña</Box>
+                                                    <Box component="div" textAlign="left">Contraseña</Box>
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={6}>
@@ -724,14 +722,14 @@ export default function MisDatos() {
                                         </Grid>
                                     </Box>
                                     <Box component="div" py={2}>
-                                        <Divider variant="middle" light/>
+                                        <Divider  light/>
                                     </Box>
                                 </Grid>  
                                 <Grid item xs={12}>
                                     <Grid container>
                                         <Grid item xs={6}>
                                             <Typography variant="h6" component="h5" gutterBottom>
-                                                Teléfono(s)
+                                                Contacto
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={6}>
@@ -779,77 +777,73 @@ export default function MisDatos() {
                                         </Typography>
                                         </Grid>
                                         <Grid item xs={6}>
-                                        <FormControl fullWidth className={classes.formControl}>
-                                            <Select variant="outlined"
-                                            value={celPrincipal}
-                                            onChange={handleChange}
-                                            displayEmpty
-                                            className={classes.selectEmpty}
-                                            inputProps={{ 'aria-label': 'Without label' }}
-                                            name="celPrincipal"
-                                            >
-                                            <MenuItem value="" disabled>
-                                                Seleccionar
-                                            </MenuItem>
-                                            {todosMisTelefonos.listPyCelularSms.map((row) => (
-                                                <MenuItem key={row.celular} value={row.celular}>{row.celular}</MenuItem>
-                                            ))}
-                                            </Select>
-                                            <FormHelperText>Seleccionar</FormHelperText>
-                                            
-                                        </FormControl>
+                                            <FormControl fullWidth className={classes.formControl}>
+                                                <Select variant="outlined"
+                                                value={celPrincipal}
+                                                onChange={handleChange}
+                                                displayEmpty
+                                                className={classes.selectEmpty}
+                                                inputProps={{ 'aria-label': 'Without label' }}
+                                                name="celPrincipal"
+                                                >
+                                                <MenuItem value="" disabled>
+                                                    Seleccionar
+                                                </MenuItem>
+                                                {todosMisTelefonos.listPyCelularSms.map((row) => (
+                                                    <MenuItem key={row.celular} value={row.celular}>{row.celular}</MenuItem>
+                                                ))}
+                                                </Select>
+                                                <FormHelperText>Seleccionar</FormHelperText>
+                                                
+                                            </FormControl>
                                         </Grid>
-                                        <Grid item xs={12}>
-                                        <Box component="div" py={2}>
-                                            <Divider variant="middle" light/>
-                                        </Box>
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                        </Grid>
-                                        {ultimoTransportista.layoutMail.comentario !=="NOHAYPEDIDOSENTREGADOS" || ultimoTransportista.layoutMail.comentario !=="ENTREGADOSINRESENANULL" || ultimoTransportista.layoutMail.comentario !=="ERRORALCONSULTARTRANSPORTISTA" &&
-                                        <Grid item xs={12} sm={6}>
-                                            <Box component="div" textAlign="left" pb={2}>
-                                                <Typography variant="body1" color="textSecondary">
-                                                    <Box component="div" textAlign="left">TE ENTREGO TU ÚLTIMO PEDIDO</Box>
-                                                </Typography>
-                                            </Box>
-                                            <Card className={classes.root}elevation={10}>
-                                                <Box component="div" m={1}>
-                                                    <CardContent >
-                                                    <Grid
-                                                        container
-                                                        direction="row"
-                                                        justifyContent="space-around"
-                                                        alignItems="center"
-                                                    >
-                                                        <Grid item>
-                                                            <LocalShippingOutlinedIcon color="textSecondary" fontSize="large"/>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Box component="div" py={1} textAlign="left">
-                                                                <Typography variant="subtitle1" sx={{fontWeight:'500'}} >
-                                                                    {ultimoTransportista.invoiceNum} Entrega Local
-                                                                </Typography>
-                                                                <Typography variant="subtitle2" color="textSecondary" >
-                                                                {ultimoTransportista.nombre} {ultimoTransportista.paterno}
-                                                                </Typography>
-                                                            </Box>
-                                                            <Button fullWidth variant="outlined" name="Modal4" onClick={handleOpen}>Evaluar </Button>
-
-                                                        </Grid>
-                                                    </Grid>
-                                                    </CardContent>
-                                                </Box>
-                                            </Card>
-                                        </Grid>
-                                        }
+                                        
                                     </Grid>
                                 </Grid>
-                                                    
+                                <Grid item xs={12}>
+                                    <Box component="div" py={2}>
+                                        <Divider variant="middle" light/>
+                                    </Box>
+                                </Grid>
+                                {ultimoTransportista.layoutMail.comentario !=="NOHAYPEDIDOSENTREGADOS" || ultimoTransportista.layoutMail.comentario !=="ENTREGADOSINRESENANULL" || ultimoTransportista.layoutMail.comentario !=="ERRORALCONSULTARTRANSPORTISTA" &&
+                                <Grid item xs={12} sm={6}>
+                                    <Box component="div" textAlign="left" pb={2}>
+                                        <Typography variant="body1" color="textSecondary">
+                                            <Box component="div" textAlign="left">TE ENTREGO TU ÚLTIMO PEDIDO</Box>
+                                        </Typography>
+                                    </Box>
+                                    <Card className={classes.root} elevation={10}>
+                                        <Box component="div" m={1}>
+                                            <CardContent >
+                                            <Grid
+                                                container
+                                                direction="row"
+                                                justifyContent="space-around"
+                                                alignItems="center"
+                                            >
+                                                <Grid item>
+                                                    <LocalShippingOutlinedIcon color="textSecondary" fontSize="large"/>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Box component="div" py={1} textAlign="left">
+                                                        <Typography variant="subtitle1" sx={{fontWeight:'500'}} >
+                                                            {ultimoTransportista.invoiceNum} Entrega Local
+                                                        </Typography>
+                                                        <Typography variant="subtitle2" color="textSecondary" >
+                                                        {ultimoTransportista.nombre} {ultimoTransportista.paterno}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Button fullWidth variant="outlined" name="Modal4" onClick={handleOpen}>Evaluar </Button>
 
+                                                </Grid>
+                                            </Grid>
+                                            </CardContent>
+                                        </Box>
+                                    </Card>
+                                </Grid>
+                                }
                             </Grid>
                         </Grid>
-
                     </Grid>
                 </Box>
             </Box>
@@ -877,7 +871,7 @@ export default function MisDatos() {
                             Edita tus Datos
                           </Box>
                       </Typography>
-                      <Box component="div" py={1}>
+                      <Box component="div" py={4}>
                         <Divider/>
                       </Box>
                     </Box>
@@ -919,9 +913,11 @@ export default function MisDatos() {
                         }}
                         />
                     </Grid>
+                </Grid>
                     {misDatos.tipoCuenta === "N" &&
-                        <span>
-                        <Grid item xs={6}>
+                        <div>
+                    <Grid container spacing={2}>        
+                        <Grid item xs={12}>
                             <TextField fullWidth
                             id="outlined-full-width" 
                             label="Empresa" 
@@ -936,10 +932,10 @@ export default function MisDatos() {
                             }}
                             />
                         </Grid>
-                        <Grid item xs={6}>
-                        </Grid>
-                        </span>
+                    </Grid>    
+                        </div>
                     }
+                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <TextField fullWidth
                         id="outlined-full-width" 
@@ -968,20 +964,21 @@ export default function MisDatos() {
                             shrink: true,
                         }}
                         /> */}
-
-                        <LocalizationProvider
-                        dateAdapter={AdapterDateFns}
-                        adapterLocale={esLocale}
-                        dateFormats=""
-                        >
-                            <DatePicker
-                            label='Fecha de nacimiento'
-                            name="fechaNac" 
-                            value={valueDate}
-                            onChange={handleChangeDate}
-                            renderInput={(params) => <TextField {...params} />}
-                            />
-                        </LocalizationProvider>  
+                        <Box pt={2}>
+                            <LocalizationProvider 
+                            dateAdapter={AdapterDateFns}
+                            adapterLocale={esLocale}
+                            dateFormats=""
+                            >
+                                <DatePicker
+                                label='Fecha de nacimiento'
+                                name="fechaNac" 
+                                value={valueDate}
+                                onChange={handleChangeDate}
+                                renderInput={(params) => <TextField fullWidth {...params} />}
+                                />
+                            </LocalizationProvider> 
+                        </Box>
                     </Grid>
                     <Grid item xs={12}>
                         <Button fullWidth size="large" color="primary"  onClick={(event) => { event.preventDefault();handleSubmit(misDatos.tipoCuenta)}}>Guardar</Button>
@@ -1005,91 +1002,91 @@ export default function MisDatos() {
         >
             <Fade in={open}>
             <Box component="div" className={classes.paper}>
-                <Box component="div" textAlign="center" m={1} py={2}>
+                <Box component="div" textAlign="center" m={1} pt={2}>
                     <Typography component="h3" variant="h5">
                         <Box component="span" fontWeight="fontWeightMedium">
-                        Cambiar Contraseña
+                            Cambiar Contraseña
                         </Box>
                     </Typography>
-                    <Box component="div" py={1}>
-                    <Divider/>
+                    <Box component="div" py={4}>
+                        <Divider/>
                     </Box>
-                </Box>
-                <Box component="div" justifyContet="center">
-                    <Grid container justifyContent="center" alignItems="center" mx={2} spacing={2}>
-                        <Grid item xs={12}>
-                            <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined" fullWidth>
-                                <InputLabel htmlFor="standard-adornment-password">Contraseña Actual</InputLabel>
-                                <Input 
-                                    id="standard-adornment-password"
-                                    name="passActual"
-                                    type={values.showPassword ? 'text' : 'password'}
-                                    value={values.password}
-                                    onChange={handleChangePass('password')}
-                                    endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={(event) => { event.preventDefault(); handleClickShowPassword('showPassword')}}
-                                        onMouseDown={handleMouseDownPassword}
-                                        >
-                                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                    }
-                                />
-                            </FormControl>
+                    <Box component="div">
+                        <Grid container justifyContent="center" alignItems="center" spacing={2}>
+                            <Grid item xs={12}>   
+                                <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined" fullWidth>
+                                    <InputLabel htmlFor="standard-adornment-password">Contraseña Actual</InputLabel>
+                                    <OutlinedInput 
+                                        id="standard-adornment-password"
+                                        name="passActual"
+                                        type={values.showPassword ? 'text' : 'password'}
+                                        value={values.password}
+                                        onChange={handleChangePass('password')}
+                                        endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={(event) => { event.preventDefault(); handleClickShowPassword('showPassword')}}
+                                            onMouseDown={handleMouseDownPassword}
+                                            >
+                                            {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                        }
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined" fullWidth>
+                                    <InputLabel htmlFor="standard-adornment-password">Nueva contraseña</InputLabel>
+                                    <OutlinedInput
+                                        id="standard-adornment-password"
+                                        name="nuevoPass"
+                                        type={values.showPassword2 ? 'text' : 'password'}
+                                        value={values.password2}
+                                        onChange={handleChangePass('password2')}
+                                        endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={(event) => { event.preventDefault(); handleClickShowPassword('showPassword2')}}
+                                            onMouseDown={handleMouseDownPassword}
+                                            >
+                                            {values.showPassword2 ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                        }
+                                    /> 
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined" fullWidth>
+                                    <InputLabel htmlFor="standard-adornment-password">Confirmar nueva contraseña</InputLabel>
+                                    <OutlinedInput
+                                        id="standard-adornment-password"
+                                        name="confirmaPass"
+                                        type={values.showPassword3 ? 'text' : 'password'}
+                                        value={values.password3}
+                                        onChange={handleChangePass('password3')}
+                                        endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={(event) => { event.preventDefault(); handleClickShowPassword('showPassword3')}}
+                                            onMouseDown={handleMouseDownPassword}
+                                            >
+                                            {values.showPassword3 ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                        }
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button fullWidth size="large" color="primary" onClick={cambioContrasena}>Guardar</Button>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12}>
-                            <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined" fullWidth>
-                                <InputLabel htmlFor="standard-adornment-password">Nueva contraseña</InputLabel>
-                                <Input
-                                    id="standard-adornment-password"
-                                    name="nuevoPass"
-                                    type={values.showPassword2 ? 'text' : 'password'}
-                                    value={values.password2}
-                                    onChange={handleChangePass('password2')}
-                                    endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={(event) => { event.preventDefault(); handleClickShowPassword('showPassword2')}}
-                                        onMouseDown={handleMouseDownPassword}
-                                        >
-                                        {values.showPassword2 ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                    }
-                                /> 
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined" fullWidth>
-                                <InputLabel htmlFor="standard-adornment-password">Confirmar nueva contraseña</InputLabel>
-                                <Input
-                                    id="standard-adornment-password"
-                                    name="confirmaPass"
-                                    type={values.showPassword3 ? 'text' : 'password'}
-                                    value={values.password3}
-                                    onChange={handleChangePass('password3')}
-                                    endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={(event) => { event.preventDefault(); handleClickShowPassword('showPassword3')}}
-                                        onMouseDown={handleMouseDownPassword}
-                                        >
-                                        {values.showPassword3 ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                    }
-                                />
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button fullWidth size="large" color="primary" onClick={cambioContrasena}>Guardar</Button>
-                        </Grid>
-                    </Grid>
+                    </Box>
                 </Box>
             </Box>
             </Fade>
@@ -1115,8 +1112,8 @@ export default function MisDatos() {
                                 Agrega Teléfono(s)
                             </Box>
                         </Typography>
-                        <Box component="div" py={1}>
-                        <Divider/>
+                        <Box component="div" py={4}>
+                            <Divider/>
                         </Box>
                     </Box>
                     <Grid container justifyContent="center" spacing={2}>
@@ -1194,7 +1191,7 @@ export default function MisDatos() {
                             Modificar Teléfono(s)
                         </Box>
                     </Typography>
-                    <Box component="div" py={1}>
+                    <Box component="div" py={4}>
                         <Divider/>
                     </Box>
                 </Box>
@@ -1253,9 +1250,11 @@ export default function MisDatos() {
                             </Grid>       
                         </Grid>
                         ))}
-                        <Box component="div" py={2}>
-                            <Divider variant="middle"/>
-                        </Box>
+                        <Grid item xs={12} component="div" py={2}>
+                            <Box component="div" textAlign="center" py={2}>
+                                <Divider />
+                            </Box>
+                        </Grid>
                         {todosMisTelefonos.listPyCelularSms.map((row) => (
                         <Grid item xs={12} key={row.celular}>
                             <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}> 

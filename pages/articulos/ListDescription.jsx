@@ -10,12 +10,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     maxWidth: 752,
   },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  title: {
-    margin: theme.spacing(2, 0, 1),
-  },
+
+ 
 }));
 
 
@@ -33,7 +29,7 @@ export default function ListDescription({detalle}) {
     <div className={classes.root}>
       <Grid container spacing={1}>
         <Grid item xs={12} md={12}>
-          <div className={classes.demo}>
+          <div>
             <List dense={dense}>                
                 {   
                     Object.keys(detalleD).map((oneKey,i)=>{
