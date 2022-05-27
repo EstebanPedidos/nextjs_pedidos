@@ -133,6 +133,7 @@ const Computer = () => {
 						},
 					}}
 					centered
+					ctaNewLine
 				/>
 			</Container>
 

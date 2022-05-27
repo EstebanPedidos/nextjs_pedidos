@@ -26,7 +26,7 @@ const options = [
 
 const Uniclick = () => {
 	return (
-		<Layout>
+		<Layout title='Soluciones para tu negocio con Uniclick | Pedidos.com'>
 			<Box
 				pt={12}
 				pb={15}
@@ -84,7 +84,11 @@ const Uniclick = () => {
 						container>
 						{options.map((option) => (
 							<Grid key={option.label} xs={12} md={6} item>
-								<ExpandableCard item={option} />
+								<Box
+									maxWidth={{ xs: '100%', sm: '430px', md: '100%' }}
+									mx='auto'>
+									<ExpandableCard item={option} />
+								</Box>
 							</Grid>
 						))}
 					</Grid>
