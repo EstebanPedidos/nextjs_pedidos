@@ -9,4 +9,7 @@ module.exports = withPWA({
 	images: {
 		domains: ['pedidos.com', 'img.youtube.com'],
 	},
+    experimental: {
+        outputStandalone: true
+      }
 });
