@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Box, Grid, Paper, Typography, Container, Backdrop,
-    Button, Select, TextField, Divider, Modal, Fade,
+    Button, Select, TextField, Divider, Modal, Fade, Popper,
     Card, CardContent, CardActions, CardMedia, CardActionArea, TextareaAutosize,
-    FormHelperText, FormControl, MenuItem, IconButton,
-    Input, InputLabel, InputAdornment, Chip, 
+    FormHelperText, FormControl, MenuList, MenuItem, IconButton,
+    Input, InputLabel, InputAdornment, Chip, Hidden,
     Stack, Rating } from '@mui/material';
 
 import makeStyles from '@mui/styles/makeStyles';
@@ -253,9 +253,9 @@ export default function MisPedidos() {
                 
 
                     <Grid container justifyContent="space-between" alignItems='center' spacing={2} key={row.pedidoNum}>
-                        <Grid item xs={12} sm={12} lg={3}> 
+                        <Grid item xs={12} sm={3} lg={3}> 
                             <Grid container direction="row" alignItems="center" justifyContent="center">
-                                <Grid item xs={6} sm={6} lg={12}>
+                                <Grid item xs={6} sm={12} lg={12}>
                                     <Link 
                                         href={{
                                         pathname: '/pedido',
@@ -268,7 +268,8 @@ export default function MisPedidos() {
                                         </Button>
                                     </Link>
                                 </Grid>
-                                <Grid item xs={6} sm={6} lg={12}>
+                                <Grid item xs={6} sm={12} lg={12}>
+                               
                                     <Box component="div" pr={5}>
                                         {row.estatusBoton === 'RESERVADO' &&
                                             <FormControl fullWidth className={classes.formControl}>
@@ -351,15 +352,18 @@ export default function MisPedidos() {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={12} lg={9} direction="row" justifyContent="center"alignItems="center" flexDirection="row"> 
+                        <Grid item xs={12} sm={9} lg={9} direction="row" justifyContent="center"alignItems="center" flexDirection="row"> 
                             
                                 <Box component="div" m={1} py={2}>
                                     <Grid container justifyContent="space-evenly" alignItems='center' spacing={spacing}>
+                                        <Grid item xs={4} sm={3} lg={2}> 
+                                            <Typography variant="body2">{row.fechaEntrega}</Typography>
+                                        </Grid>
                                         <Grid item xs={8} sm={6} lg={2}> 
                                             <Typography variant="body2">{row.formaEnvio}</Typography>
                                         </Grid>
                                         <Grid item xs={4} sm={3} lg={2}> 
-                                            <Typography variant="body2">{row.fechaEntrega}</Typography>
+                                            <Typography variant="body2">{row.horario}</Typography>
                                         </Grid>
                                         <Grid item xs={4} sm={3} lg={2}>
                                             <Typography variant="body2" >
@@ -402,9 +406,7 @@ export default function MisPedidos() {
                                                             <Chip icon={<PaidOutlinedIcon />} label="Reembolso Parcial" variant="outlined" />
                                                         }
                                         </Grid>
-                                        <Grid item xs={4} sm={3} lg={2}> 
-                                            <Typography variant="body2">{row.horario}</Typography>
-                                        </Grid>
+                                        
                                         
                                         <Grid item xs={2} sm={3} lg={1}>
                                             <IconButton onClick={(event) => { event.preventDefault();agregarAlCarrito(row.pedidoNum)}}><ShoppingCartOutlinedIcon/></IconButton>
@@ -499,12 +501,12 @@ export default function MisPedidos() {
                                                             direction="row"
                                                             justifyContent="space-between"
                                                             alignItems="center">
-                                                            <Grid item xs={10}>
+                                                            <Grid item xs={6} sm={7} lg={10}>
                                                                 <Typography variant="h6" component="h2" color="textSecondary"gutterBottom>
                                                                     Pedidos recientes
                                                                 </Typography>
                                                             </Grid>
-                                                            <Grid item xs={2}>
+                                                            <Grid item xs={6}  sm={5} lg={2}>
                                                                 <Button variant="outlined" color="primary" fullWidth size="large" name="Modal1" onClick={handleOpen}><HelpOutlineOutlinedIcon color="primary"/>&nbsp; Ayuda</Button>
                                                             </Grid>
                                                         </Grid>
@@ -516,41 +518,37 @@ export default function MisPedidos() {
                                                                     No.Pedido
                                                                 </Typography>
                                                         </Grid>
-                                                        <Grid item xs={9}>
-                                                        <Grid container justifyContent="space-between" alignItems='center' spacing={1}>
-                                                           
-                                                            
-                                                            
-                                                            <Grid item xs={2}>
-                                                                <Typography variant="subtitle2" color="textSecondary">
-                                                                    Entrega
-                                                                </Typography>
+                                                        <Hidden lgDown>
+                                                            <Grid item xs={9}>
+                                                            <Grid container justifyContent="space-between" alignItems='center' spacing={1}>
+                                                                <Grid item  xs={2}>
+                                                                    <Typography variant="subtitle2" color="textSecondary">
+                                                                        Fecha
+                                                                    </Typography>
+                                                                </Grid>
+                                                                <Grid item xs={3}>
+                                                                    <Typography variant="subtitle2" color="textSecondary">
+                                                                        Entrega
+                                                                    </Typography>
+                                                                </Grid>
+                                                                
+                                                                <Grid item xs={2}>
+                                                                    <Typography variant="subtitle2" color="textSecondary">
+                                                                        Total
+                                                                    </Typography>
+                                                                </Grid>
+                                                                <Grid item xs={2}>
+                                                                    <Typography variant="subtitle2" color="textSecondary">
+                                                                        Estatus
+                                                                    </Typography>
+                                                                </Grid>
+                                                                
+                                                                <Grid item xs={1}>
+                                                                
+                                                                </Grid>
                                                             </Grid>
-                                                            <Grid item  xs={2}>
-                                                                <Typography variant="subtitle2" color="textSecondary">
-                                                                    Fecha
-                                                                </Typography>
                                                             </Grid>
-                                                            <Grid item xs={2}>
-                                                                <Typography variant="subtitle2" color="textSecondary">
-                                                                    Total
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item xs={2}>
-                                                                <Typography variant="subtitle2" color="textSecondary">
-                                                                    Estatus
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item xs={2}>
-                                                                <Typography variant="subtitle2" color="textSecondary">
-                                                                Horario
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item xs={1}>
-                                                               
-                                                            </Grid>
-                                                        </Grid>
-                                                        </Grid>
+                                                        </Hidden>
                                                     </Grid>
                                                         {resultado ? Contenido : sinResultados}
                                                     </Box>

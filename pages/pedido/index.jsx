@@ -764,8 +764,8 @@ export default function Pedido(props) {
                                                     justifyContent="flex-end"
                                                     alignItems="center"
                                                     >
-                                                        <Grid item xs={12} sm={8}></Grid>
-                                                        <Grid item xs={6} sm={2}>
+                                                        <Grid item xs={12} sm={6} lg={8} ></Grid>
+                                                        <Grid item xs={6} sm={3} lg={2}>
                                                             <Typography variant="h6" color="textSecondary" gutterBottom>
                                                                 Envío: 
                                                             </Typography>
@@ -776,7 +776,7 @@ export default function Pedido(props) {
                                                                 Total:
                                                             </Typography>
                                                         </Grid>
-                                                        <Grid item xs={6} sm={2}>
+                                                        <Grid item xs={6} sm={3} lg={2}>
                                                             <Typography variant="h6" color="textSecondary" gutterBottom>
                                                                 $0.00
                                                             </Typography>
