@@ -120,6 +120,7 @@ const SubmitPayment = ({ customStyle,evento,total}) => {
 export default function Fields({clientToken,evento,total}) {	
 	var appendOption = function (options) {
 		if(parseFloat(total.replace(',','')) >= minMeses){
+			var ingresa = true;
 			var $installmentList = document.getElementById('installments');
 			var $option = document.createElement('option');	  
 			if (options.type === 'no_installments_option') {
@@ -202,17 +203,19 @@ export default function Fields({clientToken,evento,total}) {
 									qualifyingOptions.forEach(function (financialOption) {						
 										appendOption({ type: 'default_option' });
 										financialOption.qualifying_financing_options.forEach(function (qualifyingFinancingOption) {
-										appendOption({
-											type: 'installment_option',
-											data: {
-											  value: qualifyingFinancingOption.monthly_payment.value,
-											  currency_code: qualifyingFinancingOption.monthly_payment.currency_code,
-											  interval: qualifyingFinancingOption.credit_financing.interval,
-											  term: qualifyingFinancingOption.credit_financing.term,
-											  interval_duration: qualifyingFinancingOption.credit_financing.interval_duration,
-											  discount_percentage: qualifyingFinancingOption.discount_percentage
-											}
-										  });
+											if(parseInt(qualifyingFinancingOption.credit_financing.term) > 1){
+												appendOption({
+													type: 'installment_option',
+													data: {
+													value: qualifyingFinancingOption.monthly_payment.value,
+													currency_code: qualifyingFinancingOption.monthly_payment.currency_code,
+													interval: qualifyingFinancingOption.credit_financing.interval,
+													term: qualifyingFinancingOption.credit_financing.term,
+													interval_duration: qualifyingFinancingOption.credit_financing.interval_duration,
+													discount_percentage: qualifyingFinancingOption.discount_percentage
+													}
+												  });
+											}											
 										})						
 									})						
 							},					
