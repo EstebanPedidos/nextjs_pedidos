@@ -107,7 +107,7 @@ export function Navbar(props) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-	const [sesPartidas, setSesPartidas] = useState(0);
+	const [sesPartidas, setSesPartidas] = useState(props.partidas);
 
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -129,7 +129,7 @@ export function Navbar(props) {
 			setLogged(false);
 		}
 		setSesPartidas(localStorage.getItem('SesPartidas'));
-	}, []);
+	}, [props]);
 
 	useEffect(() => {
 		function checkUserData() {
@@ -148,7 +148,7 @@ export function Navbar(props) {
 		Token = localStorage.getItem('Token');
 		Usuario = localStorage.getItem('Usuario');
 		ejecutivoNum = localStorage.getItem('ejecutivoNum');
-	}, []);
+	}, [props]);
 
 	const handleClose = () => {
 		setOpenMenu(false);
@@ -321,6 +321,7 @@ export function Navbar(props) {
 
 	return (
 		<>
+		{props.partidas}
 			<HelpModal isOpen={openModal} onClose={handleOpenModal} />
 			<ElevationScroll {...props}>
 				<AppBar position='sticky'>
