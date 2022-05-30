@@ -811,7 +811,7 @@ export default function MisDatos() {
                                             <Box component="div" textAlign="left">TE ENTREGO TU ÚLTIMO PEDIDO</Box>
                                         </Typography>
                                     </Box>
-                                    <Card className={classes.root} elevation={10}>
+                                    <Card className={classes.root }elevation={10}>
                                         <Box component="div" m={1}>
                                             <CardContent >
                                             <Grid
@@ -1351,7 +1351,7 @@ export default function MisDatos() {
 
   return(
     <Layout> 
-        <Box className={classes.bgcontent} component="div">
+        <Box className={classes.bgcontent} component="div" >
             <Box component="div" m={1}>
                 <Grid
                     container
