@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-
-
 import {Box, Grid, Paper, Typography, Container, Backdrop,
     Button, Select, TextField, Divider, Modal, Fade,
     Card, CardContent, CardActions, CardMedia, CardActionArea, TextareaAutosize,
@@ -12,7 +10,7 @@ import makeStyles from '@mui/styles/makeStyles';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import esLocale from 'date-fns/locale/es'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -24,8 +22,14 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import SearchIcon from '@mui/icons-material/Search';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-
+import CachedOutlinedIcon from '@mui/icons-material/CachedOutlined';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import AssignmentReturnOutlinedIcon from '@mui/icons-material/AssignmentReturnOutlined';
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 //Component
 import { Layout } from 'layout/Layout';
 
@@ -62,7 +66,13 @@ const useStyles = makeStyles((theme) => ({
 },
 paperBox: {
     padding: theme.spacing(1), 
-    boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',
+    boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',  
+    marginBottom: '1rem',
+},
+
+bgcontent: {
+    backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
+    // background: '#F7F7F9',
 },
 }));
 
@@ -238,170 +248,174 @@ export default function MisPedidos() {
 
     const Contenido = (
         result.map((row) => (
-            <Grid container justifyContent="space-between" alignItems='center' spacing={2} key={row.pedidoNum}>
-                <Grid item xs={12} sm={4}> 
-                    <Card className={classes.paperBox}>
-                        <CardContent>
+            <Box component="div">
+                <Paper elevation={0} className={classes.paperBox}>
+                
+
+                    <Grid container justifyContent="space-between" alignItems='center' spacing={2} key={row.pedidoNum}>
+                        <Grid item xs={12} sm={12} lg={3}> 
                             <Grid container direction="row" alignItems="center" justifyContent="center">
-                            <Grid item xs={10}>
-                           
-                                <Typography variant="h6" component="subtitle2" color="textPrimary" gutterBottom>
-                                #{row.pedidoNum}
-                                </Typography>
-                           
-                            <Typography variant="body2" >
-                                 Total: ${(Math.round(row.precioTotal * 100) / 100).toFixed(2)}
-                            </Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                            <IconButton aria-label="info" color='primary'>
-                                <Link 
-                                href={{
-                                pathname: '/pedido',
-                                search: '?pedido='+row.pedidoNum,
-                                state: { pedido: row.pedidoNum }
-                                }}>
-                                <ArrowForwardIosIcon/>
-                                </Link>
-                            </IconButton>
-                            </Grid>
-                            </Grid>
-                        </CardContent>
-                        <CardActions>
-                            {row.estatusBoton === 'RESERVADO' &&
-                                <FormControl fullWidth className={classes.formControl}>
-                                    <InputLabel id="demo-simple-select-label">Reservado</InputLabel>
-                                    <Select variant='outlined'
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    onChange={handleChange}
-                                    >
-                                        <Button fullWidth color='primary' size="small">
-                                            <MenuItem>
-                                                <Link href={{
-                                                pathname: '/pedido',
-                                                search: '?pedido='+row.pedidoNum,
-                                                state: { pedido: row.pedidoNum }
-                                                }}>     
-                                                    Detalle
-                                                </Link>
-                                            </MenuItem>
+                                <Grid item xs={6} sm={6} lg={12}>
+                                    <Link 
+                                        href={{
+                                        pathname: '/pedido',
+                                        search: '?pedido='+row.pedidoNum,
+                                        state: { pedido: row.pedidoNum }
+                                        }}>
+                                        <Button color="primary" size="large" fullWidth endIcon={<ArrowForwardIosIcon />}>
+                                           <Typography
+                                           variant='h6' component='h3'> #{row.pedidoNum} </Typography>
                                         </Button>
-                                        {row.estatusEnvio != "RETURNED" && row.estatusEnvio != "REFUNDED" && 
-                                            <Button fullWidth color='primary' size="small" onClick={(event) =>{event.preventDefault(); window.location='https://pedidos.com/checkout/pedidoMiCuenta.asp?pedidoNum=' +row.pedidoNum}}>
-                                                <Link href="/checkout/direccion-de-envio"> 
-                                                    <a>
+                                    </Link>
+                                </Grid>
+                                <Grid item xs={6} sm={6} lg={12}>
+                                    <Box component="div" pr={5}>
+                                        {row.estatusBoton === 'RESERVADO' &&
+                                            <FormControl fullWidth className={classes.formControl}>
+                                                <InputLabel id="demo-simple-select-label">Reservado</InputLabel>
+                                                <Select variant='outlined' fullWidth
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                onChange={handleChange}
+                                                >
+                                                   
                                                         <MenuItem>
-                                                            Pagar
+                                                            <Link href={{
+                                                            pathname: '/pedido',
+                                                            search: '?pedido='+row.pedidoNum,
+                                                            state: { pedido: row.pedidoNum }
+                                                            }}>     
+                                                            
+                                                                Detalle
+                                                           
+                                                           </Link>
                                                         </MenuItem>
-                                                    </a>
-                                                </Link>
-                                            </Button>
+                                                    
+                                                    {row.estatusEnvio != "RETURNED" && row.estatusEnvio != "REFUNDED" && 
+                                                        <Button fullWidth color='primary' size="small" onClick={(event) =>{event.preventDefault(); window.location='https://pedidos.com/checkout/pedidoMiCuenta.asp?pedidoNum=' +row.pedidoNum}}>
+                                                            <Link href="/checkout/direccion-de-envio"> 
+                                                                <a>
+                                                                    <MenuItem>
+                                                                        Pagar
+                                                                    </MenuItem>
+                                                                </a>
+                                                            </Link>
+                                                        </Button>
+                                                    }
+                                                    {row.estatusComprobante != "CARGADO" && 
+                                                        <Button fullWidth size="small" 
+                                                        onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Comprobante%20de%20Pago%20Pedido%20'
+                                                        +row.pedidoNum
+                                                        +'&body=Adjunta%20tu%20Archivo%20JPG,%20PNG%20o%20PDF.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
+                                                        >   
+                                                            <MenuItem>
+                                                                Comprobante de pago
+                                                            </MenuItem>
+                                                        </Button> 
+                                                    }
+                                                    {row.linkOxxo != "" && 
+                                                        <Button  fullWidth size="small" onClick={(event) => { event.preventDefault(); window.open(row.linkOxxo,'','width=800,height=550,left=300,top=100,toolbar=yes')}}>
+                                                            <MenuItem>Pago OXXO</MenuItem>
+                                                        </Button>
+                                                    }
+                                                    <Button  fullWidth size="small" onClick={(event) => { event.preventDefault();cancelar(row.pedidoNum)}}>
+                                                        <MenuItem>Cancelar</MenuItem>
+                                                    </Button>
+                                                </Select>
+                                            </FormControl>
                                         }
-                                        {row.estatusComprobante != "CARGADO" && 
-                                            <Button fullWidth size="small" 
-                                            onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Comprobante%20de%20Pago%20Pedido%20'
-                                            +row.pedidoNum
-                                            +'&body=Adjunta%20tu%20Archivo%20JPG,%20PNG%20o%20PDF.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
-                                            >   
-                                                <MenuItem>
-                                                    Comprobante de pago
-                                                </MenuItem>
-                                            </Button> 
+                                        {row.estatusBoton === "PAGADO" &&
+                                            <FormControl className={classes.formControl}>
+                                                <InputLabel id="demo-simple-select-label">{row.estatusBoton}</InputLabel>
+                                                <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                
+                                                onChange={handleChange}
+                                                >
+                                                    <Button onClick={(event) => { event.preventDefault();cancelar(row.pedidoNum)}}>
+                                                        <MenuItem>Cancelar</MenuItem>
+                                                    </Button>
+                                                    {row.estatusComprobante != 'CARGADO' && 
+                                                        <Button onClick={cargarEvidencia(row.pedidoNum)}>
+                                                            <MenuItem>Comprobante de pago</MenuItem>
+                                                        </Button>
+                                                    }
+                                                </Select>
+                                            </FormControl>
                                         }
-                                        {row.linkOxxo != "" && 
-                                            <Button  fullWidth size="small" onClick={(event) => { event.preventDefault(); window.open(row.linkOxxo,'','width=800,height=550,left=300,top=100,toolbar=yes')}}>
-                                                <MenuItem>Pago OXXO</MenuItem>
-                                            </Button>
+                                        {row.estatusBoton !== "RESERVADO" && row.estatusBoton !== "PAGADO" &&
+                                            <Button variant="outlined" fullWidth size="large" name="Modal1" disabled>{row.estatusBoton}</Button>
                                         }
-                                        <Button  fullWidth size="small" onClick={(event) => { event.preventDefault();cancelar(row.pedidoNum)}}>
-                                            <MenuItem>Cancelar</MenuItem>
-                                        </Button>
-                                    </Select>
-                                </FormControl>
-                            }
-                            {row.estatusBoton === "PAGADO" &&
-                                <FormControl className={classes.formControl}>
-                                    <InputLabel id="demo-simple-select-label">{row.estatusBoton}</InputLabel>
-                                    <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    
-                                    onChange={handleChange}
-                                    >
-                                        <Button onClick={(event) => { event.preventDefault();cancelar(row.pedidoNum)}}>
-                                            <MenuItem>Cancelar</MenuItem>
-                                        </Button>
-                                        {row.estatusComprobante != 'CARGADO' && 
-                                            <Button onClick={cargarEvidencia(row.pedidoNum)}>
-                                                <MenuItem>Comprobante de pago</MenuItem>
-                                            </Button>
-                                        }
-                                    </Select>
-                                </FormControl>
-                            }
-                            {row.estatusBoton !== "RESERVADO" && row.estatusBoton !== "PAGADO" &&
-                                <Button variant="outlined" fullWidth size="large" name="Modal1" disabled>{row.estatusBoton}</Button>
-                            }
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={8} direction="row" justifyContent="center"alignItems="center" flexDirection="row"> 
-                    <Paper className={classes.paperBox}>
-                        <Box component="div" m={1} py={2}>
-                            <Grid container justifyContent="space-evenly" alignItems='center' spacing={spacing}>
-                                <Grid item xs={8} sm={6} lg={3}> 
-                                    <Typography variant="body2">{row.formaEnvio}</Typography>
-                                </Grid>
-                                <Grid item xs={4} sm={3} lg={2}> 
-                                    <Typography variant="body2">{row.fechaEntrega}</Typography>
-                                </Grid>
-                                <Grid item xs={4} sm={3} lg={2}> 
-                                    <Typography variant="body2">{row.horario}</Typography>
-                                </Grid>
-                                <Grid item xs={4} sm={8} lg={3}> 
-                                    {row.estatusEnvio == "Procesando." && 
-                                        <Typography variant="body2">Procesando.</Typography>
-                                    }
-                                    {row.estatusEnvio == "Procesando" && 
-                                        <Typography variant="body2">Procesando</Typography>
-                                    }
-                                    {row.estatusEnvio == "Esperando pago" && 
-                                        <Typography variant="body2">{row.estatusEnvio}</Typography>
-                                    }
-                                    {row.estatusEnvio == "Cancelado" && 
-                                        <Typography variant="body2">Cancelado</Typography>
-                                    }
-                                    {row.estatusEnvio == "Entregado" && 
-                                        <Typography variant="body2">Entregado</Typography>
-                                    }
-                                    {row.estatusEnvio == "Empacado" && 
-                                        <Typography variant="body2">Empacado</Typography>
-                                    }
-                                    {row.estatusEnvio == "Empacando" && 
-                                        <Typography variant="body2">Empacando</Typography>
-                                    }
-                                    {row.estatusEnvio == "Enviando" && 
-                                        <Typography variant="body2">Enviando</Typography>
-                                    }
-                                    {row.estatusEnvio == "RETURNED" && 
-                                        <Typography variant="body2">Regresado</Typography>
-                                    }
-                                    {row.estatusEnvio == "REFUNDED" && 
-                                        <Typography variant="body2">Reembolsado</Typography>
-                                    }
-                                    {row.estatusEnvio == "PARTIAL REFUNDED" && 
-                                        <Typography variant="body2">Reembolso Parcial</Typography>
-                                    }
-                                </Grid>
-                                <Grid item xs={2} sm={4} lg={2}>
-                                    <IconButton onClick={(event) => { event.preventDefault();agregarAlCarrito(row.pedidoNum)}}><ShoppingCartOutlinedIcon/></IconButton>
+                                    </Box>
                                 </Grid>
                             </Grid>
-                        </Box>
-                    </Paper>
-                </Grid>
-            </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm={12} lg={9} direction="row" justifyContent="center"alignItems="center" flexDirection="row"> 
+                            
+                                <Box component="div" m={1} py={2}>
+                                    <Grid container justifyContent="space-evenly" alignItems='center' spacing={spacing}>
+                                        <Grid item xs={8} sm={6} lg={2}> 
+                                            <Typography variant="body2">{row.formaEnvio}</Typography>
+                                        </Grid>
+                                        <Grid item xs={4} sm={3} lg={2}> 
+                                            <Typography variant="body2">{row.fechaEntrega}</Typography>
+                                        </Grid>
+                                        <Grid item xs={4} sm={3} lg={2}>
+                                            <Typography variant="body2" >
+                                                ${(Math.round(row.precioTotal * 100) / 100).toFixed(2)}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={4} sm={6} lg={3}> 
+                                                        {row.estatusEnvio == "Procesando." && 
+                                                            <Chip icon={<CachedOutlinedIcon />} label="Procesado..." variant="outlined" />
+                                                        }
+                                                        {row.estatusEnvio == "Procesando" && 
+                                                            <Chip icon={<CachedOutlinedIcon />} label="Procesado..." variant="outlined" />
+                                                        }
+                                                        {row.estatusEnvio == "Esperando pago" && 
+                                                             <Chip icon={<TimerOutlinedIcon />} label="Esperando Pago" variant="outlined" />
+                                                        }
+                                                        {row.estatusEnvio == "Cancelado" && 
+                                                            <Chip icon={<CancelOutlinedIcon />} label="Cancelado" variant="outlined" />
+                                                        }
+                                                        {row.estatusEnvio == "Entregado" && 
+                                                            <Chip icon={<CheckCircleOutlineIcon />} label="Entregado" variant="outlined" />          
+                                                        }
+                                                        {row.estatusEnvio == "Empacado" && 
+                                                            <Chip icon={<Inventory2OutlinedIcon />} label="Empacado" variant="outlined" />
+                                                         
+                                                        }
+                                                        {row.estatusEnvio == "Empacando" && 
+                                                            <Chip icon={<Inventory2OutlinedIcon />} label="Empacado" variant="outlined" />
+                                                        }
+                                                        {row.estatusEnvio == "Enviando" && 
+                                                            <Chip icon={<LocalShippingOutlinedIcon />} label="Enviando" variant="outlined" />
+                                                        }
+                                                        {row.estatusEnvio == "RETURNED" && 
+                                                            <Chip icon={<AssignmentReturnOutlinedIcon />} label="Regresado" variant="outlined" />
+                                                        }
+                                                        {row.estatusEnvio == "REFUNDED" && 
+                                                            <Chip icon={<PaidOutlinedIcon />} label="Reembolsado" variant="outlined" />
+                                                        }
+                                                        {row.estatusEnvio == "PARTIAL REFUNDED" && 
+                                                            <Chip icon={<PaidOutlinedIcon />} label="Reembolso Parcial" variant="outlined" />
+                                                        }
+                                        </Grid>
+                                        <Grid item xs={4} sm={3} lg={2}> 
+                                            <Typography variant="body2">{row.horario}</Typography>
+                                        </Grid>
+                                        
+                                        <Grid item xs={2} sm={3} lg={1}>
+                                            <IconButton onClick={(event) => { event.preventDefault();agregarAlCarrito(row.pedidoNum)}}><ShoppingCartOutlinedIcon/></IconButton>
+                                        </Grid>
+                                    </Grid>
+                                </Box>
+                            
+                        </Grid>
+                    </Grid>
+                </Paper>
+            </Box>
             ))
     )
 
@@ -427,98 +441,128 @@ export default function MisPedidos() {
 
     return(
         <Layout>
-        <div>
              <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
-                <Grid
-                    container
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="flex-start"
-                >
-                    <Grid item xs={12} sm={4} lg={3}>
-                        <MiCuentaSiderBar/> 
-                    </Grid>
-                    <Grid item xs={12} sm={8} lg={9}>
-                        <Box component="div">
-                            <Grid 
-                            container
-                            direction="row"
-                            justifyContent="space-around"
-                            alignItems="center">
-                                <Grid item xs={12} sm={4}>   
-                                    <Box component="div" py={2}>
-                                        <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
-                                        Pedidos
-                                        </Typography>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} sm={8}>   
-                                    <Box component="div" py={1}>
-                                    <Grid 
-                                        container
-                                        direction="row"
-                                        justifyContent="flex-end"
-                                        alignItems="center" spacing={1}>
-                                            <Grid item xs={12} sm={6}>
-                                                <LocalizationProvider
-                                                dateAdapter={AdapterDateFns}
-                                                adapterLocale={esLocale}
-                                                >
-                                                    <DatePicker
-                                                    views={['month','year']}
-                                                    label='Consulta pedidos pasados'
-                                                    minDate={new Date('2015-01-02')}
-                                                    maxDate={new Date()}
-                                                    value={valueDate}
-                                                    onChange={(newValue) => {
-                                                        consultaPorFecha(newValue); 
-                                                    }}
-                                                    renderInput={(params) => <TextField {...params} helperText='Consultar por mes/año' />}
-                                                    />
-                                                </LocalizationProvider>  
-                                            </Grid>
-                                            
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="flex-start"
+                    >
+                        <Grid item xs={12} sm={4} lg={3}>
+                            <MiCuentaSiderBar/> 
+                        </Grid>
+                        <Grid item xs={12} sm={8} lg={9}>
+                            <Box component="div">
+                                <Grid 
+                                container
+                                direction="row"
+                                justifyContent="space-around"
+                                alignItems="center">
+                                    <Grid item xs={12} sm={7}>   
+                                        <Box component="div" py={2}>
+                                            <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
+                                                Pedidos
+                                            </Typography>
+                                        </Box>
                                     </Grid>
-                                    </Box>
+                                    <Grid item xs={12} sm={5}>   
+                                        <Box component="div" py={1}>
+                                            <LocalizationProvider
+                                            dateAdapter={AdapterDateFns}
+                                            adapterLocale={esLocale}
+                                            >
+                                                <DatePicker
+                                                views={['month','year']}
+                                                label='Busca pedido por fecha'
+                                                minDate={new Date('2015-01-02')}
+                                                maxDate={new Date()}
+                                                value={valueDate}
+                                                onChange={(newValue) => {
+                                                    consultaPorFecha(newValue); 
+                                                }}
+                                                renderInput={(params) => <TextField fullWidth {...params} helperText='Selecciona mes y/o año' />}
+                                                />
+                                            </LocalizationProvider>
+                                        </Box>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            <Divider light/>
-                            <Box component="div" m={1}>
-                                <Grid container className={classes.root} spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Grid container direction="row" justifyContent="center" spacing={2}>
+                                {/* <Divider light/> */}
+                                <Box component="div" m={1}>
+                                    <Grid container className={classes.root} spacing={2}>
+                                        <Grid item xs={12}>
+                                            <Grid container direction="row" justifyContent="center" spacing={2}>
+                                                <Grid item xs={12}> 
+                                                    <Box component="div" py={2}>
+                                                        <Grid 
+                                                            container
+                                                            direction="row"
+                                                            justifyContent="space-between"
+                                                            alignItems="center">
+                                                            <Grid item xs={10}>
+                                                                <Typography variant="h6" component="h2" color="textSecondary"gutterBottom>
+                                                                    Pedidos recientes
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item xs={2}>
+                                                                <Button variant="outlined" color="primary" fullWidth size="large" name="Modal1" onClick={handleOpen}><HelpOutlineOutlinedIcon color="primary"/>&nbsp; Ayuda</Button>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Box>
+                                                    <Box>
+                                                    <Grid container justifyContent="space-between" alignItems='center'>
+                                                        <Grid item xs={3}>
+                                                                <Typography variant="subtitle2" color="textSecondary">
+                                                                    No.Pedido
+                                                                </Typography>
+                                                        </Grid>
+                                                        <Grid item xs={9}>
+                                                        <Grid container justifyContent="space-between" alignItems='center' spacing={1}>
+                                                           
+                                                            
+                                                            
+                                                            <Grid item xs={2}>
+                                                                <Typography variant="subtitle2" color="textSecondary">
+                                                                    Entrega
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item  xs={2}>
+                                                                <Typography variant="subtitle2" color="textSecondary">
+                                                                    Fecha
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item xs={2}>
+                                                                <Typography variant="subtitle2" color="textSecondary">
+                                                                    Total
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item xs={2}>
+                                                                <Typography variant="subtitle2" color="textSecondary">
+                                                                    Estatus
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item xs={2}>
+                                                                <Typography variant="subtitle2" color="textSecondary">
+                                                                Horario
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item xs={1}>
+                                                               
+                                                            </Grid>
+                                                        </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                        {resultado ? Contenido : sinResultados}
+                                                    </Box>
+                                                </Grid>
                                             
-                                            <Grid item xs={12}> 
-                                            <Box component="div" py={2}>
-                                            <Grid 
-                                                container
-                                                direction="row"
-                                                justifyContent="space-between"
-                                                alignItems="center">
-                                                <Grid item xs={8}>
-                                                    <Typography variant="h6" component="h2" color="textSecondary"gutterBottom>
-                                                        Pedidos recientes
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item xs={4}>
-                                                <Button variant="outlined" color="primary" fullWidth size="large" name="Modal1" onClick={handleOpen}><HelpOutlineOutlinedIcon color="primary"/>&nbsp; Ayuda</Button>
-                                                </Grid>
                                             </Grid>
-                                            </Box>
-                                            <Box>
-                                                 {resultado ? Contenido : sinResultados}
-                                            </Box>
-
-                                            </Grid>
-                                        
                                         </Grid>
                                     </Grid>
-                                </Grid>
+                                </Box>
                             </Box>
-                        </Box>
+                        </Grid>
                     </Grid>
-                </Grid>
                 </Box> 
             </Box>
             <Modal
@@ -636,8 +680,6 @@ export default function MisPedidos() {
             Añadiendo al carrito
                 </Alert>
             </Snackbar>
-        
-        </div>
         </Layout>
     );
 }
