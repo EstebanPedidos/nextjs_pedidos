@@ -19,8 +19,9 @@ const CUSTOM_FIELD_STYLE = {"border":"1px solid #606060","boxShadow":"2px 2px 10
 const INVALID_COLOR = {
 	color: "#dc3545",
 };
+const minMeses = 500;
 
-// Example of custom component to handle form submit
+// Example of custom component to handle form submit 
 const SubmitPayment = ({ customStyle,evento,total}) => {
 	const [paying, setPaying] 	= useState(false);
 	const cardHolderName 		= useRef(null);
@@ -37,7 +38,7 @@ const SubmitPayment = ({ customStyle,evento,total}) => {
 				) ||
 				!cardHolderName?.current?.value
 			) {
-				setAlerta({severity:'success',mensaje:'Ingresa un Nombre de Titular valido',vertical:'bottom',horizontal:'right'})
+				setAlerta({severity:'success',mensaje:'Ingresa todos los datos',vertical:'bottom',horizontal:'right'})
 				return
 			}
 			setPaying(true);
@@ -46,14 +47,16 @@ const SubmitPayment = ({ customStyle,evento,total}) => {
 				cardholderName: cardHolderName?.current?.value,
 				vault:checked,
 			}
-			const installment = document.getElementById('installments').value;
-			if (installment && installment !== '') {            
-				var choice = JSON.parse(installment);
-				submitOptions.installments = {
-					term: choice.term,
-					intervalDuration: choice.interval_duration
-				};
-			}		
+			if(parseFloat(total.replace(',','')) >= minMeses){
+				const installment = document.getElementById('installments').value;
+				if (installment && installment !== '') {            
+					var choice = JSON.parse(installment);
+					submitOptions.installments = {
+						term: choice.term,
+						intervalDuration: choice.interval_duration
+					};
+				}		
+			}
 			console.log(JSON.stringify(submitOptions))
 			hostedField.cardFields
 			.submit(submitOptions)
@@ -91,10 +94,10 @@ const SubmitPayment = ({ customStyle,evento,total}) => {
 				<FormControl>
 						<FormControlLabel  onChange={({target})=>{setChecked(target.checked)}} control={<Checkbox checked={checked}/>} label="Guardar" />
 				</FormControl>
-			{(parseFloat(total.replace(',','')) >= 500)&&
+			{(parseFloat(total.replace(',','')) >= minMeses)&&
 			<div >
 				<label >Meses</label>
-				<select  id="installments">
+				<select  id="installments" disabled>
 					<option value="">Completa el número de tarjeta</option>
 				</select>
 			</div>
@@ -116,49 +119,50 @@ const SubmitPayment = ({ customStyle,evento,total}) => {
 
 export default function Fields({clientToken,evento,total}) {	
 	var appendOption = function (options) {
-		var $installmentList = document.getElementById('installments');
-		var $option = document.createElement('option');	  
-		if (options.type === 'no_installments_option') {
-		  $option.setAttribute('value', '');
-		  $option.innerHTML = 'La tarjeta no aplica';
-		  $installmentList.disabled = true;
-		  $installmentList.innerHTML = '';
-		} else if (options.type === 'default_option') {
-		  $option.setAttribute('value', '');
-		  $installmentList.innerHTML = '';
-		  $option.innerHTML = 'Selecciona un plan si lo deseas';
-		  $installmentList.disabled = false;
-		} else if (options.type === 'error_option') {
-		  $option.setAttribute('value', '');
-		  $installmentList.innerHTML = '';
-		  $option.innerHTML = 'Error ingrese su tarjeta nuevamente si desea meses';
-		  $installmentList.disabled = false;
-		} else if (options.type === 'installment_option') {
-		  var term = options.data.term;
-		  $option.setAttribute('value', JSON.stringify({
-			term: term,
-			interval_duration: options.data.interval_duration,
-		  }));
-	  
-		  var optionCaption = [
-			options.data.value,
-			options.data.currency_code,
-			'x',
-			term,
-			"Meses"
-		  ].join(' ');
-		  $option.innerHTML = options.data.discount_percentage ? [
-			optionCaption,
-		  ].join(' ') : optionCaption;
-		  $installmentList.disabled = false;
+		if(parseFloat(total.replace(',','')) >= minMeses){
+			var $installmentList = document.getElementById('installments');
+			var $option = document.createElement('option');	  
+			if (options.type === 'no_installments_option') {
+			$option.setAttribute('value', '');
+			$option.innerHTML = 'La tarjeta no aplica';
+			$installmentList.disabled = true;
+			$installmentList.innerHTML = '';
+			} else if (options.type === 'default_option') {
+			$option.setAttribute('value', '');
+			$installmentList.innerHTML = '';
+			$option.innerHTML = 'Selecciona un plan si lo deseas';
+			$installmentList.disabled = false;
+			} else if (options.type === 'error_option') {
+			$option.setAttribute('value', '');
+			$installmentList.innerHTML = '';
+			$option.innerHTML = 'Error ingrese su tarjeta nuevamente si desea meses';
+			$installmentList.disabled = true;
+			} else if (options.type === 'installment_option') {
+			var term = options.data.term;
+			$option.setAttribute('value', JSON.stringify({
+				term: term,
+				interval_duration: options.data.interval_duration,
+			}));
+		
+			var optionCaption = [
+				options.data.value,
+				options.data.currency_code,
+				'x',
+				term,
+				"Meses"
+			].join(' ');
+			$option.innerHTML = options.data.discount_percentage ? [
+				optionCaption,
+			].join(' ') : optionCaption;
+			$installmentList.disabled = false;
+			}
+		
+			$installmentList.appendChild($option);
 		}
-	  
-		$installmentList.appendChild($option);
 	};
 
 	return (
 		<>
-			{total}
 			{clientToken ? (
 				<PayPalScriptProvider
 					options={{

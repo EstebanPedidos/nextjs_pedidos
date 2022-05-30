@@ -68,6 +68,7 @@ export default function Forma_de_pago(){
     const [max_cont_ent,setMaxCE]           = useState(1000)
     const [loading,setLoading]              = useState(false) 
     const [alerta,setAlerta]                = useState({})
+    const [idMeses,setIdMeses]              = useState([])
 
     function salectOption({target}){
         const {value,name} = target;
@@ -77,7 +78,8 @@ export default function Forma_de_pago(){
         }else if(name === 'sub_forma_pago'){
             setSubFormaPago(value)
         }else if(name === 'tarjeta_guardada'){
-            setTarjetaSave(value)         
+            setTarjetaSave(value)              
+            isMeses(value,((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc))      
         }
     }
     function continuarCompra(){
@@ -150,10 +152,16 @@ export default function Forma_de_pago(){
         }
     }
 
-    async function isMeses(id){
-        let services    = await Services('POST','/registrov2/CalculatedFinancingOptions?value='+((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc)+'&id='+id,{})
-        let meses       = await services.data 
-        return meses;
+    async function isMeses(id,total){
+        if(id !== 'nueva'){
+            setIdMeses([])
+            setLoading(true)
+            console.log('/registrov2/CalculatedFinancingOptions?value='+total+'&id='+id)
+            let services    = await Services('POST','/registrov2/CalculatedFinancingOptions?value='+total+'&id='+id,{})
+            let meses       = await services.data
+            setIdMeses(meses)
+            setLoading(false)
+        }        
     }
 
     useEffect(()=>{
@@ -168,6 +176,7 @@ export default function Forma_de_pago(){
                         let json         = await services.data  
                         if(json.resumen.estatus === 'R' && json.resumen.pvse === 'N'){
                             if(json.resumen.costoEnvio > 0 || json.resumen.envio.tipo !== ''){
+                                let total        = await ((json.resumen.subtotal+json.resumen.costoEnvio)-json.nc.montoNc)
                                 let cust_num     = await (cliente-(parseInt(json.resumen.direccion.dirNum)))
                                 let token        = await Services('POST','/registrov2/clientetoken?cust_num='+cust_num,{})
                                 let cliente_l    = await token.data 
@@ -175,11 +184,13 @@ export default function Forma_de_pago(){
                                 setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
                                 let tarjetas         = await cliente_l.getPaymentTokens
                                 let getPaymentTokens = await JSON.parse(tarjetas)
+                                let meses            = null;
                                 if(getPaymentTokens.length > 0){
-                                    let id = await getPaymentTokens[0].id;
-                                    setTarjetaSave(id) 
+                                    let id      = await getPaymentTokens[0].id;                                  
+                                    isMeses(id,total)
+                                    setTarjetaSave(id)                                    
                                 }
-                                setClientToken({clienteToken:cliente_l.clienteToken,getPaymentTokens:getPaymentTokens})
+                                setClientToken({clienteToken:cliente_l.clienteToken,getPaymentTokens:getPaymentTokens,meses:meses})
                                 setMaxCE((afiliado === 'S')?5000:1000)
                             }else{
                                 router.push('/checkout/forma-de-envio')
@@ -590,7 +601,7 @@ export default function Forma_de_pago(){
                                         <Box component="div" m={1} >
                                             <Divider light/>
                                         <Box component="div"  p={2}>
-                                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave} evento={data.jsonResumen.resumen.eventoNum} Delete={Delete} total={Precios('formatcurrency',{subtotal:((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc),fixed:2})}/>
+                                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave} evento={data.jsonResumen.resumen.eventoNum} Delete={Delete} total={Precios('formatcurrency',{subtotal:((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc),fixed:2})} idMeses={idMeses} loading={loading} setLoading={setLoading}/>
                                         </Box>
                                         </Box>
                                         :
