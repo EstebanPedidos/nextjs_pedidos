@@ -1,7 +1,9 @@
 import {useState,useEffect} from 'react'
 //Material
 import { Radio,RadioGroup,FormControlLabel,FormControl,
-    ListItemText,Box,Grid,Button,Avatar,Typography,Card, CardActions, Divider,} from '@mui/material';
+    ListItemText,Box,Grid,LinearProgress ,Avatar,Typography,Card, CardActions, Divider,
+    InputLabel, MenuItem,  Select} from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 //Componentes
 import Fields from './Fields';
@@ -15,9 +17,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Hostedfields({clientToken,salectOption,tajetaSave,evento,Delete,total}) {
+export default function Hostedfields({clientToken,salectOption,tajetaSave,evento,Delete,total,idMeses,loading,setLoading}) {
     const classes  = useStyles()
     const [clientTokenC,setClientTokenC] = useState({})
+    const [mes,setMes]                   = useState(0)
     useEffect(()=>{
         setClientTokenC(clientToken) 
     },[clientToken])
@@ -39,6 +42,14 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
     ELECTRON: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/electron.svg',
     CETELEM: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/cetelem.svg',
     CHINA_UNION_PAY: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/unionpay.svg',
+    }
+
+    function pagoTarjetaGuardada(){
+        if(tajetaSave !== 'nueva'){
+            setLoading(true)
+            alert('evento '+evento+' id '+tajetaSave+' term '+idMeses[mes-1].term+' interval_duration '+idMeses[mes-1].interval_duration)
+        }
+        
     }
 
     return (    
@@ -85,7 +96,7 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
                                                             <Box component="div" ml={1}>                                 
                                                                 <ListItemText id="list-label-payment-method" primary={
                                                                     <Typography component="subtitle2" sx={{ fontWeight:'500',}} >
-                                                                        XXX..{tarjeta.last_digits}
+                                                                        XXX..{tarjeta.last_digits} 
                                                                     </Typography>
                                                                 }/>
                                                             </Box> 
@@ -94,6 +105,27 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
                                                 </Box>  
                                             } control={<Radio />}/>
                                         </Box>
+                                        {(tajetaSave === tarjeta.id && idMeses.length > 0)&&                                        
+                                        <Box component="div" m={2}>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="demo-simple-select-label">Meses</InputLabel>
+                                                <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={mes}
+                                                label="mes"
+                                                onChange={({target})=>{setMes(target.value)}}
+                                                >
+                                                <MenuItem value={0}>Selecciona un plan</MenuItem>
+                                                {(idMeses.length > 0 )&&
+                                                idMeses.map((mes, index) => ( 
+                                                    <MenuItem key={index} value={index+1} >${mes.value} MXN x {mes.term} MESES</MenuItem>
+                                                ))
+                                                }                                                
+                                                </Select>
+                                            </FormControl>
+                                        </Box>
+                                        }
                                         <Divider variant="middle" light />
                                         <CardActions>
                                             <Eliminar
@@ -115,6 +147,13 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
                     </>
                     </div>
             </FormControl>
+            <LoadingButton variant="contained" fullWidth  size="large" color="secondary" type="button"
+            onClick={pagoTarjetaGuardada}
+            loading={loading}
+            loadingIndicator="Pagando..."
+            >
+                Pagar
+            </LoadingButton>
             </Box>           
         :        
         <Fields clientToken={clientTokenC.clienteToken} evento={evento} total={total}/>
