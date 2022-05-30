@@ -1,4 +1,6 @@
 import {useState,useEffect} from 'react'
+//next js
+import { useRouter } from 'next/router'
 //Material
 import { Radio,RadioGroup,FormControlLabel,FormControl,
     ListItemText,Box,Grid,LinearProgress ,Avatar,Typography,Card, CardActions, Divider,
@@ -8,7 +10,9 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 //Componentes
 import Fields from './Fields';
 import Eliminar from '../modals/Eliminar';
-
+import Alertas from "../Alertas";
+//SERVICIOS
+import Services from '../../services/Services'
 import makeStyles from '@mui/styles/makeStyles';
 const useStyles = makeStyles((theme) => ({
     rootcardi: {
@@ -21,6 +25,8 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
     const classes  = useStyles()
     const [clientTokenC,setClientTokenC] = useState({})
     const [mes,setMes]                   = useState(0)
+    const [alerta,setAlerta]    	     = useState({})
+    const router    			         = useRouter()
     useEffect(()=>{
         setClientTokenC(clientToken) 
     },[clientToken])
@@ -44,12 +50,30 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
     CHINA_UNION_PAY: 'https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/brand/unionpay.svg',
     }
 
-    function pagoTarjetaGuardada(){
+    async function pagoTarjetaGuardada(){
         if(tajetaSave !== 'nueva'){
             setLoading(true)
-            alert('evento '+evento+' id '+tajetaSave+' term '+idMeses[mes-1].term+' interval_duration '+idMeses[mes-1].interval_duration)
-        }
-        
+            let term                = await (mes > 0 )?idMeses[mes-1].term:''
+            let interval_duration   = await (mes > 0 )?idMeses[mes-1].interval_duration:''
+            let services            = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'})
+            let orderId             = await services.data
+            if(orderId !== '' && orderId !== 'null' && orderId !== null){
+                let services    = await Services('POST-NOT','/registrov2/getOrderPayPal',{evento:evento,orderID:orderId,address:'192.10.2.166',isSTC:'S',id_PayTok:tajetaSave, term:term,interval_duration:interval_duration})
+                let dataResp    = await services.data
+                if(dataResp.estatus == "COMPLETED" || dataResp.estatus == "completed"){
+                    router.push('/checkout/confirmacion-de-pago')
+                }else{
+                    setAlerta({severity:'error',mensaje:'Error '+dataResp.estatus,vertical:'bottom',horizontal:'right'})
+                    setLoading(false)
+                }               
+            } else{
+                setAlerta({severity:'error',mensaje:'Error al crear la orden',vertical:'bottom',horizontal:'right'})
+                setLoading(false)
+            }               
+        }else{
+            setAlerta({severity:'error',mensaje:'Selecciona una Tarjeta',vertical:'bottom',horizontal:'right'})
+            setLoading(false)
+        }        
     }
 
     return (    
@@ -105,7 +129,7 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
                                                 </Box>  
                                             } control={<Radio />}/>
                                         </Box>
-                                        {(tajetaSave === tarjeta.id && idMeses.length > 0)&&                                        
+                                        {(tajetaSave === tarjeta.id && idMeses.length > 1)&&                                        
                                         <Box component="div" m={2}>
                                             <FormControl fullWidth>
                                                 <InputLabel id="demo-simple-select-label">Meses</InputLabel>
@@ -119,6 +143,7 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
                                                 <MenuItem value={0}>Selecciona un plan</MenuItem>
                                                 {(idMeses.length > 0 )&&
                                                 idMeses.map((mes, index) => ( 
+                                                    (parseInt(mes.term) > 1)&&
                                                     <MenuItem key={index} value={index+1} >${mes.value} MXN x {mes.term} MESES</MenuItem>
                                                 ))
                                                 }                                                
@@ -150,10 +175,13 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
             <LoadingButton variant="contained" fullWidth  size="large" color="secondary" type="button"
             onClick={pagoTarjetaGuardada}
             loading={loading}
-            loadingIndicator="Pagando..."
+            loadingIndicator="Espera..."
             >
                 Pagar
             </LoadingButton>
+            {(alerta.hasOwnProperty('severity'))&&
+				<Alertas setAlerta={setAlerta} alerta={alerta}/>
+			}
             </Box>           
         :        
         <Fields clientToken={clientTokenC.clienteToken} evento={evento} total={total}/>
