@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 //next js
 import { useRouter } from 'next/router'
 //Material
-import {Checkbox ,FormControlLabel,FormControl} from '@mui/material';
+import {Checkbox ,FormControlLabel,FormControl, Typography, Box, Divider, Grid, Button} from '@mui/material';
 //PAYPAL
 import {
 	PayPalScriptProvider,
@@ -15,7 +15,7 @@ import Services from '../../services/Services'
 //Componentes
 import Alertas from "../Alertas";
 
-const CUSTOM_FIELD_STYLE = {"border":"1px solid #606060","boxShadow":"2px 2px 10px 2px rgba(0,0,0,0.1)"};
+const CUSTOM_FIELD_STYLE = {"border":"1px solid rgba(0, 0, 0, 0.12)", "borderRadius":"5px","padding":"1rem", "height":"50px", "margin-bottom":"15px",/* "boxShadow":"2px 2px 10px 2px rgba(0,0,0,0.1)" */};
 const INVALID_COLOR = {
 	color: "#dc3545",
 };
@@ -86,29 +86,38 @@ const SubmitPayment = ({ customStyle,evento,total}) => {
 					id="card-holder"
 					ref={cardHolderName}
 					className="card-field"
-					style={{ ...customStyle, outline: "none" }}
+					style={{ ...customStyle, outline: "none", width:'100%', }}
 					type="text"
 					placeholder="Nombre.."
 				/>
-				</label>
+			</label>
 				<FormControl>
-						<FormControlLabel  onChange={({target})=>{setChecked(target.checked)}} control={<Checkbox checked={checked}/>} label="Guardar" />
+						<FormControlLabel  onChange={({target})=>{setChecked(target.checked)}} control={<Checkbox checked={checked}/>} label={
+							<Typography variant="subtitle1" component="h4" sx={{fontWeight:'500'}}>Guardar</Typography>
+						} />
 				</FormControl>
+			
+			<Box component="div" py={2}><Divider light /></Box>
 			{(parseFloat(total.replace(',','')) >= minMeses)&&
-			<div >
-				<label >Meses</label>
-				<select  id="installments" disabled>
+			
+			<div>
+				<label>
+					<Typography variant="subtitle1" component="h4" sx={{fontWeight:'500'}}>
+						Pagar a meses sin intereses de:
+					</Typography>
+				</label>
+				<select style={{ "border":"1px solid rgba(0, 0, 0, 0.12)", "borderRadius":"5px","padding":"10px", "height":"50px", "margin":"10px auto", "font-family":"Poppins", "font-size":"16px", outline: "none", width:'100%', }} id="installments" disabled>
 					<option value="">Completa el número de tarjeta</option>
 				</select>
 			</div>
 			}
-			<button
+			<Button variant="contained" fullWidth color="secondary"
 				className={`btn${paying ? "" : " btn-primary"}`}
 				style={{ float: "right" }}
 				onClick={handleClick}
 			>
 				{paying ? <div className="spinner tiny" /> : "Pagar"}
-			</button>
+			</Button>
 			{(alerta.hasOwnProperty('severity'))&&
 				<Alertas setAlerta={setAlerta} alerta={alerta}/>
 			}
@@ -131,7 +140,7 @@ export default function Fields({clientToken,evento,total}) {
 			} else if (options.type === 'default_option') {
 			$option.setAttribute('value', '');
 			$installmentList.innerHTML = '';
-			$option.innerHTML = 'Selecciona un plan si lo deseas';
+			$option.innerHTML = 'Selecciona mensualidades';
 			$installmentList.disabled = false;
 			} else if (options.type === 'error_option') {
 			$option.setAttribute('value', '');
@@ -164,7 +173,23 @@ export default function Fields({clientToken,evento,total}) {
 
 	return (
 		<>
+		
 			{clientToken ? (
+			<Box component="div" py={2}>
+				<Box component="div" pb={4}>
+					<Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
+						<Grid item xs={8} sm={8}>
+							<Typography variant="subtitle1" component="h4" sx={{fontWeight:'500'}}>
+								Detalles de la tarjeta
+							</Typography>
+						</Grid>
+						<Grid item xs={4} sm={4}>
+							<Button disableElevation variant="contained" fullWidth>
+								Regresar
+							</Button>
+						</Grid>
+					</Grid>
+				</Box>
 				<PayPalScriptProvider
 					options={{
 						"client-id":"ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_",
@@ -177,7 +202,7 @@ export default function Fields({clientToken,evento,total}) {
 					}}
 				>
 					<PayPalHostedFieldsProvider
-						styles={{".valid":{"color":"#28a745"},".invalid":{"color":"#dc3545"},"input":{"font-family":"monospace","font-size":"16px"}}}
+						styles={{".valid":{"color":"#28a745"},".invalid":{"color":"#dc3545"},"input":{"font-family":"Poppins","font-size":"16px"}}}
 						createOrder={function () {
 							async function orden(){
                                 let services    = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'})
@@ -224,54 +249,66 @@ export default function Fields({clientToken,evento,total}) {
 							},					
 						}}					
 					>
-                        <label htmlFor="card-number">
-                           Numero de Trajeta
-                            <span style={INVALID_COLOR}>*</span>
-                        </label>
-                        <PayPalHostedField
-                            id="card-number"
-                            className="card-field"
-                            style={CUSTOM_FIELD_STYLE}
-                            hostedFieldType="number"
-                            options={{
-                                selector: "#card-number",
-                                placeholder: "111 111...",
-                            }}					
-                        />
-                        <label htmlFor="cvv">
-                            CVV<span style={INVALID_COLOR}>*</span>
-                        </label>
-                        <PayPalHostedField
-                            id="cvv"
-                            className="card-field"
-                            style={CUSTOM_FIELD_STYLE}
-                            hostedFieldType="cvv"
-                            options={{
-                                selector: "#cvv",
-                                placeholder: "000",
-                                maskInput: true,
-                            }}
-                        />
-                        <label htmlFor="expiration-date">
-                            Fecha
-                            <span style={INVALID_COLOR}>*</span>
-                        </label>
-                        <PayPalHostedField
-                            id="expiration-date"
-                            className="card-field"
-                            style={CUSTOM_FIELD_STYLE}
-                            hostedFieldType="expirationDate"
-                            options={{
-                                selector: "#expiration-date",
-                                placeholder: "MM/YYYY",
-                            }}
-                        />						
-						<SubmitPayment customStyle={{"border":"1px solid #606060","boxShadow":"2px 2px 10px 2px rgba(0,0,0,0.1)"}} evento={evento} total={total}/>
+						<Box sx={{ flexGrow: 1 }}>
+							<Grid container spacing={1}>
+								<Grid item xs={8} md={9}>
+								<label htmlFor="card-number">
+									Número de Tarjeta
+									<span style={INVALID_COLOR}>*</span>
+								</label>
+								<PayPalHostedField required
+									id="card-number"
+									className="card-field"
+									style={CUSTOM_FIELD_STYLE}
+									hostedFieldType="number"
+									options={{
+										selector: "#card-number",
+										placeholder: "111 111...",
+									}}					
+								/>
+								</Grid>
+								<Grid item xs={4} md={3}>
+									<label htmlFor="expiration-date">
+										Fecha
+										<span style={INVALID_COLOR}>*</span>
+									</label>
+									<PayPalHostedField
+										id="expiration-date"
+										className="card-field"
+										style={CUSTOM_FIELD_STYLE}
+										hostedFieldType="expirationDate"
+										options={{
+											selector: "#expiration-date",
+											placeholder: "MM/YYYY",
+										}}
+									/>
+								</Grid>
+								<Grid item xs={12} md={12}>
+									<label htmlFor="cvv">
+										CVV<span style={INVALID_COLOR}>*</span>
+									</label>
+									<PayPalHostedField
+										id="cvv"
+										className="card-field"
+										style={CUSTOM_FIELD_STYLE}
+										hostedFieldType="cvv"
+										options={{
+											selector: "#cvv",
+											placeholder: "000",
+											maskInput: true,
+										}}
+									/>
+								</Grid>
+							</Grid>
+						</Box>					
+						<SubmitPayment customStyle={{"border":"1px solid rgba(0, 0, 0, 0.12)", "borderRadius":"5px","padding":"1rem", "height":"50px", "margin":"10px auto", "font-family":"Poppins", "font-size":"16px"}} evento={evento} total={total}/>
 					</PayPalHostedFieldsProvider>
-				</PayPalScriptProvider>
+				</PayPalScriptProvider></Box>
 			) : (
-				<h1>Cargando token...</h1>
+				<Typography variant="h6" component="h2">Cargando token...</Typography>
+			
 			)}
+		
 		</>
 	);
 }

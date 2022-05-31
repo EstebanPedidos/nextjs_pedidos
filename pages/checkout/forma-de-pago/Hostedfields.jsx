@@ -3,8 +3,10 @@ import {useState,useEffect} from 'react'
 import { useRouter } from 'next/router'
 //Material
 import { Radio,RadioGroup,FormControlLabel,FormControl,
-    ListItemText,Box,Grid,LinearProgress ,Avatar,Typography,Card, CardActions, Divider,
-    InputLabel, MenuItem,  Select} from '@mui/material';
+    ListItemText,Box,Grid,LinearProgress ,Avatar,Typography,Card, CardContent, CardActions, Divider,
+    InputLabel, MenuItem, Button ,Select} from '@mui/material';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import LoadingButton from '@mui/lab/LoadingButton';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 //Componentes
@@ -97,75 +99,97 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
                                                         </Box>
                                                     </Grid>
                                                     <Grid item xs={9}>                                    
-                                                        <ListItemText id="list-label-payment-method" color="primary" primary={
+                                                        <ListItemText id="list-label-payment-method" color="primary" primary={  
                                                         <Typography component="subtitle2" sx={{ fontWeight:'500',}} color="primary">Agregar nueva</Typography>
                                                             }/>
+                                                       
                                                     </Grid>
+                                                   
                                                 </Grid>
                                         </Box>
                                     } control={<Radio />}/> 
                                 </Grid>
-                                <Grid item xs={6} sm={12}>
-                                {clientTokenC.getPaymentTokens.map((tarjeta, index) => (  
-                                <Box key={index} component="div">
-                                    <Card variant="outlined">
-                                        <Box component="div" m={2}>
-                                            <FormControlLabel  value={tarjeta.id} fullWidth label={                                                            
-                                                <Box component="div">
-                                                    <Grid container direction="row-reverse"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
+                                
+                                <Grid item xs={12}>
+                                    <Box component="div">
+                                        <Grid container direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
+                                            <Grid item xs={12} sm={6}>
+                                                <Button disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
+                                                   Añadir Nueva
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Box component="div" pb={4}>
+                                    <div className={classes.root}>
+                                        <Grid container direction="row" justifyContent="space-around" alignItems="center" spacing={2}>
+                                            {clientTokenC.getPaymentTokens.map((tarjeta, index) => (                             
+                                            <Grid item xs={12} sm={6}>     
+                                                <Box key={index} component="div" py={1}>  
+                                                    <Card variant="outlined">
+                                                    <Box component="div" m={2}>
+                                                    <FormControlLabel  value={tarjeta.id} fullWidth label={                                                            
+                                                    <Box component="div">
+                                                    <Grid container direction="row-reverse"  justifyContent="space-between"  alignItems="center" spacing={2}>
                                                         <Grid item xs={4}>
                                                             <img src={brand[tarjeta.brand]} alt={"Paga en linea con "+tarjeta.brand} />
                                                         </Grid>
-                                                        <Grid item xs={8}>  
-                                                            <Box component="div" ml={1}>                                 
-                                                                <ListItemText id="list-label-payment-method" primary={
-                                                                    <Typography component="subtitle2" sx={{ fontWeight:'500',}} >
-                                                                        XXX..{tarjeta.last_digits} 
-                                                                    </Typography>
-                                                                }/>
-                                                            </Box> 
-                                                        </Grid>
+                                                    <Grid item xs={8}>  
+                                                    <Box component="div" ml={1}>                                 
+                                                        <ListItemText id="list-label-payment-method" primary={
+                                                            <Typography component="subtitle2" sx={{ fontWeight:'500',}} >
+                                                                <MoreHorizIcon />  {tarjeta.last_digits} 
+                                                            </Typography>
+                                                        }/>
+                                                    </Box> 
+                                                    </Grid>
                                                     </Grid>   
-                                                </Box>  
-                                            } control={<Radio />}/>
-                                        </Box>
-                                        {(tajetaSave === tarjeta.id && idMeses.length > 1)&&                                        
-                                        <Box component="div" m={2}>
-                                            <FormControl fullWidth>
-                                                <InputLabel id="demo-simple-select-label">Meses</InputLabel>
-                                                <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={mes}
-                                                label="mes"
-                                                onChange={({target})=>{setMes(target.value)}}
-                                                >
-                                                <MenuItem value={0}>Selecciona un plan</MenuItem>
-                                                {(idMeses.length > 0 )&&
-                                                idMeses.map((mes, index) => ( 
+                                                    </Box>  
+                                                    } control={<Radio />}/>
+                                                    </Box>
+                                                    {(tajetaSave === tarjeta.id && idMeses.length > 1)&&                                        
+                                                    <Box component="div" m={2}>
+                                                    <FormControl fullWidth>
+                                                    <InputLabel id="demo-simple-select-label">Meses</InputLabel>
+                                                    <Select
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    value={mes}
+                                                    label="mes"
+                                                    onChange={({target})=>{setMes(target.value)}}
+                                                    >
+                                                    <MenuItem value={0}>Selecciona un plan</MenuItem>
+                                                    {(idMeses.length > 0 )&&
+                                                    idMeses.map((mes, index) => ( 
                                                     (parseInt(mes.term) > 1)&&
                                                     <MenuItem key={index} value={index+1} >${mes.value} MXN x {mes.term} MESES</MenuItem>
-                                                ))
-                                                }                                                
-                                                </Select>
-                                            </FormControl>
-                                        </Box>
-                                        }
-                                        <Divider variant="middle" light />
-                                        <CardActions>
-                                            <Eliminar
-                                            Delete={Delete}
-                                            object={{id:tarjeta.id,posicion:index}}
-                                            ms_but={'Eliminar'}
-                                            titilo={'Eliminar'}
-                                            mensaje={'Estás seguro de eliminar la tarjeta '+tarjeta.brand+' con terminacion '+tarjeta.last_digits+'?'}
-                                            />
-                                        </CardActions>     
-                                    </Card>
-                                </Box>
-                                ))
-                                }
-                            
+                                                    ))
+                                                    }                                                
+                                                    </Select>
+                                                    </FormControl>
+                                                    </Box>
+                                                    }
+                                                    <Divider variant="middle" light />
+
+                                                    <Eliminar
+                                                    Delete={Delete}
+                                                    object={{id:tarjeta.id,posicion:index}}
+                                                    ms_but={'Eliminar'}
+                                                    titilo={'Eliminar'}
+                                                    mensaje={'Estás seguro de eliminar la tarjeta '+tarjeta.brand+' con terminacion '+tarjeta.last_digits+'?'}
+                                                    />
+
+                                                    </Card>  
+                                                </Box>
+                                            </Grid>
+                                            ))
+                                            }   
+                                           
+                                        </Grid>
+                                    </div>                                
+                                    </Box>
                                 </Grid>
                             </Grid>
                         </RadioGroup>
