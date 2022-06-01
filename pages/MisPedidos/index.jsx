@@ -8,12 +8,6 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
 
 import makeStyles from '@mui/styles/makeStyles';
 
-<<<<<<< HEAD
-=======
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
->>>>>>> 0ab5a38b94619ffb68d8b25357681777bd56b653
 import esLocale from 'date-fns/locale/es'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -272,56 +266,6 @@ export default function MisPedidos() {
                     <Grid container justifyContent="space-between" alignItems='center' spacing={2} key={row.pedidoNum}>
                         <Grid item xs={12} sm={3} lg={3}> 
                             <Grid container direction="row" alignItems="center" justifyContent="center">
-<<<<<<< HEAD
-                            <Grid item xs={10}>
-                           
-                                <Typography variant="h6" component="subtitle2" color="textPrimary" gutterBottom>
-                                #{row.pedidoNum}
-                                </Typography>
-                           
-                            <Typography variant="body2" >
-                                 Total: ${(Math.round(row.precioTotal * 100) / 100).toFixed(2)}
-                            </Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                            <IconButton aria-label="info" color='primary'>
-                                <Link 
-                                href={{
-                                pathname: '/pedido-mayoristas',
-                                search: '?pedido='+row.pedidoNum,
-                                state: { pedido: row.pedidoNum }
-                                }}>
-                                <ArrowForwardIosIcon/>
-                                </Link>
-                            </IconButton>
-                            </Grid>
-                            </Grid>
-                        </CardContent>
-                        <CardActions>
-                            {row.estatusBoton === 'RESERVADO' &&
-                                <FormControl fullWidth className={classes.formControl}>
-                                    <InputLabel id="demo-simple-select-label">Reservado</InputLabel>
-                                    <Select variant='outlined'
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    onChange={handleChange}
-                                    >
-                                        <Button fullWidth color='primary' size="small">
-                                            <MenuItem>
-                                                <Link href={{
-                                                pathname: '/pedido',
-                                                search: '?pedido-mayoristas='+row.pedidoNum,
-                                                state: { pedido: row.pedidoNum }
-                                                }}>     
-                                                    Detalle
-                                                </Link>
-                                            </MenuItem>
-                                        </Button>
-                                        {row.estatusEnvio != "RETURNED" && row.estatusEnvio != "REFUNDED" && 
-                                            <Button fullWidth color='primary' size="small" onClick={(event) =>{event.preventDefault();localStorage.setItem('pedido', row.pedidoNum); window.location='https://pedidos.com/checkout/pedidoMiCuenta.asp?pedidoNum=' +row.pedidoNum}}>
-                                                <Link href="/checkout/direccion-de-envio"> 
-                                                    <a>
-=======
                                 <Grid item xs={6} sm={12} lg={12}>
                                     <Link 
                                         href={{
@@ -347,7 +291,6 @@ export default function MisPedidos() {
                                                 onChange={handleChange}
                                                 >
                                                    
->>>>>>> 0ab5a38b94619ffb68d8b25357681777bd56b653
                                                         <MenuItem>
                                                             <Link href={{
                                                             pathname: '/pedido',
@@ -510,12 +453,8 @@ export default function MisPedidos() {
     )
 
     return(
-<<<<<<< HEAD
         <Layout partidas={partidas}>
         <div>
-=======
-        <Layout>
->>>>>>> 0ab5a38b94619ffb68d8b25357681777bd56b653
              <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
                     <Grid
@@ -743,24 +682,8 @@ export default function MisPedidos() {
                 </div>
                 </Fade>
             </Modal>
-<<<<<<< HEAD
                 
         </div>
-=======
-
-            <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={open && snack === 'uno'}
-            autoHideDuration={6000}
-            onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success">
-            Añadiendo al carrito
-                </Alert>
-            </Snackbar>
->>>>>>> 0ab5a38b94619ffb68d8b25357681777bd56b653
         </Layout>
     );
 }
