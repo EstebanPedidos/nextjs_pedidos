@@ -53,8 +53,6 @@ const searchClient = algoliasearch(
 	'235f66e4531637d52c48f4a91ad6fa3f'
 );
 
-const client = algoliasearch('12YTHFXXB5', '235f66e4531637d52c48f4a91ad6fa3f');
-
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -162,54 +160,25 @@ export default function Busquedas(props) {
 	const url = router.query.query;
 	// const { url } = 'lapiz';
 
-	const [index, setIndex] = React.useState('Pedidos');
-	const [filtros, setFiltros] = React.useState(0);
+	const [indexX, setIndex] = React.useState('Pedidos');
+	const [filtros, setFiltros] = React.useState([]);
 	const ruter = useRouter();
 
-	useEffect(() => {
-        const places = (appId = '', apiKey = '', options) => {
-            const placesClient = algoliasearch(appId, apiKey, {
-              hosts: [{ url: 'places-dsn.algolia.net' }].concat(
-                shuffle([
-                  { url: 'places-1.algolia.net' },
-                  { url: 'places-2.algolia.net' },
-                  { url: 'places-3.algolia.net' }
-                ])
-              ),
-              ...options
-            });
-            return (query, requestOptions) => {
-              return placesClient.transporter.read(
-                {
-                  method: 'POST',
-                  path: '1/places/query',
-                  data: {
-                    query
-                  },
-                  cacheable: true
-                },
-                requestOptions
-              );
-            };
-          };
-          
-          const search = places('12YTHFXXB5', '235f66e4531637d52c48f4a91ad6fa3f');
-          function test (){
-          search('lapiz').then(results => {
-            if(results !== null || results !== undefined || results !== '')
-            {
-            console.log("MANUAL");
-            console.log(results.nbHits);
-            setFiltros(results[0].nbHits)
-            }
-          });
-          
-        }
-          test();
-    }, []
+    useEffect(() => {}, [router]
     );
 
-    useEffect(() => {}, [router]
+	useEffect(() => {
+        const client = algoliasearch('12YTHFXXB5', '235f66e4531637d52c48f4a91ad6fa3f');
+        const index = client.initIndex('Pedidos');
+
+        index
+            .search(url, {
+                facets: ['*'],
+            })
+            .then((res) => {
+                setFiltros(res.facets);
+            });
+    }, []
     );
 
 	const handleChange = (event) => {
@@ -221,7 +190,7 @@ export default function Busquedas(props) {
     <Layout>
     <div className={classes.bgcontent}>
         <InstantSearch 
-            indexName={index}
+            indexName={indexX}
             searchClient={searchClient}
         >
             <div className={classes.root}>
@@ -274,7 +243,7 @@ export default function Busquedas(props) {
                                         label-Id="select-helper-label"
                                         label="Ordenar Por"
                                         id="select-helper"
-                                        value={index}
+                                        value={indexX}
                                         onChange={handleChange}
                                         displayEmpty
                                         className={classes.selectEmpty}
@@ -424,6 +393,7 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    {filtros.hasOwnProperty('FILTROS.PULGADAS') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -445,9 +415,10 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
-
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.PROCESADOR') &&
 									<Box component='div' textAlign='left' p={4}>
-										<Panel header='PROCESADOR'>
+										<Panel header='PROCESADOR' className="myPanel">
 											<RefinementList
 												attribute='FILTROS.PROCESADOR'
 												limit={3}
@@ -463,6 +434,8 @@ export default function Busquedas(props) {
 											/>
 										</Panel>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.SISTEMA OPERATIVO') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -484,6 +457,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.TIPO DE IMPRESION') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -505,6 +480,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.TIPO') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -526,6 +503,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.TAMAÑO') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -547,6 +526,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.TAMAÑO 2') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -568,6 +549,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.ALMACENAMIENTO') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -589,6 +572,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.CAPACIDAD') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -610,6 +595,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.INTERFAZ') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -631,6 +618,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.MEDIDAS') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -652,6 +641,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.TIPO DE ARILLO') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -673,6 +664,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.MATERIAL') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -694,6 +687,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.CAJA CON') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -715,6 +710,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.PIEZAS') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -736,6 +733,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.VOLTAJE') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -757,6 +756,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.TIPO DE ENTRADA') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -778,6 +779,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.TIPO DE CONEXIÓN') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -800,6 +803,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.COLOR') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -821,6 +826,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.TIPO DE PUNTA') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -842,6 +849,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.ORIFICIOS') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -863,6 +872,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.FORMA') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -884,6 +895,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.NUMERO') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -905,6 +918,8 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
+                                    {filtros.hasOwnProperty('FILTROS.POSICIÓN') &&
 									<Box component='div' textAlign='left' p={4}>
 										<Typography
 											variant='subtitle1'
@@ -926,6 +941,7 @@ export default function Busquedas(props) {
 											}}
 										/>
 									</Box>
+                                    }
 									<Configure hitsPerPage={20} />
 								</Box>
 							</Grid>
