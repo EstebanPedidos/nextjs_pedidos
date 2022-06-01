@@ -259,11 +259,9 @@ export default function MisPedidos() {
 
     const Contenido = (
         result.map((row) => (
-            <Box component="div">
+            <Box component="div" key={row.pedidoNum}>
                 <Paper elevation={0} className={classes.paperBox}>
-                
-
-                    <Grid container justifyContent="space-between" alignItems='center' spacing={2} key={row.pedidoNum}>
+                    <Grid container justifyContent="space-between" alignItems='center' spacing={2} >
                         <Grid item xs={12} sm={3} lg={3}> 
                             <Grid container direction="row" alignItems="center" justifyContent="center">
                                 <Grid item xs={6} sm={12} lg={12}>
