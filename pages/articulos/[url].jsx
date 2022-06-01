@@ -140,6 +140,7 @@ export default function FichaTecnica(props){
     const [isFavorito,setIsFavorito]        = useState(false)
     const [thumbsSwiper, setThumbsSwiper]   = useState(null);
     const [partidas,setPartidas]                    = useLocalStorage('SesPartidas',0)
+    const [favoritos,setFavoritos]                    = useLocalStorage('Favoritos',0)
 
     const cortadosPA    = ['HP-TIN','HP-TO-'];
     const articulosPA   = ['HP-LAP-2C3C3LA','ASU-LAP-C4G500','HP-MFC-Z4B04A','HP-MFC-Z4B53A','PDIR-LAP-2C3E1L','PDIR-LAP-2Z748L','HP-LAP-151F5LT','PDIR-LAP-22A98L','PDIR-IMP-1TJ09A','PDIR-ACC-2UF58A','LG-PAN-32LM570','BRO-MFC-T220','PF-LOG-G920','PF-LOG-G29','HP-IMP-CZ993A','CAN-MFC-G2160','BRO-MFC-DCP2551','PDIR-MFC-2LB19A','HP-ALL-140P8AA','ACE-MON-V246HQL','LEN-LAP-CHRB0US'];
@@ -265,6 +266,7 @@ export default function FichaTecnica(props){
                 .then( response =>{
                     setLoading(false)
                     if(response.data === 'OK'){
+                        setFavoritos(favoritos++)
                         setAlerta({severity:'success',mensaje:'Agregado a Favoritos',vertical:'bottom',horizontal:'right',variant:'filled'})
                         setIsFavorito(true)               
                     }else{
@@ -280,7 +282,7 @@ export default function FichaTecnica(props){
 
     return (
         <div>      
-            <Layout partidas={partidas} title={(datos.hasOwnProperty('item_num'))?datos.descripcion.descripcion.urlName.substring(0,34):''}>    
+            <Layout favoritos={favoritos} partidas={partidas} title={(datos.hasOwnProperty('item_num'))?datos.descripcion.descripcion.urlName.substring(0,34):''}>    
                {(datos.hasOwnProperty('item_num'))&&
                 <Head>                    
                     <link rel="canonical" href={`https://pedidos.com/articulos/${urlTem}`} />

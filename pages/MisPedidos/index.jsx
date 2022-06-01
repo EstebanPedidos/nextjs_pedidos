@@ -23,7 +23,7 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CachedOutlinedIcon from '@mui/icons-material/CachedOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import AssignmentReturnOutlinedIcon from '@mui/icons-material/AssignmentReturnOutlined';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
@@ -395,7 +395,7 @@ export default function MisPedidos() {
                                                             <Chip icon={<CancelOutlinedIcon />} label="Cancelado" variant="outlined" />
                                                         }
                                                         {row.estatusEnvio == "Entregado" && 
-                                                            <Chip icon={<CheckCircleOutlineIcon />} label="Entregado" variant="outlined" />          
+                                                            <Chip icon={<CheckCircleOutlineOutlinedIcon />} label="Entregado" variant="outlined" />          
                                                         }
                                                         {row.estatusEnvio == "Empacado" && 
                                                             <Chip icon={<Inventory2OutlinedIcon />} label="Empacado" variant="outlined" />

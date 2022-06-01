@@ -132,8 +132,8 @@ export default function MisFacturas() {
         usu_nombre = localStorage.getItem('Usu_Nomb');
         fechaFacturas = localStorage.getItem('fechaFacturas');
 
-        if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
-            if(parseInt(cliente) !== 201221){
+        if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(clienteNum) !== 201221){
                 
                 const getData= async ()=>{
         

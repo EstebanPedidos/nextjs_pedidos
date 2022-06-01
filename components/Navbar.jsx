@@ -142,7 +142,7 @@ export function Navbar(props) {
 
             const countFavoritos = localStorage.getItem('Favoritos');
 			if (countFavoritos) {
-				setSesPartidas(countFavoritos);
+				setFavoritos(countFavoritos);
 			}
 		}
 		window.addEventListener('storage', checkUserData);
@@ -151,7 +151,6 @@ export function Navbar(props) {
 		};
 
 		Cliente = localStorage.getItem('Cliente');
-		Favoritos = localStorage.getItem('Favoritos');
 		Token = localStorage.getItem('Token');
 		Usuario = localStorage.getItem('Usuario');
 		ejecutivoNum = localStorage.getItem('ejecutivoNum');
@@ -277,7 +276,7 @@ export function Navbar(props) {
 					<Link href='/MisDatos'>Mis Datos</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/misPedidos'>Pedidos</Link>
+					<Link href='/MisPedidos'>Pedidos</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
 					<Link href='/Direcciones'>Direcciones</Link>

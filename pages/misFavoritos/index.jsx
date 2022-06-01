@@ -19,6 +19,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 //Componentes
 import { Layout } from 'layout/Layout';
+import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
+import Alertas from '../checkout/Alertas'
+import {useLocalStorage} from "../../hooks/useLocalStorage";
 
 import Services from '../services/Services'
 import Link from 'next/link'
@@ -71,14 +74,42 @@ export default function MisFavoritos() {
     const [open, setOpen] = React.useState(false);
     const [modal, setModal] = React.useState('');
     const [inputs, setInputs] = useState({});
-    const [favoritos, setFavoritos] = useState([]);
+    const [itemsFavoritos, setItemsFavoritos] = useState([]);
     const [favoritosEliminados, setFavoritosEliminados] = useState([]);
     const [resultado, setResultado] = useState(false);
     const [itemNum, setItemNum] = useState('');
+    const [alerta,setAlerta]                = useState({})
+    const [partidas,setPartidas]                    = useLocalStorage('SesPartidas',0)
+    const [favoritos,setFavoritos]                    = useLocalStorage('Favoritos',0)
 
-    let clienteNum =  '';
+    let clienteNum =  0;
     let fechaPedido = '';
 
+    useEffect(() => {
+
+        clienteNum = localStorage.getItem('Cliente');
+        fechaPedido = localStorage.getItem('fechaPedido');
+        let afiliado =  localStorage.getItem('afiliado')
+
+        const getData = async () => {
+            Services('POST','/miCuenta/obtieneFavoritosFrecuentes?clienteNum='+clienteNum,{})
+            .then( response =>{
+                    // console.log(response.data)
+                    // console.log("RESPONSE: "+response.data.favoritosFrecuentes[0].marca)
+                    if(response.data.length = 1 && response.data.favoritosFrecuentes === "VACIO"){
+                        setResultado(false)
+                        console.log('Sin resultados')
+                    }else{
+                        setResultado(true)
+                        setItemsFavoritos(response.data.favoritosFrecuentes)
+                    }        
+            }).catch(error => {
+                console.log("falló")
+                console.log(error.data)
+            });
+        }
+        getData();
+    }, []) 
 
     const handleOpen = (event) => {
         console.log("presiono boton logo")
@@ -99,15 +130,21 @@ export default function MisFavoritos() {
     }
 
     function eliminaFavorito(){
-        Services('POST','/miCuenta/eliminaFavorito?cliente='+clienteNum+'&itemNum='+itemNum,{})
-        then( response =>{
-                console.log("Funcionó")   
-                setOpen(false);
-                //setFavoritosEliminados(itemNum);
-                refreshPage()
+        Services('POST','/miCuenta/eliminaFavorito?cliente='+parseInt(clienteNum)+'&itemNum='+itemNum,{})
+        .then( response =>{
+                if(response.data === "OK"){
+                    setOpen(false);
+                    setAlerta({severity:'success',mensaje:'Elimnado de Favoritos',vertical:'bottom',horizontal:'right',variant:'filled'})
+                    //setFavoritosEliminados(itemNum);
+                    setFavoritos(favoritos--);
+                    refreshPage();
+                }
+                else{
+                    setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
+                }  
+
         }).catch(error => {
-            console.log("falló")
-            console.log(error.data)
+            setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
         });
 
     }
@@ -116,40 +153,15 @@ export default function MisFavoritos() {
         window.location.reload(false);
     }
 
-    useEffect(() => {
-
-        clienteNum = localStorage.getItem('Cliente');
-        fechaPedido = localStorage.getItem('fechaPedido');
-        let afiliado =  localStorage.getItem('afiliado')
-
-        const getData = async () => {
-            Services('POST','/miCuenta/obtieneFavoritosFrecuentes?clienteNum='+clienteNum,{})
-            .then( response =>{
-                    // console.log(response.data)
-                    // console.log("RESPONSE: "+response.data.favoritosFrecuentes[0].marca)
-                    if(response.data.length = 1 && response.data.favoritosFrecuentes === "VACIO"){
-                        setResultado(false)
-                        console.log('Sin resultados')
-                    }else{
-                        setResultado(true)
-                        setFavoritos(response.data.favoritosFrecuentes)
-                    }        
-            }).catch(error => {
-                console.log("falló")
-                console.log(error.data)
-            });
-        }
-        getData();
-    }, []) 
 
     const Contenido = (
         
         <Grid container justifyContent="flex-start" spacing={spacing}>
-            {favoritos.map((row) => (
+            {itemsFavoritos.map((row) => (
                 <Grid item xs={6} sm={4} key={row.itemNum}> 
                     <Card className={classes.pCardDetail}>
                         <CardHeader                                
-                            action={
+                            action={ row.tipo !== "C" &&
                             <IconButton aria-label="delete" name="Modal1" onClick={(event) => { handleOpen(event); setItemNum(row.itemNum);} }>
                                 <HighlightOffIcon/>
                             </IconButton>
@@ -225,7 +237,7 @@ export default function MisFavoritos() {
     )
 
     return(
-        <Layout>
+        <Layout favoritos={favoritos} partidas={partidas}>
         <div>
             <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
@@ -236,7 +248,7 @@ export default function MisFavoritos() {
                         alignItems="flex-start"
                     >
                         <Grid item xs={12} sm={12} lg={3}>
-
+                            <MiCuentaSiderBar/> 
                         </Grid>
                         <Grid item xs={12} sm={12} lg={9}>
                             <Box component="div">
@@ -297,6 +309,9 @@ export default function MisFavoritos() {
                             </Grid>
                             </Grid>
                         </Box>
+                        {(alerta.hasOwnProperty('severity'))&&
+                            <Alertas setAlerta={setAlerta} alerta={alerta}/>
+                        } 
                     </div>
                 </Fade>
             </Modal>

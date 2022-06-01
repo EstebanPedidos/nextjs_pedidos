@@ -132,7 +132,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="/misPedidos">
+                                <Link href="/MisPedidos">
                                     <a>
                                         <Grid
                                         container
@@ -242,7 +242,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="/MisNotasCredito">
+                                <Link href="/misNotasCredito">
                                     <a>
                                         <Grid
                                         container

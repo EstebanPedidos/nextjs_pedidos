@@ -109,8 +109,8 @@ export default function MisNotasCredito() {
         fechaNotas = localStorage.getItem('fechaNotas');
         let afiliado =  localStorage.getItem('afiliado')
 
-        if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
-            if(parseInt(cliente) !== 201221){
+        if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(clienteNum) !== 201221){
                 
                 if(fechaNotas === null || fechaNotas ===''){
                     setTitulo('Notas recientes')
@@ -252,7 +252,7 @@ export default function MisNotasCredito() {
                     alignItems="flex-start"
                 >
                     <Grid item xs={12} sm={4} lg={3}>
-                    <MiCuentaSiderBar/> 
+                        <MiCuentaSiderBar/> 
                     </Grid>
                     <Grid item xs={12} sm={8} lg={9}>
                         <Box component="div">
