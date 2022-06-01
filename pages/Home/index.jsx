@@ -93,8 +93,9 @@ export default function Home() {
     const [nombre, setNombre] = React.useState('');
     const [isLogged, setLogged] = React.useState(false);
     const [mostrarEmpresas, setMostrarEmpresas] = React.useState(true);
-    const [itemsHome, setItemsHome] = useState([]);
-    const [itemsF, setItemsF] = useState([]);
+    const [vistos, setVistos] = useState([]);
+    const [favoritos, setFavoritos] = useState([]);
+    const [carrito, setCarrito] = useState([]);
     const [show, setShow] = useState({});
 
     let Login = '';
@@ -104,39 +105,54 @@ export default function Home() {
 
     useEffect(() => {
 
+        
         Login = localStorage.getItem('Login');
         setNombre(localStorage.getItem('Usu_Nomb'));
         Cliente= localStorage.getItem('Cliente');
         UsuarioNum = localStorage.getItem('Usuario');
         console.log("Cliente"+Cliente)
         console.log("UsuarioNum"+UsuarioNum)
-        //Condicionar la ejecucion del metodo si el usuario está loggeado
+        let afiliado =  localStorage.getItem('afiliado')
 
+        if(Cliente !== undefined && Cliente !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(Cliente) !== 201221){
 
-        const getData = async () => {
-            Services('POST','/registrov2/obtieneItemsHome?clienteNum='+Cliente+'&top='+10+'&usuarioNum='+UsuarioNum,{})
-            .then( response =>{
-                response.data.favoritosFrecuentes.map ((row, index) => {
-                if( row.tipo === 'B'){
-                    setShow(values => ({...values, ['Carrito']: true}))
-                    
-                }else if(row.tipo === 'F' || row.tipo === 'C'){
-                    setShow(values => ({...values, ['Favoritos']: true}))
-                    setItemsF(values => ({...values, [index]: row}))
-                    console.log(itemsF.tipo)
-                }else if(row.tipo === 'V'){
-                    setShow(values => ({...values, ['Vistos']: true}))
-                    
+                const getData = async () => {
+                    Services('POST','/registrov2/obtieneItemsHome?clienteNum='+Cliente+'&top='+10+'&usuarioNum='+UsuarioNum,{})
+                    .then( response =>{
+                        response.data.favoritosFrecuentes.map ((row, index) => {
+                            if( row.tipo === 'B'){
+                                setShow(values => ({...values, ['Carrito']: true}))
+                            }else if(row.tipo === 'F' || row.tipo === 'C'){
+                                setShow(values => ({...values, ['Favoritos']: true}))
+                            }else if(row.tipo === 'V'){
+                                setShow(values => ({...values, ['Vistos']: true}))
+                            }
+                            
+                        })
+
+                        setCarrito(response.data.favoritosFrecuentes.filter(
+                            (favoritosFrec) => favoritosFrec.tipo === "B"
+                        )) 
+                        setFavoritos(response.data.favoritosFrecuentes.filter(
+                            (favoritosFrec) => favoritosFrec.tipo === "F" || favoritosFrec.tipo === "C"
+                        ))
+                        setVistos(response.data.favoritosFrecuentes.filter(
+                            (favoritosFrec) => favoritosFrec.tipo === "V"
+                        ));
+                    }).catch(error => {
+                        console.log("falló")
+                        console.log(error.response)
+                    });
                 }
-                })
-
-                setItemsHome(response.data.favoritosFrecuentes)
-            }).catch(error => {
-                console.log("falló")
-                console.log(error.response)
-            });
-        }
-        getData()
+                getData()
+        
+            }else{
+                router.push('/')
+            } 
+        }else{
+            router.push('/')
+        } 
     }, []) 
 
     const validaSesion= () =>{
@@ -341,22 +357,6 @@ export default function Home() {
                                     </Box>
                                 </Box>
                             </Box>
-                                {/* <Box component="div" py={4} textAlign="center">
-                                    <Typography variant="h6" component="h2">
-                                        Todo para tu espacio de trabajo
-                                    </Typography>
-                                    <Box  p={4}>
-                                        <Link href="/MisPedidos">
-                                            <a>
-                                                <FilterNoneIcon style={{ fontSize: 40 }}/>
-                                            
-                                                <Typography variant="h6" component="p">
-                                                    Ver mis pedidos
-                                                </Typography>
-                                            </a>
-                                        </Link>
-                                    </Box>
-                                </Box> */}
                         </Grid>
 
                         <Grid item xs={12} sm={6} md={7}>
@@ -393,18 +393,18 @@ export default function Home() {
                                     >
                             
                                         {show.Carrito && 
-                                        <SwiperSlide  className={classes.swiperBox}>
-                                            <Box component="div" >
-                                                <Card elevation={12} className={classes.root}>
-                                                    
-                                                        <CardContent>
-                                                            {itemsHome.map((row) => (
-                                                                row.tipo === 'B' ? 
-                                                                    <CardActionArea>
-                                                                        <Card variant="outlined" >
-                                                                            <CardContent>
-                                                                                <Link href={`/articulos/${row.itemNum}`}>
-                                                                                    <a>
+                                        <SwiperSlide >
+                                            <Card elevation={12} className={classes.root}>
+                                                <CardContent>
+                                                    <Box sx={{ width: '100%'}}>
+                                                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} >
+                                                            {carrito.map((row, index) => (
+                                                                row.tipo === 'B' && index < 4 &&
+                                                                <Grid item xs={6}>
+                                                                    <Link href={`/articulos/${row.itemNum}`}>
+                                                                        <a>
+                                                                            <CardActionArea>
+                                                                                <Card variant="outlined" >
                                                                                     <CardMedia
                                                                                     className={classes.cover}
                                                                                     component="img"
@@ -412,26 +412,24 @@ export default function Home() {
                                                                                     image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
                                                                                     title={row.itemNum}
                                                                                     />
-                                                                                    </a>
-                                                                                </Link>
-                                                                            </CardContent>
-                                                                        </Card>
-                                                                    </CardActionArea>
-                                                                : ''
-                                                                
+                                                                                </Card>
+                                                                            </CardActionArea>  
+                                                                        </a>
+                                                                    </Link>
+                                                                </Grid>
                                                             ))}
-                                                        <Box component="div"  textAlign="center" py={2}>
-                                                            <Divider light />
-                                                        </Box>
-                                                        <Box component="div"  textAlign="center">
-                                                            <Typography variant="subtitle1" >
-                                                                Carrito
-                                                            </Typography>
-                                                        </Box>
-                                                        </CardContent>
-                                                    
-                                                </Card>
-                                            </Box>
+                                                        </Grid>
+                                                </Box>
+                                                <Box component="div"  textAlign="center" py={2}>
+                                                    <Divider light />
+                                                </Box>
+                                                <Box component="div"  textAlign="center">
+                                                    <Typography variant="subtitle1" >
+                                                        Carrito
+                                                    </Typography>
+                                                </Box>
+                                                </CardContent>
+                                            </Card>
                                         </SwiperSlide>
                                         }
                                         
@@ -441,10 +439,9 @@ export default function Home() {
                                                     <CardContent>
                                                         <Box sx={{ width: '100%'}}>
                                                             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} >
-                                                                {itemsHome.map((row) => (
-                                                                    row.tipo === 'V' ? 
+                                                                {vistos.map((row, index) => (
+                                                                    row.tipo === 'V' && index < 4 &&
                                                                     <Grid item xs={6}>
-                                                                        
                                                                         <Link href={`/articulos/${row.itemNum}`}>
                                                                             <a>
                                                                             <CardActionArea>
@@ -460,10 +457,8 @@ export default function Home() {
                                                                             </CardActionArea>
                                                                             </a>
                                                                         </Link>
-                                                                        
                                                                     </Grid>
-                                                                    : ''
-                                                                
+                                                                    
                                                                 ))}
                                                             </Grid>
                                                         </Box>
@@ -487,8 +482,8 @@ export default function Home() {
                                                 <CardContent>
                                                     <Box sx={{ width: '100%' }}>
                                                         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
-                                                        {itemsHome.map((row) => (
-                                                            row.tipo === 'F' || row.tipo === 'C' ? 
+                                                        {favoritos.map((row, index ) => (
+                                                            row.tipo === 'F' || row.tipo === 'C' && index < 4 &&
                                                             <Grid item xs={6}>
                                                                 <Link href={`/articulos/${row.itemNum}`}>
                                                                     <a>
@@ -506,7 +501,6 @@ export default function Home() {
                                                                     </a>
                                                                 </Link>
                                                             </Grid>
-                                                            : ''
                                                         ))}
                                                         <Grid item xs={12}>
                                                             <Box component="div"  textAlign="center" py={2}>
@@ -608,24 +602,23 @@ export default function Home() {
                         }}
                         >
                 
-                        { Object.keys(itemsHome).map((oneKey,i)=>{
+                        { Object.keys(vistos).map((oneKey,i)=>{
                                 return (
                             <SwiperSlide  className={classes.swiperBox} key={i}>
                                 <Box component="div" >
-                                    {itemsHome[oneKey].tipo  === 'V' &&
                                     <Card className={classes.productCard} >
-                                        <CardActionArea  to={`/articulos/${itemsHome[oneKey].url}`} >
+                                        <CardActionArea  to={`/articulos/${vistos[oneKey].url}`} >
                                             <Box component="div" textAlign="center">
                                                 <Typography variant="caption" color="textSecondary" gutterBottom>
-                                                    {itemsHome[oneKey].marca}
+                                                    {vistos[oneKey].marca}
                                                 </Typography>
                                             </Box>
                                             <CardMedia
                                             className={classes.media}
-                                            image={`https://pedidos.com/myfotos/large/(L)${itemsHome[oneKey].itemNum}.webp`}
+                                            image={`https://pedidos.com/myfotos/large/(L)${vistos[oneKey].itemNum}.webp`}
                                             onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
-                                            alt={itemsHome[oneKey].itemNum}
-                                            title={itemsHome[oneKey].itemNum}
+                                            alt={vistos[oneKey].itemNum}
+                                            title={vistos[oneKey].itemNum}
                                             />
                                             <CardContent>
                                             <Divider light />
@@ -633,15 +626,15 @@ export default function Home() {
                                                 variant="body2"
                                                 color="textSecondary"
                                                 component="p">
-                                                {itemsHome[oneKey].tituloCompuesto} 
+                                                {vistos[oneKey].tituloCompuesto} 
                                             </Typography>
                                             <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
                                                 <Typography  variant="caption">
-                                                ${itemsHome[oneKey].precioDeLista}
+                                                ${(Math.round((vistos[oneKey].precioDeLista) * 100) / 100).toFixed(2)}
                                                 </Typography> 
                                             </Box>
                                             <Typography variant="subtitle1" display="block" gutterBottom color="textPrimary">
-                                                <Box component="span" fontWeight="fontWeightBold"> ${itemsHome[oneKey].precio}</Box>
+                                                <Box component="span" fontWeight="fontWeightBold"> ${(Math.round((vistos[oneKey].precio) * 100) / 100).toFixed(2)}</Box>
                                             </Typography>
                                             
                                             </CardContent>
@@ -653,13 +646,12 @@ export default function Home() {
                                             color="primary"
                                             fullWidth
                                             >
-                                                <Link href={`/articulos/${itemsHome[oneKey].url}`}>
+                                                <Link href={`/articulos/${vistos[oneKey].url}`}>
                                                     Ver Detalle
                                                 </Link>
                                             </Button>
                                         </CardActions>
                                     </Card>                
-                                    }
                                 </Box>
                             </SwiperSlide>
                                 );

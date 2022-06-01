@@ -8,7 +8,10 @@ import { Carousel } from './Caruousel';
 
 // components @mui/material
 
-import { Box, Typography, Breadcrumbs, Link, Hidden } from '@mui/material';
+import { Box, Typography, Breadcrumbs, Hidden } from '@mui/material';
+
+//Nextjs
+import Link from 'next/link';
 
 // Section, after navbar, with next content
 // Delivery free, all CDMX
@@ -18,11 +21,13 @@ import { Box, Typography, Breadcrumbs, Link, Hidden } from '@mui/material';
 
 const items = [
 	{
+        url: '/Membresia/pro',
 		icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/header/miembros-pro/m-pro-ship.svg',
 		title: '¡Empresas! Envío Gratis CDMX',
 		description: 'Costo a partir de $599 y vol. arriba de 25kg.',
 	},
-	{
+	{   
+        url: '/MisPedidos',
 		icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/header/tools/m-acc-p.svg',
 		title: 'Mis pedidos',
 		description: 'Ve tus pedidos al iniciar sesión',
@@ -33,11 +38,13 @@ const items = [
 		description: 'Solicita tu cotización',
 	},
 	{
+        url: '/misFacturas',
 		icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/header/tools/m-acc-f.svg',
 		title: 'Mis facturas',
 		description: '¡Editar facturas!',
 	},
 	{
+        url: '/misFavoritos',
 		icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/header/tools/m-acc-fa.svg',
 		title: 'Favoritos',
 		description: '¡En un solo lugar!',
@@ -48,8 +55,9 @@ const items = [
 		description: 'Comienza el proceso',
 	},
 	{
+        url: '/misNotasCredito',
 		icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/header/tools/m-acc-nc.svg',
-		title: 'Notad de credito',
+		title: 'Notas de credito',
 		description: 'Consultar disponibles',
 	},
 	{
@@ -133,41 +141,45 @@ export const HeroSection = () => {
 	);
 };
 
-const HeroItem = ({ icon, title, description }) => {
+const HeroItem = ({ url, icon, title, description }) => {
 	return (
-		<Box component={'div'} width={'350px'} marginY='5px' marginRight={'5px'}>
-			<Box
-				display='flex'
-				borderRight={'0.5px solid rgb(229, 229, 229)'}
-				justifyContent='center'>
-				<Box display={'flex'} alignItems='center'>
-					<img
-						style={{
-							padding: '8px',
-							height: '50px',
-						}}
-						src={icon}
-						alt={title}
-					/>
-				</Box>
-				<Box minHeight={'90px'}>
-					<p>
-						<Typography component={'span'} variant='subtitle2'>
-							{title}
-						</Typography>
-						<br />
-						<Typography
-							style={{
-								opacity: '0.8',
-								fontSize: '1',
-							}}
-							componen='span'
-							variant='body2'>
-							{description}
-						</Typography>
-					</p>
-				</Box>
-			</Box>
-		</Box>
+        <Link href={url !== undefined ? url : ''}>
+            <a>
+                <Box component={'div'} width={'350px'} marginY='5px' marginRight={'5px'}>
+                    <Box
+                        display='flex'
+                        borderRight={'0.5px solid rgb(229, 229, 229)'}
+                        justifyContent='center'>
+                        <Box display={'flex'} alignItems='center'>
+                            <img
+                                style={{
+                                    padding: '8px',
+                                    height: '50px',
+                                }}
+                                src={icon}
+                                alt={title}
+                            />
+                        </Box>
+                        <Box minHeight={'90px'}>
+                            <p>
+                                <Typography component={'span'} variant='subtitle2'>
+                                    {title}
+                                </Typography>
+                                <br />
+                                <Typography
+                                    style={{
+                                        opacity: '0.8',
+                                        fontSize: '1',
+                                    }}
+                                    componen='span'
+                                    variant='body2'>
+                                    {description}
+                                </Typography>
+                            </p>
+                        </Box>
+                    </Box>
+                </Box>
+            </a>
+        </Link>
 	);
 };

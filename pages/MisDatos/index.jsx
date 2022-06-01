@@ -69,7 +69,7 @@ export default function MisDatos() {
     const [misTelefonos, setMisTelefonos] = useState([]);
     const [misCelulares, setMisCelulares] = useState([]);
     const [ultimoTransportista, setUltimoTransportista] = useState({certifNum: 0,
-        invoiceNum: 0,
+        invoiceNum: ' ',
         choferNum: 0,
         nombre: '',
         paterno: '',
@@ -100,6 +100,7 @@ export default function MisDatos() {
     const [cliente, setCliente ] = React.useState('');
     const [usuarioNum, setUsuarioNum] = React.useState('');
     const [usu_nomb, setUsu_nomb] = React.useState('');
+    const [afiliado, setAfiliado] = React.useState('');
     const [nivelAcceso, setNivelAcceso] = React.useState('');
     const [ejecutivoNum, setEjecutivoNum] = React.useState('');
     const [telefonoPrinc, setTelefonoPrinc] = React.useState(0);
@@ -126,6 +127,7 @@ export default function MisDatos() {
     let usu_nomb1 = '';
     let nivelAcceso1 = '';
     let ejectuvoNum1  = '';
+    let afiliado1 = '';
 
     useEffect( () => {
         correo1 = localStorage.getItem('Email')
@@ -135,91 +137,105 @@ export default function MisDatos() {
         nivelAcceso1 = localStorage.getItem('nivelAcceso')
         ejectuvoNum1 = localStorage.getItem('EjecutivoNum')
         ejectuvoNum1 = localStorage.getItem('EjecutivoNum')
-    }, [correo1,cliente1, usuarioNum1, usu_nomb1, nivelAcceso1, ejectuvoNum1]) 
+        afiliado1 = localStorage.getItem('afiliado')
+
+    }, [correo1,cliente1, usuarioNum1, usu_nomb1, nivelAcceso1, ejectuvoNum1, afiliado1]) 
 
     useEffect( () => {
+
+        if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(cliente) !== 201221){
+                
+                const getData= async ()=>{
+
+                    setCorreo(correo1);
+                    setCliente(cliente1);
+                    setUsuarioNum(usuarioNum1);
+                    setUsu_nomb(usu_nomb1);
+                    setNivelAcceso(nivelAcceso1);
+                    setEjecutivoNum(ejectuvoNum1);
         
-        const getData= async ()=>{
-
-            setCorreo(correo1);
-            setCliente(cliente1);
-            setUsuarioNum(usuarioNum1);
-            setUsu_nomb(usu_nomb1);
-            setNivelAcceso(nivelAcceso1);
-            setEjecutivoNum(ejectuvoNum1);
-
-            Services('POST','/miCuenta/obtieneMisDatos?usuarioNum='+usuarioNum1,{})
-                .then( response =>{
-                setMisDatos(response.data);
-                setFecha(format(new Date(response.data.fechaNac), 'yyyy-MM-dd'));
-                if (response.data.nombre === "" || response.data.nombre === null || response.data.nombre === undefined){
-                    setPrimeraVez(true);
-                    console.log('SI esta ejecutando')
-                    }else{
-                    setPrimeraVez(false);
+                    Services('POST','/miCuenta/obtieneMisDatos?usuarioNum='+usuarioNum1,{})
+                        .then( response =>{
+                        setMisDatos(response.data);
+                        setFecha(format(new Date(response.data.fechaNac), 'yyyy-MM-dd'));
+                        if (response.data.nombre === "" || response.data.nombre === null || response.data.nombre === undefined){
+                            setPrimeraVez(true);
+                            console.log('SI esta ejecutando')
+                            }else{
+                            setPrimeraVez(false);
+                        }
+                        
+                        if(response.data.telefonoPrinc === 0 || response.data.telefonoPrinc !== "" ){
+                            setTelefonoPrinc(0); 
+                        }else{
+                            
+                        }
+        
+                        if(response.data.celularPrinc !== "" || response.data.celularPrinc !== null || response.data.celularPrinc !== undefined){
+                            setCelPrincipal(response.data.celularPrinc); 
+                        }
+                        }).catch(error => {
+                            console.log("falló obtieneMisDatos")
+                            console.log(error.response)
+                    });
+        
+                    Services('POST','/miCuenta/obtieneTelefonos?usuarioNum='+usuarioNum1,{})
+                        .then( response =>{
+                        setMisTelefonos(response.data);
+                        console.log("obtieneTelefonos Exitoso")
+                        }).catch(error => {
+                        console.log("falló obtieneTelefonos")
+                        console.log(error.response)
+                    });
+                    
+                    Services('POST','/miCuenta/obtieneTelefonos?cliente_num='+cliente1,{})
+                        .then( response =>{
+                        setMisCelulares(response.data);
+                        console.log("obtieneNoCelulares Exitoso")
+                    }).catch(error => {
+                        console.log("falló obtieneNoCelulares")
+                        console.log(error.response)
+                    });
+        
+                    Services('POST','/miCuenta/obtieneTipoTelefono',{})
+                    .then( response =>{
+                        setTipoTelefonos(response.data);
+                        console.log("obtieneTipoTelefono Exitoso")
+                        }).catch(error => {
+                            console.log("falló obtieneTipoTelefono")
+                            console.log(error.response)
+                    });
+        
+                    Services('POST','/miCuenta/todosMisTelefonos?clienteNum='+cliente1+'&usuarioNum='+usuarioNum1,{})
+                    .then( response =>{
+                        setTodosMisTelefonos(response.data);
+                        console.log("todosMisTelefonos Exitoso")
+                        }).catch(error => {
+                            console.log("falló todosMisTelefonos")
+                            console.log(error.response)
+                    });
+        
+                    Services('POST','/miCuenta/consultaTransportista?clienteNum='+cliente1,{})
+                    .then( response =>{
+                        setUltimoTransportista(response.data);
+                        console.log(response.data)
+                        console.log("consultaTransportista Exitoso")
+                        }).catch(error => {
+                            console.log("falló consultaTransportista")
+                            console.log(error.response)
+                    });
                 }
                 
-                if(response.data.telefonoPrinc === 0 || response.data.telefonoPrinc !== "" ){
-                    setTelefonoPrinc(0); 
-                }else{
-                    
-                }
-
-                if(response.data.celularPrinc !== "" || response.data.celularPrinc !== null || response.data.celularPrinc !== undefined){
-                    setCelPrincipal(response.data.celularPrinc); 
-                }
-                }).catch(error => {
-                    console.log("falló obtieneMisDatos")
-                    console.log(error.response)
-            });
-
-            Services('POST','/miCuenta/obtieneTelefonos?usuarioNum='+usuarioNum1,{})
-                .then( response =>{
-                setMisTelefonos(response.data);
-                console.log("obtieneTelefonos Exitoso")
-                }).catch(error => {
-                console.log("falló obtieneTelefonos")
-                console.log(error.response)
-            });
-            
-            Services('POST','/miCuenta/obtieneTelefonos?cliente_num='+cliente1,{})
-                .then( response =>{
-                setMisCelulares(response.data);
-                console.log("obtieneNoCelulares Exitoso")
-            }).catch(error => {
-                console.log("falló obtieneNoCelulares")
-                console.log(error.response)
-            });
-
-            Services('POST','/miCuenta/obtieneTipoTelefono',{})
-            .then( response =>{
-                setTipoTelefonos(response.data);
-                console.log("obtieneTipoTelefono Exitoso")
-                }).catch(error => {
-                    console.log("falló obtieneTipoTelefono")
-                    console.log(error.response)
-            });
-
-            Services('POST','/miCuenta/todosMisTelefonos?clienteNum='+cliente1+'&usuarioNum='+usuarioNum1,{})
-            .then( response =>{
-                setTodosMisTelefonos(response.data);
-                console.log("todosMisTelefonos Exitoso")
-                }).catch(error => {
-                    console.log("falló todosMisTelefonos")
-                    console.log(error.response)
-            });
-
-            Services('POST','/miCuenta/consultaTransportista?clienteNum='+cliente1,{})
-            .then( response =>{
-                setUltimoTransportista(response.data);
-                console.log(response.data)
-                console.log("consultaTransportista Exitoso")
-                }).catch(error => {
-                    console.log("falló consultaTransportista")
-                    console.log(error.response)
-            });
-        }
-        getData();
+                getData();
+        
+            }else{
+                router.push('/')
+            } 
+        }else{
+            router.push('/')
+        } 
+        
     }, []) 
 
     const handleOpen = (event) => {
@@ -804,7 +820,7 @@ export default function MisDatos() {
                                         <Divider variant="middle" light/>
                                     </Box>
                                 </Grid>
-                                {ultimoTransportista.layoutMail.comentario !=="NOHAYPEDIDOSENTREGADOS" || ultimoTransportista.layoutMail.comentario !=="ENTREGADOSINRESENANULL" || ultimoTransportista.layoutMail.comentario !=="ERRORALCONSULTARTRANSPORTISTA" &&
+                                {ultimoTransportista.layoutMail.comentario !=="NOHAYPEDIDOSENTREGADOS" && ultimoTransportista.layoutMail.comentario !=="ENTREGADOSINRESENANULL" && ultimoTransportista.layoutMail.comentario !=="ERRORALCONSULTARTRANSPORTISTA" &&
                                 <Grid item xs={12} sm={6}>
                                     <Box component="div" textAlign="left" pb={2}>
                                         <Typography variant="body1" color="textSecondary">
@@ -826,10 +842,10 @@ export default function MisDatos() {
                                                 <Grid item>
                                                     <Box component="div" py={1} textAlign="left">
                                                         <Typography variant="subtitle1" sx={{fontWeight:'500'}} >
-                                                            {ultimoTransportista.invoiceNum} Entrega Local
+                                                            {ultimoTransportista.nombre} {ultimoTransportista.paterno}
                                                         </Typography>
                                                         <Typography variant="subtitle2" color="textSecondary" >
-                                                        {ultimoTransportista.nombre} {ultimoTransportista.paterno}
+                                                            H{ultimoTransportista.invoiceNum.toString().substr(1, 6)} Entrega Local
                                                         </Typography>
                                                     </Box>
                                                     <Button fullWidth variant="outlined" name="Modal4" onClick={handleOpen}>Evaluar </Button>
@@ -1317,7 +1333,7 @@ export default function MisDatos() {
 
                         <Typography component="h3" variant="h6">
                             <Box component="span" fontWeight="fontWeightMedium">
-                                Nos gustaría saber como te atendió {ultimoEjectuvo.nombre} {ultimoEjectuvo.paterno} 
+                                Nos gustaría saber como te atendió {ultimoTransportista.nombre} {ultimoTransportista.paterno} 
                             </Box>
                         </Typography>
                         <Box component="div" py={1}>

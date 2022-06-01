@@ -126,8 +126,8 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
                                     <div className={classes.root}>
                                         <Grid container direction="row" justifyContent="space-around" alignItems="center" spacing={2}>
                                             {clientTokenC.getPaymentTokens.map((tarjeta, index) => (                             
-                                            <Grid item xs={12} sm={6}>     
-                                                <Box key={index} component="div" py={1}>  
+                                            <Grid item xs={12} sm={6} key={index}>     
+                                                <Box component="div" py={1}>  
                                                     <Card variant="outlined">
                                                     <Box component="div" m={2}>
                                                     <FormControlLabel  value={tarjeta.id} fullWidth label={                                                            

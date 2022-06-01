@@ -116,22 +116,31 @@ export default function Direcciones() {
 	};
 
 	useEffect(() => {
-		clienteNum = localStorage.getItem('Cliente');
 
-		Services(
-			'POST',
-			'/miCuenta/consultaDirecciones?clienteNum=' + clienteNum,
-			{}
-		)
-			.then((response) => {
-				console.log('Funcionó');
-				console.log(response.data);
-				setResult(response.data);
-			})
-			.catch((error) => {
-				console.log('falló');
-				console.log(error.response);
-			});
+        clienteNum = localStorage.getItem('Cliente');
+        let afiliado = localStorage.getItem('afiliado') 
+
+        if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(clienteNum) !== 201221){
+
+                Services('POST','/miCuenta/consultaDirecciones?clienteNum=' + clienteNum,{})
+                    .then((response) => {
+                        console.log('Funcionó');
+                        console.log(response.data);
+                        setResult(response.data);
+                    })
+                    .catch((error) => {
+                        console.log('falló');
+                        console.log(error.response);
+                });
+
+            }else{
+                router.push('/')
+            } 
+        }else{
+            router.push('/')
+        } 
+
 	}, []);
 
 	function refreshPage() {

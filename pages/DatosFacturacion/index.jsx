@@ -64,19 +64,29 @@ export default function DatosFacturacion() {
 
     useEffect(() => {
 
-
+        let afiliado = localStorage.getItem('afiliado') 
         setClienteNum(localStorage.getItem('Cliente'));
 
-        Services('POST','/miCuenta/obtieneDatosFacturacion?clienteNum='+clienteNum,{})
-            .then( response =>{
-                    console.log("Funcionó")
-                    console.log(response.data)
-                    setResult(response.data)
-                
-            }).catch(error => {
-                console.log("falló")
-                console.log(error.response)
-            });
+        if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(cliente) !== 201221){
+
+                Services('POST','/miCuenta/obtieneDatosFacturacion?clienteNum='+clienteNum,{})
+                    .then( response =>{
+                            console.log("Funcionó")
+                            console.log(response.data)
+                            setResult(response.data)
+                        
+                    }).catch(error => {
+                        console.log("falló")
+                        console.log(error.response)
+                    });
+
+            }else{
+                router.push('/')
+            } 
+        }else{
+            router.push('/')
+        } 
 
     }, [clienteNum]) 
 

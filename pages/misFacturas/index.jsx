@@ -127,48 +127,59 @@ export default function MisFacturas() {
 
     useEffect(() => {   
 
-        const getData= async ()=>{
+        let afiliado =  localStorage.getItem('afiliado')
+        setClienteNum(localStorage.getItem('Cliente'));
+        usu_nombre = localStorage.getItem('Usu_Nomb');
+        fechaFacturas = localStorage.getItem('fechaFacturas');
 
-            setClienteNum(localStorage.getItem('Cliente'));
-            usu_nombre = localStorage.getItem('Usu_Nomb');
-            fechaFacturas = localStorage.getItem('fechaFacturas');
-
-            if(fechaFacturas === null || fechaFacturas ===''){
-                setTitulo('Facturas recientes')
-                Services('POST','/miCuenta/consultaFacturas?clienteNum='+clienteNum+'&fechaFacturas=',{})
-                .then( response =>{
-                    console.log('sin fecha ')
-                    setResult(response.data)
-                    console.log(response.data)
-                    if(result.length = 1 && response.data[0].pedidoNum > 0){
-                        setResultado(true)
-                    }else{
-                        setResultado(false)
-                    }
-                }).catch(error => {
-                    console.log("falló sin")
-                    console.log(error.response)
-                });
-            }else{ 
-                Services('POST','/miCuenta/consultaFacturas?clienteNum='+clienteNum+'&fechaFacturas='+fechaFacturas,{})
-                .then( response =>{
-                    setTitulo('Mis Facturas del '+fechaFacturas)
-                    setResult(response.data)
-                    if(result.length = 1 && response.data[0].pedidoNum > 0){
-                        setResultado(true)
-                    }else{
-                        setResultado(false)
-                    }
-
-                    localStorage.setItem('fechaFacturas', '')
-                }).catch(error => {
-                    console.log("falló con")
-                    console.log(error.response)
-                        });
-                    }
-        }
+        if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(clienteNum) !== 201221){
+                
+                const getData= async ()=>{
         
-        getData();
+                    if(fechaFacturas === null || fechaFacturas ===''){
+                        setTitulo('Facturas recientes')
+                        Services('POST','/miCuenta/consultaFacturas?clienteNum='+clienteNum+'&fechaFacturas=',{})
+                        .then( response =>{
+                            console.log('sin fecha ')
+                            setResult(response.data)
+                            console.log(response.data)
+                            if(result.length = 1 && response.data[0].pedidoNum > 0){
+                                setResultado(true)
+                            }else{
+                                setResultado(false)
+                            }
+                        }).catch(error => {
+                            console.log("falló sin")
+                            console.log(error.response)
+                        });
+                    }else{ 
+                        Services('POST','/miCuenta/consultaFacturas?clienteNum='+clienteNum+'&fechaFacturas='+fechaFacturas,{})
+                        .then( response =>{
+                            setTitulo('Mis Facturas del '+fechaFacturas)
+                            setResult(response.data)
+                            if(result.length = 1 && response.data[0].pedidoNum > 0){
+                                setResultado(true)
+                            }else{
+                                setResultado(false)
+                            }
+        
+                            localStorage.setItem('fechaFacturas', '')
+                        }).catch(error => {
+                            console.log("falló con")
+                            console.log(error.response)
+                                });
+                            }
+                }
+                
+                getData();
+            }else{
+                router.push('/')
+            } 
+        }else{
+            router.push('/')
+        } 
+
     }
     , [clienteNum]) 
 
