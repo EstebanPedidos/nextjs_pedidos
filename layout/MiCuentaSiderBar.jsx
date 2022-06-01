@@ -104,7 +104,7 @@ export default function MiCuentaSiderBar() {
                    
                     >
                         <Grid item xs={12} >
-                            <Box component="div" textAlign="center" m="auto" p={2}>
+                            <Box component="div" textAlign="left" m="auto" p={2}>
                                 <Typography variant="caption" color="textSecondary">MI CUENTA</Typography>
                             </Box>
                         </Grid>
@@ -117,7 +117,7 @@ export default function MiCuentaSiderBar() {
                                         direction="row"
                                         justifyContent="flex-start"
                                         alignItems="center"
-                                        spacing={2}
+                                        spacing={3}
                                         >
                                             <Grid item>
                                                 <SettingsOutlinedIcon/>
@@ -132,7 +132,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="/misPedidos">
+                                <Link href="/MisPedidos">
                                     <a>
                                         <Grid
                                         container
@@ -273,7 +273,7 @@ export default function MiCuentaSiderBar() {
                                             'Pedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A')}>
                             Garantías & Devoluciones
                         </Button>
-
+                        <br/>
                         <Button startIcon={<FeedbackOutlinedIcon />}
                             onClick={() => window.open('mailto:quejas@pedidos.com.mx?subject=Queja%20sobre')}
                         >
@@ -283,7 +283,7 @@ export default function MiCuentaSiderBar() {
                     <Divider />
                     <Box component="div" pt={3} >
                         <Box component="div" pb={2}>
-                            <Button startIcon={<HelpOutlineOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="Modal1" onClick={handleOpen}>Necesito Ayuda</Button>
+                            <Button startIcon={<HelpOutlineOutlinedIcon />} variant="contained" color="primary" fullWidth size="large" name="Modal1" onClick={handleOpen}>Necesito Ayuda</Button>
                         </Box>
                         <Box component="div" >
                             <Link href="/MisNotasCredito">

@@ -8,6 +8,8 @@ import { Container, Box, Grid, Paper, Typography, Button, Link, Skeleton,
 import makeStyles from '@mui/styles/makeStyles';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+
 
 
 //Componentes 
@@ -199,51 +201,7 @@ export default function Direccion_de_envio(props){
                                     </Box>
                                     }
                                     <Box component="div" px={2}>
-                                        {(data.hasOwnProperty('jsonResumen'))?  
-                                        <Box component="div">
-                                            <div className={classes.root}>
-                                                <Grid container direction="row" justifyContent="center" alignItems="center">
-                                                    <Grid item xs={12} >
-                                                        <Card className={classes.root} variant="outlined">
-                                                            <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
-                                                                <Grid item xs={8} sm={8}>                 
-                                                                    <Box component="div" ml={5}>
-                                                                        <CardContent>
-                                                                            <Grid container alignItems="center" direction="row" justifyContent="flex-start">
-                                                                                <Grid item xs={4} sm={2}>
-                                                                                    <Box component="div">
-                                                                                        <Avatar>
-                                                                                            <AddOutlinedIcon />
-                                                                                        </Avatar>
-                                                                                    </Box>
-                                                                                </Grid>
-                                                                                <Grid item xs={4} sm={7}>  
-                                                                                    <Box component="div" textAlign="left" ml={2}>
-                                                                                        <Typography variant="h6" component="h2">
-                                                                                            A Domicilio
-                                                                                        </Typography>
-                                                                                    </Box>
-                                                                                </Grid>
-                                                                            </Grid> 
-                                                                        </CardContent>
-                                                                    </Box>
-                                                                </Grid> 
-                                                                <Grid item xs={4} sm={4}>
-                                                                    <CardActions>
-                                                                        <Button size="Large" fullWidth color="primary">Añadir Nueva</Button>
-                                                                    </CardActions>
-                                                                </Grid>   
-                                                            </Grid>   
-                                                        </Card>
-                                                    </Grid>
-                                                </Grid>
-                                            </div>
-                                        </Box>
-                                        :
-                                        <Box sx={{ pt: 1.5 }}>
-                                            <Skeleton variant="rectangle" height={200} animation="wave"/>
-                                        </Box>
-                                        }
+                                        
                                         <Box component="div" py={2}>
                                             <RadioGroup name='direccion_envio' value={direccion.dir_num}  onChange={salectOption}>
                                             {(data.hasOwnProperty('jsonResumen'))&&
@@ -290,6 +248,62 @@ export default function Direccion_de_envio(props){
                                                     </Grid>                      
                                                 </div>
                                             }
+                                            <Box pt={3}>
+                                            {(data.hasOwnProperty('jsonResumen'))?  
+                                        <Box component="div">
+                                            <Box component="div">
+                                                <Grid container direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <Button disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
+                                                        Añadir Nueva
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+                                           {/*  <div className={classes.root}>
+                                                <Grid container direction="row" justifyContent="center" alignItems="center">
+                                                    <Grid item xs={12} >
+                                                        <Card className={classes.root} variant="outlined">
+                                                            <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
+                                                                <Grid item xs={8} sm={8}>                 
+                                                                    <Box component="div" ml={5}>
+                                                                        <CardContent>
+                                                                            <Grid container alignItems="center" direction="row" justifyContent="flex-start">
+                                                                                <Grid item xs={4} sm={2}>
+                                                                                    <Box component="div">
+                                                                                        <Avatar>
+                                                                                            <AddOutlinedIcon />
+                                                                                        </Avatar>
+                                                                                    </Box>
+                                                                                </Grid>
+                                                                                <Grid item xs={4} sm={7}>  
+                                                                                    <Box component="div" textAlign="left" ml={2}>
+                                                                                        <Typography variant="h6" component="h2">
+                                                                                            A Domicilio
+                                                                                        </Typography>
+                                                                                    </Box>
+                                                                                </Grid>
+                                                                            </Grid> 
+                                                                        </CardContent>
+                                                                    </Box>
+                                                                </Grid> 
+                                                                <Grid item xs={4} sm={4}>
+                                                                    <CardActions>
+                                                                        <Button size="Large" fullWidth color="primary">Añadir Nueva</Button>
+                                                                    </CardActions>
+                                                                </Grid>   
+                                                            </Grid>   
+                                                        </Card>
+                                                    </Grid>
+                                                </Grid>
+                                            </div> */}
+                                        </Box>
+                                        :
+                                        <Box sx={{ pt: 1.5 }}>
+                                            <Skeleton variant="rectangle" height={200} animation="wave"/>
+                                        </Box>
+                                        }
+                                            </Box>
                                             
                                             <Box component="div" py={3}>
                                                 <Typography variant="h6" component="h2">{(data.hasOwnProperty('jsonResumen'))?'Direcciones de envío:':<Skeleton animation="wave"/>}</Typography>
@@ -318,16 +332,17 @@ export default function Direccion_de_envio(props){
                                                                     }
                                                                     labelPlacement="end"
                                                                     control={<Radio id={(direccion.observacion.trim() === '')?'':direccion.observacion.replace('Á','A').replace('É','E').replace('Í','I').replace('Ó','O').replace('Ú','U').replace('á','a').replace('é','e').replace('í','i').replace('ó','o').replace('ú','u').replace('Ñ','N').replace('ñ','n').replace(/ /g, "%20").substr(0,50)}/>} />
+                                                                
                                                                 </Box>
-                                                                <Box component="div" >
-                                                                    <Divider variant="middle" light />
+                                                                <Box component="div">
+                                                                        <Divider variant="middle" light />
                                                                 </Box>
-                                                                <CardActions>
-                                                                    <Button size="small" fullWidth color="primary">
+                                                                
+                                                                    {/* <Button size="small" fullWidth color="primary">
                                                                         Detalles
-                                                                    </Button>
+                                                                    </Button> */}
                                                                     {direccion.reservado === 0 &&
-                                                                        <Eliminar
+                                                                        <Eliminar fullWidth
                                                                         Delete={Delete}
                                                                         object={{dirNum:direccion.dirNum,nombreDireccion:direccion.nombreDireccion}}
                                                                         ms_but={'Eliminar'}
@@ -335,7 +350,7 @@ export default function Direccion_de_envio(props){
                                                                         mensaje={'¿Estás seguro de eliminar la dirección?'}
                                                                         />
                                                                     }
-                                                                </CardActions>
+                                                                
                                                                 </Card>
                                                             </Grid>
                                                     ))                    

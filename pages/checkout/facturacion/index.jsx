@@ -10,6 +10,7 @@ import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined'
 import LoadingButton from '@mui/lab/LoadingButton'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 //Componentes 
 import Header  from '../Header';
@@ -237,8 +238,23 @@ export default function Facturacion(props){
                                 <Box component="div" py={2} >
                                     <div className={classes.root}>
                                         <Grid container direction="row" justifyContent="center" alignItems="center"  spacing={2}>
-                                            <Grid item xs={12} >
-                                                <Card className={classes.root} variant="outlined">
+                                            <Grid item xs={12}>
+                                                <Box component="div">
+                                                    <Grid container direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
+                                                        <Grid item xs={12} sm={6}>
+                                                        {(data.hasOwnProperty('jsonResumen'))?
+                                                            <Button disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
+                                                            Añadir Nueva
+                                                            </Button>
+                                                        :
+                                                        <Box component="div">
+                                                            <Skeleton variant="rectangular" width="60%" height={80} animation="wave"/>
+                                                        </Box>
+                                                        }
+                                                        </Grid>
+                                                    </Grid>
+                                                </Box>
+                                               {/*  <Card className={classes.root} variant="outlined">
                                                     <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
                                                         <Grid item xs={8} sm={8}> 
                                                             {(data.hasOwnProperty('jsonResumen'))? 
@@ -274,7 +290,7 @@ export default function Facturacion(props){
                                                             }
                                                         </Grid>   
                                                     </Grid>                      
-                                                </Card>
+                                                </Card> */}
                                             </Grid> 
                                             <Grid item xs={12} sm={12}>
                                                 {(data.hasOwnProperty('jsonResumen'))? 

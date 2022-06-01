@@ -32,6 +32,7 @@ import AssignmentReturnOutlinedIcon from '@mui/icons-material/AssignmentReturnOu
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 //Component
 import { Layout } from 'layout/Layout';
+import { HelpModal } from 'components/modals';
 
 //Nextjs
 import Link from 'next/link'
@@ -507,7 +508,7 @@ export default function MisPedidos() {
                                                                 </Typography>
                                                             </Grid>
                                                             <Grid item xs={6}  sm={5} lg={2}>
-                                                                <Button variant="outlined" color="primary" fullWidth size="large" name="Modal1" onClick={handleOpen}><HelpOutlineOutlinedIcon color="primary"/>&nbsp; Ayuda</Button>
+                                                                <Button variant="outlined" color="primary" fullWidth size="large" onClick={handleOpen}><HelpOutlineOutlinedIcon color="primary"/>&nbsp; Ayuda</Button>
                                                             </Grid>
                                                         </Grid>
                                                     </Box>
