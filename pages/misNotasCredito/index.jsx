@@ -107,48 +107,59 @@ export default function MisNotasCredito() {
 
         clienteNum = localStorage.getItem('Cliente');
         fechaNotas = localStorage.getItem('fechaNotas');
+        let afiliado =  localStorage.getItem('afiliado')
 
-        if(fechaNotas === null || fechaNotas ===''){
-            setTitulo('Notas recientes')
-            Services('POST','/miCuenta/consultaNotasFecha?clienteNum='+clienteNum+'&fechaNotas=',{})
-            .then( response =>{
-                    console.log("Service consultaNotasFecha ")
-                    console.log("sin mes")
-                    console.log(response.data)
-                    setResult(response.data)
-                    if(result.length = 1 && response.data[0].invoiceNum > 0){
-                        setResultado(true)
-                        console.log('Con resultados')
-                    }else{
-                        setResultado(false)
-                        
-                        console.log(response.data)
-                    }
-            }).catch(error => {
-                console.log("falló")
-                console.log(error.response)
-            });
-        }else{
-            Services('POST','/miCuenta/consultaNotasFecha?clienteNum='+clienteNum+'&fechaNotas='+fechaNotas,{})
-            .then( response =>{
-                setTitulo('Mis Notas del '+fechaNotas)
-                console.log("por mes")
-                setResult(response.data)
-                if(result.length = 1 && response.data[0].invoiceNum > 0){
-                    setResultado(true)
-                    console.log('Con resultados')
-                    localStorage.setItem('fechaNotas', '')
-                }else{
-                    setResultado(false)
-                    console.log('Sin resultados')
-                }
-                localStorage.setItem('fechaNotas', '')
+        if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(cliente) !== 201221){
                 
-            }).catch(error => {
-                console.log("falló")
-                console.log(error.response)
-            });
-        }
+                if(fechaNotas === null || fechaNotas ===''){
+                    setTitulo('Notas recientes')
+                    Services('POST','/miCuenta/consultaNotasFecha?clienteNum='+clienteNum+'&fechaNotas=',{})
+                    .then( response =>{
+                            console.log("Service consultaNotasFecha ")
+                            console.log("sin mes")
+                            console.log(response.data)
+                            setResult(response.data)
+                            if(result.length = 1 && response.data[0].invoiceNum > 0){
+                                setResultado(true)
+                                console.log('Con resultados')
+                            }else{
+                                setResultado(false)
+                                
+                                console.log(response.data)
+                            }
+                    }).catch(error => {
+                        console.log("falló")
+                        console.log(error.response)
+                    });
+                }else{
+                    Services('POST','/miCuenta/consultaNotasFecha?clienteNum='+clienteNum+'&fechaNotas='+fechaNotas,{})
+                    .then( response =>{
+                        setTitulo('Mis Notas del '+fechaNotas)
+                        console.log("por mes")
+                        setResult(response.data)
+                        if(result.length = 1 && response.data[0].invoiceNum > 0){
+                            setResultado(true)
+                            console.log('Con resultados')
+                            localStorage.setItem('fechaNotas', '')
+                        }else{
+                            setResultado(false)
+                            console.log('Sin resultados')
+                        }
+                        localStorage.setItem('fechaNotas', '')
+                        
+                    }).catch(error => {
+                        console.log("falló")
+                        console.log(error.response)
+                    });
+                }
+            }else{
+                router.push('/')
+            } 
+        }else{
+            router.push('/')
+        } 
+
     }, []) 
 
     function consultaPorFecha(date){

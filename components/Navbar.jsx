@@ -34,6 +34,8 @@ import {
 
 import { makeStyles, useTheme } from '@mui/styles';
 
+import RandomUser  from '../pages/services/RandomUser'
+
 // Variables imports
 import { logoUrl } from '../constants';
 
@@ -108,12 +110,12 @@ export function Navbar(props) {
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
 	const [sesPartidas, setSesPartidas] = useState(props.partidas);
+    const [favoritos, setFavoritos] = useState(props.favoritos);
 
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
 	let Cliente = 0;
-	let Favoritos = 0;
 	let Token = '';
 	let Usuario = 0;
 	let ejecutivoNum = 0;
@@ -136,6 +138,11 @@ export function Navbar(props) {
 			const CountPartidas = localStorage.getItem('SesPartidas');
 			if (CountPartidas) {
 				setSesPartidas(CountPartidas);
+			}
+
+            const countFavoritos = localStorage.getItem('Favoritos');
+			if (countFavoritos) {
+				setSesPartidas(countFavoritos);
 			}
 		}
 		window.addEventListener('storage', checkUserData);
@@ -213,8 +220,9 @@ export function Navbar(props) {
 		localStorage.setItem('Token', '');
 		localStorage.setItem('Login', 'NO');
 		localStorage.setItem('Email', '');
-		localStorage.setItem('Usuario', 0);
+		localStorage.setItem('Usuario', RandomUser());
 		localStorage.setItem('afiliado', '');
+        localStorage.setItem('pedido', 0);
 		ruter.push('/');
 	}
 
@@ -321,7 +329,6 @@ export function Navbar(props) {
 
 	return (
 		<>
-		{props.partidas}
 			<HelpModal isOpen={openModal} onClose={handleOpenModal} />
 			<ElevationScroll {...props}>
 				<AppBar position='sticky'>
@@ -392,7 +399,7 @@ export function Navbar(props) {
 							<Box component={'span'}>
 								<IconButton onClick={handleClick}>
 									<Badge
-										badgeContent={isLogged ? Favoritos : null}
+										badgeContent={isLogged ? favoritos : null}
 										color='secondary'>
 										<Link href='/misFavoritos'>
 											<FavoriteBorder />

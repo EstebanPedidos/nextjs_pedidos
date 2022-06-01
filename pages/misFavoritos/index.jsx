@@ -120,6 +120,7 @@ export default function MisFavoritos() {
 
         clienteNum = localStorage.getItem('Cliente');
         fechaPedido = localStorage.getItem('fechaPedido');
+        let afiliado =  localStorage.getItem('afiliado')
 
         const getData = async () => {
             Services('POST','/miCuenta/obtieneFavoritosFrecuentes?clienteNum='+clienteNum,{})

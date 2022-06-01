@@ -10,9 +10,6 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
 
 import makeStyles from '@mui/styles/makeStyles';
 
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-
 import esLocale from 'date-fns/locale/es'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -28,6 +25,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 //Component
 import { Layout } from 'layout/Layout';
+import {useLocalStorage} from "../../hooks/useLocalStorage";
+import Alertas from '../checkout/Alertas'
 
 //Nextjs
 import Link from 'next/link'
@@ -78,7 +77,8 @@ export default function MisPedidos() {
     const [file, setFile] = useState();
     const [pedido, setPedido] = useState(0);
     const [valueDate, setValueDate] = React.useState(null);
-
+    const [alerta,setAlerta] = useState({})
+    const [partidas,setPartidas] = useLocalStorage('SesPartidas',0)
 
     let clienteNum = '';
     let fechaPedido = '';
@@ -108,52 +108,63 @@ export default function MisPedidos() {
 
         clienteNum = localStorage.getItem('Cliente');
         fechaPedido = localStorage.getItem('fechaPedido');
+        let afiliado =  localStorage.getItem('afiliado')
 
-        const getData= async ()=>{
-            if(fechaPedido === null || fechaPedido ===''){
-                console.log("if falso fechaPedido: "+fechaPedido)
-                Services('POST','/miCuenta/consultaPedidos?clienteNum='+clienteNum,{})
-                .then( response =>{
-                        console.log("sin mes")
-                        console.log(response.data)
-                        setResult(response.data)
-                        if(result.length = 1 && response.data[0].pedidoNum > 0){
-                            setResultado(true)
-                            console.log('Con resultados')
-                        }else{
-                            setResultado(false)
+        if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(clienteNum) !== 201221){
+                
+                const getData= async ()=>{
+                    if(fechaPedido === null || fechaPedido ===''){
+                        console.log("if falso fechaPedido: "+fechaPedido)
+                        Services('POST','/miCuenta/consultaPedidos?clienteNum='+clienteNum,{})
+                        .then( response =>{
+                                console.log("sin mes")
+                                console.log(response.data)
+                                setResult(response.data)
+                                if(result.length = 1 && response.data[0].pedidoNum > 0){
+                                    setResultado(true)
+                                    console.log('Con resultados')
+                                }else{
+                                    setResultado(false)
+                                    
+                                    console.log(response.data)
+                                }
+                                localStorage.setItem('fechaPedido', '')
                             
-                            console.log(response.data)
-                        }
-                        localStorage.setItem('fechaPedido', '')
-                    
-                }).catch(error => {
-                    console.log("falló")
-                    console.log(error.response)
-                });
-            }else{
-                console.log("if positivo fechaPedido: "+fechaPedido)
-                Services('POST','/miCuenta/consultaPedidosFecha?clienteNum='+clienteNum+'&fechaPedidos='+fechaPedido,{})
-                .then( response =>{
-                    console.log("por mes")
-                    setResult(response.data)
-                    if(result.length = 1 && response.data[0].pedidoNum > 0){
-                        setResultado(true)
-                        console.log('Con resultados')
+                        }).catch(error => {
+                            console.log("falló")
+                            console.log(error.response)
+                        });
                     }else{
-                        setResultado(false)
-                        console.log('Sin resultados')
+                        console.log("if positivo fechaPedido: "+fechaPedido)
+                        Services('POST','/miCuenta/consultaPedidosFecha?clienteNum='+clienteNum+'&fechaPedidos='+fechaPedido,{})
+                        .then( response =>{
+                            console.log("por mes")
+                            setResult(response.data)
+                            if(result.length = 1 && response.data[0].pedidoNum > 0){
+                                setResultado(true)
+                                console.log('Con resultados')
+                            }else{
+                                setResultado(false)
+                                console.log('Sin resultados')
+                            }
+                            localStorage.setItem('fechaPedido', '')
+                            
+                        }).catch(error => {
+                            console.log("falló")
+                            console.log(error.response)
+                        });
                     }
-                    localStorage.setItem('fechaPedido', '')
-                    
-                }).catch(error => {
-                    console.log("falló")
-                    console.log(error.response)
-                });
-            }
-        }
+                }
+        
+                getData();        
+            }else{
+                router.push('/')
+            } 
+        }else{
+            router.push('/')
+        } 
 
-        getData();
     }, []) 
 
     function consultaPorFecha(date){
@@ -169,16 +180,20 @@ export default function MisPedidos() {
     }
 
     function agregarAlCarrito(pedidoNum){
-        ShoppingCartServices.agregarAlCarrito(pedidoNum)
-        Services('PUT','agregarAlCarrito?pedidoNum='+pedidoNum,{})
+
+        Services('PUT','/carritoyreservado/agregarAlCarrito?pedidoNum='+pedidoNum,{})
         .then( response =>{
-            setOpen(true);
-            setSnack('uno')
-            console.log("Agregado con exito")
+
+            let partidas =  response.data
+            if(partidas > 0){
+                setPartidas(parseInt(partidas))
+                setAlerta({severity:'success',mensaje:'Añadido con exito al Carrito',vertical:'bottom',horizontal:'right',variant:'filled'})              
+            }else{
+                setAlerta({severity:'error',mensaje:'Error al agregar',vertical:'bottom',horizontal:'right',variant:'filled'})
+            }
             
         }).catch(error => {
-            console.log("falló")
-            console.log(error.response)
+            setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
         });
     }
 
@@ -232,10 +247,6 @@ export default function MisPedidos() {
         });
     }
 
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-    }
-
     const Contenido = (
         result.map((row) => (
             <Grid container justifyContent="space-between" alignItems='center' spacing={2} key={row.pedidoNum}>
@@ -257,7 +268,7 @@ export default function MisPedidos() {
                             <IconButton aria-label="info" color='primary'>
                                 <Link 
                                 href={{
-                                pathname: '/pedido',
+                                pathname: '/pedido-mayoristas',
                                 search: '?pedido='+row.pedidoNum,
                                 state: { pedido: row.pedidoNum }
                                 }}>
@@ -280,7 +291,7 @@ export default function MisPedidos() {
                                             <MenuItem>
                                                 <Link href={{
                                                 pathname: '/pedido',
-                                                search: '?pedido='+row.pedidoNum,
+                                                search: '?pedido-mayoristas='+row.pedidoNum,
                                                 state: { pedido: row.pedidoNum }
                                                 }}>     
                                                     Detalle
@@ -288,7 +299,7 @@ export default function MisPedidos() {
                                             </MenuItem>
                                         </Button>
                                         {row.estatusEnvio != "RETURNED" && row.estatusEnvio != "REFUNDED" && 
-                                            <Button fullWidth color='primary' size="small" onClick={(event) =>{event.preventDefault(); window.location='https://pedidos.com/checkout/pedidoMiCuenta.asp?pedidoNum=' +row.pedidoNum}}>
+                                            <Button fullWidth color='primary' size="small" onClick={(event) =>{event.preventDefault();localStorage.setItem('pedido', row.pedidoNum); window.location='https://pedidos.com/checkout/pedidoMiCuenta.asp?pedidoNum=' +row.pedidoNum}}>
                                                 <Link href="/checkout/direccion-de-envio"> 
                                                     <a>
                                                         <MenuItem>
@@ -426,7 +437,7 @@ export default function MisPedidos() {
     )
 
     return(
-        <Layout>
+        <Layout partidas={partidas}>
         <div>
              <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
@@ -521,6 +532,11 @@ export default function MisPedidos() {
                 </Grid>
                 </Box> 
             </Box>
+
+            {(alerta.hasOwnProperty('severity'))&&
+                <Alertas setAlerta={setAlerta} alerta={alerta}/>
+            } 
+
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -623,20 +639,7 @@ export default function MisPedidos() {
                 </div>
                 </Fade>
             </Modal>
-
-            <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={open && snack === 'uno'}
-            autoHideDuration={6000}
-            onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success">
-            Añadiendo al carrito
-                </Alert>
-            </Snackbar>
-        
+                
         </div>
         </Layout>
     );

@@ -5,8 +5,8 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     Button, Select, TextField, Divider, Modal, Fade,
     Card, CardContent, CardActions, CardMedia, CardActionArea, CardHeader,
     TextareaAutosize, FormHelperText, FormControl, MenuItem, IconButton,
-    Input, InputLabel, InputAdornment, Chip, Snackbar, 
-    Alert, Stack, Rating, Avatar } from '@mui/material';
+    Input, InputLabel, InputAdornment, Chip, Snackbar,
+    Rating, Avatar } from '@mui/material';
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -15,16 +15,18 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
-import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
 import Services from '../services/Services'
+import {useLocalStorage} from "../../hooks/useLocalStorage";
+import Alertas from '../checkout/Alertas'
 
 //NextJs
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -68,12 +70,10 @@ export default function Pedido(props) {
 
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(2);
-    //const pedidoNum = props.location.state.pedido;
     const [inputs, setInputs] = useState({});
     const [clienteNum, setClienteNum] = useState('');
     const [open, setOpen] = React.useState(false);
     const [modal, setModal] = React.useState('');
-    const [snack, setSnack] = React.useState('');
     const [result, setResult] = useState(
         {
             "misPedidos": {
@@ -376,6 +376,8 @@ export default function Pedido(props) {
         }
     );
     const [resultado, setResultado] = useState(false);
+    const [alerta,setAlerta] = useState({})
+    const [partidas,setPartidas] = useLocalStorage('SesPartidas',0)
 
     const router = useRouter()
     const pedido = router.query.pedido;
@@ -383,18 +385,30 @@ export default function Pedido(props) {
 
     useEffect(() => {
 
+        let afiliado =  localStorage.getItem('afiliado')
         setClienteNum(localStorage.getItem('Cliente'));
 
-        Services('POST','/miCuenta/detallePedido?clienteNum='+clienteNum+'&pedidoNum='+pedido,{})
-        .then( response =>{
-            console.log('Entro a detallePedido Servicio: ')
-            console.log(response.data)
-            setResult(response.data)
-            setResultado(true)
-        }).catch(error => {
-            console.log("falló")
-            console.log(error.response)
-        });
+        if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(clienteNum) !== 201221){ 
+
+            Services('POST','/miCuenta/detallePedido?clienteNum='+clienteNum+'&pedidoNum='+pedido,{})
+            .then( response =>{
+                console.log('Entro a detallePedido Servicio: ')
+                console.log(response.data)
+                setResult(response.data)
+                setResultado(true)
+            }).catch(error => {
+                console.log("falló")
+                console.log(error.response)
+            });
+        
+            }else{
+                router.push('/')
+            } 
+        }else{
+            router.push('/')
+        } 
+
     }, [router]) 
 
     const handleOpen = (event) => {
@@ -414,20 +428,19 @@ export default function Pedido(props) {
     }
 
     function agregarAlCarrito(pedidoNum){
-        Services('PUT','/carritoyreservado/agregarAlCarrito??pedidoNum='+pedidoNum,{})
+        Services('PUT','/carritoyreservado/agregarAlCarrito?pedidoNum='+pedidoNum,{})
         .then( response =>{
-            setOpen(true);
-            setSnack('uno')
-            console.log("")
-            
-        }).catch(error => {
-            console.log("falló")
-            console.log(error.response)
-        });
-    }
 
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
+            let partidas =  response.data
+            if(partidas > 0){
+                setPartidas(parseInt(partidas))
+                setAlerta({severity:'success',mensaje:'Añadido con exito al Carrito',vertical:'bottom',horizontal:'right',variant:'filled'})              
+            }else{
+                setAlerta({severity:'error',mensaje:'Error al agregar',vertical:'bottom',horizontal:'right',variant:'filled'})
+            }
+        }).catch(error => {
+            setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
+        });
     }
 
     const Contenido = (
@@ -645,11 +658,11 @@ export default function Pedido(props) {
                                                 </Box>
                                             </Paper>
                                             <Box component="div" py={4}>
-                                                <Button variant="outlined" fullWidth size="large" onClick={(event) => { event.preventDefault();agregarAlCarrito(props.location.state.pedido)}}>Agregar</Button>
+                                                <Button variant="outlined" fullWidth size="large" onClick={(event) => { event.preventDefault();agregarAlCarrito(pedido)}}>Agregar</Button>
                                                 <Box py={2} >
                                                     <Button variant="outlined" fullWidth size="large" 
                                                         onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Comprobante%20de%20Pago%20Pedido%20'
-                                                        +props.location.state.pedido
+                                                        +pedido
                                                         +'&body=Adjunta%20tu%20Archivo%20JPG,%20PNG%20o%20PDF.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
                                                         >   
                                                         Comprobante de pago
@@ -657,7 +670,7 @@ export default function Pedido(props) {
                                                     </Box>
                                                 <Button variant="outlined" fullWidth size="large" 
                                                     onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones%20Pedido%20'
-                                                    +props.location.state.pedido
+                                                    +pedido
                                                     +'&body=Completar%20la%20siguiente%20información%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
                                                 >
                                                     Garantía y Devoluciones
@@ -801,7 +814,7 @@ export default function Pedido(props) {
     )
     
     return(
-        <Layout>
+        <Layout partidas={partidas}>
         <div>
             <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
@@ -882,19 +895,6 @@ export default function Pedido(props) {
                 </Fade>
             </Modal>
             
-
-            <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={open && snack === 'uno'}
-            autoHideDuration={6000}
-            onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success">
-            Añadiendo al carrito
-                </Alert>
-            </Snackbar>
         </div>
         </Layout>
     );
