@@ -82,10 +82,8 @@ export default function RegistroUsuario(){
     async function handleSubmit(e) {
         e.preventDefault();
         console.log("Entro al servicio Registrar Usuario");
-        alert(params);
         let services  = await Services('POST','/registrov2/registraUsuarioNuevo'+params,{}) 
         let data = services.data;
-        alert(data);
         if(services.data === "S"){
             setFirst(true);
         }
@@ -93,10 +91,8 @@ export default function RegistroUsuario(){
 
     async function handleSubmitVerificar(e) {
         e.preventDefault();
-        alert(params2);
         let services  = await Services('POST','/registrov2/verificarCodigo'+params,{}) 
         let data = services.data;
-        alert(data);
 
         ruter.push("/home")
     }

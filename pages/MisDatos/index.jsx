@@ -292,7 +292,6 @@ export default function MisDatos() {
     }
 
     function handleSubmit(tipoCuenta) {
-        alert('Fecha parseada: '+fechaNac)
          Services('POST-NOT','/miCuenta/actualizaDatos',{
             nombre:inputs.nombre === undefined || inputs.nombre === null? misDatos.nombre : inputs.nombre,
             apellido:inputs.apellido === undefined || inputs.apellido === null ? misDatos.apellido : inputs.apellido,
@@ -373,9 +372,9 @@ export default function MisDatos() {
                 if(response.data > 0){
                     setAlerta({severity:'success',mensaje:'Exito, Contraseña Actualizada',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }else if(response.data === -1){
-                    setAlerta({severity:'info',mensaje:'Las contraseñas no coinciden',vertical:'bottom',horizontal:'right',variant:'filled'})
+                    setAlerta({severity:'error',mensaje:'Las contraseñas no coinciden',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }else if(response.data === -2){
-                    setAlerta({severity:'info',mensaje:'Contraseña incorrecta',vertical:'bottom',horizontal:'right',variant:'filled'})
+                    setAlerta({severity:'error',mensaje:'Contraseña incorrecta',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }else{
                     setAlerta({severity:'error',mensaje:'Verifica los datos, Algo salió mal',vertical:'bottom',horizontal:'right',variant:'filled'})
                 }
@@ -966,19 +965,6 @@ export default function MisDatos() {
                         disabled/>
                     </Grid>
                     <Grid item xs={6}>
-                        {/* <TextField fullWidth
-                        id="outlined-full-width" 
-                        label="Fecha de nacimiento" 
-                        variant="outlined" 
-                        type="date" 
-                        name="fechaNac" 
-                        defaultValue={misDatos.fechaNac}
-                        onChange={handleChange}
-                        margin="normal"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        /> */}
                         <Box pt={2}>
                             <LocalizationProvider 
                             dateAdapter={AdapterDateFns}
@@ -988,7 +974,7 @@ export default function MisDatos() {
                                 <DatePicker
                                 label='Fecha de nacimiento'
                                 name="fechaNac" 
-                                value={valueDate}
+                                value={misDatos.fechaNac}
                                 onChange={handleChangeDate}
                                 renderInput={(params) => <TextField fullWidth {...params} />}
                                 />

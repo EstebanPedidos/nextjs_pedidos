@@ -37,7 +37,6 @@ export default function Contra(){
 
         let services  = await Services('GET','/registrov2/enviacorreoPedidos'+params,{}) 
         let data = services.data;
-        alert(data);
         ruter.push("/home")
 
     }

@@ -67,8 +67,8 @@ export default function DatosFacturacion() {
         let afiliado = localStorage.getItem('afiliado') 
         setClienteNum(localStorage.getItem('Cliente'));
 
-        if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
-            if(parseInt(cliente) !== 201221){
+        if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(clienteNum) !== 201221){
 
                 Services('POST','/miCuenta/obtieneDatosFacturacion?clienteNum='+clienteNum,{})
                     .then( response =>{
