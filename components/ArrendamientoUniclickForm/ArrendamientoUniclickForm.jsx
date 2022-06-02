@@ -16,24 +16,27 @@ const CustomButton = styled(Button)({
 	padding: '0 65px',
 	border: 0,
 	lineHeight: 1.5,
-	backgroundColor: '#4116C4',
+	backgroundColor: '#385fb9',
 	fontSize: 18,
 	fontWeight: 600,
 	transform: 'translateY(50%)',
+	borderColor: '#385fb9',
 	'&:hover': {
-		backgroundColor: '#5b2bea',
+		backgroundColor: '#264692',
 		boxShadow: '3px 3px 9px 1px #7e93eb6b',
+		borderColor: '#264692',
 	},
 	'&:active': {
 		boxShadow: 'none',
-		backgroundColor: '#5b2bea',
+		backgroundColor: '#385fb9',
+		borderColor: '#385fb9',
 	},
 	'&:focus': {
 		boxShadow: '3px 3px 9px 1px #7e93eb6b',
 	},
 });
 
-const CreditoUniclickForm = () => {
+const ArrendamientoUniclickForm = () => {
 	const [name, setName] = React.useState(null);
 	const [email, setEmail] = React.useState(null);
 	const [phone, setPhone] = React.useState(null);
@@ -82,24 +85,18 @@ const CreditoUniclickForm = () => {
 				component='img'
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/uniclick/uniclick.svg'
 				alt='Uniclick'
+				px={7}
+				mb={4}
 				width='100%'
 				mx='auto'
 			/>
 
-			<Typography
-				fontSize={20}
-				textAlign='center'
-				fontWeight={500}
-				color='#333'>
-				Registra tus datos y en solo
+			<Typography fontSize={18} textAlign='center' color='#333'>
+				Solicita tu arrendamiento y
 			</Typography>
 
-			<Typography
-				fontSize={20}
-				textAlign='center'
-				fontWeight={500}
-				color='#4116C4'>
-				5 minutos aprobamos tu crédito.
+			<Typography fontSize={18} textAlign='center' fontWeight={500}>
+				estrena los equipos que tu negocio necesita.
 			</Typography>
 
 			<Box
@@ -153,7 +150,7 @@ const CreditoUniclickForm = () => {
 
 				<Box textAlign='center'>
 					<CustomButton variant='contained' type='submit'>
-						Solicitar
+						Solicita tu arrendamiento
 					</CustomButton>
 				</Box>
 			</Box>
@@ -180,4 +177,4 @@ const CreditoUniclickForm = () => {
 	);
 };
 
-export default CreditoUniclickForm;
+export default ArrendamientoUniclickForm;
