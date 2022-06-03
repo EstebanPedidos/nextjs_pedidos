@@ -287,7 +287,6 @@ export default function MisFacturas() {
 		    mpago:parseInt(inputs.metodoPago)
         })
         .then( response =>{  
-            alert("Respuesta:"+response.data)
         })
     }
 

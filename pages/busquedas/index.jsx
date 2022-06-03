@@ -164,12 +164,14 @@ export default function Busquedas(props) {
 	const [filtros, setFiltros] = React.useState([]);
 	const ruter = useRouter();
 
+    let index = '';
+
     useEffect(() => {}, [router]
     );
 
 	useEffect(() => {
         const client = algoliasearch('12YTHFXXB5', '235f66e4531637d52c48f4a91ad6fa3f');
-        const index = client.initIndex('Pedidos');
+        index = client.initIndex('Pedidos');
 
         index
             .search(url, {
@@ -178,7 +180,7 @@ export default function Busquedas(props) {
             .then((res) => {
                 setFiltros(res.facets);
             });
-    }, []
+    }, [index]
     );
 
 	const handleChange = (event) => {
@@ -418,7 +420,12 @@ export default function Busquedas(props) {
                                     }
                                     {filtros.hasOwnProperty('FILTROS.PROCESADOR') &&
 									<Box component='div' textAlign='left' p={4}>
-										<Panel header='PROCESADOR' className="myPanel">
+										<Typography
+											variant='subtitle1'
+											component='h2'
+											sx={{ fontWeight: '600' }}>
+											Procesador
+										</Typography>
 											<RefinementList
 												attribute='FILTROS.PROCESADOR'
 												limit={3}
@@ -432,7 +439,6 @@ export default function Busquedas(props) {
 													},
 												}}
 											/>
-										</Panel>
 									</Box>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.SISTEMA OPERATIVO') &&
