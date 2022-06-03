@@ -266,6 +266,7 @@ export default function Direcciones() {
 													justifyContent='center'
 													spacing={spacing}>
 													{result.map((row) => (
+                                                        row.nombre !== "Generica" && row.nombre !== "PickUP" && 
 														<Grid
 															item
 															xs={6}
