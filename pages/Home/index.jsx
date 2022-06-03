@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import styles from 'styles/Home.module.css';
 import makeStyles from '@mui/styles/makeStyles';
-import { Grid, Box, Paper,
+import { Container, Grid, Box, Paper,
 	Typography, Button, Modal,
     Card, CardContent, CardActions, CardMedia, CardActionArea, Backdrop,
 	Divider, Fade, Chip, InputAdornment,MenuItem, Badge,Drawer,
 	List, ListItem, ListIcon, ListItemText,Skeleton } from '@mui/material';
-
+import styles from 'styles/Home.module.css';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
@@ -20,9 +19,12 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 //Componentes
 import { Layout } from 'layout/Layout';
 import PromoSlides from 'components/home/promoSlides';
-import Services from '../services/Services'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import Services from '../services/Services';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import ServiceSlides from 'components/home/serviceSlides';
+import ForBusiness from 'components/home/forBusiness';
+import Brands from 'components/home/Brands';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -238,8 +240,8 @@ export default function Home() {
             </Grid> */}
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Box component="div" py={2} px={4} xs={{fontWeight:'600'}}>
-                        {validaSesion ? <Typography variant="h4" component="h1" >
+                    <Box component="div" py={2} px={4} >
+                        {validaSesion ? <Typography variant="h4" component="h1" xs={{fontWeight:'600'}}>
                             Hola de nuevo, {nombre}</Typography>: ''}
                     </Box>
                 </Grid>
@@ -358,17 +360,17 @@ export default function Home() {
                                 </Box>
                             </Box>
                         </Grid>
-
+                        
                         <Grid item xs={12} sm={6} md={7}>
                             <Box component="div" sx={{ position:'relative'}}>
                                 <Box component="div" sx={{ position: 'absolute', top: 0,right: 0,display: 'block',}} >
                                     <Box component="div" p={2} sx={{backgroundColor:'#3655a5', borderRadius:'10px 0 0 10px', width:'55vw',height:'350px', justifyContent:'center', margin:'auto'}}> </Box>
                                 </Box>
-                                <Box component="div" py={2}>
+                                <Box component="div" p={2}>
                                     <Swiper
                                     //modules={[Autoplay]}
                                     lazy={true}
-                                    spaceBetween={10}
+                                    spaceBetween={20}
                                     slidesPerView={3}
                                     //centeredSlides={true}
                                     //autoplay={{
@@ -462,7 +464,7 @@ export default function Home() {
                                                                 ))}
                                                             </Grid>
                                                         </Box>
-                                                        <Box component="div"  textAlign="center" py={2}>
+                                                        <Box component="div"  textAlign="center" py={1}>
                                                             <Divider light />
                                                         </Box>
                                                         <Box component="div"  textAlign="center">
@@ -503,7 +505,7 @@ export default function Home() {
                                                             </Grid>
                                                         ))}
                                                         <Grid item xs={12}>
-                                                            <Box component="div"  textAlign="center" py={2}>
+                                                            <Box component="div"  textAlign="center" py={1}>
                                                                 <Divider light />
                                                             </Box>
                                                             <Box component="div"  textAlign="center">
@@ -556,11 +558,34 @@ export default function Home() {
             <Box component="div" className={styles.promoContainer}>
  				<PromoSlides />
  			</Box>
-            <Box component="div" py={2}>
-                <Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
-                    Todo para tu espacio de trabajo
+             <Box component="div" py={6} textAlign="center">
+                <Typography variant="h4" component="h2" sx={{fontWeight:'600'}}>
+                    Todo para tu espacio de trabajo.
                 </Typography>
             </Box>
+		    <Divider />
+            <Box component="div" py={2} textAlign="left">
+                <Box> 
+                    <Container maxWidth="xl">
+                        <Typography variant="h6" component="h2" sx={{fontWeight:'600'}}>
+                            Conoce nuestros servicios
+                        </Typography>
+                        <Box component="div" py={2}>
+                            <ServiceSlides />
+                        </Box>
+                    </Container>
+                </Box>
+		    </Box>
+            <Box component="div" py={2} textAlign="left">
+				<Box component="div" py={4}>
+					<ForBusiness />
+				</Box>
+			</Box>
+            <Box component="div" py={2} textAlign="left">
+				<Box component="div" py={2}>
+					<Brands/>
+				</Box>
+			</Box>
             {/* Inicio de sugerencias */}
             <Box component="div" py={2}>
                 {show.Vistos &&                                

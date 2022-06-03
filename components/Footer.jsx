@@ -1,16 +1,20 @@
 import React from 'react';
 // import { Link as RouterLink} from 'react-router-dom';
-import {Grid, Box, Typography,Skeleton,Divider,Button } from '@mui/material';
-// import logo from '../assets/pedidos-logo.svg';
-import { logoUrl as logo } from '../constants';
-import { makeStyles } from '@material-ui/core/styles';
-import YouTubeIcon from '@material-ui/icons/YouTube';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import { FooterAccordion } from './Text/FooterAccordion';
+import Link from 'next/link'
+//mui5
+import {Grid, Box, Typography,Skeleton,Divider,Button, Container } from '@mui/material';
 import { Hidden } from '@material-ui/core';
+//icons
+import { makeStyles } from '@material-ui/core/styles';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+//components
+import { logoUrl as logo } from '../constants';
+import { FooterAccordion } from './Text/FooterAccordion';
 
 const useStyles = makeStyles((theme) => ({
 	footer: {
@@ -22,14 +26,22 @@ const useStyles = makeStyles((theme) => ({
 		position: 'relative',
 	},
 	gridItem: {
-		margin: '5%',
+		margin: '2.5%',
 	},
 	titlefooter: {
+		fontSize: '20px',
 		fontWeight: '600',
+		marginBottom: '0.5rem'
 	},
 	ItemListFooter: {
+		fontWeight: '500',
 		textDecoration: 'none',
 		color: theme.palette.text.primary,
+	},
+	ItemListFooterl: {
+		fontWeight: '500',
+		textDecoration: 'none',
+		color: theme.palette.text.secondary,
 	},
 	copyrightItem: {
 		color: theme.palette.text.secondary,
@@ -55,7 +67,7 @@ export function Footer() {
 			<Hidden smDown={true}>
 				<FooterDesktop />
 			</Hidden>
-			<Hidden smUp={true}>
+			<Hidden mdUp={true}>
 				<FooterAccordion />
 			</Hidden>
 		</>
@@ -141,33 +153,58 @@ export function FooterDesktop() {
 						<Grid item className={classes.titlefooter}>
 							Conocenos
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
+						<Grid item className={classes.ItemListFooter}
 							// component={RouterLink} to="/"
 						>
-							Google
+							<Link href="https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17">
+         						 <a>
+									Google
+								</a>
+							</Link>
 						</Grid>
 						<Grid
 							item
 							className={classes.ItemListFooter}
 							// component={RouterLink} to="/"
 						>
-							Prensa
+							<Link href="/quienes-somos/prensa">
+         						 <a>
+									Prensa
+								</a>
+							</Link>
 						</Grid>
 						<Grid
 							item
 							className={classes.ItemListFooter}
 							// component={RouterLink} to="/"
 						>
-							Reviews
+							<Link href="/">
+         						 <a>
+									Reviews
+								</a>
+							</Link>
 						</Grid>
 						<Grid
 							item
 							className={classes.ItemListFooter}
 							//  component={RouterLink} to="/"
 						>
-							Se Proveedor
+							<Link href="/">
+         						 <a>
+								  	Se Proveedor
+								</a>
+							</Link>
+						</Grid>
+						<Grid
+							item
+							className={classes.ItemListFooter}
+							//  component={RouterLink} to="/"
+						>
+							<Link href="/">
+         						 <a>
+								  	Hot Sale 2022
+								</a>
+							</Link>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -181,14 +218,30 @@ export function FooterDesktop() {
 							className={classes.ItemListFooter}
 							// component={Link} to="/"
 						>
-							Pick Up Center
+							<Grid
+							item
+							className={classes.ItemListFooter}
+							//  component={RouterLink} to="/"
+						>
+							<Link href="/servicios/pickup">
+         						 <a>
+								  	Pick Up Center
+								</a>
+							</Link>
+						</Grid>
+							
 						</Grid>
 						<Grid
 							item
 							className={classes.ItemListFooter}
 							// component={Link} to="/"
 						>
-							Para empresas
+							<Link href="/servicios/empresas">
+         						 <a>
+								  Para empresas
+								</a>
+							</Link>
+							
 						</Grid>
 						<Grid
 							item
@@ -260,8 +313,8 @@ export function FooterDesktop() {
 						<Grid item className={classes.titlefooter}>
 							Contacto
 						</Grid>
+						<Grid item><Typography className={classes.titlefooter}>55 5015-8100 ó 01 800 8138181</Typography> </Grid>
 						<Grid item>Horario de atención 9:00 a 18:30 hrs</Grid>
-						
 						<Grid item>
 							<Button variant='outlined' color='primary' fullWidth>
 								Cotizar precio por volumen
@@ -277,39 +330,33 @@ export function FooterDesktop() {
 			</Grid>
 			<Grid
 				container
-				justifyContent='center'
+				justifyContent='flex-start'
 				className={classes.mainContainer}>
 				<Grid item className={classes.gridLastItem}>
-					<Grid
-						container
-						direction='row'
-						justifyContent='flex-start'
-						alignItems='center'
-						spacing={2}>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Aviso de privacidad
-						</Grid>
+					<Box component="div" px={5}>
+						<Grid container	direction='row' justifyContent="space-around"
+							alignItems='center' spacing={6}>
+							<Grid item className={classes.ItemListFooterl} color="textSecondary">
+								Aviso de privacidad
+							</Grid>
 
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Términos & Condiciones
-						</Grid>
+							<Grid
+								item
+								className={classes.ItemListFooterl}
+								// component={Link} to="/"
+							>
+								Términos & Condiciones
+							</Grid>
 
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Mapa de sitio
+							<Grid
+								item
+								className={classes.ItemListFooterl}
+								// component={Link} to="/"
+							>
+								Mapa de sitio
+							</Grid>
 						</Grid>
-					</Grid>
+					</Box>
 				</Grid>
 			</Grid>
 			<Divider />

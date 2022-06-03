@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: theme.typography.pxToRem(15),
 		fontWeight: theme.typography.fontWeightRegular,
 	},
+	titlefooter: {
+		fontSize: '20px',
+		fontWeight: '600',
+		marginBottom: '0.5rem'
+	},
 }));
 
 const itemsConocenos = [
@@ -112,16 +117,33 @@ export function FooterAccordion() {
 
 	return (
 		<div className={classes.root}>
-			<CustomAcordion title='Conocenos'>
+			<CustomAcordion title={
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Conocenos
+				</Typography>
+			}>
 				<CustomList data={itemsConocenos} />
 			</CustomAcordion>
-			<CustomAcordion title='Servicios'>
+			<CustomAcordion title={
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Servicios
+				</Typography>
+			}>
 				<CustomList data={itemsServicios} />
 			</CustomAcordion>
-			<CustomAcordion title={'Ayuda'}>
+			<CustomAcordion title=
+			{
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Ayuda
+				</Typography>
+			}>
 				<CustomList data={itemsAyuda} />
 			</CustomAcordion>
-			<CustomAcordion title={'Contacto'}>
+			<CustomAcordion title={
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Contacto
+				</Typography>
+			}>
 				<CustomList data={itemsContacto} />
 			</CustomAcordion>
 		</div>
@@ -151,7 +173,7 @@ const CustomList = ({ data = [1, 2] }) => {
 const CustomAcordion = ({ title, children }) => {
 	const { heading } = useStyles();
 	return (
-		<Accordion>
+		<Accordion elevation={0}>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={heading}>{title}</Typography>
 			</AccordionSummary>
