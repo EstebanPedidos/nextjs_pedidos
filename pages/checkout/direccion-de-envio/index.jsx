@@ -7,11 +7,7 @@ import { Container, Box, Grid, Paper, Typography, Button, Link, Skeleton,
         Avatar, Divider, Radio, RadioGroup, FormControlLabel} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
-
-
 //Componentes 
 import Resumen from '../Resumen';
 import Process from "../Process";
@@ -19,8 +15,7 @@ import Header  from '../Header';
 import ConFactura from '../modals/ConFactura';
 import Eliminar from '../modals/Eliminar';
 import Alertas from '../Alertas';
-import AddDir from '../../Direcciones/Modales/AddDir'
-
+import AddDir from '../../Direcciones/add/Index'
 //Servicos
 import Services from '../../services/Services'
 
@@ -57,9 +52,9 @@ export default function Direccion_de_envio(props){
     const [direcciones,setDirecciones]  = useState([])
     const [direccion,setDireccion]      = useState({dir_num:'0',observacion:'PickUP'});
     const [ejecutivo,setEjecutivo]      = useState({ejecutivo:'', slmn:0})
-    const [alerta,setAlerta]            = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
+    const [alerta,setAlerta]            = useState({inputError:''})
     const [loading,setLoading]          = useState(false) 
-    const [agregada,setAgregada]        = useState(0)
+    const [addOpen,setAddOpen]          = useState(false);     
 
     useEffect(()=>{
         const getData = async () => {
@@ -73,6 +68,7 @@ export default function Direccion_de_envio(props){
                         let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=1',{})
                         let json         = await {jsonResumen:services.data,pedido:pedido,Usu_Nomb:Usu_Nomb}
                         if(json.jsonResumen.resumen.estatus === 'R' && json.jsonResumen.resumen.pvse === 'N'){
+                            let Ldirecciones = await json.jsonResumen.direcciones.sort(SortArray)
                             /*if(json.jsonResumen.resumen.envio.tipo !== ''){
                                 if(json.jsonResumen.resumen.facturas.idMetodo !== 0  || json.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP'){
                                     ruter.push('/checkout/forma-de-pago')
@@ -83,10 +79,14 @@ export default function Direccion_de_envio(props){
                                 if(resumen.facturas.rfc !== ''){
                                     ruter.push('/checkout/forma-de-envio')
                                 }else{*/
-                                    setDirecciones(json.jsonResumen.direcciones)
+                                    setDirecciones(Ldirecciones)
                                     setEjecutivo((json.jsonResumen.resumen.nombreEjecutivo !== '')?{ejecutivo:json.jsonResumen.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
                                     setPeso((json.jsonResumen.resumen.peso >= json.jsonResumen.resumen.pesoVolumetrico)?json.jsonResumen.resumen.peso:json.jsonResumen.resumen.pesoVolumetrico)
-                                    setData(json)  
+                                    setData(json) 
+                                    console.log(JSON.stringify(Ldirecciones))
+                                    if(Ldirecciones.length > 0){
+                                        setDireccion({dir_num:Ldirecciones[0].dirNum,observacion:Ldirecciones[0].observacion})
+                                    }                                    
                                /* }                
                             } */                 
                         } else{
@@ -102,8 +102,17 @@ export default function Direccion_de_envio(props){
                 ruter.push('/')
             }      
         }
-        getData()
-    },[agregada])
+
+        if(!addOpen){
+            getData()
+        }        
+    },[addOpen])
+
+    function SortArray(x, y){
+        if (x.dirNum < y.dirNum) {return 1;}
+        if (x.dirNum > y.dirNum) {return -1;}
+        return 0;
+    }
 
     async function Delete({dirNum,nombreDireccion}){
         Services('PUT','/registrov2/inhabilitadireccion?clienteNum='+localStorage.getItem('Cliente')+'&dirNum='+dirNum,{})
@@ -156,7 +165,7 @@ export default function Direccion_de_envio(props){
     return ( 
        
         <Box className={classes.root}>
-            <Header/>
+            <Header/>            
             <Container maxWidth="lg">
                 <Box component="div" py={3} m={1}>
                     <Grid container spacing={2}>
@@ -202,8 +211,8 @@ export default function Direccion_de_envio(props){
                                         <Skeleton animation="wave" />
                                     </Box>
                                     }
-                                    <Box component="div" px={2}>
-                                        
+                                    {(!addOpen)?
+                                    <Box component="div" px={2}>                                        
                                         <Box component="div" py={2}>
                                             <RadioGroup name='direccion_envio' value={direccion.dir_num}  onChange={salectOption}>
                                             {(data.hasOwnProperty('jsonResumen'))&&
@@ -256,47 +265,12 @@ export default function Direccion_de_envio(props){
                                             <Box component="div">
                                                 <Grid container direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
                                                     <Grid item xs={12} sm={6}>
-                                                        <AddDir setAgregada={setAgregada} agregada={agregada}/>
+                                                        <Button onClick={()=>{setAddOpen(true)}} disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
+                                                         Añadir Nueva
+                                                        </Button>
                                                     </Grid>
                                                 </Grid>
                                             </Box>
-                                           {/*  <div className={classes.root}>
-                                                <Grid container direction="row" justifyContent="center" alignItems="center">
-                                                    <Grid item xs={12} >
-                                                        <Card className={classes.root} variant="outlined">
-                                                            <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
-                                                                <Grid item xs={8} sm={8}>                 
-                                                                    <Box component="div" ml={5}>
-                                                                        <CardContent>
-                                                                            <Grid container alignItems="center" direction="row" justifyContent="flex-start">
-                                                                                <Grid item xs={4} sm={2}>
-                                                                                    <Box component="div">
-                                                                                        <Avatar>
-                                                                                            <AddOutlinedIcon />
-                                                                                        </Avatar>
-                                                                                    </Box>
-                                                                                </Grid>
-                                                                                <Grid item xs={4} sm={7}>  
-                                                                                    <Box component="div" textAlign="left" ml={2}>
-                                                                                        <Typography variant="h6" component="h2">
-                                                                                            A Domicilio
-                                                                                        </Typography>
-                                                                                    </Box>
-                                                                                </Grid>
-                                                                            </Grid> 
-                                                                        </CardContent>
-                                                                    </Box>
-                                                                </Grid> 
-                                                                <Grid item xs={4} sm={4}>
-                                                                    <CardActions>
-                                                                        <Button size="Large" fullWidth color="primary">Añadir Nueva</Button>
-                                                                    </CardActions>
-                                                                </Grid>   
-                                                            </Grid>   
-                                                        </Card>
-                                                    </Grid>
-                                                </Grid>
-                                            </div> */}
                                         </Box>
                                         :
                                         <Box sx={{ pt: 1.5 }}>
@@ -313,6 +287,7 @@ export default function Direccion_de_envio(props){
                                                 <Grid container spacing={2}>
                                                     {
                                                         direcciones.map((direccion, index) => (
+                                                            (direccion.nombreDireccion !== 'PickUP')&&
                                                             <Grid item xs={12} sm={12} lg={6} key={index}>
                                                                 <Card className={classes.rootCardA} variant="outlined">
                                                                 <Box component="div" mx={2}>
@@ -363,7 +338,9 @@ export default function Direccion_de_envio(props){
                                             </RadioGroup>
                                         </Box>
                                     </Box>
-                                    
+                                    :
+                                    <AddDir  setAddOpen={setAddOpen} setAlerta={setAlerta} alerta={alerta}/>
+                                    } 
                                 </Box>
                             </div>
                         </Grid>     
@@ -382,7 +359,7 @@ export default function Direccion_de_envio(props){
                         <Alertas setAlerta={setAlerta} alerta={alerta}/>
                     } 
                 </Box> 
-            </Container>         
+            </Container>   
         </Box>
     );
 }
