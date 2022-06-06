@@ -118,7 +118,7 @@ const PlanesDeProteccion = () => {
 	const [selectedDeviceTab, setSelectedDeviceTab] = React.useState('tab1');
 
 	return (
-		<Layout>
+		<Layout title='Planes de Protección | Pedidos.com'>
 			<Box pt={4} pb={2} position='relative'>
 				<Container>
 					<Box
@@ -664,6 +664,14 @@ const PlanesDeProteccion = () => {
 							</Grid>
 						</Grid>
 					</Grid>
+
+					<Typography
+						variant='body2'
+						my={2}
+						sx={{ transform: { xs: 'none', md: 'translateY(-5rem)' } }}>
+						<Box className='fa-solid fa-circle-info' color='#588eff' /> Consulta
+						Términos y Condiciones de cada plan.
+					</Typography>
 				</Container>
 			</Box>
 
