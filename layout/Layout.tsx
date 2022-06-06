@@ -1,7 +1,7 @@
 import Script from 'next/script';
 import Head from 'next/head';
 
-import { Footer, Navbar, HeroSection, CategoriesDrawer } from '../components';
+import { Footer, Navbar, SubNav, CategoriesDrawer } from '../components';
 
 export const Layout = (props) => {
 	const { title, children, partidas, favoritos } = props;
@@ -16,7 +16,7 @@ export const Layout = (props) => {
 				crossOrigin='anonymous'
 			/>
 			<Navbar partidas={partidas} favoritos={favoritos}/>
-			<HeroSection />
+			<SubNav />
 			<CategoriesDrawer />
 			{children}
 			<Footer />

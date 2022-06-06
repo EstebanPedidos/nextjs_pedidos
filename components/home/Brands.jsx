@@ -71,14 +71,13 @@ export default function TrendSlides() {
         pagination={{
             clickable: true,
         }}
-        loop={true}
-        loopFillGroupWithBlank={true}
+       
         slidesPerView={4}
         spaceBetween={20}
         className="mySwiper4"
         breakpoints={{
             320: {
-                slidesPerView: 1.5,
+                slidesPerView: 1.2,
                 
               },
             630:{

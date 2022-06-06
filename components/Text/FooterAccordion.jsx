@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Link from 'next/link';
 import {
 	Accordion,
 	AccordionSummary,
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const itemsConocenos = [
 	{
 		content: 'Google',
-		to: '/',
+		to: 'https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17',
 	},
 	{
 		content: 'Prensa',
@@ -156,14 +156,23 @@ const CustomList = ({ data = [1, 2] }) => {
 			style={{
 				marginBottom: '1rem',
 			}}>
-			{data.map(({ content }, indx) => (
-				<ListItem component={'li'} key={indx} button>
-					<span
-						style={{
-							color: 'gray',
-						}}>
-						{content}
-					</span>
+			{data.map(({ content, to }, indx) => (
+				<ListItem component={'li'}  key={indx} button>
+					{/* <Link href={to}>
+						<a> */}
+						<Link href={to+''}>
+							<a>
+								<span style={{
+										color: 'gray',
+									}}>
+									
+									{content}
+								</span>
+							</a>
+						</Link>
+							
+						{/* </a>
+					</Link> */}
 				</ListItem>
 			))}
 		</List>
