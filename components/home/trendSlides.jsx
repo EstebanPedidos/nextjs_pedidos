@@ -98,11 +98,11 @@ export default function TrendSlides({favoritos,add}) {
         className="mySwiper3"
         breakpoints={{
             320: {
-                slidesPerView: 2.2,
+                slidesPerView: 1.2,
                 
               },
             640: {
-              slidesPerView: 2.5,
+              slidesPerView: 2.1,
               
             },
             768: {

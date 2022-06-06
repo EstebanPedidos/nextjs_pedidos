@@ -85,7 +85,7 @@ export function FooterDesktop() {
 					container
 					direction='row'
 					justifyContent='center'
-					alignItems='flex-end'
+					alignItems='center'
 					spacing={4}
 					>
 						<Grid item>
@@ -101,7 +101,7 @@ export function FooterDesktop() {
 						<Grid item>
 							<Box component="div" p={1}>
 								<img
-									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/apple-ar.svg"
+									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/aar.svg"
 									srcSet=""
 									alt="Apple  Authorized  Reseller"
 									loading="lazy"
@@ -153,56 +153,38 @@ export function FooterDesktop() {
 						<Grid item className={classes.titlefooter}>
 							Conocenos
 						</Grid>
-						<Grid item className={classes.ItemListFooter}
-							// component={RouterLink} to="/"
-						>
+						<Grid item className={classes.ItemListFooter}>
 							<Link href="https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17">
          						 <a>
 									Google
 								</a>
 							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={RouterLink} to="/"
-						>
+						<Grid item className={classes.ItemListFooter}>
 							<Link href="/quienes-somos/prensa">
          						 <a>
 									Prensa
 								</a>
 							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={RouterLink} to="/"
-						>
+						<Grid item className={classes.ItemListFooter}>
 							<Link href="/">
          						 <a>
 									Reviews
 								</a>
 							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							//  component={RouterLink} to="/"
-						>
+						<Grid item className={classes.ItemListFooter}>
 							<Link href="/">
          						 <a>
 								  	Se Proveedor
 								</a>
 							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							//  component={RouterLink} to="/"
-						>
+						<Grid item className={classes.ItemListFooter}>
 							<Link href="/">
          						 <a>
-								  	Hot Sale 2022
+								  	Hot Sale
 								</a>
 							</Link>
 						</Grid>
@@ -213,57 +195,41 @@ export function FooterDesktop() {
 						<Grid item className={classes.titlefooter}>
 							Servicios
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							<Grid
-							item
-							className={classes.ItemListFooter}
-							//  component={RouterLink} to="/"
-						>
-							<Link href="/servicios/pickup">
-         						 <a>
-								  	Pick Up Center
+							<Grid item className={classes.ItemListFooter}>
+								<Link href="/servicios/pickup">
+									<a>
+										Pick Up Center
+									</a>
+								</Link>
+							</Grid>
+							<Grid item className={classes.ItemListFooter}>
+								<Link href="/servicios/empresas">
+									<a>
+									Para empresas
+									</a>
+								</Link>
+							</Grid>
+							<Grid item className={classes.ItemListFooter}>
+							<Link href="/soho/cliente/planes-de-proteccion">
+								<a>
+									Planes de protección
 								</a>
 							</Link>
-						</Grid>
-							
-						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							<Link href="/servicios/empresas">
-         						 <a>
-								  Para empresas
-								</a>
-							</Link>
-							
-						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Planes de protección
-						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Programa de reciclaje
-						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Uniclick: Crédito PYME
-						</Grid>
+							</Grid>
+							<Grid item className={classes.ItemListFooter}>
+								<Link href="/programa-de-reciclaje">
+									<a>
+										Programa de reciclaje
+									</a>
+								</Link>
+							</Grid>
+							<Grid item className={classes.ItemListFooter}>
+								<Link href="/uniclick">
+									<a>
+										Uniclick: Crédito PYME
+									</a>
+								</Link>
+							</Grid>
 					</Grid>
 				</Grid>
 				<Grid item className={classes.gridItem}>
@@ -271,39 +237,31 @@ export function FooterDesktop() {
 						<Grid item className={classes.titlefooter}>
 							Ayuda
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
+						<Grid item className={classes.ItemListFooter}>
 							Facturación
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Soporte Técnico
+						<Grid item className={classes.ItemListFooter}>
+							<Link href="/soporte-tecnico">
+								<a>
+									Soporte Técnico
+								</a>
+							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Forma de Pago
+						<Grid item className={classes.ItemListFooter}>
+							<Link href="/soho/politicas/forma-pago">
+								<a>
+									Forma de Pago
+								</a>
+							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Forma de Envíos
+						<Grid item className={classes.ItemListFooter}>
+							<Link href="/soho/politicas">
+								<a>
+									Forma de Envíos
+								</a>
+							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
+						<Grid item className={classes.ItemListFooter}>
 							Garantías & devoluciones
 						</Grid>
 					</Grid>
@@ -312,8 +270,9 @@ export function FooterDesktop() {
 					<Grid container direction='column' spacing={2}>
 						<Grid item className={classes.titlefooter}>
 							Contacto
+							<Typography className={classes.titlefooter}>55 5015-8100 ó 01 800 8138181</Typography>
 						</Grid>
-						<Grid item><Typography className={classes.titlefooter}>55 5015-8100 ó 01 800 8138181</Typography> </Grid>
+						
 						<Grid item>Horario de atención 9:00 a 18:30 hrs</Grid>
 						<Grid item>
 							<Button variant='outlined' color='primary' fullWidth>
@@ -337,23 +296,25 @@ export function FooterDesktop() {
 						<Grid container	direction='row' justifyContent="space-around"
 							alignItems='center' spacing={6}>
 							<Grid item className={classes.ItemListFooterl} color="textSecondary">
-								Aviso de privacidad
+								<Link href="/soho/cliente/aviso-privacidad">
+									<a>
+									Aviso de privacidad
+									</a>
+								</Link>
 							</Grid>
-
-							<Grid
-								item
-								className={classes.ItemListFooterl}
-								// component={Link} to="/"
-							>
-								Términos & Condiciones
+							<Grid item className={classes.ItemListFooterl}>
+								<Link href="/soho/cliente/terminos-y-condiciones">
+									<a>
+										Términos & Condiciones
+									</a>
+								</Link>
 							</Grid>
-
-							<Grid
-								item
-								className={classes.ItemListFooterl}
-								// component={Link} to="/"
-							>
-								Mapa de sitio
+							<Grid item className={classes.ItemListFooterl}>
+								<Link href="/RegistroUsuario" passHref>
+									<Button component="a" color='primary'>
+										Registrate
+									</Button>
+								</Link>
 							</Grid>
 						</Grid>
 					</Box>
@@ -437,15 +398,7 @@ export function FooterDesktop() {
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid item className={classes.gridLastItem}>
-					<Grid container direction='row' spacing={2}>
-						<Grid item>
-							<Button variant='contained' color='primary'>
-								Registrate
-							</Button>
-						</Grid>
-					</Grid>
-				</Grid>
+				
 			</Grid>
 		</footer>
 	);
