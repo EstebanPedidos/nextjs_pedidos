@@ -78,10 +78,24 @@ export default function Forma_de_pago(){
         }else if(name === 'sub_forma_pago'){
             setSubFormaPago(value)
         }else if(name === 'tarjeta_guardada'){
-            setTarjetaSave(value)              
-            isMeses(value,((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc))      
-        }
+            setTarjetaSave(value) 
+            if(value !== 'nueva'){
+                isMeses(value,((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc))      
+            }            
+         }
     }
+
+    function cambioNueva(tipo){
+        if(tipo === 1){
+            setTarjetaSave('nueva') 
+        }else if(tipo === 2){
+            if(clientToken.getPaymentTokens.length > 0){
+                setTarjetaSave(clientToken.getPaymentTokens[0].id)
+                isMeses(clientToken.getPaymentTokens[0].id,((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc))      
+            }           
+        }        
+    }
+
     function continuarCompra(){
         setLoading(true)
         if(sub_forma_pago !== ''){
@@ -601,7 +615,7 @@ export default function Forma_de_pago(){
                                         <Box component="div" m={1} >
                                             <Divider light/>
                                         <Box component="div"  p={2}>
-                                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave} evento={data.jsonResumen.resumen.eventoNum} Delete={Delete} total={Precios('formatcurrency',{subtotal:((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc),fixed:2})} idMeses={idMeses} loading={loading} setLoading={setLoading}/>
+                                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave} evento={data.jsonResumen.resumen.eventoNum} Delete={Delete} total={Precios('formatcurrency',{subtotal:((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc),fixed:2})} idMeses={idMeses} loading={loading} setLoading={setLoading} cambioNueva={cambioNueva}/>
                                         </Box>
                                         </Box>
                                         :

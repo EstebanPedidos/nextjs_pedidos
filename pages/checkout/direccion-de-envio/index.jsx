@@ -19,6 +19,7 @@ import Header  from '../Header';
 import ConFactura from '../modals/ConFactura';
 import Eliminar from '../modals/Eliminar';
 import Alertas from '../Alertas';
+import AddDir from '../../Direcciones/Modales/AddDir'
 
 //Servicos
 import Services from '../../services/Services'
@@ -58,6 +59,7 @@ export default function Direccion_de_envio(props){
     const [ejecutivo,setEjecutivo]      = useState({ejecutivo:'', slmn:0})
     const [alerta,setAlerta]            = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
     const [loading,setLoading]          = useState(false) 
+    const [agregada,setAgregada]        = useState(0)
 
     useEffect(()=>{
         const getData = async () => {
@@ -101,7 +103,7 @@ export default function Direccion_de_envio(props){
             }      
         }
         getData()
-    },[])
+    },[agregada])
 
     async function Delete({dirNum,nombreDireccion}){
         Services('PUT','/registrov2/inhabilitadireccion?clienteNum='+localStorage.getItem('Cliente')+'&dirNum='+dirNum,{})
@@ -254,9 +256,7 @@ export default function Direccion_de_envio(props){
                                             <Box component="div">
                                                 <Grid container direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
                                                     <Grid item xs={12} sm={6}>
-                                                        <Button disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
-                                                        Añadir Nueva
-                                                        </Button>
+                                                        <AddDir setAgregada={setAgregada} agregada={agregada}/>
                                                     </Grid>
                                                 </Grid>
                                             </Box>
