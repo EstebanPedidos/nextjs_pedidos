@@ -1,6 +1,8 @@
 //Pauquetes
 import { useState, useEffect } from 'react';
 import * as React from 'react';
+//hooks
+import {useLocalStorage} from '../../../hooks/useLocalStorage'
 //next js
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -16,6 +18,7 @@ import {
 	Alert,
 	Stack,
 	AlertTitle,
+	Skeleton,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -64,6 +67,7 @@ export default function Verifica_pedido() {
 	const [alerta, setAlerta] = useState({});
 	const [carrito, setCarrito] = useState({});
 	const [partidas, setPartidas] = useState(0);
+	const [partidas2,setPartidas2]  = useLocalStorage('SesPartidas',0)
 	const [isEjecutivo, setisEjecutivo] = useState(false);
 	const [total, setTotal] = useState(0);
 	const [favoritos, setFavoritos] = useState([]);
@@ -144,6 +148,7 @@ export default function Verifica_pedido() {
 		}).then((response) => {
 			if (response.data > 0) {
 				setPartidas(response.data);
+				setPartidas2(parseInt(response.data))
 				setLoading(false);
 			}
 		});
@@ -183,6 +188,7 @@ export default function Verifica_pedido() {
 		).then((response) => {
 			setLoading(false);
 			setPartidas(response.data);
+			setPartidas2(parseInt(response.data))
 		});
 	}
 
@@ -323,6 +329,7 @@ export default function Verifica_pedido() {
 						arraySkus
 					).then((response) => {
 						if (response.data.pedido > 0) {
+							setPartidas2(parseInt(0))
 							localStorage.setItem('Pedido', response.data.pedido);
 							ruter.push('/checkout/direccion-de-envio');
 						} else {
@@ -351,7 +358,7 @@ export default function Verifica_pedido() {
 	}
 
 	return (
-		<Layout>
+		<Layout partidas={partidas2}>
 		<Box component='div' m={1}>
 			<div className={classes.root}>
 				<Grid
@@ -359,11 +366,15 @@ export default function Verifica_pedido() {
 					justifyContent='space-around'
 					alignItems='flex-start'>
 					<Grid item xs={12} sm={8}>
+						{(carrito.hasOwnProperty('configCarrito'))?
 						<ItemFavorites
 							favoritos={favoritos}
 							add={add}
 							loading={loading}
 						/>
+						:
+						<Skeleton variant="rectangular" height={10} animation="wave"/>
+						}
 						{partidas > 0 ? (
 							<Box component='div' m={2}>
 								<Box className={classes.root} py={2}>
@@ -470,7 +481,9 @@ export default function Verifica_pedido() {
 									/>
 								)}
 							</Box>
-						) : (
+						) : 
+						(carrito.hasOwnProperty('configCarrito'))?
+						(
 							<Box component='div' py={4}>
 								<Divider light variant='middle' />
 								<Box className={classes.root} py={2}>
@@ -514,8 +527,13 @@ export default function Verifica_pedido() {
 									</Grid>
 								</Box>
 							</Box>
+						)
+						:
+						(
+							<Skeleton variant="rectangular" height={250} animation="wave"/>
 						)}
 					</Grid>
+					{(carrito.hasOwnProperty('configCarrito'))?
 					<Grid item xs={12} sm={4}>
 						<Paper className={classes.paper} elevation={0}>
 							{isEjecutivo && (
@@ -767,6 +785,9 @@ export default function Verifica_pedido() {
 							)}
 						</Paper>
 					</Grid>
+					:
+					<Skeleton variant="rectangular" height={250} animation="wave"/>
+					}
 				</Grid>
 			</div>
 			{alerta.hasOwnProperty('severity') && (

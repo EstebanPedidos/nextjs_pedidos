@@ -131,6 +131,7 @@ export function Navbar(props) {
 			setLogged(false);
 		}
 		setSesPartidas(localStorage.getItem('SesPartidas'));
+		setFavoritos(localStorage.getItem('Favoritos'));
 	}, [props]);
 
 	useEffect(() => {
@@ -149,11 +150,6 @@ export function Navbar(props) {
 		return () => {
 			window.removeEventListener('storage', checkUserData);
 		};
-
-		Cliente = localStorage.getItem('Cliente');
-		Token = localStorage.getItem('Token');
-		Usuario = localStorage.getItem('Usuario');
-		ejecutivoNum = localStorage.getItem('ejecutivoNum');
 	}, [props]);
 
 	const handleClose = () => {

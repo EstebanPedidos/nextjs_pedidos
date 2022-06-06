@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 //next js
-import { useRouter } from 'next/router';
+import Link from 'next/link'
 //Material UI
 import {AppBar, Toolbar, Box,  Paper, Container,
-        Typography, Button, Link, Skeleton,Grid } from '@mui/material';
+        Typography, Button, Skeleton,Grid } from '@mui/material';
         import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
         import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
@@ -14,8 +14,10 @@ export default function CheckoutHeader() {
                 <Container maxWidth="xl">
                     <Toolbar>
                     <Box component="div" sx={{ flexGrow: 1 }}>
-                        <Link to="/Home">
-                            <img alt='Pedidos.com' sx={{height:"1.5em",}} src='https://pedidos.com/myfotos/pedidos-com/pagina/header/pedidos-logo.svg' />
+                         <Link href={`/`}>
+                            <a>
+                                <img alt='Pedidos.com' sx={{height:"1.5em",}} src='https://pedidos.com/myfotos/pedidos-com/pagina/header/pedidos-logo.svg' />
+                            </a>
                         </Link>
                     </Box>
                     <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
