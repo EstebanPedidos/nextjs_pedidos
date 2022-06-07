@@ -277,8 +277,7 @@ export default function Direccion_de_envio(props){
                                             <Skeleton variant="rectangle" height={200} animation="wave"/>
                                         </Box>
                                         }
-                                            </Box>
-                                            
+                                        </Box>
                                             <Box component="div" py={3}>
                                                 <Typography variant="h6" component="h2">{(data.hasOwnProperty('jsonResumen'))?'Direcciones de envío:':<Skeleton animation="wave"/>}</Typography>
                                             </Box>
@@ -339,7 +338,9 @@ export default function Direccion_de_envio(props){
                                         </Box>
                                     </Box>
                                     :
-                                    <AddDir  setAddOpen={setAddOpen} setAlerta={setAlerta} alerta={alerta}/>
+                                    <Box component="div" width="100%">
+                                        <AddDir  setAddOpen={setAddOpen} setAlerta={setAlerta} alerta={alerta}/>
+                                    </Box>
                                     } 
                                 </Box>
                             </div>

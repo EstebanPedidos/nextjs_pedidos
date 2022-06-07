@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 //hooks
 import {useLocalStorage} from "../../../hooks/useLocalStorage";
 //MAterial UI
-import {Button,Modal,Fade,Grid,Typography,TextField,InputLabel,Select,MenuItem,Backdrop,Box,Divider,IconButton
+import {Button,Modal,Fade,Grid,Typography,TextField,InputLabel,Select,MenuItem,Backdrop,Box,Divider,IconButton, FormControl
 } from '@mui/material';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	paper: {
-		position: 'absolute',
+		
 		backgroundColor: theme.palette.background.paper,
 		borderRadius: '8px',
 		boxShadow: theme.shadows[5],
@@ -202,7 +202,26 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
 
     return(
         <>        
-        <div className={classes.paper}>
+        <div>
+            <Box component='div' pb={3}>
+                <Divider variant="middle" />
+            </Box>
+            <Box component="div">
+                    <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
+                        <Grid item xs={8} sm={8}>
+                            <Typography variant="subtitle1" component="h4" sx={{fontWeight:'500'}}>
+                                Añade nueva dirección 
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={4} sm={4}>
+                            
+                            <Button disableElevation variant="outlined" fullWidth>
+                                Regresar
+                            </Button>
+                            
+                        </Grid>
+                    </Grid>
+            </Box>
             <Grid
                 container
                 direction='row'
@@ -210,21 +229,13 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                 alignItems='center'
                 spacing={2}>
                 <Grid item xs={12}>
-                    <Box
-                        component='div'
-                        textAlign='center'
-                        m={1}
-                        py={2}>
-                        <Typography component='h3' variant='h5'>
-                            <Box
-                                component='span'
-                                fontWeight='fontWeightMedium'>
-                                Agrega Nueva Dirección
+                    <Box component='div' textAlign='left'>
+                        <Typography variant='subtitle1' component="p">
+                            <Box component='span' fontWeight='fontWeightMedium'>
+                                
                             </Box>
                         </Typography>
-                        <Box component='div' pt={3}>
-                            <Divider />
-                        </Box>
+                        
                     </Box>
                 </Grid>
                 <Grid item xs={12}>
@@ -234,7 +245,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                         ¿Quién recibe? :
                     </Typography>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12}>
                     <TextField
                         error={(alerta.inputError === 'contact')}
                         fullWidth
@@ -246,7 +257,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                         inputProps={{ maxLength: 30 }}
                     />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={8}>
                     <TextField
                         error={(alerta.inputError === 'phone')}
                         fullWidth
@@ -297,7 +308,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                         Dirección
                     </Typography>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                     <TextField
                         error={(alerta.inputError === 'address1')}
                         fullWidth
@@ -307,6 +318,30 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                         name='address1'
                         onChange={handleChange}
                         inputProps={{ maxLength: 35 }}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField
+                        error={(alerta.inputError === 'exterior')}
+                        fullWidth
+                        id='outlined-basic'
+                        label='Num. Exterior'
+                        variant='outlined'
+                        name='exterior'
+                        onChange={handleChange}
+                        inputProps={{ maxLength: 5 }}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField
+                        error={(alerta.inputError === 'interior')}
+                        fullWidth
+                        id='outlined-basic'
+                        label='Núm. Interior'
+                        variant='outlined'
+                        name='interior' 
+                        onChange={handleChange}
+                        inputProps={{ maxLength: 10 }}
                     />
                 </Grid>
                 <Grid item xs={6}>
@@ -321,31 +356,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                         inputProps={{ maxLength: 20 }}
                     />
                 </Grid>
-                <Grid item xs={4}>
-                    <TextField
-                        error={(alerta.inputError === 'exterior')}
-                        fullWidth
-                        id='outlined-basic'
-                        label='Num. Exterior'
-                        variant='outlined'
-                        name='exterior'
-                        onChange={handleChange}
-                        inputProps={{ maxLength: 5 }}
-                    />
-                </Grid>
-                <Grid item xs={4}>
-                    <TextField
-                        error={(alerta.inputError === 'interior')}
-                        fullWidth
-                        id='outlined-basic'
-                        label='Núm. Interior'
-                        variant='outlined'
-                        name='interior' 
-                        onChange={handleChange}
-                        inputProps={{ maxLength: 10 }}
-                    />
-                </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={6}>
                     <Grid
                         container
                         direction='row'
@@ -373,14 +384,15 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                    <InputLabel id="demo-simple-select-outlined-label">
+                    <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-outlined-label" >
                         Estado | Delegación
                     </InputLabel>
-                    <Select fullWidth variant="outlined"
-                    label="Estado | Delegación"
+                    <Select  variant="outlined"
                     labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
+                    id="demo-simple-select"
                     value={estadoDelegacion}
+                    label="Estado | Delegación"
                     name="estadoDelegacion"
                     onChange={handleChange}
                     onFocus={consultarCp}
@@ -390,6 +402,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                             <MenuItem key={select.delegacion} value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
                         ))}
                     </Select>
+                    </FormControl>
                 </Grid>
                 <Grid item xs={6}>
                     <TextField
@@ -434,25 +447,14 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                         inputProps={{ maxLength: 40 }}
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                     <Box component='div' pt={2}>
-                        <Button
+                        <Button variant="contained"
                             fullWidth
                             color='primary'
                             size='large'
                             onClick={guardarDireccion}>
-                            Guardar
-                        </Button>
-                    </Box>
-                </Grid>
-                <Grid item xs={6}>
-                    <Box component='div' pt={2}>
-                        <Button
-                            fullWidth
-                            color='primary'
-                            size='large'
-                            onClick={()=>{setAddOpen(false)}}>
-                            Cerrar
+                            Guardar y continuar
                         </Button>
                     </Box>
                 </Grid>
