@@ -261,6 +261,9 @@ li .ais-Hits-item::marker {
 	.pagination .ais-Pagination-item {
 		padding: 0.2rem;
 	}
+	.pagination ul {
+		padding: 0;
+	}
 }
 
 @keyframes jumping {
