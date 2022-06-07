@@ -131,6 +131,7 @@ export function Navbar(props) {
 			setLogged(false);
 		}
 		setSesPartidas(localStorage.getItem('SesPartidas'));
+		setFavoritos(localStorage.getItem('Favoritos'));
 	}, [props]);
 
 	useEffect(() => {
@@ -149,11 +150,6 @@ export function Navbar(props) {
 		return () => {
 			window.removeEventListener('storage', checkUserData);
 		};
-
-		Cliente = localStorage.getItem('Cliente');
-		Token = localStorage.getItem('Token');
-		Usuario = localStorage.getItem('Usuario');
-		ejecutivoNum = localStorage.getItem('ejecutivoNum');
 	}, [props]);
 
 	const handleClose = () => {
@@ -333,26 +329,22 @@ export function Navbar(props) {
 				<AppBar position='sticky'>
 					<Toolbar className={content}>
 						<Box component={'div'} alignItems={'center'} display='flex'>
-							<Hidden smDown={true}>
-								{/* Crear una variante del logo que sea adaptable / Por
+							{/*<Hidden smDown={true}>
+								 Crear una variante del logo que sea adaptable / Por
 							ejemplo una "p" para esos casos de usos */}
-								<Link href='/Home'>
+								<Link href='/'>
 									<a>
 										<img className={logo} src={logoUrl} alt='logo pedidos' />
 									</a>
 								</Link>
-							</Hidden>
-							<Box component={'span'} marginLeft='2%'>
+							{/* </Hidden> */}
+							<Box component={'span'}>
 								<DrawerCategorias />
 							</Box>
-							<Hidden smDown={true}>
-								<Box component={'span'} padding={'1rem'}>
-									<Typography color='textPrimary'>Categorías</Typography>
-								</Box>
-							</Hidden>
+							
 						</Box>
 						{/* <Hidden smDown='hide'> */}
-						<Hidden smDown>
+						<Hidden mdDown>
 							<Box width='30%'>
 								<form onSubmit={searchBoxSubmit}>
 									<TextField
@@ -384,7 +376,7 @@ export function Navbar(props) {
 							flexWrap='nowrap'
 							component={'div'}>
 							{/* This inline styles is temporaly, when add link router component, remove */}
-							<Hidden smDown>
+							<Hidden mdDown>
 								<Box component={'span'} style={{ cursor: 'pointer' }}>
 									<Typography component='span' color='textPrimary'>
 										Para{' '}
@@ -467,7 +459,7 @@ export function Navbar(props) {
 						</Box>
 					</Toolbar>
 					<Hidden mdUp={true}>
-						<Box mt={'1rem'}>
+						<Box px={4} pb={1}>
                             <form onSubmit={searchBoxSubmit}>
                                 <TextField
                                     size='medium'

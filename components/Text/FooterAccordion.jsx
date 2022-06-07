@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Link from 'next/link';
 import {
 	Accordion,
 	AccordionSummary,
@@ -21,12 +21,17 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: theme.typography.pxToRem(15),
 		fontWeight: theme.typography.fontWeightRegular,
 	},
+	titlefooter: {
+		fontSize: '20px',
+		fontWeight: '600',
+		marginBottom: '0.5rem'
+	},
 }));
 
 const itemsConocenos = [
 	{
 		content: 'Google',
-		to: '/',
+		to: 'https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17',
 	},
 	{
 		content: 'Prensa',
@@ -112,16 +117,33 @@ export function FooterAccordion() {
 
 	return (
 		<div className={classes.root}>
-			<CustomAcordion title='Conocenos'>
+			<CustomAcordion title={
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Conocenos
+				</Typography>
+			}>
 				<CustomList data={itemsConocenos} />
 			</CustomAcordion>
-			<CustomAcordion title='Servicios'>
+			<CustomAcordion title={
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Servicios
+				</Typography>
+			}>
 				<CustomList data={itemsServicios} />
 			</CustomAcordion>
-			<CustomAcordion title={'Ayuda'}>
+			<CustomAcordion title=
+			{
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Ayuda
+				</Typography>
+			}>
 				<CustomList data={itemsAyuda} />
 			</CustomAcordion>
-			<CustomAcordion title={'Contacto'}>
+			<CustomAcordion title={
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Contacto
+				</Typography>
+			}>
 				<CustomList data={itemsContacto} />
 			</CustomAcordion>
 		</div>
@@ -134,14 +156,23 @@ const CustomList = ({ data = [1, 2] }) => {
 			style={{
 				marginBottom: '1rem',
 			}}>
-			{data.map(({ content }, indx) => (
-				<ListItem component={'li'} key={indx} button>
-					<span
-						style={{
-							color: 'gray',
-						}}>
-						{content}
-					</span>
+			{data.map(({ content, to }, indx) => (
+				<ListItem component={'li'}  key={indx} button>
+					{/* <Link href={to}>
+						<a> */}
+						<Link href={to+''}>
+							<a>
+								<span style={{
+										color: 'gray',
+									}}>
+									
+									{content}
+								</span>
+							</a>
+						</Link>
+							
+						{/* </a>
+					</Link> */}
 				</ListItem>
 			))}
 		</List>
@@ -151,7 +182,7 @@ const CustomList = ({ data = [1, 2] }) => {
 const CustomAcordion = ({ title, children }) => {
 	const { heading } = useStyles();
 	return (
-		<Accordion>
+		<Accordion elevation={0}>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={heading}>{title}</Typography>
 			</AccordionSummary>

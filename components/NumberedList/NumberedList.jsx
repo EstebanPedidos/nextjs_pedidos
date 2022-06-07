@@ -62,6 +62,7 @@ const NumberedList = (props) => {
 						sx={{
 							display: 'none',
 							position: 'absolute',
+							width: '80%',
 							left: { xs: '5rem', md: '9rem' },
 							bgcolor: 'white',
 							px: 2,

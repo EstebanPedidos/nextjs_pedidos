@@ -31,25 +31,33 @@ export const HomeSite = () => {
 		</Box>
 		<Divider />
 		<Box component="div" py={2} textAlign="left">
-			<Typography variant="h6" component="h2" sx={{fontWeight:'600'}}>
-				Conoce nuestros servicios
-			</Typography>
-			<Box component="div" py={2}>
-				<ServiceSlides />
+			<Box> 
+				<Container maxWidth="xl">
+					<Typography variant="h6" component="h2" sx={{fontWeight:'600'}}>
+						Conoce nuestros servicios
+					</Typography>
+					<Box component="div" py={2}>
+						<ServiceSlides />
+					</Box>
+				</Container>
 			</Box>
 		</Box>
-		<Box component="div" py={2} textAlign="left">
+		<Box component="div" p={2} textAlign="left">
 			<SecondaryCard />	
 		</Box>
-		<Box component="div" py={2} textAlign="left">
-				<Typography variant="h6" component="h2" sx={{fontWeight:'600'}}>
-					Productos Destacados
-				</Typography>
-				<Box component="div" py={2}>
-					<Trends />
+			<Box component="div" mt={4} py={4} textAlign="left" sx={{position:'relative'}}>
+				<Box component="div" className={styles.boxbbc}>
+					<Container maxWidth="xl">
+						<Typography variant="h6" component="h2" sx={{fontWeight:'600'}}>
+							Productos Destacados
+						</Typography>
+						<Box component="div" py={2}>
+							<Trends />
+						</Box>
+					</Container>
 				</Box>
 			</Box>
-			<Box component="div" py={2}>
+			<Box component="div" p={2}>
 				<ThreeCards />
 			</Box>
 			<Box component="div" py={2} textAlign="left">
@@ -59,10 +67,8 @@ export const HomeSite = () => {
 				<Box component="div" py={4}>
 					<ForBusiness />
 				</Box>
-				
 			</Box>
 			<Box component="div" py={2} textAlign="left">
-				
 				<Box component="div" py={2}>
 					<Brands/>
 				</Box>
@@ -79,20 +85,24 @@ export const HomeSite = () => {
 					Papel
 				</Box>
 			</Box> */}
-			<Divider light />
-			<Box component="div" py={6} textAlign="center">
-				<Box component="div" pt={6} textAlign="center">
-					<Typography variant="h4" component="h5" sx={{fontWeight:'600'}}>
-					Servicio personalizado enfocado a tus necesidades
-					</Typography>
-				</Box>
-				<Box component="div" pt={4} pb={6}>
-					<Button variant="contained">
-							Ver Centro de Ayuda
-					</Button>
+			
+			<Box component="div" pt={6} textAlign="center">
+				<Box py={6} sx={{ background:'#f6f7f9' }}>
+					<Container maxWidth="xl">
+						<Box component="div" pt={6} textAlign="center">
+							<Typography variant="h4" component="h5" sx={{fontWeight:'600'}}>
+							Servicio personalizado enfocado a tus necesidades
+							</Typography>
+						</Box>
+						<Box component="div" pt={4} pb={6}>
+							<Button variant="contained">
+									Centro de Ayuda
+							</Button>
+						</Box>
+					</Container>
 				</Box>
 			</Box>
-			<Divider light />
+			
 			{/* <Box component="div" py={2} textAlign="center">
 				<Paper elevation={3} >
 				<Box component="div" p={2}>

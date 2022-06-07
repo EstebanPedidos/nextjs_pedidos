@@ -1,16 +1,20 @@
 import React from 'react';
 // import { Link as RouterLink} from 'react-router-dom';
-import {Grid, Box, Typography,Skeleton,Divider,Button } from '@mui/material';
-// import logo from '../assets/pedidos-logo.svg';
-import { logoUrl as logo } from '../constants';
-import { makeStyles } from '@material-ui/core/styles';
-import YouTubeIcon from '@material-ui/icons/YouTube';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import { FooterAccordion } from './Text/FooterAccordion';
+import Link from 'next/link'
+//mui5
+import {Grid, Box, Typography,Skeleton,Divider,Button, Container } from '@mui/material';
 import { Hidden } from '@material-ui/core';
+//icons
+import { makeStyles } from '@material-ui/core/styles';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+//components
+import { logoUrl as logo } from '../constants';
+import { FooterAccordion } from './Text/FooterAccordion';
 
 const useStyles = makeStyles((theme) => ({
 	footer: {
@@ -22,14 +26,22 @@ const useStyles = makeStyles((theme) => ({
 		position: 'relative',
 	},
 	gridItem: {
-		margin: '5%',
+		margin: '2.5%',
 	},
 	titlefooter: {
+		fontSize: '20px',
 		fontWeight: '600',
+		marginBottom: '0.5rem'
 	},
 	ItemListFooter: {
+		fontWeight: '500',
 		textDecoration: 'none',
 		color: theme.palette.text.primary,
+	},
+	ItemListFooterl: {
+		fontWeight: '500',
+		textDecoration: 'none',
+		color: theme.palette.text.secondary,
 	},
 	copyrightItem: {
 		color: theme.palette.text.secondary,
@@ -55,7 +67,7 @@ export function Footer() {
 			<Hidden smDown={true}>
 				<FooterDesktop />
 			</Hidden>
-			<Hidden smUp={true}>
+			<Hidden mdUp={true}>
 				<FooterAccordion />
 			</Hidden>
 		</>
@@ -73,7 +85,7 @@ export function FooterDesktop() {
 					container
 					direction='row'
 					justifyContent='center'
-					alignItems='flex-end'
+					alignItems='center'
 					spacing={4}
 					>
 						<Grid item>
@@ -89,7 +101,7 @@ export function FooterDesktop() {
 						<Grid item>
 							<Box component="div" p={1}>
 								<img
-									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/apple-ar.svg"
+									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/aar.svg"
 									srcSet=""
 									alt="Apple  Authorized  Reseller"
 									loading="lazy"
@@ -141,33 +153,40 @@ export function FooterDesktop() {
 						<Grid item className={classes.titlefooter}>
 							Conocenos
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={RouterLink} to="/"
-						>
-							Google
+						<Grid item className={classes.ItemListFooter}>
+							<Link href="https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17">
+         						 <a>
+									Google
+								</a>
+							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={RouterLink} to="/"
-						>
-							Prensa
+						<Grid item className={classes.ItemListFooter}>
+							<Link href="/quienes-somos/prensa">
+         						 <a>
+									Prensa
+								</a>
+							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={RouterLink} to="/"
-						>
-							Reviews
+						<Grid item className={classes.ItemListFooter}>
+							<Link href="/">
+         						 <a>
+									Reviews
+								</a>
+							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							//  component={RouterLink} to="/"
-						>
-							Se Proveedor
+						<Grid item className={classes.ItemListFooter}>
+							<Link href="/">
+         						 <a>
+								  	Se Proveedor
+								</a>
+							</Link>
+						</Grid>
+						<Grid item className={classes.ItemListFooter}>
+							<Link href="/">
+         						 <a>
+								  	Hot Sale
+								</a>
+							</Link>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -176,41 +195,41 @@ export function FooterDesktop() {
 						<Grid item className={classes.titlefooter}>
 							Servicios
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Pick Up Center
-						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Para empresas
-						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Planes de protección
-						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Programa de reciclaje
-						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Uniclick: Crédito PYME
-						</Grid>
+							<Grid item className={classes.ItemListFooter}>
+								<Link href="/servicios/pickup">
+									<a>
+										Pick Up Center
+									</a>
+								</Link>
+							</Grid>
+							<Grid item className={classes.ItemListFooter}>
+								<Link href="/servicios/empresas">
+									<a>
+									Para empresas
+									</a>
+								</Link>
+							</Grid>
+							<Grid item className={classes.ItemListFooter}>
+							<Link href="/soho/cliente/planes-de-proteccion">
+								<a>
+									Planes de protección
+								</a>
+							</Link>
+							</Grid>
+							<Grid item className={classes.ItemListFooter}>
+								<Link href="/programa-de-reciclaje">
+									<a>
+										Programa de reciclaje
+									</a>
+								</Link>
+							</Grid>
+							<Grid item className={classes.ItemListFooter}>
+								<Link href="/uniclick">
+									<a>
+										Uniclick: Crédito PYME
+									</a>
+								</Link>
+							</Grid>
 					</Grid>
 				</Grid>
 				<Grid item className={classes.gridItem}>
@@ -218,39 +237,31 @@ export function FooterDesktop() {
 						<Grid item className={classes.titlefooter}>
 							Ayuda
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
+						<Grid item className={classes.ItemListFooter}>
 							Facturación
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Soporte Técnico
+						<Grid item className={classes.ItemListFooter}>
+							<Link href="/soporte-tecnico">
+								<a>
+									Soporte Técnico
+								</a>
+							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Forma de Pago
+						<Grid item className={classes.ItemListFooter}>
+							<Link href="/soho/politicas/forma-pago">
+								<a>
+									Forma de Pago
+								</a>
+							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Forma de Envíos
+						<Grid item className={classes.ItemListFooter}>
+							<Link href="/soho/politicas">
+								<a>
+									Forma de Envíos
+								</a>
+							</Link>
 						</Grid>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
+						<Grid item className={classes.ItemListFooter}>
 							Garantías & devoluciones
 						</Grid>
 					</Grid>
@@ -259,9 +270,10 @@ export function FooterDesktop() {
 					<Grid container direction='column' spacing={2}>
 						<Grid item className={classes.titlefooter}>
 							Contacto
+							<Typography className={classes.titlefooter}>55 5015-8100 ó 01 800 8138181</Typography>
 						</Grid>
-						<Grid item>Horario de atención 9:00 a 18:30 hrs</Grid>
 						
+						<Grid item>Horario de atención 9:00 a 18:30 hrs</Grid>
 						<Grid item>
 							<Button variant='outlined' color='primary' fullWidth>
 								Cotizar precio por volumen
@@ -277,39 +289,35 @@ export function FooterDesktop() {
 			</Grid>
 			<Grid
 				container
-				justifyContent='center'
+				justifyContent='flex-start'
 				className={classes.mainContainer}>
 				<Grid item className={classes.gridLastItem}>
-					<Grid
-						container
-						direction='row'
-						justifyContent='flex-start'
-						alignItems='center'
-						spacing={2}>
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Aviso de privacidad
+					<Box component="div" px={5}>
+						<Grid container	direction='row' justifyContent="space-around"
+							alignItems='center' spacing={6}>
+							<Grid item className={classes.ItemListFooterl} color="textSecondary">
+								<Link href="/soho/cliente/aviso-privacidad">
+									<a>
+									Aviso de privacidad
+									</a>
+								</Link>
+							</Grid>
+							<Grid item className={classes.ItemListFooterl}>
+								<Link href="/soho/cliente/terminos-y-condiciones">
+									<a>
+										Términos & Condiciones
+									</a>
+								</Link>
+							</Grid>
+							<Grid item className={classes.ItemListFooterl}>
+								<Link href="/RegistroUsuario" passHref>
+									<Button component="a" color='primary'>
+										Registrate
+									</Button>
+								</Link>
+							</Grid>
 						</Grid>
-
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Términos & Condiciones
-						</Grid>
-
-						<Grid
-							item
-							className={classes.ItemListFooter}
-							// component={Link} to="/"
-						>
-							Mapa de sitio
-						</Grid>
-					</Grid>
+					</Box>
 				</Grid>
 			</Grid>
 			<Divider />
@@ -390,15 +398,7 @@ export function FooterDesktop() {
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid item className={classes.gridLastItem}>
-					<Grid container direction='row' spacing={2}>
-						<Grid item>
-							<Button variant='contained' color='primary'>
-								Registrate
-							</Button>
-						</Grid>
-					</Grid>
-				</Grid>
+				
 			</Grid>
 		</footer>
 	);

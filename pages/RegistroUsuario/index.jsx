@@ -101,12 +101,12 @@ export default function RegistroUsuario(){
         checked: false
     });
 
-    const paperStyle={padding:40, height: 'auto', width:450, margin:"30px auto"}
+    const paperStyle={padding:40, height: 'auto', width:450, maxWidth:'90%', margin:"30px auto"}
     return(
 
         <React.Fragment>
         <Layout>
-            <Container maxWidth="sm">
+            <Container maxWidth="xl">
                 {first === false &&
                 
                     <Paper variant="outlined" elevation={0} style={paperStyle}>
@@ -115,7 +115,7 @@ export default function RegistroUsuario(){
                             <Typography variant="subtitle1">Bienvenido ¡Nos da gusto que estes aquí!</Typography>   
                         </Box>
                         <Box my={1}>
-                            <FormControl fullWidth onSubmit={handleSubmit} className="classes.margin">
+                            <FormControl fullWidth onSubmit={handleSubmit} >
                                 <TextField margin="dense" name="usuario" label="Nombre" variant="outlined" type="text" onChange={handleChange}  expresionRegular={expresiones.nombre} focused />
                                 <TextField margin="dense" name="correo" variant="outlined" autoComplete="on" onChange={handleChange} type="text" label="Correo"   />
                                 <TextField margin="dense" name="telefono" variant="outlined" autoComplete="on"  onChange={handleChange} type="number" label="Teléfono"  expresionRegular={expresiones.telefono} />             
