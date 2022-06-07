@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     borderRadius: '8px',
     boxShadow: theme.shadows[5],
+    margin: theme.spacing(2),
     padding: theme.spacing(2, 4, 3),
   },
   control: {
@@ -156,91 +157,166 @@ export default function DatosFacturacion() {
         window.location.reload(false);
     }
 
-    function guardarFactura(){}
+    function guardarFactura(){
+        Services('POST-NOT','/miCuenta/guardaDatoFactNuevo',{
+            clienteNum:parseInt(clienteNum),
+		    clienteRfc:inputs.rfc.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+            usoCfdi: inputs.cfdi,
+		    razonSocial:inputs.razonSocial.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    telefono:inputs.telefono,
+		    contact:inputs.contacto.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    direccion:inputs.direccion.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    cp:inputs.cp,
+		    colonia:inputs.colonia.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    estado:inputs.estadoDelegacion.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    delegacion:inputs.estadoDelegacion.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    mpago:parseInt(inputs.metodoPago)
+        })
+        .then( response =>{  
+        })
+    }
 
     const formulario = (
-        <div>
-            <Grid item xs={12}>
-                <h3>Agrega Nueva Dirección</h3>
+        <Box component="div" pt={4}>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <InputLabel required id="demo-simple-select-outlined-label">
+                        Uso de CDFI
+                    </InputLabel>
+                    <Select fullWidth variant="outlined"
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={cfdi}
+                    name="cfdi"
+                    onChange={handleChange}
+                    label="Uso de CDFI"
+                    >
+                        {cfdiSelect.map((select) => (
+                            <MenuItem key={select.idUsu} value={select.idUsu}>{select.descripcion}</MenuItem>
+                        ))}
+                    </Select>
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField fullWidth
+                        id="filled-textarea"
+                        label="Razón Social" 
+                        placeholder="Ingresa tu razón social"
+                        multiline
+                        variant="outlined"
+                        name="razonSocial" 
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField fullWidth
+                        id="filled-textarea"
+                        label="Teléfono" 
+                        placeholder="Ingresa un teléfono"
+                        multiline
+                        variant="outlined"
+                        name="telefono" 
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField fullWidth
+                        id="filled-textarea"
+                        label="Contacto" 
+                        placeholder="Ingresa un nombre"
+                        multiline
+                        variant="outlined"
+                        name="contacto" 
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField fullWidth
+                        id="filled-textarea"
+                        label="Dirección" 
+                        placeholder="Ingresa la calle y número"
+                        multiline
+                        variant="outlined"
+                        name="direccion" 
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <Box display="flex" justifyContent="flex-start" m={1} p={1} >
+                        <TextField fullWidth
+                            id="filled-textarea"
+                            label="Código Postal" 
+                            placeholder="Ingresa un C.P."
+                            multiline
+                            variant="outlined"
+                            name="cp" 
+                            onChange={handleChange}
+                        />
+                        <IconButton color="primary" aria-label="add CP" onClick={consultarCp}>
+                            <CheckCircleOutlineIcon/>
+                        </IconButton>
+                    </Box>
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField fullWidth
+                        id="filled-textarea"
+                        label="Colonia" 
+                        placeholder="Ingresa una colonia"
+                        multiline
+                        variant="outlined"
+                        name="colonia" 
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <InputLabel id="demo-simple-select-outlined-label">
+                        Estado | Delegación
+                    </InputLabel>
+                    <Select fullWidth variant="outlined"
+                    label="Estado | Delegación"
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={estadoDelegacion}
+                    name="estadoDelegacion"
+                    onChange={handleChange}
+                    onFocus={consultarCp}
+                    >
+                        <MenuItem value="-">Selecciona</MenuItem>
+                        {resultCP.map((select) => (
+                            <MenuItem key={select.delegacion} value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
+                        ))}
+                    </Select>
+                </Grid>
+                <Grid item xs={12}>
+                    <InputLabel id="demo-simple-select-outlined-label">
+                        Método de Pago (requerido)
+                    </InputLabel>
+                    <Select fullWidth variant='outlined'
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={metodoPago}
+                    name="metodoPago"
+                    onChange={handleChange}
+                    label="Selecciona"
+                    >
+                            <MenuItem value="99">NO IDENTIFICADO</MenuItem>
+                            <MenuItem value="1">EFECTIVO</MenuItem>
+                            <MenuItem value="2">CHEQUE NOMINATIVO </MenuItem>
+                            <MenuItem value="3">TRANSFERENCIA ELECTRONICA DE FONDOS</MenuItem>
+                            <MenuItem value="4">TARJETA DE CREDITO</MenuItem>
+                            <MenuItem value="28">TARJETA DE DEBITO</MenuItem>
+                            <MenuItem value="29">TARJETA DE SERVICIOS</MenuItem>
+                            <MenuItem value="99">PAYPAL</MenuItem>
+                            <MenuItem value="5">MONEDERO ELECTRONICO</MenuItem>
+                            <MenuItem value="6">DINERO ELECTRONICO</MenuItem>
+                    </Select>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button variant="contained" color="primary" onClick={guardarFactura}>Guardar</Button>
+                </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <h4>Quien recibe:</h4>
-            </Grid>
-            <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nombre..." variant="outlined" name="contact" onChange={handleChange}/>
-            </Grid>
-            <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Telefono..." variant="outlined" name="phone" onChange={handleChange}/>
-            </Grid>
-            <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Ext." variant="outlined" name="extension" onChange={handleChange}/>
-            </Grid>
-            <Grid item xs={12}>
-                <h4>Tipo de Dirección</h4>
-            </Grid>
-            <Grid item xs={12}>
-                <TextField id="outlined-basic" label="Ej. Oficina, Casa, Torre" variant="outlined" name="nombre" onChange={handleChange}/>
-            </Grid>
-            <Grid item xs={12}>
-                <h4>Dirección</h4>
-            </Grid>
-            <Grid item xs={6}>
-                <TextField id="outlined-basic" label="Calle" variant="outlined" name="address1" onChange={handleChange}/>
-            </Grid>
-            <Grid item xs={6}>
-                <TextField id="outlined-basic" label="Colonia" variant="outlined" name="colonia" onChange={handleChange}/>
-            </Grid>
-            <Grid item xs={3}>
-                <TextField id="outlined-basic" label="Num. Exterior" variant="outlined" name="exterior" onChange={handleChange}/>
-            </Grid>
-            <Grid item xs={3}>
-                <TextField id="outlined-basic" label="Núm. Interior" variant="outlined" name="interior" onChange={handleChange}/>
-            </Grid>
-            <Grid item xs={3}>
-                <TextField id="outlined-basic" label="C.P." variant="outlined" name="postalCode" onChange={handleChange}/>
-            <CheckCircleOutlineIcon/>
-            </Grid>
-            <Grid item xs={12}>
-            <FormControl className={classes.formControl}>
-                <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                Estado | Delegación(requerido)
-                </InputLabel>
-                <Select
-                labelId="demo-simple-select-placeholder-label-label"
-                id="demo-simple-select-placeholder-label"
-                value=""
-                name="province"
-                onChange={handleChange}
-                displayEmpty
-                className={classes.selectEmpty}
-                >
-                    <MenuItem value="">
-                        <em>Selecciona</em>
-                    </MenuItem>
-                    <MenuItem value={10}>CUAUHTEMOC</MenuItem>
-                    <MenuItem value={20}>ALVARO OBREGON</MenuItem>
-                    <MenuItem value={30}>BENITO JUAREZ</MenuItem>
-                </Select>
-            </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-                <TextField id="outlined-basic" label="Entre calle" variant="outlined" name="entreCalle1" onChange={handleChange}/>
-            </Grid>
-            <Grid item xs={6}>
-                <TextField id="outlined-basic" label="y calle" variant="outlined" name="entreCalle2" onChange={handleChange}/>
-            </Grid>
-            <Grid item xs={12}>
-                <h4>Observaciones de entrega</h4>
-                <TextField id="outlined-basic" label="Fachada, colores, etc" variant="outlined" name="instrEntrega" onChange={handleChange}/>
-            </Grid>
-
-            <div>
-                <Button variant="contained" color="primary" onClick={guardarFactura}>Guardar</Button>
-            </div>
-        </div>
+        </Box>
     )
 
-    
 
     return(
         <Layout>
@@ -472,44 +548,7 @@ export default function DatosFacturacion() {
         </Fade>
         </Modal>
 
-        <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={openSnack && snack === 'uno'}
-            autoHideDuration={6000}
-            onClose={handleCloseSnack}>
-            <Alert onClose={handleCloseSnack} severity="success">
-            La estructura de la clave de RFC es valida
-            </Alert>
-        </Snackbar>
 
-        <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={openSnack && snack === 'dos'}
-            autoHideDuration={6000}
-            onClose={handleCloseSnack}>
-            <Alert onClose={handleCloseSnack} severity="warning">
-            Por favor ingrese un RFC
-            </Alert>
-        </Snackbar>
-
-        <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={openSnack && snack === 'tres'}
-            autoHideDuration={6000}
-            onClose={handleCloseSnack}>
-            <Alert onClose={handleCloseSnack} severity="error">
-            Lo sentimos, el RFC no es valido.
-            </Alert>
-        </Snackbar>
         </div>
         </Layout>
     );
