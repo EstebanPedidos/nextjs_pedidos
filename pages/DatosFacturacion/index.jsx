@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     borderRadius: '8px',
     boxShadow: theme.shadows[5],
+    margin: theme.spacing(2),
     padding: theme.spacing(2, 4, 3),
   },
   control: {
@@ -156,7 +157,24 @@ export default function DatosFacturacion() {
         window.location.reload(false);
     }
 
-    function guardarFactura(){}
+    function guardarFactura(){
+        Services('POST-NOT','/miCuenta/guardaDatoFactNuevo',{
+            clienteNum:parseInt(clienteNum),
+		    clienteRfc:inputs.rfc.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+            usoCfdi: inputs.cfdi,
+		    razonSocial:inputs.razonSocial.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    telefono:inputs.telefono,
+		    contact:inputs.contacto.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    direccion:inputs.direccion.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    cp:inputs.cp,
+		    colonia:inputs.colonia.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    estado:inputs.estadoDelegacion.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    delegacion:inputs.estadoDelegacion.normalize('NFD').replace(/[\u0300-\u036f]/g,""),
+		    mpago:parseInt(inputs.metodoPago)
+        })
+        .then( response =>{  
+        })
+    }
 
     const formulario = (
         <div>
@@ -472,44 +490,7 @@ export default function DatosFacturacion() {
         </Fade>
         </Modal>
 
-        <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={openSnack && snack === 'uno'}
-            autoHideDuration={6000}
-            onClose={handleCloseSnack}>
-            <Alert onClose={handleCloseSnack} severity="success">
-            La estructura de la clave de RFC es valida
-            </Alert>
-        </Snackbar>
 
-        <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={openSnack && snack === 'dos'}
-            autoHideDuration={6000}
-            onClose={handleCloseSnack}>
-            <Alert onClose={handleCloseSnack} severity="warning">
-            Por favor ingrese un RFC
-            </Alert>
-        </Snackbar>
-
-        <Snackbar
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-            }}
-            open={openSnack && snack === 'tres'}
-            autoHideDuration={6000}
-            onClose={handleCloseSnack}>
-            <Alert onClose={handleCloseSnack} severity="error">
-            Lo sentimos, el RFC no es valido.
-            </Alert>
-        </Snackbar>
         </div>
         </Layout>
     );
