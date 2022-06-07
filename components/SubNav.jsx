@@ -25,19 +25,20 @@ export const SubNav = () => {
 				bgcolor='#f6f7f9'
 				py={1}>
 				<Box display='flex' justifyContent='space-between' alignItems='center'>
-					<Box>
-						<Breadcrumbs
-							separator={<NavigateNextIcon />}
-							aria-label='breadcrumb'>
-							<Link color='inherit' href='/' onClick={handleClick}>
-								Empresas
-							</Link>
-							<Link color='inherit' href='/' onClick={handleClick}>
-								{'  '}
-							</Link>
-						</Breadcrumbs>
-					</Box>
 					<Hidden mdDown={true}>
+						<Box>
+							<Breadcrumbs
+							
+								aria-label='breadcrumb'>
+								<Link color='inherit' href='/' onClick={handleClick}>
+									Empresas
+								</Link>
+								<Link color='inherit' href='/' onClick={handleClick}>
+									{'  '}
+								</Link>
+							</Breadcrumbs>
+						</Box>
+					</Hidden>
 						<Box display={'flex'} alignItems='center'>
 							<span
 								style={{
@@ -52,7 +53,7 @@ export const SubNav = () => {
 								Horario de Atención Lunes a Domingo de 9 a 18:30hrs
 							</Typography>
 						</Box>
-					</Hidden>
+					
 				</Box>
 			</Box>
 

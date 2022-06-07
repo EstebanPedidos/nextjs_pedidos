@@ -378,10 +378,10 @@ export function Navbar(props) {
 							{/* This inline styles is temporaly, when add link router component, remove */}
 							<Hidden mdDown>
 								<Box component={'span'} style={{ cursor: 'pointer' }}>
-									<Typography component='span' color='textPrimary'>
+									<Typography variant="subtitle2" component='span' color='textPrimary'>
 										Para{' '}
 									</Typography>
-									<Typography component='span' color='primary'>
+									<Typography variant="subtitle2" component='span' color='primary'>
 										empresas
 									</Typography>
 								</Box>
@@ -443,7 +443,7 @@ export function Navbar(props) {
 									aria-controls={menuId}
 									aria-haspopup='true'
 									onClick={handleProfileMenuOpen}>
-									<Avatar sx={{ width: 32, height: 32 }}>
+									<Avatar sx={{ width:48, height: 48, border: 2, borderColor: '#3655A5', color:'#3655A5', backgroundColor:'#E7ECF3', textTransform: 'uppercase',  }}>
 										{nombre.substring(0, 2)}
 									</Avatar>
 								</IconButton>

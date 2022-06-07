@@ -8,6 +8,7 @@ import { Container, Grid, Box, Paper,
 import styles from 'styles/Home.module.css';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import PinDropOutlinedIcon from '@mui/icons-material/PinDropOutlined';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
 //Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,6 +19,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 //Componentes
 import { Layout } from 'layout/Layout';
+import MenuAccount from 'components/home/accountmenu'
 import PromoSlides from 'components/home/promoSlides';
 import Services from '../services/Services';
 import Link from 'next/link';
@@ -240,10 +242,16 @@ export default function Home() {
             </Grid> */}
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Box component="div" py={2} px={4} >
-                        {validaSesion ? <Typography variant="h4" component="h1" xs={{fontWeight:'600'}}>
-                            Hola de nuevo, {nombre}</Typography>: ''}
+                    <Box component="div" pt={4} px={4} >
+                        {validaSesion ? 
+                        <Typography variant="h4" component="h1" >
+                            Hola de nuevo, <Box component='span' fontWeight='600' ml={1}> {nombre}</Box>.
+                        </Typography>: ''}
                     </Box>
+                </Grid>
+                <Grid item xs={12}>
+                <Divider variant="middle"/>  
+                    <MenuAccount />
                 </Grid>
                 
             </Grid>
@@ -372,6 +380,7 @@ export default function Home() {
                                     lazy={true}
                                     spaceBetween={20}
                                     slidesPerView={3}
+                                    className="mySwiper10"
                                     //centeredSlides={true}
                                     //autoplay={{
                                     //"delay": 2500,
@@ -379,12 +388,16 @@ export default function Home() {
                                     onSlideChange={() => console.log('slide change')}
                                     onSwiper={(swiper) => console.log(swiper)}
                                     breakpoints={{
+                                        430: {
+                                            slidesPerView: 1.1,
+                                            
+                                          },
                                         640: {
-                                          slidesPerView: 1.5,
+                                          slidesPerView: 1.1,
                                           
                                         },
                                         768: {
-                                          slidesPerView: 2.5,
+                                          slidesPerView: 1.5,
                                           
                                         },
                                         1024: {
@@ -528,7 +541,7 @@ export default function Home() {
                     </Grid>
             </Box>
             <Divider/>  
-            <Box component="div" py={2}>
+            {/* <Box component="div" py={2}>
                     <Grid container justifyContent="center" alignItems="center" spacing={2}>
                         <Grid item>
                             <a href={'/Direcciones'}><Chip label="Mis Direcciones"/></a>
@@ -540,7 +553,7 @@ export default function Home() {
                         </Grid>
                         <Grid item>
                             <a href={'/DatosFacturacion'}><Chip label="Datos de Facturación"/></a>
-                                {/* <Chip label="Mi Equipo"/> */}
+                               
                         </Grid>
                         <Grid item>
                             <Button 
@@ -554,7 +567,7 @@ export default function Home() {
                         </Grid>
                         
                     </Grid>
-            </Box>
+            </Box> */}
             <Box component="div" className={styles.promoContainer}>
  				<PromoSlides />
  			</Box>
@@ -599,6 +612,7 @@ export default function Home() {
                         modules={[Lazy, Navigation]}
                         navigation
                         lazy={true}
+                        className="mySwiper11"
                         spaceBetween={15}
                         slidesPerView={4}
                         loop={true}
