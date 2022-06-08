@@ -37,7 +37,7 @@ export function HelpModal({ isOpen, onClose }) {
 				</Box>
 				<DialogContent>
 					<DialogContentText>
-						Horario de Atención Lunes a Domingo de 9 a 18:30hrs
+						Horario de Atención Lunes a Domingo de 9 a 18:30hrs 
 					</DialogContentText>
 					<Box component='div' pt={2}>
 						{items.map(({ description, icon: Icon, title }) => (

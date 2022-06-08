@@ -88,7 +88,7 @@ export default function TrendSlides() {
                         intro:'Planes Pedidos.com ',
                         title: 'Protecciones para dispositivos', 
                         cta:'Ver Detalles',
-                        imgb:'',
+                        imgb:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/empresas/planes-proteccion2.png',
                         keyw:'Protecciones y garantías' }}
                     />				
                     </a>
@@ -102,7 +102,7 @@ export default function TrendSlides() {
                             intro:'Mejoras de precio ',
                             title: 'Precios por volumen', 
                             cta:'Ver Detalles',
-                            imgb:'',
+                            imgb:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/empresas/precios-volumen.png',
                             keyw:'Precios por volumen' }}
                         />				
                         </a>

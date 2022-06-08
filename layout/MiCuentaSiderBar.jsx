@@ -20,7 +20,8 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { makeStyles } from '@material-ui/core/styles';
-
+//Modales
+import  Help  from '../components/modals/Help';
 
 //Nextjs
 import Link from 'next/link';
@@ -283,7 +284,7 @@ export default function MiCuentaSiderBar() {
                     <Divider />
                     <Box component="div" pt={3} >
                         <Box component="div" pb={2}>
-                            <Button startIcon={<HelpOutlineOutlinedIcon />} variant="contained" color="primary" fullWidth size="large" name="Modal1" onClick={handleOpen}>Necesito Ayuda</Button>
+                            <Help tipo={'3'}/>
                         </Box>
                         <Box component="div" >
                             <Link href="/MisNotasCredito">

@@ -32,7 +32,7 @@ export default function Menuoptions() {
 
   return (
 
-    <Box component="div" pb={2} pl={1} >
+    <Box component="div" pl={1} mb={1}>
         <Swiper
             //modules={[Autoplay]}
             lazy={true}
@@ -47,7 +47,7 @@ export default function Menuoptions() {
             onSwiper={(swiper) => console.log(swiper)}
             breakpoints={{
             320: {
-                    slidesPerView:3.5,
+                    slidesPerView:2.1,
                     
                 },
                 640: {

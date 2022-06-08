@@ -32,7 +32,8 @@ import { Layout } from 'layout/Layout';
 import { HelpModal } from 'components/modals';
 import {useLocalStorage} from "../../hooks/useLocalStorage";
 import Alertas from '../checkout/Alertas'
-
+//Modales
+import  Help  from '../../components/modals/Help';
 //Nextjs
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -518,7 +519,7 @@ export default function MisPedidos() {
                                                                 </Typography>
                                                             </Grid>
                                                             <Grid item xs={6}  sm={5} lg={2}>
-                                                                <Button variant="outlined" color="primary" fullWidth size="large" onClick={handleOpen}><HelpOutlineOutlinedIcon color="primary"/>&nbsp; Ayuda</Button>
+                                                                <Help tipo={'1'}/>
                                                             </Grid>
                                                         </Grid>
                                                     </Box>

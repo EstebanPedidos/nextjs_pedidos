@@ -93,7 +93,7 @@ export default function TrendSlides() {
                
             },
             1200: {
-                slidesPerView: 4,
+                slidesPerView: 3.6,
                
             },
         }}

@@ -6,10 +6,17 @@ import {AppBar, Toolbar, Box,  Paper, Container,
         Typography, Button, Skeleton,Grid } from '@mui/material';
         import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
         import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import  Help  from '../../components/modals/Help';
 
 export default function CheckoutHeader() {
+    const [openModal, setOpenModal] = useState(false)
+    function handleOpenModal(){
+        setOpenModal(false)
+    }
+    
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <>        
+        <Box sx={{ flexGrow: 1 }}>            
             <AppBar position="static" color="transparent" elevation={0} variant="outlined">
                 <Container maxWidth="xl">
                     <Toolbar>
@@ -22,8 +29,8 @@ export default function CheckoutHeader() {
                     </Box>
                     <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
                         <Grid container spacing={1}>
-                            <Grid item>
-                                <Button variant="outlined" size="large" color="primary"  startIcon={<HelpOutlineIcon />} > ¿Necesitas Ayuda? </Button>
+                            <Grid item>                                
+                                <Help tipo={'1'}/>
                             </Grid>
                             <Grid item>
                             <Button size="large"  startIcon={<CallOutlinedIcon />}> 55 5015-8100 </Button>
@@ -34,5 +41,6 @@ export default function CheckoutHeader() {
                 </Container>
             </AppBar>
             </Box>
+        </>
     );
 }

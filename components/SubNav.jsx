@@ -5,8 +5,8 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 // components @mui/material
 
-import { Box, Typography, Breadcrumbs, Hidden } from '@mui/material';
-
+import { Box, Typography, Button, Hidden } from '@mui/material';
+import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 //Nextjs
 import Link from 'next/link';
 
@@ -21,39 +21,34 @@ export const SubNav = () => {
 			<Box
 				display='flex'
 				flexDirection='column'
-				paddingX='3%'
+				paddingX='5%'
+				justifyContent='center'
 				bgcolor='#f6f7f9'
 				py={1}>
 				<Box display='flex' justifyContent='space-between' alignItems='center'>
-					<Hidden mdDown={true}>
+					<Hidden smDown={true}>
 						<Box>
-							<Breadcrumbs
-							
-								aria-label='breadcrumb'>
-								<Link color='inherit' href='/' onClick={handleClick}>
-									Empresas
-								</Link>
-								<Link color='inherit' href='/' onClick={handleClick}>
-									{'  '}
-								</Link>
-							</Breadcrumbs>
+							<Box display={'flex'} alignItems='center'>
+								<span
+									style={{
+										background: 'rgb(116, 195, 12)',
+										borderRadius: '50%',
+										display: 'inline-block',
+										width: '0.6rem',
+										height: '0.6rem',
+										marginRight: '0.3rem',
+									}}></span>
+								<Typography variant='body2'>
+									Atención Lunes a Domingo de 9 a 18:30hrs
+								</Typography>
+							</Box>
+						</Box>
+						<Box alignItems='center' justifyContent='center'>
+							<Button variant="text" size="small" startIcon={<LocalPhoneOutlinedIcon/>}>
+								¡Llámanos! 55 5015-8100
+							</Button>
 						</Box>
 					</Hidden>
-						<Box display={'flex'} alignItems='center'>
-							<span
-								style={{
-									background: 'rgb(116, 195, 12)',
-									borderRadius: '50%',
-									display: 'inline-block',
-									width: '0.6rem',
-									height: '0.6rem',
-									marginRight: '0.3rem',
-								}}></span>
-							<Typography variant='body2'>
-								Horario de Atención Lunes a Domingo de 9 a 18:30hrs
-							</Typography>
-						</Box>
-					
 				</Box>
 			</Box>
 
