@@ -99,15 +99,10 @@ export default function MisFacturas() {
         const name = event.target.name;
         setModal(name)
         setOpen(true);
-        setOpenSnack(true);
     };
 
     const handleClose = () => {
         setOpen(false);
-    };
-
-    const handleCloseSnack = () => {
-        setOpenSnack(false);
     };
 
     const handleChange = (event) => {
@@ -258,16 +253,6 @@ export default function MisFacturas() {
         localStorage.setItem('fechaFacturas', rangoFecha)
         refreshPage();
     }
-
-    // function guardaNuevoDato(){
-    //     MiCuentaService.guardaDatoFactNuevo(clienteNum, clienteRfc, usoCfdi, razonSocial, telefono, contact, direccion, cp, colonia, estado, delegacion, mpago)
-    //     .then( response =>{
-    //         console.log("Consultar CP service");
-    //         console.log(response.data);
-    //         setResultCP(response.data);
-    //     })
-    // }
-
 
     function getRefacturacion(){
         Services('POST-NOT','/miCuenta/getRefacturacion',{
