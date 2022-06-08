@@ -4495,7 +4495,7 @@
     "ajv" "^6.12.5"
     "ajv-keywords" "^3.5.2"
 
-"search-insights@^2.1.0":
+"search-insights@^2.1.0", "search-insights@^2.2.1":
   "integrity" "sha512-JDfVGZbKqTtiKVZjAVbkNw9C9f0ib80yx6Ea17M3z4RvPmuD0GYWXuFwA9++dpbreBEMH4TC3lQ29Zq7O4b5oA=="
   "resolved" "https://registry.npmjs.org/search-insights/-/search-insights-2.2.1.tgz"
   "version" "2.2.1"

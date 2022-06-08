@@ -19,9 +19,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
-import Services from '../services/Services'
-import {useLocalStorage} from "../../hooks/useLocalStorage";
-import Alertas from '../checkout/Alertas'
+import Services from '../../../services/Services'
+import {useLocalStorage} from "../../../../hooks/useLocalStorage";
+import Alertas from '../../../checkout/Alertas'
 
 //NextJs
 import { useRouter } from 'next/router'

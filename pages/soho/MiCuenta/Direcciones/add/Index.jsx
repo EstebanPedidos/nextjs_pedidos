@@ -3,14 +3,14 @@ import {useState,useEffect} from 'react'
 //next js
 import { useRouter } from 'next/router';
 //hooks
-import {useLocalStorage} from "../../../hooks/useLocalStorage";
+import {useLocalStorage} from "../../../../../hooks/useLocalStorage";
 //MAterial UI
 import {Button,Modal,Fade,Grid,Typography,TextField,InputLabel,Select,MenuItem,Backdrop,Box,Divider,IconButton, FormControl
 } from '@mui/material';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
 //Servicios
-import Services from '../../services/Services';
+import Services from '../../../../services/Services';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -214,7 +214,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                             </Typography>
                         </Grid>
                         <Grid item xs={4} sm={4}>
-                            <Button disableElevation variant="outlined" fullWidth onClick={()=>{setAddOpen(false)}}>
+                            <Button onClick={()=>{setAddOpen(false)}} disableElevation variant="outlined" fullWidth>
                                 Regresar
                             </Button>
                         </Grid>

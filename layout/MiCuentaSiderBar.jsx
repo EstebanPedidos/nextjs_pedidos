@@ -111,14 +111,14 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="/MisDatos">
+                                <Link href="soho/MiCuenta/MisDatos">
                                     <a>
                                         <Grid
                                         container
                                         direction="row"
                                         justifyContent="flex-start"
                                         alignItems="center"
-                                        spacing={3}
+                                        spacing={1}
                                         >
                                             <Grid item>
                                                 <SettingsOutlinedIcon/>
@@ -133,7 +133,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="/MisPedidos">
+                                <Link href="soho/MiCuenta/MisPedidos">
                                     <a>
                                         <Grid
                                         container
@@ -155,7 +155,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="/Direcciones">
+                                <Link href="soho/MiCuenta/Direcciones">
                                     <a>
                                         <Grid
                                         container
@@ -177,7 +177,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="/misFacturas">
+                                <Link href="soho/MiCuenta/misFacturas">
                                     <a>
                                         <Grid
                                         container
@@ -221,7 +221,7 @@ export default function MiCuentaSiderBar() {
                         </Grid> */}
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="/misFavoritos">
+                                <Link href="soho/MiCuenta/misFavoritos">
                                     <a>
                                         <Grid
                                         container
@@ -243,7 +243,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="/misNotasCredito">
+                                <Link href="soho/MiCuenta/misNotasCredito">
                                     <a>
                                         <Grid
                                         container
@@ -287,7 +287,7 @@ export default function MiCuentaSiderBar() {
                             <Help tipo={'3'}/>
                         </Box>
                         <Box component="div" >
-                            <Link href="/MisNotasCredito">
+                            <Link href="soho/MiCuenta/MisNotasCredito">
                                 <a>
                                     <Button startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
                                 </a>

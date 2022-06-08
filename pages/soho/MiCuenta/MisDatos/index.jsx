@@ -22,9 +22,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 //Component
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
-import Alertas from '../checkout/Alertas'
+import Alertas from '../../../checkout/Alertas'
 
-import Services from '../services/Services'
+import Services from '../../../services/Services'
 
 //Nextjs
 import Link from 'next/link'

@@ -65,7 +65,7 @@ export default function Menuoptions() {
             }}
             >
             <SwiperSlide>
-                <Link href="/Direcciones">
+                <Link href="soho/MiCuenta/Direcciones">
                     <a>
                         <Accountsection
                         data={{
@@ -76,7 +76,7 @@ export default function Menuoptions() {
                 </Link>
             </SwiperSlide>
             <SwiperSlide>
-                <Link href="/misFacturas">
+                <Link href="soho/MiCuenta/misFacturas">
                     <a>
                         <Accountsection
                         data={{
@@ -87,7 +87,7 @@ export default function Menuoptions() {
                 </Link>
             </SwiperSlide>
             <SwiperSlide>
-                <Link href="/DatosFacturacion">
+                <Link href="soho/MiCuenta/DatosFacturacion">
                     <a>
                         <Accountsection
                         data={{
@@ -98,7 +98,7 @@ export default function Menuoptions() {
                 </Link>
             </SwiperSlide>
             <SwiperSlide>
-                <Link href="/DatosFacturacion" passHref>
+                <Link href="soho/MiCuenta/DatosFacturacion"  passHref>
                     
                     <Button component="a" onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones&body=Completar%20la%20siguiente%20información%0D%0APedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
                      >
@@ -109,7 +109,7 @@ export default function Menuoptions() {
             </SwiperSlide>
             
             <SwiperSlide>
-                <Link href="/">
+                <Link href="/soho/MiCuenta/misFavoritos">
                     <a>
                         <Accountsection
                         data={{
@@ -121,7 +121,7 @@ export default function Menuoptions() {
             </SwiperSlide>
             
             <SwiperSlide>
-                <Link href="/">
+                <Link href="/soho/MiCuenta/MisDatos">
                     <a>
                         <Accountsection
                         data={{

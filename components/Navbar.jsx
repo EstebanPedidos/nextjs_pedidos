@@ -266,22 +266,22 @@ export function Navbar(props) {
 			anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
 			<div>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/MisDatos'>Mis Datos</Link>
+					<Link href='/soho/MiCuenta/MisDatos'>Mis Datos</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/MisPedidos'>Pedidos</Link>
+					<Link href='/soho/MiCuenta/MisPedidos'>Pedidos</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/Direcciones'>Direcciones</Link>
+					<Link href='/soho/MiCuenta/Direcciones'>Direcciones</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/misFacturas'>Facturas</Link>
+					<Link href='/soho/MiCuenta/misFacturas'>Facturas</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/misFavoritos'>Favoritos</Link>
+					<Link href='/soho/MiCuenta/misFavoritos'>Favoritos</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/misNotasCredito'>Notas de Credito</Link>
+					<Link href='/soho/MiCuenta/misNotasCredito'>Notas de Credito</Link>
 				</MenuItem>
 				<Divider />
 				<MenuItem onClick={() => (handleMenuClose(), CerrarSesion())}>
