@@ -17,7 +17,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
-import Services from '../services/Services'
+import Services from '../../../services/Services' 
 
 const useStyles = makeStyles((theme) => ({
   modal: {
