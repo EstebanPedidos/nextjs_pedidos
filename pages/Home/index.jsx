@@ -267,7 +267,7 @@ export default function Home() {
                                             pagination={true}
                                             lazy={true}
                                             spaceBetween={20}
-                                            slidesPerView={1}
+                                            slidesPerView={1.1}
                                             freeMode={true}
                                             className="mySwiper10"
                                             centeredSlides={true}
