@@ -236,7 +236,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
-                        error={(alerta.inputError === 'contact')}
+                        error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'contact'):false:false}
                         fullWidth
                         id='outlined-basic'
                         label='Contacto...'
@@ -248,7 +248,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                 </Grid>
                 <Grid item xs={8}>
                     <TextField
-                        error={(alerta.inputError === 'phone')}
+                        error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'phone'):false:false}
                         fullWidth
                         id='outlined-basic'
                         label='Telefono...'
@@ -261,7 +261,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                 </Grid>
                 <Grid item xs={4}>
                     <TextField
-                        error={(alerta.inputError === 'extension')}
+                        error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'extension'):false:false}
                         fullWidth
                         id='outlined-basic'
                         label='Ext.'
@@ -280,7 +280,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                         </Typography>
                     </Box>
                     <TextField
-                        error={(alerta.inputError === 'nombre')}
+                        error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'nombre'):false:false}
                         fullWidth
                         id='outlined-basic'
                         label='Ej. Oficina, Casa, Torre'
@@ -299,7 +299,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
-                        error={(alerta.inputError === 'address1')}
+                        error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'address1'):false:false}
                         fullWidth
                         id='outlined-basic'
                         label='Calle'
@@ -311,7 +311,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                 </Grid>
                 <Grid item xs={6}>
                     <TextField
-                        error={(alerta.inputError === 'exterior')}
+                        error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'exterior'):false:false}
                         fullWidth
                         id='outlined-basic'
                         label='Num. Exterior'
@@ -323,7 +323,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                 </Grid>
                 <Grid item xs={6}>
                     <TextField
-                        error={(alerta.inputError === 'interior')}
+                        error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'interior'):false:false}
                         fullWidth
                         id='outlined-basic'
                         label='Núm. Interior'
@@ -335,7 +335,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                 </Grid>
                 <Grid item xs={6}>
                     <TextField
-                        error={(alerta.inputError === 'colonia')}
+                        error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'colonia'):false:false}
                         fullWidth
                         id='outlined-basic'
                         label='Colonia'
@@ -353,7 +353,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                         alignItems='center'>
                         <Grid item xs={10}>
                             <TextField
-                                error={(alerta.inputError === 'cp')}
+                                error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'cp'):false:false}
                                 fullWidth
                                 id='outlined-basic'
                                 label='C.P.'
@@ -395,7 +395,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                 </Grid>
                 <Grid item xs={6}>
                     <TextField
-                        error={(alerta.inputError === 'entreCalle1')}
+                        error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'entreCalle1'):false:false}
                         fullWidth
                         id='outlined-basic'
                         label='Entre calle'
@@ -407,7 +407,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                 </Grid>
                 <Grid item xs={6}>
                     <TextField
-                        error={(alerta.inputError === 'entreCalle2')}
+                        error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'entreCalle2'):false:false}
                         fullWidth
                         id='outlined-basic'
                         label='y calle'
@@ -426,7 +426,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                         </Typography>
                     </Box>
                     <TextField
-                        error={(alerta.inputError === 'instrEntrega')}
+                        error={(alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'instrEntrega'):false:false}
                         id='outlined-basic'
                         fullWidth
                         label='Fachada, colores, etc'
