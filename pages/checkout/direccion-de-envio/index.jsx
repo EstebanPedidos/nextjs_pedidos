@@ -15,7 +15,7 @@ import Header  from '../Header';
 import ConFactura from '../modals/ConFactura';
 import Eliminar from '../modals/Eliminar';
 import Alertas from '../Alertas';
-import AddDir from '../../Direcciones/add/Index'
+import AddDir from '../../soho/MiCuenta/Direcciones/add/Index'
 //Servicos
 import Services from '../../services/Services'
 
