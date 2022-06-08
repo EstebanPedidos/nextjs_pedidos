@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'components/Link'
+import Link from '../../../components/Link'
 import {Box, Container,  Grid, Typography} from '@mui/material';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
@@ -69,113 +69,156 @@ export const TerminosYCondicionesDeEnvio = () => {
 						</ListItemButton>
 							<Collapse in={open} timeout="auto" unmountOnExit>
 								<List component="div" disablePadding>
-									{/* <Link href="/"> */}
+									<a href="#objetoyalcance">
 										<Item data={{
 											title:'1. OBJETO Y ALCANCE',
 											}}
 										/>
-									{/* </Link> */}
+									</a> 
+									<a href="#definiciones">
 									<Item data={{
 										title:'2. ALGUNAS DEFINICIONES',
 										 }}
 									/>
-									<Item data={{
-										title:'3. COMPRAVENTA DE PRODUCTOS',
-										 }}
-									/>
-									<Item data={{
-										title:'4. DEVOLUCIONES Y CANCELACIONES',
-										 }}
-									/>
+									</a>
+									<a href="#compraventa">
+										<Item data={{
+											title:'3. COMPRAVENTA DE PRODUCTOS',
+											}}
+										/>
+									</a>
+									<a href="#devolucionesycancelaciones">
+										<Item data={{
+											title:'4. DEVOLUCIONES Y CANCELACIONES',
+											}}
+										/>
+									</a>
+									<a href="#recision">
 									<Item data={{
 										title:'5. RECISIÓN DE OPERACIONES',
 										 }}
 									/>
+									</a>
+									<a href="#garantia">
 									<Item data={{
 										title:'6. GARANTÍA',
 										 }}
 									/>
-									<Item data={{
-										title:'7. OBLIGACIONES DE PEDIDOS.COM',
-										 }}
+									</a>
+									<a href="#obligaciones">
+										<Item data={{
+											title:'7. OBLIGACIONES DE PEDIDOS.COM',
+											}}
+										/>
+									</a>
+									<a href="#obligacionesusuario">
+										<Item data={{
+											title:'8. OBLIGACIONES DEL USUARIO',
+											}}
 									/>
-									<Item data={{
-										title:'8. OBLIGACIONES DEL USUARIO',
-										 }}
-									/>
-									<Item data={{
-										title:'9. OTROS SERVICIOS EN LÍNEA',
-										 }}
-									/>
+									</a>
+									<a href="#otros">
+										<Item data={{
+											title:'9. OTROS SERVICIOS EN LÍNEA',
+											}}
+										/>
+									</a>
+									<a href="#avisodeprivacidad">
 									<Item data={{
 										title:'10. AVISO DE PRIVACIDAD',
 										 }}
 									/>
+									</a>
+									<a href="#propiedad">
 									<Item data={{
 										title:'11. PROPIEDAD INDUSTRIAL E INTELECTUAL',
 										 }}
 									/>
+									</a>
+									<a href="#vinculos">
 									<Item data={{
 										title:'12. VÍNCULOS A SITIOS WEB DE TERCEROS',
 										 }}
 									/>
-									<Item data={{
-										title:'13. RESPONSABILIDAD DE PEDIDOS.COM',
-										 }}
+									</a>
+									<a href="#responsabilidadPedidoscom">
+										<Item data={{
+											title:'13. RESPONSABILIDAD DE PEDIDOS.COM',
+											}}
 									/>
-									<Item data={{
-										title:'14. RESPONSABILIDAD DEL USUARIO',
-										 }}
-									/>
+									</a>
+									<a href="#responsabilidadusario">
+										<Item data={{
+											title:'14. RESPONSABILIDAD DEL USUARIO',
+											}}
+										/>
+									</a>
+									<a href="#usosnoautorizados">
 									<Item data={{
 										title:'15. USOS NO AUTORIZADOS',
 										 }}
 									/>
+									</a>
+									<a href="#cambios">
 									<Item data={{
 										title:'16. CAMBIOS A LOS TyC',
 										 }}
 									/>
+									</a>
+									<a href="#noasociacion">
 									<Item data={{
 										title:'17. NO ASOCIACIÓN',
 										 }}
 									/>
-									<Item data={{
-										title:'18. VICIOS OCULTOS',
-										 }}
-									/>
-									<Item data={{
-										title:'19. NOTIFICACIONES Y DOMICILIOS',
-										 }}
-									/>
-									<Item data={{
-										title:'20. CONSENTIMIENTO',
-										 }}
-									/>
-									<Item data={{
-										title:'21. LEGISLACIÓN APLICABLE Y JURISDICCIÓN',
-										 }}
-									/>
-									<Item data={{
-										title:'22. VIGENCIA',
-										 }}
-									/>
-									<Item data={{
-										title:'23. MANIFESTACIÓN DEL CONSENTIMIENTO',
-										 }}
-									/>
-
+									</a>
+									<a href="#vicios">
+										<Item data={{
+											title:'18. VICIOS OCULTOS',
+											}}
+										/>
+									</a>
+									<a href="#notificaciones">
+										<Item data={{
+											title:'19. NOTIFICACIONES Y DOMICILIOS',
+											}}
+										/>
+									</a>
+									<a href="#consentimiento">
+										<Item data={{
+											title:'20. CONSENTIMIENTO',
+											}}
+										/>
+									</a>
+									<a href="#legislacion">
+										<Item data={{
+											title:'21. LEGISLACIÓN APLICABLE Y JURISDICCIÓN',
+											}}
+										/>
+									</a>
+									<a href="#vigencia">
+										<Item data={{
+											title:'22. VIGENCIA',
+											}}
+										/>
+									</a>
+									<a href="#maifestacion">
+										<Item data={{
+											title:'23. MANIFESTACIÓN DEL CONSENTIMIENTO',
+											}}
+										/>
+									</a>
 								</List>
 							</Collapse>
 					</List>
 				</Grid>
 				<Grid item xs={12} sm={7} lg={8}>
 					<Box component="div" pt={2}>
-						<Box marginTop='2rem'>
+						<Box marginTop='2rem' component="section" id="objetoyalcance">
 							<Typography variant='subtitle1' fontWeight={500} align='justify'>
 								Operadora de Soluciones para Oficina S.A. de C.V. es una sociedad constituida conforme a las leyes de los Estados Unidos Mexicanos, que tiene su domicilio en Alejandro Dumas 135 Planta baja Local B, Colonia Polanco, Alcaldía Miguel Hidalgo, 11550, CDMX y a la cual haremos referencia en lo sucesivo como “Pedidos.com”, quien es la empresa a cargo de la gestión del sitio Web pedidos.com y de los Sitios Web Asociados.
 							</Typography>
 						</Box>
-						<Box component="section" id="objetoyalcance" pt={2}>
+						<Box component="div" pt={2} id="definiciones">
 							<Typography variant='subtitle2' component='h2' color='primary' >
 								1. OBJETO Y ALCANCE
 							</Typography>
@@ -183,7 +226,7 @@ export const TerminosYCondicionesDeEnvio = () => {
 							Los presentes Términos y Condiciones (en adelante, los “TyC”) tienen por objeto regular las actividades desarrolladas en nuestro sitio Web pedidos.com, y en lo conducente, en nuestros Sitios Web Asociados, incluyendo de manera enunciativa más no limitativa (I) la consulta de información en línea sobre los distintos productos de ofrecidos por Pedidos.com; (II) la consulta de información en línea, (III) los foros de discusión y chats, (IV) las promociones, trivias, concursos, juegos y/o sorteos en línea, y (v) comunicaciones promocionales y de telemarketing de los productos ofrecidos, y los demás que en un futuro se habiliten en el sitio y/o nuestros sitios Web Asociados (en adelante los “Servicios en Línea”). Algunos de los Servicios en Línea precisan de diversos actos previos de inscripción o registro que implican el suministro de datos personales por parte de Usted (a quien en adelante se le denominará como “Usuario”) según los requisitos previstos en las Ventanas de Diálogo del Sitio Web o de los Sitios Web Asociados. En adición a los presentes TyC, la utilización del Sitio Web y de los Sitios Web Asociados también se sujetará a las demás Políticas y Avisos de Pedidos.com, incluyendo nuestros Avisos de Privacidad, los cuales se tienen aquí por reproducidos como si se incluyeran a la letra; así como a las instrucciones que se publiquen en el Sitio Web pedidos.com y/o en los Sitios Web Asociados.
 							</Typography>
 						</Box>
-						<Box component="div" pt={2}>
+						<Box component="div" pt={2} id="compraventa">
 							<Typography variant='subtitle2' component='h2' color='primary' >
 								2. ALGUNAS DEFINICIONES
 							</Typography>
@@ -237,14 +280,14 @@ export const TerminosYCondicionesDeEnvio = () => {
 							<Typography variant='body1' component='p' align='justify'>
 								Servicio Entrega Express. El servicio Express está disponible sólo de Lunes a Viernes de días laborales en un horario de 9:00hrs a 17:00hrs, tiene un costo de 45 pesos ya con IVA incluido. Los productos participantes para este servicio serán aquellos que se muestren en la sección Express y sólo se podrán comprar la cantidad máxima que entre en una motocicleta de reparto, esta cantidad se mostrará en el carrito de compras, para que el usuario esté consiente de cuanto espacio tiene disponible en la motocicleta de reparto. El tiempo prometido de entrega es máximo 3 horas una vez sea confirmado el pedido por alguno de nuestros ejecutivos, en caso de que el pedido no llegue en ese tiempo, el cargo extra de 45 pesos serán reembolsados en un lapso no mayor a 2 días. Sólo aplica en los pagos contra entrega o al recibir, no se aceptarán otro tipos de pagos.
 							</Typography>
-							<Typography variant='body1' component='p' align='justify'>
+							<Typography variant='body1' component='p' align='justify' id="devolucionesycancelaciones">
 								Servicio Entrega en Pedidos.com PickUp Center. Este servicio de entrega está disponible de Lunes a Sábado en días laborales en un horario de 10:00hrs a 18:30hrs. Al pedir en línea en Pedidos.com la opción será válida o podrá usarse siempre y cuando la cantidad máxima de volumen del producto/pedido a entregar no sobrepase y no ocupe un volumen o espacio superior al comprendido a 0.13 metros cúbicos y no tener un peso mayor de 20kg. La opción de este servicio se mostrará en el carrito de compras si es válida para la entrega del pedido. No olvides que para recoger el pedido debe de llegar un correo electrónico con el código QR que debes llevar para poder recoger tu pedido en Pedidos.com PickUp Center. El tiempo prometido de entrega dependerá de los productos de tu pedido, donde las entregas podrán ser en 3 horas o bien al día siguiente siempre y cuando sea día hábil y cumpla con los horarios hábiles laborales.
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
 								En relación con cualquier pago realizado por el Usuario a Pedidos.com se entregará, de así solicitarse, la factura o el comprobante fiscal digital conducente con los requisitos de ley, dentro de los siguientes 5 días hábiles a la fecha en que se realizó el pago. En el caso de operaciones que impliquen múltiples pagos, Pedidos.com entregará al Usuario la factura o el comprobante fiscal digital una vez cubierto el último pago.
 							</Typography>
 						</Box>
-						<Box component="div" pt={2}>
+						<Box component="div" pt={2} id="recision">
 							<Typography variant='subtitle2' component='h2' color='primary' >
 								4. DEVOLUCIONES Y CANCELACIONES
 							</Typography>
@@ -264,15 +307,15 @@ export const TerminosYCondicionesDeEnvio = () => {
 								En cualquier momento el Usuario podrá cancelar su pedido. En caso de que ya esté pagado se le hará la devolución de dinero en un lapso no mayor a 10 días hábiles.
 							</Typography>
 						</Box>
-						<Box component="div" pt={2}>
+						<Box component="div" pt={2} >
 							<Typography variant='subtitle2' component='h2' color='primary' >
 								5. RECISIÓN DE OPERACIONES
 							</Typography>
-							<Typography variant='body1' component='p' align='justify'>
+							<Typography variant='body1' component='p' align='justify'id="garantia">
 							Las partes podrán rescindir el contrato en términos del artículo 82 de la Ley Federal de Protección al consumidor y los términos del artículo 1949 del Código Civil Federal.
 							</Typography>
 						</Box>
-						<Box component="div" pt={2}>
+						<Box component="div" pt={2} >
 							<Typography variant='subtitle2' component='h2' color='primary' >
 								6. GARANTÍA
 							</Typography>
@@ -280,7 +323,7 @@ export const TerminosYCondicionesDeEnvio = () => {
 								Operadora de Soluciones para Oficina S.A. de C.V. ha establecido la presente política con base a los criterios de aceptación o rechazo de garantías que presentan nuestros proveedores. Se tramitará una garantía siempre que el producto adquirido contenga un defecto de fabricación que afecte su funcionamiento. Requisitos: - Copia de factura legible y anexos de números de serie para componentes de PC´s. - Presentar el producto completo, en su empaque original, accesorios, drivers, manuales, cables, papel, etc. - Que el producto que se presenta a garantía este dentro del tiempo que otorga el fabricante: para componentes de PC´S y equipo de oficina un año (excepto gabinetes que cuentan con 3 meses y fuentes con 6 meses), para consumibles y papelería tres meses (solo HP cuenta con un año y XEROX con un mes), para muebles de oficina un año (El año es comercial: 360 días). En caso de que se complique Pedidos hará la recolección del producto. - De forma escrita o verbal deberá detallar lo más específico posible la falla que presenta el producto que se desea ingresar a garantía. - El producto que presenta la falla debe contener el código de barra por parte de Operadora de Soluciones para Oficina S.A. de C.V. adherido al componente para PC. - En caso de cartuchos de tinta y tóner se requiere presentar prueba de impresión defectuosa o carta membretada explicando el problema del producto (requerimiento de proveedores ). - Para cámaras Kodak y equipos de la marca Panasonic es requisito indispensable presentar original de la póliza de garantía. Todo producto que se acepte a garantía está sujeto a la revisión y autorización del fabricante. Se anula la garantía: - Por mal uso, abuso o modificación del equipo por personal no autorizado por Operadora de Soluciones para Oficina S.A. de C.V. (intervención manual en el equipo). - Si el producto presenta el código de barra rayado en el componente. - En los casos que las etiquetas del proveedor sean removidas o alteradas. - Por producto en mal estado (marcas, rayones con plumón indeleble y etiquetas ajenas al código de barras de Operadora de Soluciones para Oficina S.A. de C.V.). - No se aceptan garantías que presenten daño físico entendiendo como tal a: producto quemado, roto, golpeado, intervenido, con resistencias rotas, con sellos de garantía violados, circuitos o soldaduras quemadas o conexiones dañadas. - En caso de Consumibles no se aceptará a garantía ningún producto objeto de una operación reañizada con más de 60días naturales de antiguedad- En caso de cartuchos de tinta y toner que presenten menos del 50% de su contenido. - No hay garantía por rendimiento de cartuchos de tinta y tóner. - Por pixeles quemados en notebooks o monitores con pantalla LCD. Cada marca tiene establecido un mínimo de pixeles quemados para hacer válida la garantía. Restricciones: - Si se recibe el producto incompleto , se pagará de la misma forma hasta que el proveedor lo haga. - Para el caso específico de equipos : monitores, quemadores, DVD's, CD ROM´S, impresoras, reguladores, no break's, multifuncionales, faxes, copiadoras, laptop's, cámaras digitales, máquinas de escribir, video cámaras, iPod's, escáners, PDA's, proyectores, notebook's, teléfonos, MP3, etc., la garantía se tramitará en el centro de servicio respectivo de cada marca, el tiempo de respuesta y reparación dependerá del mismo. - Operadora de Soluciones para Oficina S.A. de C.V. no está obligada a indemnizar al Usuario o a terceras personas por daños directos o indirectos del uso del producto, salvo en los casos establecidos en la Ley Federal de Protección del Consumidor. - Operadora de Soluciones para Oficina S.A. de C.V. no se hace responsable de productos que no se recojan en 3 meses a partir de la fecha de ingreso. Trámite de garantía: - Para toda garantía que sea aceptada. Operadora de Soluciones para Oficina S.A. de C.V. entregará un recibo de la garantía al distribuidor mismo que servirá para la reclamación posterior. Sólo se podrá pagar la garantía con el recibo original. - Para todas las garantías que envíen los Usuarios del interior de la República deberá presentarse el paquete en perfectas condiciones, de lo contrario no se recibirá el paquete por la mensajería que se envíe. Tiempo de respuesta: En Componentes de PC's tenemos 2 tipos de garantías: Garantía express: - Para toda garantía que sea aceptada. Operadora de Soluciones para Oficina S.A. de C.V. entregará un recibo de la garantía al distribuidor mismo que servirá para la reclamación posterior. Sólo se podrá pagar la garantía con el recibo original. - Para todas las garantías que envíen los Usuarios del interior de la República deberá presentarse el paquete en perfectas condiciones, de lo contrario no se recibirá el paquete por la mensajería que se envíe. - Se tramitará garantía express en productos como: floppy´s, gabinetes, tarjetas madre, modems, mouses, monitores, bocinas, teclados, discos duros, procesadores, CD Roms, dvd´s, combos, memorias, excepto: paquetes de software, y equipos como: no break´s, reguladores, impresoras, multifuncionales, fax, artículos de oficina, papelería y muebles. - Se aplica garantía express en: Canon (3 meses), HP (1 año) siempre y cuando vengan con su empaque original, y su carta membretada u hoja de impresión. (Requerimiento de proveedores), y las demás marcas están sujetas a la revisión, dictamen y respuesta del proveedor. - El pago de esta garantía será posterior al diagnóstico. Garantía normal: - Si la garantía se presenta dentro de los primeros 30 días de efectuada la compra y cumple con la política, deberá ser pagada en un lapso de 72 hrs. (excepto equipo). - El diagnóstico es de 24 hrs. A partir de su ingreso, después será enviado con el proveedor. - Si la garantía se está presentando después de los 30 días efectuada la compra, se pagará al Usuario entre 7 y 15 días hábiles como máximo. - En productos sobre pedido el tiempo de respuesta dependerá totalmente del proveedor y productos con clave “CE” tendrán garantía a razón del acuerdo pactado en la compra. En Consumibles: - El tiempo de respuesta se sujetará al que otorga cada fabricante ya que depende del mismo el diagnóstico, aprobación y pago de la garantía. - Se aplica garantía express en Canon y HP siempre y cuando vengan con su empaque original, y su carta membretada u hoja de impresión (Requerimiento de proveedor). Forma de pago de garantías: - Cambio físico de la misma forma que ingreso el producto a garantía. - Nota de crédito en caso de que no haya existencia disponible se hará con relación al precio vigente en nuestro sistema dentro de los primeros 30 días de efectuada la compra, después de este plazo se realizará una depreciación a la nota de crédito. - En el caso de muebles de oficina se hacen reparaciones o se sustituyen piezas. No existe garantía en los siguientes productos: Refacciones, cilindros y drums, artículos de limpieza, software e higiénicos. En las siguientes marcas: PANASONIC, FELLOWES, AVERY, MEGAFAX, CINTAS LEXMARK, UNIFAX, LEEDS, MITA, MINOLTA, SHARP, CONSUMIBLES BROTHER, 3M, SOFTWARE Y PAPELES DE TODAS LAS MARCAS. Producto de lento movimiento (LM) y producto de remate (ZD). En la marca ANSEL la garantía se tramita directamente con proveedor.
 							</Typography>
 						</Box>
-						<Box component="div" pt={2}>
+						<Box component="div" pt={2} id="obligaciones">
 							<Typography variant='subtitle2' component='h2' color='primary' >
 								7. OBLIGACIONES DE PEDIDOS.COM
 							</Typography>
@@ -288,8 +331,8 @@ export const TerminosYCondicionesDeEnvio = () => {
 								Pedidos.com se compromete a entregar al Usuario oportunamente los Productos seleccionados por él, al igual que a suministrarle los servicios solicitados, en los tiempos convenidos y bajo las condiciones acordadas, pero sujeto siempre a la disponibilidad del Producto y de los técnicos de Pedidos.com, según sea el caso, para su entrega en territorio nacional.
 							</Typography>
 						</Box>
-						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+						<Box component="div" pt={2} >
+							<Typography variant='subtitle2' component='h2' color='primary'id="obligacionesusuario" >
 								8. OBLIGACIONES DEL USUARIO
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
@@ -300,11 +343,11 @@ export const TerminosYCondicionesDeEnvio = () => {
 							<Typography variant='subtitle2' component='h2' color='primary' >
 								9. OTROS SERVICIOS EN LÍNEA
 							</Typography>
-							<Typography variant='body1' component='p' align='justify'>
+							<Typography variant='body1' component='p' align='justify' id="otros">
 							Pedidos.com podrá habilitar en el Sitio Web pedidos.com foros de discusión y chats para proporcionar información a los Usuarios o para atender sus dudas y/o peticiones concretas. De igual manera, podrá instrumentar promociones, trivias, concursos, juegos y/o sorteos en línea, cuyos requerimientos y reglas serán detallados en el apartado correspondiente del Sitio Web. Respecto de los foros de discusión y chats, Pedidos.com hace de su conocimiento que algunos de ellos son moderados, y que todos son objeto de acceso por parte de un representante de Pedidos.com por razones técnicas. Pedidos.com no controla el contenido que los Usuarios pudieren incluir, siendo que algunos son foros de discusión pública. Como en cualquier foro interactivo abierto a muchos Usuarios, el Usuario deberá considerar con detenimiento si desea suministrar la información y sus datos personales, pues dichos foros, son considerados públicos por lo que Pedidos.com hace del conocimiento del Usuario que en tales supuestos el uso y revelación de datos personales no se realiza de manera exclusiva a Pedidos.com.
 							</Typography>
 						</Box>
-						<Box component="div" pt={2}>
+						<Box component="div" pt={2} >
 							<Typography variant='subtitle2' component='h2' color='primary' >
 								10. AVISO DE PRIVACIDAD
 							</Typography>
@@ -312,7 +355,7 @@ export const TerminosYCondicionesDeEnvio = () => {
 								Pedidos.com es respetuoso de su privacidad y de sus datos personales, y por ello le pide que lea detenidamente los Avisos de Privacidad disponibles en pedidos.com y en los Sitios Web Asociados, según corresponda, mismos que se tienen por reproducidos en el presente apartado y que forma parte integrante de los presentes TyC. Pedidos.com incentiva a las personas a que manifiesten cualesquiera preocupaciones respecto del tratamiento que damos a sus datos personales, contactando para tales efectos a nuestro Oficial de Privacidad a través de los medios que se especifican en nuestros Avisos de Privacidad. Pedidos.com buscará resolver esas preocupaciones.
 							</Typography>
 							<Box component="div" pt={2}>
-								<Typography variant='subtitle2' component='h2' color='primary' >
+								<Typography variant='subtitle2' component='h2' color='primary' id="avisodeprivacidad">
 									a.) PayPal
 								</Typography>
 								<Typography variant='body1' component='p' align='justify'>
@@ -325,23 +368,23 @@ export const TerminosYCondicionesDeEnvio = () => {
 							</Box>
 						</Box>
 						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+							<Typography variant='subtitle2' component='h2' color='primary' id="propiedad">
 								11. PROPIEDAD INDUSTRIAL E INTELECTUAL
 							</Typography>
-							<Typography variant='body1' component='p' align='justify'>
+							<Typography variant='body1' component='p' align='justify' >
 								Las partes convienen que los elementos y contenidos del Sitio Web de pedidos.com y en los Sitios Web Asociados incluidos de manera enunciativa mas no limitativa los distintos avisos comerciales, marcas, nombres de dominio, logos, imágenes, gráficos, textos, animaciones, sonidos, diseños industriales, programas de cómputo, bases de datos, reservas de uso, diseño y formato de las páginas Web, y demás (son marcas registradas en México y en otros países), se encuentran protegidos en virtud de las leyes nacionales, tratados internacionales y por instrumentos contractuales y la titularidad de los derechos de propiedad intelectual e industrial corresponden exclusivamente a Operadora de Soluciones para Oficina S.A. de C.V. y/o aquellos proveedores o sujetos que mantengan una relación jurídica con Operadora de Soluciones para Oficina S.A. de C.V. En tal virtud, el Usuario reconoce y acepta que no adquiere ningún derecho sobre los citados activos de propiedad intelectual e industrial por el simple acceso y uso de los Servicios en Línea ofrecidos en el Sitio Web pedidos.com y/o en los Sitios Web Asociados. Por tal motivo el Usuario sólo podrá acceder a una copia temporal que descarga en la memoria de su sistema informático para acceder a los Servicios En Línea ofrecidos en tales Sitios Web, el Usuario no podrá almacenar, transmitir, retransmitir, reproducir, enajenar por cualquier título o distribuir, ningún elemento o contenido del Sitio Web pedidos.com y/o en los Sitios Web Asociados. En ningún momento se considerará que el acceso al Sitio Web pedidos.com y/o a los Sitios Web Asociados y el uso de los Servicios En Línea constituye una autorización o licencia para utilizar dichos servicios o los elementos y demás contenidos del Sitio Web y/o de los Sitios Web Asociados con fines distintos los previstos en los presentes TyC. Pedidos.com prohíbe cualquier vínculo de acceso, sea por medio de ligas (links), hiperligas (hiperlinks), enlaces, banners, botones, encuadre de o hacia (Frames) a los Servicios en Línea ofrecidos en el Sitio Web pedidos.com y/o en los Sitios Web Asociados. De igual manera, Pedidos.com prohíbe que se habiliten, utilicen o comercialicen los Servicios ofrecidos en dichos Sitios Web en cualquier otro Sitio Web, a menos que Pedidos.com hubiese otorgado la correspondiente autorización previa y por escrito. Pedidos.com, se reserva el derecho de inhabilitar cualquier vínculo de acceso que considere inapropiado, sea cual fuere la razón, con motivo de proteger el mayor interés del Usuario. Cualquier derecho no expresamente otorgado en virtud de los presentes TyC se entiende reservado. El Usuario se obliga a: (i) no llevar a cabo ningún acto que pudiera afectar o disminuir los derechos sobre los activos de propiedad industrial e intelectual de Pedidos.com y/o de las empresas del mismo, y (ii) a abstenerse de darles cualquier otro uso que pudiera derivar en un beneficio para sí o para cualquier otro tercero. Adicionalmente, queda expresamente prohibido al Usuario utilizar, traducir, o modificar, en todo o en parte, los activos de propiedad intelectual e industrial en comento, para la producción cualquier trabajo derivado, compilación o base de datos, o para cualquier otro fin distinto al expresamente autorizado.
 							</Typography>
 						</Box>
 						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+							<Typography variant='subtitle2' component='h2' color='primary'  id="vinculos" >
 								12. VÍNCULOS A SITIOS WEB DE TERCEROS
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
 								El Sitio Web pedidos.com y/o en los Sitios Web Asociados se pueden proporcionar vínculos a Sitios Web de terceros para su comodidad e información. En caso de que usted acceda a estos vínculos, abandonará el Sitio Web pedidos.com y/o los Sitios Web Asociados. Con independencia de que Pedidos.com celebre contratos con tales terceros y les comunique sus Avisos de Privacidad, Pedidos.com no tiene control sobre tales Sitios Web ni sobre sus términos y condiciones, sus avisos, políticas o prácticas de privacidad, ni sobre sus contenidos, productos, servicios, materiales o cualquier otra información contenida en o disponible a través de dichos Sitios, los cuales pueden diferir de los presentes Términos y Condiciones. La inclusión de los vínculos a sitios Web de terceros de ninguna manera se debe entender como una recomendación de Pedidos.com sobre los mismos, ni sobre sus productos y servicios. En tal virtud, Pedidos.com sólo es responsable de su sitio web, por lo que aconseja al Usuario revisar los Términos y Condiciones, avisos de privacidad y/o políticas y/o prácticas de privacidad de tales sitios. El acceso a cualquier Sitio Web enlazado a pedidos.com y/o a los Sitios Web Asociados es bajo su propio riesgo.
 							</Typography>
 						</Box>
-						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+						<Box component="div" pt={2} >
+							<Typography variant='subtitle2' component='h2' color='primary'id="responsabilidadPedidoscom" >
 								13. RESPONSABILIDAD DE PEDIDOS.COM
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
@@ -364,15 +407,15 @@ export const TerminosYCondicionesDeEnvio = () => {
 							</Typography>
 						</Box>
 						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+							<Typography variant='subtitle2' component='h2' color='primary' id="responsabilidadusuario">
 								14. RESPONSABILIDAD DEL USUARIO
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
 								El Usuario reconoce y acepta que Pedidos.com, al igual que sus demás empresas no serán de ninguna manera responsables frente a otras personas respecto al uso por parte del Usuario, por lo que el Usuario será el único responsable por el uso del Sitio pedidos.com.com y/o a los Sitios Web Asociados o sus Servicios en línea. De tal manera el Usuario será responsable de cualquier daño o perjuicio ocasionado por afectar cualquier derecho de tercero, incluyendo de manera enunciativa, mas no limitativa, los derechos de autor, de propiedad industrial, de privacidad y protección de datos; o de cualquier ley, reglamento o código federal, estatal o municipal aplicable. El Usuario deberá indemnizar a Pedidos.com de cualquier daño o perjuicio que sufra por ejecutar tales conductas. La información que el Usuario envíe en las secciones de comentarios, sugerencias, ideas, u otras análogas y que sean puestas a disposición de los Usuarios de los Servicios En Línea a través de las Ventanas De Diálogo del sitio Web pedidos.com y/o a los Sitios Web Asociados será responsabilidad del Usuario y se entiende que el Usuario acepta que dicha información sea considerada como información públicapara todos los efectos legales. Pedidos.com se reserva el derecho, de rehusarse a prestar servicios a cualquier persona, física o moral que contravenga estos TyC.
 							</Typography>
 						</Box>
-						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+						<Box component="div" pt={2}  >
+							<Typography variant='subtitle2' component='h2' color='primary' id="usosnoautorizados">
 								15. USOS NO AUTORIZADOS
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
@@ -380,15 +423,15 @@ export const TerminosYCondicionesDeEnvio = () => {
 							</Typography>
 						</Box>
 						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+							<Typography variant='subtitle2' component='h2' color='primary' id="cambios">
 								16. CAMBIOS A LOS TyC
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
 								PEDIDOS.COM podrá actualizar los presentes TyC a efecto de reflejar los cambios en nuestras prácticas y/o políticas, así como los cambios legales y administrativos que tengan lugar. Tal modificación será publicada por medio de nuestro portal de internet. Para tales efectos consideraremos el consentimiento del Usuario, ya sea tácito o expreso. Por motivo de lo pasado, al no contar con ninguna respuesta en contrario después de 15 días naturales siguientes a la notificación de los cambios a los presentes TyC en nuestra página web, se entenderán por aceptados los términos notificados y surtirán efectos desde la fecha de publicación de tal notificación.
 							</Typography>
 						</Box>
-						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+						<Box component="div" pt={2} >
+							<Typography variant='subtitle2' component='h2' color='primary' id="noasociacion">
 								17. NO ASOCIACIÓN
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
@@ -396,7 +439,7 @@ export const TerminosYCondicionesDeEnvio = () => {
 							</Typography>
 						</Box>
 						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+							<Typography variant='subtitle2' component='h2' color='primary' id="vicios">
 								18. VICIOS OCULTOS
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
@@ -404,7 +447,7 @@ export const TerminosYCondicionesDeEnvio = () => {
 							</Typography>
 						</Box>
 						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+							<Typography variant='subtitle2' component='h2' color='primary' id="notificaciones">
 								19. NOTIFICACIONES Y DOMICILIOS
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
@@ -421,7 +464,7 @@ export const TerminosYCondicionesDeEnvio = () => {
 							</Typography>
 						</Box>
 						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+							<Typography variant='subtitle2' component='h2' color='primary' id="consentimiento">
 								20. CONSENTIMIENTO
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
@@ -432,8 +475,8 @@ export const TerminosYCondicionesDeEnvio = () => {
 							</Typography>
 						</Box>
 
-						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+						<Box component="div" pt={2} >
+							<Typography variant='subtitle2' component='h2' color='primary' id="legislacion">
 								21. LEGISLACIÓN APLICABLE Y JURISDICCIÓN
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
@@ -441,7 +484,7 @@ export const TerminosYCondicionesDeEnvio = () => {
 							</Typography>
 						</Box>
 						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+							<Typography variant='subtitle2' component='h2' color='primary' id="vigencia">
 							22. VIGENCIA
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>
@@ -449,7 +492,7 @@ export const TerminosYCondicionesDeEnvio = () => {
 							</Typography>
 						</Box>
 						<Box component="div" pt={2}>
-							<Typography variant='subtitle2' component='h2' color='primary' >
+							<Typography variant='subtitle2' component='h2' color='primary' id="manifestacion">
 							23. MANIFESTACIÓN DEL CONSENTIMIENTO
 							</Typography>
 							<Typography variant='body1' component='p' align='justify'>

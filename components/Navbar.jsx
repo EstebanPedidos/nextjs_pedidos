@@ -379,11 +379,11 @@ export function Navbar(props) {
 							component={'div'}>
 							{/* This inline styles is temporaly, when add link router component, remove */}
 							<Hidden mdDown>
-								<Box component={'span'} style={{ cursor: 'pointer' }}>
-									<Typography variant="body2" component='span' color='textPrimary'>
+								<Box component={'span'} style={{ cursor: 'pointer', fontWeight:'Bold' }}>
+									<Typography variant="subtitle2" component='span' color='textPrimary'>
 										Para{' '}
 									</Typography>
-									<Typography component='span' color='primary'>
+									<Typography variant="subtitle2" component='span' color='primary'>
 										empresas
 									</Typography>
 								</Box>
@@ -426,7 +426,7 @@ export function Navbar(props) {
 									</Menu>
 									<div ref={anchorEl} id='menu'></div>
 								</Box>
-								<Box component='span' px={2}>
+								<Box component='span' px={1}>
 									<Help tipo={'2'}/>
 								</Box>
 								</Hidden>	

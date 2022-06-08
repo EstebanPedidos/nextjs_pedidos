@@ -59,7 +59,7 @@ export default function Menuoptions() {
                 
                 },
                 1100: {
-                slidesPerView: 5.5,
+                slidesPerView: 6,
                 
                 },
             }}

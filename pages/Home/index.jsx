@@ -258,7 +258,7 @@ export default function Home() {
                                 <Divider variant="middle"/>  
                                 <MenuAccount />
                             </Grid>
-                            <Grid item xs={12} sx={{zIndex:1}}>
+                            <Grid item xs={12} sx={{zIndex:1}} mb={2}>
                                 <Grid container justifyContent="space-between" alignItems="flex-start" spacing={2}>
                                     <Grid item xs={12} sm={12} lg={6}>
                                         <Box component="div">
@@ -267,9 +267,10 @@ export default function Home() {
                                             pagination={true}
                                             lazy={true}
                                             spaceBetween={20}
-                                            slidesPerView={2}
+                                            slidesPerView={1.1}
+                                            freeMode={true}
                                             className="mySwiper10"
-                                            //centeredSlides={true}
+                                            centeredSlides={true}
                                             //autoplay={{
                                             //"delay": 2500,
                                             //"disableOnInteraction": false}}
@@ -285,7 +286,7 @@ export default function Home() {
                                                     
                                                     },
                                                 1024: {
-                                                slidesPerView: 2,
+                                                slidesPerView: 1,
                                                 
                                                 },
                                             }}
@@ -297,18 +298,18 @@ export default function Home() {
                                                         <Card variant="outlined" sx={{position:'relative'}} className={styles.productscard}>
                                                             <CardContent>
                                                                 <Box sx={{ width: '100%'}}>
-                                                                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} >
+                                                                    <Grid container justifyContent='center' alignItems='center' rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} >
                                                                         {carrito.map((row, index) => (
                                                                             row.tipo === 'B' && index < 4 &&
                                                                             <Grid item xs={6}>
                                                                                 <Link href={`/articulos/${row.itemNum}`}>
                                                                                     <a>
                                                                                         <CardActionArea>
-                                                                                            <Card variant="outlined" >
+                                                                                            <Card variant="outlined" sx={{ height:'180px', width:'180px', padding:'10px'}} >
                                                                                                 <CardMedia
                                                                                                 className={classes.cover}
                                                                                                 component="img"
-                                                                                                alt={row.itemNum}
+                                                                                                width='100%'                                                                                                 alt={row.itemNum}
                                                                                                 image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
                                                                                                 title={row.itemNum}
                                                                                                 />
@@ -340,7 +341,7 @@ export default function Home() {
                                                     <Box component="div">
                                                         <Card variant="outlined" sx={{position:'relative'}} className={styles.productscard}>
                                                             <CardContent>
-                                                                <Box sx={{ width: '100%', maxHeight:'320px'}}>
+                                                                <Box sx={{ width: '100%', maxHeight:'300px'}}>
                                                                     <Grid container rowSpacing={2} columnSpacing={{ xs: 2, sm: 2, md: 2 }} >
                                                                         {vistos.map((row, index) => (
                                                                             row.tipo === 'V' && index < 4 &&
@@ -348,7 +349,7 @@ export default function Home() {
                                                                                 <Link href={`/articulos/${row.itemNum}`}>
                                                                                     <a>
                                                                                     <CardActionArea>
-                                                                                        <Card variant="outlined"  sx={{ height: '100%',}} >
+                                                                                        <Card variant="outlined"  sx={{ maxHeight: '180px',}} >
                                                                                             <CardMedia
                                                                                             component="img"
                                                                                             alt={row.itemNum}
@@ -458,7 +459,7 @@ export default function Home() {
                                                 </Box>
                                             </Paper>
                                         </Box> 
-                                        <Box component="div">
+                                        <Box component="div" pt={2}>
                                             <Paper variant="outlined" >
                                                 <Box component="div" p={1}>
                                                     <Box component="div" px={1} pt={2}>

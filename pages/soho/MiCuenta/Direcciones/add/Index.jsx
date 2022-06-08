@@ -214,11 +214,9 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                             </Typography>
                         </Grid>
                         <Grid item xs={4} sm={4}>
-                            
                             <Button onClick={()=>{setAddOpen(false)}} disableElevation variant="outlined" fullWidth>
                                 Regresar
                             </Button>
-                            
                         </Grid>
                     </Grid>
             </Box>
@@ -228,16 +226,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                 justifyContent='center'
                 alignItems='center'
                 spacing={2}>
-                <Grid item xs={12}>
-                    <Box component='div' textAlign='left'>
-                        <Typography variant='subtitle1' component="p">
-                            <Box component='span' fontWeight='fontWeightMedium'>
-                                
-                            </Box>
-                        </Typography>
-                        
-                    </Box>
-                </Grid>
+                
                 <Grid item xs={12}>
                     <Typography
                         component='subtitle2'
@@ -454,7 +443,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                             color='primary'
                             size='large'
                             onClick={guardarDireccion}>
-                            Guardar y continuar
+                            Guardar
                         </Button>
                     </Box>
                 </Grid>
