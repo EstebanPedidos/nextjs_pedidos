@@ -15,7 +15,9 @@ import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 //components
 import { logoUrl as logo } from '../constants';
 import { FooterAccordion } from './Text/FooterAccordion';
-
+//Modales
+import Cotizar from "../pages/articulos/Modales/Cotizar";
+import  Help  from '../components/modals/Help';
 const useStyles = makeStyles((theme) => ({
 	footer: {
 		backgroundColor: '#F6F6F6',
@@ -275,14 +277,10 @@ export function FooterDesktop() {
 						
 						<Grid item>Horario de atención 9:00 a 18:30 hrs</Grid>
 						<Grid item>
-							<Button variant='outlined' color='primary' fullWidth>
-								Cotizar precio por volumen
-							</Button>
+							<Cotizar />
 						</Grid>
 						<Grid item>
-							<Button variant='outlined' color='primary' fullWidth>
-								Comunícate con ventas
-							</Button>
+							<Help tipo={'1'}/>
 						</Grid>
 					</Grid>
 				</Grid>

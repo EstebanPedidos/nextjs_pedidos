@@ -51,47 +51,51 @@ const itemsConocenos = [
 	},
 	{
 		content: 'Aviso de Privacidad',
-		to: '/',
+		to: '/soho/cliente/aviso-privacidad',
+	},
+	{
+		content: 'Terminos y condiciones',
+		to: '/soho/cliente/terminos-y-condiciones',
 	},
 ];
 const itemsServicios = [
 	{
 		content: 'Pick Up Center',
-		to: '/',
+		to: '/servicios/pickup',
 	},
 	{
 		content: 'Para empresas',
-		to: '/',
+		to: '/servicios/empresas',
 	},
 	{
 		content: 'Planes de protección',
-		to: '/',
+		to: '/soho/cliente/planes-de-proteccion',
 	},
 	{
 		content: 'Programa de reciclaje',
-		to: '/',
+		to: '/programa-de-reciclaje',
 	},
 	{
 		content: 'Uniclick: Crédito PYME',
-		to: '/',
+		to: '/uniclick/credito',
 	},
 ];
 const itemsAyuda = [
 	{
 		content: 'Facturación',
-		to: '/',
+		to: '/soho/cliente/modificar-factura',
 	},
 	{
 		content: 'Forma de pago',
-		to: '/',
+		to: '/soho/politicas/forma-pago',
 	},
 	{
 		content: 'Forma de Envíos',
-		to: '/',
+		to: '/soho/politicas',
 	},
 	{
 		content: 'Soporte Técnico',
-		to: '/',
+		to: 'soporte-tecnico',
 	},
 	{
 		content: 'Garantías & Devoluciones',

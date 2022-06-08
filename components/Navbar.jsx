@@ -38,11 +38,8 @@ import RandomUser  from '../pages/services/RandomUser'
 
 // Variables imports
 import { logoUrl } from '../constants';
-
-import { HelpModal } from './modals';
-
+import  Help  from '../components/modals/Help';
 import { content, logo } from './Navbar.module.css';
-
 import DrawerCategorias from './drawers/drawer';
 
 const drawerWidth = 240;
@@ -324,11 +321,15 @@ export function Navbar(props) {
 
 	return (
 		<>
-			<HelpModal isOpen={openModal} onClose={handleOpenModal} />
 			<ElevationScroll {...props}>
 				<AppBar position='sticky'>
 					<Toolbar className={content}>
 						<Box component={'div'} alignItems={'center'} display='flex'>
+							<Hidden smUp>
+								<Box component={'span'}>
+									<DrawerCategorias />
+								</Box>
+							</Hidden>
 							{/*<Hidden smDown={true}>
 								 Crear una variante del logo que sea adaptable / Por
 							ejemplo una "p" para esos casos de usos */}
@@ -338,9 +339,11 @@ export function Navbar(props) {
 									</a>
 								</Link>
 							{/* </Hidden> */}
-							<Box component={'span'}>
-								<DrawerCategorias />
-							</Box>
+							<Hidden smDown>
+								<Box component={'span'} px={2}>
+									<DrawerCategorias />
+								</Box>
+							</Hidden>
 							
 						</Box>
 						{/* <Hidden smDown='hide'> */}
@@ -367,7 +370,6 @@ export function Navbar(props) {
 								</form>
 							</Box>
 						</Hidden>
-
 						<Box
 							display={'flex'}
 							flexDirection='row'
@@ -378,7 +380,7 @@ export function Navbar(props) {
 							{/* This inline styles is temporaly, when add link router component, remove */}
 							<Hidden mdDown>
 								<Box component={'span'} style={{ cursor: 'pointer' }}>
-									<Typography component='span' color='textPrimary'>
+									<Typography variant="body2" component='span' color='textPrimary'>
 										Para{' '}
 									</Typography>
 									<Typography component='span' color='primary'>
@@ -386,55 +388,58 @@ export function Navbar(props) {
 									</Typography>
 								</Box>
 							</Hidden>
-
-							<Box component={'span'}>
-								<IconButton onClick={handleClick}>
+							
+								<Hidden smDown>		
+								<Box component={'span'}>
+									<IconButton onClick={handleClick}>
+										<Badge
+											badgeContent={isLogged ? favoritos : null}
+											color='secondary'>
+											<Link href='/misFavoritos'>
+												<FavoriteBorder />
+											</Link>
+										</Badge>
+									</IconButton>
+									<Menu
+										anchorEl={anchorEl}
+										keepMounted
+										open={openMenu}
+										onClose={handleClose}>
+										<Box padding={'1em'}>
+											{/* <MenuItem onClick={handleClose}> */}
+											<Typography variant='subtitle2' align='center'>
+												Aún no tienes favoritos
+											</Typography>
+											{/* </MenuItem> */}
+											<Divider />
+											<Box
+												paddingTop={'1em'}
+												display='flex'
+												alignItems='center'
+												flexDirection={'column'}>
+												<IconButton>
+													<FavoriteBorder fontSize='large' />
+												</IconButton>
+												<Typography>Iniciar sesión para añadir</Typography>
+											</Box>
+										</Box>
+									</Menu>
+									<div ref={anchorEl} id='menu'></div>
+								</Box>
+								<Box component='span' px={2}>
+									<Help tipo={'2'}/>
+								</Box>
+								</Hidden>	
+								<IconButton color='primary'>
 									<Badge
-										badgeContent={isLogged ? favoritos : null}
+										badgeContent={isLogged ? sesPartidas : null}
 										color='secondary'>
-										<Link href='/misFavoritos'>
-											<FavoriteBorder />
+										<Link href='/checkout/verifica-pedido'>
+											<ShoppingCartIcon />
 										</Link>
 									</Badge>
 								</IconButton>
-								<Menu
-									anchorEl={anchorEl}
-									keepMounted
-									open={openMenu}
-									onClose={handleClose}>
-									<Box padding={'1em'}>
-										{/* <MenuItem onClick={handleClose}> */}
-										<Typography variant='subtitle2' align='center'>
-											Aún no tienes favoritos
-										</Typography>
-										{/* </MenuItem> */}
-										<Divider />
-										<Box
-											paddingTop={'1em'}
-											display='flex'
-											alignItems='center'
-											flexDirection={'column'}>
-											<IconButton>
-												<FavoriteBorder fontSize='large' />
-											</IconButton>
-											<Typography>Iniciar sesión para añadir</Typography>
-										</Box>
-									</Box>
-								</Menu>
-								<div ref={anchorEl} id='menu'></div>
-							</Box>
-							<IconButton onClick={handleOpenModal}>
-								<HelpOutlineIcon />
-							</IconButton>
-							<IconButton color='primary'>
-								<Badge
-									badgeContent={isLogged ? sesPartidas : null}
-									color='secondary'>
-									<Link href='/checkout/verifica-pedido'>
-										<ShoppingCartIcon />
-									</Link>
-								</Badge>
-							</IconButton>
+							
 						</Box>
 						<Box>
 							{isLogged ? (
@@ -443,7 +448,7 @@ export function Navbar(props) {
 									aria-controls={menuId}
 									aria-haspopup='true'
 									onClick={handleProfileMenuOpen}>
-									<Avatar sx={{ width: 32, height: 32 }}>
+									<Avatar sx={{ width:48, height: 48, border: 2, borderColor: '#3655A5', color:'#3655A5', backgroundColor:'#E7ECF3', textTransform: 'uppercase',  }}>
 										{nombre.substring(0, 2)}
 									</Avatar>
 								</IconButton>
@@ -459,7 +464,7 @@ export function Navbar(props) {
 						</Box>
 					</Toolbar>
 					<Hidden mdUp={true}>
-						<Box px={4} pb={1}>
+						<Box px={3} pb={1}>
                             <form onSubmit={searchBoxSubmit}>
                                 <TextField
                                     size='medium'
