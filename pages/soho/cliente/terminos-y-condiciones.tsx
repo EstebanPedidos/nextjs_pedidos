@@ -401,11 +401,11 @@ export const TerminosYCondicionesDeEnvio = () => {
 									a.) PayPal
 								</Typography>
 								<Typography variant='body1' component='p' align='justify'>
-									"PayPal es un controlador independiente utilizado para procesar los datos del cliente, información aquí:
+									&quot;PayPal es un controlador independiente utilizado para procesar los datos del cliente, información aquí:
 						
 								</Typography>
 								<Typography variant='body1'>
-								https://www.paypal.com/mx/webapps/mpp/ ua/privacy-full”
+								https://www.paypal.com/mx/webapps/mpp/ ua/privacy-full&quot;
 								</Typography>
 							</Box>
 						</Box>
