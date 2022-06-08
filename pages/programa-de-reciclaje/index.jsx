@@ -98,7 +98,8 @@ const ProgramaDeReciclaje = () => {
 	return (
 		<Layout title='¿Ya conoces el programa de reciclaje? | Pedidos.com | Pedidos.com'>
 			<Box
-				pt={8}
+				overflowX='hidden'
+				pt={{ xs: 2, md: 8 }}
 				position='relative'
 				sx={{
 					backgroundImage: {
@@ -116,7 +117,7 @@ const ProgramaDeReciclaje = () => {
 					}}>
 					<Grid container>
 						<Grid xs={12} md={5} item>
-							<Box pt={25}>
+							<Box pt={{ xs: 12, md: 25 }}>
 								<Typography
 									letterSpacing={5}
 									fontSize={19}
