@@ -347,6 +347,7 @@ export default function Direccion_de_envio(props){
                         </Grid>     
                         <Grid item xs={12} sm={4}>
                             {(data.hasOwnProperty('jsonResumen'))?
+                                (!addOpen)&&
                                 <>
                                     <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
                                     <ConFactura continuarCompra={continuarCompra} loading={loading}/>

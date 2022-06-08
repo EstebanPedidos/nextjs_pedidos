@@ -1,4 +1,6 @@
 import {useState,useEffect} from "react";
+//Tag Manager
+import TagManager from 'react-gtm-module'
 //hooks
 import {useLocalStorage} from "../../hooks/useLocalStorage";
 //next js
@@ -171,8 +173,10 @@ export default function FichaTecnica(props){
                     data.relacionados   = await JSON.parse(data.relacionados)
                     data.metas          = await JSON.parse(data.metas)
 
+                    let price  = await parseFloat(data.precio)+(parseFloat(data.precio)*parseFloat(data.iva))
+
                     setDatos(data)
-                    setPrecio(parseFloat(data.precio)+(parseFloat(data.precio)*parseFloat(data.iva)))
+                    setPrecio(price)
                     setSubTotal(data.precio)
                     setHdi(data.precioSeguro)
                     setGarnatExt1(data.garantia1)
@@ -185,6 +189,24 @@ export default function FichaTecnica(props){
                         meta.setAttribute('content', valor.content);                        
                         document.head.appendChild(meta);
                     });
+                    const tagManagerArgs = {
+                        gtmId: 'GTM-NLQV5KF',
+                        dataLayer: {
+                            'ecommerce': {
+                                'detail': {                                  
+                                  'products': [{
+                                    'name': 'Triblend Android T-Shirt',         
+                                    'id': data.item_num,
+                                    'price': '15.25',
+                                    'brand': 'Google',
+                                    'category': 'Apparel',
+                                    'variant': 'Gray'
+                                   }]
+                                 }
+                            }
+                        },
+                    }
+                    TagManager.initialize(tagManagerArgs)
                 }else{
                     ruter.push('/')
                 }                
