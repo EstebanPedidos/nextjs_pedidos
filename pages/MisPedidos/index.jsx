@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Box, Grid, Paper, Typography, Container, Backdrop,
-    Button, Select, TextField, Divider, Modal, Fade, Popper,
-    Card, CardContent, CardActions, CardMedia, CardActionArea, TextareaAutosize,
-    FormHelperText, FormControl, MenuList, MenuItem, IconButton,
-    Input, InputLabel, InputAdornment, Chip, Hidden,
-    Stack, Rating } from '@mui/material';
+    Button, Select, TextField, Divider, Modal, Fade,
+    Card, CardContent, CardActions, Chip,
+    MenuList, MenuItem, IconButton,
+    InputLabel, InputAdornment, Hidden,Menu} from '@mui/material';
 
 import makeStyles from '@mui/styles/makeStyles';
 
@@ -91,9 +90,16 @@ export default function MisPedidos() {
     const [valueDate, setValueDate] = React.useState(null);
     const [alerta,setAlerta] = useState({})
     const [partidas,setPartidas] = useLocalStorage('SesPartidas',0)
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const openMenu = Boolean(anchorEl);
+
 
     let clienteNum = '';
     let fechaPedido = '';
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
     const handleOpen = (event) => {
         const name = event.target.name;
@@ -104,6 +110,7 @@ export default function MisPedidos() {
     const handleClose = () => {
         setOpen(false);
         setSnack('')
+        setAnchorEl(null);
     };
 
     const handleChange = (event) => {
@@ -117,7 +124,6 @@ export default function MisPedidos() {
     };
 
     useEffect(() => {
-
         clienteNum = localStorage.getItem('Cliente');
         fechaPedido = localStorage.getItem('fechaPedido');
         let afiliado =  localStorage.getItem('afiliado')
@@ -226,31 +232,21 @@ export default function MisPedidos() {
     }
 
     function cancelar(pedidoNum){
+        clienteNum = localStorage.getItem('Cliente');
         Services('POST','/miCuenta/cancelaPedido?clienteNum='+clienteNum+'&pedidoNum='+pedidoNum,{})
         .then( response =>{
             const resultado = response.data; 
             console.log("resultado: "+resultado)
             switch(resultado){
-                case '1':
-                    setOpen(true);
-                    setSnack('dos')
-                    setTimeout(function(){
-                        window.location.reload(); 
-                    }, 100);
+                case 1:
+                    console.log("Si se cancelo el pedido:"+pedidoNum)
+                    setAlerta({severity:'success',mensaje:'Exito, pedido cancelado',vertical:'bottom',horizontal:'right',variant:'filled'})
                     break;
-                case '2'://Cliente incorrecto
-                    setOpen(true);
-                    setSnack('tres')
-                    setTimeout(function(){
-                       
-                    }, 1000);
+                case 2://Cliente incorrecto
+                    setAlerta({severity:'error',mensaje:'Cliente incorrecto',vertical:'bottom',horizontal:'right',variant:'filled'})
                 break;
-                case '3'://Error
-                    setOpen(true);
-                    setSnack('cuatro')
-                    setTimeout(function(){
-                       
-                    }, 1000);
+                case 3://Error
+                    setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
                 break;
             }             
         }).catch(error => {
@@ -283,13 +279,25 @@ export default function MisPedidos() {
                                
                                     <Box component="div" pr={5}>
                                         {row.estatusBoton === 'RESERVADO' &&
-                                            <FormControl fullWidth className={classes.formControl}>
-                                                <InputLabel id="demo-simple-select-label">Reservado</InputLabel>
-                                                <Select variant='outlined' fullWidth
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                onChange={handleChange}
-                                                >
+                                        <div>
+                                            <Button
+                                            id="basic-button"
+                                            aria-controls={openMenu ? 'basic-menu' : undefined}
+                                            aria-haspopup="true"
+                                            aria-expanded={openMenu ? 'true' : undefined}
+                                            onClick={handleClick}
+                                            > 
+                                                Reservado
+                                            </Button>
+                                            <Menu
+                                                id="basic-menu"
+                                                anchorEl={anchorEl}
+                                                open={openMenu}
+                                                onClose={handleClose}
+                                                MenuListProps={{
+                                                'aria-labelledby': 'basic-button',
+                                                }}
+                                            >
                                                    
                                                         <MenuItem>
                                                             <Link href={{
@@ -304,37 +312,39 @@ export default function MisPedidos() {
                                                         </MenuItem>
                                                     
                                                     {row.estatusEnvio != "RETURNED" && row.estatusEnvio != "REFUNDED" && 
-                                                        <Button fullWidth color='primary' size="small" onClick={(event) =>{event.preventDefault(); window.location='https://pedidos.com/checkout/pedidoMiCuenta.asp?pedidoNum=' +row.pedidoNum}}>
+                                                    <MenuItem>
+                                                        <Button onClick={(event) =>{event.preventDefault(); window.location='https://pedidos.com/checkout/pedidoMiCuenta.asp?pedidoNum=' +row.pedidoNum}}>
                                                             <Link href="/checkout/direccion-de-envio"> 
                                                                 <a>
-                                                                    <MenuItem>
-                                                                        Pagar
-                                                                    </MenuItem>
+                                                                    Pagar
                                                                 </a>
                                                             </Link>
                                                         </Button>
+                                                        </MenuItem>
                                                     }
                                                     {row.estatusComprobante != "CARGADO" && 
-                                                        <Button fullWidth size="small" 
+                                                    <MenuItem>
+                                                        <Button 
                                                         onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Comprobante%20de%20Pago%20Pedido%20'
                                                         +row.pedidoNum
                                                         +'&body=Adjunta%20tu%20Archivo%20JPG,%20PNG%20o%20PDF.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
                                                         >   
-                                                            <MenuItem>
+                                                            
                                                                 Comprobante de pago
-                                                            </MenuItem>
+                                                            
                                                         </Button> 
+                                                    </MenuItem>
                                                     }
                                                     {row.linkOxxo != "" && 
-                                                        <Button  fullWidth size="small" onClick={(event) => { event.preventDefault(); window.open(row.linkOxxo,'','width=800,height=550,left=300,top=100,toolbar=yes')}}>
+                                                        <Button  onClick={(event) => { event.preventDefault(); window.open(row.linkOxxo,'','width=800,height=550,left=300,top=100,toolbar=yes')}}>
                                                             <MenuItem>Pago OXXO</MenuItem>
                                                         </Button>
                                                     }
-                                                    <Button  fullWidth size="small" onClick={(event) => { event.preventDefault();cancelar(row.pedidoNum)}}>
-                                                        <MenuItem>Cancelar</MenuItem>
-                                                    </Button>
-                                                </Select>
-                                            </FormControl>
+                                                    <MenuItem onClick={(event) => { event.preventDefault();cancelar(row.pedidoNum);}}>
+                                                        Cancelar
+                                                    </MenuItem>
+                                                </Menu>
+                                            </div>
                                         }
                                         {row.estatusBoton === "PAGADO" &&
                                             <FormControl className={classes.formControl}>
@@ -576,10 +586,6 @@ export default function MisPedidos() {
                 </Box> 
             </Box>
 
-            {(alerta.hasOwnProperty('severity'))&&
-                <Alertas setAlerta={setAlerta} alerta={alerta}/>
-            } 
-
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -682,7 +688,11 @@ export default function MisPedidos() {
                 </div>
                 </Fade>
             </Modal>
-                
+
+            {(alerta.hasOwnProperty('severity'))&&
+                <Alertas setAlerta={setAlerta} alerta={alerta}/>
+            } 
+
         </div>
         </Layout>
     );

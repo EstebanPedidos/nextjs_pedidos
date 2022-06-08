@@ -215,7 +215,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                         </Grid>
                         <Grid item xs={4} sm={4}>
                             
-                            <Button disableElevation variant="outlined" fullWidth>
+                            <Button disableElevation variant="outlined" fullWidth onClick={()=>{setAddOpen(false)}}>
                                 Regresar
                             </Button>
                             
@@ -454,7 +454,7 @@ export default function AddDir({setAddOpen,setAlerta,alerta}){
                             color='primary'
                             size='large'
                             onClick={guardarDireccion}>
-                            Guardar y continuar
+                            Guardar
                         </Button>
                     </Box>
                 </Grid>

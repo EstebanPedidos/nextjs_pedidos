@@ -19,6 +19,7 @@ import NotasCredito from './NotasCredito';
 import Resumen from '../Resumen';
 import Eliminar from '../modals/Eliminar';
 import Alertas from '../Alertas';
+import AddRFC from '../../DatosFacturacion/add/Index';
 
 //Servicios
 import Services from '../../services/Services'
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Facturacion(props){
+export default function Facturacion(){
     const classes                   = useStyles()
     const ruter                     = useRouter() 
 
@@ -68,6 +69,7 @@ export default function Facturacion(props){
     const [aplicar,setAplicar]      = useState([])
     const [alerta,setAlerta]        = useState({})
     const [loading,setLoading]      = useState(false)
+    const [addOpen,setAddOpen]      = useState(false)
 
     useEffect(()=>{
         const getData = async () => {
@@ -83,12 +85,13 @@ export default function Facturacion(props){
                             let total        = await ((json.resumen.subtotal+json.resumen.costoEnvio)-json.nc.montoNc)
                             let jsonP        = await Services('POST','/miCuenta/obtieneMPago',{})
                             let pagos        = await jsonP.data 
-                            let rfc_ini      = ((await json.facturas.length) > 0)?json.facturas[0]:rfc
-                            let tipoPersona  = (rfc_ini.rfc.length === 13)?'fisica':'moral';
+                            let Lrfcs        = await json.facturas
+                            let rfc_ini      = await ((Lrfcs.length) > 0)?Lrfcs[Lrfcs.length-1]:rfc
+                            let tipoPersona  = await (rfc_ini.rfc.length === 13)?'fisica':'moral';
                             let jsonC        = await Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
                             let cfdis        = await jsonC.data 
                             let notas        = []   
-                            if(json.facturas.length > 0){
+                            if(Lrfcs.length > 0){
                                 let jsonN    = await Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+cliente+'&rfc='+rfc_ini.rfc+'&total='+total,{})
                                     notas    = await jsonN.data                 
                             }
@@ -101,7 +104,7 @@ export default function Facturacion(props){
                             setRfc({rfc_num:rfc_ini.rfcNum,rfc:rfc_ini.rfc})
                             setCfdi((cfdis.length > 0)?cfdis[0].idUsu:'')
                             setPago((pagos.length > 0)?pagos[0].mpago:'')
-                            setRfcs(json.facturas)
+                            setRfcs(Lrfcs)
                         }else{
                             ruter.push('/misPedidos')
                         }  
@@ -115,8 +118,11 @@ export default function Facturacion(props){
                 ruter.push('/')
             } 
         }
-        getData()
-    },[])
+        if(!addOpen){
+            setRfcs([])
+            getData()
+        }
+    },[addOpen])
 
     async function salectOption({target}){
         const {value,name,id} = target;
@@ -230,6 +236,7 @@ export default function Facturacion(props){
                                     <Process paso={1}/>:<Skeleton variant="text" height={150} animation="wave"/>
                                 }
                             </Box>
+                            {(!addOpen)?
                             <Box component="div" p={1}>
                                 <Divider light/> 
                                 <Box component="div" pt={3}  mb={1}> 
@@ -243,9 +250,9 @@ export default function Facturacion(props){
                                                     <Grid container direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
                                                         <Grid item xs={12} sm={6}>
                                                         {(data.hasOwnProperty('jsonResumen'))?
-                                                            <Button disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
-                                                            Añadir Nueva
-                                                            </Button>
+                                                            <Button onClick={()=>{setAddOpen(true)}} disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
+                                                            Añadir Nuevo
+                                                           </Button>
                                                         :
                                                         <Box component="div">
                                                             <Skeleton variant="rectangular" width="60%" height={80} animation="wave"/>
@@ -253,44 +260,7 @@ export default function Facturacion(props){
                                                         }
                                                         </Grid>
                                                     </Grid>
-                                                </Box>
-                                               {/*  <Card className={classes.root} variant="outlined">
-                                                    <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
-                                                        <Grid item xs={8} sm={8}> 
-                                                            {(data.hasOwnProperty('jsonResumen'))? 
-                                                            <CardContent>
-                                                                <Grid container alignItems="center" direction="row" justifyContent="flex-start" spacing={1}>
-                                                                    <Grid item xs={4} sm={4}>
-                                                                        <Box component="div" ml={4}>
-                                                                            <Avatar>
-                                                                                <AddOutlinedIcon />
-                                                                            </Avatar>
-                                                                        </Box>
-                                                                    </Grid>
-                                                                    <Grid item xs={4} sm={4}>  
-                                                                        <Box component="div"textAlign="left">
-                                                                            <Typography variant="h6" component="h2">
-                                                                                Nueva
-                                                                            </Typography>
-                                                                        </Box>
-                                                                    </Grid>
-                                                                </Grid> 
-                                                            </CardContent>
-                                                            :
-                                                            <Skeleton variant="rectangular" height={80} animation="wave"/>
-                                                            }
-                                                        </Grid> 
-                                                        <Grid item xs={4} sm={4}>
-                                                            {(data.hasOwnProperty('jsonResumen'))? 
-                                                            <CardActions>
-                                                                <Button size="Large" fullWidth color="primary">Añadir Datos</Button>
-                                                            </CardActions>
-                                                            :
-                                                            <Skeleton variant="rectangular" height={80} animation="wave"/>
-                                                            }
-                                                        </Grid>   
-                                                    </Grid>                      
-                                                </Card> */}
+                                                </Box>                                               
                                             </Grid> 
                                             <Grid item xs={12} sm={12}>
                                                 {(data.hasOwnProperty('jsonResumen'))? 
@@ -299,7 +269,7 @@ export default function Facturacion(props){
                                                         <div className={classes.root}>
                                                             <RadioGroup name='rfc' value={rfc.rfc_num+''}  onChange={salectOption}>                                                     
                                                                 <Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
-                                                                        {
+                                                                        {(rfcs.length > 0)?
                                                                             rfcs.map((rfc, index) => (  
                                                                                 <Grid item xs={6} key={index}>
                                                                                     <Box component="div">
@@ -351,13 +321,7 @@ export default function Facturacion(props){
                                                                                                                     RFC: {rfc.rfc}
                                                                                                                 </Typography>
                                                                                                             </CardContent> 
-                                                                                                            {/* <Box component="div" >
-                                                                                                                <Divider variant="middle" light />
-                                                                                                            </Box> */}
                                                                                                             <CardActions>
-                                                                                                                <Button size="small" fullWidth color="primary">
-                                                                                                                Detalles
-                                                                                                                </Button>
                                                                                                                 <Eliminar
                                                                                                                 Delete={Delete}
                                                                                                                 object={{rfc:rfc.rfc,rfcNum:rfc.rfcNum}}
@@ -376,7 +340,9 @@ export default function Facturacion(props){
                                                                                         </Card>   
                                                                                     </Box>
                                                                                 </Grid>
-                                                                            ))                    
+                                                                            )) 
+                                                                            :
+                                                                            <h1>Cargando..</h1>                
                                                                         }                                                   
                                                                 </Grid>
                                                             </RadioGroup>
@@ -447,14 +413,18 @@ export default function Facturacion(props){
                                 {(notas.length > 0 )&&
                                     <NotasCredito notas={notas} salectOption={salectOption} aplicar={aplicar}/>
                                 }  
-                            </Box>          
+                            </Box>  
+                            :
+                            <AddRFC setAddOpen={setAddOpen} setAlerta={setAlerta} alerta={alerta}/>
+                            }        
                         </div>
                     </Grid>  
                     <Grid item xs={12} sm={4}>
-                        {(data.hasOwnProperty('jsonResumen'))?
-                        (!alerta.hasOwnProperty('severity'))&&
+                        {(data.hasOwnProperty('jsonResumen'))?                        
                         <>
                         <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                        {(!alerta.hasOwnProperty('severity'))&&
+                        (!addOpen)&&
                         <LoadingButton variant="contained" fullWidth  size="large" color="primary" type="button"
                         onClick={continuarCompra}
                         loading={loading}
@@ -462,6 +432,7 @@ export default function Facturacion(props){
                         >
                             Continuar
                         </LoadingButton>
+                        }
                         </>
                         :
                         <Skeleton variant="rectangular" height={600} animation="wave"/>
