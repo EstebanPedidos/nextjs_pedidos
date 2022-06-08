@@ -338,7 +338,7 @@ export default function Direccion_de_envio(props){
                                         </Box>
                                     </Box>
                                     :
-                                    <Box component="div" width="100%">
+                                    <Box component="div" p={2} width="100%">
                                         <AddDir  setAddOpen={setAddOpen} setAlerta={setAlerta} alerta={alerta}/>
                                     </Box>
                                     } 

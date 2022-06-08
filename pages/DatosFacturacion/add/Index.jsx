@@ -2,11 +2,9 @@ import {useState} from 'react'
 //next js
 import { useRouter } from 'next/router';
 //Material UI
-import {Box, Grid, Typography, 
-    Button, Select, TextField, Divider,  MenuItem, IconButton,
-    InputLabel} from '@mui/material'
+import {Box, Grid, Typography,Button, Select, TextField, Divider,  MenuItem, IconButton,
+        InputLabel, FormControl} from '@mui/material'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
-import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined'
 //hooks
 import {useLocalStorage} from "../../../hooks/useLocalStorage";
 //Servicios
@@ -168,56 +166,86 @@ export default function AddRFC({setAddOpen,setAlerta,alerta}){
 
     return (
        <div>
-            <Grid container spacing={2}>
-                <Box component="div" textAlign="center" m={1} py={2}>
-                    <Typography component="h3" variant="h5">
-                        <Box component="span" fontWeight="fontWeightMedium">
-                            Ingresa Datos de Factura
-                        </Box>
-                        <Button disableElevation variant="outlined" fullWidth onClick={()=>{setAddOpen(false)}}>
+           <Box component='div' pb={3}>
+                <Divider variant="middle" />
+            </Box>
+           <Box component="div">
+                    <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
+                        <Grid item xs={8} sm={8}>
+                            <Typography variant="subtitle1" component="h4" sx={{fontWeight:'500'}}>
+                                Añade Datos para Factura 
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={4} sm={4}>
+                            <Button disableElevation variant="outlined" fullWidth onClick={()=>{setAddOpen(false)}}>
                                 Regresar
                             </Button>
-                    </Typography>
-                    <Box component="div" py={1}>
-                        <Divider/>
-                    </Box>
-                        <Typography component="subtitle1"  gutterBottom>Proporcionanos la siguiente información</Typography>                
-                </Box>
+                        </Grid>
+                    </Grid>
+            </Box>
+            <Grid
+            container
+            direction='row'
+            justifyContent='center'
+            alignItems='center'
+            spacing={2}
+            >
                 <Grid item xs={12}>
-                    <TextField 
-                        error={((alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'rfc'):false:false)}
-                        id="outlined-basic" 
-                        label="RFC" 
-                        variant="outlined" 
-                        name="rfc"
-                        placeholder="Ingresa un un RFC" 
-                        onChange={handleChange}
-                        inputProps={{ maxLength: 20 }}
-                        value={(inputs)?(inputs.hasOwnProperty('rfc'))?inputs.rfc:'':''}/>
-                    <Button onClick={validarRFC}>
-                        <ArrowDropDownCircleOutlinedIcon/>
-                    </Button>
+                    <Typography
+                        component='subtitle2'
+                        gutterBottom>
+                        Proporcionanos lo siguiente:
+                    </Typography>
+                </Grid>      
+                <Grid item xs={12}>
+                    <Grid
+                        container
+                        direction='row'
+                        justifyContent='center'
+                        alignItems='center'
+                        spacing={2}
+                        >
+                            <Grid item xs={12} sm={8}>
+                                <TextField fullWidth
+                                    error={((alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'rfc'):false:false)}
+                                    id="outlined-basic" 
+                                    label="RFC" 
+                                    variant="outlined" 
+                                    name="rfc"
+                                    placeholder="Ingresa un un RFC" 
+                                    onChange={handleChange}
+                                    inputProps={{ maxLength: 20 }}
+                                    value={(inputs)?(inputs.hasOwnProperty('rfc'))?inputs.rfc:'':''}/>
+                            </Grid>
+                            <Grid item xs={12} sm={4}>
+                                <Button variant="contained" fullWidth mt={1} onClick={validarRFC}>
+                                    Validar
+                                </Button>
+                            </Grid>
+                        </Grid>
                     {(statusRFC)&&
                     <Box component="div" pt={4}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <InputLabel required id="demo-simple-select-outlined-label">
-                                    Uso de CDFI
-                                </InputLabel>
-                                <Select fullWidth variant="outlined"
-                                error={((alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'cfdi'):false:false)}
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={inputs.cfdi}
-                                name="cfdi"
-                                onChange={handleChange}
-                                label="Uso de CDFI"
-                                >
-                                    <MenuItem  value={'-'}>Selecciona</MenuItem>
-                                    {cfdiSelect.map((select) => (
-                                        <MenuItem key={select.idUsu} value={select.idUsu}>{select.descripcion}</MenuItem>
-                                    ))}
-                                </Select>
+                                <FormControl fullWidth>
+                                    <InputLabel required id="demo-simple-select-outlined-label">
+                                        Uso de CDFI
+                                    </InputLabel>
+                                    <Select fullWidth variant="outlined"
+                                    error={((alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'cfdi'):false:false)}
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
+                                    value={inputs.cfdi}
+                                    name="cfdi"
+                                    onChange={handleChange}
+                                    label="Uso de CDFI"
+                                    >
+                                        <MenuItem  value={'-'}>Selecciona</MenuItem>
+                                        {cfdiSelect.map((select) => (
+                                            <MenuItem key={select.idUsu} value={select.idUsu}>{select.descripcion}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField fullWidth
@@ -238,7 +266,6 @@ export default function AddRFC({setAddOpen,setAlerta,alerta}){
                                     id="filled-textarea"
                                     label="Teléfono" 
                                     placeholder="Ingresa un teléfono"
-                                    multiline
                                     variant="outlined"
                                     name="telefono" 
                                     onChange={handleChange}
@@ -273,13 +300,12 @@ export default function AddRFC({setAddOpen,setAlerta,alerta}){
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <Box display="flex" justifyContent="flex-start" m={1} p={1} >
+                                <Box display="flex" justifyContent="flex-start" >
                                     <TextField fullWidth
                                         error={((alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'cp'):false:false)}
                                         id="filled-textarea"
                                         label="Código Postal" 
-                                        placeholder="Ingresa un C.P."
-                                        multiline
+                                        placeholder="Ingresa un Código Postal"
                                         variant="outlined"
                                         name="cp" 
                                         onChange={handleChange}
@@ -296,7 +322,6 @@ export default function AddRFC({setAddOpen,setAlerta,alerta}){
                                     id="filled-textarea"
                                     label="Colonia" 
                                     placeholder="Ingresa una colonia"
-                                    multiline
                                     variant="outlined"
                                     name="colonia" 
                                     onChange={handleChange}
@@ -304,53 +329,57 @@ export default function AddRFC({setAddOpen,setAlerta,alerta}){
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <InputLabel id="demo-simple-select-outlined-label">
-                                    Estado | Delegación
-                                </InputLabel>
-                                <Select fullWidth variant="outlined"
-                                error={((alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'estadoDelegacion'):false:false)}
-                                label="Estado | Delegación"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={estadoDelegacion}
-                                name="estadoDelegacion"
-                                onChange={handleChange}
-                                onFocus={consultarCp}
-                                >
-                                    <MenuItem value="-">Selecciona</MenuItem>
-                                    {resultCP.map((select) => (
-                                        <MenuItem key={select.delegacion} value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
-                                    ))}
-                                </Select>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <InputLabel id="demo-simple-select-outlined-label">
-                                    Método de Pago (requerido)
-                                </InputLabel>
-                                <Select fullWidth variant='outlined'
-                                error={((alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'metodoPago'):false:false)}
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={inputs.metodoPago}
-                                name="metodoPago"
-                                onChange={handleChange}
-                                label="Selecciona"
-                                >
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-outlined-label">
+                                        Estado | Delegación
+                                    </InputLabel>
+                                    <Select fullWidth variant="outlined"
+                                    error={((alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'estadoDelegacion'):false:false)}
+                                    label="Estado | Delegación"
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
+                                    value={estadoDelegacion}
+                                    name="estadoDelegacion"
+                                    onChange={handleChange}
+                                    onFocus={consultarCp}
+                                    >
                                         <MenuItem value="-">Selecciona</MenuItem>
-                                        <MenuItem value="99">NO IDENTIFICADO</MenuItem>
-                                        <MenuItem value="1">EFECTIVO</MenuItem>
-                                        <MenuItem value="2">CHEQUE NOMINATIVO </MenuItem>
-                                        <MenuItem value="3">TRANSFERENCIA ELECTRONICA DE FONDOS</MenuItem>
-                                        <MenuItem value="4">TARJETA DE CREDITO</MenuItem>
-                                        <MenuItem value="28">TARJETA DE DEBITO</MenuItem>
-                                        <MenuItem value="29">TARJETA DE SERVICIOS</MenuItem>
-                                        <MenuItem value="99">PAYPAL</MenuItem>
-                                        <MenuItem value="5">MONEDERO ELECTRONICO</MenuItem>
-                                        <MenuItem value="6">DINERO ELECTRONICO</MenuItem>
-                                </Select>
+                                        {resultCP.map((select) => (
+                                            <MenuItem key={select.delegacion} value={select.estado.replace("MEXICO","MÉXICO").toLowerCase()+'-'+select.delegacion.toLowerCase()}>{select.estado.replace("MEXICO","MÉXICO")+' - '+select.delegacion}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12}>
-                                <Button variant="contained" color="primary" onClick={addRFC}>Guardar</Button>
+                                <FormControl fullWidth>
+                                    <InputLabel id="simple-select-outlined-label" required>
+                                        Método de Pago
+                                    </InputLabel>
+                                    <Select fullWidth variant='outlined' required
+                                    error={((alerta)?(alerta.hasOwnProperty('inputError'))?(alerta.inputError === 'metodoPago'):false:false)}
+                                    labelId="simple-select-outlined-label"
+                                    id="simple-select-outlined"
+                                    value={inputs.metodoPago}
+                                    name="metodoPago"
+                                    onChange={handleChange}
+                                    label="Método de Pago"
+                                    >
+                                            <MenuItem value="-">Selecciona</MenuItem>
+                                            <MenuItem value="99">NO IDENTIFICADO</MenuItem>
+                                            <MenuItem value="1">EFECTIVO</MenuItem>
+                                            <MenuItem value="2">CHEQUE NOMINATIVO </MenuItem>
+                                            <MenuItem value="3">TRANSFERENCIA ELECTRONICA DE FONDOS</MenuItem>
+                                            <MenuItem value="4">TARJETA DE CREDITO</MenuItem>
+                                            <MenuItem value="28">TARJETA DE DEBITO</MenuItem>
+                                            <MenuItem value="29">TARJETA DE SERVICIOS</MenuItem>
+                                            <MenuItem value="99">PAYPAL</MenuItem>
+                                            <MenuItem value="5">MONEDERO ELECTRONICO</MenuItem>
+                                            <MenuItem value="6">DINERO ELECTRONICO</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button variant="contained" color="primary" fullWidth onClick={addRFC}>Guardar y continuar</Button>
                             </Grid>
                         </Grid>
                     </Box>

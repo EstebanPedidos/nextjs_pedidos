@@ -236,13 +236,15 @@ export default function Facturacion(){
                                     <Process paso={1}/>:<Skeleton variant="text" height={150} animation="wave"/>
                                 }
                             </Box>
-                            {(!addOpen)?
                             <Box component="div" p={1}>
                                 <Divider light/> 
                                 <Box component="div" pt={3}  mb={1}> 
                                     <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'2. Selecciona y/o añade los datos de facturación.':<Skeleton variant="text" width="70%" animation="wave"/>}</Typography>
                                 </Box>
-                                <Box component="div" py={2} >
+                                
+                            {(!addOpen)?                              
+                            <>
+                                <Box component="div" py={2} >                          
                                     <div className={classes.root}>
                                         <Grid container direction="row" justifyContent="center" alignItems="center"  spacing={2}>
                                             <Grid item xs={12}>
@@ -412,11 +414,14 @@ export default function Facturacion(){
                                 }
                                 {(notas.length > 0 )&&
                                     <NotasCredito notas={notas} salectOption={salectOption} aplicar={aplicar}/>
-                                }  
-                            </Box>  
+                                } 
+                            </>                              
                             :
-                            <AddRFC setAddOpen={setAddOpen} setAlerta={setAlerta} alerta={alerta}/>
-                            }        
+                            <Box component="div" p={2}>
+                                <AddRFC setAddOpen={setAddOpen} setAlerta={setAlerta} alerta={alerta}/>
+                            </Box>
+                            }  
+                            </Box>      
                         </div>
                     </Grid>  
                     <Grid item xs={12} sm={4}>
