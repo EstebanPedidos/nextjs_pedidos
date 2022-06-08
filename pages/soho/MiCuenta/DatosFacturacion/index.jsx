@@ -60,6 +60,7 @@ export default function DatosFacturacion() {
     const [inputs, setInputs] = useState({});
     const [result, setResult] = useState([]);
     const [statusRFC, setStatusRFC] = React.useState(false);
+    const [cfdi, setCfdi] = React.useState('');
 
     let params = '?clienteNum=&'+clienteNum;
 
@@ -114,6 +115,9 @@ export default function DatosFacturacion() {
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({...values, [name]: value}))
+        if(event.target.name === "cfdi"){
+            setCfdi(event.target.value);
+        }
     }
 
     function Alert(props) {
