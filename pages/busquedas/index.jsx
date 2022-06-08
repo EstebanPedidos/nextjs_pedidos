@@ -303,19 +303,18 @@ export default function Busquedas(props) {
                                                 </Grid>
                                             </Grid>  
                                         </Grid>
-                                        <Grid item xs={6} sm={6} lg={3} >
-                                            <FormControl fullWidth>
-                                            <InputLabel id="select-helper">Ordenar por:</InputLabel>
-                                            <Select variant="outlined"
-                                                label-Id="select-helper-label"
-                                                label="Ordenar Por"
-                                                id="select-helper"
+                                        <Grid item xs={12} sm={6} lg={3} >
+                                        <FormControl fullWidth>
+                                            <InputLabel id="product-order-select-label">Ordenar por:</InputLabel>
+                                            <Select
+                                                labelId="product-order-select-label"
+                                                id="product-order-select"
                                                 value={indexX}
+                                                label="Ordenar por:"
                                                 onChange={handleChange}
                                                 displayEmpty
-                                                className={classes.selectEmpty}
                                                 inputProps={{ 'aria-label': 'Without label' }}
-                                                >
+                                            >
                                                 <MenuItem value="Pedidos_Mas_Vendido">
                                                 <em>Más Vendido</em>
                                                 </MenuItem>
@@ -324,6 +323,7 @@ export default function Busquedas(props) {
                                                 <MenuItem value="Pedidos_Precio_desc">Precio Mayor a Menor</MenuItem>
                                             </Select>
                                             </FormControl>
+                                            
                                         </Grid>
                                     </Grid>
                                     <Box mb={4}>
@@ -341,147 +341,124 @@ export default function Busquedas(props) {
                                     </Box>
                                 </Box>
                             </Grid>
-                            <Hidden smDown>
-                            <Grid item xs={12} sm={4} md={3}>
-                                <Box className='left-panel' textAlign='left'>
-                                    <Box
-                                        component='div'
-                                        textAlign='left'
-                                        px={4}
-                                        py={1}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            <ToggleRefinement
-                                                color='primary'
-                                                attribute='DISPONIBILIDAD'
-                                                label='Disponibilidad'
-                                                value={true}
-                                            />
-                                        </Typography>
-                                    </Box>
-                                    <Box
-                                        component='div'
-                                        textAlign='left'
-                                        px={4}
-                                        py={1}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            <ToggleRefinement
-                                                attribute='ENVIO_GRATIS'
-                                                label='Envío Gratis'
-                                                value={true}
-                                            />
-                                        </Typography>
-                                    </Box>
-                                    <Box
-                                        component='div'
-                                        textAlign='left'
-                                        px={4}
-                                        py={1}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            <ToggleRefinement
-                                                attribute='APLICA_EXPRESS'
-                                                label='Entrega Express'
-                                                value={true}
-                                            />
-                                        </Typography>
-                                    </Box>
-                                    <Box
-                                        component='div'
-                                        textAlign='left'
-                                        px={4}
-                                        py={1}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            <ToggleRefinement
-                                                attribute='REGALO'
-                                                label='Con Regalo'
-                                                value={true}
-                                            />
-                                        </Typography>
-                                    </Box>
-                                    <Box sx={{ margin: '1rem 0' }}>
-                                        <Divider />
-                                    </Box>
+                            <Hidden mdDown>
+                                <Grid item xs={12} sm={4} md={3}>
+                                    <Box className='left-panel' textAlign='left'>
+                                        <Box
+                                            component='div'
+                                            textAlign='left'
+                                            px={4}
+                                            py={1}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                <ToggleRefinement
+                                                    color='primary'
+                                                    attribute='DISPONIBILIDAD'
+                                                    label='Disponibilidad'
+                                                    value={true}
+                                                />
+                                            </Typography>
+                                        </Box>
+                                        <Box
+                                            component='div'
+                                            textAlign='left'
+                                            px={4}
+                                            py={1}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                <ToggleRefinement
+                                                    attribute='ENVIO_GRATIS'
+                                                    label='Envío Gratis'
+                                                    value={true}
+                                                />
+                                            </Typography>
+                                        </Box>
+                                        <Box
+                                            component='div'
+                                            textAlign='left'
+                                            px={4}
+                                            py={1}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                <ToggleRefinement
+                                                    attribute='APLICA_EXPRESS'
+                                                    label='Entrega Express'
+                                                    value={true}
+                                                />
+                                            </Typography>
+                                        </Box>
+                                        <Box
+                                            component='div'
+                                            textAlign='left'
+                                            px={4}
+                                            py={1}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                <ToggleRefinement
+                                                    attribute='REGALO'
+                                                    label='Con Regalo'
+                                                    value={true}
+                                                />
+                                            </Typography>
+                                        </Box>
+                                        <Box sx={{ margin: '1rem 0' }}>
+                                            <Divider />
+                                        </Box>
 
-                                    <Box component='div' px={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Marca
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='MARCA'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos' : 'Mostrar Mas';
-                                                },
-                                                noResults: 'No results',
-                                            }}
-                                        />
-                                    </Box>
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Precio
-                                        </Typography>
-                                        <RangeInput
-                                            attribute='PRECIO'
-                                            translations={{
-                                                submit: 'Consultar',
-                                                separator: ' - ',
-                                            }}
-                                        />
-                                    </Box>
-                                    {filtros.hasOwnProperty('FILTROS.PULGADAS') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Pulgadas
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.PULGADAS'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.PROCESADOR') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Procesador
-                                        </Typography>
+                                        <Box component='div' px={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Marca
+                                            </Typography>
                                             <RefinementList
-                                                attribute='FILTROS.PROCESADOR'
+                                                attribute='MARCA'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos' : 'Mostrar Mas';
+                                                    },
+                                                    noResults: 'No results',
+                                                }}
+                                            />
+                                        </Box>
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Precio
+                                            </Typography>
+                                            <RangeInput
+                                                attribute='PRECIO'
+                                                translations={{
+                                                    submit: 'Consultar',
+                                                    separator: ' - ',
+                                                }}
+                                            />
+                                        </Box>
+                                        {filtros.hasOwnProperty('FILTROS.PULGADAS') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Pulgadas
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.PULGADAS'
                                                 limit={3}
                                                 showMoreLimit={15}
                                                 showMore={true}
@@ -493,529 +470,553 @@ export default function Busquedas(props) {
                                                     },
                                                 }}
                                             />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.SISTEMA OPERATIVO') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Sistema Operativo
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.SISTEMA OPERATIVO'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.TIPO DE IMPRESION') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Tipo de Impresión
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.TIPO DE IMPRESION'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.TIPO') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Tipo
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.TIPO'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.TAMAÑO') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Tamaño
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.TAMAÑO'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.TAMAÑO 2') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Tamaño
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.TAMAÑO 2'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.ALMACENAMIENTO') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Almacenamiento
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.ALMACENAMIENTO'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.CAPACIDAD') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Capacidad
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.CAPACIDAD'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.INTERFAZ') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Interfaz
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.INTERFAZ'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.MEDIDAS') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Medidas
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.MEDIDAS'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.TIPO DE ARILLO') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Tipo de arillo
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.TIPO DE ARILLO'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.MATERIAL') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Material
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.MATERIAL'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.CAJA CON') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Caja con
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.CAJA CON'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.PIEZAS') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Piezas
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.PIEZAS'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.VOLTAJE') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Voltaje
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.VOLTAJE'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.TIPO DE ENTRADA') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Tipo de entrada
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.TIPO DE ENTRADA'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.TIPO DE CONEXIÓN') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Tipo de conexión
-                                        </Typography>
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.PROCESADOR') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Procesador
+                                            </Typography>
+                                                <RefinementList
+                                                    attribute='FILTROS.PROCESADOR'
+                                                    limit={3}
+                                                    showMoreLimit={15}
+                                                    showMore={true}
+                                                    translations={{
+                                                        showMore(expanded) {
+                                                            return expanded
+                                                                ? 'Mostrar Menos'
+                                                                : 'Mostrar Mas';
+                                                        },
+                                                    }}
+                                                />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.SISTEMA OPERATIVO') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Sistema Operativo
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.SISTEMA OPERATIVO'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.TIPO DE IMPRESION') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Tipo de Impresión
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.TIPO DE IMPRESION'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.TIPO') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Tipo
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.TIPO'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.TAMAÑO') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Tamaño
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.TAMAÑO'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.TAMAÑO 2') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Tamaño
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.TAMAÑO 2'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.ALMACENAMIENTO') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Almacenamiento
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.ALMACENAMIENTO'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.CAPACIDAD') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Capacidad
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.CAPACIDAD'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.INTERFAZ') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Interfaz
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.INTERFAZ'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.MEDIDAS') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Medidas
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.MEDIDAS'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.TIPO DE ARILLO') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Tipo de arillo
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.TIPO DE ARILLO'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.MATERIAL') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Material
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.MATERIAL'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.CAJA CON') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Caja con
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.CAJA CON'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.PIEZAS') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Piezas
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.PIEZAS'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.VOLTAJE') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Voltaje
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.VOLTAJE'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.TIPO DE ENTRADA') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Tipo de entrada
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.TIPO DE ENTRADA'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.TIPO DE CONEXIÓN') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Tipo de conexión
+                                            </Typography>
 
-                                        <RefinementList
-                                            attribute='FILTROS.TIPO DE CONEXIÓN'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
+                                            <RefinementList
+                                                attribute='FILTROS.TIPO DE CONEXIÓN'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.COLOR') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Color
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.COLOR'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.TIPO DE PUNTA') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Tipo de punta
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.TIPO DE PUNTA'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.ORIFICIOS') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Orificios
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.ORIFICIOS'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.FORMA') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Forma
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.FORMA'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.NUMERO') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Número
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.NUMERO'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        {filtros.hasOwnProperty('FILTROS.POSICIÓN') &&
+                                        <Box component='div' textAlign='left' p={4}>
+                                            <Typography
+                                                variant='subtitle1'
+                                                component='h2'
+                                                sx={{ fontWeight: '600' }}>
+                                                Posición
+                                            </Typography>
+                                            <RefinementList
+                                                attribute='FILTROS.POSICIÓN'
+                                                limit={3}
+                                                showMoreLimit={15}
+                                                showMore={true}
+                                                translations={{
+                                                    showMore(expanded) {
+                                                        return expanded
+                                                            ? 'Mostrar Menos'
+                                                            : 'Mostrar Mas';
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+                                        }
+                                        
+                                        {/* Termina filtros */}
+                                        <Configure hitsPerPage={20} />
                                     </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.COLOR') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Color
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.COLOR'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.TIPO DE PUNTA') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Tipo de punta
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.TIPO DE PUNTA'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.ORIFICIOS') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Orificios
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.ORIFICIOS'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.FORMA') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Forma
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.FORMA'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.NUMERO') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Número
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.NUMERO'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    {filtros.hasOwnProperty('FILTROS.POSICIÓN') &&
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Posición
-                                        </Typography>
-                                        <RefinementList
-                                            attribute='FILTROS.POSICIÓN'
-                                            limit={3}
-                                            showMoreLimit={15}
-                                            showMore={true}
-                                            translations={{
-                                                showMore(expanded) {
-                                                    return expanded
-                                                        ? 'Mostrar Menos'
-                                                        : 'Mostrar Mas';
-                                                },
-                                            }}
-                                        />
-                                    </Box>
-                                    }
-                                    
-                                    {/* Termina filtros */}
-                                    <Configure hitsPerPage={20} />
-                                </Box>
-                                
-                            </Grid>
+                                </Grid>
                             </Hidden>
-                            <Hidden mdUp={true}>
-                                <Button onClick={handleClickOpen}>
-                                    <Fab variant="extended">
-                                        <FilterAltIcon sx={{ mr: 1 }}/>
-                                        Filtros
-                                    </Fab> 
-                                </Button>
+                            <Hidden mdUp>
+                                <Grid item xs={12}>
+                                    <Button fullWidth onClick={handleClickOpen}>
+                                        <Fab variant="extended">
+                                            <FilterAltIcon sx={{ mr: 1 }}/>
+                                            Filtros
+                                        </Fab> 
+                                    </Button>
+                                </Grid>
                             </Hidden>
                             <Grid item xs={12} sm={8} md={9}>
                                 <Stats
