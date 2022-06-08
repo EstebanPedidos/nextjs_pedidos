@@ -29,16 +29,16 @@ import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 //Component
 import { Layout } from 'layout/Layout';
 import { HelpModal } from 'components/modals';
-import {useLocalStorage} from "../../hooks/useLocalStorage";
-import Alertas from '../checkout/Alertas'
+import {useLocalStorage} from "../../../../hooks/useLocalStorage";
+import Alertas from '../../../checkout/Alertas'
 //Modales
-import  Help  from '../../components/modals/Help';
+import  Help  from '../../../../components/modals/Help';
 //Nextjs
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
-import Services from '../services/Services'
+import Services from '../../../services/Services'
 
 import axios from 'axios'
 
@@ -93,6 +93,7 @@ export default function MisPedidos() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openMenu = Boolean(anchorEl);
 
+    const router = useRouter();
 
     let clienteNum = '';
     let fechaPedido = '';
@@ -265,7 +266,7 @@ export default function MisPedidos() {
                                 <Grid item xs={6} sm={12} lg={12}>
                                     <Link 
                                         href={{
-                                        pathname: '/pedido',
+                                        pathname: '/soho/MiCuenta/pedido',
                                         search: '?pedido='+row.pedidoNum,
                                         state: { pedido: row.pedidoNum }
                                         }}>
@@ -281,6 +282,8 @@ export default function MisPedidos() {
                                         {row.estatusBoton === 'RESERVADO' &&
                                         <div>
                                             <Button
+                                            variant="outlined"
+                                            fullWidth size="large"
                                             id="basic-button"
                                             aria-controls={openMenu ? 'basic-menu' : undefined}
                                             aria-haspopup="true"
@@ -301,7 +304,7 @@ export default function MisPedidos() {
                                                    
                                                         <MenuItem>
                                                             <Link href={{
-                                                            pathname: '/pedido',
+                                                            pathname: '/soho/MiCuenta/pedido',
                                                             search: '?pedido='+row.pedidoNum,
                                                             state: { pedido: row.pedidoNum }
                                                             }}>     
@@ -312,33 +315,30 @@ export default function MisPedidos() {
                                                         </MenuItem>
                                                     
                                                     {row.estatusEnvio != "RETURNED" && row.estatusEnvio != "REFUNDED" && 
-                                                    <MenuItem>
-                                                        <Button onClick={(event) =>{event.preventDefault(); window.location='https://pedidos.com/checkout/pedidoMiCuenta.asp?pedidoNum=' +row.pedidoNum}}>
+                                                        <MenuItem>
                                                             <Link href="/checkout/direccion-de-envio"> 
                                                                 <a>
                                                                     Pagar
                                                                 </a>
                                                             </Link>
-                                                        </Button>
                                                         </MenuItem>
                                                     }
                                                     {row.estatusComprobante != "CARGADO" && 
-                                                    <MenuItem>
-                                                        <Button 
+                                                    <MenuItem 
                                                         onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Comprobante%20de%20Pago%20Pedido%20'
                                                         +row.pedidoNum
                                                         +'&body=Adjunta%20tu%20Archivo%20JPG,%20PNG%20o%20PDF.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
-                                                        >   
-                                                            
-                                                                Comprobante de pago
-                                                            
-                                                        </Button> 
+                                                    >
+                                                        Comprobante de pago
                                                     </MenuItem>
                                                     }
                                                     {row.linkOxxo != "" && 
-                                                        <Button  onClick={(event) => { event.preventDefault(); window.open(row.linkOxxo,'','width=800,height=550,left=300,top=100,toolbar=yes')}}>
-                                                            <MenuItem>Pago OXXO</MenuItem>
-                                                        </Button>
+                                                        <MenuItem
+                                                            onClick={(event) => { event.preventDefault(); 
+                                                            window.open(row.linkOxxo,'','width=800,height=550,left=300,top=100,toolbar=yes')}}
+                                                        >
+                                                            Pago OXXO
+                                                        </MenuItem>
                                                     }
                                                     <MenuItem onClick={(event) => { event.preventDefault();cancelar(row.pedidoNum);}}>
                                                         Cancelar
@@ -347,24 +347,40 @@ export default function MisPedidos() {
                                             </div>
                                         }
                                         {row.estatusBoton === "PAGADO" &&
-                                            <FormControl className={classes.formControl}>
-                                                <InputLabel id="demo-simple-select-label">{row.estatusBoton}</InputLabel>
-                                                <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                
-                                                onChange={handleChange}
-                                                >
-                                                    <Button onClick={(event) => { event.preventDefault();cancelar(row.pedidoNum)}}>
-                                                        <MenuItem>Cancelar</MenuItem>
-                                                    </Button>
+                                        <div>
+                                            <Button
+                                            variant="outlined"
+                                            fullWidth size="large"
+                                            id="basic-button"
+                                            aria-controls={openMenu ? 'basic-menu' : undefined}
+                                            aria-haspopup="true"
+                                            aria-expanded={openMenu ? 'true' : undefined}
+                                            onClick={handleClick}
+                                            > 
+                                                Reservado
+                                            </Button>
+                                                <Menu
+                                                    id="basic-menu"
+                                                    anchorEl={anchorEl}
+                                                    open={openMenu}
+                                                    onClose={handleClose}
+                                                    MenuListProps={{
+                                                    'aria-labelledby': 'basic-button',
+                                                    }}
+                                                > 
+                                                    <MenuItem 
+                                                        onClick={(event) => { event.preventDefault();
+                                                        cancelar(row.pedidoNum)}}
+                                                    >
+                                                        Cancelar
+                                                    </MenuItem>
                                                     {row.estatusComprobante != 'CARGADO' && 
-                                                        <Button onClick={cargarEvidencia(row.pedidoNum)}>
-                                                            <MenuItem>Comprobante de pago</MenuItem>
-                                                        </Button>
+                                                        <MenuItem onClick={cargarEvidencia(row.pedidoNum)}>
+                                                            Comprobante de pago
+                                                        </MenuItem>
                                                     }
-                                                </Select>
-                                            </FormControl>
+                                                </Menu>
+                                        </div>
                                         }
                                         {row.estatusBoton !== "RESERVADO" && row.estatusBoton !== "PAGADO" &&
                                             <Button variant="outlined" fullWidth size="large" name="Modal1" disabled>{row.estatusBoton}</Button>

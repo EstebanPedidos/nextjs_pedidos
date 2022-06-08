@@ -16,8 +16,12 @@ import {
 	Configure,
 	RangeInput,
 	Panel,
-	DynamicWidgets
+	DynamicWidgets,
 } from 'react-instantsearch-dom';
+
+import aa from 'search-insights';
+import { createInsightsMiddleware } from 'instantsearch.js/es/middlewares'
+
 import {
 	Box,
 	Grid,
@@ -68,6 +72,20 @@ const searchClient = algoliasearch(
 	'12YTHFXXB5',
 	'235f66e4531637d52c48f4a91ad6fa3f'
 );
+
+const insightsMiddleware = createInsightsMiddleware({
+    insightsClient: aa,
+  })
+
+let userToken = '';
+aa('getUserToken', null, (err, algoliaUserToken) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  userToken = algoliaUserToken;
+});
 
 
 const useStyles = makeStyles((theme) => ({
@@ -2004,7 +2022,13 @@ export default function Busquedas(props) {
 							alignItems='center'
 							spacing={3}>
 							<Grid item xs={12} sm={4} lg={4} justify='center'>
-								<Link href={`/articulos/${props.hit.URL}`}>
+								<Link href={`/articulos/${props.hit.URL}`} 
+                                    onClick={() =>
+                                    insights('clickedObjectIDsAfterSearch', {
+                                        eventName: 'Product Clicked'
+                                    })
+                                    }
+                                >
 									<a>
 										<CardMedia
 											className={classes.cover}

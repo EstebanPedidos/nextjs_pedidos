@@ -20,10 +20,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 //Componentes
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
-import Alertas from '../checkout/Alertas'
-import {useLocalStorage} from "../../hooks/useLocalStorage";
+import Alertas from '../../../checkout/Alertas'
+import {useLocalStorage} from "../../../../hooks/useLocalStorage";
 
-import Services from '../services/Services'
+import Services from '../../../services/Services'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 

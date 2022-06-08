@@ -28,7 +28,7 @@ import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import makeStyles from '@mui/styles/makeStyles';
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
-import Services from '../services/Services'
+import Services from '../../../services/Services'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -715,7 +715,7 @@ export default function MisFacturas() {
 
             
         </div>
-        <Snackbar
+        {/* <Snackbar
             anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'right',
@@ -758,7 +758,7 @@ export default function MisFacturas() {
             Lo sentimos, el RFC no es valido.
             </Alert>
             </div>
-        </Snackbar>  
+        </Snackbar>   */}
         </Layout>
     );
 }

@@ -1,4 +1,5 @@
- import Link from 'next/link'
+import React, { useEffect} from 'react';
+import Link from 'next/link'
  import Head from 'next/head';
  import Image from 'next/image';
  import styles from 'styles/Home.module.css';
@@ -17,7 +18,30 @@ import Brands from 'components/home/Brands';
 import CarouselBrands from 'components/home/CarouselBrands';
 import ForBusiness from 'components/home/forBusiness';
 
+//Nextjs
+import { useRouter } from 'next/router'
+
 export const HomeSite = () => {
+
+    const router = useRouter();
+
+    useEffect(() => {
+
+        let clienteNum = localStorage.getItem('Cliente');
+        let afiliado =  localStorage.getItem('afiliado')
+
+        if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
+            if(parseInt(clienteNum) !== 201221){
+                router.push('/Home')
+            }else{
+
+            }
+        }else{
+            
+        } 
+
+    }, []) 
+
 	return (
 	<Box component="div">
 		<MainSlideShow />
