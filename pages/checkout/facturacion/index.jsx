@@ -21,7 +21,7 @@ import NotasCredito from './NotasCredito';
 import Resumen from '../Resumen';
 import Eliminar from '../modals/Eliminar';
 import Alertas from '../Alertas';
-import AddRFC from '../../DatosFacturacion/add/Index';
+import AddRFC from '../../soho/MiCuenta/DatosFacturacion/add/Index';
 
 //Servicios
 import Services from '../../services/Services'
