@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 //next js
 import { useRouter } from 'next/router';
+//Tag Manager
+import TagManager from 'react-gtm-module'
 //Material UI
 import { Container, Box, Grid, Paper, Typography, Button, Link, Skeleton,
         Card, CardActions, CardContent, CardActionArea,
@@ -67,6 +69,8 @@ export default function Direccion_de_envio(props){
                     if(pedido !== undefined && pedido !== null){
                         let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=1',{})
                         let json         = await {jsonResumen:services.data,pedido:pedido,Usu_Nomb:Usu_Nomb}
+                        let servicesM    = await Services('POST','/miCuenta/detallePedido?clienteNum='+cliente+'&pedidoNum='+pedido,{})
+                        let miPedido     = await servicesM.data
                         if(json.jsonResumen.resumen.estatus === 'R' && json.jsonResumen.resumen.pvse === 'N'){
                             let Ldirecciones = await json.jsonResumen.direcciones.sort(SortArray)
                             /*if(json.jsonResumen.resumen.envio.tipo !== ''){
@@ -86,7 +90,33 @@ export default function Direccion_de_envio(props){
                                     console.log(JSON.stringify(Ldirecciones))
                                     if(Ldirecciones.length > 0){
                                         setDireccion({dir_num:Ldirecciones[0].dirNum,observacion:Ldirecciones[0].observacion})
-                                    }                                    
+                                    } 
+                                    if(miPedido.pedido.listPyPedidoDet.length > 0){
+                                        let products = await miPedido.pedido.listPyPedidoDet.map((item) =>
+                                            JSON.stringify({
+                                                'name': item.tituloCompuesto,
+                                                'id': item.itemNum,
+                                                'price': item.precio,
+                                                'quantity': item.cantidad
+                                            })
+                                        )
+                                        
+                                        if(products != ''){
+                                            const tagManagerArgs = {
+                                                gtmId: 'GTM-NLQV5KF',
+                                                dataLayer: {
+                                                    'event': 'checkout',
+                                                    'ecommerce': {
+                                                    'checkout': {
+                                                        'actionField': {'step': 2, 'option': 'Entrega'},
+                                                        'products': JSON.parse('['+products+']')
+                                                    }
+                                                }
+                                                },
+                                            }
+                                            TagManager.initialize(tagManagerArgs)   
+                                        }                                        
+                                    }                                   
                                /* }                
                             } */                 
                         } else{

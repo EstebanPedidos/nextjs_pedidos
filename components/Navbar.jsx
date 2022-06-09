@@ -393,7 +393,7 @@ export function Navbar(props) {
 								<Box component={'span'}>
 									<IconButton onClick={handleClick}>
 										<Badge
-											badgeContent={isLogged ? favoritos : null}
+											badgeContent={isLogged ? (favoritos > 0)? favoritos : null : null}
 											color='secondary'>
                                             {favoritos === null || favoritos === 0 || favoritos === undefined ? '' : 
 											<Link href='/soho/MiCuenta/misFavoritos'>
@@ -434,7 +434,7 @@ export function Navbar(props) {
 								</Hidden>	
 								<IconButton color='primary'>
 									<Badge
-										badgeContent={isLogged ? sesPartidas : null}
+										badgeContent={isLogged ? (sesPartidas > 0)? sesPartidas : null : null}
 										color='secondary'>
 										<Link href='/checkout/verifica-pedido'>
 											<ShoppingCartIcon />

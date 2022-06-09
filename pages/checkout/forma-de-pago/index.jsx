@@ -1,6 +1,8 @@
 import {useEffect, useState} from 'react';
 //next js
 import { useRouter } from 'next/router'
+//Tag Manager
+import TagManager from 'react-gtm-module'
 //Material
 import {Container, Radio,RadioGroup,FormControlLabel,FormControl,
         List,ListItem,ListItemText,ListItemAvatar, ListItemSecondaryAction,
@@ -194,6 +196,8 @@ export default function Forma_de_pago(){
                                 let cust_num     = await (cliente-(parseInt(json.resumen.direccion.dirNum)))
                                 let token        = await Services('POST','/registrov2/clientetoken?cust_num='+cust_num,{})
                                 let cliente_l    = await token.data 
+                                let servicesM    = await Services('POST','/miCuenta/detallePedido?clienteNum='+cliente+'&pedidoNum='+pedido,{})
+                                let miPedido     = await servicesM.data
                                 setData({jsonResumen:json,pedido:pedido})
                                 setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
                                 let tarjetas         = await cliente_l.getPaymentTokens
@@ -206,6 +210,32 @@ export default function Forma_de_pago(){
                                 }
                                 setClientToken({clienteToken:cliente_l.clienteToken,getPaymentTokens:getPaymentTokens,meses:meses})
                                 setMaxCE((afiliado === 'S')?5000:1000)
+                                if(miPedido.pedido.listPyPedidoDet.length > 0){
+                                    let products = await miPedido.pedido.listPyPedidoDet.map((item) =>
+                                        JSON.stringify({
+                                            'name': item.tituloCompuesto,
+                                            'id': item.itemNum,
+                                            'price': item.precio,
+                                            'quantity': item.cantidad
+                                        })
+                                    )
+                                    
+                                    if(products != ''){
+                                        const tagManagerArgs = {
+                                            gtmId: 'GTM-NLQV5KF',
+                                            dataLayer: {
+                                                'event': 'checkout',
+                                                'ecommerce': {
+                                                'checkout': {
+                                                    'actionField': {'step': 2, 'option': 'Pago'},
+                                                    'products': JSON.parse('['+products+']')
+                                                }
+                                            }
+                                            },
+                                        }
+                                        TagManager.initialize(tagManagerArgs)   
+                                    }                                        
+                                }
                             }else{
                                 router.push('/checkout/forma-de-envio')
                             }

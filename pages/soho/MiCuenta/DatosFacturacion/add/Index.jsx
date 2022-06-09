@@ -309,6 +309,7 @@ export default function AddRFC({setAddOpen,setAlerta,alerta}){
                                         variant="outlined"
                                         name="cp" 
                                         onChange={handleChange}
+                                        type="number"
                                         inputProps={{ maxLength: 5 }}
                                     />
                                     <IconButton color="primary" aria-label="add CP" onClick={consultarCp}>
@@ -379,7 +380,7 @@ export default function AddRFC({setAddOpen,setAlerta,alerta}){
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12}>
-                                <Button variant="contained" color="primary" fullWidth onClick={addRFC}>Guardar y continuar</Button>
+                                <Button variant="contained" color="primary" fullWidth onClick={addRFC}>Guardar</Button>
                             </Grid>
                         </Grid>
                     </Box>

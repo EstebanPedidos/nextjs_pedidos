@@ -195,12 +195,11 @@ export default function FichaTecnica(props){
                             'ecommerce': {
                                 'detail': {                                  
                                   'products': [{
-                                    'name': 'Triblend Android T-Shirt',         
+                                    'name': data.descripcion.descripcion.urlName,         
                                     'id': data.item_num,
-                                    'price': '15.25',
-                                    'brand': 'Google',
-                                    'category': 'Apparel',
-                                    'variant': 'Gray'
+                                    'price': Precios('redondear_arriba',{subtotal:price,iva:0,formato:true}),
+                                    'brand': data.marca,
+                                    'category': data.breadcrumb[0]+'/'+data.breadcrumb[1]+'/'+data.breadcrumb[2]
                                    }]
                                  }
                             }
