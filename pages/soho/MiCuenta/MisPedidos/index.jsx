@@ -513,15 +513,18 @@ export default function MisPedidos() {
                                             adapterLocale={esLocale}
                                             >
                                                 <DatePicker
-                                                views={['month','year']}
-                                                label='Busca pedido por fecha'
-                                                minDate={new Date('2015-01-02')}
-                                                maxDate={new Date()}
-                                                value={valueDate}
-                                                onChange={(newValue) => {
-                                                    consultaPorFecha(newValue); 
-                                                }}
-                                                renderInput={(params) => <TextField fullWidth {...params} helperText='Selecciona mes y/o año' />}
+                                                    views={['year','month']}
+                                                    label='Busca pedido por fecha'
+                                                    minDate={new Date('2015-01-02')}
+                                                    maxDate={new Date()}
+                                                    value={valueDate}
+                                                    onChange={(newValue) => {
+                                                        setValueDate(newValue); 
+                                                    }}
+                                                    onMonthChange={(newValue) => {
+                                                        consultaPorFecha(newValue); 
+                                                    }}
+                                                    renderInput={(params) => <TextField {...params} helperText='Mes / Año' />}
                                                 />
                                             </LocalizationProvider>
                                         </Box>

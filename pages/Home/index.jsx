@@ -387,7 +387,7 @@ export default function Home() {
                                                                 <Box sx={{ width: '100%' }}>
                                                                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
                                                                     {favoritos.map((row, index ) => (
-                                                                        row.tipo === 'F' || row.tipo === 'C' && index < 4 &&
+                                                                        (index < 4 ) &&
                                                                         <Grid item xs={6}>
                                                                             <Link href={`/articulos/${row.itemNum}`}>
                                                                                 <a>

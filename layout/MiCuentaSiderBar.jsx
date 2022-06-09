@@ -111,7 +111,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="soho/MiCuenta/MisDatos">
+                                <Link href="/soho/MiCuenta/MisDatos">
                                     <a>
                                         <Grid
                                         container
@@ -133,7 +133,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="soho/MiCuenta/MisPedidos">
+                                <Link href="/soho/MiCuenta/MisPedidos">
                                     <a>
                                         <Grid
                                         container
@@ -155,7 +155,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="soho/MiCuenta/Direcciones">
+                                <Link href="/soho/MiCuenta/Direcciones">
                                     <a>
                                         <Grid
                                         container
@@ -177,7 +177,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="soho/MiCuenta/misFacturas">
+                                <Link href="/soho/MiCuenta/misFacturas">
                                     <a>
                                         <Grid
                                         container
@@ -221,7 +221,7 @@ export default function MiCuentaSiderBar() {
                         </Grid> */}
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="soho/MiCuenta/misFavoritos">
+                                <Link href="/soho/MiCuenta/misFavoritos">
                                     <a>
                                         <Grid
                                         container
@@ -243,7 +243,7 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                         <Grid item sm={12}>
                             <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                <Link href="soho/MiCuenta/misNotasCredito">
+                                <Link href="/soho/MiCuenta/misNotasCredito">
                                     <a>
                                         <Grid
                                         container
@@ -287,7 +287,7 @@ export default function MiCuentaSiderBar() {
                             <Help tipo={'3'}/>
                         </Box>
                         <Box component="div" >
-                            <Link href="soho/MiCuenta/MisNotasCredito">
+                            <Link href="/soho/MiCuenta/MisNotasCredito">
                                 <a>
                                     <Button startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
                                 </a>

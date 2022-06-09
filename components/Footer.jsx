@@ -18,6 +18,9 @@ import { FooterAccordion } from './Text/FooterAccordion';
 //Modales
 import Cotizar from "../pages/articulos/Modales/Cotizar";
 import  Help  from '../components/modals/Help';
+import { LiveChatWidget, EventHandlerPayload } from '@livechat/widget-react'
+
+
 const useStyles = makeStyles((theme) => ({
 	footer: {
 		backgroundColor: '#F6F6F6',
@@ -82,6 +85,11 @@ export function FooterDesktop() {
 	return (
 		
 		<footer className='classes.footer'>
+            <LiveChatWidget
+            license="7731061"
+            visibility="minimized"
+            
+            />
 			<Box component="div" py={2}>
 				<Grid
 					container

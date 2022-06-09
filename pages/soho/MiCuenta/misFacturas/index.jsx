@@ -26,6 +26,9 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 
 import makeStyles from '@mui/styles/makeStyles';
+
+import Link from 'next/link';
+
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
 import Services from '../../../services/Services'
@@ -550,21 +553,24 @@ export default function MisFacturas() {
                                                 adapterLocale={esLocale}
                                                 >
                                                     <DatePicker
-                                                    views={['month','year']}
-                                                    label='Consulta facturas pasadas'
-                                                    minDate={new Date('2015-01-02')}
-                                                    maxDate={new Date()}
-                                                    value={valueDate}
-                                                    onChange={(newValue) => {
-                                                        consultaPorFecha(newValue); 
-                                                    }}
-                                                    renderInput={(params) => <TextField {...params} helperText='Mes / Año' />}
+                                                        views={['year','month']}
+                                                        label='Consulta facturas pasadas'
+                                                        minDate={new Date('2015-01-02')}
+                                                        maxDate={new Date()}
+                                                        value={valueDate}
+                                                        onChange={(newValue) => {
+                                                            setValueDate(newValue); 
+                                                        }}
+                                                        onMonthChange={(newValue) => {
+                                                            consultaPorFecha(newValue); 
+                                                        }}
+                                                        renderInput={(params) => <TextField {...params} helperText='Mes / Año' />}
                                                     />
                                                 </LocalizationProvider>  
 
                                             </Grid>
                                             <Grid item xs={12} sm={6}>
-                                                <Button variant="contained" color="primary" fullWidth size="large" href="/DatosFacturacion">Datos de Facturación</Button>
+                                                <Link href="/soho/MiCuenta/DatosFacturacion"><Button variant="contained" color="primary" fullWidth size="large">Datos de Facturación</Button></Link>
                                             </Grid>
                                     </Grid>
                                     </Box>

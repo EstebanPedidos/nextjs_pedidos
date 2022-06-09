@@ -395,9 +395,11 @@ export function Navbar(props) {
 										<Badge
 											badgeContent={isLogged ? favoritos : null}
 											color='secondary'>
-											<Link href='/misFavoritos'>
+                                            {favoritos === null || favoritos === 0 || favoritos === undefined ? '' : 
+											<Link href='/soho/MiCuenta/misFavoritos'>
 												<FavoriteBorder />
 											</Link>
+                                            }
 										</Badge>
 									</IconButton>
 									<Menu

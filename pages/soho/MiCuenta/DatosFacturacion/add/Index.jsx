@@ -6,9 +6,9 @@ import {Box, Grid, Typography,Button, Select, TextField, Divider,  MenuItem, Ico
         InputLabel, FormControl} from '@mui/material'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 //hooks
-import {useLocalStorage} from "../../../hooks/useLocalStorage";
+import {useLocalStorage} from "../../../../../hooks/useLocalStorage";
 //Servicios
-import Services from '../../services/Services'
+import Services from '../../../../services/Services'
 
 
 export default function AddRFC({setAddOpen,setAlerta,alerta}){

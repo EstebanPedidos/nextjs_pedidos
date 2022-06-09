@@ -4,12 +4,12 @@ import { Carousel } from 'react-responsive-carousel';
 import { Grid, Box, Paper,
 	Typography, Button, Modal,
     Card, CardHeader, CardContent, CardActions, CardMedia, CardActionArea, Backdrop,
-	Divider, Fade, Chip, InputAdornment,MenuItem, Badge,Drawer,
-	List, ListItem, ListIcon, ListItemText,Skeleton, IconButton, Container, InputBase} from '@mui/material';
+	Divider, Fade, Chip, LinearProgress,
+	Skeleton, IconButton, Container, InputBase} from '@mui/material';
 
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import FilterNoneIcon from '@material-ui/icons/FilterNone';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import FilterNoneIcon from '@mui/icons-material/FilterNone';
 //Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from 'swiper';
@@ -28,12 +28,13 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import RunningWithErrorsIcon from '@mui/icons-material/RunningWithErrors';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -64,7 +65,13 @@ const useStyles = makeStyles((theme) => ({
   bgcontent: {
     backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
     // background: '#F7F7F9',
-},
+    
+ },
+ barColor: {
+    "& .MuiLinearProgress-barColorPrimary": {
+        backgroundColor: 'blue',
+    },
+ },
 }));
 
 export default function MisFavoritos() {
@@ -78,9 +85,12 @@ export default function MisFavoritos() {
     const [favoritosEliminados, setFavoritosEliminados] = useState([]);
     const [resultado, setResultado] = useState(false);
     const [itemNum, setItemNum] = useState('');
-    const [alerta,setAlerta]                = useState({})
-    const [partidas,setPartidas]                    = useLocalStorage('SesPartidas',0)
-    const [favoritos,setFavoritos]                    = useLocalStorage('Favoritos',0)
+    const [alerta,setAlerta] = useState({})
+    const [partidas,setPartidas]  = useLocalStorage('SesPartidas',0)
+    const [favoritos,setFavoritos] = useLocalStorage('Favoritos',0)
+    const [color, setColor] = useState('blue');
+    
+    
 
     let clienteNum =  0;
     let fechaPedido = '';
@@ -153,6 +163,17 @@ export default function MisFavoritos() {
         window.location.reload(false);
     }
 
+    function colorLinearProgress(porcentaje) {
+        if(porcentaje <= 25){
+            setColor('#7BA4FF')
+        }else if(porcentaje > 25){
+            setColor('#accb37')
+        }else if(porcentaje > 80){
+            setColor('#FF8A77')
+        }
+        return color;
+     }
+
 
     const Contenido = (
         
@@ -160,13 +181,14 @@ export default function MisFavoritos() {
             {itemsFavoritos.map((row) => (
                 <Grid item xs={6} sm={4} key={row.itemNum}> 
                     <Card className={classes.pCardDetail}>
-                        <CardHeader                                
+                        <CardHeader
+                            title={row.marca}                                
                             action={ row.tipo !== "C" &&
-                            <IconButton aria-label="delete" name="Modal1" onClick={(event) => { handleOpen(event); setItemNum(row.itemNum);} }>
+                            <IconButton aria-label="delete" name="Modal1" onClick={(event) => { handleOpen(event); setItemNum(row.itemNum);}}>
                                 <HighlightOffIcon/>
                             </IconButton>
                             }
-                            />
+                        />
                         <Link href={`/articulos/${row.itemNum}`}>
                             <CardMedia
                             className={classes.cover}
@@ -179,23 +201,48 @@ export default function MisFavoritos() {
                         <CardContent>
                             <Divider/>
                             <Box component="div" pt={2}>
-                                <Typography component="body2" variant="p" textAlign="left"> {row.marca}</Typography>
                                 <Typography variant="subtitle1" className="hit-name" color="textSecondary">
                                     {row.tituloCompuesto} 
                                 </Typography>
                                 <Grid container direction="row" justifyContent="flex-start" alignItems='center'>
                                     <Grid item>
-                                     <Typography variant="h6" component="body1">${row.precio}</Typography>
+                                     <Typography variant="h6" component="body1">${row.precio.toFixed(2)}</Typography>
                                     </Grid>
                                     <Grid item>
                                         <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
-                                            <Typography variant="subtitle1">${row.precioDeLista}</Typography>
+                                            <Typography variant="subtitle1">${row.precioDeLista.toFixed(2)}</Typography>
                                         </Box>
                                     </Grid>
+
+                                    {row.tipo === "C" && row.diasRestantes < 1 ? 
+                                    <Grid item>
+                                        <Box p={1} color="grey.600">
+                                            <Typography variant="subtitle1"><NotificationsNoneIcon fontSize='small'/> Posiblemente lo necesites</Typography>
+                                        </Box>
+                                    </Grid>
+                                    :
+                                    row.diasPromedio > 0 &&
+                                    <Box 
+                                        sx={{ width: '100%' }} 
+                                        
+                                    >
+                                        <Typography variant="subtitle1">Proxima compra en {row.diasRestantes} días</Typography>
+                                        <LinearProgress 
+                                            variant="determinate" value={(100 - (row.diasRestantes * 100)/row.diasPromedio)}
+                                            sx={{
+                                                '& .MuiLinearProgress-bar1Determinate': {
+                                                    backgroundColor: colorLinearProgress(100 - (row.diasRestantes * 100)/row.diasPromedio),
+                                                }
+                                            }}
+                                        />
+                                    </Box>
+                                    }
                                 </Grid>
                             </Box>
                         </CardContent>
+                        {row.disponibilidad > 0 ?
                         <CardActions>
+                           
                             <Button><RemoveIcon/></Button>
                             <InputBase
                                 className={classes.input}
@@ -205,8 +252,18 @@ export default function MisFavoritos() {
                                 disabled
                             />
                             <Button color="primary"><AddIcon/></Button>
-                            <Button  variant="contained" fullWidth size="large" color="primary"><ShoppingCartOutlinedIcon/></Button>
+                            <Button 
+                                style={{backgroundColor: "#ff9100"}} 
+                                variant="contained" fullWidth size="large" 
+                            >
+                                <ShoppingCartOutlinedIcon/>
+                            </Button>
                         </CardActions>
+                        : 
+                        <Box p={1} color="grey.600">
+                            <Typography variant="subtitle1"><RunningWithErrorsIcon fontSize='small'/> Sin Existencia</Typography>
+                        </Box>
+                    }
                     </Card>
                 </Grid>
             ))}

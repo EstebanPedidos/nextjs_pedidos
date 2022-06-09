@@ -281,12 +281,15 @@ export default function MisNotasCredito() {
                                                     adapterLocale={esLocale}
                                                     >
                                                         <DatePicker
-                                                        views={['month','year']}
+                                                        views={['year','month']}
                                                         label='Consulta notas pasadas'
                                                         minDate={new Date('2015-01-02')}
                                                         maxDate={new Date()}
                                                         value={valueDate}
                                                         onChange={(newValue) => {
+                                                            setValueDate(newValue); 
+                                                        }}
+                                                        onMonthChange={(newValue) => {
                                                             consultaPorFecha(newValue); 
                                                         }}
                                                         renderInput={(params) => <TextField {...params} helperText='Mes / Año' />}
