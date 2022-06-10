@@ -48,14 +48,14 @@ const ImageCarouselSection = (props) => {
 					}>
 					{items.map((item) => (
 						<SwiperSlide key={item.label}>
-							{/* <Link
+							<Link
 								href={item.href}
 								underline='none'
 								sx={{
 									'&:hover .MuiTypography-root': {
 										color: '#325ac3',
 									},
-								}}> */}
+								}}>
 								<Box
 									display='flex'
 									flexDirection='column'
@@ -72,7 +72,7 @@ const ImageCarouselSection = (props) => {
 										{item.label}
 									</Typography>
 								</Box>
-							{/* </Link> */}
+							</Link>
 						</SwiperSlide>
 					))}
 				</Swiper>
