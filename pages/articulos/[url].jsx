@@ -23,7 +23,7 @@ import { Layout } from 'layout/Layout';
 import ReviewItem from './ReviewItem';
 //Modales
 import Cotizar from "./Modales/Cotizar";
-
+import Gallery from "./ImageGallery/index"
 //Carousel
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Thumbs, FreeMode, Lazy, } from 'swiper';
@@ -118,6 +118,65 @@ TypographyDemo.propTypes = {
     loading: PropTypes.bool,
 };
 
+function renderVideo(item) {
+    return (
+      <div>
+        {
+          this.state.showVideo[item.embedUrl] ?
+            <div className='video-wrapper'>
+                <a
+                  className='close-video'
+                  onClick={this._toggleShowVideo.bind(this, item.embedUrl)}
+                >
+                </a>
+                <iframe
+                  width='560'
+                  height='315'
+                  src={item.embedUrl}
+                  frameBorder='0'
+                  allowFullScreen
+                >
+                </iframe>
+            </div>
+          :
+            <a onClick={this._toggleShowVideo.bind(this, item.embedUrl)}>
+              <div className='play-button'></div>
+              <img className='image-gallery-image' src={item.original} />
+              {
+                item.description &&
+                  <span
+                    className='image-gallery-description'
+                    style={{right: '0', left: 'initial'}}
+                  >
+                    {item.description}
+                  </span>
+              }
+            </a>
+        }
+      </div>
+    );
+  }
+
+let galeria = [
+    {
+        original:  'https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp',
+        thumbnail: `https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp`,
+        embedUrl: 'https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0',
+        description: 'Render custom slides (such as videos)',
+        //renderItem: this._renderVideo.bind(this)
+      },
+    {   
+        
+        thumbnail: `https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp`,
+        original:  'https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp',
+        embedUrl:'https://youtu.be/EChf62QkPq4'
+    },
+        {
+      original: "https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp",
+      thumbnail: "https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp"
+    },
+    
+  ]
 
 
 export default function FichaTecnica(props){
@@ -302,10 +361,11 @@ export default function FichaTecnica(props){
         }        
     }
     
-
+    
     return (
         <div>     
             <Layout favoritos={favoritos} partidas={partidas} title={(datos.hasOwnProperty('item_num'))?datos.descripcion.descripcion.urlName.substring(0,34):''}>    
+               
                {(datos.hasOwnProperty('item_num'))&&
                 <Head>                    
                     <link rel="canonical" href={`https://pedidos.com/articulos/${urlTem}`} />
@@ -349,7 +409,7 @@ export default function FichaTecnica(props){
                     </Script>
                 }
                 <Container maxWidth="xl">                
-                    <Box component="div" m={2}>
+                    <Box component="div" m={2} pt={2}>
                         <Grid container direction="row" justifyContent="space-between" spacing={3}>
                             <Grid xs={12} sm={12} >
                                 <Box component="div">
@@ -392,6 +452,7 @@ export default function FichaTecnica(props){
                                                             />
                                                         }
                                                     </Box>
+                                                    <Gallery galeria={galeria}/>
                                                     <Swiper
                                                     style={{
                                                     "--swiper-navigation-color": "#fff",

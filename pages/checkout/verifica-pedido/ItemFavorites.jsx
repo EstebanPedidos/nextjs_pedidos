@@ -63,29 +63,39 @@ export  default function ItemFavorites({favoritos,add,loading}){
                     </Grid>
                 </Grid>
             </Box>
-            <Box component="div" m={1}>
+            <Box component="div" my={1}>
             {(favoritosF.length > 0)&&
                 <Swiper
-                    spaceBetween={5}
-                    slidesPerView={4}
-                    onSlideChange={() => console.log("slide change")}
-                    onSwiper={swiper => console.log(swiper)}
-                    className="mySwiper"
+                   //modules={[Autoplay]}
+                    lazy={true}
+                    spaceBetween={10}
+                    slidesPerView={4.2}
+                    //centeredSlides={true}
+                    //autoplay={{
+                    //"delay": 2500,
+                    //"disableOnInteraction": false}}
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    className="mySwiper13"
                     breakpoints={{
+                        320: {
+                            slidesPerView: 2.5,
+                            
+                        },
                         640: {
-                          slidesPerView: 2.2,
-                          
+                        slidesPerView: 3.3,
+                        
                         },
                         768: {
-                          slidesPerView: 3.3,
-                          
+                        slidesPerView: 3.8,
+                        
                         },
                         1024: {
-                          slidesPerView: 4.3,
-                         
+                        slidesPerView: 4,
+                        
                         },
                     }}
-                    >
+                >
                  {
                 favoritosF.map((item, index) => (                    
                     <SwiperSlide  key={index} className={classes.swiperBox}>

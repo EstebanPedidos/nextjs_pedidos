@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 //Tag Manager
 import TagManager from 'react-gtm-module'
 //Material
-import {Container, Radio,RadioGroup,FormControlLabel,FormControl,
+import {Container, Radio,RadioGroup,FormControlLabel,FormControl, Hidden,
         List,ListItem,ListItemText,ListItemAvatar, ListItemSecondaryAction,
         Box,Grid,Avatar,Typography,Card, Divider,Skeleton} from '@mui/material'
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined'
@@ -194,6 +194,8 @@ export default function Forma_de_pago(){
                             if(json.resumen.costoEnvio > 0 || json.resumen.envio.tipo !== ''){
                                 let total        = await ((json.resumen.subtotal+json.resumen.costoEnvio)-json.nc.montoNc)
                                 let cust_num     = await (cliente-(parseInt(json.resumen.direccion.dirNum)))
+                                let upc          = await json.upc
+                                localStorage.setItem('upc', upc);
                                 let token        = await Services('POST','/registrov2/clientetoken?cust_num='+cust_num,{})
                                 let cliente_l    = await token.data 
                                 let servicesM    = await Services('POST','/miCuenta/detallePedido?clienteNum='+cliente+'&pedidoNum='+pedido,{})
@@ -286,23 +288,25 @@ export default function Forma_de_pago(){
                                                                     <FormControlLabel value="linea" fullWidth label={                                                            
                                                                         <Box component="div" py={2}>
                                                                             <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                <Grid item xs={7} sm={3}>
+                                                                                <Grid item xs={4} sm={3}>
                                                                                     <ListItemAvatar>
                                                                                         <Avatar variant="rounded" className={classes.MethodType} alt="Online Payment" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/online.svg" />
                                                                                     </ListItemAvatar>
                                                                                 </Grid>
-                                                                                <Grid item xs={5} sm={4}>
+                                                                                <Grid item xs={8} sm={4}>
                                                                                     <ListItemText id="list-label-payment-method" ml={8} sx={{width:'150px'}}  primary={
                                                                                         <Typography className={classes.titleTypeS} variant="subtitle1">
                                                                                         Paga en línea 
                                                                                         </Typography> 
                                                                                         }/>
                                                                                 </Grid>
+                                                                                <Hidden smDown>
                                                                                 <Grid item xs={12} sm={5}>
                                                                                         <ListItemSecondaryAction className={classes.rightText}>
                                                                                             <ListItemText id="list-label-payment-method" secondary="Tarjetas de crédito o débito"/>
                                                                                         </ListItemSecondaryAction>
                                                                                 </Grid>  
+                                                                                </Hidden>
                                                                             </Grid>   
                                                                         </Box>
                                                                     } control={<Radio />}/>
@@ -319,23 +323,25 @@ export default function Forma_de_pago(){
                                                                 <FormControlLabel value="recibir" fullWidth label={
                                                                     <Box component="div" fullWidth py={2}>
                                                                             <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                <Grid item xs={7} sm={3}>
+                                                                                <Grid item xs={4} sm={3}>
                                                                                     <ListItemAvatar>
                                                                                         <Avatar variant="rounded" className={classes.MethodType} alt="Online Payment" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/recibe3.svg" />
                                                                                     </ListItemAvatar>
                                                                                 </Grid>
-                                                                                <Grid item xs={5} sm={4}>
+                                                                                <Grid item xs={8} sm={4}>
                                                                                     <ListItemText id="list-label-payment-method" ml={8} sx={{width:'150px'}}  primary={
                                                                                         <Typography className={classes.titleTypeS} variant="subtitle1">
                                                                                         Paga al recibir
                                                                                         </Typography> 
                                                                                         }/>
                                                                                 </Grid>
+                                                                                <Hidden smDown>
                                                                                 <Grid item xs={12} sm={5}>
                                                                                         <ListItemSecondaryAction className={classes.rightText}>
                                                                                             <ListItemText id="list-label-payment-method" secondary="Tarjetas de crédito o débito"/>
                                                                                         </ListItemSecondaryAction>
                                                                                 </Grid>  
+                                                                                </Hidden>
                                                                             </Grid>   
                                                                     </Box>  
                                                                 } control={<Radio />}/> 
@@ -349,23 +355,25 @@ export default function Forma_de_pago(){
                                                                     <FormControlLabel value="transfer" fullWidth label={
                                                                         <Box component="div" fullWidth py={2}>
                                                                             <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                <Grid item xs={7} sm={3}>
+                                                                                <Grid item xs={4} sm={3}>
                                                                                     <ListItemAvatar>
                                                                                         <Avatar variant="rounded" className={classes.MethodType} alt="Online Payment" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/transfer.svg" />
                                                                                     </ListItemAvatar>
                                                                                 </Grid>
-                                                                                <Grid item xs={5} sm={4}>
+                                                                                <Grid item xs={8} sm={4}>
                                                                                     <ListItemText id="list-label-payment-method" ml={8} sx={{width:'150px'}}  primary={
                                                                                         <Typography className={classes.titleTypeS} variant="subtitle1">
                                                                                         Transferencia o depósito
                                                                                         </Typography> 
                                                                                         }/>
                                                                                 </Grid>
+                                                                                <Hidden smDown>
                                                                                 <Grid item xs={12} sm={5}>
                                                                                         <ListItemSecondaryAction className={classes.rightText}>
                                                                                             <ListItemText id="list-label-payment-method" secondary="Envía tu comprobante"/>
                                                                                         </ListItemSecondaryAction>
                                                                                 </Grid>
+                                                                                </Hidden>
                                                                             </Grid>   
                                                                         </Box>    
                                                                     } control={<Radio />}/>
@@ -405,17 +413,18 @@ export default function Forma_de_pago(){
                                                                             <Box component="div" py={2}>
                                                                             <FormControlLabel value="1" fullWidth label={                                                            
                                                                                     <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={2}>
-                                                                                        <Grid item xs={2}>
+                                                                                        <Grid item xs={6} sm={2}>
                                                                                             <ListItemAvatar>
                                                                                                 <Avatar>
                                                                                                     <CreditCardOutlinedIcon />
                                                                                                 </Avatar>
                                                                                             </ListItemAvatar>
                                                                                         </Grid>
-                                                                                        <Grid item xs={5}>
+                                                                                        <Grid item xs={6} sm={5}>
                                                                                             {/* <Typography component="subtitle1">Tarjeta</Typography> */}
                                                                                             <ListItemText className={classes.txtPMethod} id="list-label-payment-online" primary="Tarjeta"/>
                                                                                         </Grid>
+                                                                                        <Hidden smDown>
                                                                                         <Grid item xs={5}>
                                                                                             <ListItemSecondaryAction>
                                                                                                 <ListItemText  id="list-label-payment-online" secondary= {
@@ -436,6 +445,7 @@ export default function Forma_de_pago(){
                                                                                                 }/>      
                                                                                         </ListItemSecondaryAction>
                                                                                         </Grid>
+                                                                                        </Hidden>
                                                                                     </Grid>   
                                                                                 
                                                                             
@@ -460,9 +470,10 @@ export default function Forma_de_pago(){
                                                                                             {/* <ListItemText id="list-label-payment-online" primary="PayPal"/> */}
                                                                                             <img className={classes.ppMethod} src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/paypal.png" alt="PayPal" />
                                                                                         </Grid>
+                                                                                        
                                                                                         <Grid item xs={6} sm={4}>
                                                                                             <ListItemSecondaryAction className={classes.rightText}>
-                                                                                                <ListItemText id="list-label-horario-programad" secondary="Tarjetas de crédito o débito"/>
+                                                                                                <ListItemText id="list-label-horario-programad" secondary="Tarjetas"/>
                                                                                             </ListItemSecondaryAction>
                                                                                         </Grid>  
                                                                                     </Grid>   

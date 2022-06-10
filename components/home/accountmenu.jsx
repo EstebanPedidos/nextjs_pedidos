@@ -51,7 +51,7 @@ export default function Menuoptions() {
                     
                 },
                 640: {
-                slidesPerView: 4.5,
+                slidesPerView: 3.5,
                 
                 },
                 768: {

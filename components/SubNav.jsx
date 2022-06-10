@@ -43,10 +43,11 @@ export const SubNav = () => {
 								</Typography>
 							</Box>
 						</Box>
-						<Box alignItems='center' justifyContent='center'>
-							<Button variant="text" startIcon={<LocalPhoneOutlinedIcon/>} sx={{height:'15px'}}>
+						<Box display={'flex'} alignItems='center' justifyContent='center'>
+							<LocalPhoneOutlinedIcon/>
+							<Typography variant="subtitle2" component="p">
 								¡Llámanos! 55 5015-8100
-							</Button>
+							</Typography>
 						</Box>
 					</Hidden>
 				</Box>
