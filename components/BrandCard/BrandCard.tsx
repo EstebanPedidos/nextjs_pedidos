@@ -68,7 +68,7 @@ const BrandCard = (props) => {
 									color: '#3655a5',
 								},
 							}}>
-							<Link underline='none' sx={{}} target='_blank' href={link.href}>
+							{/* <Link underline='none' target='_blank' href={link.href}>
 								<Typography
 									sx={{
 										color: '#3c4043',
@@ -77,7 +77,7 @@ const BrandCard = (props) => {
 									}}>
 									{link.label}
 								</Typography>
-							</Link>
+							</Link> */}
 						</Box>
 					))}
 				</Box>
