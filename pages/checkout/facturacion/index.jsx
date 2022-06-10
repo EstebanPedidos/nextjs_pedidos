@@ -1,6 +1,8 @@
 import { useState,useEffect } from 'react';
 //next js
 import { useRouter } from 'next/router'
+//Tag Manager
+import TagManager from 'react-gtm-module'
 //Material UI
 import {Container, Box, Grid, Paper, Typography, Button, Select, Badge,
     Card, CardActions, CardContent, CardActionArea, FormControl,
@@ -19,7 +21,7 @@ import NotasCredito from './NotasCredito';
 import Resumen from '../Resumen';
 import Eliminar from '../modals/Eliminar';
 import Alertas from '../Alertas';
-import AddRFC from '../../DatosFacturacion/add/Index';
+import AddRFC from '../../soho/MiCuenta/DatosFacturacion/add/Index';
 
 //Servicios
 import Services from '../../services/Services'
@@ -95,6 +97,9 @@ export default function Facturacion(){
                                 let jsonN    = await Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+cliente+'&rfc='+rfc_ini.rfc+'&total='+total,{})
                                     notas    = await jsonN.data                 
                             }
+                            let servicesM    = await Services('POST','/miCuenta/detallePedido?clienteNum='+cliente+'&pedidoNum='+pedido,{})
+                            let miPedido     = await servicesM.data
+
                             setData({jsonResumen:json,pedido:pedido})  
                             setTotal(total)
                             setPagos(pagos) 
@@ -105,6 +110,33 @@ export default function Facturacion(){
                             setCfdi((cfdis.length > 0)?cfdis[0].idUsu:'')
                             setPago((pagos.length > 0)?pagos[0].mpago:'')
                             setRfcs(Lrfcs)
+
+                            if(miPedido.pedido.listPyPedidoDet.length > 0){
+                                let products = await miPedido.pedido.listPyPedidoDet.map((item) =>
+                                    JSON.stringify({
+                                        'name': item.tituloCompuesto,
+                                        'id': item.itemNum,
+                                        'price': item.precio,
+                                        'quantity': item.cantidad
+                                    })
+                                )
+                                
+                                if(products != ''){
+                                    const tagManagerArgs = {
+                                        gtmId: 'GTM-NLQV5KF',
+                                        dataLayer: {
+                                            'event': 'checkout',
+                                            'ecommerce': {
+                                            'checkout': {
+                                                'actionField': {'step': 2, 'option': 'Factura'},
+                                                'products': JSON.parse('['+products+']')
+                                            }
+                                        }
+                                        },
+                                    }
+                                    TagManager.initialize(tagManagerArgs)   
+                                }                                        
+                            } 
                         }else{
                             ruter.push('/misPedidos')
                         }  

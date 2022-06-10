@@ -1,6 +1,8 @@
 import {useEffect, useState} from 'react';
 //Next js
 import { useRouter } from 'next/router'
+//Tag Manager
+import TagManager from 'react-gtm-module'
 //Material UI
 import makeStyles from '@mui/styles/makeStyles';
 import {Container, Radio,RadioGroup,FormControlLabel,CardContent,
@@ -96,11 +98,39 @@ export default function Forma_de_envio(props){
                                 let fe           = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?'Programada':'2':'2'
                                 let fhe          = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].fecha.replace(' de ','-').replace(' ','-'):'-':'-'
                                 let h            = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].horarios:[]:[]
+                                let servicesM    = await Services('POST','/miCuenta/detallePedido?clienteNum='+cliente+'&pedidoNum='+pedido,{})
+                                let miPedido     = await servicesM.data
                                 setData({jsonResumen:json,pedido:pedido})
                                 setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:parseInt(json.resumen.ejecutivo)}:{ejecutivo:'', slmn:0})
                                 setFormaEnvio(fe)
                                 setFechaEnvio(fhe)
                                 setHorarios(h)
+                                if(miPedido.pedido.listPyPedidoDet.length > 0){
+                                    let products = await miPedido.pedido.listPyPedidoDet.map((item) =>
+                                        JSON.stringify({
+                                            'name': item.tituloCompuesto,
+                                            'id': item.itemNum,
+                                            'price': item.precio,
+                                            'quantity': item.cantidad
+                                        })
+                                    )
+                                    
+                                    if(products != ''){
+                                        const tagManagerArgs = {
+                                            gtmId: 'GTM-NLQV5KF',
+                                            dataLayer: {
+                                                'event': 'checkout',
+                                                'ecommerce': {
+                                                'checkout': {
+                                                    'actionField': {'step': 2, 'option': 'Envio'},
+                                                    'products': JSON.parse('['+products+']')
+                                                }
+                                            }
+                                            },
+                                        }
+                                        TagManager.initialize(tagManagerArgs)   
+                                    }                                        
+                                }
                             }else{
                                 router.push('/checkout/forma-de-pago')
                             }
