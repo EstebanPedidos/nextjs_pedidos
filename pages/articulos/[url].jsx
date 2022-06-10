@@ -23,7 +23,7 @@ import { Layout } from 'layout/Layout';
 import ReviewItem from './ReviewItem';
 //Modales
 import Cotizar from "./Modales/Cotizar";
-import Gallery from "./ImageGallery/index"
+
 //Carousel
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Thumbs, FreeMode, Lazy, } from 'swiper';
@@ -157,26 +157,6 @@ function renderVideo(item) {
     );
   }
 
-let galeria = [
-    {
-        original:  'https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp',
-        thumbnail: `https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp`,
-        embedUrl: 'https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0',
-        description: 'Render custom slides (such as videos)',
-        //renderItem: this._renderVideo.bind(this)
-      },
-    {   
-        
-        thumbnail: `https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp`,
-        original:  'https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp',
-        embedUrl:'https://youtu.be/EChf62QkPq4'
-    },
-        {
-      original: "https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp",
-      thumbnail: "https://pedidos.com/myfotos/xLarge/(X)LEN-LAP-14ARE05.webp"
-    },
-    
-  ]
 
 
 export default function FichaTecnica(props){
@@ -452,7 +432,7 @@ export default function FichaTecnica(props){
                                                             />
                                                         }
                                                     </Box>
-                                                    <Gallery galeria={galeria}/>
+                                                    
                                                     <Swiper
                                                     style={{
                                                     "--swiper-navigation-color": "#fff",
