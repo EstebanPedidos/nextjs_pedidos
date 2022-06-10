@@ -7,6 +7,7 @@ import {AppBar, Toolbar, Box,  Paper, Container,
         import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
         import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import  Help  from '../../components/modals/Help';
+import { LiveChatWidget, EventHandlerPayload } from '@livechat/widget-react'
 
 export default function CheckoutHeader() {
     const [openModal, setOpenModal] = useState(false)
@@ -15,7 +16,11 @@ export default function CheckoutHeader() {
     }
     
     return (
-        <>        
+        <>   
+        <LiveChatWidget
+            license="7731061"
+            visibility="minimized"
+        />     
         <Box sx={{ flexGrow: 1 }}>            
             <AppBar position="static" color="transparent" elevation={0} variant="outlined">
                 <Container maxWidth="xl">

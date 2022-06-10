@@ -194,6 +194,8 @@ export default function Forma_de_pago(){
                             if(json.resumen.costoEnvio > 0 || json.resumen.envio.tipo !== ''){
                                 let total        = await ((json.resumen.subtotal+json.resumen.costoEnvio)-json.nc.montoNc)
                                 let cust_num     = await (cliente-(parseInt(json.resumen.direccion.dirNum)))
+                                let upc          = await json.upc
+                                localStorage.setItem('upc', upc);
                                 let token        = await Services('POST','/registrov2/clientetoken?cust_num='+cust_num,{})
                                 let cliente_l    = await token.data 
                                 let servicesM    = await Services('POST','/miCuenta/detallePedido?clienteNum='+cliente+'&pedidoNum='+pedido,{})
