@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 //next js
 import { useRouter } from 'next/router'
 import Script from 'next/script'
+import Head from 'next/head'
 //hooks
 import {useLocalStorage} from "../../../hooks/useLocalStorage";
 //Tag Manager
@@ -90,6 +91,13 @@ export default function Confirmacion_de_pago(){
     return (
     <Box component="div" className={classes.root}>
         <Header/>
+        {(data)&&
+        (data.hasOwnProperty('jsonResumen'))&&
+            <Head>    
+                <title>Confirmación de Pago | Pedidos.com {data.jsonResumen.resumen.formaPago}</title>
+                <meta name="description" content="¡Gracias por tu compra! Aquí encontrarás el resumen de compra de tu pedido. Para cualquier duda o aclaración comunícate a nuestros teléfonos: 5015-8100 ó al 018008138181 en un horario de Lunes a Viernes de 9:00hras a 19:00hras. " />
+            </Head>
+        }
         {(data)&&
         (jsonCli)&&
         <Script type="text/javascript"  src="https://apis.google.com/js/platform.js?onload=renderOptIn" id="google" strategy="lazyOnload">
