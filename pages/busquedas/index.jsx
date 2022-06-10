@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import algoliasearch from 'algoliasearch/lite';
+
+//Tag Manager
+import TagManager from 'react-gtm-module'
+
 import {
 	InstantSearch,
 	RefinementList,
@@ -1982,6 +1986,25 @@ export default function Busquedas(props) {
 	);
 
 	function Hit(props) {
+
+        const tagManagerArgs = {
+            gtmId: 'GTM-NLQV5KF',
+            dataLayer: {
+                'currencyCode': 'MXN',
+                'impressions': 
+                    {
+                        'name': props.hit.TITULO,
+                        'id': props.hit.ITEM_NUM,
+                        'price': props.hit.PRECIO,
+                        'brand': props.hit.MARCA,
+                        'category': props.hit.LINEA_NEG,
+                        'variant': '',
+                        'list': url,
+                        'position': ''
+                    },
+            },
+        }
+        TagManager.initialize(tagManagerArgs)
 
 		return (
 			<Box className={classes.rootCard}>
