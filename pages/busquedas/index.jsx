@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import algoliasearch from 'algoliasearch/lite';
+
+//Tag Manager
+import TagManager from 'react-gtm-module'
+
 import {
 	InstantSearch,
 	RefinementList,
@@ -1997,35 +2001,25 @@ export default function Busquedas(props) {
 	);
 
 	function Hit(props) {
-		let button;
-		if (props.hit.STOCK) {
-			button = (
-				<Link
-					href={`/articulos/${props.hit.URL}`}
-					className={classes.CTAlink}>
-					<a>
-						<Button
-							variant='contained'
-							size='large'
-							color='secondary'
-							fullWidth>
-							Comprar
-						</Button>
-					</a>
-				</Link>
-			);
-		} else {
-			button = (
-				<Button
-					variant='outlined'
-					size='large'
-					fullWidth
-					disableElevation
-					disabled>
-					Agotado
-				</Button>
-			);
-		}
+
+        const tagManagerArgs = {
+            gtmId: 'GTM-NLQV5KF',
+            dataLayer: {
+                'currencyCode': 'MXN',
+                'impressions': 
+                    {
+                        'name': props.hit.TITULO,
+                        'id': props.hit.ITEM_NUM,
+                        'price': props.hit.PRECIO,
+                        'brand': props.hit.MARCA,
+                        'category': props.hit.LINEA_NEG,
+                        'variant': '',
+                        'list': url,
+                        'position': ''
+                    },
+            },
+        }
+        TagManager.initialize(tagManagerArgs)
 
 		return (
 			<Box className={classes.rootCard}>
@@ -2150,7 +2144,30 @@ export default function Busquedas(props) {
 										''
 									)}
 								</Box>
-								{button}
+								{props.hit.STOCK ?
+                                    <Link
+                                        href={`/articulos/${props.hit.URL}`}
+                                        className={classes.CTAlink}>
+                                        <a>
+                                            <Button
+                                                variant='contained'
+                                                size='large'
+                                                color='secondary'
+                                                fullWidth>
+                                                Comprar
+                                            </Button>
+                                        </a>
+                                    </Link>
+                                :
+                                    <Button
+                                        variant='outlined'
+                                        size='large'
+                                        fullWidth
+                                        disableElevation
+                                        disabled>
+                                        Agotado
+                                    </Button>
+                                }
 							</Grid>
 						</Grid>
 					</Box>

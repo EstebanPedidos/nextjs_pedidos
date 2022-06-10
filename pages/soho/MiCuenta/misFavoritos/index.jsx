@@ -81,7 +81,8 @@ export default function MisFavoritos() {
     const [open, setOpen] = React.useState(false);
     const [modal, setModal] = React.useState('');
     const [inputs, setInputs] = useState({});
-    const [itemsFavoritos, setItemsFavoritos] = useState([]);
+    const [itemsFavoritosC, setItemsFavoritosC] = useState([]);
+    const [itemsFavoritosF, setItemsFavoritosF] = useState([]);
     const [favoritosEliminados, setFavoritosEliminados] = useState([]);
     const [resultado, setResultado] = useState(false);
     const [itemNum, setItemNum] = useState('');
@@ -102,17 +103,27 @@ export default function MisFavoritos() {
         let afiliado =  localStorage.getItem('afiliado')
 
         const getData = async () => {
+
+            
             Services('POST','/miCuenta/obtieneFavoritosFrecuentes?clienteNum='+clienteNum,{})
             .then( response =>{
-                    // console.log(response.data)
-                    // console.log("RESPONSE: "+response.data.favoritosFrecuentes[0].marca)
+                    
                     if(response.data.length = 1 && response.data.favoritosFrecuentes === "VACIO"){
                         setResultado(false)
-                        console.log('Sin resultados')
                     }else{
                         setResultado(true)
-                        setItemsFavoritos(response.data.favoritosFrecuentes)
+                                               
+                        setItemsFavoritosC(response.data.favoritosFrecuentes.filter(
+                            (favoritosFrec, index) => index < 1 && favoritosFrec.tipo === "C"
+                                              
+                        ));
+
+                        setItemsFavoritosF(response.data.favoritosFrecuentes.filter(
+                            (favoritosFrec) => favoritosFrec.tipo === "F"
+                        ));
                     }        
+                    console.log('array stringy')
+                    console.log(itemsFavoritos)
             }).catch(error => {
                 console.log("falló")
                 console.log(error.data)
@@ -178,7 +189,96 @@ export default function MisFavoritos() {
     const Contenido = (
         
         <Grid container justifyContent="flex-start" spacing={spacing}>
-            {itemsFavoritos.map((row) => (
+            {itemsFavoritosC.map((row) => (
+                <Grid item xs={6} sm={4} key={row.itemNum}> 
+                    <Card className={classes.pCardDetail}>
+                        <CardHeader
+                            title={row.marca}                                
+                            action={ row.tipo !== "C" &&
+                            <IconButton aria-label="delete" name="Modal1" onClick={(event) => { handleOpen(event); setItemNum(row.itemNum);}}>
+                                <HighlightOffIcon/>
+                            </IconButton>
+                            }
+                        />
+                        <Link href={`/articulos/${row.itemNum}`}>
+                            <CardMedia
+                            className={classes.cover}
+                            component="img"
+                            alt={row.itemNum}
+                            image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
+                            title={row.itemNum}
+                            />
+                        </Link>
+                        <CardContent>
+                            <Divider/>
+                            <Box component="div" pt={2}>
+                                <Typography variant="subtitle1" className="hit-name" color="textSecondary">
+                                    {row.tituloCompuesto} 
+                                </Typography>
+                                <Grid container direction="row" justifyContent="flex-start" alignItems='center'>
+                                    <Grid item>
+                                     <Typography variant="h6" component="body1">${row.precio.toFixed(2)}</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
+                                            <Typography variant="subtitle1">${row.precioDeLista.toFixed(2)}</Typography>
+                                        </Box>
+                                    </Grid>
+
+                                    {row.tipo === "C" && row.diasRestantes < 1 ? 
+                                    <Grid item>
+                                        <Box p={1} color="grey.600">
+                                            <Typography variant="subtitle1"><NotificationsNoneIcon fontSize='small'/> Posiblemente lo necesites</Typography>
+                                        </Box>
+                                    </Grid>
+                                    :
+                                    row.diasPromedio > 0 &&
+                                    <Box 
+                                        sx={{ width: '100%' }} 
+                                        
+                                    >
+                                        <Typography variant="subtitle1">Proxima compra en {row.diasRestantes} días</Typography>
+                                        <LinearProgress 
+                                            variant="determinate" value={(100 - (row.diasRestantes * 100)/row.diasPromedio)}
+                                            sx={{
+                                                '& .MuiLinearProgress-bar1Determinate': {
+                                                    backgroundColor: colorLinearProgress(100 - (row.diasRestantes * 100)/row.diasPromedio),
+                                                }
+                                            }}
+                                        />
+                                    </Box>
+                                    }
+                                </Grid>
+                            </Box>
+                        </CardContent>
+                        {row.disponibilidad > 0 ?
+                        <CardActions>
+                           
+                            <Button><RemoveIcon/></Button>
+                            <InputBase
+                                className={classes.input}
+                                placeholder="1"
+                                inputProps={'aria-label'}
+                                name="cantidad"
+                                disabled
+                            />
+                            <Button color="primary"><AddIcon/></Button>
+                            <Button 
+                                style={{backgroundColor: "#ff9100"}} 
+                                variant="contained" fullWidth size="large" 
+                            >
+                                <ShoppingCartOutlinedIcon/>
+                            </Button>
+                        </CardActions>
+                        : 
+                        <Box p={1} color="grey.600">
+                            <Typography variant="subtitle1"><RunningWithErrorsIcon fontSize='small'/> Sin Existencia</Typography>
+                        </Box>
+                    }
+                    </Card>
+                </Grid>
+            ))}
+            {itemsFavoritosF.map((row) => (
                 <Grid item xs={6} sm={4} key={row.itemNum}> 
                     <Card className={classes.pCardDetail}>
                         <CardHeader
