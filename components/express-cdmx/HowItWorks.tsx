@@ -1,26 +1,11 @@
-import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
-import { HowItWorksItem } from './HowItWorksItem';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-// import Typography from '@mui/material/Typography';
-// import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Container } from '@mui/material';
-import { Paddined } from './Banner';
+import Container from '@mui/material/Container';
 
-import HelpIcon from '@mui/icons-material/Help';
-import MoreTimeIcon from '@mui/icons-material/MoreTime';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-
-const useStyles = makeStyles({
-	withoutShadow: {
-		boxShadow: 'none !important',
-	},
-});
+import { HowItWorksItem } from './HowItWorksItem';
 
 export const HowItWorks = () => {
-	const classes = useStyles();
 	const [data] = useState([
 		{
 			title: '¿Cómo funciona?',
@@ -31,39 +16,38 @@ export const HowItWorks = () => {
 		{
 			title: 'Exclusivo CDMX',
 			bigTitle: false,
-			text: 'Actualmente esta disponible en la Ciudad de México',
+			text: 'Actualmente esta disponible en la Ciudad se México. Consulta restricciones aquí',
 			icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/soporte-tecnico/problemas.webp',
+			iconWidth: 50,
 		},
 		{
 			title: 'Entregas',
 			bigTitle: false,
 			text: 'Costo extra +$45 pesos ya con IVA incluido y reflejado en la factura de compra.',
 			icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/home19/pp/pe.svg',
+			iconWidth: 60,
 		},
 		{
 			title: 'Paga al recibir',
 			bigTitle: false,
 			text: 'Tienes la opción dentro del carrito de compras para pagar al momento de la entrega.',
 			icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/home19/pp/paga-recibe.svg',
+			iconWidth: 60,
 		},
 	]);
 
 	return (
-		<Card className={classes.withoutShadow}>
-			<CardContent>
-				<Paddined>
-					<Container maxWidth='lg'>
-						<Grid container spacing={2}>
-							{data.map(
-								(item: any, index: number): JSX.Element => (
-									<HowItWorksItem item={item} key={index} />
-								)
-							)}
-						</Grid>
-					</Container>
-				</Paddined>
-			</CardContent>
-		</Card>
+		<Box py={7} bgcolor='white'>
+			<Container maxWidth='lg'>
+				<Grid spacing={0.5} container>
+					{data.map(
+						(item: any, index: number): JSX.Element => (
+							<HowItWorksItem item={item} key={index} />
+						)
+					)}
+				</Grid>
+			</Container>
+		</Box>
 	);
 };
 
