@@ -69,27 +69,11 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 
-import { shuffle } from '@algolia/client-common';
-
-
 const searchClient = algoliasearch(
 	'12YTHFXXB5',
 	'235f66e4531637d52c48f4a91ad6fa3f'
 );
 
-const insightsMiddleware = createInsightsMiddleware({
-    insightsClient: aa,
-  })
-
-let userToken = '';
-aa('getUserToken', null, (err, algoliaUserToken) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-
-  userToken = algoliaUserToken;
-});
 
 
 const useStyles = makeStyles((theme) => ({
