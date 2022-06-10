@@ -1,26 +1,24 @@
-import { Layout } from '../../layout/Layout';
-import { makeStyles } from '@mui/styles';
-// import Banner from '/components/express-cdmx/Banner';
-import Banner from '../../components/express-cdmx/Banner';
-import HowItWorks from '../../components/express-cdmx/HowItWorks';
-import Schedule from '../../components/express-cdmx/Schedule';
+import Box from '@mui/material/Box';
 
-const useStyles = makeStyles({
-	container: {
-		backgroundColor: '#f6f7fa',
-	},
-});
+import { Layout } from 'layout/Layout';
+// import Banner from '/components/express-cdmx/Banner';
+import Banner from 'components/express-cdmx/Banner';
+import HowItWorks from 'components/express-cdmx/HowItWorks';
+import Schedule from 'components/express-cdmx/Schedule';
 
 export const ExpressCDMX = () => {
-	const classes = useStyles();
-
 	return (
-		<Layout>
-			<div className={classes.container}>
-				<Banner />
-				<HowItWorks />
-				<Schedule />
-			</div>
+		<Layout title='Pedidos Express | Pedidos.com'>
+			<Banner />
+			<HowItWorks />
+
+			<Box
+				sx={{
+					borderTop: '2px solid rgba(0, 0, 0, 0.025)',
+				}}
+			/>
+
+			<Schedule />
 		</Layout>
 	);
 };
