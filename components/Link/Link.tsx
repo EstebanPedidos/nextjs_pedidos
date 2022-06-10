@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
@@ -9,9 +8,22 @@ import { styled } from '@mui/material/styles';
 // Add support for the sx prop for consistency with the other branches.
 const Anchor = styled('a')({});
 
+interface NextLinkComposedProps {
+	href: any;
+	linkAs: object | string;
+	locale: string;
+	passHref: boolean;
+	prefetch: boolean;
+	replace: boolean;
+	scroll: boolean;
+	shallow: boolean;
+	to: object | string;
+	className: string;
+}
+
 export const NextLinkComposed = React.forwardRef(function NextLinkComposed(
-	props,
-	ref
+	props: NextLinkComposedProps,
+	ref: React.RefObject<HTMLAnchorElement>
 ) {
 	const { to, linkAs, replace, scroll, shallow, prefetch, locale, ...other } =
 		props;
@@ -31,21 +43,29 @@ export const NextLinkComposed = React.forwardRef(function NextLinkComposed(
 	);
 });
 
-NextLinkComposed.propTypes = {
-	href: PropTypes.any,
-	linkAs: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-	locale: PropTypes.string,
-	passHref: PropTypes.bool,
-	prefetch: PropTypes.bool,
-	replace: PropTypes.bool,
-	scroll: PropTypes.bool,
-	shallow: PropTypes.bool,
-	to: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
-};
+interface LinkProps {
+	activeClassName?: string;
+	as?: object | string;
+	className?: string;
+	href: any;
+	linkAs?: object | string;
+	locale?: string;
+	noLinkStyle?: boolean;
+	prefetch?: boolean;
+	replace?: boolean;
+	role?: string;
+	scroll?: boolean;
+	children: React.ReactNode;
+	underline?: 'none' | 'hover' | 'always';
+	shallow?: boolean;
+	target?: string;
+	sx?: any;
+}
 
-// A styled version of the Next.js Link component:
-// https://nextjs.org/docs/api-reference/next/link
-const Link = React.forwardRef(function Link(props, ref) {
+const Link = React.forwardRef(function Link(
+	props: LinkProps,
+	ref: React.Ref<HTMLAnchorElement>
+) {
 	const {
 		activeClassName = 'active',
 		as,
@@ -56,7 +76,7 @@ const Link = React.forwardRef(function Link(props, ref) {
 		noLinkStyle,
 		prefetch,
 		replace,
-		role, // Link don't have roles.
+		role,
 		scroll,
 		shallow,
 		...other
@@ -96,6 +116,8 @@ const Link = React.forwardRef(function Link(props, ref) {
 			<NextLinkComposed
 				className={className}
 				ref={ref}
+				href={href}
+				passHref
 				{...nextjsProps}
 				{...other}
 			/>
@@ -107,25 +129,11 @@ const Link = React.forwardRef(function Link(props, ref) {
 			component={NextLinkComposed}
 			className={className}
 			ref={ref}
+			passHref
 			{...nextjsProps}
 			{...other}
 		/>
 	);
 });
-
-Link.propTypes = {
-	activeClassName: PropTypes.string,
-	as: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-	className: PropTypes.string,
-	href: PropTypes.any,
-	linkAs: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-	locale: PropTypes.string,
-	noLinkStyle: PropTypes.bool,
-	prefetch: PropTypes.bool,
-	replace: PropTypes.bool,
-	role: PropTypes.string,
-	scroll: PropTypes.bool,
-	shallow: PropTypes.bool,
-};
 
 export default Link;

@@ -63,8 +63,7 @@ const ExpandableCard = (props) => {
 				padding={2.25}
 				pt={20}
 				right={0}
-				left={0}
-				sx={{}}>
+				left={0}>
 				<Box
 					className='description-container'
 					sx={{
