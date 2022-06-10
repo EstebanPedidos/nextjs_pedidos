@@ -6,7 +6,7 @@ import TagManager from 'react-gtm-module'
 //Material UI
 import makeStyles from '@mui/styles/makeStyles';
 import {Container, Radio,RadioGroup,FormControlLabel,CardContent,
-       FormControl,Box,Grid,Button,Avatar,Divider,
+       FormControl,Box,Grid,Button,Avatar,Divider, Hidden,
        Typography,Card,List,ListItem,ListItemText,
        ListItemSecondaryAction,ListItemAvatar, Alert, AlertTitle,Stack,Skeleton } from '@mui/material';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
@@ -39,9 +39,8 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
     },
     CardSDay: {
-    minWidth:"100px",
-   
-    height:'8rem',
+    minWidth:"100px", 
+    height:'6rem',
     "&:hover": {
         backgroundColor: 'rgb(54 85 165 / 7%)',
         boxShadow: '0px 0px 16px rgb(54 85 166 / 8%), 0px 1px 4px rgb(54 85 166 / 8%)',
@@ -285,23 +284,25 @@ export default function Forma_de_envio(props){
                                                                         <FormControlLabel value="Programada" label={ 
                                                                             <Box component="div" py={2}>
                                                                                 <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                    <Grid item xs={7} sm={3}>
+                                                                                    <Grid item xs={4} sm={3}>
                                                                                     <ListItemAvatar>
                                                                                         <Avatar variant="rounded" className={classes.MethodType} alt="Shipping date" src="https://pedidos.com/myfotos/pedidos-com/pagina/home19/pp/proe.svg" />
                                                                                     </ListItemAvatar>
                                                                                     </Grid>
-                                                                                    <Grid item xs={5} sm={4}>
+                                                                                    <Grid item xs={8} sm={4}>
                                                                                         {/* <Typography component="subtitle1"> Programada </Typography> */}
                                                                                         <ListItemText id="list-label-horario-programad" ml={8} sx={{width:'150px'}} primary={
                                                                                         <Typography  className={classes.titleTypeS} variant="subtitle1">
                                                                                             Programada </Typography> 
                                                                                         }/>
                                                                                     </Grid>
+                                                                                    <Hidden smDown>
                                                                                     <Grid item xs={12} sm={5}>
                                                                                         <ListItemSecondaryAction className={classes.rightText}>
                                                                                             <ListItemText id="list-label-horario-programad" secondary="Elige tu horario"/>
                                                                                         </ListItemSecondaryAction>
-                                                                                    </Grid>                                
+                                                                                    </Grid>
+                                                                                    </Hidden>                                
                                                                                 </Grid>   
                                                                             </Box>
                                                                             } 
@@ -318,12 +319,12 @@ export default function Forma_de_envio(props){
                                                                         <FormControlLabel value="Express"  label={ 
                                                                             <Box component="div" py={2}>
                                                                                 <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                    <Grid item xs={7} sm={3}>
+                                                                                    <Grid item xs={4} sm={3}>
                                                                                         <ListItemAvatar>
                                                                                             <Avatar variant="rounded" className={classes.MethodType} alt="Express Shipping" src="https://pedidos.com/myfotos/pedidos-com/pagina/home19/pp/pe.svg" />
                                                                                         </ListItemAvatar>
                                                                                     </Grid>
-                                                                                    <Grid item xs={5} sm={4}>                 
+                                                                                    <Grid item xs={8} sm={4}>                 
                                                                                         <ListItemText id="list-label-horario-programad" ml={8} sx={{width:'150px'}} primary={
                                                                                         <Typography  className={classes.titleTypeS} variant="subtitle1">
                                                                                             Express 3hrs. </Typography> 
@@ -357,18 +358,18 @@ export default function Forma_de_envio(props){
                                                                         <FormControlLabel value="2" label={
                                                                             <Box component="div" py={2}>
                                                                                 <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                    <Grid item xs={7} sm={3}>
+                                                                                    <Grid item xs={4} sm={3}>
                                                                                         <ListItemAvatar>
                                                                                             <Avatar variant="rounded" className={classes.MethodType} alt="Shipping" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/envio/paqueteria.svg" />
                                                                                         </ListItemAvatar>
                                                                                     </Grid>
-                                                                                    <Grid item xs={5} sm={4}>    
+                                                                                    <Grid item xs={8} sm={4}>    
                                                                                         <ListItemText id="list-label-horario-programad" ml={8} sx={{width:'150px'}} primary={
                                                                                         <Typography className={classes.titleTypeS} variant="subtitle1">
                                                                                         Paquetería </Typography> 
-                                                                                        } />             
-                                                                                        
+                                                                                        } />               
                                                                                     </Grid>
+                                                                                    <Hidden smDown>
                                                                                     <Grid item xs={12} sm={5}>
                                                                                         <ListItemSecondaryAction className={classes.rightText}>
                                                                                             <ListItemText id="list-label-horario-programad" secondary={
@@ -379,7 +380,8 @@ export default function Forma_de_envio(props){
                                                                                             Demoras en Zonas extendidas
                                                                                             </Typography> 
                                                                                         </ListItemSecondaryAction>
-                                                                                    </Grid>                                
+                                                                                    </Grid>
+                                                                                    </Hidden>                                
                                                                                 </Grid>  
                                                                             </Box>
                                                                         } control={<Radio />}/>
@@ -394,18 +396,19 @@ export default function Forma_de_envio(props){
                                                                         <FormControlLabel value="3"  label={ 
                                                                             <Box component="div" py={2}>                                   
                                                                                 <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                    <Grid item xs={7} sm={3}>
+                                                                                    <Grid item xs={4} sm={3}>
                                                                                         <ListItemAvatar>
                                                                                             <Avatar variant="rounded" className={classes.MethodType} sx={{ padding:'0.05rem'}} alt="PickUP" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/envio/pickup.svg" />
                                                                                         </ListItemAvatar>
                                                                                     </Grid>
-                                                                                    <Grid item xs={5} sm={4}>                 
+                                                                                    <Grid item xs={8} sm={4}>                 
                                                                                         {/* <Typography component="caption">PickUp </Typography> */}
                                                                                         <ListItemText id="list-label-horario-programad" ml={8} sx={{width:'150px'}}  primary={
                                                                                         <Typography  className={classes.titleTypeS} variant="subtitle1">
                                                                                             PickUp Center </Typography> 
                                                                                         }/>
                                                                                     </Grid>
+                                                                                    <Hidden smDown>
                                                                                     <Grid item xs={12} sm={5}>
                                                                                         <ListItemSecondaryAction className={classes.rightText}>
                                                                                             <ListItemText id="list-label-horario-programad" secondary=
@@ -418,7 +421,8 @@ export default function Forma_de_envio(props){
                                                                                             Polanco, CDMX
                                                                                             </Typography> 
                                                                                         </ListItemSecondaryAction>
-                                                                                    </Grid>                                
+                                                                                    </Grid>
+                                                                                    </Hidden>                               
                                                                                 </Grid>   
                                                                             </Box>
                                                                         } control={<Radio />}/>
@@ -452,18 +456,18 @@ export default function Forma_de_envio(props){
                                             <Box pb={1}  className={classes.root}>
                                                 <RadioGroup aria-label="gender" name="fecha_envio" value={fecha_envio} onChange={salectOption} row fullWidth>  
                                                     <Swiper
-                                                        spaceBetween={10}
+                                                        spaceBetween={15}
                                                         slidesPerView={3}
                                                         onSlideChange={() => console.log("slide change")}
                                                         onSwiper={swiper => console.log(swiper)}
-                                                        className="mySwiper"
+                                                        className="mySwiper15"
                                                         breakpoints={{
-                                                            410: {
-                                                                slidesPerView: 2.5,
+                                                            320: {
+                                                                slidesPerView: 1.4,
                                                                 
-                                                                },
+                                                            },
                                                             640: {
-                                                            slidesPerView: 2.5,
+                                                            slidesPerView: 2.8,
                                                             
                                                             },
                                                             768: {
@@ -475,7 +479,6 @@ export default function Forma_de_envio(props){
                                                             
                                                             },
                                                         }}
-                                                    
                                                         >
                                                         {(data.hasOwnProperty('jsonResumen'))&&
                                                             data.jsonResumen.formasEnvio.pactado.fechas.map((fecha, index) => (
@@ -483,7 +486,7 @@ export default function Forma_de_envio(props){
                                                             <SwiperSlide key={index} className={classes.swiperBox}>
                                                                     <Box component="div" >  
                                                                         <Card className={classes.CardSDay} variant="outlined">
-                                                                            <Box component="div" m={1}>
+                                                                            <Box component="div" m={1} px={1}>
                                                                                 <FormControlLabel fullWidth value={fecha.fecha.replace(' de ','-').replace(' ','-')} label={
                                                                                     <CardContent className={classes.shippingDay}>
                                                                                         <Typography className={classes.titleTypeS} variant="subtitle1" component="h3">
@@ -530,7 +533,7 @@ export default function Forma_de_envio(props){
                                                                                             <Grid container direction="row" justifyContent="space-evenly" alignItems="center" >
                                                                                                 <Grid item xs={12} sm={10}>
                                                                                                     <Box component="div" className={classes.w300}>
-                                                                                                        <Typography component="subtitle1"> {(horario.horario === '10hrs a 19hrs')?`Horario abierto de`:`Horario de`} {horario.horario} </Typography>
+                                                                                                        <Typography variant="subtitle2" component="body2">{(horario.horario === '10hrs a 19hrs')?`Horario abierto de`:`Horario:`} {horario.horario} </Typography>
                                                                                                     </Box>
                                                                                                 </Grid>
                                                                                                 <Grid item xs={12} sm={2} >
@@ -628,10 +631,12 @@ export default function Forma_de_envio(props){
                                                                                                     } />
                                                                                                 </ListItemAvatar>                                                                                    
                                                                                             </Grid>
-                                                                                            <Grid item xs={4}>                 
-                                                                                                {/* <Typography component="caption">Paquetería</Typography> */}
-                                                                                                <ListItemText id="list-label-horario-programad" primary={key}/>
-                                                                                            </Grid>
+                                                                                            <Hidden smDown>
+                                                                                                <Grid item xs={4}>                 
+                                                                                                    {/* <Typography component="caption">Paquetería</Typography> */}
+                                                                                                    <ListItemText id="list-label-horario-programad" primary={key}/>
+                                                                                                </Grid>
+                                                                                            </Hidden>
                                                                                             <Grid item xs={5}>
                                                                                                 <ListItemSecondaryAction className={classes.rightText}>
                                                                                                     <ListItemText id="list-label-horario-programad" secondary={(value === 0)?'GRATIS':'+$'+value}/>

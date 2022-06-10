@@ -267,10 +267,10 @@ export default function Home() {
                                             pagination={true}
                                             lazy={true}
                                             spaceBetween={20}
-                                            slidesPerView={1.1}
+                                            slidesPerView={1.2}
                                             freeMode={true}
                                             className="mySwiper10"
-                                            centeredSlides={true}
+                                            //centeredSlides={true}
                                             //autoplay={{
                                             //"delay": 2500,
                                             //"disableOnInteraction": false}}
@@ -285,10 +285,14 @@ export default function Home() {
                                                     slidesPerView: 1,
                                                     
                                                     },
-                                                1024: {
-                                                slidesPerView: 1,
                                                 
+                                                1024: {
+                                                slidesPerView:1.3,
                                                 },
+                                                1200: {
+                                                    slidesPerView: 1.1,
+                                                    
+                                                    },
                                             }}
                                             >
                                     
@@ -297,7 +301,7 @@ export default function Home() {
                                                     <Box component="div" >
                                                         <Card variant="outlined" sx={{position:'relative'}} className={styles.productscard}>
                                                             <CardContent>
-                                                                <Box sx={{ width: '100%'}}>
+                                                                <Box py={2} sx={{ width: '100%'}}>
                                                                     <Grid container justifyContent='center' alignItems='center' rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} >
                                                                         {carrito.map((row, index) => (
                                                                             row.tipo === 'B' && index < 4 &&
@@ -319,17 +323,20 @@ export default function Home() {
                                                                                 </Link>
                                                                             </Grid>
                                                                         ))}
+                                                                            <Grid item xs={12} sm={12}>
+                                                                                <Divider light />
+                                                                                <Box component="div" className={styles.ptcard}>
+                                                                                    <Link href='/'>
+                                                                                        <Button component="a" fullWidth color="primary">
+                                                                                            <Typography variant="h5" component="h2" fontWeight="500"  >
+                                                                                                Carrito
+                                                                                            </Typography>
+                                                                                        </Button>
+                                                                                    </Link>
+                                                                                </Box>
+                                                                            </Grid>
                                                                     </Grid>
-                                                            </Box>
-                                                            <Box component="div"  textAlign="center" sx={{position:'absolute', bottom:'0.4rem', width:'85%' }} >
-                                                                <Divider light />
-                                                                <Box component="div" py={1}  textAlign="center">
-                                                                    <Typography variant="subtitle1" >
-                                                                        Carrito
-                                                                    </Typography>
                                                                 </Box>
-                                                            </Box>
-                                                            
                                                             </CardContent>
                                                         </Card>
                                                     </Box>
@@ -341,37 +348,40 @@ export default function Home() {
                                                     <Box component="div">
                                                         <Card variant="outlined" sx={{position:'relative'}} className={styles.productscard}>
                                                             <CardContent>
-                                                                <Box sx={{ width: '100%', maxHeight:'300px'}}>
-                                                                    <Grid container rowSpacing={2} columnSpacing={{ xs: 2, sm: 2, md: 2 }} >
+                                                                <Box py={2} sx={{ width: '100%'}}>
+                                                                    <Grid container rowSpacing={2} columnSpacing={{ xs:2, sm: 2, md: 2 }} >
                                                                         {vistos.map((row, index) => (
                                                                             row.tipo === 'V' && index < 4 &&
-                                                                            <Grid item xs={6}>
-                                                                                <Link href={`/articulos/${row.itemNum}`}>
-                                                                                    <a>
-                                                                                    <CardActionArea>
-                                                                                        <Card variant="outlined"  sx={{ maxHeight: '180px',}} >
-                                                                                            <CardMedia
-                                                                                            component="img"
-                                                                                            alt={row.itemNum}
-                                                                                            image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
-                                                                                            title={row.itemNum}
-                                                                                            />
-                                                                                        </Card>
-                                                                                    </CardActionArea>
-                                                                                    </a>
-                                                                                </Link>
-                                                                            </Grid>
-                                                                            
+                                                                            <Grid item xs={6} sm={3} md={3}>
+                                                                                 <Box component="div">
+                                                                                    <Link href={`/articulos/${row.itemNum}`}>
+                                                                                        <a>
+                                                                                            <CardActionArea>
+                                                                                                <Card variant="outlined">
+                                                                                                    <CardMedia className={styles.imgproductscard}
+                                                                                                    component="img"
+                                                                                                    alt={row.itemNum}
+                                                                                                    image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
+                                                                                                    title={row.itemNum}
+                                                                                                    />
+                                                                                                </Card>
+                                                                                            </CardActionArea>
+                                                                                        </a>
+                                                                                    </Link>
+                                                                                </Box>
+                                                                            </Grid>  
                                                                         ))}
+                                                                        <Grid item xs={12} sm={12}>
+                                                                            <Divider light />
+                                                                            <Box component="div" className={styles.ptcard}>
+                                                                                <Button component="a" fullWidth>
+                                                                                    <Typography variant="h5" component="h2" fontWeight="500" color="textPrimary" >
+                                                                                        Últimos Vistos
+                                                                                    </Typography>
+                                                                                </Button>
+                                                                            </Box>
+                                                                        </Grid>
                                                                     </Grid>
-                                                                </Box>
-                                                                <Box component="div"  textAlign="center" sx={{position:'absolute', bottom:'0.4rem', width:'85%' }} >
-                                                                    <Divider light />
-                                                                    <Box component="div" py={1}  textAlign="center">
-                                                                        <Typography variant="subtitle1" >
-                                                                            Vistos
-                                                                        </Typography>
-                                                                    </Box>
                                                                 </Box>
                                                             </CardContent>
                                                         </Card>
@@ -384,40 +394,42 @@ export default function Home() {
                                                     <Box component="div">
                                                         <Card variant="outlined" sx={{position:'relative'}} className={styles.productscard}>    
                                                             <CardContent>
-                                                                <Box sx={{ width: '100%' }}>
+                                                                <Box py={2} sx={{ width: '100%' }}>
                                                                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
-                                                                    {favoritos.map((row, index ) => (
-                                                                        (index < 4 ) &&
-                                                                        <Grid item xs={6}>
-                                                                            <Link href={`/articulos/${row.itemNum}`}>
-                                                                                <a>
-                                                                                <CardActionArea>
-                                                                                    <Card variant="outlined" >
-                                                                                        <CardMedia
-                                                                                        className={classes.cover}
-                                                                                        component="img"
-                                                                                        alt={row.itemNum}
-                                                                                        image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
-                                                                                        title={row.itemNum}
-                                                                                        />
-                                                                                    </Card>
-                                                                                </CardActionArea>
-                                                                                </a>
-                                                                            </Link>
+                                                                        {favoritos.map((row, index ) => (
+                                                                            (index < 4 ) &&
+                                                                            <Grid item xs={6} sm={3} md={3}>
+                                                                                <Link href={`/articulos/${row.itemNum}`}>
+                                                                                    <a>
+                                                                                    <CardActionArea>
+                                                                                        <Card variant="outlined" >
+                                                                                            <CardMedia
+                                                                                            className={classes.cover}
+                                                                                            component="img"
+                                                                                            alt={row.itemNum}
+                                                                                            image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
+                                                                                            title={row.itemNum}
+                                                                                            />
+                                                                                        </Card>
+                                                                                    </CardActionArea>
+                                                                                    </a>
+                                                                                </Link>
+                                                                            </Grid>
+                                                                        ))}
+                                                                        <Grid item xs={12} sm={12}>
+                                                                            <Divider light />
+                                                                            <Box component="div" className={styles.ptcard}>
+                                                                                <Link href='/'>
+                                                                                    <Button component="a" fullWidth color="primary">
+                                                                                    <Typography variant="h5" component="h2" fontWeight="500" >
+                                                                                        Ver Mis Favoritos
+                                                                                    </Typography>
+                                                                                    </Button>
+                                                                                </Link>
+                                                                            </Box>
                                                                         </Grid>
-                                                                    ))}
-                                                                    
                                                                     </Grid>
                                                                 </Box>
-                                                                <Box component="div"  textAlign="center" sx={{position:'absolute', bottom:'0.4rem', width:'85%' }} >
-                                                                <Divider light />
-                                                                <Box component="div" py={1}  textAlign="center">
-                                                                    <Typography variant="subtitle1" >
-                                                                        Favoritos
-                                                                    </Typography>
-                                                                </Box>
-                                                                </Box>
-
                                                             </CardContent>
                                                         </Card>
                                                     </Box>

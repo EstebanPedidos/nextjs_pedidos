@@ -341,7 +341,7 @@ export default function Direccion_de_envio(props){
                                                                 <Box component="div">
                                                                         <Divider variant="middle" light />
                                                                 </Box>
-                                                                
+                                                                <Box component="div" px={2}>
                                                                     {/* <Button size="small" fullWidth color="primary">
                                                                         Detalles
                                                                     </Button> */}
@@ -354,7 +354,7 @@ export default function Direccion_de_envio(props){
                                                                         mensaje={'¿Estás seguro de eliminar la dirección?'}
                                                                         />
                                                                     }
-                                                                
+                                                                </Box>
                                                                 </Card>
                                                             </Grid>
                                                     ))                    

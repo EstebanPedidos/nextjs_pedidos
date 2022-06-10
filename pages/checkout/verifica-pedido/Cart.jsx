@@ -90,24 +90,24 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                             <div key={index}>
                                 <Box component="div" m={1} py={1}>
                                     <Grid container alignItems="flex-start" justifyContent="flex-start">
-                                        <Grid item xs={8} sm={6}>
+                                        <Grid item xs={12} sm={6}>
                                             <Grid container alignItems="flex-start" justifyContent="center" spacing={1}>
                                                 <Grid item xs={3}>
                                                     <Box component="div" className={(item.cantSeguro >0 || item.cantGarant1 > 0 || item.cantGarant2 > 0 )?'':''}>
                                                         <Link href={`/articulos/${item.url.toLowerCase()}`}>
-                                                        <a> 
-                                                            <ButtonBase className={classes.productimage}>
-                                                                <img className={classes.pimg} src={`https://pedidos.com/myfotos/${item.item_num}.jpg`} alt={item.descripcion}/> 
-                                                            </ButtonBase>
-                                                            { (item.exis === 'N')?
-                                                            <i>!</i>
-                                                            :
-                                                            (item.exis === 'X') &&
-                                                            <i>times</i>   
-                                                            }                          
-                                                        </a>  
+                                                            <a> 
+                                                                <ButtonBase className={classes.productimage}>
+                                                                    <img className={classes.pimg} src={`https://pedidos.com/myfotos/${item.item_num}.jpg`} alt={item.descripcion}/> 
+                                                                </ButtonBase>
+                                                                { (item.exis === 'N')?
+                                                                <i>!</i>
+                                                                :
+                                                                (item.exis === 'X') &&
+                                                                <i>times</i>   
+                                                                }                          
+                                                            </a>  
                                                         </Link>
-                                                        <Box component="div" pt={3}>
+                                                        <Box component="div" pt={1}>
                                                             {(item.cantSeguro > 0)&&
                                                             <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>    
                                                                 <Grid item xs={12} sm={12} lg={6}>
@@ -143,20 +143,20 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                                 <Typography variant="body2" gutterBottom>
                                                                     Precio Unitario:  <span>${Precios('formatcurrency',{subtotal:item.precio,fixed:2})}</span>
                                                                 </Typography>
-                                                                <Typography variant="body2" color="textSecondary">
+                                                                <Typography variant="body2" color="textSecondary" pt={1}>
                                                                     SKU: <span>{item.item_num}</span>
                                                                 </Typography>
-                                                                <Box pt={2}>
+                                                                <Box pt={1}>
                                                                     {(item.cantSeguro > 0 )&&
                                                                     <Typography gutterBottom variant="subtitle2">
                                                                             1 AÑO Protección. Robo y acc.
-                                                                        <span> {item.precioSeguro}</span>
+                                                                        <span> ${item.precioSeguro}</span>
                                                                     </Typography>   
                                                                     } 
                                                                     {(item.cantGarant1 > 0)&&
                                                                     <Typography gutterBottom variant="subtitle2">
                                                                         1 AÑO Garantía Extendida
-                                                                        <span> {item.precioSeguro}</span>
+                                                                        <span> ${item.precioSeguro}</span>
                                                                     </Typography>   
                                                                     } 
 
@@ -229,7 +229,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                         
                                                 </Box>    
                                         </Grid> 
-                                        <Grid item xs={12} sm={3}>
+                                        <Grid item xs={9} sm={3}>
                                             <Grid container alignItems="center" justifyContent="center" spacing={1}>
                                                 <Grid item xs={9} sm={6} lg={6}>
                                                     <Box m={1} p={1} justifyContent="center">

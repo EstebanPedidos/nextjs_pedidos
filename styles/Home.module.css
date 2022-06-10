@@ -139,6 +139,9 @@
  height: 360px;
   
 }
+.ptcard {
+  padding-top: 3rem;
+}
 @media (max-width: 991px) {
   .btitle {
     font-size: 2.1rem!important;
@@ -178,7 +181,7 @@
   .boxbluetop:before{ content:""; position:absolute; width:100%; height:530px; background-color:#3655a5; top:15rem; right:0; border-radius: 0 ; -webkit-border-radius: 0 ; -moz-border-radius: 0 ; -ms-border-radius: 0 ; -o-border-radius: 0 ; }
   .productscard {
 
-   height: 450px;
+   height: auto;
     
   }
 }
@@ -194,6 +197,22 @@
     width: 100%;
     margin-top: -11rem;
   
+  }
+  .ptcard {
+    padding-top: 1rem;
+  }
+
+  .imgproductscard{
+    height: 140px;
+    max-width: 90%;
+    margin: auto;
+  }
+}
+@media (max-width: 530px) {
+  .imgproductscard{
+    height: 140px;
+    max-width: 90%;
+    margin: auto;
   }
 }
 

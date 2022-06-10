@@ -18,7 +18,7 @@ import {
 	Alert,
 	Stack,
 	AlertTitle,
-	Skeleton,
+	Skeleton, Hidden
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -373,7 +373,11 @@ export default function Verifica_pedido() {
 							loading={loading}
 						/>
 						:
-						<Skeleton variant="rectangular" height={10} animation="wave"/>
+						<Box sx={{ pt: 0.5 }}>
+							<Skeleton width="30%" animation="wave"/>    
+							<Skeleton variant="rectangular" width="25%" height={130} animation="wave"/>
+							<Skeleton width="25%" animation="wave"/>
+						</Box>
 						}
 						{partidas > 0 ? (
 							<Box component='div' m={2}>
@@ -530,60 +534,69 @@ export default function Verifica_pedido() {
 						)
 						:
 						(
-							<Skeleton variant="rectangular" height={250} animation="wave"/>
+						<Box sx={{ pt: 1.5 }}>
+							<Skeleton width="40%" variant="rectangular" height={40} sx={{ mb: 1.5 }} animation="wave"/>
+							<Skeleton animation="wave" height={5} />
+							<Skeleton variant="rectangular" height={150} animation="wave" sx={{ my: 0.5 }}/>
+							<Skeleton animation="wave"  height={5} />
+
+						</Box>
+							
 						)}
 					</Grid>
 					{(carrito.hasOwnProperty('configCarrito'))?
 					<Grid item xs={12} sm={4}>
 						<Paper className={classes.paper} elevation={0}>
-							{isEjecutivo && (
+							<Hidden smDown>
+								{isEjecutivo && (
+									<div>
+										<ModalExecutive
+											resenapedidos={
+												carrito.configCarrito.resenapedidos
+											}
+											setEjecutivo={setEjecutivo}
+											ejecutivo={ejecutivo.ejecutivo}
+										/>
+									</div>
+								)}
 								<div>
-									<ModalExecutive
-										resenapedidos={
-											carrito.configCarrito.resenapedidos
-										}
-										setEjecutivo={setEjecutivo}
-										ejecutivo={ejecutivo.ejecutivo}
-									/>
-								</div>
-							)}
-							<div>
-								<Box
-									component='div'
-									m={1}
-									className={classes.root}>
-									<Grid
-										container
-										alignItems='center'
-										spacing={1}>
-										<Grid item xs={6} sm={5} lg={6}>
-											<Box textAlign='left'>
-												<Typography
-													component='h2'
-													variant='h6'>
-													Resumen
-												</Typography>
-											</Box>
-										</Grid>
-										<Grid item xs={6} sm={7} lg={6}>
-											{partidas > 0 && (
-												<Paper variant='outlined'>
-													<Typography variant='body2'>
-														<Box
-															py={1}
-															fontWeight='fontWeightMedium'>
-															{partidas}{' '}
-															{partidas > 1
-																? `productos`
-																: `producto`}
-														</Box>
+									<Box
+										component='div'
+										m={1}
+										className={classes.root}>
+										<Grid
+											container
+											alignItems='center'
+											spacing={1}>
+											<Grid item xs={6} sm={5} lg={6}>
+												<Box textAlign='left'>
+													<Typography
+														component='h2'
+														variant='h6'>
+														Resumen
 													</Typography>
-												</Paper>
-											)}
+												</Box>
+											</Grid>
+											<Grid item xs={6} sm={7} lg={6}>
+												{partidas > 0 && (
+													<Paper variant='outlined'>
+														<Typography variant='body2'>
+															<Box
+																py={1}
+																fontWeight='fontWeightMedium'>
+																{partidas}{' '}
+																{partidas > 1
+																	? `productos`
+																	: `producto`}
+															</Box>
+														</Typography>
+													</Paper>
+												)}
+											</Grid>
 										</Grid>
-									</Grid>
-								</Box>
-							</div>
+									</Box>
+								</div>
+							</Hidden>
 							<Box component='div'>
 								<form
 									className={classes.root}

@@ -47,12 +47,11 @@ import {
     DialogTitle, 
     Accordion, 
     AccordionSummary,
-    AccordionDetails 
+    AccordionDetails, IconButton 
 } from '@mui/material';
-
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import CloseIcon from '@mui/icons-material/Close';
 
 import { makeStyles } from '@mui/styles';
 import 'styles/algolia.module.css';
@@ -265,7 +264,7 @@ export default function Busquedas(props) {
                             <Grid item xs={12} sm={12}>
                                 <Box component="div" px={4} pt={4} className={classes.root}>
                                     <Grid container direction="row" justifyContent="space-between" alignItems="flex-end" spacing={2}>
-                                        <Grid item xs={12} sm={12} lg={6}>
+                                        <Grid item xs={12} sm={12} md={8}  lg={6}>
                                             <Box component="div">
                                                 <Typography variant="h3" component="h1" sx={{fontWeight:'500'}}>{url}</Typography>
                                                 <Typography variant="subtitle1">
@@ -285,26 +284,28 @@ export default function Busquedas(props) {
                                                 </div>
                                             </Box>
                                         </Grid>
-                                        <Grid item xs={12} sm={6} lg={3}>
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={6} sm={6}>
-                                                    <Paper elevation={4} className={classes.BoxMsi}>
-                                                    <Typography variant="overline" display="block">Hasta</Typography>
-                                                        <Typography  component="body1" variant="h4" sx={{fontWeight:'600'}}><Typography component="span" variant="h4" color="primary">18</Typography> MSI</Typography>
-                                                        <Typography variant="caption" display="block" gutterBottom color="textSecondary">Meses sin Intereses*</Typography>
-                                                    </Paper>
-                                                </Grid>
-                                                <Grid item xs={6} sm={6}>
-                                                    <Paper elevation={4} className={classes.BoxMsi}> 
+                                        <Hidden mdDown>
+                                            <Grid item xs={12} sm={12} lg={3}>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={6} sm={6}>
+                                                        <Paper elevation={4} className={classes.BoxMsi}>
                                                         <Typography variant="overline" display="block">Hasta</Typography>
-                                                        <Typography component="body1" variant="h4" sx={{fontWeight:'600'}}><Typography component="span" variant="h4" color="primary">24</Typography> MSI*</Typography>
-                                                        <Typography variant="caption" display="block" gutterBottom color="textSecondary">con CitiBanamex</Typography>
-                                                    </Paper>
-                                                </Grid>
-                                            </Grid>  
-                                        </Grid>
-                                        <Grid item xs={12} sm={6} lg={3} >
-                                        <FormControl fullWidth>
+                                                            <Typography  component="body1" variant="h4" sx={{fontWeight:'600'}}><Typography component="span" variant="h4" color="primary">18</Typography> MSI</Typography>
+                                                            <Typography variant="caption" display="block" gutterBottom color="textSecondary">Meses sin Intereses*</Typography>
+                                                        </Paper>
+                                                    </Grid>
+                                                    <Grid item xs={6} sm={6}>
+                                                        <Paper elevation={4} className={classes.BoxMsi}> 
+                                                            <Typography variant="overline" display="block">Hasta</Typography>
+                                                            <Typography component="body1" variant="h4" sx={{fontWeight:'600'}}><Typography component="span" variant="h4" color="primary">24</Typography> MSI*</Typography>
+                                                            <Typography variant="caption" display="block" gutterBottom color="textSecondary">con CitiBanamex</Typography>
+                                                        </Paper>
+                                                    </Grid>
+                                                </Grid>  
+                                            </Grid>
+                                        </Hidden>
+                                        <Grid item xs={12} sm={12} md={4} lg={3} >
+                                            <FormControl fullWidth>
                                             <InputLabel id="product-order-select-label">Ordenar por:</InputLabel>
                                             <Select
                                                 labelId="product-order-select-label"
@@ -323,7 +324,6 @@ export default function Busquedas(props) {
                                                 <MenuItem value="Pedidos_Precio_desc">Precio Mayor a Menor</MenuItem>
                                             </Select>
                                             </FormControl>
-                                            
                                         </Grid>
                                     </Grid>
                                     <Box mb={4}>
@@ -1010,15 +1010,15 @@ export default function Busquedas(props) {
                             </Hidden>
                             <Hidden mdUp>
                                 <Grid item xs={12}>
-                                    <Button fullWidth onClick={handleClickOpen}>
-                                        <Fab variant="extended">
-                                            <FilterAltIcon sx={{ mr: 1 }}/>
-                                            Filtros
-                                        </Fab> 
-                                    </Button>
+                                    <Box justifyContent="center" px={4}>
+                                        <Fab variant="extended" color="primary" aria-label="Filters" onClick={handleClickOpen} sx={{ px: '4rem', width:'100%' }}>
+                                            <FilterListOutlinedIcon sx={{ mr: 2 }}/>
+                                            Filtrar
+                                        </Fab>
+                                    </Box>
                                 </Grid>
                             </Hidden>
-                            <Grid item xs={12} sm={8} md={9}>
+                            <Grid item xs={12} sm={12} md={9}>
                                 <Stats
                                     translations={{
                                         stats(nbHits) {
@@ -1099,22 +1099,40 @@ export default function Busquedas(props) {
                         </Grid>
                     </div>
                     <Dialog
+                        fullScreen
                         open={open}
                         onClose={handleClose}
                         scroll="paper"
                         aria-labelledby="scroll-dialog-title"
                         aria-describedby="scroll-dialog-description"
                     >
-                        <DialogTitle id="scroll-dialog-title">Filtrar por:</DialogTitle>
+                        <DialogTitle id="scroll-dialog-title">
+                            <Box component="div" pt={1}>
+                                <Grid container 
+                                direction="row"
+                                justifyContent="space-between"textAlign="center">
+                                    <Grid item xs={9}>
+                                        <Typography variant="h4" component="h2" textAlign="left" fontWeight="500">Filtrar por:</Typography>
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <Fab aria-label="close"
+                                            edge="start"
+                                            color="inherit"
+                                            onClick={handleClose}
+                                            
+                                        >
+                                            <CloseIcon />
+                                        </Fab>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        </DialogTitle>
                         <DialogContent >
-                            <DialogContentText
-                            >   
+                            <DialogContentText>  
                                 <Grid item xs={12} sm={4} md={3}>
                                 <Box className='left-panel' textAlign='left'>
-                                    <Box
-                                        component='div'
+                                    <Box component='div'
                                         textAlign='left'
-                                        px={4}
                                         py={1}>
                                         <Typography
                                             variant='subtitle1'
@@ -1131,7 +1149,6 @@ export default function Busquedas(props) {
                                     <Box
                                         component='div'
                                         textAlign='left'
-                                        px={4}
                                         py={1}>
                                         <Typography
                                             variant='subtitle1'
@@ -1147,7 +1164,6 @@ export default function Busquedas(props) {
                                     <Box
                                         component='div'
                                         textAlign='left'
-                                        px={4}
                                         py={1}>
                                         <Typography
                                             variant='subtitle1'
@@ -1163,8 +1179,8 @@ export default function Busquedas(props) {
                                     <Box
                                         component='div'
                                         textAlign='left'
-                                        px={4}
-                                        py={1}>
+                                        py={1}
+                                        mb={2}>
                                         <Typography
                                             variant='subtitle1'
                                             component='h2'
@@ -1176,17 +1192,30 @@ export default function Busquedas(props) {
                                             />
                                         </Typography>
                                     </Box>
-                                    <Box sx={{ margin: '1rem 0' }}>
-                                        <Divider />
+                                    <Divider/>
+                                    <Box component='div' textAlign='left' py={2} mb={2}>
+                                        <Typography
+                                            variant='subtitle1'
+                                            component='h2'
+                                            sx={{ fontWeight: '600' }}>
+                                            Precio
+                                        </Typography>
+                                        <RangeInput
+                                            attribute='PRECIO'
+                                            translations={{
+                                                submit: 'Consultar',
+                                                separator: ' - ',
+                                            }}
+                                        />
                                     </Box>
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Marca
@@ -1208,30 +1237,16 @@ export default function Busquedas(props) {
                                             />
                                         </AccordionDetails>
                                     </Accordion>
-                                    <Box component='div' textAlign='left' p={4}>
-                                        <Typography
-                                            variant='subtitle1'
-                                            component='h2'
-                                            sx={{ fontWeight: '600' }}>
-                                            Precio
-                                        </Typography>
-                                        <RangeInput
-                                            attribute='PRECIO'
-                                            translations={{
-                                                submit: 'Consultar',
-                                                separator: ' - ',
-                                            }}
-                                        />
-                                    </Box>
+                                    
                                     {filtros.hasOwnProperty('FILTROS.PULGADAS') &&
-                                    <Accordion>
+                                    <Accordion  elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Pulgadas
@@ -1255,14 +1270,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.PROCESADOR') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                         <Typography
-                                            variant='subtitle1'
+                                            variant='h6'
                                             component='h2'
                                             sx={{ fontWeight: '600' }}>
                                             Procesador
@@ -1286,14 +1301,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.SISTEMA OPERATIVO') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Sistema Operativo
@@ -1317,14 +1332,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.TIPO DE IMPRESION') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Tipo de Impresión
@@ -1348,14 +1363,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.TIPO') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Tipo
@@ -1379,14 +1394,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.TAMAÑO') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Tamaño
@@ -1410,14 +1425,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.TAMAÑO 2') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Tamaño
@@ -1441,14 +1456,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.ALMACENAMIENTO') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Almacenamiento
@@ -1472,14 +1487,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.CAPACIDAD') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Capacidad
@@ -1503,13 +1518,13 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.INTERFAZ') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >                                            <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Interfaz
@@ -1533,14 +1548,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.MEDIDAS') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Medidas
@@ -1564,14 +1579,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.TIPO DE ARILLO') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Tipo de arillo
@@ -1595,14 +1610,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.MATERIAL') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Material
@@ -1626,14 +1641,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.CAJA CON') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Caja con
@@ -1657,14 +1672,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.PIEZAS') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Piezas
@@ -1688,14 +1703,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.VOLTAJE') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Voltaje
@@ -1719,14 +1734,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.TIPO DE ENTRADA') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >   
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Tipo de entrada
@@ -1750,14 +1765,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.TIPO DE CONEXIÓN') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Tipo de conexión
@@ -1781,13 +1796,13 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.COLOR') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >   <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Color
@@ -1811,13 +1826,13 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.TIPO DE PUNTA') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >   <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Tipo de punta
@@ -1841,14 +1856,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.ORIFICIOS') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >   
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Orificios
@@ -1872,14 +1887,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.FORMA') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Forma
@@ -1903,14 +1918,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.NUMERO') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Número
@@ -1934,14 +1949,14 @@ export default function Busquedas(props) {
                                     </Accordion>
                                     }
                                     {filtros.hasOwnProperty('FILTROS.POSICIÓN') &&
-                                    <Accordion>
+                                    <Accordion elevation={0}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >   
                                             <Typography
-                                                variant='subtitle1'
+                                                variant='h6'
                                                 component='h2'
                                                 sx={{ fontWeight: '600' }}>
                                                 Posición
@@ -1972,7 +1987,7 @@ export default function Busquedas(props) {
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                        <Button onClick={handleClose}>Ver Resultados</Button>
+                        <Button variant='contained' fullWidth onClick={handleClose}>Ver Resultados</Button>
                         </DialogActions>
                     </Dialog>
                     <Configure clickAnalytics />
