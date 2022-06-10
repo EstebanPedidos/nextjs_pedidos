@@ -167,6 +167,7 @@ export default function DatosFacturacion() {
                                             <Grid item xs={12}>
                                                 <Grid container justifyContent="flex-start" spacing={spacing}>
                                                     {result.map((row) => (
+                                                        row.clienteRfc !== 'XAXX010101000' &&
                                                         <Grid item xs={6} sm={6} lg={4} key={row.rfcNum}> 
                                                             <Card className={classes.boxCardF}>
                                                                 <CardContent>

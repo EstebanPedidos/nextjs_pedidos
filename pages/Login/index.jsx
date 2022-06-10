@@ -64,7 +64,7 @@ export default function Login(){
             localStorage.setItem('SesPartidas', data.usuario.partidas)
             localStorage.setItem('Token', data.usuario.token)
             localStorage.setItem('Login', 'Ok')
-            localStorage.setItem('afiliado', data.usuario.afiliado)
+            localStorage.setItem('afiliado', data.usuario.afiliacion)
             localStorage.setItem('nivelAcceso', data.usuario.nivelAcceso)
             setLogged(true);
             ruter.push('/Home')

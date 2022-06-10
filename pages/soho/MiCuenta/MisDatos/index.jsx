@@ -890,7 +890,7 @@ export default function MisDatos() {
                       </Box>
                     </Box>
                     <Box component="div" textAlign="center" m={1}>
-                        <Link href="/DatosFacturacion" >
+                        <Link href="/soho/MiCuenta/DatosFacturacion" >
                             <Chip label="Para editar tus datos de facturación Ingresa aquí." color="primary" variant="outlined" />
                         </Link>
                     </Box>

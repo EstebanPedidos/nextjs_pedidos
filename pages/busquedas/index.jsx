@@ -1982,35 +1982,6 @@ export default function Busquedas(props) {
 	);
 
 	function Hit(props) {
-		let button;
-		if (props.hit.STOCK) {
-			button = (
-				<Link
-					href={`/articulos/${props.hit.URL}`}
-					className={classes.CTAlink}>
-					<a>
-						<Button
-							variant='contained'
-							size='large'
-							color='secondary'
-							fullWidth>
-							Comprar
-						</Button>
-					</a>
-				</Link>
-			);
-		} else {
-			button = (
-				<Button
-					variant='outlined'
-					size='large'
-					fullWidth
-					disableElevation
-					disabled>
-					Agotado
-				</Button>
-			);
-		}
 
 		return (
 			<Box className={classes.rootCard}>
@@ -2135,7 +2106,30 @@ export default function Busquedas(props) {
 										''
 									)}
 								</Box>
-								{button}
+								{props.hit.STOCK ?
+                                    <Link
+                                        href={`/articulos/${props.hit.URL}`}
+                                        className={classes.CTAlink}>
+                                        <a>
+                                            <Button
+                                                variant='contained'
+                                                size='large'
+                                                color='secondary'
+                                                fullWidth>
+                                                Comprar
+                                            </Button>
+                                        </a>
+                                    </Link>
+                                :
+                                    <Button
+                                        variant='outlined'
+                                        size='large'
+                                        fullWidth
+                                        disableElevation
+                                        disabled>
+                                        Agotado
+                                    </Button>
+                                }
 							</Grid>
 						</Grid>
 					</Box>
