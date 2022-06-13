@@ -35,7 +35,7 @@ const itemsConocenos = [
 	},
 	{
 		content: 'Prensa',
-		to: '/',
+		to: '/quienes-somos/prensa',
 	},
 	{
 		content: 'Reviews',
@@ -106,14 +106,7 @@ const itemsContacto = [
 	{
 		content: 'Horario de atención 9:00 a 18:30 hrs',
 	},
-	{
-		content: 'Cotizar por volumen',
-		to: '/',
-	},
-	{
-		content: 'Comunícate con ventas',
-		to: '/',
-	},
+	
 ];
 
 export function FooterAccordion() {
