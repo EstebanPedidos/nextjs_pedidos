@@ -24,7 +24,8 @@ export const SubNav = () => {
 				paddingX='5%'
 				justifyContent='center'
 				bgcolor='#f6f7f9'
-				py={1}>
+				py={2}
+				mb={1}>
 				<Box display='flex' justifyContent='space-between' alignItems='center'>
 					<Hidden smDown={true}>
 						<Box>

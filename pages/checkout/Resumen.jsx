@@ -4,7 +4,7 @@ import {useState,useEffect} from 'react'
 import { useRouter } from 'next/router'
 //Material UI
 import {Box, Grid, Paper, Typography, Button,
-    Avatar, Divider, Link} from '@mui/material';
+    Avatar, Divider, Hidden, Link} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import MopedOutlinedIcon from '@mui/icons-material/MopedOutlined';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
@@ -58,11 +58,13 @@ export default function Resumen(props){
         {(dataT.hasOwnProperty('jsonResumen'))&&
         <div>
             <Box component="div" pt={1}>
+                <Hidden smDown>
                 <div>
                     {(dataT.hasOwnProperty('jsonResumen'))&&
                     <ModalExecutive resenapedidos={dataT.jsonResumen.resumen.resenaPedidos} setEjecutivo={props.setEjecutivo} ejecutivo={props.ejecutivo.ejecutivo}/>
                     }
                 </div>
+                </Hidden>
                 <Box component="div">
                     <div className={classes.root}>
                         <Grid container  alignItems="center" spacing={1}>

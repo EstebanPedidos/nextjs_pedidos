@@ -38,7 +38,9 @@ export default function CheckoutHeader() {
                                 <Help tipo={'1'}/>
                             </Grid>
                             <Grid item>
-                            <Button size="large"  startIcon={<CallOutlinedIcon />}> 55 5015-8100 </Button>
+                                <Box>
+                                    <Button size="large"  startIcon={<CallOutlinedIcon />}> 55 5015-8100 </Button>
+                                </Box>
                             </Grid>
                         </Grid>
                     </Box>

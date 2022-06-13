@@ -25,6 +25,7 @@ import AddRFC from '../../soho/MiCuenta/DatosFacturacion/add/Index';
 
 //Servicios
 import Services from '../../services/Services'
+import { minHeight } from '@mui/system';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -305,10 +306,10 @@ export default function Facturacion(){
                                                                 <Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
                                                                         {(rfcs.length > 0)?
                                                                             rfcs.map((rfc, index) => (  
-                                                                                <Grid item xs={6} key={index}>
+                                                                                <Grid item xs={12} sm={6} key={index}>
                                                                                     <Box component="div">
                                                                                         <Card className={classes.rootcardi} variant="outlined">  
-                                                                                            <Box component="div" >
+                                                                                            <Box component="div" p={3}>
                                                                                                 {(rfc.cantNotas > 0)&&
                                                                                                     <Box component="div" m={2} display="flex" justifyContent="flex-end"> 
                                                                                                         <Typography variant="caption" display="block" color="primary" gutterBottom>
@@ -342,8 +343,8 @@ export default function Facturacion(){
                                                                                                         </Box>  
                                                                                                         :                       
                                                                                                         <Box component="div">   
-                                                                                                            <CardContent> 
-                                                                                                                <Box component="div" mb={2} sx={{height:'60px'}}>
+                                                                                                            <CardContent sx={{minWidth:'260px', minHeight:'150px'}}> 
+                                                                                                                <Box component="div" mb={1} >
                                                                                                                     <Typography variant="subtitle1" component="h3" sx={{fontWeight:'500'}}>
                                                                                                                         {rfc.razon.substring(0,27)}
                                                                                                                     </Typography>
@@ -355,16 +356,20 @@ export default function Facturacion(){
                                                                                                                     RFC: {rfc.rfc}
                                                                                                                 </Typography>
                                                                                                             </CardContent> 
-                                                                                                            <CardActions>
-                                                                                                                <Eliminar
+                                                                                                            <Box component="div">
+                                                                                                                <Divider variant="middle" light />
+                                                                                                            </Box>
+                                                                                                            <Box component="div" px={2}>
+                                                                                                           {/*  <CardActions> */}
+                                                                                                                <Eliminar fullWidth
                                                                                                                 Delete={Delete}
                                                                                                                 object={{rfc:rfc.rfc,rfcNum:rfc.rfcNum}}
                                                                                                                 ms_but={'Eliminar'}
                                                                                                                 titilo={'Eliminar RFC'}
                                                                                                                 mensaje={'Estás seguro de eliminar el RFC: '+rfc.rfc+'?'}
                                                                                                                 />
-                                                                                                            </CardActions>
-                                                                                                            
+                                                                                                            {/* </CardActions> */}
+                                                                                                            </Box>
                                                                                                         </Box>
                                                                                                         }
                                                                                                     </Box>
@@ -376,7 +381,50 @@ export default function Facturacion(){
                                                                                 </Grid>
                                                                             )) 
                                                                             :
-                                                                            <h1>Cargando..</h1>                
+                                                                            <Box sx={{ pt: 0.5 }}>
+                                                                                <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
+                                                                                    <Grid item xs={12} sm={6}>
+                                                                                        <Box component="div">
+                                                                                            <Card className={classes.rootcardi}  variant="outlined">  
+                                                                                                <Box component="div" p={3}>
+                                                                                                    <Box component="div">
+                                                                                                        <Box component="div" py={2} > 
+                                                                                                            <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>        
+                                                                                                                <Grid item xs={12} justifyContent="center">
+                                                                                                                    <Box sx={{margin:'auto', justifyContent:'center', }}>
+                                                                                                                        <Skeleton variant="circular" width={40} height={40} />
+                                                                                                                    </Box>
+                                                                                                                </Grid>
+                                                                                                                <Grid item xs={12}>
+                                                                                                                    <Box textAlign="center" p={1}>
+                                                                                                                        <Skeleton variant="text"  width={250} />
+                                                                                                                    </Box>                         
+                                                                                                                </Grid>
+                                                                                                            </Grid>
+                                                                                                        </Box>  
+                                                                                                    </Box>
+                                                                                                </Box>
+                                                                                            </Card>   
+                                                                                        </Box>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.rootcardi}  variant="outlined">  
+                                                                                            <Box component="div" p={3}>
+                                                                                                <Box component="div">
+                                                                                                    <Box component="div" py={2} > 
+                                                                                                        <Box textAlign="center" p={1} sx={{ pt: 0.5 }}>
+                                                                                                            <Skeleton variant="text" width='30%' />
+                                                                                                            <Skeleton variant="text" />
+                                                                                                            <Skeleton variant="text"  width={250} />
+                                                                                                        </Box>                         
+                                                                                                    </Box>  
+                                                                                                </Box>
+                                                                                            </Box>
+                                                                                        </Card>   
+                                                                                    </Grid>
+                                                                                </Grid>
+                                                                            </Box>
+                                                                                           
                                                                         }                                                   
                                                                 </Grid>
                                                             </RadioGroup>
