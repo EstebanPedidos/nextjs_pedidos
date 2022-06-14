@@ -19,6 +19,7 @@ export default function Carrusel({item_num,indice,links}){
     return (
         <>
         <Container maxWidth="lg">
+            <Box  p={2} sx={{width:'95%', margin:'auto'}} justifyContent='center' alignContent='center'>
                 <Swiper
                 style={{
                 "--swiper-navigation-color": "#fff",
@@ -33,13 +34,13 @@ export default function Carrusel({item_num,indice,links}){
                 initialSlide={(indice)?indice:0}
                 >
                     <SwiperSlide>
-                        <img  width={'100%'} height={'100%'}  src={`https://pedidos.com/myfotos/xLarge/(X)${item_num}.webp`}  alt={item_num} />
+                        <img sx={{width:'95%', height:'540px', margin:'auto'}} src={`https://pedidos.com/myfotos/xLarge/(X)${item_num}.webp`}  alt={item_num} />
                     </SwiperSlide>
                     <SwiperSlide>                    
-                        <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${item_num}.webp`}  alt={item_num} />
+                        <img sx={{width:'100%', height:'540px'}} layout="responsive" src={`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${item_num}.webp`}  alt={item_num} />
                     </SwiperSlide>
                     <SwiperSlide>                    
-                        <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${item_num}.webp`}  alt={item_num} />
+                        <img sx={{width:'100%', height:'540px'}} layout="responsive" src={`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${item_num}.webp`}  alt={item_num} />
                     </SwiperSlide>  
                     {(links)&&
                     (links !== '')&&
@@ -97,6 +98,7 @@ export default function Carrusel({item_num,indice,links}){
                         ))
                     }                                                      
                 </Swiper>
+            </Box>
             </Container>
         </>
     )

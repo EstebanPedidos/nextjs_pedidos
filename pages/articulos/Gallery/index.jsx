@@ -36,7 +36,7 @@ export default function Gallery({item_num,indice,estatus_img,link,links}) {
         open={open}
         onClose={handleClose}
       >
-          <DialogTitle id="scroll-dialog-title">
+        <DialogTitle id="scroll-dialog-title">
             <Box component="div" pt={1}>
                 <Grid container 
                 direction="row"
@@ -58,7 +58,9 @@ export default function Gallery({item_num,indice,estatus_img,link,links}) {
         </DialogTitle>
        
         {(open)&&
+        <Box justifyContent='center' alignItems='center'>
             <Carrusel item_num={item_num} indice={indice} links={links}/>
+        </Box>
         }
       </Dialog>
     </div>
