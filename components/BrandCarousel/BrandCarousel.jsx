@@ -15,6 +15,7 @@ const BrandCarousel = (props) => {
 		itemSx,
 		navigation,
 		slidesPerView,
+		hideText,
 	} = props;
 
 	return (
@@ -39,7 +40,7 @@ const BrandCarousel = (props) => {
 				className={`brand-carousel-${id}`}
 				slidesPerView={slidesPerView ?? 1.5}
 				spaceBetween={20}
-				navigation={navigation}
+				navigation={!!navigation}
 				modules={[Navigation]}
 				breakpoints={
 					breakpoints ?? {
@@ -71,7 +72,7 @@ const BrandCarousel = (props) => {
 							boxShadow='0 8px 16px 0 rgb(51 51 51 / 8%)'
 							justifyContent='center'
 							bgcolor='white'
-							sx={{ ...itemSx }}>
+							sx={itemSx ? { ...itemSx } : {}}>
 							{brand.img && (
 								<img
 									src={brand.img}
@@ -79,7 +80,11 @@ const BrandCarousel = (props) => {
 									height={imgHeight ?? 62}
 								/>
 							)}
-							<Typography>{brand.label}</Typography>
+							{hideText && (
+								<Typography fontSize={15} fontWeight={500}>
+									{brand.label}
+								</Typography>
+							)}
 						</Box>
 					</SwiperSlide>
 				))}

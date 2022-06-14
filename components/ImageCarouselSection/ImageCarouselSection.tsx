@@ -49,7 +49,7 @@ const ImageCarouselSection = (props) => {
 					{items.map((item) => (
 						<SwiperSlide key={item.label}>
 							<Link
-								href={item.href}
+								href={item.url}
 								underline='none'
 								sx={{
 									'&:hover .MuiTypography-root': {
