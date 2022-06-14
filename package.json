@@ -32,10 +32,12 @@
     "next": "^12.1.4",
     "next-pwa": "^5.4.7",
     "prop-types": "^15.8.1",
+    "pure-react-carousel": "^1.28.1",
     "react": "^17.0.2",
     "react-chat-widget": "^3.1.4",
     "react-dom": "^17.0.2",
     "react-gtm-module": "^2.0.11",
+    "react-id-swiper": "^4.0.0",
     "react-image-gallery": "^1.2.8",
     "react-instantsearch-dom": "^6.23.4",
     "react-instantsearch-hooks-web": "^6.25.0",
@@ -43,7 +45,7 @@
     "react-responsive-embed": "^2.1.0",
     "react-youtube": "^9.0.1",
     "search-insights": "^2.2.1",
-    "swiper": "8.0.7"
+    "swiper": "^8.2.4"
   },
   "devDependencies": {
     "eslint": "8.12.0",

@@ -214,7 +214,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                     }   
                                                 
                                                 </Box>
-                                                <Box item pt={2}>
+                                                <Box item >
                                                     <Box textAlign="left" ml={2}> 
                                                     {(item.cantSeguro > 0 )&&
                                                         <Typography gutterBottom variant="subtitle2">

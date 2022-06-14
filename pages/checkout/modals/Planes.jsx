@@ -3,11 +3,11 @@ import makeStyles from '@mui/styles/makeStyles';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import {Divider,FormControl, InputLabel, Select} from '@mui/material';
+import {Divider,FormControl, InputLabel, Select, Grid} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -32,11 +32,12 @@ function rand() {
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
-      width:800,
+      width:'90%',
       backgroundColor: theme.palette.background.paper,
       borderRadius: '8px',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+      margin:'auto'
     },
     btnService: { 
       backgroundColor: theme.palette.common.white,
@@ -68,35 +69,40 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
         >
         <div style={modalStyle} className={classes.paper}>
             <Box component="div" textAlign="center" m={1} py={2}>
-              <Typography component="h3" variant="h5">
-                  <Box component="span" fontWeight="fontWeightMedium">
-                    <h6>Planes de protección<br/>
-                    Cambia las protecciones que necesitas de {item.descripcion}
-                    </h6>
-                  </Box>
-              </Typography>
-              <Box component="div" py={1}>
-                <Divider/>
-              </Box>
-              <Box component="div" py={1}>
+              <Box component="div" textAlign="center" m={1} py={2}>
+                      <Typography component="h3" variant="h5">
+                          <Box component="span" fontWeight="fontWeightMedium">
+                              Edita las protecciones
+                          </Box>
+                      </Typography>
+                      <Box component="div" py={1}>
+                        <Divider/>
+                      </Box>
+                      <Typography component="subtitle1"  gutterBottom>Delproducto {item.descripcion}</Typography>                
+                </Box>     
+              <Box component="div" py={2}>
                 {(parseInt(item.cantSeguro) > 0 && item.cantidad !== '')&&
                 <ListItem
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon  onClick={()=>{CambiarPlanes(index,2,'S');setOpen(false)}}/>
+                      <DeleteOutlineOutlinedIcon onClick={()=>{CambiarPlanes(index,2,'S');setOpen(false)}}/>
                     </IconButton>
                   }
                 >                    
-                    <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                        primary="PLAN DE PRODUCTO, PEDIDOS"
-                        secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item.precioSeguro,iva:0,formato:true})}`}
-                    />                    
-                    <FormControl variant="outlined" className={classes.formControl}>
+                  <Grid container spacing={2} justifyContent='space-around' alignItems='center'>
+                    <Grid item xs={1}>
+                      <ListItemAvatar>
+                        <Avatar alt="Proteccion de producto" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/planes-p/cseguro-1.jpg" />
+                      </ListItemAvatar>
+                    </Grid>
+                    <Grid item xs={6}>
+                    <ListItemText 
+                      primary="PLAN DE PRODUCTO, PEDIDOS"
+                      secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item.precioSeguro,iva:0,formato:true})}`}
+                  /> 
+                    </Grid>
+                    <Grid item xs={3}>
+                      <FormControl fullWidth variant="outlined" className={classes.formControl}>
                         <InputLabel htmlFor="age-native-simple">Cantidad</InputLabel>
                         <Select
                         label="Cantidad"
@@ -112,95 +118,122 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                             return <option key={i+1} value={i+1}>{i+1}</option>;
                         })}      
                         </Select>
-                    </FormControl>
-                    <ListItemText
+                      </FormControl>
+                    </Grid>
+                    <Grid item  xs={2}>
+                      <ListItemText
                         primary={`$${Precios('redondear_arriba',{subtotal:(item.precioSeguro*item.cantSeguro),iva:0,formato:true})}`}
-                    />
+                      />
+                    </Grid> 
+                      
+                  </Grid>                   
                 </ListItem>
                 }
                 {(parseInt(item.cantGarant1) > 0 && item.cantidad !== '')&&
                 <ListItem
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon  onClick={()=>{CambiarPlanes(index,2,'G');setOpen(false)}}/>
+                      <DeleteOutlineOutlinedIcon onClick={()=>{CambiarPlanes(index,2,'G');setOpen(false)}}/>
                     </IconButton>
                   }
-                >                    
-                    <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                        primary="GARANTIA EXTENDIDA POR 1 AÑO, PEDIDOS 1"
-                        secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item.precioGarant1,iva:0,formato:true})}`}
-                    />                    
-                    <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel htmlFor="age-native-simple">Cantidad</InputLabel>
-                        <Select
-                        label="Cantidad"
-                        native
-                        value={item.cantGarant1}
-                        onChange={UpdateCantidad}
-                        inputProps={{
-                            id: 'Garantia1',
-                            name : index
-                        }}
-                        >
-                        {Array.apply(0, Array(parseInt(item.cantidad))).map(function (x, i) {
-                            return <option key={i+1} value={i+1}>{i+1}</option>;
-                        })}         
-                        </Select>
-                    </FormControl>
-                    <ListItemText
-                        primary={`$${Precios('redondear_arriba',{subtotal:(item.precioGarant1*item.cantGarant1),iva:0,formato:true})}`}
-                    />
+                >   
+                  <Grid container spacing={2} justifyContent='space-around' alignItems='center'>
+                    <Grid item xs={1}>
+                      <ListItemAvatar>
+                        <Avatar alt="Garantia de producto" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/planes-p/cgarantia-1.jpg" />
+                      </ListItemAvatar>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <ListItemText 
+                          primary="GARANTIA EXTENDIDA POR 1 AÑO, PEDIDOS 1"
+                          secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item.precioGarant1,iva:0,formato:true})}`}
+                      />  
+                    </Grid>
+                    <Grid item xs={3}>
+                      <FormControl fullWidth variant="outlined" className={classes.formControl}>
+                          <InputLabel htmlFor="age-native-simple">Cantidad</InputLabel>
+                          <Select
+                          label="Cantidad"
+                          native
+                          value={item.cantGarant1}
+                          onChange={UpdateCantidad}
+                          inputProps={{
+                              id: 'Garantia1',
+                              name : index
+                          }}
+                          >
+                          {Array.apply(0, Array(parseInt(item.cantidad))).map(function (x, i) {
+                              return <option key={i+1} value={i+1}>{i+1}</option>;
+                          })}         
+                          </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid item  xs={2}>
+                      <ListItemText
+                          primary={`$${Precios('redondear_arriba',{subtotal:(item.precioGarant1*item.cantGarant1),iva:0,formato:true})}`}
+                      />
+                    </Grid> 
+                  </Grid>                  
                 </ListItem>
                 }
                 {(parseInt(item.cantGarant2) > 0 && item.cantidad !== '')&&
                 <ListItem
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon  onClick={()=>{CambiarPlanes(index,2,'G');setOpen(false)}}/>
+                      <DeleteOutlineOutlinedIcon onClick={()=>{CambiarPlanes(index,2,'G');setOpen(false)}}/>
                     </IconButton>
                   }
-                >                    
-                    <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                        primary="GARANTIA EXTENDIDA POR 2 AÑO, PEDIDOS 2"
-                        secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item.precioGarant2,iva:0,formato:true})}`}
-                    />                    
-                    <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel htmlFor="age-native-simple">Cantidad</InputLabel>
-                        <Select
-                        label="Cantidad"
-                        native
-                        value={item.cantGarant2}
-                        onChange={UpdateCantidad}
-                        inputProps={{
-                            id: 'Garantia2',
-                            name : index
-                        }}
-                        >
-                        {Array.apply(0, Array(parseInt(item.cantidad))).map(function (x, i) {
-                            return <option key={i+1} value={i+1}>{i+1}</option>;
-                        })}         
-                        </Select>
-                    </FormControl>
-                    <ListItemText
-                        primary={`$${Precios('redondear_arriba',{subtotal:(item.precioGarant2*item.cantGarant2),iva:0,formato:true})}`}
-                    />
+                >  
+                  <Grid container spacing={2} justifyContent='space-around' alignItems='center'>
+                    <Grid item xs={1} sm={1}>
+                      <ListItemAvatar>
+                        <Avatar alt="Garantia de producto" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/planes-p/cgarantia-1.jpg" />
+                      </ListItemAvatar>
+                    </Grid>
+                    <Grid item xs={6} sm={6}>
+                      <ListItemText
+                          primary="GARANTIA EXTENDIDA POR 2 AÑO, PEDIDOS 2"
+                          secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item.precioGarant2,iva:0,formato:true})}`}
+                      />   
+                    </Grid>
+                    <Grid item xs={3} sm={3}>
+                      <FormControl fullWidth variant="outlined" className={classes.formControl}>
+                          <InputLabel htmlFor="age-native-simple">Cantidad</InputLabel>
+                          <Select
+                          label="Cantidad"
+                          native
+                          value={item.cantGarant2}
+                          onChange={UpdateCantidad}
+                          inputProps={{
+                              id: 'Garantia2',
+                              name : index
+                          }}
+                          >
+                          {Array.apply(0, Array(parseInt(item.cantidad))).map(function (x, i) {
+                              return <option key={i+1} value={i+1}>{i+1}</option>;
+                          })}         
+                          </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={2}  sm={2}>
+                      <ListItemText
+                          primary={`$${Precios('redondear_arriba',{subtotal:(item.precioGarant2*item.cantGarant2),iva:0,formato:true})}`}
+                      />
+                    </Grid> 
+                  </Grid>                    
                 </ListItem>
                 }
               </Box>
-              <Box component="div" py={1}>
-                <Button color="primary" size="small" onClick={()=>{setOpen(false)}}>Regresar</Button>
-                <Button color="primary" size="small" onClick={()=>{CambiarPlanes(index,1,'N');setOpen(false)}}>Cambiar</Button>
-              </Box>
+              <Box component="div" justifyContet="center">
+                    <Grid container direction="row"justifyContent="center" alignItems="center" spacing={2}>
+                      <Grid item xs={6}>
+                        <Button type="button" variant="outlined" fullWidth size="large" onClick={()=>{setOpen(false)}}>Regresar</Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button type="button" variant="contained" fullWidth size="large" color="primary" disableElevation onClick={()=>{CambiarPlanes(index,1,'N');setOpen(false)}}>Cambiar</Button>
+                      </Grid>
+                    </Grid>
+                  </Box>
             </Box> 
         </div>
         </Modal>

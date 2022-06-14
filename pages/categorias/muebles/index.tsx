@@ -120,6 +120,7 @@ const otherSubCategories = [
 const CategoryMuebles = () => {
 	return (
 		<Layout title='Muebles | Pedidos.com'>
+			
 			<HeroCategory
 				title='Muebles'
 				description='Lo escencial'

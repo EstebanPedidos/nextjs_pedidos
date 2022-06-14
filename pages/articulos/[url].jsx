@@ -21,6 +21,7 @@ import ProductTab   from './ProductTab';
 import Alertas from '../checkout/Alertas'
 import { Layout } from 'layout/Layout';
 import ReviewItem from './ReviewItem';
+import Gallery  from './Gallery/index'
 //Modales
 import Cotizar from "./Modales/Cotizar";
 
@@ -432,71 +433,70 @@ export default function FichaTecnica(props){
                                                             />
                                                         }
                                                     </Box>
-                                                    
-                                                    <Swiper
-                                                    style={{
-                                                    "--swiper-navigation-color": "#fff",
-                                                    "--swiper-pagination-color": "#fff",
-                                                    }}
-                                                    loop={true}
-                                                    spaceBetween={10}
-                                                    navigation={true}
-                                                    thumbs={{ swiper: thumbsSwiper }}
-                                                    modules={[FreeMode, Navigation, Thumbs]}
-                                                    className="mySwiper2"
-                                                    >
-                                                        <SwiperSlide>
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`}  alt={datos.item_num} />
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                           
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                            
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </SwiperSlide>
-                                                        {(datos.hasOwnProperty('item_num'))&&
-                                                            (datos.descripcion.descripcion.hasOwnProperty("link"))&&
-                                                                datos.descripcion.descripcion.link.split(',').map((link, index) => (
-                                                                    <SwiperSlide key={index}>  
-                                                                        <Box component="div" py={6} alignItems="center" sx={{backgroundColor:'#000000',borderRadius:'8px'}}>
-                                                                            <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts} onReady={onPlayerReady}/>
-                                                                        </Box>
-                                                                    </SwiperSlide>
-                                                                ))
-                                                        }                                                                                                           
-                                                    </Swiper>
-                                                    <Swiper
-                                                        onSwiper={setThumbsSwiper}                                                        
+                                                    <Box component="div" p={2}>
+                                                        <Swiper
+                                                        style={{
+                                                        "--swiper-navigation-color": "#424242",
+                                                        "--swiper-pagination-color": "#424242",
+                                                        }}
+                                                        loop={true}
                                                         spaceBetween={10}
-                                                        slidesPerView={4}
-                                                        freeMode={true}
-                                                        watchSlidesProgress={true}
+                                                        navigation={true}
+                                                        thumbs={{ swiper: thumbsSwiper }}
                                                         modules={[FreeMode, Navigation, Thumbs]}
-                                                        className="mySwiper"
-                                                    >
-                                                        <SwiperSlide>
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num} />
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </SwiperSlide>
-                                                        {(datos.hasOwnProperty('item_num'))&&
-                                                            (datos.descripcion.descripcion.hasOwnProperty("link"))&&
-                                                                datos.descripcion.descripcion.link.split(',').map((link, index) => (
-                                                                    <SwiperSlide key={index}>
-                                                                        <Box component="div" py={2} alignItems="center">
-                                                                        <img width={'80%'}  height={'80%'} layout="responsive" src={`https://img.youtube.com/vi${(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length)}/0.jpg`} alt={datos.item_num}/>
-                                                                        </Box>
-                                                                    </SwiperSlide>
-                                                                ))
-                                                        }                                                       
-                                                    </Swiper>
-                                                    
+                                                        className="mySwiper2"
+                                                        >
+                                                            <SwiperSlide>                                                           
+                                                                <Gallery item_num={datos.item_num} indice={0} estatus_img={datos.estatus_img} link={''} links={(datos.descripcion.descripcion.hasOwnProperty("link"))?datos.descripcion.descripcion.link:''}/>
+                                                            </SwiperSlide>
+                                                            <SwiperSlide>
+                                                                <Gallery item_num={datos.item_num} indice={1} estatus_img={datos.estatus_img} link={''} links={(datos.descripcion.descripcion.hasOwnProperty("link"))?datos.descripcion.descripcion.link:''}/> 
+                                                            </SwiperSlide>
+                                                            <SwiperSlide>
+                                                                <Gallery item_num={datos.item_num} indice={2} estatus_img={datos.estatus_img} link={''} links={(datos.descripcion.descripcion.hasOwnProperty("link"))?datos.descripcion.descripcion.link:''}/>                                                            
+                                                            </SwiperSlide>
+                                                            {(datos.hasOwnProperty('item_num'))&&
+                                                                (datos.descripcion.descripcion.hasOwnProperty("link"))&&
+                                                                    datos.descripcion.descripcion.link.split(',').map((link, index) => (
+                                                                        <SwiperSlide key={index}>  
+                                                                            <Box component="div" py={6} alignItems="center" sx={{backgroundColor:'#000000',borderRadius:'8px', margin:'auto'}}>
+                                                                                <Gallery  sx={{ margin:'auto'}} item_num={datos.item_num} indice={(3+index)} estatus_img={datos.estatus_img} link={link} links={datos.descripcion.descripcion.link}/> 
+                                                                                {/* <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts} onReady={onPlayerReady}/> */}
+                                                                            </Box>
+                                                                        </SwiperSlide>
+                                                                    ))
+                                                            }                                                                                                           
+                                                        </Swiper>
+                                                        <Swiper
+                                                            onSwiper={setThumbsSwiper}                                                        
+                                                            spaceBetween={10}
+                                                            slidesPerView={4}
+                                                            freeMode={true}
+                                                            watchSlidesProgress={true}
+                                                            modules={[FreeMode, Navigation, Thumbs]}
+                                                            className="mySwiper"
+                                                        >
+                                                            <SwiperSlide>
+                                                                <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num} />
+                                                            </SwiperSlide>
+                                                            <SwiperSlide>
+                                                                <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                            </SwiperSlide>
+                                                            <SwiperSlide>
+                                                                <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                            </SwiperSlide>
+                                                            {(datos.hasOwnProperty('item_num'))&&
+                                                                (datos.descripcion.descripcion.hasOwnProperty("link"))&&
+                                                                    datos.descripcion.descripcion.link.split(',').map((link, index) => (
+                                                                        <SwiperSlide key={index}>
+                                                                            <Box component="div" py={2} alignItems="center">
+                                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://img.youtube.com/vi${(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length)}/0.jpg`} alt={datos.item_num}/>
+                                                                            </Box>
+                                                                        </SwiperSlide>
+                                                                    ))
+                                                            }                                                       
+                                                        </Swiper>
+                                                    </Box>
                                                 </Box>
                                                 :
                                                 <Box sx={{ pt: 0.5 }}>
