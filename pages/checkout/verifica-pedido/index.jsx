@@ -6,6 +6,7 @@ import {useLocalStorage} from '../../../hooks/useLocalStorage'
 //next js
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head'
 //Paquetes
 import {
 	Box,
@@ -306,7 +307,7 @@ export default function Verifica_pedido() {
 	 		cliente     = await (parseInt(cliente) === 0)?201221:cliente
 		let usuario     = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
 			usuario     = await (parseInt(usuario) === 0)?RandomUser():usuario
-		let datos               = await '/carritoyreservado/modificaSegGaran?clienteNum='+cliente+'&usuarioNum='+usuario+'&itemNum='+item.item_num+'&idInt='+((opcion===1)?item.cantidad:0)+'&seguro='+((opcion === 2)?(tipo==='S')?1:0:item.cantSeguro)+'&itemGarantia='+((parseInt(item.cantGarant1)> 0)?'ZZZGAEXT1':'ZZZGAEXT2')+'&garantia='+((opcion === 2)?(tipo === 'G')?1:0:((parseInt(item.cantGarant1)> 0)?parseInt(item.cantGarant1):parseInt(item.cantGarant2)))+'&opcion='+opcion
+		let datos       = await '/carritoyreservado/modificaSegGaran?clienteNum='+cliente+'&usuarioNum='+usuario+'&itemNum='+item.item_num+'&idInt='+((opcion===1)?item.cantidad:0)+'&seguro='+((opcion === 2)?(tipo==='S')?1:0:item.cantSeguro)+'&itemGarantia='+((parseInt(item.cantGarant1)> 0)?'ZZZGAEXT1':'ZZZGAEXT2')+'&garantia='+((opcion === 2)?(tipo === 'G')?1:0:((parseInt(item.cantGarant1)> 0)?parseInt(item.cantGarant1):parseInt(item.cantGarant2)))+'&opcion='+opcion
 		if(cliente !== 201221){
 				Services(
 						'PUT',
@@ -416,6 +417,11 @@ export default function Verifica_pedido() {
 
 	return (
 		<Layout partidas={partidas2}>
+			<Head>
+				<title> Carrito de compras | Pedidos.com </title>
+  				<meta name="description" content="Pedidos.com, la tienda en línea con amplia variedad de productos. Encuentra ya papelería, tintas y tóners, tecnología, accesorios, muebles, tlapalería, limpieza, cafeteria y ¡Mucho más!. Todo lo que necesitas para tu oficina, negocio, escuela y hogar lo encuentras aquí." />
+  				<link rel="canonical" href="/checkout/verifica-pedido.asp" />
+			</Head>
 		<Box component='div' m={1}>
 			<div className={classes.root}>
 				<Grid
