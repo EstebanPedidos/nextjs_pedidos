@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ModalExecutive({resenapedidos,setEjecutivo,ejecutivo}) {
   const classes         = useStyles();
   const [modalStyle]    = useState(getModalStyle);
-  const [open, setOpen] = useState(false);resenapedidos
+  const [open, setOpen] = useState(false);
   const [resenapedidosR,setResenapedidosR] = useState([])
 
   useEffect(()=>{
