@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect,useState} from "react";
 import Link from 'next/link'
 //MUI
 import {Container, Box, Grid, Paper, Button, Typography, FormControl, Tab,AppBar,Table,TableBody,
@@ -28,6 +28,12 @@ export default function Login(){
     const [isLogged, setLogged] = useState(false);
     const [intentos, setIntentos] = useState(0);
     const [alerta,setAlerta] = useState({})
+    const [url, setUrl] = useState('');
+
+    useEffect(() => {
+        setUrl(localStorage.getItem('URL') )
+    }, []) 
+
     
     const handleChange = (event) => {
         const name = event.target.name;
@@ -77,9 +83,11 @@ export default function Login(){
                 (favoritos) => favoritos.tipo === "F")
 
             localStorage.setItem('Favoritos', data1.length) 
+            }else{
+                localStorage.setItem('Favoritos', 0) 
             }
             
-            if(localStorage.getItem('URL') === undefined || localStorage.getItem('URL') === null){
+            if( url === undefined || url === null || url === ''){
                 ruter.push('/Home')
             }else{
                 // ruter.push(localStorage.getItem('URL'))

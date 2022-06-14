@@ -32,6 +32,11 @@ export const HomeSite = () => {
         let afiliado =  localStorage.getItem('afiliado')
         let login =  localStorage.getItem('Login')
 
+        if(login ==="NO" || login === undefined || login === null || clienteNum === 0){
+           
+        }else{
+            router.push('/Home')
+        }
 
 
     }, []) 

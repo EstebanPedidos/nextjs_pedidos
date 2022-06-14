@@ -29,6 +29,7 @@ import ServiceSlides from 'components/home/serviceSlides';
 import ForBusiness from 'components/home/forBusiness';
 import Brands from 'components/home/Brands';
 import MainSlideShow from 'components/home/mainSlideShow';
+import { isObjectBindingPattern } from 'typescript';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -98,11 +99,11 @@ export default function Home() {
     const [modal, setModal] = React.useState('');
     const [nombre, setNombre] = React.useState('');
     const [isLogged, setLogged] = React.useState(false);
-    const [mostrarEmpresas, setMostrarEmpresas] = React.useState(true);
     const [vistos, setVistos] = useState([]);
     const [favoritos, setFavoritos] = useState([]);
     const [carrito, setCarrito] = useState([]);
     const [show, setShow] = useState({});
+    const [loaded, setLoaded] = useState(false);
 
     let Login = '';
     let Cliente= 0;
@@ -120,11 +121,15 @@ export default function Home() {
         console.log("UsuarioNum"+UsuarioNum)
         let afiliado =  localStorage.getItem('afiliado')
 
-        if(Login!=="NO" || Login !== undefined || Login !== null){
+        if(Cliente === 0 || Login === "NO" || afiliado === undefined){
+            router.push('/')
+        }else{
 
-                const getData = async () => {
-                    Services('POST','/registrov2/obtieneItemsHome?clienteNum='+Cliente+'&top='+10+'&usuarioNum='+UsuarioNum,{})
-                    .then( response =>{
+            const getData = async () => {
+                Services('POST','/registrov2/obtieneItemsHome?clienteNum='+Cliente+'&top='+10+'&usuarioNum='+UsuarioNum,{})
+                .then( response =>{
+
+                    if(response.data.favoritosFrecuentes !=="VACIO"){
                         response.data.favoritosFrecuentes.map ((row, index) => {
                             if( row.tipo === 'B'){
                                 setShow(values => ({...values, ['Carrito']: true}))
@@ -133,9 +138,7 @@ export default function Home() {
                             }else if(row.tipo === 'V'){
                                 setShow(values => ({...values, ['Vistos']: true}))
                             }
-                            
                         })
-
                         setCarrito(response.data.favoritosFrecuentes.filter(
                             (favoritosFrec) => favoritosFrec.tipo === "B"
                         )) 
@@ -145,17 +148,17 @@ export default function Home() {
                         setVistos(response.data.favoritosFrecuentes.filter(
                             (favoritosFrec) => favoritosFrec.tipo === "V"
                         ));
-                    }).catch(error => {
-                        console.log("falló")
-                        console.log(error.response)
-                    });
-                }
-                getData()
-        
-            }else{
-                router.push('/')
-        
-            } 
+
+                        setLoaded(true);
+                    }
+                }).catch(error => {
+                    console.log("falló")
+                    console.log(error.response)
+                });
+            }
+            getData()
+
+        }
     }, []) 
 
     const validaSesion= () =>{
@@ -176,69 +179,12 @@ export default function Home() {
         setOpen(false);
     };
 
-    const Empresas = (
-        <span>
-            <Grid container spacing={spacing}>
-                <Grid item xs={3}> 
-                    <Card className={classes.root}>
-                        <CardContent>
-                            <Link href="/Membresia/pro">
-                                <a>
-                                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                    ¡Empresas! Envío Gratis CDMX
-                                </Typography>
-                                </a>
-                            </Link>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={3}> 
-                    <Card className={classes.root}>
-                        <CardContent>
-                            <Link href="/MisPedidos">
-                                <a>
-                                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                    Mis Pedidos
-                                </Typography>
-                                </a>
-                            </Link>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={3}> 
-                    <Card className={classes.root}>
-                        <CardContent>
-                            <Button onClick={(event) => { event.preventDefault(); window.open('https://api.whatsapp.com/send?phone=5215562947884&text=Pedidos.com%20ayudame%20a%20cotizar%20por%20volumen', '_blank');}}>
-                                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                    Precio por volumen
-                                </Typography>
-                            </Button>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={3}> 
-                    <Card className={classes.root}>
-                        <CardContent>
-                            <Link href="/MisFacturas">
-                                <a>
-                                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                    Mis Facturas
-                                </Typography>
-                                </a>
-                            </Link>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            </Grid>
-        </span>
-    )
+ 
 
     return(
         <Layout title="Pedidos.com | Todo para tu espacio de trabajo">
+        {loaded === true ?
         <div>
-            {/* <Grid item xs={12}> 
-                <Button  onClick={(event) => { event.preventDefault();setMostrarEmpresas(false)}}>Empresas</Button>
-            </Grid> */}
             <Box component="div" sx={{ background:'#f6f7f9', position:'relative' }}>
                 <Box component="div" className={styles.boxbluetop}>
                     <Container maxWidth="xl">
@@ -255,6 +201,7 @@ export default function Home() {
                                 <Divider variant="middle"/>  
                                 <MenuAccount />
                             </Grid>
+                            
                             <Grid item xs={12} sx={{zIndex:1}} mb={2}>
                                 <Grid container justifyContent="space-between" alignItems="flex-start" spacing={2}>
                                     <Grid item xs={12} sm={12} lg={6}>
@@ -350,7 +297,7 @@ export default function Home() {
                                                                         {vistos.map((row, index) => (
                                                                             row.tipo === 'V' && index < 4 &&
                                                                             <Grid item xs={6} sm={3} md={3}>
-                                                                                 <Box component="div">
+                                                                                <Box component="div">
                                                                                     <Link href={`/articulos/${row.itemNum}`}>
                                                                                         <a>
                                                                                             <CardActionArea>
@@ -549,47 +496,23 @@ export default function Home() {
                                     </Grid>
                                 </Grid>
                             </Grid>
+                            
                         </Grid>
                     </Container>
                 </Box>
             </Box>
            
-            {/* <Box component="div" py={2}>
-                    <Grid container justifyContent="center" alignItems="center" spacing={2}>
-                        <Grid item>
-                            <a href={'/Direcciones'}><Chip label="Mis Direcciones"/></a>
-                        </Grid>
-                        <Grid item>
-                            <a href={'/MisFacturas'}>
-                                <Chip label="Mis Facturas"/>
-                            </a>
-                        </Grid>
-                        <Grid item>
-                            <a href={'/DatosFacturacion'}><Chip label="Datos de Facturación"/></a>
-                               
-                        </Grid>
-                        <Grid item>
-                            <Button 
-                            onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones&body=Completar%20la%20siguiente%20información%0D%0APedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
-                            >
-                                <Chip label="Garantias y Devoluciones"/>
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <a href={'/MisDatos'}><Chip label="Configurar" variant="outlined"/></a>
-                        </Grid>
-                        
-                    </Grid>
-            </Box> */}
             <Box component="div" className={styles.promoContainer}>
  				<PromoSlides />
  			</Box>
-             <Box component="div" py={6} textAlign="center">
+
+            <Box component="div" py={6} textAlign="center">
                 <Typography variant="h4" component="h2" sx={{fontWeight:'600'}}>
                     Todo para tu espacio de trabajo.
                 </Typography>
             </Box>
-		    <Divider />
+
+		    <Divider/>
             <Box component="div" py={2} textAlign="left">
                 <Box> 
                     <Container maxWidth="xl">
@@ -602,21 +525,25 @@ export default function Home() {
                     </Container>
                 </Box>
 		    </Box>
+
             <Box component="div" py={2} textAlign="left">
 				<Box component="div" py={4}>
 					<ForBusiness />
 				</Box>
 			</Box>
+
             <Box component="div" py={2} textAlign="left">
 				<Box component="div" py={2}>
 					<Brands/>
 				</Box>
 			</Box>
+
             <Box component="div" py={2} textAlign="left">
 				<Box component="div" py={2}>
 					<MainSlideShow />
 				</Box>
 			</Box>
+
             {/* Inicio de sugerencias */}
             <Box component="div" mt={4} py={4} textAlign="left" sx={{position:'relative'}}>
 				<Box component="div" className={styles.boxbbc}>
@@ -728,7 +655,7 @@ export default function Home() {
 					</Container>
 				</Box>
 			</Box>
-                     
+        
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -775,9 +702,26 @@ export default function Home() {
                 </Fade>
             </Modal>
 
-
-            
         </div>
+        : 
+        <div>
+            <Box sx={{ pt: 0.5 }}>
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+            </Box>
+            <Grid container wrap="nowrap" >
+                
+                    <Skeleton variant="rectangular" width={600} height={250} />
+                    <Skeleton variant="rectangular" width={300} height={250} />
+                    <Skeleton variant="rectangular" width={300} height={250} />
+
+            </Grid>
+            <Box sx={{ pt: 0.5 }}>
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+            </Box>
+         </div>
+    }
         </Layout>
 
 
