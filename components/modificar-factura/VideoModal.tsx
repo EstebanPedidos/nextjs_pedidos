@@ -62,7 +62,11 @@ export default function VideoModal({ open, setOpen }: Props) {
   const handleClose = () => {
     setOpen(false);
   };
-  
+  const opts = {height: '390',width: '640',playerVars: {autoplay: 1,},}
+
+    const onPlayerReady = (event) => {
+        event.target.pauseVideo();
+    }
 
   return (
     <div>
@@ -77,7 +81,7 @@ export default function VideoModal({ open, setOpen }: Props) {
             <DialogContent dividers>
             <Grid container spacing={4}>
                 <Grid item xs={8}>
-                  <YouTube videoId={'https://youtu.be/MGuOo1_xpBI'} opts={opts} onReady={onPlayerReady}/>
+                  <YouTube videoId={'MGuOo1_xpBI'} opts={opts} onReady={onPlayerReady}/>
                     
                 </Grid>
                 <Grid item xs={4}>
