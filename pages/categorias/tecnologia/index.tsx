@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import HeroCategory from 'components/HeroCategory';
-import ImageCarouselSection from 'components/ImageCarouselSection';
 import ToutCard from 'components/ToutCard';
 
 import { Layout } from 'layout/Layout';

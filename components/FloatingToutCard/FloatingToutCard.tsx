@@ -5,7 +5,18 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Link from 'components/Link';
 
 const FloatingToutCard = (props) => {
-	const { title, src, href, cta, floatingTitle, links, sx } = props;
+	const {
+		title,
+		subtitle,
+		src,
+		href,
+		cta,
+		floatingTitle,
+		centeredTitle,
+		links,
+		sx,
+		children,
+	} = props;
 	return (
 		<Box component={href ? Link : 'div'} href={href} underline='none'>
 			<Box
@@ -43,13 +54,19 @@ const FloatingToutCard = (props) => {
 						sx={{
 							position: 'absolute',
 							top: '40%',
-							left: '10%',
+							left: centeredTitle ? '37%' : '10%',
 
 							'& > strong': {
 								display: 'block',
 								color: '#424242',
 								fontWeight: 700,
 								fontSize: 21,
+							},
+
+							'& > span': {
+								color: 'orange',
+								fontWeight: 700,
+								fontSize: 20,
 							},
 						}}
 					/>
@@ -84,6 +101,8 @@ const FloatingToutCard = (props) => {
 					</Box>
 				)}
 
+				{children}
+
 				<Box
 					className='cta-text'
 					sx={{
@@ -95,7 +114,7 @@ const FloatingToutCard = (props) => {
 						transform: 'translateY(2.25rem)',
 						transition: '0.4s',
 						px: 2,
-						pt: 3,
+						pt: 2,
 						pb: 2,
 					}}>
 					{!floatingTitle && (
@@ -113,11 +132,25 @@ const FloatingToutCard = (props) => {
 									color: 'orange',
 								},
 							}}
-							gutterBottom
 						/>
 					)}
 
-					<Box display='flex' alignItems='center' gap={1}>
+					{subtitle && (
+						<Typography
+							fontSize={15}
+							color='#757575'
+							mb={1.5}
+							dangerouslySetInnerHTML={{
+								__html: subtitle,
+							}}
+						/>
+					)}
+
+					<Box
+						display='flex'
+						alignItems='center'
+						gap={1}
+						mt={!floatingTitle && title ? 2 : 0}>
 						<Typography variant='caption' color='#717171' fontWeight={500}>
 							{cta ?? 'Ver más'}
 						</Typography>

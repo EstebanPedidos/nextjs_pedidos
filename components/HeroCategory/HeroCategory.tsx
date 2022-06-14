@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import BrandCarousel from 'components/BrandCarousel';
 
 const HeroCategory = (props) => {
-	const { title, description, bgImg, categoryItems } = props;
+	const { title, description, bgImg, categoryItems, sx } = props;
 
 	return (
 		<>
@@ -14,6 +14,7 @@ const HeroCategory = (props) => {
 				sx={{
 					background: `url(${bgImg}) center top no-repeat`,
 					backgroundSize: 'cover',
+					...sx,
 				}}>
 				<Container maxWidth='xl'>
 					<Box
