@@ -479,7 +479,7 @@ export default function MisPedidos() {
     )
 
     return(
-        <Layout partidas={partidas}>
+        <Layout partidas={partidas} title="Mis Pedidos | Pedidos.com">
         <div>
              <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>

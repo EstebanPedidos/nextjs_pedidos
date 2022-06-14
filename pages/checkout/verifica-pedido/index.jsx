@@ -353,6 +353,7 @@ export default function Verifica_pedido() {
 				}
 			}
 		}else{
+            localStorage.setItem('URL', '/checkout/verfica-pedido');
 			ruter.push('/Login')
 		}
 	}

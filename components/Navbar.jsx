@@ -215,6 +215,7 @@ export function Navbar(props) {
 		localStorage.setItem('Usuario', RandomUser());
 		localStorage.setItem('afiliado', '');
         localStorage.setItem('pedido', 0);
+        localStorage.setItem('URL', '');
 		ruter.push('/');
 	}
 

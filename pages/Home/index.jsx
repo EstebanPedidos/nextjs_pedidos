@@ -120,8 +120,7 @@ export default function Home() {
         console.log("UsuarioNum"+UsuarioNum)
         let afiliado =  localStorage.getItem('afiliado')
 
-        if(Cliente !== undefined && Cliente !== null && afiliado !== undefined && afiliado !== null){
-            if(parseInt(Cliente) !== 201221){
+        if(Login!=="NO" || Login !== undefined || Login !== null){
 
                 const getData = async () => {
                     Services('POST','/registrov2/obtieneItemsHome?clienteNum='+Cliente+'&top='+10+'&usuarioNum='+UsuarioNum,{})
@@ -155,10 +154,8 @@ export default function Home() {
         
             }else{
                 router.push('/')
+        
             } 
-        }else{
-            router.push('/')
-        } 
     }, []) 
 
     const validaSesion= () =>{
@@ -237,7 +234,7 @@ export default function Home() {
     )
 
     return(
-        <Layout>
+        <Layout title="Pedidos.com | Todo para tu espacio de trabajo">
         <div>
             {/* <Grid item xs={12}> 
                 <Button  onClick={(event) => { event.preventDefault();setMostrarEmpresas(false)}}>Empresas</Button>

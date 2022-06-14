@@ -814,7 +814,7 @@ export default function Pedido(props) {
     )
     
     return(
-        <Layout partidas={partidas}>
+        <Layout partidas={partidas} title={"Mi Pedido #"+pedido+" | Pedidos.com"}>
         <div>
             <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>
