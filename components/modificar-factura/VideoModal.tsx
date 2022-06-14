@@ -12,7 +12,8 @@ import {
     IconButton,
     DialogTitle,    
 } from '@mui/material'
-
+//youtube
+import YouTube from 'react-youtube';
 interface Props {
     open: boolean, 
     setOpen: Function,
@@ -61,6 +62,11 @@ export default function VideoModal({ open, setOpen }: Props) {
   const handleClose = () => {
     setOpen(false);
   };
+  const opts = {height: '390',width: '640',playerVars: {autoplay: 1,},}
+
+    const onPlayerReady = (event) => {
+        event.target.pauseVideo();
+    }
 
   return (
     <div>
@@ -75,7 +81,8 @@ export default function VideoModal({ open, setOpen }: Props) {
             <DialogContent dividers>
             <Grid container spacing={4}>
                 <Grid item xs={8}>
-                    <iframe style={{border: 0}} width="100%" height="400" src="https://www.youtube.com/embed/MGuOo1_xpBI" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>                        
+                  <YouTube videoId={'MGuOo1_xpBI'} opts={opts} onReady={onPlayerReady}/>
+                    
                 </Grid>
                 <Grid item xs={4}>
                     <h1>¿Cómo Refacturar?</h1>

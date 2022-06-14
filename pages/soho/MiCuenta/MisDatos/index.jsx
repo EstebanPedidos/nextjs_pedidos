@@ -31,11 +31,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  modal: { display: 'flex', alignItems: 'center', justifyContent: 'center',},
   paper: {
     position: 'absolute',
     backgroundColor: theme.palette.background.paper,
@@ -51,6 +47,11 @@ const useStyles = makeStyles((theme) => ({
 opacityBox: {
     opacity:'0.40',
 },
+boxevaluation: {
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: '8px',
+    padding: theme.spacing(1),
+  },
 }));
 
 export default function MisDatos() {
@@ -820,13 +821,13 @@ export default function MisDatos() {
                                     </Box>
                                 </Grid>
                                 {ultimoTransportista.layoutMail.comentario !=="NOHAYPEDIDOSENTREGADOS" && ultimoTransportista.layoutMail.comentario !=="ENTREGADOSINRESENANULL" && ultimoTransportista.layoutMail.comentario !=="ERRORALCONSULTARTRANSPORTISTA" &&
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={12} lg={6}>
                                     <Box component="div" textAlign="left" pb={2}>
                                         <Typography variant="body1" color="textSecondary">
                                             <Box component="div" textAlign="left">TE ENTREGO TU ÚLTIMO PEDIDO</Box>
                                         </Typography>
                                     </Box>
-                                    <Card className={classes.root }elevation={10}>
+                                    <Card className={classes.boxevaluation} sx={{boxShadow:'0px 0px 16px rgb(54 85 166 / 8%), 0px 1px 4px rgb(54 85 166 / 8%);'}}>
                                         <Box component="div" m={1}>
                                             <CardContent >
                                             <Grid
@@ -836,7 +837,7 @@ export default function MisDatos() {
                                                 alignItems="center"
                                             >
                                                 <Grid item>
-                                                    <LocalShippingOutlinedIcon color="textSecondary" fontSize="large"/>
+                                                    <LocalShippingOutlinedIcon sx={{color:'#9298A7'}} fontSize="large"/>
                                                 </Grid>
                                                 <Grid item>
                                                     <Box component="div" py={1} textAlign="left">
@@ -1311,37 +1312,41 @@ export default function MisDatos() {
             <Fade in={open}>
             <div className={classes.paper}>
                     <Box component="div" textAlign="center" m={1} py={2}>
-                        <Typography component="h3" variant="h5">
-                            <Box component="span" fontWeight="fontWeightMedium">
-                                ¿Qué te pareció el servicio brindado?
-                            </Box>
-                        </Typography>
-
-                        <Typography component="h3" variant="h6">
-                            <Box component="span" fontWeight="fontWeightMedium">
-                                Nos gustaría saber como te atendió {ultimoTransportista.nombre} {ultimoTransportista.paterno} 
-                            </Box>
+                        <Typography component="h3" variant="h5" fontWeight="fontWeightMedium">
+                            Califica tu última entrega
                         </Typography>
                         <Box component="div" py={1}>
-                        <Divider/>
+                            <Divider/>
                         </Box>
+                      <Typography component="subtitle1"  gutterBottom>
+                          La atención de {ultimoTransportista.nombre} {ultimoTransportista.paterno} fue</Typography>
                     </Box>
                     <Grid container justifyContent="center" spacing={2}>
                         <Grid item xs={12}>
-                            <Rating
-                            name="simple-controlled"
+                        <Box sx={{
+                                    width: 200,
+                                    display: 'flex',
+                                    alignItems: 'center', margin:'auto',
+                                }}
+                                >
+                            <Rating px={4} sx={{justifyContent:'center'}}
+                            name="simple-controlled" size="large"
                             value={value}
                             onChange={(event, newValue) => {
                                 setValue(newValue);
                             }}
                             />
+                        </Box>
                         </Grid>
                         <Grid item xs={12}>
+                        <Box sx={{ alignItems: 'center', margin:'auto', }} >
                             <TextareaAutosize aria-label="empty textarea" placeholder="Escribenos tu opinión" />
+                        </Box>
                         </Grid>
                     </Grid>
                     <CardActionArea >
-                        <Button color="primary">Enviar</Button>
+                        
+                        <Button type="button" variant="contained" fullWidth size="large" color="primary" disableElevation>Enviar</Button>
                     </CardActionArea>
                 </div>
             </Fade>
