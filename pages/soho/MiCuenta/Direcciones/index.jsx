@@ -172,7 +172,7 @@ export default function Direcciones() {
 	}
 
 	return (
-		<Layout>
+		<Layout title="Mis Direcciones | Pedidos.com"> 
 				<Box className={classes.bgcontent} component='div'>
 					<Box component='div' m={1}>
 						<Grid

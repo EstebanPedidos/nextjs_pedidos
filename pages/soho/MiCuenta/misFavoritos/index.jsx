@@ -114,7 +114,7 @@ export default function MisFavoritos() {
                         setResultado(true)
                                                
                         setItemsFavoritosC(response.data.favoritosFrecuentes.filter(
-                            (favoritosFrec, index) => index < 1 && favoritosFrec.tipo === "C"
+                            (favoritosFrec) => favoritosFrec.tipo === "C"
                                               
                         ));
 
@@ -240,11 +240,12 @@ export default function MisFavoritos() {
                                         <Typography variant="subtitle1">Proxima compra en {row.diasRestantes} días</Typography>
                                         <LinearProgress 
                                             variant="determinate" value={(100 - (row.diasRestantes * 100)/row.diasPromedio)}
-                                            sx={{
-                                                '& .MuiLinearProgress-bar1Determinate': {
-                                                    backgroundColor: colorLinearProgress(100 - (row.diasRestantes * 100)/row.diasPromedio),
-                                                }
-                                            }}
+                                            // Se comenta esto por que si no aparece el error Too many re-renders. React limits the number of renders to prevent an infinite loop
+                                            // sx={{
+                                            //     '& .MuiLinearProgress-bar1Determinate': {
+                                            //         backgroundColor: colorLinearProgress(100 - (row.diasRestantes * 100)/row.diasPromedio),
+                                            //     }
+                                            // }}
                                         />
                                     </Box>
                                     }
@@ -394,7 +395,7 @@ export default function MisFavoritos() {
     )
 
     return(
-        <Layout favoritos={favoritos} partidas={partidas}>
+        <Layout favoritos={favoritos} partidas={partidas} title="Mis Favoritos | Pedidos.com">
         <div>
             <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>

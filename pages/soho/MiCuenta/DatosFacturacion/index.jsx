@@ -118,7 +118,7 @@ export default function DatosFacturacion() {
     }
 
     return(
-        <Layout>
+        <Layout title="Mis Datos de Facturaci&oacute;n">
          
         <div>
             <Box className={classes.bgcontent} component="div">

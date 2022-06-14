@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect,useState} from "react";
 import Link from 'next/link'
 //MUI
 import {Container, Box, Grid, Paper, Button, Typography, FormControl, Tab,AppBar,Table,TableBody,
@@ -7,6 +7,7 @@ import makeStyles from '@mui/styles/makeStyles';
 
 //Componentes
 import { Layout } from 'layout/Layout';
+import Alertas from '../checkout/Alertas'
 
 //Servicios
 import Services from '../services/Services'
@@ -25,8 +26,14 @@ export default function Login(){
     const paperStyle={padding:40, height: 'auto', width:450, maxWidth:'90%', margin:"30px auto"}
     const [inputs, setInputs] = useState({});
     const [isLogged, setLogged] = useState(false);
-    
-    
+    const [intentos, setIntentos] = useState(0);
+    const [alerta,setAlerta] = useState({})
+    const [url, setUrl] = useState('');
+
+    useEffect(() => {
+        setUrl(localStorage.getItem('URL') )
+    }, []) 
+
     
     const handleChange = (event) => {
         const name = event.target.name;
@@ -52,21 +59,40 @@ export default function Login(){
             localStorage.setItem('iniciales', false)
             localStorage.setItem('iniciales', "")
             localStorage.setItem('Nombre_corto', "")
-            ruter.push('/Contra')
+            setIntentos(intentos+1);
+            setAlerta({severity:'error',mensaje:'Correo o Contraseña incorrecta',vertical:'bottom',horizontal:'right',variant:'filled'})
+            if(intentos > 2){
+                ruter.push('/Contra')
+            }
         }else{
             localStorage.setItem('Usu_Nomb', data.usuario.nombre)
             localStorage.setItem('Email', data.usuario.email)
             localStorage.setItem('Cliente', data.usuario.clienteNum)
             localStorage.setItem('Usuario', data.usuario.usuarioNum)
-            localStorage.setItem('Favoritos', data.usuario.favoritos)
             localStorage.setItem('SesPartidas', data.usuario.partidas)
             localStorage.setItem('Token', data.usuario.token)
             localStorage.setItem('Login', 'Ok')
             localStorage.setItem('afiliado', data.usuario.afiliacion)
             localStorage.setItem('nivelAcceso', data.usuario.nivelAcceso)
             setLogged(true);
-            ruter.push('/Home')
-            // refreshPage();
+
+            let services1        = await Services('POST','/miCuenta/obtieneFavoritosFrecuentes?clienteNum='+data.usuario.clienteNum,{})
+            let data1            = await services1.data.favoritosFrecuentes;
+            if(data1 !== "VACIO"){
+            data1 = data1.filter(
+                (favoritos) => favoritos.tipo === "F")
+
+            localStorage.setItem('Favoritos', data1.length) 
+            }else{
+                localStorage.setItem('Favoritos', 0) 
+            }
+            
+            if( url === undefined || url === null || url === ''){
+                ruter.push('/Home')
+            }else{
+                // ruter.push(localStorage.getItem('URL'))
+                ruter.push('/checkout/verifica-pedido')
+            }
         }
       }
     
@@ -113,6 +139,9 @@ export default function Login(){
                         </Box>
                     </Paper>
                 </Container> 
+                {(alerta.hasOwnProperty('severity'))&&
+                    <Alertas setAlerta={setAlerta} alerta={alerta}/>
+                } 
             </Layout>  
         </React.Fragment>  
     )

@@ -513,7 +513,7 @@ export default function MisFacturas() {
     )
 
     return(
-        <Layout>
+        <Layout title="Mis Facturas | Pedidos.com">
         <div>
             <Box className={classes.bgcontent} component="div">
                 <Box component="div" m={1}>

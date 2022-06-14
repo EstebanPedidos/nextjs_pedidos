@@ -51,7 +51,7 @@ import {
     DialogTitle, 
     Accordion, 
     AccordionSummary,
-    AccordionDetails, IconButton 
+    AccordionDetails, IconButton, Skeleton
 } from '@mui/material';
 import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -241,7 +241,7 @@ export default function Busquedas(props) {
 
 
     return(
-        <Layout>
+        <Layout title={url === undefined ? '' : url+" Compra en México Pedidos.com"}>
             <div className={classes.bgcontent}>
                 <InstantSearch 
                     indexName={indexX}
@@ -2009,151 +2009,162 @@ export default function Busquedas(props) {
 			<Box className={classes.rootCard}>
 				<Card elevation={0} className={classes.rootCardI}>
 					<Box py={2} px={2} component='div' className={classes.root}>
-						<Grid
-							container
-							direction='row'
-							justifyContent='space-around'
-							alignItems='center'
-							spacing={3}>
-							<Grid item xs={12} sm={4} lg={4} justify='center'>
-								<Link href={`/articulos/${props.hit.URL}`} 
-                                    onClick={() =>
-                                    insights('clickedObjectIDsAfterSearch', {
-                                        eventName: 'Product Clicked'
-                                    })
-                                    }
-                                >
-									<a>
-										<CardMedia
-											className={classes.cover}
-											component='img'
-											alt={props.hit.ITEM_NUM}
-											height='180'
-											image={
-												'https://pedidos.com/myfotos/large/(L)' +
-												props.hit.ITEM_NUM +
-												'.jpg'
-											}
-											title={props.hit.ITEM_NUM}
-										/>
-									</a>
-								</Link>
-							</Grid>
-							<Grid item xs={12} sm={8} lg={5}>
-								<Box textAlign='left'>
-									<CardContent className={classes.content}>
-										<Box
-											component='div'
-											display='flex'
-											pb={2}>
-											{props.hit.ENVIO_GRATIS ? (
-												<Paper
-													variant='outlined'
-													className={
-														classes.tagFreeShipping
-													}>
-													<Typography variant='subtitle2'>
-														Envío Gratis
-													</Typography>
-												</Paper>
-											) : (
-												''
-											)}
-											{props.hit.APLICA_EXPRESS ? (
-												<Paper
-													variant='outlined'
-													className={
-														classes.tagExpresshipping
-													}>
-													<Typography variant='subtitle2'>
-														Pídelo Express
-													</Typography>
-												</Paper>
-											) : (
-												''
-											)}
-										</Box>
-										<Link
-											href={`/articulos/${props.hit.URL}`}
-											className={classes.productLink}>
-											<a>
-												<Typography
-													component='body2'
-													variant='p'
-													textAlign='left'>
-													{props.hit.FILTROS.MARCA}
-												</Typography>
-												<Typography
-													variant='subtitle1'
-													className='hit-name'
-													color='textSecondary'>
-													<Highlight
-														attribute='TITULO'
-														hit={props.hit}
-													/>
-												</Typography>
-											</a>
-										</Link>
-										<div className='hit-description'>
-											<Typography
-												component='body2'
-												variant='p'>
-												Clave alterna:{' '}
-												<Highlight
-													attribute='SORT_NAME'
-													hit={props.hit}
-												/>
-											</Typography>
-										</div>
-									</CardContent>
-								</Box>
-							</Grid>
-							<Grid item xs={12} sm={12} lg={3} align='left'>
-								<Box component='div' m={1}>
-									<Typography
-										variant='h5'
-										component='body1'
-										className={classes.hitPrice}>
-										${props.hit.PRECIO}
-									</Typography>
-									<br></br>
-									{props.hit.PRECIO > 500 ? (
-										<Typography
-											component='body2'
-											variant='p'
-											style={{ color: 'green' }}>
-											Hasta 18 meses sin intereses
-										</Typography>
-									) : (
-										''
-									)}
-								</Box>
-								{props.hit.STOCK ?
-                                    <Link
-                                        href={`/articulos/${props.hit.URL}`}
-                                        className={classes.CTAlink}>
+                        {(props.hit.hasOwnProperty('ITEM_NUM'))?
+                            <Grid
+                                container
+                                direction='row'
+                                justifyContent='space-around'
+                                alignItems='center'
+                                spacing={3}
+                            >
+                                <Grid item xs={12} sm={4} lg={4} justify='center'>
+                                    <Link href={`/articulos/${props.hit.URL}`} 
+                                        onClick={() =>
+                                        insights('clickedObjectIDsAfterSearch', {
+                                            eventName: 'Product Clicked'
+                                        })
+                                        }
+                                    >
                                         <a>
-                                            <Button
-                                                variant='contained'
-                                                size='large'
-                                                color='secondary'
-                                                fullWidth>
-                                                Comprar
-                                            </Button>
+                                            <CardMedia
+                                                className={classes.cover}
+                                                component='img'
+                                                alt={props.hit.ITEM_NUM}
+                                                height='180'
+                                                image={
+                                                    'https://pedidos.com/myfotos/large/(L)' +
+                                                    props.hit.ITEM_NUM +
+                                                    '.jpg'
+                                                }
+                                                title={props.hit.ITEM_NUM}
+                                            />
                                         </a>
                                     </Link>
-                                :
-                                    <Button
-                                        variant='outlined'
-                                        size='large'
-                                        fullWidth
-                                        disableElevation
-                                        disabled>
-                                        Agotado
-                                    </Button>
-                                }
-							</Grid>
-						</Grid>
+                                </Grid>
+                                <Grid item xs={12} sm={8} lg={5}>
+                                    <Box textAlign='left'>
+                                        <CardContent className={classes.content}>
+                                            <Box
+                                                component='div'
+                                                display='flex'
+                                                pb={2}>
+                                                {props.hit.ENVIO_GRATIS ? (
+                                                    <Paper
+                                                        variant='outlined'
+                                                        className={
+                                                            classes.tagFreeShipping
+                                                        }>
+                                                        <Typography variant='subtitle2'>
+                                                            Envío Gratis
+                                                        </Typography>
+                                                    </Paper>
+                                                ) : (
+                                                    ''
+                                                )}
+                                                {props.hit.APLICA_EXPRESS ? (
+                                                    <Paper
+                                                        variant='outlined'
+                                                        className={
+                                                            classes.tagExpresshipping
+                                                        }>
+                                                        <Typography variant='subtitle2'>
+                                                            Pídelo Express
+                                                        </Typography>
+                                                    </Paper>
+                                                ) : (
+                                                    ''
+                                                )}
+                                            </Box>
+                                            <Link
+                                                href={`/articulos/${props.hit.URL}`}
+                                                className={classes.productLink}>
+                                                <a>
+                                                    <Typography
+                                                        component='body2'
+                                                        variant='p'
+                                                        textAlign='left'>
+                                                        {props.hit.FILTROS.MARCA}
+                                                    </Typography>
+                                                    <Typography
+                                                        variant='subtitle1'
+                                                        className='hit-name'
+                                                        color='textSecondary'>
+                                                        <Highlight
+                                                            attribute='TITULO'
+                                                            hit={props.hit}
+                                                        />
+                                                    </Typography>
+                                                </a>
+                                            </Link>
+                                            <div className='hit-description'>
+                                                <Typography
+                                                    component='body2'
+                                                    variant='p'>
+                                                    Clave alterna:{' '}
+                                                    <Highlight
+                                                        attribute='SORT_NAME'
+                                                        hit={props.hit}
+                                                    />
+                                                </Typography>
+                                            </div>
+                                        </CardContent>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={12} sm={12} lg={3} align='left'>
+                                    <Box component='div' m={1}>
+                                        <Typography
+                                            variant='h5'
+                                            component='body1'
+                                            className={classes.hitPrice}>
+                                            ${props.hit.PRECIO}
+                                        </Typography>
+                                        <br></br>
+                                        {props.hit.PRECIO > 500 ? (
+                                            <Typography
+                                                component='body2'
+                                                variant='p'
+                                                style={{ color: 'green' }}>
+                                                Hasta 18 meses sin intereses
+                                            </Typography>
+                                        ) : (
+                                            ''
+                                        )}
+                                    </Box>
+                                    {props.hit.STOCK ?
+                                        <Link
+                                            href={`/articulos/${props.hit.URL}`}
+                                            className={classes.CTAlink}>
+                                            <a>
+                                                <Button
+                                                    variant='contained'
+                                                    size='large'
+                                                    color='secondary'
+                                                    fullWidth>
+                                                    Comprar
+                                                </Button>
+                                            </a>
+                                        </Link>
+                                    :
+                                        <Button
+                                            variant='outlined'
+                                            size='large'
+                                            fullWidth
+                                            disableElevation
+                                            disabled>
+                                            Agotado
+                                        </Button>
+                                    }
+                                
+                                </Grid>
+                            </Grid>
+                            : 
+                            <Box sx={{ pt: 0.5 }}>
+                                    <Skeleton animation="wave" />
+                                    <Skeleton width="60%" animation="wave" />
+                                    <Skeleton animation="wave" />
+                                    <Skeleton width="60%" animation="wave" />
+                            </Box>
+                        }
 					</Box>
 				</Card>
 			</Box>
