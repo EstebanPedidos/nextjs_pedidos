@@ -23,9 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Login(){  
     const ruter = useRouter() 
     const classes = useStyles();
-
-    const paperStyle={padding:40, height: 'auto', width:450, margin:"30px auto"}
-
+    const paperStyle={padding:40, height: 'auto', width:450, maxWidth:'90%', margin:"30px auto"}
     const [inputs, setInputs] = useState({});
     const [isLogged, setLogged] = useState(false);
     const [intentos, setIntentos] = useState(0);
