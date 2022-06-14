@@ -100,7 +100,7 @@ const Newell = () => {
 			/>
 
 			<Box>
-				<BrandCarousel brands={brands} />
+				<BrandCarousel brands={brands} id='newell-landing' />
 			</Box>
 
 			<Box pt={3} px={8} pb={6}>
