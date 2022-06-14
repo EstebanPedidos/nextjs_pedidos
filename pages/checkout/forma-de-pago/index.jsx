@@ -620,15 +620,16 @@ export default function Forma_de_pago(){
                                                                             <FormControlLabel value="5" label={
                                                                                     <Box component="div" py={2}>
                                                                                     <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                        <Grid item xs={6} sm={8}>
+                                                                                        <Grid item xs={8} sm={8}>
                                                                                             <img className={classes.ppMethod} src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/f-pago/oxxo.svg" alt="Oxxo" />
                                                                                         </Grid>
-                                                                                        <Grid item xs={6} sm={4}>
-                                                                                            <ListItemSecondaryAction className={classes.rightText}>
-                                                                                                <ListItemText id="list-label-horario-programad" secondary="Pago en Efectivo en OXXO"/>
-                                                                                            </ListItemSecondaryAction>
-                                                                                        </Grid> 
-                                                                                    
+                                                                                        <Hidden smDown>
+                                                                                            <Grid item xs={4} sm={4}>
+                                                                                                <ListItemSecondaryAction className={classes.rightText}>
+                                                                                                    <ListItemText id="list-label-horario-programad" secondary="Pago en Efectivo"/>
+                                                                                                </ListItemSecondaryAction>
+                                                                                            </Grid> 
+                                                                                        </Hidden>
                                                                                     </Grid>   
                                                                                 </Box>
                                                                                 

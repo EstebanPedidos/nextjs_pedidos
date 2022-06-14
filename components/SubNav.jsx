@@ -27,7 +27,7 @@ export const SubNav = () => {
 				py={2}
 				mb={1}>
 				<Box display='flex' justifyContent='space-between' alignItems='center'>
-					<Hidden smDown={true}>
+					
 						<Box>
 							<Box display={'flex'} alignItems='center'>
 								<span
@@ -44,6 +44,7 @@ export const SubNav = () => {
 								</Typography>
 							</Box>
 						</Box>
+					<Hidden smDown={true}>
 						<Box display={'flex'} alignItems='center' justifyContent='center'>
 							<LocalPhoneOutlinedIcon/>
 							<Typography variant="subtitle2" component="p">
