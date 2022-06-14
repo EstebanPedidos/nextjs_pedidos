@@ -6,6 +6,7 @@ import {useLocalStorage} from '../../../hooks/useLocalStorage'
 //next js
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head'
 //Paquetes
 import {
 	Box,
@@ -73,6 +74,7 @@ export default function Verifica_pedido() {
 	const [favoritos, setFavoritos] = useState([]);
 	const [articulos, setArticulos] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [cambioSG, setCambioSG] = useState(0);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -85,9 +87,10 @@ export default function Verifica_pedido() {
 			let carritoS 	= await services.data;
 			let totalS 		= await carritoS.configCarrito.precarrito
 				.map((item) =>
-						item.precio * item.cantidad +
-						item.precioSeguro * item.cantSeguro +
-						item.precioGarant1 * item.cantGarant1
+					item.precio * item.cantidad +
+					item.precioSeguro * item.cantSeguro +
+					item.precioGarant1 * item.cantGarant1+
+					item.precioGarant2 * item.cantGarant2
 				)
 				.reduce((prev, curr) => prev + curr, 0);
 			let isEjecutivo = await (carritoS.configCarrito.resenapedidos.length > 0);
@@ -128,9 +131,10 @@ export default function Verifica_pedido() {
 			setTotal(totalS);
 			setFavoritos(favoritos);
 			setArticulos(articulos);
+			setPartidas2(carritoS.configCarrito.precarrito.length)
 		};
 		getData();
-	}, [partidas]);
+	}, [partidas,cambioSG]);
 
 	async function add(item_num) {
 		setLoading(true);
@@ -193,24 +197,56 @@ export default function Verifica_pedido() {
 	}
 
 	async function UpdateCantidad({ target }) {
-		const { name, value, id } = target;
-		if (parseInt(value) === 0) {
+		let { name, value, id } =  target;
+		let cantidad_ins = await 0;
+		 if (parseInt(value) === 0) {
 			carrito.configCarrito.precarrito[name].modificar = await true;
 			carrito.configCarrito.precarrito[name].cantidad = await 6;
-		} else if (id === 'input') {
-			carrito.configCarrito.precarrito[name].cantidad = (await (parseInt(
-				value
-			) > carrito.configCarrito.precarrito[name].existencia))
-				? carrito.configCarrito.precarrito[name].existencia
-				: value;
-		} else {
-			carrito.configCarrito.precarrito[name].cantidad = await value;
+			cantidad_ins = await 6;
+		 } else if (id === 'input') {
+			cantidad_ins = (await (parseInt(value) > carrito.configCarrito.precarrito[name].existencia))
+			? carrito.configCarrito.precarrito[name].existencia
+			: value;
+			carrito.configCarrito.precarrito[name].cantidad = await cantidad_ins
+		 } else {			
+			cantidad_ins = await value
+			if (id === '' ){
+				carrito.configCarrito.precarrito[name].cantidad = await cantidad_ins
+			}
+		 }
+		if(cantidad_ins > 0){
+			let item_selec = await carrito.configCarrito.precarrito[name]
+			if(item_selec.hasOwnProperty('cantSeguro')){
+				if(parseInt(item_selec.cantSeguro) > 0){
+					if(id === '' || id === 'Plan'){
+						carrito.configCarrito.precarrito[name].cantSeguro = await cantidad_ins
+					}
+				}
+			}
+			if(item_selec.hasOwnProperty('cantGarant1')){
+				if(parseInt(item_selec.cantGarant1) > 0){
+					if(id === '' || id === 'Garantia1'){
+						carrito.configCarrito.precarrito[name].cantGarant1 = await cantidad_ins
+					}
+				}
+			}
+			if(item_selec.hasOwnProperty('cantGarant2')){
+				if(parseInt(item_selec.cantGarant2) > 0){
+					if(id === '' || id === 'Garantia2'){
+						carrito.configCarrito.precarrito[name].cantGarant2 = await cantidad_ins
+					}
+				}
+			}
 		}
 		let totalR = await carrito.configCarrito.precarrito
-			.map((item) => item.precio * item.cantidad)
-			.reduce((prev, curr) => prev + curr, 0);
-		setTotal(totalR);
-	}
+		.map((item) =>
+		item.precio * item.cantidad+
+		item.precioSeguro * item.cantSeguro +
+		item.precioGarant1 * item.cantGarant1+
+		item.precioGarant2 * item.cantGarant2)
+		.reduce((prev, curr) => prev + curr, 0);
+		 setTotal(totalR);
+ 	}
 
 	async function validaCodigoDescuento() {
 		let cliente     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
@@ -265,6 +301,24 @@ export default function Verifica_pedido() {
 		}
 	}
 
+	async function CambiarPlanes(index,opcion,tipo){
+		let item = await carrito.configCarrito.precarrito[index];
+		let cliente     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
+	 		cliente     = await (parseInt(cliente) === 0)?201221:cliente
+		let usuario     = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
+			usuario     = await (parseInt(usuario) === 0)?RandomUser():usuario
+		let datos       = await '/carritoyreservado/modificaSegGaran?clienteNum='+cliente+'&usuarioNum='+usuario+'&itemNum='+item.item_num+'&idInt='+((opcion===1)?item.cantidad:0)+'&seguro='+((opcion === 2)?(tipo==='S')?1:0:item.cantSeguro)+'&itemGarantia='+((parseInt(item.cantGarant1)> 0)?'ZZZGAEXT1':'ZZZGAEXT2')+'&garantia='+((opcion === 2)?(tipo === 'G')?1:0:((parseInt(item.cantGarant1)> 0)?parseInt(item.cantGarant1):parseInt(item.cantGarant2)))+'&opcion='+opcion
+		if(cliente !== 201221){
+				Services(
+						'PUT',
+						datos,
+						{}
+				).then((response) => {
+						setCambioSG(cambioSG+1)
+				});
+		}
+	}
+
 	async function reservaCarrito() {
 		setLoading(true);
 		let cliente     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
@@ -283,6 +337,9 @@ export default function Verifica_pedido() {
 							objeto.seguro = 0;
 							objeto.gaex = 0;
 							objeto.itemGarant = '';
+							objeto.seguro = item.cantSeguro;
+							objeto.gaex = (parseInt(item.cantGarant1) > 0)?item.cantGarant1:(parseInt(item.cantGarant2) > 0)?item.cantGarant2:0
+							objeto.itemGarant = (parseInt(item.cantGarant1) > 0)?'ZZZGAEXT1':(parseInt(item.cantGarant2) > 0)?'ZZZGAEXT2':'';
 							arraySkus.push(objeto);
 						} else {
 							setLoading(false);
@@ -360,6 +417,11 @@ export default function Verifica_pedido() {
 
 	return (
 		<Layout partidas={partidas2}>
+			<Head>
+				<title> Carrito de compras | Pedidos.com </title>
+  				<meta name="description" content="Pedidos.com, la tienda en línea con amplia variedad de productos. Encuentra ya papelería, tintas y tóners, tecnología, accesorios, muebles, tlapalería, limpieza, cafeteria y ¡Mucho más!. Todo lo que necesitas para tu oficina, negocio, escuela y hogar lo encuentras aquí." />
+  				<link rel="canonical" href="/checkout/verifica-pedido.asp" />
+			</Head>
 		<Box component='div' m={1}>
 			<div className={classes.root}>
 				<Grid
@@ -483,6 +545,7 @@ export default function Verifica_pedido() {
 										Delete={Delete}
 										UpdateCantidad={UpdateCantidad}
 										modificar={modificar}
+										CambiarPlanes={CambiarPlanes}
 									/>
 								)}
 							</Box>

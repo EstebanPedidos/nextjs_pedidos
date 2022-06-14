@@ -127,7 +127,7 @@ export function Navbar(props) {
 		) {
 			setLogged(false);
 		}
-		setSesPartidas(localStorage.getItem('SesPartidas'));
+		setSesPartidas((localStorage.getItem('SesPartidas') !== undefined && localStorage.getItem('SesPartidas')!== null)?localStorage.getItem('SesPartidas'):0);
 		setFavoritos(localStorage.getItem('Favoritos'));
 	}, [props]);
 
@@ -435,7 +435,7 @@ export function Navbar(props) {
 								</Hidden>	
 								<IconButton color='primary'>
 									<Badge
-										badgeContent={isLogged ? (sesPartidas > 0)? sesPartidas : null : null}
+										badgeContent={(sesPartidas > 0)? sesPartidas : null }
 										color='secondary'>
 										<Link href='/checkout/verifica-pedido'>
 											<ShoppingCartIcon />
