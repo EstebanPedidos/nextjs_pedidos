@@ -75,7 +75,7 @@ export default function Help({tipo}) {
             <Button variant="outlined" fullWidth size="large" startIcon={<HelpOutlineIcon/>}  onClick={()=>{setOpen(true);}}>¿Necesitas Ayuda?</Button>            
             :
             (tipo == '2')?
-            <IconButton onClick={()=>{setOpen(true);}}>
+            <IconButton color='primary' onClick={()=>{setOpen(true);}}>
 										<HelpOutlineIcon />
 						</IconButton>
             :

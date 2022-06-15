@@ -89,7 +89,7 @@ export default function SecondaryCards() {
               
             },
             1024: {
-              slidesPerView: 2.1,
+              slidesPerView: 2,
              
             },
             1200: {

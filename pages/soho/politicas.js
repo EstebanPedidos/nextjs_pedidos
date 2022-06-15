@@ -9,7 +9,7 @@ import { HeadingPolicies, PoliciesMenu } from '/components';
 
 export const Politicas = () => {
 	return (
-		<Layout>
+		<Layout title='Políticas | Pedidos.com'>
 			<Container maxWidth='xl'>
 				<HeadingPolicies />
 				<PoliciesMenu />

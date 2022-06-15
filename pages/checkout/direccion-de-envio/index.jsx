@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 //next js
 import { useRouter } from 'next/router';
+import Head from 'next/head'
 //Tag Manager
 import TagManager from 'react-gtm-module'
 //Material UI
@@ -195,6 +196,11 @@ export default function Direccion_de_envio(props){
     return ( 
        
         <Box className={classes.root}>
+            <Head>
+                <link href="https://pedidos.com/checkout/direccion-de-envio.asp" rel="canonical" />
+                <title>Dirección de envío | Pedidos.com</title>
+                <meta name="description" content="Pedidos.com, la tienda en línea con amplia variedad de productos. Todo lo que necesitas para tu oficina, negocio, escuela y hogar lo encuentras aquí, solo selecciona y/o añade tu dirección de envío para la entrega de tu pedido. " />
+            </Head>
             <Header/>            
             <Container maxWidth="lg">
                 <Box component="div" py={3} m={1}>

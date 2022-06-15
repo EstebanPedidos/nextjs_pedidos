@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 //next js
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 //Tag Manager
 import TagManager from 'react-gtm-module'
 //Material
@@ -259,6 +260,12 @@ export default function Forma_de_pago(){
 
     return (
     <Box className={classes.root}>
+        <Head>
+            <link href="https://pedidos.com/checkout/forma-de-pago.asp" rel="canonical" />
+            <title>Forma de pago | Pedidos.com</title>
+            <meta name="description" content="Conoce las formas de pago que tenemos para ti: Paga en línea con tu tarjeta de crédito o débito, PayPal, Paga al recibir ya sea con tarjeta (VISA,AMEX) o efectivo, transferencias y dépositos." />
+            <script src="https://www.paypal.com/sdk/js?client-id=ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_&currency=MXN&disable-card=amex,visa,mastercard&locale=es_MX"></script>
+        </Head>
         <Header/>
         <Container maxWidth="lg">
             <Box component="div" py={3} m={1}>

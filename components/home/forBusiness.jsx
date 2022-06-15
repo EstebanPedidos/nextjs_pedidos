@@ -81,7 +81,7 @@ export default function TrendSlides() {
                 </Link>
             </SwiperSlide>
             <SwiperSlide>
-                <Link href="/Soho/cliente/planes-de-proteccion">
+                <Link href="/soho/cliente/planes-de-proteccion">
                     <a>
                     <Businessoption sx={{ backgroundColor:'#3655a5',}}
                         data={{
@@ -95,7 +95,7 @@ export default function TrendSlides() {
                 </Link> 
             </SwiperSlide>
             <SwiperSlide> 
-                <Link href="/Soho/cliente/planes-de-proteccion">
+                <Link href="/pedidosmayoreo/pedidos-mayorist">
                         <a>
                         <Businessoption sx={{ backgroundColor:'#757575',}}
                             data={{

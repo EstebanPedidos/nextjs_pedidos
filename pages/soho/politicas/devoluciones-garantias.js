@@ -7,7 +7,7 @@ import { Layout } from '/layout/Layout';
 
 export default function DevolucionesGarantias() {
 	return (
-		<Layout>
+		<Layout title='Devoluciones y garantías | Pedidos.com'>
 			<Container maxWidth='xl'>
 				<HeadingPolicies />
 				<PoliciesMenu />

@@ -5,7 +5,7 @@ import { Layout } from '/layout/Layout';
 
 export const FormaDePago = () => {
 	return (
-		<Layout>
+		<Layout title='Formas de Pago | Pedidos.com'>
 			<Container maxWidth='xl'>
 				<HeadingPolicies/>
 				<PoliciesMenu />

@@ -113,7 +113,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                             <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>    
                                                                 <Grid item xs={12} sm={12} lg={6}>
                                                                     <Paper variant="outlined" className={classes.paperpp}>
-                                                                        <Box component="div">
+                                                                        <Box component="div" mt={1}>
                                                                             <img className={classes.ppimg} src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/planes-p/dsegurow-1.png" alt="Plan contra daños y accidentes"/>
                                                                         </Box>
                                                                     </Paper>
@@ -133,7 +133,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                         </Box>        
                                                     </Box> 
                                                 </Grid> 
-                                                <Grid item xs={8}>
+                                                <Grid item xs={8} sm={9}>
                                                     <Box component="div">
                                                         <Grid item container justifyContent="space-between" alignItems="center" direction="column">
                                                             <Grid item >
@@ -144,7 +144,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                                 <Typography variant="body2" gutterBottom>
                                                                     Precio Unitario:  <span>${Precios('formatcurrency',{subtotal:item.precio,fixed:2})}</span>
                                                                 </Typography>
-                                                                <Typography variant="body2" color="textSecondary" pt={1}>
+                                                                <Typography variant="body2" color="textSecondary">
                                                                     SKU: <span>{item.item_num}</span>
                                                                 </Typography>
                                                                 <Box pt={1}>
@@ -168,11 +168,6 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                                     </Typography>   
                                                                     } 
                                                                 </Box>
-                                                                {(item.cantSeguro > 0  || item.cantGarant1 > 0 || item.cantGarant2 > 0 )&&
-                                                                <CardActions>
-                                                                    <Planes item={item} UpdateCantidad={UpdateCantidad} index={index} CambiarPlanes={CambiarPlanes}/>
-                                                                </CardActions>   
-                                                                } 
                                                                 </Box>
                                                             </Grid> 
                                                         </Grid>
@@ -254,6 +249,13 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                         </IconButton>                                                        
                                                         } 
                                                     </Box>
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    {(item.cantSeguro > 0  || item.cantGarant1 > 0 || item.cantGarant2 > 0 )&&
+                                                        <Box component="div" px={2}>
+                                                            <Planes item={item} UpdateCantidad={UpdateCantidad} index={index} CambiarPlanes={CambiarPlanes}/>
+                                                        </Box>
+                                                    } 
                                                 </Grid>
                                             </Grid>
                                         </Grid>

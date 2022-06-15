@@ -51,7 +51,7 @@ const rows = [
 
 export default function CondicionesDeEnvio() {
 	return (
-		<Layout>
+		<Layout title='Condiciones de envío | Pedidos.com'>
 			<Container maxWidth='xl'>
 				<HeadingPolicies />
 				<PoliciesMenu />
