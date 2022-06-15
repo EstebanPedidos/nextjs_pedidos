@@ -29,7 +29,7 @@ export default function Gallery({item_num,indice,estatus_img,link,links}) {
         (indice === 2)?
         <img width={'100%'}  onClick={handleClickOpen} height={'100%'} layout="responsive" src={(estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${item_num}.webp`} alt={item_num}/>
         :
-        <img width={'100%'}  onClick={handleClickOpen} height={'100%'} layout="responsive" src={`https://img.youtube.com/vi${(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length)}/0.jpg`} alt={item_num}/>
+        <img width={'100%'}  onClick={handleClickOpen} height={'100%'} layout="responsive" src={`https://img.youtube.com/vi${(link)?(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length):''}/0.jpg`} alt={item_num}/>
         }
       <Dialog
         fullScreen
