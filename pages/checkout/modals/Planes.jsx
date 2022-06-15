@@ -32,7 +32,8 @@ function rand() {
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
-      width:'90%',
+      width:'80%',
+      minWidth:'320px',
       backgroundColor: theme.palette.background.paper,
       borderRadius: '8px',
       boxShadow: theme.shadows[5],
@@ -89,19 +90,19 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                     </IconButton>
                   }
                 >                    
-                  <Grid container spacing={2} justifyContent='space-around' alignItems='center'>
-                    <Grid item xs={1}>
+                  <Grid container spacing={1} justifyContent='space-around' alignItems='center'>
+                    <Grid item xs={12} sm={1}>
                       <ListItemAvatar>
                         <Avatar alt="Proteccion de producto" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/planes-p/cseguro-1.jpg" />
                       </ListItemAvatar>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sm={6}>
                     <ListItemText 
                       primary="PLAN DE PRODUCTO, PEDIDOS"
                       secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item.precioSeguro,iva:0,formato:true})}`}
                   /> 
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6} sm={3}>
                       <FormControl fullWidth variant="outlined" className={classes.formControl}>
                         <InputLabel htmlFor="age-native-simple">Cantidad</InputLabel>
                         <Select
@@ -120,7 +121,7 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                         </Select>
                       </FormControl>
                     </Grid>
-                    <Grid item  xs={2}>
+                    <Grid item xs={6} sm={2}>
                       <ListItemText
                         primary={`$${Precios('redondear_arriba',{subtotal:(item.precioSeguro*item.cantSeguro),iva:0,formato:true})}`}
                       />
@@ -138,18 +139,18 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                   }
                 >   
                   <Grid container spacing={2} justifyContent='space-around' alignItems='center'>
-                    <Grid item xs={1}>
+                    <Grid item xs={12} sm={1}>
                       <ListItemAvatar>
                         <Avatar alt="Garantia de producto" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/planes-p/cgarantia-1.jpg" />
                       </ListItemAvatar>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sm={6}>
                       <ListItemText 
                           primary="GARANTIA EXTENDIDA POR 1 AÑO, PEDIDOS 1"
                           secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item.precioGarant1,iva:0,formato:true})}`}
                       />  
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6} sm={3}>
                       <FormControl fullWidth variant="outlined" className={classes.formControl}>
                           <InputLabel htmlFor="age-native-simple">Cantidad</InputLabel>
                           <Select
@@ -168,7 +169,7 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                           </Select>
                       </FormControl>
                     </Grid>
-                    <Grid item  xs={2}>
+                    <Grid item xs={6} sm={2}>
                       <ListItemText
                           primary={`$${Precios('redondear_arriba',{subtotal:(item.precioGarant1*item.cantGarant1),iva:0,formato:true})}`}
                       />
@@ -185,7 +186,7 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                   }
                 >  
                   <Grid container spacing={2} justifyContent='space-around' alignItems='center'>
-                    <Grid item xs={1} sm={1}>
+                    <Grid item xs={12} sm={1}>
                       <ListItemAvatar>
                         <Avatar alt="Garantia de producto" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/planes-p/cgarantia-1.jpg" />
                       </ListItemAvatar>

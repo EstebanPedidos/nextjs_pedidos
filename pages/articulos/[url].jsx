@@ -436,8 +436,8 @@ export default function FichaTecnica(props){
                                                     <Box component="div" p={2}>
                                                         <Swiper
                                                         style={{
-                                                        "--swiper-navigation-color": "#424242",
-                                                        "--swiper-pagination-color": "#424242",
+                                                        "--swiper-navigation-color": "#507EF2",
+                                                        "--swiper-pagination-color": "#507EF2",
                                                         }}
                                                         loop={true}
                                                         spaceBetween={10}
@@ -459,7 +459,7 @@ export default function FichaTecnica(props){
                                                                 (datos.descripcion.descripcion.hasOwnProperty("link"))&&
                                                                     datos.descripcion.descripcion.link.split(',').map((link, index) => (
                                                                         <SwiperSlide key={index}>  
-                                                                            <Box component="div" py={6} alignItems="center" sx={{backgroundColor:'#000000',borderRadius:'8px', margin:'auto'}}>
+                                                                            <Box component="div" py={2} alignItems="center" sx={{borderRadius:'8px', margin:'2.5rem auto'}}>
                                                                                 <Gallery  sx={{ margin:'auto'}} item_num={datos.item_num} indice={(3+index)} estatus_img={datos.estatus_img} link={link} links={datos.descripcion.descripcion.link}/> 
                                                                                 {/* <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts} onReady={onPlayerReady}/> */}
                                                                             </Box>
