@@ -1,6 +1,7 @@
 import { useState,useEffect } from 'react';
 //next js
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 //Tag Manager
 import TagManager from 'react-gtm-module'
 //Material UI
@@ -258,6 +259,11 @@ export default function Facturacion(){
 
     return (
         <Box component="div">
+            <Head>
+                <link href="https://pedidos.com/checkout/facturacion.asp" rel="canonical" />
+                <title>Facturar mi pedido | Pedidos.com</title>
+                <meta name="description" content="Factura AQUI tu pedido. Todo lo que necesitas para tu oficina, negocio, escuela y hogar lo encuentras en Pedidos.com " />
+            </Head>
             <Header/>
             <Container maxWidth="lg">
             <Box component="div" py={3} m={1}>

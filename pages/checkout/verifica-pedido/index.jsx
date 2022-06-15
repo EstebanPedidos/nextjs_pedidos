@@ -1,6 +1,7 @@
 //Pauquetes
 import { useState, useEffect } from 'react';
-import * as React from 'react';
+//Tag Manager
+import TagManager from 'react-gtm-module'
 //hooks
 import {useLocalStorage} from '../../../hooks/useLocalStorage'
 //next js
@@ -17,7 +18,6 @@ import {
 	TextField,
 	Divider,
 	Alert,
-	Stack,
 	AlertTitle,
 	Skeleton, Hidden
 } from '@mui/material';
@@ -142,6 +142,7 @@ export default function Verifica_pedido() {
             cliente     = await (parseInt(cliente) === 0)?201221:cliente            
 		let usuario     = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
 			usuario     = await (parseInt(usuario) === 0)?RandomUser():usuario
+		let item_add 	= await favoritos.filter(item => item.itemNum === item_num)
 		Services('POST-NOT', '/carritoyreservado/agregaCarrito', {
 			cliente_num: cliente,
 			usuario_num: usuario,
@@ -154,6 +155,25 @@ export default function Verifica_pedido() {
 				setPartidas(response.data);
 				setPartidas2(parseInt(response.data))
 				setLoading(false);
+				const tagManagerArgs = {
+					gtmId: 'GTM-NLQV5KF',
+					dataLayer: {
+						'event': 'addToCart',
+						'ecommerce': {
+						  'currencyCode': 'MXN',
+						  'add': {                                
+							'products': [{                        
+							  'name': item_add[0].tituloCompuesto,
+							  'id': item_num,
+							  'price': item_add[0].precio,
+							  'brand': item_add[0].marca,
+							  'quantity': 1
+							 }]
+						  }
+						}
+					},
+				}
+				TagManager.initialize(tagManagerArgs)
 			}
 		});
 	}
@@ -180,20 +200,52 @@ export default function Verifica_pedido() {
 				? Remove.toString()
 				: articulos.toString()
 			: item_num;
-		Services(
-			'DELETE',
-			'/carritoyreservado/deleteCarrito?clienteNum=' +
-				cliente +
-				'&usuarioNum=' +
-				usuario +
-				'&items=' +
-				articulosD,
-			{}
-		).then((response) => {
-			setLoading(false);
-			setPartidas(response.data);
-			setPartidas2(parseInt(response.data))
-		});
+		if(articulosD !== ''){
+			let item_rem = await articulosD.split(',')	
+			Services(
+				'DELETE',
+				'/carritoyreservado/deleteCarrito?clienteNum=' +
+					cliente +
+					'&usuarioNum=' +
+					usuario +
+					'&items=' +
+					articulosD,
+				{}
+			).then((response) => {
+				setLoading(false);
+				setPartidas(response.data);
+				setPartidas2(parseInt(response.data))	
+				try {
+					if(item_rem.length > 0){
+						item_rem.forEach(function(item_num) {
+						   let item_add =  favoritos.filter(item => item.itemNum === item_num)
+						    const tagManagerArgs = {
+							   gtmId: 'GTM-NLQV5KF',
+							   dataLayer: {
+								   'event': 'removeFromCart',
+								   'ecommerce': {
+								   'currencyCode': 'MXN',
+								   'add': {                                
+									   'products': [{                        
+									   'name': item_add[0].tituloCompuesto,
+									   'id': item_num,
+									   'price': item_add[0].precio,
+									   'brand': item_add[0].marca,
+									   'quantity': 1
+									   }]
+								   }
+								   }
+							   },
+						   }
+						   TagManager.initialize(tagManagerArgs)
+					   });
+				   }
+				} catch (error) {
+					console.log('Error en tag removeFromCart')
+				}		
+			});
+		}
+		
 	}
 
 	async function UpdateCantidad({ target }) {
