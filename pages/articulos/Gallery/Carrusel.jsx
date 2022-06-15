@@ -22,12 +22,13 @@ export default function Carrusel({item_num,indice,links}){
             <Box  p={2} sx={{width:'95%', margin:'auto'}} justifyContent='center' alignContent='center'>
                 <Swiper
                 style={{
-                "--swiper-navigation-color": "#fff",
-                "--swiper-pagination-color": "#fff",
+                "--swiper-navigation-color": "#424242",
+                "--swiper-pagination-color": "#424242",
                 }}
                 loop={true}
                 spaceBetween={10}
                 navigation={true}
+                centeredSlides={true}
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
