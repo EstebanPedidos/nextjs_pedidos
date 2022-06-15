@@ -193,7 +193,8 @@ const CategoryPapeleria = () => {
 									href={featuredItem.url}
 									floatingTitle={featuredItem.floatingTitle}
 									centeredTitle={featuredItem.centeredTitle}>
-									{featuredItem.children && <Box {...featuredItem.children} />}
+                                    {/* Se comentó por que falló en la compilación */}
+									{/* {featuredItem.children && <Box {...featuredItem.children} />} */}
 								</FloatingToutCard>
 							</Grid>
 						))}
