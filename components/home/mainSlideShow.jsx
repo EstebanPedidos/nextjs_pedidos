@@ -89,12 +89,12 @@ export default function MainSlideShow() {
 							justifyContent="space-between"
 							alignItems="center">
 								<Grid item xs={4} sm={4}>
-									<Box component="div" >
-										<Paper elevation={5} p={1} >
-											<Box component="div" textAlign="center" py={2} px={3}> 
+									<Box component="div" sx={{position:'relative'}} >
+										<Paper variant='auto' px={1}  className={styles.boxmsi } >
+											<Box component="div" textAlign="center" py={1} px={3}> 
 												<Typography variant="overline" display="block">Hasta</Typography>
-													<Typography  component="body1" variant="h5" sx={{fontWeight:'600'}}>
-													<Box component="span" sx={{color:'#3655a5'}}>18</Box> MSI</Typography>
+													<Typography  variant="h4" component="body1" sx={{fontWeight:'600'}}>
+													<Box component="span" sx={{color:'#3655a5'}}>18</Box></Typography>
 													<Typography variant="caption" display="block" gutterBottom color="textSecondary">Tarjetas participantes*</Typography>
 													
 											</Box>

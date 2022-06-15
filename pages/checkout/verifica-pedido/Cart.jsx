@@ -11,6 +11,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 //Funciones
 import Precios from '../../services/Precios'
+import Planes from '../modals/Planes';
 
 const useStyles = makeStyles((theme) => ({
     root: { flexGrow: 1 
@@ -60,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
   }));  
 
-export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,UpdateCantidad,modificar}){
+export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,UpdateCantidad,modificar,CambiarPlanes}){
     const classes   = useStyles();
     const [precarritoP,setPrecarritoP] = useState([])
 
@@ -150,26 +151,26 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                                     {(item.cantSeguro > 0 )&&
                                                                     <Typography gutterBottom variant="subtitle2">
                                                                             1 AÑO Protección. Robo y acc.
-                                                                        <span> ${item.precioSeguro}</span>
+                                                                        <span> ${Precios('redondear_arriba',{subtotal:item.precioSeguro,iva:0,formato:true})}</span>
                                                                     </Typography>   
                                                                     } 
                                                                     {(item.cantGarant1 > 0)&&
                                                                     <Typography gutterBottom variant="subtitle2">
                                                                         1 AÑO Garantía Extendida
-                                                                        <span> ${item.precioSeguro}</span>
+                                                                        <span> ${Precios('redondear_arriba',{subtotal:item.precioGarant1,iva:0,formato:true})}</span>
                                                                     </Typography>   
                                                                     } 
 
                                                                     {(item.cantGarant2 > 0 )&&
                                                                     <Typography gutterBottom variant="subtitle2">
                                                                         2 AÑO Garantía Extendida
-                                                                        <span> {item.precioSeguro}</span>
+                                                                        <span> {Precios('redondear_arriba',{subtotal:item.precioGarant2,iva:0,formato:true})}</span>
                                                                     </Typography>   
                                                                     } 
                                                                 </Box>
                                                                 {(item.cantSeguro > 0  || item.cantGarant1 > 0 || item.cantGarant2 > 0 )&&
                                                                 <CardActions>
-                                                                    <Button color="primary" size="small" >Editar Planes</Button>
+                                                                    <Planes item={item} UpdateCantidad={UpdateCantidad} index={index} CambiarPlanes={CambiarPlanes}/>
                                                                 </CardActions>   
                                                                 } 
                                                                 </Box>
@@ -213,7 +214,7 @@ export default function Cart({precarrito,deleteAll,Remove,setRemove,Delete,Updat
                                                     }   
                                                 
                                                 </Box>
-                                                <Box item pt={2}>
+                                                <Box item >
                                                     <Box textAlign="left" ml={2}> 
                                                     {(item.cantSeguro > 0 )&&
                                                         <Typography gutterBottom variant="subtitle2">
