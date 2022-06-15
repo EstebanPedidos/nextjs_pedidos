@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 //Next js
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 //Tag Manager
 import TagManager from 'react-gtm-module'
 //Material UI
@@ -240,6 +241,11 @@ export default function Forma_de_envio(props){
     }
     return (
     <Box className={classes.root}>
+        <Head>
+            <link href="https://pedidos.com/checkout/forma-de-envio.asp" rel="canonical" />
+            <title>Forma de envío | Pedidos.com</title>
+            <meta name="description" content="Selecciona alguna de las formas de envío que tenemos para ti: Programa tu entrega, entrega EXPRESS y paquetería (DHL, FedEX, Estafeta)." />
+        </Head>
         <Header/>
         <Container maxWidth="lg">
             <Box component="div" py={3} m={1}>
