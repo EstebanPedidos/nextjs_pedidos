@@ -65,21 +65,26 @@ export default function Confirmacion_de_pago(){
                         if(products != '' && products !== null && products !== undefined){                            
                             let totalTag     = await ((services.data.resumen.subtotal + services.data.resumen.costoEnvio)-services.data.nc.montoNc)
                             let envioTag     = await services.data.resumen.costoEnvio
-                            const tagManagerArgs =
-                            {
+                            let isEmpresa    = await (services.data.resumen.facturas.rfc !== 'XAXX010101000')?true:false;
+                            const tagManagerArgs = {
+                                gtmId: 'GTM-NLQV5KF',
+                                dataLayer: {
+                                    'event': 'checkout',
                                 'ecommerce': {
-                                    'purchase': {
-                                    'actionField': {
-                                        'id': pedido,                        
-                                        'affiliation': Usu_Nomb,
-                                        'revenue': totalTag,
-                                        'shipping': envioTag,
-                                    },
-                                    'products': JSON.parse('['+products+']')
+                                        'purchase': {
+                                        'actionField': {
+                                            'id': pedido,
+                                            'affiliation': Usu_Nomb,
+                                            'revenue': totalTag,
+                                            'shipping': envioTag,
+                                            'empresa': isEmpresa
+                                        },
+                                        'products': JSON.parse('['+products+']')
+                                        }
                                     }
                                 }
                             }
-                            TagManager.initialize(tagManagerArgs) 
+
                         }
                     }     
                 } 

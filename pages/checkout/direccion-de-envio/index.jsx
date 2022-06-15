@@ -109,7 +109,7 @@ export default function Direccion_de_envio(props){
                                                     'event': 'checkout',
                                                     'ecommerce': {
                                                     'checkout': {
-                                                        'actionField': {'step': 2, 'option': 'Entrega'},
+                                                        'actionField': {'step': 1, 'option': 'Entrega'},
                                                         'products': JSON.parse('['+products+']')
                                                     }
                                                 }

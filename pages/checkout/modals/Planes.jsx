@@ -56,9 +56,15 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
     const classes         = useStyles();
     const [modalStyle]    = useState(getModalStyle);
     const [open, setOpen] = useState(false);
+    const [item2, setItem2] = useState({});
+    useEffect(()=>{
+      setItem2(item)
+    },[])
 
     return (
-    <div>
+    <>
+    {(1 > 0)&&
+    <div>      
       <Box component="div" pb={2}>
         <Button color="primary" size="small" onClick={()=>{setOpen(true);}}>Editar Planes</Button>
       </Box>  
@@ -79,10 +85,10 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                       <Box component="div" py={1}>
                         <Divider/>
                       </Box>
-                      <Typography component="subtitle1"  gutterBottom>Delproducto {(item)?item.descripcion:''}</Typography>                
+                      <Typography component="subtitle1"  gutterBottom>Delproducto {(item2)?item2.descripcion:''}</Typography>                
                 </Box>     
               <Box component="div" py={2}>
-                {(parseInt(item.cantSeguro) > 0 && item.cantidad !== '')&&
+                {(parseInt(item2.cantSeguro) > 0 && item2.cantidad !== '')&&
                 <ListItem
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
@@ -99,7 +105,7 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                     <Grid item xs={12} sm={6}>
                     <ListItemText 
                       primary="PLAN DE PRODUCTO, PEDIDOS"
-                      secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item.precioSeguro,iva:0,formato:true})}`}
+                      secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item2.precioSeguro,iva:0,formato:true})}`}
                   /> 
                     </Grid>
                     <Grid item xs={6} sm={3}>
@@ -108,14 +114,14 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                         <Select
                         label="Cantidad"
                         native
-                        value={item.cantSeguro}
+                        value={item2.cantSeguro}
                         onChange={UpdateCantidad}
                         inputProps={{
                             id: 'Plan',
                             name : index
                         }}
                         >
-                        {Array.apply(0, Array(parseInt(item.cantidad))).map(function (x, i) {
+                        {Array.apply(0, Array(parseInt(item2.cantidad))).map(function (x, i) {
                             return <option key={i+1} value={i+1}>{i+1}</option>;
                         })}      
                         </Select>
@@ -123,14 +129,14 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                     </Grid>
                     <Grid item xs={6} sm={2}>
                       <ListItemText
-                        primary={`$${Precios('redondear_arriba',{subtotal:(item.precioSeguro*item.cantSeguro),iva:0,formato:true})}`}
+                        primary={`$${Precios('redondear_arriba',{subtotal:(item2.precioSeguro*item2.cantSeguro),iva:0,formato:true})}`}
                       />
                     </Grid> 
                       
                   </Grid>                   
                 </ListItem>
                 }
-                {(parseInt(item.cantGarant1) > 0 && item.cantidad !== '')&&
+                {(parseInt(item2.cantGarant1) > 0 && item2.cantidad !== '')&&
                 <ListItem
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
@@ -147,7 +153,7 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                     <Grid item xs={12} sm={6}>
                       <ListItemText 
                           primary="GARANTIA EXTENDIDA POR 1 AÑO, PEDIDOS 1"
-                          secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item.precioGarant1,iva:0,formato:true})}`}
+                          secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item2.precioGarant1,iva:0,formato:true})}`}
                       />  
                     </Grid>
                     <Grid item xs={6} sm={3}>
@@ -156,14 +162,14 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                           <Select
                           label="Cantidad"
                           native
-                          value={item.cantGarant1}
+                          value={item2.cantGarant1}
                           onChange={UpdateCantidad}
                           inputProps={{
                               id: 'Garantia1',
                               name : index
                           }}
                           >
-                          {Array.apply(0, Array(parseInt(item.cantidad))).map(function (x, i) {
+                          {Array.apply(0, Array(parseInt(item2.cantidad))).map(function (x, i) {
                               return <option key={i+1} value={i+1}>{i+1}</option>;
                           })}         
                           </Select>
@@ -171,13 +177,13 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                     </Grid>
                     <Grid item xs={6} sm={2}>
                       <ListItemText
-                          primary={`$${Precios('redondear_arriba',{subtotal:(item.precioGarant1*item.cantGarant1),iva:0,formato:true})}`}
+                          primary={`$${Precios('redondear_arriba',{subtotal:(item2.precioGarant1*item2.cantGarant1),iva:0,formato:true})}`}
                       />
                     </Grid> 
                   </Grid>                  
                 </ListItem>
                 }
-                {(parseInt(item.cantGarant2) > 0 && item.cantidad !== '')&&
+                {(parseInt(item2.cantGarant2) > 0 && item2.cantidad !== '')&&
                 <ListItem
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
@@ -194,7 +200,7 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                     <Grid item xs={6} sm={6}>
                       <ListItemText
                           primary="GARANTIA EXTENDIDA POR 2 AÑO, PEDIDOS 2"
-                          secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item.precioGarant2,iva:0,formato:true})}`}
+                          secondary={`Precio Unitario: ${Precios('redondear_arriba',{subtotal:item2.precioGarant2,iva:0,formato:true})}`}
                       />   
                     </Grid>
                     <Grid item xs={3} sm={3}>
@@ -203,14 +209,14 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                           <Select
                           label="Cantidad"
                           native
-                          value={item.cantGarant2}
+                          value={item2.cantGarant2}
                           onChange={UpdateCantidad}
                           inputProps={{
                               id: 'Garantia2',
                               name : index
                           }}
                           >
-                          {Array.apply(0, Array(parseInt(item.cantidad))).map(function (x, i) {
+                          {Array.apply(0, Array(parseInt(item2.cantidad))).map(function (x, i) {
                               return <option key={i+1} value={i+1}>{i+1}</option>;
                           })}         
                           </Select>
@@ -218,7 +224,7 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                     </Grid>
                     <Grid item xs={2}  sm={2}>
                       <ListItemText
-                          primary={`$${Precios('redondear_arriba',{subtotal:(item.precioGarant2*item.cantGarant2),iva:0,formato:true})}`}
+                          primary={`$${Precios('redondear_arriba',{subtotal:(item2.precioGarant2*item2.cantGarant2),iva:0,formato:true})}`}
                       />
                     </Grid> 
                   </Grid>                    
@@ -237,7 +243,9 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                   </Box>
             </Box> 
         </div>
-        </Modal>
+        </Modal>   
     </div>
+    }
+    </>
     )
 }

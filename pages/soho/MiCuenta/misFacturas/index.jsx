@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import fileDownload from 'js-file-download';
-
+//hooks
+import {useLocalStorage} from "../../../../hooks/useLocalStorage";
 //MUI
 import {Box, Grid, Paper, Typography, Container, Backdrop,
     Button, Select, TextField, Divider, Modal, Fade,
@@ -31,6 +32,8 @@ import Link from 'next/link';
 
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
+import Alertas from '../../../checkout/Alertas';
+import Refactura from './Refactura/Index'
 import Services from '../../../services/Services'
 
 const useStyles = makeStyles((theme) => ({
@@ -81,7 +84,10 @@ export default function MisFacturas() {
     const [result, setResult] = useState([]);
     const [resultado, setResultado] = useState(true);
     const [titulo, setTitulo] = useState('');
-    const [clienteNum, setClienteNum] = useState(0);
+    const [clienteNum,setClienteNum]     = useLocalStorage('Cliente',201221)
+    const [afiliado,setAfiliado]         = useLocalStorage('afiliado','N')
+    const [usu_nombre,seUsu_nombre]      = useLocalStorage('Usu_Nomb','')
+    const [fechaFacturas,seFechaFacturas]= useLocalStorage('fechaFacturas','')
     const [snack, setSnack] = React.useState('');
     const [statusRFC, setStatusRFC] = React.useState(false);
     const [cfdiSelect, setCfdiSelect] = React.useState([]);
@@ -89,19 +95,23 @@ export default function MisFacturas() {
     const [estadoDelegacion, setEstadoDelegacion] = React.useState('');
     const [metodoPago, setMetodoPago] = React.useState('');
     const [cfdi, setCfdi] = React.useState('');
+    const [alerta, setAlerta] = React.useState({});
+    const [addOpen, setAddOpen] = React.useState(false);
     const [invoicePedido, setInvoicePedido] = React.useState({invoice_num:'',pedido_num:0});
 
     const localeMap = {
         es: esLocale,
     };
 
-    let usu_nombre = '';
-    let fechaFacturas = '';
-
     const handleOpen = (event) => {
         const name = event.target.name;
-        setModal(name)
-        setOpen(true);
+        if(name==='Modal2'){
+            setAddOpen(true)
+        }else{
+            setModal(name)
+            setOpen(true);
+        }
+       
     };
 
     const handleClose = () => {
@@ -110,7 +120,7 @@ export default function MisFacturas() {
 
     const handleChange = (event) => {
         const name = event.target.name;
-        const value = event.target.value;
+        const value = (event.target.name=== 'rfc')?event.target.value.toUpperCase():event.target.value;
         setInputs(values => ({...values, [name]: value}))
         if(event.target.name === "cfdi"){
             setCfdi(event.target.value);
@@ -124,17 +134,9 @@ export default function MisFacturas() {
     }
 
     useEffect(() => {   
-
-        let afiliado =  localStorage.getItem('afiliado')
-        setClienteNum(localStorage.getItem('Cliente'));
-        usu_nombre = localStorage.getItem('Usu_Nomb');
-        fechaFacturas = localStorage.getItem('fechaFacturas');
-
         if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
-            if(parseInt(clienteNum) !== 201221){
-                
-                const getData= async ()=>{
-        
+            if(parseInt(clienteNum) !== 201221){                
+                const getData= async ()=>{        
                     if(fechaFacturas === null || fechaFacturas ===''){
                         setTitulo('Facturas recientes')
                         Services('POST','/miCuenta/consultaFacturas?clienteNum='+clienteNum+'&fechaFacturas=',{})
@@ -168,8 +170,7 @@ export default function MisFacturas() {
                             console.log(error.response)
                                 });
                             }
-                }
-                
+                }                
                 getData();
             }else{
                 router.push('/')
@@ -178,38 +179,30 @@ export default function MisFacturas() {
             router.push('/')
         } 
 
-    }
-    , [clienteNum]) 
+    }, []) 
 
-    function validarRFC(){
-        console.log('Entro al metodo')
-        let rfc = '';
-        rfc = inputs.rfc;
-        console.log('rfc: '+rfc)
+    async function validarRFC(){
+        let rfc = await inputs.rfc
         let validacionExpresion = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
         if(rfc === null || rfc === '' || rfc == undefined){
-            console.log('RFC vacio')
-            setOpen(true);
-            setSnack('dos')
+            setAlerta({severity:'error',mensaje:'Ingresa un RFC.',vertical:'bottom',horizontal:'right',variant:'filled'})
         }else{
             if(rfc.match(validacionExpresion)){
-                console.log('RFC VALIDO')
-                setStatusRFC(true);
-                setOpen(true);
-                setSnack('uno')
-                let tipoPersona = (inputs.rfc == 13) ? 'fisica' : 'moral';
-                console.log('tipo de persona: '+tipoPersona)
-                Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
-                .then( response =>{
-                    console.log('obtieneCfdi servicio')
-                    console.log(response.data)
-                    setCfdiSelect(response.data)
-                }).catch(error => {
-                    console.log('Fallo obtieneCfdi servicio')
-                    console.log(error.response)
-                });
-            }
-            
+                let tipoPersona = await (rfc == 13) ? 'fisica' : 'moral'
+                if(tipoPersona !== ''){
+                    Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
+                    .then( response =>{
+                        setStatusRFC(true);
+                        setCfdiSelect(response.data)
+                    }).catch(error => {
+                        setAlerta({severity:'error',mensaje:'Error al validar CFDI',vertical:'bottom',horizontal:'right',variant:'filled'})
+                    });
+                }else{
+                    setAlerta({severity:'error',mensaje:'Tipo de persona vacia',vertical:'bottom',horizontal:'right',variant:'filled'})
+                }                
+            }else{
+                setAlerta({severity:'error',mensaje:'El RFC no es valido',vertical:'bottom',horizontal:'right',variant:'filled'})
+            }            
         }     
     }
 
@@ -280,95 +273,7 @@ export default function MisFacturas() {
 
     function refreshPage() {
         window.location.reload(false);
-    }
-
-    
-    const sinResultados = (
-    <Container maxWidth="lg">
-        <Box component="div" mx="auto" py={8} >
-                <Box component="div" width="20%" mx="auto" py={4}>
-                    <img className={classes.opacityBox} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/page-info/notfound.svg" alt="Sin resutado de busquedas" />
-                </Box>
-                <Box component="div" textAlign="center">
-                    <Typography component="h3" variant="h6">No encontramos facturas</Typography>
-                </Box>
-        </Box>
-    </Container>
-    )
-
-    const Contenido =(
-        result.map((row) => (
-            <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center" key={row.pedidoNum}>
-                <Grid item xs={12}>
-                    <Box component="div" py={2}>
-                        <Paper className={classes.paperBox}>
-                            <Grid
-                            container
-                            direction="row"
-                            justifyContent="space-around"
-                            alignItems="center">
-                                <Grid item xs={12} sm={12} lg={2}>
-                                    <Typography variant="h6"component="subtitle2" gutterBottom>
-                                    #{row.pedidoNum}
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={4} sm={2}> 
-                                    <Typography variant="h6" component="subtitle2" gutterBottom>
-                                        {row.invoice}
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={4} sm={2}>
-                                    <Typography variant="subtitle1" gutterBottom>
-                                        {row.fechaFactura}
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={4} sm={2}>
-                                    <Typography variant="subtitle1" gutterBottom>
-                                        {row.horaFactura}
-                                    </Typography>
-                                </Grid>
-                                    
-                                <Grid item xs={12} sm={2}>
-                                    <Box component="div">
-                                        {row.tienePdf ? 
-                                            <IconButton aria-label="openPDF" onClick={(event) => { event.preventDefault(); descargaPdf(row.invoice);} }>
-                                                <PictureAsPdfIcon/>
-                                            </IconButton>
-                                            :
-                                            <IconButton aria-label="noAvailable" disabled>
-                                                <BlockOutlinedIcon/>
-                                            </IconButton>
-                                            }
-
-                                            {row.tieneXml ? 
-                                            <IconButton aria-label="Download" onClick={(event) => { event.preventDefault(); descargaXml(row.invoice)}} download={row.invoice+".pdf"}>
-                                            <DescriptionIcon/>
-                                            </IconButton>
-                                            
-                                            :
-                                            <IconButton aria-label="noAvailable" disabled>
-                                            <BlockOutlinedIcon/>
-                                            </IconButton>
-                                        }
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} sm={2} >
-                                    <Button variant="contained" fullWidth size="large" color="primary" name="Modal2" 
-                                        onClick={(event) => { handleOpen(event); setInvoicePedido({invoice_num:row.invoice, pedido_num:row.pedidoNum});} }>
-                                            Editar
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </Paper>
-                    </Box>
-                </Grid>
-            </Grid>
-        )) 
-    )
+    } 
 
 
     const formulario = (
@@ -577,6 +482,9 @@ export default function MisFacturas() {
                                 </Grid>
                             </Grid>
                             <Divider light/>
+                            {(addOpen)?
+                            <Refactura setAddOpen={setAddOpen} setAlerta={setAlerta} alerta={alerta}  invoicePedido={invoicePedido}/>
+                            :
                             <Box component="div" m={1}>
                                 <Grid container className={classes.root} spacing={2}>
                                     <Grid item xs={12}>
@@ -604,15 +512,98 @@ export default function MisFacturas() {
                                             </Grid>
                                             </Box>
                                             <Box>
-                                                {resultado ? Contenido : sinResultados}
+                                            {resultado ? 
+                                                result.map((row) => (
+                                                    <Grid
+                                                    container
+                                                    direction="row"
+                                                    justifyContent="center"
+                                                    alignItems="center" key={row.pedidoNum}>
+                                                        <Grid item xs={12}>
+                                                            <Box component="div" py={2}>
+                                                                <Paper className={classes.paperBox}>
+                                                                    <Grid
+                                                                    container
+                                                                    direction="row"
+                                                                    justifyContent="space-around"
+                                                                    alignItems="center">
+                                                                        <Grid item xs={12} sm={12} lg={2}>
+                                                                            <Typography variant="h6"component="subtitle2" gutterBottom>
+                                                                            #{row.pedidoNum}
+                                                                            </Typography>
+                                                                        </Grid>
+                                                                        <Grid item xs={4} sm={2}> 
+                                                                            <Typography variant="h6" component="subtitle2" gutterBottom>
+                                                                                {row.invoice}
+                                                                            </Typography>
+                                                                        </Grid>
+                                                                        <Grid item xs={4} sm={2}>
+                                                                            <Typography variant="subtitle1" gutterBottom>
+                                                                                {row.fechaFactura}
+                                                                            </Typography>
+                                                                        </Grid>
+                                                                        <Grid item xs={4} sm={2}>
+                                                                            <Typography variant="subtitle1" gutterBottom>
+                                                                                {row.horaFactura}
+                                                                            </Typography>
+                                                                        </Grid>
+                                                                            
+                                                                        <Grid item xs={12} sm={2}>
+                                                                            <Box component="div">
+                                                                                {row.tienePdf ? 
+                                                                                    <IconButton aria-label="openPDF" onClick={(event) => { event.preventDefault(); descargaPdf(row.invoice);} }>
+                                                                                        <PictureAsPdfIcon/>
+                                                                                    </IconButton>
+                                                                                    :
+                                                                                    <IconButton aria-label="noAvailable" disabled>
+                                                                                        <BlockOutlinedIcon/>
+                                                                                    </IconButton>
+                                                                                    }
+                                        
+                                                                                    {row.tieneXml ? 
+                                                                                    <IconButton aria-label="Download" onClick={(event) => { event.preventDefault(); descargaXml(row.invoice)}} download={row.invoice+".pdf"}>
+                                                                                    <DescriptionIcon/>
+                                                                                    </IconButton>
+                                                                                    
+                                                                                    :
+                                                                                    <IconButton aria-label="noAvailable" disabled>
+                                                                                    <BlockOutlinedIcon/>
+                                                                                    </IconButton>
+                                                                                }
+                                                                            </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={2} >
+                                                                            <Button variant="contained" fullWidth size="large" color="primary" name="Modal2" 
+                                                                                onClick={(event) => { handleOpen(event); setInvoicePedido({invoice_num:row.invoice, pedido_num:row.pedidoNum});} }>
+                                                                                    Editar
+                                                                            </Button>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Paper>
+                                                            </Box>
+                                                        </Grid>
+                                                    </Grid>
+                                                ))
+                                                : 
+                                                <Container maxWidth="lg">
+                                                    <Box component="div" mx="auto" py={8} >
+                                                            <Box component="div" width="20%" mx="auto" py={4}>
+                                                                <img className={classes.opacityBox} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/page-info/notfound.svg" alt="Sin resutado de busquedas" />
+                                                            </Box>
+                                                            <Box component="div" textAlign="center">
+                                                                <Typography component="h3" variant="h6">No encontramos facturas</Typography>
+                                                            </Box>
+                                                    </Box>
+                                                </Container>
+                                                }
                                             </Box>
-
                                             </Grid>
                                         
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </Box>
+                            }
                         </Box>
                     </Grid>
                 </Grid>
@@ -703,7 +694,8 @@ export default function MisFacturas() {
                                             variant="outlined" 
                                             name="rfc"
                                             placeholder="Ingresa un un RFC" 
-                                            onChange={handleChange}/>
+                                            onChange={handleChange}
+                                            value={(inputs)?(inputs.hasOwnProperty('rfc'))?inputs.rfc:'':''}/>
                                         </Grid>
                                         <Grid item>
                                         <IconButton color="primary" aria-label="startProcess" onClick={validarRFC}>
@@ -765,6 +757,9 @@ export default function MisFacturas() {
             </Alert>
             </div>
         </Snackbar>   */}
+        {(alerta.hasOwnProperty('severity'))&&
+            <Alertas setAlerta={setAlerta} alerta={alerta}/>
+        } 
         </Layout>
     );
 }

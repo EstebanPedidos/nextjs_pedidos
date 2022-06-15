@@ -122,7 +122,7 @@ export default function Forma_de_envio(props){
                                                 'event': 'checkout',
                                                 'ecommerce': {
                                                 'checkout': {
-                                                    'actionField': {'step': 2, 'option': 'Envio'},
+                                                    'actionField': {'step': 3, 'option': 'Envio'},
                                                     'products': JSON.parse('['+products+']')
                                                 }
                                             }

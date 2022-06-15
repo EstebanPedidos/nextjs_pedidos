@@ -230,7 +230,7 @@ export default function Forma_de_pago(){
                                                 'event': 'checkout',
                                                 'ecommerce': {
                                                 'checkout': {
-                                                    'actionField': {'step': 2, 'option': 'Pago'},
+                                                    'actionField': {'step': 4, 'option': 'Pago'},
                                                     'products': JSON.parse('['+products+']')
                                                 }
                                             }
