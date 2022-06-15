@@ -79,7 +79,7 @@ export default function Planes({item,UpdateCantidad,index,CambiarPlanes}){
                       <Box component="div" py={1}>
                         <Divider/>
                       </Box>
-                      <Typography component="subtitle1"  gutterBottom>Delproducto {item.descripcion}</Typography>                
+                      <Typography component="subtitle1"  gutterBottom>Delproducto {(item)?item.descripcion:''}</Typography>                
                 </Box>     
               <Box component="div" py={2}>
                 {(parseInt(item.cantSeguro) > 0 && item.cantidad !== '')&&

@@ -264,7 +264,6 @@ export default function Forma_de_pago(){
             <link href="https://pedidos.com/checkout/forma-de-pago.asp" rel="canonical" />
             <title>Forma de pago | Pedidos.com</title>
             <meta name="description" content="Conoce las formas de pago que tenemos para ti: Paga en línea con tu tarjeta de crédito o débito, PayPal, Paga al recibir ya sea con tarjeta (VISA,AMEX) o efectivo, transferencias y dépositos." />
-            <script src="https://www.paypal.com/sdk/js?client-id=ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_&currency=MXN&disable-card=amex,visa,mastercard&locale=es_MX"></script>
         </Head>
         <Header/>
         <Container maxWidth="lg">

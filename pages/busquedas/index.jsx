@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import algoliasearch from 'algoliasearch/lite';
-import { App } from "./components/app";
+import { App } from "../../components/Algolia/app";
 
 
 //Tag Manager
