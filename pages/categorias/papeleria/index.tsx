@@ -1,3 +1,5 @@
+import { ElementType } from 'react';
+import { SxProps, Theme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -51,7 +53,20 @@ const categoryItems = [
 	},
 ];
 
-const featured = [
+const featured: Array<{
+	title: string;
+	subtitle?: string;
+	img: string;
+	cta: string;
+	url?: string;
+	floatingTitle?: boolean;
+	centeredTitle?: boolean;
+	children?: {
+		component: ElementType<any>;
+		src: string;
+		sx?: SxProps<Theme>;
+	};
+}> = [
 	{
 		title: 'Productos para oficina',
 		subtitle: 'Pide tus esenciales para el trabajo',
