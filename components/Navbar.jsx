@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 //Components @mui/material
-import {	AppBar, Toolbar, IconButton,Typography, Menu, Box, Hidden, TextField, Button, Divider, InputAdornment,	MenuItem, Badge,} from '@mui/material';
+import {	AppBar, Toolbar, IconButton,Typography, Menu, Box, Hidden, TextField, Button, Divider, InputAdornment,	MenuItem, Badge, Avatar} from '@mui/material';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { FavoriteBorder, Search as SearchIcon, ShoppingCartOutlined as ShoppingCartOutlinedIcon
 } from '@mui/icons-material';

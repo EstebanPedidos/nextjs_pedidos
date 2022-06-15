@@ -94,7 +94,7 @@ export default function Confirmacion_de_pago(){
         (data.hasOwnProperty('jsonResumen'))&&
             <Head>    
                 <link href="https://pedidos.com/checkout/confirmacion-de-pago.asp" rel="canonical" />
-	            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	            <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
 	            <title>Confirmación de Pago | Pedidos.com {data.jsonResumen.resumen.formaPago}</title>
 	            <meta name="description" content="¡Gracias por tu compra! Aquí encontrarás el resumen de compra de tu pedido. Para cualquier duda o aclaración comunícate a nuestros teléfonos: 5015-8100 ó al 018008138181 en un horario de Lunes a Viernes de 9:00hras a 19:00hras. " />
             </Head>
