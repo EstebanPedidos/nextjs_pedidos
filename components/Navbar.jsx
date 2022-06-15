@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 //Components @mui/material
-import {	AppBar, Toolbar, IconButton,Typography, Menu, Box, Hidden, TextField, Button, Divider, InputAdornment,	MenuItem, Badge,} from '@mui/material';
+import {AppBar, Toolbar, IconButton,Typography, Menu, Box, Hidden, TextField, Button, Divider, InputAdornment,	MenuItem, Badge, Avatar} from '@mui/material';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { FavoriteBorder, Search as SearchIcon, ShoppingCartOutlined as ShoppingCartOutlinedIcon
 } from '@mui/icons-material';
@@ -296,10 +296,14 @@ export function Navbar(props) {
 			anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
 			<div>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/Login'>Iniciar Sesión</Link>
+					<Link href='/Login'>
+						<Typography variant="h6" component="a" py={1}>Iniciar Sesión</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/RegistroUsuario'>Crear Cuenta</Link>
+					<Link href='/RegistroUsuario'>
+						<Typography variant="h6" component="a" py={1}>Crear Cuenta </Typography>
+					</Link>
 				</MenuItem>
 			</div>
 		</Menu>

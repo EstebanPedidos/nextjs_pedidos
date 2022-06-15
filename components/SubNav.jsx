@@ -25,7 +25,7 @@ export const SubNav = () => {
 				justifyContent='center'
 				bgcolor='#f6f7f9'
 				py={2}
-				mb={1}>
+				>
 				<Box display='flex' justifyContent='space-between' alignItems='center'>
 					
 						<Box>

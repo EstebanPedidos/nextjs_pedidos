@@ -92,7 +92,7 @@ export default function MiCuentaSiderBar() {
 	return (
 		<>
 			<Box component="div"  m={1} px={1}>
-                <Hidden smDown>
+                <Hidden mdDown>
                     <Box component="div" py={2} >
                     <Box component="div" textAlign="center" m="auto" p={2}>
                         <Grid
@@ -315,11 +315,10 @@ export default function MiCuentaSiderBar() {
                         </Box>
                         </Box>
                 </Hidden> 
-                <Hidden smUp>
+                <Hidden mdUp>
                     <Swiper
                 //modules={[Autoplay]}
                 lazy={true}
-                spaceBetween={3}
                 slidesPerView={6}
                 className="mySwiperacc"
                 //centeredSlides={true}
@@ -338,11 +337,11 @@ export default function MiCuentaSiderBar() {
                     
                     },
                     768: {
-                    slidesPerView:5.8,
+                    slidesPerView:4.5,
                     
                     },
                     1100: {
-                    slidesPerView: 6,
+                    slidesPerView:3.8,
                     
                     },
                 }}
@@ -428,7 +427,10 @@ export default function MiCuentaSiderBar() {
                         <Button component="a" startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
                     </Link>
                 </SwiperSlide>
-                </Swiper>
+                    </Swiper>
+                    <Box py={2}>
+                        <Divider light />
+                    </Box>
                 </Hidden>                   
             </Box>
 		</>
