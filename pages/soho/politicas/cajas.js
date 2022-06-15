@@ -5,7 +5,7 @@ import { Box, Container, Typography } from '@mui/material';
 
 export default function CajasDePapel() {
 	return (
-		<Layout>
+		<Layout title='Costos por cajas de Papel | Pedidos.com'>
 			<Container maxWidth='xl'>
 				<HeadingPolicies/>
 				<PoliciesMenu />

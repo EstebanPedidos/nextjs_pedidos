@@ -1177,7 +1177,7 @@ export default function DrawerCategorias() {
         <>
             <div>
                 <Hidden smDown={true}>
-                    <Button onClick={toggleDrawer("left", true)} startIcon={<MenuOutlinedIcon />}>
+                    <Button onClick={toggleDrawer("left", true)} startIcon={<MenuOutlinedIcon />} sx={{color:'rgb(0 0 0 / 87%)'}}>
                         Categorias
                     </Button>
                 </Hidden>

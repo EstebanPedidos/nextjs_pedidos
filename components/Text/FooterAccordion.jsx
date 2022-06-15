@@ -87,7 +87,7 @@ const itemsAyuda = [
 	},
 	{
 		content: 'Forma de pago',
-		to: '/soho/politicas/forma-pago',
+		to: '/soho/politicas/forma-de-pago',
 	},
 	{
 		content: 'Forma de Envíos',
@@ -95,16 +95,24 @@ const itemsAyuda = [
 	},
 	{
 		content: 'Soporte Técnico',
-		to: 'soporte-tecnico',
+		to: '/soporte-tecnico',
 	},
 	{
 		content: 'Garantías & Devoluciones',
-		to: '/',
+		to: 'mailto:pagos@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones&body=Completar%20la%20siguiente%20información%0D%0APedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A',
 	},
 ];
 const itemsContacto = [
 	{
 		content: 'Horario de atención 9:00 a 18:30 hrs',
+	},
+	{
+		content: 'Cotizar',
+		to: '/',
+	},
+	{
+		content: '¿Necesitas Ayuda?',
+		to: '/',
 	},
 	
 ];

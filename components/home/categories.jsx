@@ -34,7 +34,7 @@ const Boxcategory = ({data})=>{
                             />
                     </Box>
                     <Box component="div" textAlign="center">
-                        <Typography variant="h6" component="h3" sx={{fontWeight:'600'}}>
+                        <Typography variant="subtitle2" component="p" mt={4} sx={{fontWeight:'600'}}>
                             {data.titulo}
                         </Typography>  
                     </Box>

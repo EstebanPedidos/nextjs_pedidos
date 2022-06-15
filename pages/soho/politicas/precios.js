@@ -9,7 +9,7 @@ import { Layout } from '/layout/Layout';
 
 export const SohoPrecios = () => {
 	return (
-		<Layout>
+		<Layout title='Precios y existencias sobre productos | Pedidos.com'>
 			<HeadingPolicies/>
 			<PoliciesMenu />
 				<Container maxWidth='md'>

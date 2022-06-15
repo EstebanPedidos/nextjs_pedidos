@@ -1,37 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 //Components @mui/material
-import {
-	AppBar,
-	Toolbar,
-	IconButton,
-	Typography,
-	Menu,
-	Box,
-	Hidden,
-	TextField,
-	Button,
-	Divider,
-	InputAdornment,
-	MenuItem,
-	Badge,
-	Drawer,
-	List,
-	ListItem,
-	ListIcon,
-	ListItemText,
-	Avatar,
-	Tooltip,
-} from '@mui/material';
+import {	AppBar, Toolbar, IconButton,Typography, Menu, Box, Hidden, TextField, Button, Divider, InputAdornment,	MenuItem, Badge,} from '@mui/material';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-
-import {
-	FavoriteBorder,
-	HelpOutline as HelpOutlineIcon,
-	ShoppingCart as ShoppingCartIcon,
-	Search as SearchIcon,
+import { FavoriteBorder, Search as SearchIcon, ShoppingCartOutlined as ShoppingCartOutlinedIcon
 } from '@mui/icons-material';
-
 import { makeStyles, useTheme } from '@mui/styles';
 
 import RandomUser  from '../pages/services/RandomUser'
@@ -305,6 +278,18 @@ export function Navbar(props) {
 					overflow: 'visible',
 					filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
 					mt: 1.5,
+					'&:before': {
+						content: '""',
+						display: 'block',
+						position: 'absolute',
+						top: 0,
+						right: 14,
+						width: 10,
+						height: 10,
+						bgcolor: 'background.paper',
+						transform: 'translateY(-50%) rotate(45deg)',
+						zIndex: 0,
+					},
 				},
 			}}
 			transformOrigin={{ horizontal: 'right', vertical: 'top' }}
@@ -392,44 +377,67 @@ export function Navbar(props) {
 							
 								<Hidden smDown>		
 								<Box component={'span'}>
-									<IconButton onClick={handleClick}>
+									<IconButton onClick={handleClick}
+									aria-controls={open ? 'favorites' : undefined}
+									aria-haspopup="true">
 										<Badge
 											badgeContent={isLogged ? (favoritos > 0)? favoritos : null : null}
 											color='secondary'>
                                             {favoritos === null || favoritos === 0 || favoritos === undefined ? '' : 
 											<Link href='/soho/MiCuenta/misFavoritos'>
-												<FavoriteBorder />
+												<FavoriteBorder sx={{color:'#9298A7'}} />
 											</Link>
                                             }
 										</Badge>
 									</IconButton>
 									<Menu
+										id="favorites"
+										aria-labelledby="favorites-positioned-button"
 										anchorEl={anchorEl}
 										keepMounted
 										open={openMenu}
-										onClose={handleClose}>
-										<Box padding={'1em'}>
+										onClose={handleClose}
+										anchorOrigin={{
+											vertical: 'top',
+											horizontal: 'center',
+										  }}
+										  transformOrigin={{
+											vertical: 'top',
+											horizontal: 'left',
+										  }}
+										  PaperProps={{
+											elevation: 0,
+											sx: {
+											  overflow: 'visible',
+											  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+											  mt: 8, ml: 20,
+											  
+											  '&:before': {
+												content: '""',
+												display: 'block',
+												position: 'absolute',
+												top: 0,
+												right: 14,
+												width: 10,
+												height: 10,
+												bgcolor: 'background.paper',
+												transform: 'translateY(-50%) rotate(45deg)',
+												zIndex: 0,
+											  },
+											},
+										  }}
+									>
+										<Box py={'1em'} px={'2em'}>
 											{/* <MenuItem onClick={handleClose}> */}
-											<Typography variant='subtitle2' align='center'>
-												Aún no tienes favoritos
+											<Typography variant='subtitle1' align='center'>
+												Ve tus favoritos
 											</Typography>
 											{/* </MenuItem> */}
-											<Divider />
-											<Box
-												paddingTop={'1em'}
-												display='flex'
-												alignItems='center'
-												flexDirection={'column'}>
-												<IconButton>
-													<FavoriteBorder fontSize='large' />
-												</IconButton>
-												<Typography>Iniciar sesión para añadir</Typography>
-											</Box>
 										</Box>
 									</Menu>
 									<div ref={anchorEl} id='menu'></div>
 								</Box>
-								<Box component='span' px={1}>
+								<Box component='span' justifyContent='center' sx={{ backgroundColor:'#E7ECF3', borderRadius:'100px'}} >
 									<Help tipo={'2'}/>
 								</Box>
 								</Hidden>	
@@ -438,7 +446,7 @@ export function Navbar(props) {
 										badgeContent={(sesPartidas > 0)? sesPartidas : null }
 										color='secondary'>
 										<Link href='/checkout/verifica-pedido'>
-											<ShoppingCartIcon />
+											<ShoppingCartOutlinedIcon sx={{color:'#9298A7'}} />
 										</Link>
 									</Badge>
 								</IconButton>

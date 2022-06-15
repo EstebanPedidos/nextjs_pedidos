@@ -25,7 +25,7 @@ export const Container: FC<IContainerProps> = ({ children }) => {
 
 export const Pickup = () => {
 	return (
-		<Layout>
+		<Layout title='PickUp Center | Pedidos.com'>
 			<Container>
 				<Banner />
 			</Container>

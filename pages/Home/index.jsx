@@ -190,7 +190,7 @@ export default function Home() {
                     <Container maxWidth="xl">
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <Box component="div" pt={4} px={4} >
+                                <Box component="div" pb={2} px={4} >
                                     {validaSesion ? 
                                     <Typography variant="h4" component="h1" >
                                         Hola de nuevo, <Box component='span' fontWeight='600' ml={1}> {nombre}</Box>.
@@ -211,7 +211,7 @@ export default function Home() {
                                             pagination={true}
                                             lazy={true}
                                             spaceBetween={20}
-                                            slidesPerView={1.2}
+                                            slidesPerView={1}
                                             freeMode={true}
                                             className="mySwiper10"
                                             //centeredSlides={true}
@@ -245,26 +245,27 @@ export default function Home() {
                                                     <Box component="div" >
                                                         <Card variant="outlined" sx={{position:'relative'}} className={styles.productscard}>
                                                             <CardContent>
-                                                                <Box py={2} sx={{ width: '100%'}}>
+                                                                <Box py={4} sx={{ width: '100%'}}>
                                                                     <Grid container justifyContent='center' alignItems='center' rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} >
                                                                         {carrito.map((row, index) => (
                                                                             row.tipo === 'B' && index < 4 &&
-                                                                            <Grid item xs={6}>
-                                                                                <Link href={`/articulos/${row.itemNum}`}>
-                                                                                    <a>
-                                                                                        <CardActionArea>
-                                                                                            <Card variant="outlined" sx={{ height:'180px', width:'180px', padding:'10px'}} >
-                                                                                                <CardMedia
-                                                                                                className={classes.cover}
-                                                                                                component="img"
-                                                                                                width='100%'                                                                                                 alt={row.itemNum}
-                                                                                                image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
-                                                                                                title={row.itemNum}
-                                                                                                />
-                                                                                            </Card>
-                                                                                        </CardActionArea>  
-                                                                                    </a>
-                                                                                </Link>
+                                                                            <Grid item xs={6} sm={3} md={3}>
+                                                                                <Box component="div" py={1}>
+                                                                                    <Link href={`/articulos/${row.itemNum}`}>
+                                                                                        <a>
+                                                                                            <CardActionArea>
+                                                                                                <Card variant="outlined">
+                                                                                                    <CardMedia className={styles.imgproductscard}
+                                                                                                    component="img"
+                                                                                                    alt={row.itemNum}
+                                                                                                    image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
+                                                                                                    title={row.itemNum}
+                                                                                                    />
+                                                                                                </Card>
+                                                                                            </CardActionArea>
+                                                                                        </a>
+                                                                                    </Link>
+                                                                                </Box>
                                                                             </Grid>
                                                                         ))}
                                                                             <Grid item xs={12} sm={12}>
@@ -292,12 +293,12 @@ export default function Home() {
                                                     <Box component="div">
                                                         <Card variant="outlined" sx={{position:'relative'}} className={styles.productscard}>
                                                             <CardContent>
-                                                                <Box py={2} sx={{ width: '100%'}}>
+                                                                <Box py={4} sx={{ width: '100%'}}>
                                                                     <Grid container rowSpacing={2} columnSpacing={{ xs:2, sm: 2, md: 2 }} >
                                                                         {vistos.map((row, index) => (
                                                                             row.tipo === 'V' && index < 4 &&
                                                                             <Grid item xs={6} sm={3} md={3}>
-                                                                                <Box component="div">
+                                                                                <Box component="div" py={1}>
                                                                                     <Link href={`/articulos/${row.itemNum}`}>
                                                                                         <a>
                                                                                             <CardActionArea>
@@ -338,7 +339,7 @@ export default function Home() {
                                                     <Box component="div">
                                                         <Card variant="outlined" sx={{position:'relative'}} className={styles.productscard}>    
                                                             <CardContent>
-                                                                <Box py={2} sx={{ width: '100%' }}>
+                                                                <Box py={4} sx={{ width: '100%' }}>
                                                                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
                                                                         {favoritos.map((row, index ) => (
                                                                             (index < 4 ) &&
@@ -386,29 +387,31 @@ export default function Home() {
                                         <Box component="div" pb={2}>
                                             <Paper variant="outlined">
                                                 <Box component="div" p={3}> 
-                                                    <Grid container alignItems="center" spacing={1}>
-                                                        <Grid item>
+                                                    <Grid container justifyContent='center' alignItems="center" spacing={1}>
+                                                        <Grid item xs={3}>
                                                             <Box component="div" sx={{ width: '85px', bottom: 0,right: 0,display: 'block',}} >
-                                                                <Box component="div"p={2} sx={{backgroundColor:'#3655a5', borderRadius:'8px', width:'auto',height:'auto', justifyContent:'center', margin:'auto'}}>
-                                                                    <img sx={{ justifyContent:'center', margin:'auto'}}
-                                                                    src="https://pedidos.com/myfotos/pedidos-com/pagina/home22/servicios/pickup.svg"
-                                                                    alt=""
+                                                                <Box component="div"p={2} sx={{backgroundColor:'#3655a5', borderRadius:'8px', width:'100%',height:'auto', justifyContent: "center", display: "flex"}}>
+                                                                    <img width={56} sx={{ justifyContent:'center', margin:'auto',}}
+                                                                    src="https://pedidos.com/myfotos/pedidos-com/pagina/home22/servicios/pvolumen.svg"
+                                                                    alt="Mis Pedidos"
                                                                     layout="responsive"
                                                                     />
                                                                 </Box>
                                                             </Box>
                                                         </Grid>
-                                                        <Grid item>
-                                                            <Typography variant="h6" component="p">
-                                                                    Mis Pedidos
-                                                            </Typography>
-                                                            <Link
-                                                                href={`/MisPedidos`}
-                                                                passHref>
-                                                                <Button fullWidth component="a" variant="outlined" color="primary">
-                                                                    Ver todos
-                                                                </Button>
-                                                            </Link>
+                                                        <Grid item xs={9}>
+                                                            <Box component="div" pl={5}>
+                                                                <Typography variant="h6" component="p" pb={1}>
+                                                                        Mis Pedidos
+                                                                </Typography>
+                                                                <Link
+                                                                    href={`/MisPedidos`}
+                                                                    passHref>
+                                                                    <Button fullWidth component="a" variant="outlined" color="primary">
+                                                                        Ver todos
+                                                                    </Button>
+                                                                </Link>
+                                                            </Box>
                                                         </Grid>
 
                                                     </Grid>
@@ -419,7 +422,7 @@ export default function Home() {
                                             <Paper variant="outlined" >
                                                 <Box component="div" p={1}>
                                                     <Box component="div" px={1} pt={2}>
-                                                        <Typography variant="subtitle1" component="p">
+                                                        <Typography variant="h6" component="p">
                                                             ¡Contáctanos!
                                                         </Typography>
                                                         <Typography variant="subtitle1" color="textSecondary" component="p" pb={3}>
@@ -705,21 +708,123 @@ export default function Home() {
         </div>
         : 
         <div>
-            <Box sx={{ pt: 0.5 }}>
-                <Skeleton animation="wave" />
-                <Skeleton animation="wave" />
-            </Box>
-            <Grid container wrap="nowrap" >
-                
-                    <Skeleton variant="rectangular" width={600} height={250} />
-                    <Skeleton variant="rectangular" width={300} height={250} />
-                    <Skeleton variant="rectangular" width={300} height={250} />
+            <Box component="div" sx={{ background:'#f6f7f9', position:'relative' }}>
+                <Box component="div">
+                    <Container maxWidth="xl">
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <Box component="div" pb={2} px={4} >
+                                    <Skeleton variant="text" height={80}  width="40%" animation="wave" />
+                                </Box>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Divider variant="middle"/> 
+                                <Box component="div" p={2} > 
+                                    <Skeleton animation="wave" height={40} />
+                                </Box>
+                            </Grid>
+                            <Grid item xs={12} sx={{zIndex:1}} mb={2}>
+                                <Grid container justifyContent="space-between" alignItems="flex-start" spacing={2}>
+                                    <Grid item xs={12} sm={12} lg={6}>
+                                        <Box component="div" p={3}>
+                                            <Card variant="outlined">
+                                                <CardContent>
+                                                    <Box p={4} sx={{ width: '100%'}}>
+                                                        <Box component="div" pb={1}>
+                                                            <Skeleton variant="rectangular" width='100%' height={150} animation="wave" />  
+                                                        </Box>
+                                                        <Box component="div" py={1}>
+                                                            <Divider light />
+                                                        </Box>
+                                                        <Box component="div">
+                                                            <Skeleton variant="text" height={60} animation="wave" />
+                                                        </Box>
+                                                    </Box>
+                                                </CardContent>
+                                            </Card>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <Box component="div" py={3}>
+                                            <Box component="div" pb={2}>
+                                                <Paper variant="outlined">
+                                                    <Box component="div" p={3}> 
+                                                        <Grid container justifyContent='center' alignItems="center" spacing={1}>
+                                                            <Grid item xs={3}>
+                                                                <Box component="div">
+                                                                    <Skeleton variant="rectangular" width={60} height={60} />
+                                                                </Box>
+                                                            </Grid>
+                                                            <Grid item xs={9}>
+                                                                <Box component="div" px={2}>
+                                                                    <Skeleton variant="text" height={40}  width="100%" animation="wave" />
+                                                                    <Skeleton variant="rectangular" width="100%" height={50} />
+                                                                </Box>
+                                                            </Grid>
 
-            </Grid>
-            <Box sx={{ pt: 0.5 }}>
-                <Skeleton animation="wave" />
-                <Skeleton animation="wave" />
+                                                        </Grid>
+                                                    </Box>
+                                                </Paper>
+                                            </Box> 
+                                            <Box component="div" pt={2}>
+                                                <Paper variant="outlined" >
+                                                    <Box component="div" p={1}>
+                                                        <Box component="div" px={1} pt={2}>
+                                                            <Skeleton variant="text" height={40}  width="100%" animation="wave" />
+                                                        </Box>
+                                                        <Box component="div" px={1} pb={2}>
+                                                            <Grid container spacing={2}>
+                                                                <Grid item xs={6}>
+                                                                    <Skeleton variant="rectangular" width="100%" height={50} />
+                                                                </Grid>
+                                                                <Grid item xs={6}>
+                                                                    <Skeleton variant="rectangular" width="100%" height={50} />
+                                                                </Grid> 
+                                                            </Grid>
+                                                        </Box>
+                                                    </Box>
+                                                </Paper>
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <Box component="div" py={3}>
+                                            <Paper variant="outlined" p={3}>
+                                                <Box component="div" py={3}> 
+                                                    <Box sx={{ p: 4, justifyContent: "center" }}>
+                                                        <Skeleton variant="rectangular" width={80} height={80} />
+                                                        <Skeleton width="60%" />
+                                                        <Skeleton />
+                                                        <Skeleton variant="rectangular" height={40}  width="100%" animation="wave" />
+                                                        <Skeleton variant="rectangular" height={40}  width="100%" animation="wave" />
+                                                    </Box>
+                                                </Box>
+                                            </Paper>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            
+                        </Grid>
+                    </Container>
+                </Box>
             </Box>
+            <Skeleton variant="rectangular" width="100%" height={50} />
+            <Box component="div" py={6} textAlign="center" justifyContent="center">
+                <Skeleton variant="rectangular" width="60%" height={70} sx={{margin:'auto'}} />
+            </Box>
+            <Divider variant="middle"/>
+            <Box>
+                <Box component="div" py={4} px={2} >
+                    <Skeleton variant="text" height={40}  width="40%" animation="wave" />
+                </Box>
+                <Skeleton variant="rectangular" width="90%" height={200} sx={{margin:'auto'}} />
+            </Box>
+            
+            <Box component="div" py={6} textAlign="center" justifyContent="center">
+                <Skeleton variant="rectangular" width="100%" height={350} sx={{margin:'auto'}} />
+            </Box>
+            
          </div>
     }
         </Layout>
