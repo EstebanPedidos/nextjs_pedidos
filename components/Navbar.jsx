@@ -240,26 +240,33 @@ export function Navbar(props) {
 			anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
 			<div>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/soho/MiCuenta/MisDatos'>Mis Datos</Link>
+					<Link href='/soho/MiCuenta/MisDatos'>
+						<Typography variant="h6" component="a" py={1}>Mis Datos</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/soho/MiCuenta/MisPedidos'>Pedidos</Link>
+					<Link href='/soho/MiCuenta/MisPedidos'><Typography variant="h6" component="a" py={1}>Pedidos</Typography></Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/soho/MiCuenta/Direcciones'>Direcciones</Link>
+					<Link href='/soho/MiCuenta/Direcciones'><Typography variant="h6" component="a" py={1}>Direcciones</Typography></Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/soho/MiCuenta/misFacturas'>Facturas</Link>
+					<Link href='/soho/MiCuenta/misFacturas'>
+					<Typography variant="h6" component="a" py={1}>Facturas</Typography></Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/soho/MiCuenta/misFavoritos'>Favoritos</Link>
+					<Link href='/soho/MiCuenta/misFavoritos'>
+					<Typography variant="h6" component="a" py={1}>Favoritos</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/soho/MiCuenta/misNotasCredito'>Notas de Credito</Link>
+					<Link href='/soho/MiCuenta/misNotasCredito'>
+					<Typography variant="h6" component="a" py={1} >Notas de Credito</Typography>
+					</Link>
 				</MenuItem>
 				<Divider />
 				<MenuItem onClick={() => (handleMenuClose(), CerrarSesion())}>
-					Salir
+					<Typography variant="h6" component="p" py={1} color="textSecondary">Salir </Typography>
 				</MenuItem>
 			</div>
 		</Menu>

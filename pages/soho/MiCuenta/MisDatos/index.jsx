@@ -1326,7 +1326,7 @@ export default function MisDatos() {
                         <Box sx={{
                                     width: 200,
                                     display: 'flex',
-                                    alignItems: 'center', margin:'auto',
+                                    alignItems: 'center', margin:'auto', justifyContent:'center'
                                 }}
                                 >
                             <Rating px={4} sx={{justifyContent:'center'}}
@@ -1339,8 +1339,17 @@ export default function MisDatos() {
                         </Box>
                         </Grid>
                         <Grid item xs={12}>
-                        <Box sx={{ alignItems: 'center', margin:'auto', }} >
-                            <TextareaAutosize aria-label="empty textarea" placeholder="Escribenos tu opinión" />
+                        <Box p={3} sx={{ alignItems: 'center', margin:'auto', justifyContent:'center' }} >
+                            <TextField fullWidth
+                                id="outlined-multiline-flexible-opinion"
+                                label="Escribenos tu opinión"
+                                aria-label="empty textarea"
+                                multiline
+                                maxRows={4}
+                                value={value}
+                                onChange={handleChange}
+                                />
+                            {/* <TextareaAutosize aria-label="empty textarea" placeholder="Escribenos tu opinión" /> */}
                         </Box>
                         </Grid>
                     </Grid>

@@ -337,7 +337,7 @@ export default function MiCuentaSiderBar() {
                     
                     },
                     768: {
-                    slidesPerView:4.5,
+                    slidesPerView:3.5,
                     
                     },
                     1100: {

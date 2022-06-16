@@ -489,10 +489,10 @@ export default function MisPedidos() {
                         justifyContent="space-between"
                         alignItems="flex-start"
                     >
-                        <Grid item xs={12} sm={4} lg={3}>
+                        <Grid item xs={12} sm={12} lg={3}>
                             <MiCuentaSiderBar/> 
                         </Grid>
-                        <Grid item xs={12} sm={8} lg={9}>
+                        <Grid item xs={12} sm={12} lg={9}>
                             <Box component="div">
                                 <Grid 
                                 container
