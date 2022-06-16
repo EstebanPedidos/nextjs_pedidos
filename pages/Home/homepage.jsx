@@ -1,8 +1,8 @@
 import React, { useEffect} from 'react';
 import Link from 'next/link'
- import Head from 'next/head';
- import Image from 'next/image';
- import styles from 'styles/Home.module.css';
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from 'styles/Home.module.css';
  //MUI
 	import {Container,Box, Grid, Paper, Typography, Button, Divider, Card, 
     CardActionArea, CardContent, CardActions,CardMedia

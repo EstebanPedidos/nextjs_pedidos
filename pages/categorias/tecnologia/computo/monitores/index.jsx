@@ -1,9 +1,6 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
-
+import Head from 'next/head';
+import {Container,Box, Grid, Typography, Divider,} from '@mui/material';
+//Components
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
 import CardsCarouselSection from 'components/CardsCarouselSection';
@@ -59,6 +56,10 @@ const CPUbrands = [
 const Monitores = () => {
 	return (
 		<Layout title='Monitores y equipo de computo para oficina | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Compra en línea monitores para oficina y hogar. Marcas como HP, Acer, Samsung y más en tu tienda en línea pedidos.com. Envío gratis en CDMX."/>
+				<link rel="canonical" href="https://pedidos.com/tecnologia/computo/monitores"/>
+			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/computo/back-computo.webp'
 				alt='Computo'

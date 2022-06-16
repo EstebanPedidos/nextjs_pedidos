@@ -1,5 +1,6 @@
+import Head from 'next/head';
 import Box from '@mui/material/Box';
-
+//components
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
 import CategoryGrid from 'components/CategoryGrid';
@@ -50,6 +51,10 @@ const productCategories = [
 const TiendaEpson = () => {
 	return (
 		<Layout title='Gran variedad de productos Epson | Pedidos.com '>
+			<Head>
+				<meta name="description" content="Encuentra gran variedad de productos Epson. Los mejores productos de impresion estan en Pedidos.com"/>
+				<link rel="canonical" href="https://pedidos.com/tienda-epson"/>
+			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/epson/tiendaepson.jpg'
 				alt='Tienda Epson'

@@ -1,6 +1,7 @@
-import { makeStyles } from '@mui/styles';
+import Head from 'next/head';
 import Box from '@mui/material/Box';
-
+import { makeStyles } from '@mui/styles';
+//components
 import { Layout } from 'layout/Layout';
 import Banner from 'components/sopote-tecnico/Banner';
 import HowItWorks from 'components/sopote-tecnico/HowItWorks';
@@ -17,6 +18,10 @@ export const TechnicalSupport = () => {
 
 	return (
 		<Layout title='Soporte Técnico | Pedidos.com'>
+			<Head>
+				<meta name="description" content="En Pedidos.com Te ayudamos a resolver las dudas frecuentes con tus nuevos equipos comprados en Pedidos.com"/>
+				<link rel="canonical" href="https://pedidos.com/soporte-tecnico"/>
+			</Head>	
 			<Banner />
 			<HowItWorks />
 			<Box

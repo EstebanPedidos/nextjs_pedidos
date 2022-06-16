@@ -1,11 +1,7 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
+import Head from 'next/head';
+import {Box, Container, Typography, Grid, Divider, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
-
+//components
 import { Layout } from '/layout/Layout';
 import ArrowsContainer from 'components/ArrowsContainer';
 import AnimatedFigures from 'components/AnimatedFigures';
@@ -101,6 +97,10 @@ const CustomButton = styled(Button)({
 const UniclickCredito = () => {
 	return (
 		<Layout title='Uniclick credito para empresas | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Uniclick credito es lo que necesitas para poder impulsar tu negocio de manera rápida. Descubre la mejor opción de acuerdo a tus necesidades."/>
+				<link rel="canonical" href="https://pedidos.com/uniclick/credito"/>
+			</Head>
 			<Box
 				pt={15}
 				pb={10}

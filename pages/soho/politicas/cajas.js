@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import { Layout } from '/layout/Layout';
 import { Paragraph, HeadingPolicies, PoliciesMenu } from '/components';
 import { Box, Container, Typography } from '@mui/material';
@@ -6,6 +7,10 @@ import { Box, Container, Typography } from '@mui/material';
 export default function CajasDePapel() {
 	return (
 		<Layout title='Costos por cajas de Papel | Pedidos.com'>
+			<Head>
+				<meta name="description" content="CONOCE AQUÍ sobre los costos de envío de cajas de papel en la CDMX, zona metropolitana el resto de la  República"/>
+				<link rel="canonical" href="https://pedidos.com/soho/politicas/cajas"/>
+			</Head>
 			<Container maxWidth='xl'>
 				<HeadingPolicies/>
 				<PoliciesMenu />

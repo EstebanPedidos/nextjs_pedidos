@@ -1,17 +1,13 @@
 import React from 'react';
+import Head from 'next/head';
 import Link from '../../../components/Link'
-import {Box, Container,  Grid, Typography} from '@mui/material';
-import ListSubheader from '@mui/material/ListSubheader';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
+import {Box, Container,  Grid, Typography, ListSubheader, List, ListItemButton,  
+		ListItemIcon, ListItemText, Collapse} from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarBorder from '@mui/icons-material/StarBorder';
+//Components
 import { Layout } from 'layout/Layout';
 
 const Item = ({data})=>{
@@ -36,7 +32,11 @@ export const TerminosYCondicionesDeEnvio = () => {
 	};
   
 	return (
-	<Layout>
+	<Layout title='Términos y condiciones de uso | Pedidos.com'>
+		<Head>
+			<meta name="description" content="Términos y condiciones de Pedidos.com que son aplicadas al acceso de las páginas que constituyen la plataforma Pedidos.com"/>
+			<link rel="canonical" href="https://pedidos.com/soho/cliente/terminos-y-condiciones"/>
+		</Head>
 		<Container maxWidth="xl">
 			<Grid container spacing={2}>
 				<Grid item xs={12}>

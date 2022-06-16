@@ -1,8 +1,7 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 
+import Head from 'next/head';
+import {Box, Container, Typography, Grid, } from '@mui/material';
+//components
 import { Layout } from '/layout/Layout';
 import Link from 'components/Link';
 import ExpandableCard from 'components/ExpandableCard';
@@ -27,6 +26,10 @@ const options = [
 const Uniclick = () => {
 	return (
 		<Layout title='Soluciones para tu negocio con Uniclick | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Conoce las mejores soluciones financieras de www.uniclick.com.mx con nosotros y descubre todas las posibilidades que hay para ti."/>
+				<link rel="canonical" href="https://pedidos.com/uniclick"/>
+			</Head>
 			<Box
 				pt={12}
 				pb={15}
