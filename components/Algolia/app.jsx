@@ -179,7 +179,7 @@ const HitComponent = ({ hit }) => (
                                                 alt={hit.ITEM_NUM}
                                                 height='180'
                                                 image={
-                                                    '/myfotos/large/(L)' +
+                                                    'https://pedidos.com/myfotos/large/(L)' +
                                                     hit.ITEM_NUM +
                                                     '.jpg'
                                                 }
