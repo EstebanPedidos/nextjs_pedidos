@@ -128,13 +128,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Busquedas(props) {
 	const classes = useStyles();
-
+    
     const [searchState, setSearchState] = React.useState(props.searchState);
     const debouncedSetState = React.useRef();
     const [filtros, setFiltros] = React.useState([]);
 
     const router = useRouter();
-	const url = router.query.query;
+	var url = router.query.query;
+    if (url === undefined && router.query && Object.keys(router.query).length > 0) {
+        url = Object.keys(router.query)[0].replaceAll('-', ' ');
+        const terms = url.split('/');
+        url = terms[terms.length - 1];
+    }
+
 
     let index = '';
 
@@ -144,6 +150,7 @@ export default function Busquedas(props) {
             setSearchState(pathToSearchState(url));
           });
         }
+
       }, [router]);
 
 	useEffect(() => {
@@ -164,30 +171,24 @@ export default function Busquedas(props) {
 
     return(
         <Layout title={url === undefined ? '' : url+" Compra en México Pedidos.com"}>
-            <div className={classes.bgcontent}>
-                <div className={classes.root}>
-                    <Grid container direction="row" justifyContent="center" alignItems="flex-start" >
-                    <App
-                        {...DEFAULT_PROPS}
-                        {...url}
-                        searchState={searchState}
-                        resultsState={props.resultsState}
-                        onSearchStateChange={(nextSearchState) => {
-                        clearTimeout(debouncedSetState.current);
+                <App
+                    {...DEFAULT_PROPS}
+                    url={url}
+                    searchState={searchState}
+                    resultsState={props.resultsState}
+                    onSearchStateChange={(nextSearchState) => {
+                    clearTimeout(debouncedSetState.current);
 
-                        debouncedSetState.current = setTimeout(() => {
-                            const href = searchStateToURL(nextSearchState);
+                    debouncedSetState.current = setTimeout(() => {
+                        const href = searchStateToURL(nextSearchState);
 
-                            router.push(href, href, { shallow: true });
-                        }, updateAfter);
+                        router.push(href, href, { shallow: true });
+                    }, updateAfter);
 
-                        setSearchState(nextSearchState);
-                        }}
-                        createURL={createURL}
-                    />          
-                    </Grid>
-                </div>
-            </div>
+                    setSearchState(nextSearchState);
+                    }}
+                    createURL={createURL}
+                />          
 		</Layout>
 	);
 }

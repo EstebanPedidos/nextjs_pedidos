@@ -1,4 +1,7 @@
 import React,{useState} from 'react';
+//Tag Manager
+import TagManager from 'react-gtm-module'
+//Material
 import makeStyles from '@mui/styles/makeStyles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -38,14 +41,29 @@ export default function Cotizar({item_num}) {
     const classes         = useStyles();
     const [modalStyle]    = useState(getModalStyle);
     const [open, setOpen] = useState(false);
-    function Cotizar(tipo){
-        if(tipo === 1){//Personal
-
-        }else{
-
+    async function Cotizar(tipo){
+      let url = await ''
+      if(tipo === 1){//Personal
+        url= await 'https://api.whatsapp.com/send?phone=5215562947884&amp;text=Hola, me ayudas a cotizar el precio de este producto por volumen '+item_num
+        const tagManagerArgs = {
+          gtmId: 'GTM-NLQV5KF',
+          dataLayer: {
+              'event': 'WhatsAppPersonal'
+          }
         }
-        window.open('https://api.whatsapp.com/send?phone=5215562947884&amp;text=Hola, me ayudas a cotizar el precio de este producto por volumen '+item_num, '_blank');
-        setOpen(false)
+        TagManager.initialize(tagManagerArgs)
+      }else{
+        url= await 'https://api.whatsapp.com/send?phone=5215610348533&amp;text=Hola, me ayudas a cotizar el precio de este producto por volumen '+item_num
+        const tagManagerArgs = {
+          gtmId: 'GTM-NLQV5KF',
+          dataLayer: {
+              'event': 'WhatsAppEmpresa'
+          }
+        }
+        TagManager.initialize(tagManagerArgs)
+      }
+      window.open(url, '_blank');
+      setOpen(false)
     }
     
     return (

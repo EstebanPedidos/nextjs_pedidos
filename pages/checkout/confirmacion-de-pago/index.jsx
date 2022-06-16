@@ -70,7 +70,7 @@ export default function Confirmacion_de_pago(){
                                 gtmId: 'GTM-NLQV5KF',
                                 dataLayer: {
                                     'event': 'checkout',
-                                'ecommerce': {
+                                    'ecommerce': {
                                         'purchase': {
                                         'actionField': {
                                             'id': pedido,
