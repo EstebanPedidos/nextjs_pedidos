@@ -44,11 +44,9 @@ export const HomeSite = () => {
 	return (
 		<Layout title='Pedidos.com | Todo para tu espacio de trabajo'>
 			<Head>
-				<meta charset="UTF-8"/>
 				<meta name="description" content="Paga a Meses Sin Intereses con tarjetas participantes y hasta 24 MSI con Citibanamex. Gran variedad de productos + Entregas EXPRESS CDMX."/>
 				<link rel="canonical" href="https://pedidos.com/" />
-				<meta name="viewport" content="width=device-width,initial-scale=1"/>
-				<meta name="robots" content="index, follow" />
+				
 			</Head>	
 			<Box component="div">
 				<MainSlideShow />

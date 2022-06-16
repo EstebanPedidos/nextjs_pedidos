@@ -1,5 +1,5 @@
 
-import Link from 'next/link'
+import Link from 'next/link';
 import Image from 'next/image';
 //MUI
 import {Box, Grid, Paper, Typography, Button, Card, 

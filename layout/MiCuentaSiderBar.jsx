@@ -358,7 +358,7 @@ export default function MiCuentaSiderBar() {
                     </Link>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <Link href="soho/MiCuenta/Direcciones">
+                    <Link href="/soho/MiCuenta/Direcciones">
                         <a>
                             <Accountsection
                             data={{
@@ -369,7 +369,7 @@ export default function MiCuentaSiderBar() {
                     </Link>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <Link href="soho/MiCuenta/misFacturas">
+                    <Link href="/soho/MiCuenta/misFacturas">
                         <a>
                             <Accountsection
                             data={{
@@ -380,7 +380,7 @@ export default function MiCuentaSiderBar() {
                     </Link>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <Link href="soho/MiCuenta/DatosFacturacion">
+                    <Link href="/soho/MiCuenta/DatosFacturacion">
                         <a>
                             <Accountsection
                             data={{

@@ -548,7 +548,7 @@ export default function MisPedidos() {
                                                                 </Typography>
                                                             </Grid>
                                                             <Grid item xs={6}  sm={5} lg={2}>
-                                                                <Help tipo={'1'}/>
+                                                                <Help tipo={'4'}/>
                                                             </Grid>
                                                         </Grid>
                                                     </Box>

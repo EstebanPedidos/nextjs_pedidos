@@ -410,7 +410,7 @@ export function Navbar(props) {
 										onClose={handleClose}
 										anchorOrigin={{
 											vertical: 'top',
-											horizontal: 'center',
+											horizontal: 'left',
 										  }}
 										  transformOrigin={{
 											vertical: 'top',
@@ -421,7 +421,7 @@ export function Navbar(props) {
 											sx: {
 											  overflow: 'visible',
 											  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-											  mt: 8, ml: 20,
+											  mt: 8, ml: 10,
 											  
 											  '&:before': {
 												content: '""',
