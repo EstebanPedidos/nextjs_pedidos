@@ -1,8 +1,6 @@
 import React from 'react';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import Head from 'next/head';
+import { Box, Container, Typography, Grid } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -143,6 +141,10 @@ const VideosComerciales = () => {
 
 	return (
 		<Layout title='Pedidos.com | Comerciales'>
+			<Head>
+				<meta name="description" content="Conoce los clips de Pedidos.com, solo pide y encuentra todo lo que necesitas para tu espacio de trabajo a Meses sin intereses"/>
+				<link rel="canonical" href="https://pedidos.com/videos-comerciales/comerciales"/>
+			</Head>
 			<Box py={10}>
 				<Container maxWidth='lg'>
 					<Typography

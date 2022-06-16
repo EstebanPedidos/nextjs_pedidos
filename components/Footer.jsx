@@ -337,7 +337,7 @@ export function FooterDesktop() {
 					<Grid container direction='column' spacing={2}>
 						<Grid item>
 							{/* <Link to="/Home"> */}
-							<img
+							<img sx={{width:'125px'}}
 								alt='Pedidos.com'
 								src={logo}
 								className={classes.logo}

@@ -14,6 +14,7 @@ export const Layout = (props) => {
 				<title>{title ?? 'Pedidos.com'}</title>
 				<meta name="viewport" content="width=device-width,initial-scale=1"/>
 				<meta name="robots" content="index,follow"/>
+
 			</Head>
 			<Script
 				src='https://kit.fontawesome.com/57c5aaf07a.js'

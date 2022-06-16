@@ -20,6 +20,7 @@ const drawerWidth = 240;
 //Nextjs
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Alertas from '../pages/checkout/Alertas'
 
 function ElevationScroll(props) {
 	const { children, window } = props;
@@ -82,6 +83,8 @@ export function Navbar(props) {
 	const [sesPartidas, setSesPartidas] = useState(props.partidas);
     const [favoritos, setFavoritos] = useState(props.favoritos);
 
+	const [alerta, setAlerta] = useState({});
+
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -126,7 +129,9 @@ export function Navbar(props) {
 		setOpenMenu(false);
 	};
 	const handleClick = (event) => {
-		setOpenMenu(true);
+		if(!isLogged){
+			setAlerta({severity:'info',mensaje:'Inicia sesión para ver tus favoritos',vertical:'bottom',horizontal:'right',variant:'filled'})
+		}
 	};
 
 	const handleOpenModal = () => {
@@ -400,52 +405,9 @@ export function Navbar(props) {
 											</Link>
                                             }
 										</Badge>
+									
 									</IconButton>
-									<Menu
-										id="favorites"
-										aria-labelledby="favorites-positioned-button"
-										anchorEl={anchorEl}
-										keepMounted
-										open={openMenu}
-										onClose={handleClose}
-										anchorOrigin={{
-											vertical: 'top',
-											horizontal: 'left',
-										  }}
-										  transformOrigin={{
-											vertical: 'top',
-											horizontal: 'left',
-										  }}
-										  PaperProps={{
-											elevation: 0,
-											sx: {
-											  overflow: 'visible',
-											  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-											  mt: 8, ml: 10,
-											  
-											  '&:before': {
-												content: '""',
-												display: 'block',
-												position: 'absolute',
-												top: 0,
-												right: 14,
-												width: 10,
-												height: 10,
-												bgcolor: 'background.paper',
-												transform: 'translateY(-50%) rotate(45deg)',
-												zIndex: 0,
-											  },
-											},
-										  }}
-									>
-										<Box py={'1em'} px={'2em'}>
-											{/* <MenuItem onClick={handleClose}> */}
-											<Typography variant='subtitle1' align='center'>
-												Ve tus favoritos
-											</Typography>
-											{/* </MenuItem> */}
-										</Box>
-									</Menu>
+									
 									<div ref={anchorEl} id='menu'></div>
 								</Box>
 								<Box component='span' justifyContent='center' sx={{ backgroundColor:'#E7ECF3', borderRadius:'100px'}} >
@@ -511,6 +473,9 @@ export function Navbar(props) {
 			</ElevationScroll>
 
 			{isLogged ? menuLogin : menuLogout}
+			{(alerta.hasOwnProperty('severity'))&&
+            <Alertas setAlerta={setAlerta} alerta={alerta}/>
+        	} 
 		</>
 	);
 }
