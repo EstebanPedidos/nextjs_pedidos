@@ -1,18 +1,9 @@
 import React from 'react';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Chip from '@mui/material/Chip';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Tooltip from '@mui/material/Tooltip';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
+import Head from 'next/head';
+import {Container,Box, Grid, Typography, Divider, Button, Chip, Tooltip, Accordion, AccordionSummary, AccordionDetails} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-
+//Components
 import { Layout } from '/layout/Layout';
 import Link from 'components/Link';
 
@@ -119,6 +110,10 @@ const PlanesDeProteccion = () => {
 
 	return (
 		<Layout title='Planes de Protección | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Mantén protegido tus dispositivos tecnológicos por mucho más tiempo  con estos planes de protección que Pedidos.com ha creado planes de protección para tus dispositivos desde el momento de tu compra."/>
+				<link rel="canonical" href="https://pedidos.com/soho/cliente/planes-de-proteccion"/>
+			</Head>
 			<Box pt={4} pb={2} position='relative'>
 				<Container>
 					<Box

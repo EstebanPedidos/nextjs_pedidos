@@ -1,13 +1,17 @@
 import React from 'react';
-// import { Container, Typography, Box } from '@material-ui/core';
+import Head from 'next/head';
 import { Container, Typography, Box } from '@mui/material';
-
+//components
 import { HeadingPolicies, Paragraph, PoliciesMenu } from '/components';
 import { Layout } from '/layout/Layout';
 
 export default function DevolucionesGarantias() {
 	return (
 		<Layout title='Devoluciones y garantías | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Conoce sobre las garantías y devolucione de Pedidos.com. AQUÍ"/>
+				<link rel="canonical" href="https://pedidos.com/soho/politicas/devoluciones-garantias"/>
+			</Head>
 			<Container maxWidth='xl'>
 				<HeadingPolicies />
 				<PoliciesMenu />

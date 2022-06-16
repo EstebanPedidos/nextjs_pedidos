@@ -1,10 +1,8 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
 
+import Head from 'next/head';
+import {Box, Container, Typography, Grid,  Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
+//components
 import { Layout } from '/layout/Layout';
 import ArrendamientoUniclickForm from 'components/ArrendamientoUniclickForm';
 import Link from 'components/Link';
@@ -94,6 +92,10 @@ const CustomButton = styled(Button)({
 const UniclickCredito = () => {
 	return (
 		<Layout title='Uniclick arrendamiento, todo lo que necesitas | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Si necesitas equipo electrónico o equipo mobiliario para tu negocio, Uniclick arrendamiento es la mejor opción para ti. Conoce todos los beneficios que puedes obtener."/>
+				<link rel="canonical" href="https://pedidos.com/uniclick/arrendamiento"/>
+			</Head>
 			<Box pt={12} pb={8}>
 				<Container maxWidth='xl'>
 					<Grid container>

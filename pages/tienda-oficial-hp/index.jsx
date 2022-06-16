@@ -1,15 +1,10 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
+import Head from 'next/head';
+import {Box, Container, Typography, Button, Divider, Grid, } from '@mui/material';
 import Link from '@mui/material/Link';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import HeadsetMicOutlinedIcon from '@mui/icons-material/HeadsetMicOutlined';
-
 // import required modules
 import { Layout } from 'layout/Layout';
 import HPSearchScript from 'components/HPSearchScript';
@@ -63,6 +58,10 @@ const productCategories = [
 const TiendaOficialHP = () => {
 	return (
 		<Layout title='Tienda Oficial HP en Pedidos.com'>
+			<Head>
+				<meta name="description" content="COMPRA AQUÍ los productos originales de HP que necesitas y descubre todo lo que Pedidos.com trae para ti en la tienda oficial de HP"/>
+				<link rel="canonical" href="https://pedidos.com/tienda-oficial-hp"/>
+			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/tiendaoftxt.jpg'
 				alt='Tienda oficial HP'

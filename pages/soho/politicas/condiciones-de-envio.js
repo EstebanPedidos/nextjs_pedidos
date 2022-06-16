@@ -1,32 +1,7 @@
 import React from 'react';
-// import {
-// 	Container,
-// 	Box,
-// 	Typography,
-// 	Table,
-// 	TableHead,
-// 	TableRow,
-// 	TableCell,
-// 	TableBody,
-// 	TableContainer,
-// 	Paper,
-// 	Grid,
-// } from '@material-ui/core';
-
-import {
-	Container,
-	Box,
-	Typography,
-	Table,
-	TableHead,
-	TableRow,
-	TableCell,
-	TableBody,
-	TableContainer,
-	Paper,
-	Grid,
-} from '@mui/material';
-
+import Head from 'next/head';
+import {Container,Box, Typography,Table,TableHead,TableRow, TableCell,TableBody,TableContainer,Paper,Grid, } from '@mui/material';
+//components
 import { HeadingPolicies, PoliciesMenu }  from 'components';
 import { Layout } from 'layout/Layout';
 
@@ -52,6 +27,10 @@ const rows = [
 export default function CondicionesDeEnvio() {
 	return (
 		<Layout title='Condiciones de envío | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Conoce AQUÍ lo que necesitas saber sobre las condiciones, costos y empaque de tus envíos de Pedidos.com. Cualquier duda contáctanos, con gusto te apoyaremos."/>
+				<link rel="canonical" href="https://pedidos.com/soho/politicas/condiciones-de-envio"/>
+			</Head>
 			<Container maxWidth='xl'>
 				<HeadingPolicies />
 				<PoliciesMenu />
