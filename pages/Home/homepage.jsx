@@ -46,7 +46,6 @@ export const HomeSite = () => {
 			<Head>
 				<meta name="description" content="Paga a Meses Sin Intereses con tarjetas participantes y hasta 24 MSI con Citibanamex. Gran variedad de productos + Entregas EXPRESS CDMX."/>
 				<link rel="canonical" href="https://pedidos.com/" />
-				
 			</Head>	
 			<Box component="div">
 				<MainSlideShow />
@@ -105,18 +104,6 @@ export const HomeSite = () => {
 							<Brands/>
 						</Box>
 					</Box>
-					{/* <Box component="div" py={2} textAlign="left">
-						<Typography variant="h6" component="h2" sx={{fontWeight:'600'}}>
-							Populares
-						</Typography>
-						<Box component="div" py={2}>
-							Cómputo
-							impresión
-							Tintas & tóners
-							Papelería
-							Papel
-						</Box>
-					</Box> */}
 					
 					<Box component="div" pt={6} textAlign="center">
 						<Box py={6} sx={{ background:'#f6f7f9' }}>
@@ -135,33 +122,6 @@ export const HomeSite = () => {
 						</Box>
 					</Box>
 					
-					{/* <Box component="div" py={2} textAlign="center">
-						<Paper elevation={3} >
-						<Box component="div" p={2}>
-							<Grid container direction="row" justifyContent="center" alignItems="center">
-								<Grid item  xs={12} sm={6}>
-									<Typography variant="h4" component="h6" sx={{fontWeight:'600'}}>
-									Servicio personalizado enfocado a tus necesidades
-									</Typography>
-									<Typography variant="h4" component="h6" sx={{fontWeight:'600'}}>
-									Servicio personalizado enfocado a tus necesidades
-									</Typography>
-									<Button variant="outlined">
-										Comenzar
-									</Button>
-								</Grid>
-								<Grid item xs={12} sm={6}>
-									<Typography variant="h4" component="h6" sx={{fontWeight:'600'}}>
-									Servicio personalizado enfocado a tus necesidades
-									</Typography>
-									<Button variant="outlined">
-										Comenzar
-									</Button>
-								</Grid>		
-							</Grid>
-						</Box>
-						</Paper>
-					</Box> */}
 			</Box>	
 		</Layout>
 	);	

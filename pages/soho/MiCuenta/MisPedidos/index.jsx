@@ -28,7 +28,6 @@ import AssignmentReturnOutlinedIcon from '@mui/icons-material/AssignmentReturnOu
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 //Component
 import { Layout } from 'layout/Layout';
-import { HelpModal } from 'components/modals';
 import {useLocalStorage} from "../../../../hooks/useLocalStorage";
 import Alertas from '../../../checkout/Alertas'
 //Modales
@@ -482,31 +481,31 @@ export default function MisPedidos() {
         <Layout partidas={partidas} title="Mis Pedidos | Pedidos.com">
         <div>
              <Box className={classes.bgcontent} component="div">
-                <Box component="div" m={1}>
+                <Box component="div" mx={1}>
                     <Grid
                         container
                         direction="row"
                         justifyContent="space-between"
                         alignItems="flex-start"
                     >
-                        <Grid item xs={12} sm={12} lg={3}>
+                        <Grid item xs={12} sm={12} md={3} lg={3}>
                             <MiCuentaSiderBar/> 
                         </Grid>
-                        <Grid item xs={12} sm={12} lg={9}>
-                            <Box component="div">
+                        <Grid item xs={12} sm={12} md={9} lg={9}>
+                            <Box component="div" m={1}>
                                 <Grid 
                                 container
                                 direction="row"
                                 justifyContent="space-around"
                                 alignItems="center">
-                                    <Grid item xs={12} sm={7}>   
+                                    <Grid item xs={6} sm={7}>   
                                         <Box component="div" py={2}>
                                             <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
                                                 Pedidos
                                             </Typography>
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={12} sm={5}>   
+                                    <Grid item xs={6} sm={5}>   
                                         <Box component="div" py={1}>
                                             <LocalizationProvider
                                             dateAdapter={AdapterDateFns}
@@ -514,7 +513,7 @@ export default function MisPedidos() {
                                             >
                                                 <DatePicker
                                                     views={['year','month']}
-                                                    label='Busca pedido por fecha'
+                                                    label='Mes / Año'
                                                     minDate={new Date('2015-01-02')}
                                                     maxDate={new Date()}
                                                     value={valueDate}
@@ -524,7 +523,7 @@ export default function MisPedidos() {
                                                     onMonthChange={(newValue) => {
                                                         consultaPorFecha(newValue); 
                                                     }}
-                                                    renderInput={(params) => <TextField {...params} helperText='Mes / Año' />}
+                                                    renderInput={(params) => <TextField {...params} helperText='Busca pedido por fecha' />}
                                                 />
                                             </LocalizationProvider>
                                         </Box>

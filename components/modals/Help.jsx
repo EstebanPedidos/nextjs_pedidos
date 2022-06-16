@@ -42,7 +42,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const items = [
-	
+	{
+		icon: WhatsAppIcon,
+		title: 'Para Empresas',
+		description: 'Envía un mensaje',
+    tipo:3
+	},
   { 
 
 		icon: ChatBubbleOutlineIcon,
@@ -57,12 +62,7 @@ const items = [
 		description: 'Envía un mensaje',
     tipo:2
 	},
-  {
-		icon: WhatsAppIcon,
-		title: 'WhatsApp Empresas',
-		description: 'Envía un mensaje',
-    tipo:3
-	},
+  
 	{
 		icon: MailOutlineIcon,
 		title: 'Correo',
@@ -149,11 +149,11 @@ export default function Help({tipo}) {
                           <Box
                             sx={{ borderRadius: '8px' }}
                             className={`${classes.pointer}`}
-                            paddingY='0.5rem'
+                            paddingY='1rem'
                             paddingLeft={'1rem'}
                             display='flex'
                             alignItems='center'
-                            gridGap={'0.5rem'}>
+                            gridGap={'1rem'}>
                             <Box>
                               <IconButton>
                                 <Icon fontSize='large' />

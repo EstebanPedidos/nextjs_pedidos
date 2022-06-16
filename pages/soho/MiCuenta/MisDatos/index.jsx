@@ -1368,17 +1368,17 @@ export default function MisDatos() {
   return(
     <Layout> 
         <Box className={classes.bgcontent} component="div" >
-            <Box component="div" m={1}>
+            <Box component="div" mx={1}>
                 <Grid
                     container
                     direction="row"
                     justifyContent="space-between"
                     alignItems="flex-start"
                 >
-                    <Grid item xs={12} sm={12} lg={3}>
+                    <Grid item xs={12} sm={12} md={3} lg={3}>
                         <MiCuentaSiderBar/> 
                     </Grid>
-                    <Grid item xs={12} sm={12} lg={9}>
+                    <Grid item xs={12} sm={12} md={9} lg={9}>
                         <Box component="div" m={1}>
                             {primeraVez ? formPrimeraVez : formMisDatos}
                         </Box>

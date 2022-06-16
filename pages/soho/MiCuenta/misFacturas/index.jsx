@@ -5,9 +5,7 @@ import {useLocalStorage} from "../../../../hooks/useLocalStorage";
 //MUI
 import {Box, Grid, Paper, Typography, Container, Backdrop,
     Button, Select, TextField, Divider, Modal, Fade,
-    Card, CardContent, CardActions, CardMedia, CardActionArea, TextareaAutosize,
-    FormHelperText, FormControl, MenuItem, IconButton,
-    Input, InputLabel, InputAdornment, Chip, Snackbar, 
+    MenuItem, IconButton, Input, InputLabel, InputAdornment, Chip, Snackbar, 
     Alert, Stack, Rating  } from '@mui/material';
 
 import esLocale from 'date-fns/locale/es'
@@ -29,8 +27,9 @@ import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import makeStyles from '@mui/styles/makeStyles';
 
 import Link from 'next/link';
-
+//components
 import { Layout } from 'layout/Layout';
+import  Help  from '../../../../components/modals/Help';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
 import Alertas from '../../../checkout/Alertas';
 import Refactura from './Refactura/Index'
@@ -421,18 +420,18 @@ export default function MisFacturas() {
         <Layout title="Mis Facturas | Pedidos.com">
         <div>
             <Box className={classes.bgcontent} component="div">
-                <Box component="div" m={1}>
+                <Box component="div" mx={1}>
                 <Grid
                     container
                     direction="row"
                     justifyContent="space-between"
                     alignItems="flex-start"
                 >
-                    <Grid item xs={12} sm={12} lg={3}>
+                    <Grid item xs={12} sm={12} md={3} lg={3}>
                         <MiCuentaSiderBar/> 
                     </Grid>
-                    <Grid item xs={12} sm={12} lg={9}>
-                        <Box component="div">
+                    <Grid item xs={12} sm={12} md={9} lg={9}>
+                        <Box component="div" m={1}>
                             <Grid 
                             container
                             direction="row"
@@ -453,29 +452,32 @@ export default function MisFacturas() {
                                         justifyContent="flex-end"
                                         alignItems="center" spacing={1}>
                                             <Grid item xs={12} sm={6}>
-                                                <LocalizationProvider
-                                                dateAdapter={AdapterDateFns}
-                                                adapterLocale={esLocale}
-                                                >
-                                                    <DatePicker
-                                                        views={['year','month']}
-                                                        label='Consulta facturas pasadas'
-                                                        minDate={new Date('2015-01-02')}
-                                                        maxDate={new Date()}
-                                                        value={valueDate}
-                                                        onChange={(newValue) => {
-                                                            setValueDate(newValue); 
-                                                        }}
-                                                        onMonthChange={(newValue) => {
-                                                            consultaPorFecha(newValue); 
-                                                        }}
-                                                        renderInput={(params) => <TextField {...params} helperText='Mes / Año' />}
-                                                    />
-                                                </LocalizationProvider>  
-
+                                                <Box component="div" mt={3}>
+                                                    <LocalizationProvider
+                                                    dateAdapter={AdapterDateFns}
+                                                    adapterLocale={esLocale}
+                                                    >
+                                                        <DatePicker
+                                                            views={['year','month']}
+                                                            label='Año / Mes'
+                                                            minDate={new Date('2015-01-02')}
+                                                            maxDate={new Date()}
+                                                            value={valueDate}
+                                                            onChange={(newValue) => {
+                                                                setValueDate(newValue); 
+                                                            }}
+                                                            onMonthChange={(newValue) => {
+                                                                consultaPorFecha(newValue); 
+                                                            }}
+                                                            renderInput={(params) => <TextField {...params} helperText='Consulta facturas pasadas' />}
+                                                        />
+                                                    </LocalizationProvider>
+                                                </Box>  
                                             </Grid>
                                             <Grid item xs={12} sm={6}>
-                                                <Link href="/soho/MiCuenta/DatosFacturacion"><Button variant="contained" color="primary" fullWidth size="large">Datos de Facturación</Button></Link>
+                                                <Link href="/soho/MiCuenta/DatosFacturacion">
+                                                    <Button variant="contained" color="primary" fullWidth size="large">Datos de Facturación</Button>
+                                                    </Link>
                                             </Grid>
                                     </Grid>
                                     </Box>
@@ -507,7 +509,7 @@ export default function MisFacturas() {
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={4}>
-                                                    <Button variant="outlined" color="primary" fullWidth size="large" name="Modal1" onClick={handleOpen}><HelpOutlineOutlinedIcon color="primary"/>&nbsp; Ayuda</Button>
+                                                    <Help tipo={'4'}/>
                                                 </Grid>
                                             </Grid>
                                             </Box>
@@ -521,7 +523,7 @@ export default function MisFacturas() {
                                                     alignItems="center" key={row.pedidoNum}>
                                                         <Grid item xs={12}>
                                                             <Box component="div" py={2}>
-                                                                <Paper className={classes.paperBox}>
+                                                                <Paper variant='auto' className={classes.paperBox}>
                                                                     <Grid
                                                                     container
                                                                     direction="row"

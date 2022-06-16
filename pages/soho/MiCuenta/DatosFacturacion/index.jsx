@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   bgcontent:{backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)'},
   boxCardF:{
-    height:'245px',
+    height:'260px',
     boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',
   },
   boxContentF: {height: '6.6rem'},
@@ -122,7 +122,7 @@ export default function DatosFacturacion() {
          
         <div>
             <Box className={classes.bgcontent} component="div">
-                <Box component="div" m={1}>
+                <Box component="div" mx={1}>
                     <Grid
                         container
                         direction="row"
@@ -133,20 +133,20 @@ export default function DatosFacturacion() {
                             <MiCuentaSiderBar/>
                         </Grid>
                         <Grid item xs={12} sm={12} lg={9}>
-                            <Box component="div">
+                            <Box component="div" m={1}>
                                 <Grid 
                                 container
                                 direction="row"
                                 justifyContent="space-around"
                                 alignItems="center" spacing={2}>
-                                    <Grid item xs={12} sm={8}>   
+                                    <Grid item xs={12} sm={6} lg={8}>   
                                         <Box component="div" py={2}>
                                             <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
                                                 Datos de Facturación
                                             </Typography>
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={6} sm={2}>   
+                                    <Grid item xs={6} sm={6} lg={2}>   
                                     {(!addOpen)?
                                         <Box component="div" py={2}>
                                             <Button variant="contained" elevation={0} fullWidth color="primary" size="large" onClick={()=>{setAddOpen(true)}}>Agregar RFC</Button>
@@ -169,10 +169,10 @@ export default function DatosFacturacion() {
                                                     {result.map((row) => (
                                                         row.clienteRfc !== 'XAXX010101000' &&
                                                         <Grid item xs={6} sm={6} lg={4} key={row.rfcNum}> 
-                                                            <Card className={classes.boxCardF}>
+                                                            <Card variant='auto' className={classes.boxCardF}>
                                                                 <CardContent>
                                                                     <Box component="div" pb={2} display="flex" alignItems="center" justifyContent="center" mx="auto">
-                                                                        <Avatar>
+                                                                        <Avatar sx={{backgroundColor:'#E7ECF3', color:'#002d75'}}>
                                                                         <DescriptionOutlinedIcon />
                                                                         </Avatar>
                                                                     </Box>

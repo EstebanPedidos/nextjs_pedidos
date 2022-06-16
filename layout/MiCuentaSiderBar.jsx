@@ -92,9 +92,9 @@ export default function MiCuentaSiderBar() {
 	return (
 		<>
 			<Box component="div"  m={1} px={1}>
-                <Hidden mdDown>
-                    <Box component="div" py={2} >
-                    <Box component="div" textAlign="center" m="auto" p={2}>
+                
+                   
+                    <Box component="div"py={2} textAlign="center" m="auto" p={2}>
                         <Grid
                             container
                             direction="row"
@@ -104,7 +104,7 @@ export default function MiCuentaSiderBar() {
                             
                             >
                             <Grid item>
-                                <Avatar>
+                                <Avatar sx={{ width:48, height: 48, color:'#3655A5', backgroundColor:'#E7ECF3', textTransform: 'uppercase',  }}>
                                     <AccountCircleOutlinedIcon />
                                 </Avatar>
                             </Grid>
@@ -114,174 +114,176 @@ export default function MiCuentaSiderBar() {
                         </Grid>
                     </Box>   
                     <Divider light/>
+                    <Hidden mdDown>
+                     <Box component="div" pb={2}> 
                         <Grid
-                        container
-                        //direction="row"
-                        justifyContent="center"
-                        alignItems="flex-start"
-                        spacing={2}
-                    
-                        >
-                            <Grid item xs={12} >
-                                <Box component="div" textAlign="left" m="auto" p={2}>
-                                    <Typography variant="caption" color="textSecondary">MI CUENTA</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item sm={12}>
-                                <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                    <Link href="/soho/MiCuenta/MisDatos">
-                                        <a>
-                                            <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="flex-start"
-                                            alignItems="center"
-                                            spacing={1}
-                                            >
-                                                <Grid item>
-                                                    <SettingsOutlinedIcon/>
-                                                </Grid> 
-                                                <Grid item>
-                                                    <Box component="span">Mis datos</Box>
-                                                </Grid>
-                                            </Grid>
-                                        </a>
-                                    </Link>
-                                </Typography>
-                            </Grid>
-                            <Grid item sm={12}>
-                                <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                    <Link href="/soho/MiCuenta/MisPedidos">
-                                        <a>
-                                            <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="flex-start"
-                                            alignItems="center"
-                                            spacing={1}
-                                            >
-                                                <Grid item>
-                                                    <Inventory2OutlinedIcon/>
-                                                </Grid> 
-                                                <Grid item>
-                                                    <Box component="span">Pedidos</Box>
-                                                </Grid>
-                                            </Grid>
-                                        </a>
-                                    </Link>
-                                </Typography>
-                            </Grid>
-                            <Grid item sm={12}>
-                                <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                    <Link href="/soho/MiCuenta/Direcciones">
-                                        <a>
-                                            <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="flex-start"
-                                            alignItems="center"
-                                            spacing={1}
-                                            >
-                                                <Grid item>
-                                                    <FmdGoodOutlinedIcon/>
-                                                </Grid> 
-                                                <Grid item>
-                                                    <Box component="span">Direcciones</Box>
-                                                </Grid>
-                                            </Grid>
-                                        </a>
-                                    </Link>
-                                </Typography>
-                            </Grid>
-                            <Grid item sm={12}>
-                                <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                    <Link href="/soho/MiCuenta/misFacturas">
-                                        <a>
-                                            <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="flex-start"
-                                            alignItems="center"
-                                            spacing={1}
-                                            >
-                                                <Grid item>
-                                                    <DescriptionOutlinedIcon/>
-                                                </Grid> 
-                                                <Grid item>
-                                                    <Box component="span">Facturas</Box>
-                                                </Grid>
-                                            </Grid>
-                                        </a>
-                                    </Link>
-                                </Typography>
-                            </Grid>
-                            {/* <Grid item sm={12}>
-                                <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                    <Link href="/MisFacturas">
-                                        <a>
-                                            <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="flex-start"
-                                            alignItems="center"
-                                            spacing={1}
-                                            >
-                                                <Grid item>
-                                                    <DescriptionOutlinedIcon/>
-                                                </Grid> 
-                                                <Grid item>
-                                                    <Box component="span">Garantías y Devoluciones</Box>
-                                                </Grid>
-                                            </Grid>
-                                        </a>
-                                    </Link>
-                                </Typography>
-                            </Grid> */}
-                            <Grid item sm={12}>
-                                <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                    <Link href="/soho/MiCuenta/misFavoritos">
-                                        <a>
-                                            <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="flex-start"
-                                            alignItems="center"
-                                            spacing={1}
-                                            >
-                                                <Grid item>
-                                                    <FavoriteBorderIcon/>
-                                                </Grid> 
-                                                <Grid item>
-                                                    <Box component="span">Favoritos</Box>
-                                                </Grid>
-                                            </Grid>
-                                        </a>
-                                    </Link>
-                                </Typography>
-                            </Grid>
-                            <Grid item sm={12}>
-                                <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
-                                    <Link href="/soho/MiCuenta/misNotasCredito">
-                                        <a>
-                                            <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="flex-start"
-                                            alignItems="center"
-                                            spacing={1}
-                                            >
-                                                <Grid item>
-                                                    <ReceiptOutlinedIcon/>
-                                                </Grid> 
-                                                <Grid item>
-                                                    <Box component="span">Notas de crédito</Box>
-                                                </Grid>
-                                            </Grid>
-                                        </a>
-                                    </Link>
-                                </Typography>
-                            </Grid>
+                            container
+                            //direction="row"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                            spacing={2}
                         
+                            >
+                                <Grid item xs={12} >
+                                    <Box component="div" textAlign="left" m="auto" p={2}>
+                                        <Typography variant="caption" color="textSecondary">MI CUENTA</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item sm={12}>
+                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                        <Link href="/soho/MiCuenta/MisDatos">
+                                            <a>
+                                                <Grid
+                                                container
+                                                direction="row"
+                                                justifyContent="flex-start"
+                                                alignItems="center"
+                                                spacing={1}
+                                                >
+                                                    <Grid item>
+                                                        <SettingsOutlinedIcon/>
+                                                    </Grid> 
+                                                    <Grid item>
+                                                        <Box component="span">Mis datos</Box>
+                                                    </Grid>
+                                                </Grid>
+                                            </a>
+                                        </Link>
+                                    </Typography>
+                                </Grid>
+                                <Grid item sm={12}>
+                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                        <Link href="/soho/MiCuenta/MisPedidos">
+                                            <a>
+                                                <Grid
+                                                container
+                                                direction="row"
+                                                justifyContent="flex-start"
+                                                alignItems="center"
+                                                spacing={1}
+                                                >
+                                                    <Grid item>
+                                                        <Inventory2OutlinedIcon/>
+                                                    </Grid> 
+                                                    <Grid item>
+                                                        <Box component="span">Pedidos</Box>
+                                                    </Grid>
+                                                </Grid>
+                                            </a>
+                                        </Link>
+                                    </Typography>
+                                </Grid>
+                                <Grid item sm={12}>
+                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                        <Link href="/soho/MiCuenta/Direcciones">
+                                            <a>
+                                                <Grid
+                                                container
+                                                direction="row"
+                                                justifyContent="flex-start"
+                                                alignItems="center"
+                                                spacing={1}
+                                                >
+                                                    <Grid item>
+                                                        <FmdGoodOutlinedIcon/>
+                                                    </Grid> 
+                                                    <Grid item>
+                                                        <Box component="span">Direcciones</Box>
+                                                    </Grid>
+                                                </Grid>
+                                            </a>
+                                        </Link>
+                                    </Typography>
+                                </Grid>
+                                <Grid item sm={12}>
+                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                        <Link href="/soho/MiCuenta/misFacturas">
+                                            <a>
+                                                <Grid
+                                                container
+                                                direction="row"
+                                                justifyContent="flex-start"
+                                                alignItems="center"
+                                                spacing={1}
+                                                >
+                                                    <Grid item>
+                                                        <DescriptionOutlinedIcon/>
+                                                    </Grid> 
+                                                    <Grid item>
+                                                        <Box component="span">Facturas</Box>
+                                                    </Grid>
+                                                </Grid>
+                                            </a>
+                                        </Link>
+                                    </Typography>
+                                </Grid>
+                                {/* <Grid item sm={12}>
+                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                        <Link href="/MisFacturas">
+                                            <a>
+                                                <Grid
+                                                container
+                                                direction="row"
+                                                justifyContent="flex-start"
+                                                alignItems="center"
+                                                spacing={1}
+                                                >
+                                                    <Grid item>
+                                                        <DescriptionOutlinedIcon/>
+                                                    </Grid> 
+                                                    <Grid item>
+                                                        <Box component="span">Garantías y Devoluciones</Box>
+                                                    </Grid>
+                                                </Grid>
+                                            </a>
+                                        </Link>
+                                    </Typography>
+                                </Grid> */}
+                                <Grid item sm={12}>
+                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                        <Link href="/soho/MiCuenta/misFavoritos">
+                                            <a>
+                                                <Grid
+                                                container
+                                                direction="row"
+                                                justifyContent="flex-start"
+                                                alignItems="center"
+                                                spacing={1}
+                                                >
+                                                    <Grid item>
+                                                        <FavoriteBorderIcon/>
+                                                    </Grid> 
+                                                    <Grid item>
+                                                        <Box component="span">Favoritos</Box>
+                                                    </Grid>
+                                                </Grid>
+                                            </a>
+                                        </Link>
+                                    </Typography>
+                                </Grid>
+                                <Grid item sm={12}>
+                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                        <Link href="/soho/MiCuenta/misNotasCredito">
+                                            <a>
+                                                <Grid
+                                                container
+                                                direction="row"
+                                                justifyContent="flex-start"
+                                                alignItems="center"
+                                                spacing={1}
+                                                >
+                                                    <Grid item>
+                                                        <ReceiptOutlinedIcon/>
+                                                    </Grid> 
+                                                    <Grid item>
+                                                        <Box component="span">Notas de crédito</Box>
+                                                    </Grid>
+                                                </Grid>
+                                            </a>
+                                        </Link>
+                                    </Typography>
+                                </Grid>
+                            
                         </Grid>
                     </Box>
                     <Divider />
@@ -314,122 +316,126 @@ export default function MiCuentaSiderBar() {
                             
                         </Box>
                         </Box>
-                </Hidden> 
+                    </Hidden> 
                 <Hidden mdUp>
-                    <Swiper
-                //modules={[Autoplay]}
-                lazy={true}
-                slidesPerView={6}
-                className="mySwiperacc"
-                //centeredSlides={true}
-                //autoplay={{
-                //"delay": 2500,
-                //"disableOnInteraction": false}}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
-                breakpoints={{
-                320: {
-                        slidesPerView:2.1,
+                    <Box pt={2}>
+                        <Swiper
+                    //modules={[Autoplay]}
+                    lazy={true}
+                    slidesPerView={6}
+                    spaceBetween={10}
+                    className="mySwiperacc"
+                    //centeredSlides={true}
+                    //autoplay={{
+                    //"delay": 2500,
+                    //"disableOnInteraction": false}}
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    breakpoints={{
+                    320: {
+                            slidesPerView:2.1,
+                            
+                        },
+                        640: {
+                        slidesPerView: 3.5,
                         
-                    },
-                    640: {
-                    slidesPerView: 3.5,
-                    
-                    },
-                    768: {
-                    slidesPerView:3.5,
-                    
-                    },
-                    1100: {
-                    slidesPerView:3.8,
-                    
-                    },
-                }}
-                >
-                <SwiperSlide>
-                    <Link href="/soho/MiCuenta/MisDatos">
-                        <a>
-                            <Accountsection
-                            data={{
-                            name:'Mis Datos',
-                            icon: '<PinDropOutlinedIcon />', 
-                            }} />
-                        </a>
-                    </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Link href="/soho/MiCuenta/Direcciones">
-                        <a>
-                            <Accountsection
-                            data={{
-                            name:'Mis Direcciones',
-                            icon: '<PinDropOutlinedIcon />', 
-                            }} />
-                        </a>
-                    </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Link href="/soho/MiCuenta/misFacturas">
-                        <a>
-                            <Accountsection
-                            data={{
-                            name:'Mis Facturas',
-                            icon: '<PinDropOutlinedIcon />', 
-                            }} />
-                        </a>
-                    </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Link href="/soho/MiCuenta/DatosFacturacion">
-                        <a>
-                            <Accountsection
-                            data={{
-                            name:'Mis RFC',
-                            icon: '<PinDropOutlinedIcon />', 
-                            }} />
-                        </a>
-                    </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Link href="soho/MiCuenta/DatosFacturacion"  passHref>
+                        },
+                        768: {
+                        slidesPerView:3.5,
                         
+                        },
+                        1100: {
+                        slidesPerView:3.8,
+                        
+                        },
+                    }}
+                    >
+                    <SwiperSlide>
+                        <Link href="/soho/MiCuenta/MisDatos">
+                            <a>
+                                <Accountsection
+                                data={{
+                                name:'Mis Datos',
+                                }} />
+                            </a>
+                        </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <Link href="/soho/MiCuenta/Mis Pedidos">
+                            <a>
+                                <Accountsection
+                                data={{
+                                name:'Mis Pedidos',
+                                }} />
+                            </a>
+                        </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <Link href="/soho/MiCuenta/Direcciones">
+                            <a>
+                                <Accountsection
+                                data={{
+                                name:'Mis Direcciones',
+                                }} />
+                            </a>
+                        </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <Link href="/soho/MiCuenta/misFacturas">
+                            <a>
+                                <Accountsection
+                                data={{
+                                name:'Mis Facturas',
+                                }} />
+                            </a>
+                        </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <Link href="/soho/MiCuenta/DatosFacturacion">
+                            <a>
+                                <Accountsection
+                                data={{
+                                name:'Mis RFC',
+                                }} />
+                            </a>
+                        </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
                         <Button component="a" onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones&body=Completar%20la%20siguiente%20información%0D%0APedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
                         >
                             Garantías y Devoluciones
                         </Button>
-                        
-                    </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Link href="/soho/MiCuenta/misFavoritos">
-                        <a>
-                            <Accountsection
-                            data={{
-                            name:'Mis Favoritos',
-                            icon: '<PinDropOutlinedIcon />', 
-                            }} />
-                        </a>
-                    </Link>
-                </SwiperSlide>
-               
-                <SwiperSlide>
-                    <Button startIcon={<FeedbackOutlinedIcon />}
-                                onClick={() => window.open('mailto:quejas@pedidos.com.mx?subject=Queja%20sobre')}
-                            >
-                                Levantar queja
-                    </Button>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Help tipo={'3'}/>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Link href="/soho/MiCuenta/MisNotasCredito">
-                        <Button component="a" startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
-                    </Link>
-                </SwiperSlide>
-                    </Swiper>
-                    <Box py={2}>
-                        <Divider light />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <Link href="/soho/MiCuenta/misFavoritos">
+                            <a>
+                                <Accountsection
+                                data={{
+                                name:'Mis Favoritos',
+                                }} />
+                            </a>
+                        </Link>
+                    </SwiperSlide>
+                
+                    <SwiperSlide>
+                        <Button startIcon={<FeedbackOutlinedIcon />}
+                                    onClick={() => window.open('mailto:quejas@pedidos.com.mx?subject=Queja%20sobre')}
+                                >
+                                    Levantar queja
+                        </Button>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <Help tipo={'4'}/>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <Link href="/soho/MiCuenta/MisNotasCredito">
+                            <Button component="a" startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
+                        </Link>
+                    </SwiperSlide>
+                        </Swiper>
+                        <Box py={2}>
+                            <Divider light />
+                        </Box>
                     </Box>
                 </Hidden>                   
             </Box>

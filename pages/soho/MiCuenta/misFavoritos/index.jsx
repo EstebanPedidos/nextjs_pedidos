@@ -42,6 +42,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  media: {
+    height: 130,
+    width: 130,
+    margin: 'auto',
+  },
   root: {
     flexGrow: 1,
   },
@@ -190,10 +195,9 @@ export default function MisFavoritos() {
         
         <Grid container justifyContent="flex-start" spacing={spacing}>
             {itemsFavoritosC.map((row) => (
-                <Grid item xs={6} sm={4} key={row.itemNum}> 
+                <Grid item xs={6} sm={6} lg={4} key={row.itemNum}> 
                     <Card className={classes.pCardDetail}>
-                        <CardHeader
-                            title={row.marca}                                
+                        <CardHeader sx={{height:'65px'}}                            
                             action={ row.tipo !== "C" &&
                             <IconButton aria-label="delete" name="Modal1" onClick={(event) => { handleOpen(event); setItemNum(row.itemNum);}}>
                                 <HighlightOffIcon/>
@@ -202,7 +206,7 @@ export default function MisFavoritos() {
                         />
                         <Link href={`/articulos/${row.itemNum}`}>
                             <CardMedia
-                            className={classes.cover}
+                            className={classes.media}
                             component="img"
                             alt={row.itemNum}
                             image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
@@ -212,8 +216,9 @@ export default function MisFavoritos() {
                         <CardContent>
                             <Divider/>
                             <Box component="div" pt={2}>
-                                <Typography variant="subtitle1" className="hit-name" color="textSecondary">
-                                    {row.tituloCompuesto} 
+                                <Typography mt={2}variant="subtitle1"  textAlign="left"  gutterBottom>{row.marca}</Typography>
+                                <Typography sx={{ height:'45px', overflow: 'hidden'}} variant="body2" color="textSecondary"  component="p">
+                                     {row.tituloCompuesto} 
                                 </Typography>
                                 <Grid container direction="row" justifyContent="flex-start" alignItems='center'>
                                     <Grid item>
@@ -224,19 +229,15 @@ export default function MisFavoritos() {
                                             <Typography variant="subtitle1">${row.precioDeLista.toFixed(2)}</Typography>
                                         </Box>
                                     </Grid>
-
+                                </Grid>
+                                <Box component="div">
                                     {row.tipo === "C" && row.diasRestantes < 1 ? 
-                                    <Grid item>
-                                        <Box p={1} color="grey.600">
-                                            <Typography variant="subtitle1"><NotificationsNoneIcon fontSize='small'/> Posiblemente lo necesites</Typography>
-                                        </Box>
-                                    </Grid>
+                                    <Box component="div" justifyContent="center" m="auto" sx={{justifyContent: "center", display: "flex" }}>
+                                        <Chip icon={<NotificationsNoneIcon />} label="Puedes necesitarlo" variant="outlined" />
+                                    </Box>       
                                     :
                                     row.diasPromedio > 0 &&
-                                    <Box 
-                                        sx={{ width: '100%' }} 
-                                        
-                                    >
+                                    <Box component="div" sx={{ width: '100%' }}  >
                                         <Typography variant="subtitle1">Proxima compra en {row.diasRestantes} días</Typography>
                                         <LinearProgress 
                                             variant="determinate" value={(100 - (row.diasRestantes * 100)/row.diasPromedio)}
@@ -249,12 +250,11 @@ export default function MisFavoritos() {
                                         />
                                     </Box>
                                     }
-                                </Grid>
+                                </Box>
                             </Box>
                         </CardContent>
                         {row.disponibilidad > 0 ?
                         <CardActions>
-                           
                             <Button><RemoveIcon/></Button>
                             <InputBase
                                 className={classes.input}
@@ -264,26 +264,22 @@ export default function MisFavoritos() {
                                 disabled
                             />
                             <Button color="primary"><AddIcon/></Button>
-                            <Button 
-                                style={{backgroundColor: "#ff9100"}} 
-                                variant="contained" fullWidth size="large" 
-                            >
+                            <Button color='secondary' variant="contained" fullWidth size="large" >
                                 <ShoppingCartOutlinedIcon/>
                             </Button>
                         </CardActions>
                         : 
-                        <Box p={1} color="grey.600">
-                            <Typography variant="subtitle1"><RunningWithErrorsIcon fontSize='small'/> Sin Existencia</Typography>
+                        <Box component="div" justifyContent="center" m="auto" sx={{justifyContent: "center", display: "flex" }}>
+                            <Chip icon={<RunningWithErrorsIcon />} label="Sin Existencia" variant="outlined" />
                         </Box>
                     }
                     </Card>
                 </Grid>
             ))}
             {itemsFavoritosF.map((row) => (
-                <Grid item xs={6} sm={4} key={row.itemNum}> 
+                <Grid item xs={6} sm={6} lg={4} key={row.itemNum}> 
                     <Card className={classes.pCardDetail}>
-                        <CardHeader
-                            title={row.marca}                                
+                        <CardHeader 
                             action={ row.tipo !== "C" &&
                             <IconButton aria-label="delete" name="Modal1" onClick={(event) => { handleOpen(event); setItemNum(row.itemNum);}}>
                                 <HighlightOffIcon/>
@@ -292,7 +288,7 @@ export default function MisFavoritos() {
                         />
                         <Link href={`/articulos/${row.itemNum}`}>
                             <CardMedia
-                            className={classes.cover}
+                            className={classes.media}
                             component="img"
                             alt={row.itemNum}
                             image={"https://pedidos.com/myfotos/large/(L)" + row.itemNum + ".jpg"}
@@ -302,9 +298,11 @@ export default function MisFavoritos() {
                         <CardContent>
                             <Divider/>
                             <Box component="div" pt={2}>
-                                <Typography variant="subtitle1" className="hit-name" color="textSecondary">
-                                    {row.tituloCompuesto} 
+                                <Typography mt={2}variant="subtitle1"  textAlign="left"  gutterBottom>{row.marca}</Typography>
+                                <Typography sx={{ height:'45px', overflow: 'hidden'}} variant="body2" color="textSecondary"  component="p">
+                                     {row.tituloCompuesto} 
                                 </Typography>
+                                
                                 <Grid container direction="row" justifyContent="flex-start" alignItems='center'>
                                     <Grid item>
                                      <Typography variant="h6" component="body1">${row.precio.toFixed(2)}</Typography>
@@ -314,19 +312,15 @@ export default function MisFavoritos() {
                                             <Typography variant="subtitle1">${row.precioDeLista.toFixed(2)}</Typography>
                                         </Box>
                                     </Grid>
-
+                                </Grid>
+                                <Box component="div">
                                     {row.tipo === "C" && row.diasRestantes < 1 ? 
-                                    <Grid item>
-                                        <Box p={1} color="grey.600">
-                                            <Typography variant="subtitle1"><NotificationsNoneIcon fontSize='small'/> Posiblemente lo necesites</Typography>
-                                        </Box>
-                                    </Grid>
+                                    <Box component="div" justifyContent="center" m="auto" sx={{justifyContent: "center", display: "flex" }}>
+                                        <Chip icon={<NotificationsNoneIcon />} label="Puedes necesitarlo" variant="outlined" />
+                                    </Box> 
                                     :
                                     row.diasPromedio > 0 &&
-                                    <Box 
-                                        sx={{ width: '100%' }} 
-                                        
-                                    >
+                                    <Box sx={{ width: '100%' }}  >
                                         <Typography variant="subtitle1">Proxima compra en {row.diasRestantes} días</Typography>
                                         <LinearProgress 
                                             variant="determinate" value={(100 - (row.diasRestantes * 100)/row.diasPromedio)}
@@ -338,7 +332,7 @@ export default function MisFavoritos() {
                                         />
                                     </Box>
                                     }
-                                </Grid>
+                                </Box>
                             </Box>
                         </CardContent>
                         {row.disponibilidad > 0 ?
@@ -353,17 +347,15 @@ export default function MisFavoritos() {
                                 disabled
                             />
                             <Button color="primary"><AddIcon/></Button>
-                            <Button 
-                                style={{backgroundColor: "#ff9100"}} 
-                                variant="contained" fullWidth size="large" 
-                            >
+                            <Button variant="contained" color='secondary' fullWidth size="large" >
                                 <ShoppingCartOutlinedIcon/>
                             </Button>
                         </CardActions>
                         : 
-                        <Box p={1} color="grey.600">
-                            <Typography variant="subtitle1"><RunningWithErrorsIcon fontSize='small'/> Sin Existencia</Typography>
-                        </Box>
+                        <Box component="div" justifyContent="center" m="auto" sx={{justifyContent: "center", display: "flex" }}>
+                            <Chip icon={<RunningWithErrorsIcon />} label="Sin Existencia" variant="outlined" />
+                        </Box> 
+                       
                     }
                     </Card>
                 </Grid>
@@ -398,29 +390,29 @@ export default function MisFavoritos() {
         <Layout favoritos={favoritos} partidas={partidas} title="Mis Favoritos | Pedidos.com">
         <div>
             <Box className={classes.bgcontent} component="div">
-                <Box component="div" m={1}>
+                <Box component="div" mx={1}>
                     <Grid
                         container
                         direction="row"
                         justifyContent="space-between"
                         alignItems="flex-start"
                     >
-                        <Grid item xs={12} sm={12} lg={3}>
+                        <Grid item xs={12} sm={12} md={3} lg={3}>
                             <MiCuentaSiderBar/> 
                         </Grid>
-                        <Grid item xs={12} sm={12} lg={9}>
-                            <Box component="div">
+                        <Grid item xs={12} sm={12} md={9}lg={9}>
+                            <Box component="div" m={1}>
                                 <Grid 
                                 container
                                 direction="row"
                                 justifyContent="space-around"
                                 alignItems="center">
-                                    <Grid item xs={12}>   
+                                    <Grid item xs={12}> 
                                         <Box component="div" py={2}>
-                                            <Typography variant="h3" component="h1">
-                                            Mis favoritos
+                                            <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
+                                                Mis favoritos
                                             </Typography>
-                                        </Box>
+                                        </Box>  
                                     </Grid>
                                 </Grid>
                                 <Divider light/>

@@ -1,40 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import {
-	Box,
-	Grid,
-	Paper,
-	Typography,
-	Container,
-	Backdrop,
-	Button,
-	Select,
-	TextField,
-	Divider,
-	Modal,
-	Fade,
-	Card,
-	CardContent,
-	CardActions,
-	CardMedia,
-	CardActionArea,
-	TextareaAutosize,
-	FormHelperText,
-	FormControl,
-	MenuItem,
-	IconButton,
-	Input,
-	InputLabel,
-	InputAdornment,
-	Chip,
-	Snackbar,
-	Alert,
-	Stack,
-	Rating,
-	Avatar,
-	Hidden,
-	collapseClasses,
-} from '@mui/material';
+import {Box,Grid,Paper,Typography, Container,Backdrop,Button,
+	TextField, Divider, Modal, Fade,Card,CardContent,CardActions,
+	Alert,Stack,Avatar, Hidden  } from '@mui/material';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -71,11 +39,11 @@ const useStyles = makeStyles((theme) => ({
 			'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
 	},
 	boxCardI: {
-		height: '330px',
+		height: '380px',
 		boxShadow:
 			'0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',
 	},
-	boxContent: { height: '12rem' },
+	boxContent: { height: '14rem', },
 	adressBox: {
 		marginTop: theme.spacing(2),
 	},
@@ -174,24 +142,24 @@ export default function Direcciones() {
 	return (
 		<Layout title="Mis Direcciones | Pedidos.com"> 
 				<Box className={classes.bgcontent} component='div'>
-					<Box component='div' m={1}>
+					<Box component='div' mx={1}>
 						<Grid
 							container
 							direction='row'
 							justifyContent='space-between'
 							alignItems='flex-start'
                         >
-							<Grid item xs={12} sm={12} lg={3}>
+							<Grid item xs={12} sm={12} md={3} lg={3}>
                                 <MiCuentaSiderBar/> 
                             </Grid>
-							<Grid item xs={12} sm={12} lg={9}>
-								<Box component='div'>
+							<Grid item xs={12} sm={12} md={9} lg={9}>
+								<Box component='div' m={1}>
 									<Grid
 										container
 										direction='row'
 										justifyContent='space-around'
 										alignItems='center'>
-										<Grid item xs={9}>
+										<Grid item xs={6} sm={6}  lg={9}>
 											<Box component='div' py={2}>
 												<Typography
 													variant='h3'
@@ -200,7 +168,7 @@ export default function Direcciones() {
 												</Typography>
 											</Box>
 										</Grid>
-                                        <Grid item xs={3}>
+                                        <Grid item xs={6} sm={6} lg={3}>
                                             {(!addOpen)?
                                                 <Box component='div' py={2}>
                                                     <Button
@@ -233,16 +201,9 @@ export default function Direcciones() {
                                                         spacing={spacing}>
                                                         {result.map((row) => (
                                                             row.nombre !== "Generica" && row.nombre !== "PickUP" && 
-                                                            <Grid
-                                                                item
-                                                                xs={6}
-                                                                sm={6}
-                                                                lg={4}
+                                                            <Grid item  xs={6} sm={6} lg={4}
                                                                 key={row.rfcNum}>
-                                                                <Card
-                                                                    className={
-                                                                        classes.boxCardI
-                                                                    }>
+                                                                <Card variant="auto" className={ classes.boxCardI}>
                                                                     <CardContent>
                                                                         <Box
                                                                             component='div'
@@ -251,7 +212,7 @@ export default function Direcciones() {
                                                                             alignItems='center'
                                                                             justifyContent='center'
                                                                             mx='auto'>
-                                                                            <Avatar>
+                                                                            <Avatar sx={{backgroundColor:'#E7ECF3', color:'#002d75'}}>
                                                                                 <LocationOnOutlinedIcon />
                                                                             </Avatar>
                                                                         </Box>
@@ -291,7 +252,7 @@ export default function Direcciones() {
                                                                                         row.extension}
                                                                                 </Box>
                                                                             </Typography>
-                                                                            <Typography
+                                                                            <Typography 
                                                                                 color='textSecondary'
                                                                                 component='body2'
                                                                                 gutterBottom>
@@ -346,7 +307,7 @@ export default function Direcciones() {
                                                                                     row.dirNum
                                                                                 );
                                                                             }}>
-                                                                            ELIMINAR
+                                                                            Eliminar
                                                                         </Button>
                                                                     </CardActions>
                                                                 </Card>
