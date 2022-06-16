@@ -480,7 +480,7 @@ export default function FichaTecnica(props){
                                                                 <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num} />
                                                             </SwiperSlide>
                                                             <SwiperSlide>
-                                                                <img width={'100%'}  height={'100%'} layout="responsive" src={`/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                                <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num}/>
                                                             </SwiperSlide>
                                                             <SwiperSlide>
                                                                 <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} alt={datos.item_num}/>

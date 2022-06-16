@@ -134,7 +134,7 @@ export default function Busquedas(props) {
     const [filtros, setFiltros] = React.useState([]);
 
     const router = useRouter();
-	var url = router.query.query;
+	let url = router.query.query;
     if (url === undefined && router.query && Object.keys(router.query).length > 0) {
         url = Object.keys(router.query)[0].replaceAll('-', ' ');
         const terms = url.split('/');
