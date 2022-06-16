@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import {Box, Grid, Typography,Button, Select, TextField, Divider,  MenuItem, IconButton,
         InputLabel, FormControl} from '@mui/material'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
+import LoadingButton from '@mui/lab/LoadingButton';
 //hooks
 import {useLocalStorage} from "../../../../../hooks/useLocalStorage";
 //Servicios
@@ -20,6 +21,8 @@ export default function Refactura({setAddOpen,setAlerta,alerta,invoicePedido}){
     const [resultCP, setResultCP]                   = useState([]) 
     const [clienteNum,setClienteNum]                = useLocalStorage('Cliente',201221)
     const [invoicePedido2,setinvoicePedido2]        = useState({invoice_num:'',pedido_num:0}) 
+    const [loading,setLoading]                      = useState(false)
+
     useEffect(()=>{
         setinvoicePedido2(invoicePedido)
     },[])
@@ -108,69 +111,69 @@ export default function Refactura({setAddOpen,setAlerta,alerta,invoicePedido}){
                                                                                             if (response.data.hasOwnProperty(clave)) {  
                                                                                                 var infoRef = response.data[clave];
                                                                                                 if(infoRef.Refactura === "Y"){
-                                                                                                    setAlerta({severity:'error',mensaje:'Tu factura '+clave+' se Refacturo: '+infoRef.NumRefactura+', Nota Credito: '+infoRef.NC+', Espera unos momentos y se veren reflejados tu refacturacion',vertical:'bottom',horizontal:'right'})
+                                                                                                    setAlerta({severity:'error',mensaje:'Tu factura '+clave+' se Refacturo: '+infoRef.NumRefactura+', Nota Credito: '+infoRef.NC+', Espera unos momentos y se veren reflejados tu refacturacion',vertical:'bottom',horizontal:'right',variant:'filled'})
                                                                                                 }else if(infoRef.Refactura === "YR"){
-                                                                                                    setAlerta({severity:'error',mensaje:'Factura: '+clave+' actualizada correctamente, Si los datos son correctos, la factura se Timbrara en unos momentos',vertical:'bottom',horizontal:'right'})
+                                                                                                    setAlerta({severity:'error',mensaje:'Factura: '+clave+' actualizada correctamente, Si los datos son correctos, la factura se Timbrara en unos momentos',vertical:'bottom',horizontal:'right',variant:'filled'})
                                                                                                 }else{
-                                                                                                    setAlerta({severity:'error',mensaje:'Error'+clave+": "+infoRef.Refactura,vertical:'bottom',horizontal:'right'})
+                                                                                                    setAlerta({severity:'error',mensaje:'Error '+clave+": "+infoRef.Refactura,vertical:'bottom',horizontal:'right',variant:'filled'})
                                                                                                 }  
                                                                                             }
                                                                                         }
                                                                                     })
                                                                                 }else{
-                                                                                    setAlerta({severity:'error',mensaje:'El Pedido es Vacio',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion'})
+                                                                                    setAlerta({severity:'error',mensaje:'El Pedido es Vacio',vertical:'bottom',horizontal:'right',variant:'filled'})
                                                                                 } 
                                                                             }else{
-                                                                                setAlerta({severity:'error',mensaje:'El Invoice es Vacio',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion'})
+                                                                                setAlerta({severity:'error',mensaje:'El Invoice es Vacio',vertical:'bottom',horizontal:'right',variant:'filled'})
                                                                             } 
                                                                         }else{
-                                                                            setAlerta({severity:'error',mensaje:'No se cuenta con pedido y factura',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion'})
+                                                                            setAlerta({severity:'error',mensaje:'No se cuenta con pedido y factura',vertical:'bottom',horizontal:'right',variant:'filled'})
                                                                         }  
                                                                     }else{
-                                                                        setAlerta({severity:'error',mensaje:'No se recibieron los datos',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion'})
+                                                                        setAlerta({severity:'error',mensaje:'No se recibieron los datos',vertical:'bottom',horizontal:'right',variant:'filled'})
                                                                     }                                                                    
                                                                 }else{
-                                                                    setAlerta({severity:'error',mensaje:'Selecciona Estado | Delegación',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion'})
+                                                                    setAlerta({severity:'error',mensaje:'Selecciona Estado | Delegación',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion',variant:'filled'})
                                                                 }
                                                             }else{
-                                                                setAlerta({severity:'error',mensaje:'Selecciona Estado | Delegación',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion'})
+                                                                setAlerta({severity:'error',mensaje:'Selecciona Estado | Delegación',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion',variant:'filled'})
                                                             }
                                                         }else{
-                                                            setAlerta({severity:'error',mensaje:'Error en Estado | Delegación',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion'})
+                                                            setAlerta({severity:'error',mensaje:'Error en Estado | Delegación',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion',variant:'filled'})
                                                         }
                                                     }else{
-                                                        setAlerta({severity:'error',mensaje:'Ingresa Estado | Delegación',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion'})
+                                                        setAlerta({severity:'error',mensaje:'Ingresa Estado | Delegación',vertical:'bottom',horizontal:'right',inputError:'estadoDelegacion',variant:'filled'})
                                                     }
                                                     
                                                 }else{
-                                                    setAlerta({severity:'error',mensaje:'Ingresa un Metodo de Pago',vertical:'bottom',horizontal:'right',inputError:'metodoPago'})
+                                                    setAlerta({severity:'error',mensaje:'Ingresa un Metodo de Pago',vertical:'bottom',horizontal:'right',inputError:'metodoPago',variant:'filled'})
                                                 }
                                             }else{
-                                                setAlerta({severity:'error',mensaje:'Ingresa un Colonia',vertical:'bottom',horizontal:'right',inputError:'colonia'})
+                                                setAlerta({severity:'error',mensaje:'Ingresa un Colonia',vertical:'bottom',horizontal:'right',inputError:'colonia',variant:'filled'})
                                             }
                                         }else{
-                                            setAlerta({severity:'error',mensaje:'Ingresa un CP',vertical:'bottom',horizontal:'right',inputError:'cp'})
+                                            setAlerta({severity:'error',mensaje:'Ingresa un CP',vertical:'bottom',horizontal:'right',inputError:'cp',variant:'filled'})
                                         }
                                     }else{
-                                        setAlerta({severity:'error',mensaje:'Ingresa un Direccion',vertical:'bottom',horizontal:'right',inputError:'direccion'})
+                                        setAlerta({severity:'error',mensaje:'Ingresa un Direccion',vertical:'bottom',horizontal:'right',inputError:'direccion',variant:'filled'})
                                     }
                                 }else{
-                                    setAlerta({severity:'error',mensaje:'Ingresa un Contacto',vertical:'bottom',horizontal:'right',inputError:'contacto'})
+                                    setAlerta({severity:'error',mensaje:'Ingresa un Contacto',vertical:'bottom',horizontal:'right',inputError:'contacto',variant:'filled'})
                                 }
                             }else{
-                                setAlerta({severity:'error',mensaje:'Ingresa un Contacto',vertical:'bottom',horizontal:'right',inputError:'contacto'})
+                                setAlerta({severity:'error',mensaje:'Ingresa un Contacto',vertical:'bottom',horizontal:'right',inputError:'contacto',variant:'filled'})
                             }
                         }else{
-                            setAlerta({severity:'error',mensaje:'Ingresa un Telefono',vertical:'bottom',horizontal:'right',inputError:'telefono'})
+                            setAlerta({severity:'error',mensaje:'Ingresa un Telefono',vertical:'bottom',horizontal:'right',inputError:'telefono',variant:'filled'})
                         }
                     }else{
-                        setAlerta({severity:'error',mensaje:'Ingresa una Razon Social',vertical:'bottom',horizontal:'right',inputError:'razonSocial'})
+                        setAlerta({severity:'error',mensaje:'Ingresa una Razon Social',vertical:'bottom',horizontal:'right',inputError:'razonSocial',variant:'filled'})
                     }
                 }else{
-                    setAlerta({severity:'error',mensaje:'Ingresa un uso de CFDI',vertical:'bottom',horizontal:'right',inputError:'cfdi'})
+                    setAlerta({severity:'error',mensaje:'Ingresa un uso de CFDI',vertical:'bottom',horizontal:'right',inputError:'cfdi',variant:'filled'})
                 }
             }else{
-                setAlerta({severity:'error',mensaje:'Ingresa un RFC',vertical:'bottom',horizontal:'right',inputError:'rfc'})
+                setAlerta({severity:'error',mensaje:'Ingresa un RFC',vertical:'bottom',horizontal:'right',inputError:'rfc',variant:'filled'})
             }            
         }else{
             ruter.push('/')
@@ -407,7 +410,13 @@ export default function Refactura({setAddOpen,setAlerta,alerta,invoicePedido}){
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12}>
-                                <Button variant="contained" color="primary" fullWidth onClick={Refacturar}>Refacturar</Button>
+                                <LoadingButton variant="contained" color="primary" fullWidth
+                                onClick={Refacturar}
+                                loading={loading}
+                                loadingIndicator="Refacturando..."
+                                >
+                                    Refacturar
+                                </LoadingButton>
                             </Grid>
                         </Grid>
                     </Box>
