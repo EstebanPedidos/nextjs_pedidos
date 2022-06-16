@@ -1,61 +1,43 @@
- //MUI
- import {Container,Box, Grid, Paper, Typography, Button, Divider, Card, 
-  CardActionArea, CardContent, CardActions,CardMedia
- } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+//MUI
+import { Container, Box, Grid } from '@mui/material';
 import { useState } from 'react';
 import { HowItWorksItem, DataItem } from './HowItWorksItem';
-import { Paddined } from './Banner';
-
-import HelpIcon from '@mui/icons-material/Help';
-import ConstructionIcon from '@mui/icons-material/Construction';
-
-const useStyles = makeStyles({
-  withoutShadow: {
-    boxShadow: 'none !important',
-  },
-})
 
 export const HowItWorks = () => {
-  const classes = useStyles()
-  const [data] = useState<DataItem[]>([
-    {
-      title: "¿Cómo funciona?",
-      bigTitle: true,
-      text: "Dentro de tu carrito de compras puedes seleccionar esta forma de entrega. Recibe tus productos en nuestro PickUp Center. ",
-      icon: "undefined",
-    },
-    {
-      title: "Notificaciones e-mail",
-      bigTitle: false,
-      text: "Se notificará a tu correo eléctronico cuando tu pedido se encuentre listo para recoger. No olvides llevar el código QR para poder hacer la entrega de tu pedido. ",
-      icon: "HelpIcon",
-    },
-    {
-      title: "Soporte técnico",
-      bigTitle: false,
-      text: "Si tienes duda de alguno de tus equipos tecnológicos puedes solicitar el apoyo para resolver dudas o configurarlo de acuerdo a tus necesidades.",
-      icon: "ConstructionIcon",
-    },
-  ])
+	const [data] = useState<DataItem[]>([
+		{
+			title: '¿Cómo funciona?',
+			bigTitle: true,
+			text: 'Dentro de tu carrito de compras puedes seleccionar esta forma de entrega. Recibe tus productos en nuestro PickUp Center. ',
+			fontSize: 18,
+		},
+		{
+			title: 'Notificaciones e-mail',
+			bigTitle: false,
+			text: 'Se notificará a tu correo eléctronico cuando tu pedido se encuentre listo para recoger. <strong>No olvides llevar el código QR para poder hacer la entrega de tu pedido.</strong>',
+			icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/soporte-tecnico/problemas.webp',
+			iconWidth: 50,
+		},
+		{
+			title: 'Soporte técnico',
+			bigTitle: false,
+			text: 'Si tienes duda de alguno de tus equipos tecnológicos puedes solicitar el apoyo para resolver dudas o configurarlo de acuerdo a tus necesidades.',
+			icon: 'https://pedidos.com/myfotos/pedidos-com/pagina/soporte-tecnico/instalacion.webp',
+			iconWidth: 50,
+		},
+	]);
 
-  return (
-   
-    <Card className={classes.withoutShadow}>
-      <CardContent>
-        <Paddined>
-          <Grid container spacing={2}>
-            {data.map((item: DataItem, index: number): JSX.Element => (
-              <HowItWorksItem
-                item={item}
-                key={index}
-              />
-            ))}
-          </Grid>
-        </Paddined>
-      </CardContent>
-    </Card>
-  )
-}
+	return (
+		<Container maxWidth='lg'>
+			<Grid spacing={1} container>
+				{data.map(
+					(item: any, index: number): JSX.Element => (
+						<HowItWorksItem item={item} key={index} />
+					)
+				)}
+			</Grid>
+		</Container>
+	);
+};
 
-export default HowItWorks
+export default HowItWorks;
