@@ -116,7 +116,6 @@ const useStyles = makeStyles((theme) => ({
 		'& > *': {
 			marginBottom: theme.spacing(4),
 		},
-        height: '300px'
 	},
 	rootCardI: {
 		boxShadow:
