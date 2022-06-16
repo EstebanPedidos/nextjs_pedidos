@@ -179,7 +179,12 @@ export default function Busquedas(props) {
 	const classes = useStyles();
 
 	const router = useRouter();
-	const url = router.query.query;
+	let url = router.query.query;
+    if (url === undefined && router.query && Object.keys(router.query).length > 0) {
+        url = Object.keys(router.query)[0].replaceAll('-', ' ');
+        const terms = url.split('/');
+        url = terms[terms.length - 1];
+    }
 
     const [open, setOpen] = React.useState(false);
 	const [indexX, setIndex] = React.useState('Pedidos');
