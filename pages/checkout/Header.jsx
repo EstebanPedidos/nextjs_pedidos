@@ -39,7 +39,9 @@ export default function CheckoutHeader() {
                             </Grid>
                             <Grid item>
                                 <Box>
-                                    <Button size="large"  startIcon={<CallOutlinedIcon />}> 55 5015-8100 </Button>
+                                    <a href="tel:55 5015-8100">
+                                        <Button size="large"  startIcon={<CallOutlinedIcon />}>(55 5015-8100)</Button>
+                                    </a>
                                 </Box>
                             </Grid>
                         </Grid>

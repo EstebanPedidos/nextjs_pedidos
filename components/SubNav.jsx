@@ -45,11 +45,15 @@ export const SubNav = () => {
 							</Box>
 						</Box>
 					<Hidden smDown={true}>
-						<Box display={'flex'} alignItems='center' justifyContent='center'>
-							<LocalPhoneOutlinedIcon/>
-							<Typography variant="subtitle2" component="p">
-								¡Llámanos! 55 5015-8100
-							</Typography>
+						<Box display={'flex'} alignItems='center' justifyContent='center' >
+							<a href="tel:55 5015-8100">
+								<Box component='span' justifyContent="center" m="auto" sx={{justifyContent: "center", display: "flex" }}>
+									<LocalPhoneOutlinedIcon mr={2} />
+									<Typography variant="subtitle2" pl={1} component="p">
+										¡Llámanos! 55 5015-8100
+									</Typography>
+								</Box>
+							</a>
 						</Box>
 					</Hidden>
 				</Box>

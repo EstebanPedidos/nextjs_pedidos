@@ -180,9 +180,9 @@ export default function MisNotasCredito() {
             <Card className={classes.paperBox} key={row.invoice}>
                 <CardContent>
                     <Grid container justifyContent="space-between" alignItems='center' spacing={2} >
-                        <Grid item xs={12} sm={12} lg={4}> 
+                        <Grid item xs={12} sm={4} lg={4}> 
                             <Grid container direction="row" alignItems="center" justifyContent="center">
-                                <Grid item xs={12} sm={12} lg={8}>
+                                <Grid item xs={12} sm={8} lg={8}>
                                     <Typography variant="h6" component="subtitle2" color="textPrimary" gutterBottom>
                                         #{row.invoice}
                                     </Typography>
@@ -244,59 +244,51 @@ export default function MisNotasCredito() {
         
         <div>
             <Box className={classes.bgcontent} component="div">
-                <Box component="div" m={1}>
+                <Box component="div" mx={1}>
                 <Grid
                     container
                     direction="row"
                     justifyContent="space-between"
                     alignItems="flex-start"
                 >
-                    <Grid item xs={12} sm={12} lg={3}>
+                    <Grid item xs={12} sm={12} md={3} lg={3}>
                         <MiCuentaSiderBar/> 
                     </Grid>
-                    <Grid item xs={12} sm={12} lg={9}>
-                        <Box component="div">
+                    <Grid item xs={12} sm={12} md={9} lg={9}>
+                        <Box component="div" m={1}>
                             <Grid 
                             container
                             direction="row"
                             justifyContent="space-around"
                             alignItems="center">
-                                <Grid item xs={12} sm={6}>   
+                                <Grid item xs={6} sm={8} lg={6}>   
                                     <Box component="div" py={2}>
                                         <Typography variant="h4" component="h1" sx={{fontWeight:'500'}}>
                                          Notas de crédito
                                         </Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item xs={12} sm={6}>   
+                                <Grid item xs={6} sm={4} lg={6}>   
                                     <Box component="div" py={1}>
-                                        <Grid 
-                                            container
-                                            direction="row"
-                                            justifyContent="flex-end"
-                                            alignItems="center" spacing={1}>
-                                                <Grid item xs={12} sm={6}>
-                                                    <LocalizationProvider
-                                                    dateAdapter={AdapterDateFns}
-                                                    adapterLocale={esLocale}
-                                                    >
-                                                        <DatePicker
-                                                        views={['year','month']}
-                                                        label='Consulta notas pasadas'
-                                                        minDate={new Date('2015-01-02')}
-                                                        maxDate={new Date()}
-                                                        value={valueDate}
-                                                        onChange={(newValue) => {
-                                                            setValueDate(newValue); 
-                                                        }}
-                                                        onMonthChange={(newValue) => {
-                                                            consultaPorFecha(newValue); 
-                                                        }}
-                                                        renderInput={(params) => <TextField {...params} helperText='Mes / Año' />}
-                                                        />
-                                                    </LocalizationProvider>                      
-                                                </Grid>
-                                        </Grid>
+                                        <LocalizationProvider
+                                        dateAdapter={AdapterDateFns}
+                                        adapterLocale={esLocale}
+                                        >
+                                            <DatePicker
+                                            views={['year','month']}
+                                            label='Mes / Año'
+                                            minDate={new Date('2015-01-02')}
+                                            maxDate={new Date()}
+                                            value={valueDate}
+                                            onChange={(newValue) => {
+                                                setValueDate(newValue); 
+                                            }}
+                                            onMonthChange={(newValue) => {
+                                                consultaPorFecha(newValue); 
+                                            }}
+                                            renderInput={(params) => <TextField {...params} helperText='Consulta notas pasadas' />}
+                                            />
+                                        </LocalizationProvider>                      
                                     </Box>
                                 </Grid>
                             </Grid>
