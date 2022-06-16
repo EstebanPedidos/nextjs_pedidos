@@ -111,9 +111,9 @@ export default function Refactura({setAddOpen,setAlerta,alerta,invoicePedido}){
                                                                                             if (response.data.hasOwnProperty(clave)) {  
                                                                                                 var infoRef = response.data[clave];
                                                                                                 if(infoRef.Refactura === "Y"){
-                                                                                                    setAlerta({severity:'error',mensaje:'Tu factura '+clave+' se Refacturo: '+infoRef.NumRefactura+', Nota Credito: '+infoRef.NC+', Espera unos momentos y se veren reflejados tu refacturacion',vertical:'bottom',horizontal:'right',variant:'filled'})
+                                                                                                    setAlerta({severity:'success',mensaje:'Tu factura '+clave+' se Refacturo: '+infoRef.NumRefactura+', Nota Credito: '+infoRef.NC+', Espera unos momentos y se veren reflejados tu refacturacion',vertical:'bottom',horizontal:'right',variant:'filled'})
                                                                                                 }else if(infoRef.Refactura === "YR"){
-                                                                                                    setAlerta({severity:'error',mensaje:'Factura: '+clave+' actualizada correctamente, Si los datos son correctos, la factura se Timbrara en unos momentos',vertical:'bottom',horizontal:'right',variant:'filled'})
+                                                                                                    setAlerta({severity:'success',mensaje:'Factura: '+clave+' actualizada correctamente, Si los datos son correctos, la factura se Timbrara en unos momentos',vertical:'bottom',horizontal:'right',variant:'filled'})
                                                                                                 }else{
                                                                                                     setAlerta({severity:'error',mensaje:'Error '+clave+": "+infoRef.Refactura,vertical:'bottom',horizontal:'right',variant:'filled'})
                                                                                                 }  
