@@ -1,40 +1,32 @@
-import { makeStyles } from '@mui/styles';
-import { FC } from 'react';
-import { Layout } from '../../layout/Layout';
-import Banner from '../../components/pickup/Banner';
-import HowItWorks from '../../components/pickup/HowItWorks';
-import Terms from '../../components/pickup/Terms';
-import Demonstration from '../../components/pickup/Demonstration';
-import Schedule from '../../components/pickup/Schedule';
+import Box from '@mui/material/Box';
 
-const useStyles = makeStyles({
-	container: {
-		backgroundColor: '#f6f7fa',
-	},
-});
-
-export interface IContainerProps {
-	children: JSX.Element | JSX.Element[];
-}
-
-export const Container: FC<IContainerProps> = ({ children }) => {
-	const classes = useStyles();
-
-	return <div className={classes.container}>{children}</div>;
-};
+import { Layout } from 'layout/Layout';
+import Banner from 'components/pickup/Banner';
+import HowItWorks from 'components/pickup/HowItWorks';
+import Terms from 'components/pickup/Terms';
+import Demonstration from 'components/pickup/Demonstration';
+import Schedule from 'components/pickup/Schedule';
 
 export const Pickup = () => {
 	return (
 		<Layout title='PickUp Center | Pedidos.com'>
-			<Container>
+			<Box bgcolor='#f6f7fa'>
 				<Banner />
-			</Container>
-			<HowItWorks />
-			<Terms />
-			<Container>
+			</Box>
+
+			<Box py={10}>
+				<HowItWorks />
+
+				<Box mt={2}>
+					<Terms />
+				</Box>
+			</Box>
+
+			<Box bgcolor='#f6f7fa'>
 				<Demonstration />
+
 				<Schedule />
-			</Container>
+			</Box>
 		</Layout>
 	);
 };

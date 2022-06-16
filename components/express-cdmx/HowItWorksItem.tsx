@@ -4,6 +4,18 @@ import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import clsx from 'clsx';
 
+export interface DataItem {
+	title: string;
+	bigTitle: boolean;
+	text: string;
+	icon?: string;
+	iconWidth?: number;
+}
+
+export interface IHowItWorksItemProps {
+	item: DataItem;
+}
+
 const useStyles = makeStyles({
 	bigTitle: {
 		fontSize: '1.8rem',

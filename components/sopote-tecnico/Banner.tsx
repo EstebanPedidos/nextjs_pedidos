@@ -4,9 +4,8 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-
-import { makeStyles } from '@mui/styles';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import { makeStyles } from '@mui/styles';
 
 export interface ChildrenProps {
 	children: JSX.Element | any;
@@ -118,8 +117,6 @@ export const Hint: React.FC<ChildrenProps> = ({ children }) => (
 );
 
 export const Banner = () => {
-	const classes = useStyles();
-
 	return (
 		<Box bgcolor='#f6f7fa' pt={3}>
 			<Container maxWidth={false} sx={{ px: { md: '0!important' } }}>
