@@ -1,3 +1,1 @@
-steps:
-- name: 'gcr.io/pedido-305117/pedidos-nextjs'
-timeout: 1200s
+timeout: 1500s

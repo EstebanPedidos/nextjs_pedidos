@@ -13,8 +13,9 @@ import { Layout } from 'layout/Layout';
 import Verification from './verification';
 //Servicios
 import Services from '../services/Services'
-import Router, { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
+import Alertas from '../checkout/Alertas'
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -28,6 +29,8 @@ export default function RegistroUsuario(){
     const [inputs, setInputs] = useState({});
     const [ip, setIP] = useState('');
     const [first, setFirst] = React.useState(false);
+    const [alerta,setAlerta] = useState({})
+	const router = useRouter();
 
     //creating function to load ip address from the API
     const getData = async () => {
@@ -86,15 +89,46 @@ export default function RegistroUsuario(){
         let data = services.data;
         if(services.data === "S"){
             setFirst(true);
+            setAlerta({severity:'success',mensaje:'Registro exitoso',vertical:'bottom',horizontal:'right',variant:'filled'})
+        }else{
+            setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
         }
     }
 
     async function handleSubmitVerificar(e) {
         e.preventDefault();
-        let services  = await Services('POST','/registrov2/verificarCodigo'+params,{}) 
+        let services  = await Services('POST','/registrov2/UpdatePyClienteCodigo'+params2,{}) 
         let data = services.data;
+        if(services.data.estatus === "OK"){
+            let services        = await Services('POST','/registrov2/validaCredencial?email='+inputs.correo+'&pass='+inputs.password+'&user_m=0',{})
+            let data1            = await services.data
 
-        ruter.push("/home")
+            if(data1.error === 'Usuario o Password Invalido'){
+                setAlerta({severity:'error',mensaje:'Hubo un error al verificar',vertical:'bottom',horizontal:'right',variant:'filled'})
+                }else{
+                    localStorage.setItem('Usu_Nomb', data1.usuario.nombre)
+                    localStorage.setItem('Email', data1.usuario.email)
+                    localStorage.setItem('Cliente', data1.usuario.clienteNum)
+                    localStorage.setItem('Usuario', data1.usuario.usuarioNum)
+                    localStorage.setItem('SesPartidas', data1.usuario.partidas)
+                    localStorage.setItem('Token', data1.usuario.token)
+                    localStorage.setItem('Login', 'Ok')
+                    localStorage.setItem('afiliado', data1.usuario.afiliacion)
+                    localStorage.setItem('nivelAcceso', data1.usuario.nivelAcceso)
+
+                    router.push("/Home")
+                }
+        }else if(services.data.estatus === "CODIGO INVALIDO"){
+            setAlerta({severity:'error',mensaje:'Codigo Invalido',vertical:'bottom',horizontal:'right',variant:'filled'})
+        }
+    }
+
+    async function reenviarCodigo() {
+        let services  = await Services('POST','/registrov2/registraUsuarioNuevo'+params,{}) 
+        let data = services.data;
+        if(services.data === "S"){
+            setAlerta({severity:'info',mensaje:'Codigo Reenviado',vertical:'bottom',horizontal:'right',variant:'filled'})
+        }
     }
 
     const [state, setState] = React.useState({
@@ -182,13 +216,16 @@ export default function RegistroUsuario(){
                                 <Button type="submit" variant="contained" size="large" color="primary" fullWidth >Verificar el código</Button>
                             </Box>
                             <Box my={1} textAlign="center">
-                                <Button component={Link} to="/Contra" type="submit" variant="outlined" size="large" color="primary" fullWidth >
+                                <Button variant="outlined" size="large" color="primary" fullWidth onClick={reenviarCodigo}>
                                     Reenvíar código
                                 </Button>
                             </Box>
                         </form>
                    
                     </Paper>
+                } 
+                {(alerta.hasOwnProperty('severity'))&&
+                    <Alertas setAlerta={setAlerta} alerta={alerta}/>
                 } 
             </Container>   
         </Layout>
