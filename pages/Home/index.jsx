@@ -150,6 +150,8 @@ export default function Home() {
                         ));
 
                         setLoaded(true);
+                    }else{
+                        setLoaded(true);
                     }
                 }).catch(error => {
                     console.log("falló")

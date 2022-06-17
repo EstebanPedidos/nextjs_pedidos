@@ -3,7 +3,6 @@ const PATH ='https://api-pickup.pedidos.com/API-Rest'
 //'http://192.10.2.166:8080/rest'
 
 
-
 function Services(metodo,url,json) {
     switch (metodo) {
         case 'POST':
