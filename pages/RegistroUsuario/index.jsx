@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios'
-
+import Link from 'components/Link';
 //MUI
 import {Container,Box, Grid, Paper, Button, Typography, FormControl,
-    FormControlLabel, Checkbox, TextField,Link } from '@mui/material';
+    FormControlLabel, Checkbox, TextField, } from '@mui/material';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -170,8 +170,10 @@ export default function RegistroUsuario(){
                                         <Typography variant="body2"  >
                                             Al registrarte aceptas los &nbsp;
                                             <Box component="span" >
-                                                <Link href="/" color="textSecondary" sx={{ color:'textSecondary', fontWeight:'600' }}>
+                                                <Link href="/soho/cliente/terminos-y-condiciones" color="textSecondary" sx={{ color:'textSecondary', fontWeight:'600' }}>
+                                                    <a>
                                                     Términos y condiciones
+                                                    </a>
                                                 </Link>
                                             </Box>
                                         </Typography>
