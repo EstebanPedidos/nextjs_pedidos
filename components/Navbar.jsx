@@ -1,26 +1,42 @@
 import React, { useState, useEffect } from 'react';
 
 //Components @mui/material
-import {AppBar, Toolbar, IconButton,Typography, Menu, Box, Hidden, TextField, Button, Divider, InputAdornment,	MenuItem, Badge, Avatar} from '@mui/material';
+import {
+	AppBar,
+	Toolbar,
+	IconButton,
+	Typography,
+	Menu,
+	Box,
+	Hidden,
+	TextField,
+	Button,
+	Divider,
+	InputAdornment,
+	MenuItem,
+	Badge,
+	Avatar,
+} from '@mui/material';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import { FavoriteBorder, Search as SearchIcon, ShoppingCartOutlined as ShoppingCartOutlinedIcon
+import {
+	FavoriteBorder,
+	Search as SearchIcon,
+	ShoppingCartOutlined as ShoppingCartOutlinedIcon,
 } from '@mui/icons-material';
 import { makeStyles, useTheme } from '@mui/styles';
 
-import RandomUser  from '../pages/services/RandomUser'
+import RandomUser from '../pages/services/RandomUser';
 
 // Variables imports
 import { logoUrl } from '../constants';
-import  Help  from '../components/modals/Help';
+import Help from '../components/modals/Help';
 import { content, logo } from './Navbar.module.css';
 import DrawerCategorias from './drawers/drawer';
-
-const drawerWidth = 240;
 
 //Nextjs
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Alertas from '../pages/checkout/Alertas'
+import Alertas from '../pages/checkout/Alertas';
 
 function ElevationScroll(props) {
 	const { children, window } = props;
@@ -42,29 +58,11 @@ function ElevationScroll(props) {
 	});
 }
 
-const useStyles = makeStyles((theme) => ({
-	drawer: {
-		width: drawerWidth,
-		flexShrink: 0,
-	},
-	drawerPaper: {
-		width: drawerWidth,
-	},
-	list: {
-		width: 250,
-	},
-	fullList: {
-		width: 'auto',
-	},
-}));
-
 export function Navbar(props) {
 	const [openModal, setOpenModal] = useState(false);
 	const [openMenu, setOpenMenu] = useState(false);
 
 	const ruter = useRouter();
-	const classes = useStyles();
-	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
 	const [inputs, setInputs] = useState({});
 	const [nombre, setNombre] = React.useState('');
@@ -81,7 +79,7 @@ export function Navbar(props) {
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
 	const [sesPartidas, setSesPartidas] = useState(props.partidas);
-    const [favoritos, setFavoritos] = useState(props.favoritos);
+	const [favoritos, setFavoritos] = useState(props.favoritos);
 
 	const [alerta, setAlerta] = useState({});
 
@@ -103,7 +101,12 @@ export function Navbar(props) {
 		) {
 			setLogged(false);
 		}
-		setSesPartidas((localStorage.getItem('SesPartidas') !== undefined && localStorage.getItem('SesPartidas')!== null)?localStorage.getItem('SesPartidas'):0);
+		setSesPartidas(
+			localStorage.getItem('SesPartidas') !== undefined &&
+				localStorage.getItem('SesPartidas') !== null
+				? localStorage.getItem('SesPartidas')
+				: 0
+		);
 		setFavoritos(localStorage.getItem('Favoritos'));
 	}, [props]);
 
@@ -114,7 +117,7 @@ export function Navbar(props) {
 				setSesPartidas(CountPartidas);
 			}
 
-            const countFavoritos = localStorage.getItem('Favoritos');
+			const countFavoritos = localStorage.getItem('Favoritos');
 			if (countFavoritos) {
 				setFavoritos(countFavoritos);
 			}
@@ -129,8 +132,14 @@ export function Navbar(props) {
 		setOpenMenu(false);
 	};
 	const handleClick = (event) => {
-		if(!isLogged){
-			setAlerta({severity:'info',mensaje:'Inicia sesión para ver tus favoritos',vertical:'bottom',horizontal:'right',variant:'filled'})
+		if (!isLogged) {
+			setAlerta({
+				severity: 'info',
+				mensaje: 'Inicia sesión para ver tus favoritos',
+				vertical: 'bottom',
+				horizontal: 'right',
+				variant: 'filled',
+			});
 		}
 	};
 
@@ -192,8 +201,8 @@ export function Navbar(props) {
 		localStorage.setItem('Email', '');
 		localStorage.setItem('Usuario', RandomUser());
 		localStorage.setItem('afiliado', '');
-        localStorage.setItem('pedido', 0);
-        localStorage.setItem('URL', '');
+		localStorage.setItem('pedido', 0);
+		localStorage.setItem('URL', '');
 		ruter.push('/');
 	}
 
@@ -246,32 +255,51 @@ export function Navbar(props) {
 			<div>
 				<MenuItem onClick={handleMenuClose}>
 					<Link href='/soho/MiCuenta/MisDatos'>
-						<Typography variant="h6" component="a" py={1}>Mis Datos</Typography>
+						<Typography variant='h6' component='a' py={1}>
+							Mis Datos
+						</Typography>
 					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/soho/MiCuenta/MisPedidos'><Typography variant="h6" component="a" py={1}>Pedidos</Typography></Link>
+					<Link href='/soho/MiCuenta/MisPedidos'>
+						<Typography variant='h6' component='a' py={1}>
+							Pedidos
+						</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/soho/MiCuenta/Direcciones'><Typography variant="h6" component="a" py={1}>Direcciones</Typography></Link>
+					<Link href='/soho/MiCuenta/Direcciones'>
+						<Typography variant='h6' component='a' py={1}>
+							Direcciones
+						</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
 					<Link href='/soho/MiCuenta/misFacturas'>
-					<Typography variant="h6" component="a" py={1}>Facturas</Typography></Link>
+						<Typography variant='h6' component='a' py={1}>
+							Facturas
+						</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
 					<Link href='/soho/MiCuenta/misFavoritos'>
-					<Typography variant="h6" component="a" py={1}>Favoritos</Typography>
+						<Typography variant='h6' component='a' py={1}>
+							Favoritos
+						</Typography>
 					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
 					<Link href='/soho/MiCuenta/misNotasCredito'>
-					<Typography variant="h6" component="a" py={1} >Notas de Credito</Typography>
+						<Typography variant='h6' component='a' py={1}>
+							Notas de Credito
+						</Typography>
 					</Link>
 				</MenuItem>
 				<Divider />
 				<MenuItem onClick={() => (handleMenuClose(), CerrarSesion())}>
-					<Typography variant="h6" component="p" py={1} color="textSecondary">Salir </Typography>
+					<Typography variant='h6' component='p' py={1} color='textSecondary'>
+						Salir{' '}
+					</Typography>
 				</MenuItem>
 			</div>
 		</Menu>
@@ -309,12 +337,16 @@ export function Navbar(props) {
 			<div>
 				<MenuItem onClick={handleMenuClose}>
 					<Link href='/Login'>
-						<Typography variant="h6" component="a" py={1}>Iniciar Sesión</Typography>
+						<Typography variant='h6' component='a' py={1}>
+							Iniciar Sesión
+						</Typography>
 					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
 					<Link href='/RegistroUsuario'>
-						<Typography variant="h6" component="a" py={1}>Crear Cuenta </Typography>
+						<Typography variant='h6' component='a' py={1}>
+							Crear Cuenta{' '}
+						</Typography>
 					</Link>
 				</MenuItem>
 			</div>
@@ -335,18 +367,17 @@ export function Navbar(props) {
 							{/*<Hidden smDown={true}>
 								 Crear una variante del logo que sea adaptable / Por
 							ejemplo una "p" para esos casos de usos */}
-								<Link href='/'>
-									<a>
-										<img className={logo} src={logoUrl} alt='logo pedidos' />
-									</a>
-								</Link>
+							<Link href='/'>
+								<a>
+									<img className={logo} src={logoUrl} alt='logo pedidos' />
+								</a>
+							</Link>
 							{/* </Hidden> */}
 							<Hidden smDown>
 								<Box component={'span'} px={2}>
 									<DrawerCategorias />
 								</Box>
 							</Hidden>
-							
 						</Box>
 						{/* <Hidden smDown='hide'> */}
 						<Hidden mdDown>
@@ -362,7 +393,9 @@ export function Navbar(props) {
 										InputProps={{
 											endAdornment: (
 												<InputAdornment position='start'>
-													<Button type="submit"><SearchIcon /></Button>
+													<Button type='submit'>
+														<SearchIcon />
+													</Button>
 												</InputAdornment>
 											),
 										}}
@@ -381,49 +414,65 @@ export function Navbar(props) {
 							component={'div'}>
 							{/* This inline styles is temporaly, when add link router component, remove */}
 							<Hidden mdDown>
-								<Box component={'span'} style={{ cursor: 'pointer', fontWeight:'Bold' }}>
-									<Typography variant="subtitle2" component='span' color='textPrimary'>
+								<Box
+									component={'span'}
+									style={{ cursor: 'pointer', fontWeight: 'Bold' }}>
+									<Typography
+										variant='subtitle2'
+										component='span'
+										color='textPrimary'>
 										Para{' '}
 									</Typography>
-									<Typography variant="subtitle2" component='span' color='primary'>
+									<Typography
+										variant='subtitle2'
+										component='span'
+										color='primary'>
 										empresas
 									</Typography>
 								</Box>
 							</Hidden>
-							
-								<Hidden smDown>		
+
+							<Hidden smDown>
 								<Box component={'span'}>
-									<IconButton onClick={handleClick}
-									aria-controls={open ? 'favorites' : undefined}
-									aria-haspopup="true">
+									<IconButton
+										onClick={handleClick}
+										aria-controls={open ? 'favorites' : undefined}
+										aria-haspopup='true'>
 										<Badge
-											badgeContent={isLogged ? (favoritos > 0)? favoritos : null : null}
+											badgeContent={
+												isLogged ? (favoritos > 0 ? favoritos : null) : null
+											}
 											color='secondary'>
-                                            {favoritos === null || favoritos === 0 || favoritos === undefined ? '' : 
-											<Link href='/soho/MiCuenta/misFavoritos'>
-												<FavoriteBorder sx={{color:'#9298A7'}} />
-											</Link>
-                                            }
+											{favoritos === null ||
+											favoritos === 0 ||
+											favoritos === undefined ? (
+												''
+											) : (
+												<Link href='/soho/MiCuenta/misFavoritos'>
+													<FavoriteBorder sx={{ color: '#9298A7' }} />
+												</Link>
+											)}
 										</Badge>
-									
 									</IconButton>
-									
+
 									<div ref={anchorEl} id='menu'></div>
 								</Box>
-								<Box component='span' justifyContent='center' sx={{ backgroundColor:'#E7ECF3', borderRadius:'100px'}} >
-									<Help tipo={'2'}/>
+								<Box
+									component='span'
+									justifyContent='center'
+									sx={{ backgroundColor: '#E7ECF3', borderRadius: '100px' }}>
+									<Help tipo={'2'} />
 								</Box>
-								</Hidden>	
-								<IconButton color='primary'>
-									<Badge
-										badgeContent={(sesPartidas > 0)? sesPartidas : null }
-										color='secondary'>
-										<Link href='/checkout/verifica-pedido'>
-											<ShoppingCartOutlinedIcon sx={{color:'#9298A7'}} />
-										</Link>
-									</Badge>
-								</IconButton>
-							
+							</Hidden>
+							<IconButton color='primary'>
+								<Badge
+									badgeContent={sesPartidas > 0 ? sesPartidas : null}
+									color='secondary'>
+									<Link href='/checkout/verifica-pedido'>
+										<ShoppingCartOutlinedIcon sx={{ color: '#9298A7' }} />
+									</Link>
+								</Badge>
+							</IconButton>
 						</Box>
 						<Box>
 							{isLogged ? (
@@ -432,7 +481,16 @@ export function Navbar(props) {
 									aria-controls={menuId}
 									aria-haspopup='true'
 									onClick={handleProfileMenuOpen}>
-									<Avatar sx={{ width:48, height: 48, border: 2, borderColor: '#3655A5', color:'#3655A5', backgroundColor:'#E7ECF3', textTransform: 'uppercase',  }}>
+									<Avatar
+										sx={{
+											width: 48,
+											height: 48,
+											border: 2,
+											borderColor: '#3655A5',
+											color: '#3655A5',
+											backgroundColor: '#E7ECF3',
+											textTransform: 'uppercase',
+										}}>
 										{nombre.substring(0, 2)}
 									</Avatar>
 								</IconButton>
@@ -449,33 +507,35 @@ export function Navbar(props) {
 					</Toolbar>
 					<Hidden mdUp={true}>
 						<Box px={3} pb={1}>
-                            <form onSubmit={searchBoxSubmit}>
-                                <TextField
-                                    size='medium'
-                                    id='outlined-basic'
-                                    fullWidth
-                                    variant='outlined'
-                                    placeholder='Buscar..'
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position='start'>
-                                                <Button type="submit"><SearchIcon /></Button>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                    name='query'
+							<form onSubmit={searchBoxSubmit}>
+								<TextField
+									size='medium'
+									id='outlined-basic'
+									fullWidth
+									variant='outlined'
+									placeholder='Buscar..'
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position='start'>
+												<Button type='submit'>
+													<SearchIcon />
+												</Button>
+											</InputAdornment>
+										),
+									}}
+									name='query'
 									onChange={handleChange}
-                                />
-                            </form>
+								/>
+							</form>
 						</Box>
 					</Hidden>
 				</AppBar>
 			</ElevationScroll>
 
 			{isLogged ? menuLogin : menuLogout}
-			{(alerta.hasOwnProperty('severity'))&&
-            <Alertas setAlerta={setAlerta} alerta={alerta}/>
-        	} 
+			{alerta.hasOwnProperty('severity') && (
+				<Alertas setAlerta={setAlerta} alerta={alerta} />
+			)}
 		</>
 	);
 }
