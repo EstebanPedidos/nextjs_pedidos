@@ -7,7 +7,7 @@ import TagManager from 'react-gtm-module'
 import {
 	InstantSearch,
 	RefinementList,
-	Breadcrumb,
+	Menu,
 	connectSearchBox,
 	SearchBox,
 	Hits,
@@ -23,7 +23,9 @@ import {
 	DynamicWidgets,
 } from 'react-instantsearch-dom';
 
+import Cookies from 'js-cookie'
 import aa from 'search-insights';
+aa('init', { appId: '12YTHFXXB5', apiKey: '235f66e4531637d52c48f4a91ad6fa3f', useCookie: true });
 import { createInsightsMiddleware } from 'instantsearch.js/es/middlewares'
 
 import {
@@ -179,10 +181,37 @@ export default function Busquedas(props) {
 
 	const router = useRouter();
 	let url = router.query.query;
+	let searchState = {}
+	let refinement = ''
     if (url === undefined && router.query && Object.keys(router.query).length > 0) {
-        url = Object.keys(router.query)[0].replaceAll('-', ' ');
-        const terms = url.split('/');
-        url = terms[terms.length - 1];
+				const query = Object.keys(router.query)[0]
+
+				const categories = query.split('/')
+				if (categories.length > 3) {
+					refinement = categories[1] + ' > ' + categories[2] + ' > ' + categories[3]
+					searchState = {
+						menu: {
+							LINEA_NEG: categories[1],
+							COD_FAMILIA: categories[1] + ' > ' + categories[2],
+							COD_SUBFAMILIA: categories[1] + ' > ' + categories[2] + ' > ' + categories[3]
+						}
+					}
+				} else if (categories.length > 2) {
+					refinement = categories[1] + ' > ' + categories[2]
+					searchState = {
+						menu: {
+							LINEA_NEG: categories[1],
+							COD_FAMILIA: categories[1] + ' > ' + categories[2]
+						}
+					}
+				} else if (categories.length > 1) {
+					refinement = categories[1]
+					searchState = {
+						menu: {
+							LINEA_NEG: categories[1]
+						}
+					}
+				}
     }
 
     const [open, setOpen] = React.useState(false);
@@ -244,14 +273,55 @@ export default function Busquedas(props) {
         setOpen(false);
     };
 
+		let breadcrumb = (<></>)
+		if (searchState.menu) {
+			breadcrumb = (<div className="ais-Breadcrumb">
+				<ul className="ais-Breadcrumb-list">
+					<li className="ais-Breadcrumb-item">
+						<a className="ais-Breadcrumb-link" href="#">Home</a>
+					</li>
+					{searchState.menu.LINEA_NEG ?? (
+						<li className="ais-Breadcrumb-item">
+							<span className="ais-Breadcrumb-separator"> &gt; </span>
+							<a className="ais-Breadcrumb-link" href="#">{refinement}</a>
+						</li>
+					)}
+					{searchState.menu.COD_FAMILIA ?? (
+						<li className="ais-Breadcrumb-item">
+							<span className="ais-Breadcrumb-separator"> &gt; </span>
+							<a className="ais-Breadcrumb-link" href="#">{refinement}</a>
+						</li>
+					)}
+					{searchState.menu.COD_SUBFAMILIA ?? (
+						<li className="ais-Breadcrumb-item">
+							<span className="ais-Breadcrumb-separator"> &gt; </span>
+							<a className="ais-Breadcrumb-link" href="#">{refinement}</a>
+						</li>
+					)}
+					<li className="ais-Breadcrumb-item ais-Breadcrumb-item--selected">
+						<span className="ais-Breadcrumb-separator"> &gt; </span>
+						Digital Cameras
+					</li>
+				</ul>
+			</div>
+			)
+		}
+
+		const HitWithInsights = connectHitInsights(aa)(Hit);
 
     return(
         <Layout title={url === undefined ? '' : url+" Compra en México Pedidos.com"}>
             <div className={classes.bgcontent}>
                 <InstantSearch 
+										searchState={searchState}
                     indexName={indexX}
                     searchClient={searchClient}
                 >
+									<div style={{display:'none'}}>
+										<Menu attribute='LINEA_NEG'/>
+										<Menu attribute='COD_FAMILIA'/>
+										<Menu attribute='COD_SUBFAMILIA'/>
+									</div>
                     <div className={classes.root}>
                         <Grid container direction="row" justifyContent="center" alignItems="flex-start" >
                             <Grid item xs={12} sm={12}>
@@ -321,15 +391,8 @@ export default function Busquedas(props) {
                                     </Grid>
                                     <Box mb={4}>
                                         <Box my={2}>
-                                            <Breadcrumb
-                                                attributes={[
-                                                'LINEA_NEG',
-                                                'COD_FAMILIA',
-                                                'COD_SUBFAMILIA'
-                                                ]}
-                                                separator={('separator', ' > ')}
-                                                rootURL="/Home"
-                                            />
+																					<h1>Bread</h1>
+                                            {breadcrumb}
                                         </Box>
                                     </Box>
                                 </Box>
@@ -997,7 +1060,7 @@ export default function Busquedas(props) {
                                         }
                                         
                                         {/* Termina filtros */}
-                                        <Configure hitsPerPage={20} />
+                                        <Configure hitsPerPage={20} userToken={Cookies.get('_ALGOLIA')} clickAnalytics enablePersonalization={true}/>
                                     </Box>
                                 </Grid>
                             </Hidden>
@@ -1023,7 +1086,7 @@ export default function Busquedas(props) {
                                                         className={
                                                             classes.hitsgeneral
                                                         }
-                                                        hitComponent={Hit}
+                                                        hitComponent={HitWithInsights}
                                                         component='div'
                                                         sx={{
                                                             listStyleType:
@@ -1989,8 +2052,10 @@ export default function Busquedas(props) {
 		</Layout>
 	);
 
-	function Hit(props) {
+	
 
+	function Hit(props) {
+		const insights = props.insights
         const tagManagerArgs = {
             gtmId: 'GTM-NLQV5KF',
             dataLayer: {
@@ -2024,13 +2089,14 @@ export default function Busquedas(props) {
                             >
                                 <Grid item xs={12} sm={4} lg={4} justify='center'>
                                     <Link href={`/articulos/${props.hit.URL}`} 
-                                        onClick={() =>
-                                        insights('clickedObjectIDsAfterSearch', {
-                                            eventName: 'Product Clicked'
-                                        })
-                                        }
                                     >
-                                        <a>
+                                        <a onClick={() => {
+																					console.log('ok')
+																						insights('clickedObjectIDsAfterSearch', {
+																								eventName: 'Product Clicked'
+																						})
+																					}
+                                        }>
                                             <CardMedia
                                                 className={classes.cover}
                                                 component='img'
@@ -2083,7 +2149,13 @@ export default function Busquedas(props) {
                                             <Link
                                                 href={`/articulos/${props.hit.URL}`}
                                                 className={classes.productLink}>
-                                                <a>
+                                                <a onClick={() => {
+																									console.log('ok')
+																										insights('clickedObjectIDsAfterSearch', {
+																												eventName: 'Product Clicked'
+																										})
+																									}
+																								}>
                                                     <Typography
                                                         component='body2'
                                                         variant='p'
@@ -2139,7 +2211,13 @@ export default function Busquedas(props) {
                                         <Link
                                             href={`/articulos/${props.hit.URL}`}
                                             className={classes.CTAlink}>
-                                            <a>
+                                            <a onClick={() => {
+																							console.log('ok')
+																								insights('clickedObjectIDsAfterSearch', {
+																										eventName: 'Product Clicked'
+																								})
+																							}
+																						}>
                                                 <Button
                                                     variant='contained'
                                                     size='large'
