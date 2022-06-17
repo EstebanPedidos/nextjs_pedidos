@@ -1,7 +1,6 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
-
+import Head from 'next/head';
+import { Box, Container, Grid } from '@mui/material';
+//components
 import { Layout } from 'layout/Layout';
 import HeroCategory from 'components/HeroCategory';
 import ToutCard from 'components/ToutCard';
@@ -121,6 +120,10 @@ const otherSubCategories = [
 const CategoryAccesorios = () => {
 	return (
 		<Layout title='Accesorios | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Lo necesario y mucho más para tu espacio de trabajo, productos de papelería para oficina, escuela y el hogar. Tu solo pide y te llegará donde te encuentres."/>
+				<link rel="canonical" href="https://pedidos.com/categorias/accesorios"/>
+			</Head>
 			<HeroCategory
 				title='Accesorios'
 				description='Tecnología / Electrónica'

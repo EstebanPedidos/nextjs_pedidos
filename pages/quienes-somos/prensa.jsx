@@ -1,22 +1,12 @@
 import * as React from 'react';
+import Head from 'next/head';
+import {Container,Box, Grid, Typography,Card, CardActionArea, CardMedia, CardContent, Divider, Button} from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import {
-	Container,
-	Box,
-	Typography,
-	Grid,
-	Card,
-	CardActionArea,
-	CardMedia,
-	CardContent,
-	Button,
-} from '@mui/material';
-
 //Componentes
 import { Layout } from 'layout/Layout';
 import Link from 'components/Link';
@@ -121,7 +111,11 @@ export default function TitlebarImageList() {
 	const classes = useStyles();
 
 	return (
-		<Layout>
+		<Layout title='Notas de Prensa | Pedidos.com'>
+			<Head>
+				<meta name="description" content="DESCUBRE todas las notas de prensa donde se ha hecho mención sobre Pedidos.com sobre su crecimiento, desarrollo y alianzas con diversas marcas. Pedidos.com es tu mejor opción para comprar"/>
+				<link rel="canonical" href="https://pedidos.com/quienes-somos/prensa"/>
+			</Head>
 			<Container maxWidth='lg'>
 				<Box py={2}>
 					<Box pt={8} pb={6}>

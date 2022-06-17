@@ -1,13 +1,6 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
+import Head from 'next/head';
+import {Container,Box, Grid, Typography, Accordion, AccordionSummary, AccordionDetails, CardMedia, CardContent, Divider, Button} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
@@ -105,7 +98,11 @@ const benefits = [
 
 export const Empresas = () => {
 	return (
-		<Layout>
+		<Layout title='Vu&eacute;lvete parte de la experiencia PRO | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Pedidos.com es la mejor opción para conseguir todo lo que necesitas para el espacio de trabajo dentro de tu empresa."/>
+				<link rel="canonical" href="https://pedidos.com/servicios/empresas"/>
+			</Head>
 			<Box
 				sx={{
 					background:

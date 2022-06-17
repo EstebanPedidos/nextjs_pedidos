@@ -1,5 +1,6 @@
+import Head from 'next/head';
 import Box from '@mui/material/Box';
-
+//components
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
 import CategoryGrid from 'components/CategoryGrid';
@@ -94,6 +95,10 @@ const brands = [
 const Newell = () => {
 	return (
 		<Layout title='Explora todos los productos Newell | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Encuentra gran variedad de los productos Newell, perfectos para plasmar todo en papel. Compra marcas como sharpie, prismacolor, paper mate"/>
+				<link rel="canonical" href="https://pedidos.com/newell"/>
+			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/newell/newellback1.png'
 				alt='Newell'

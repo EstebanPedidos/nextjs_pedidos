@@ -1,7 +1,6 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
-
+import Head from 'next/head';
+import { Box, Container, Grid } from '@mui/material';
+//components
 import { Layout } from 'layout/Layout';
 import HeroCategory from 'components/HeroCategory';
 import ImageCarouselSection from 'components/ImageCarouselSection';
@@ -159,6 +158,10 @@ const homeLinks = [
 const CategoryTlapaleria = () => {
 	return (
 		<Layout title='Tlapalería | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Encuentra todo lo que necesitas de Tlapalería para el mantenimiento de las instalaciones. Adquiere tus productos de tlapalería en Pedidos.com herramientas, focos, cables, y más. Envío rápido y seguro."/>
+				<link rel="canonical" href="https://pedidos.com/categorias/tlapaleria"/>
+			</Head>
 			<HeroCategory
 				title='Tlapalería'
 				description='Encuentra lo necesario'

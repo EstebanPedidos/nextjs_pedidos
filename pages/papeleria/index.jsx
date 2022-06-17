@@ -1,10 +1,7 @@
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
+import Head from 'next/head';
+import {Container,Box, Grid, Typography, Divider,} from '@mui/material';
 import Link from '@mui/material/Link';
-
+//Components
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
 import CardsCarouselSection from 'components/CardsCarouselSection/CardsCarouselSection';
@@ -112,6 +109,10 @@ const tips = [
 const Papeleria = () => {
 	return (
 		<Layout title='Todos los artículos de papelería que necesitas | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Si necesitas artículos de papelería para el trabajo, la escuela u otra actividad, encuentra aquí una gran variedad."/>
+				<link rel="canonical" href="https://pedidos.com/papeleria"/>
+			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/papeleria/back-papeleria.jpg'
 				alt='Papeleria'

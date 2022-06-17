@@ -1,12 +1,8 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
+import Head from 'next/head';
+import {Container,Box, Grid, Typography, Divider, Button} from '@mui/material';
 import ExpandCircleDownOutlinedIcon from '@mui/icons-material/ExpandCircleDownOutlined';
 import { styled } from '@mui/material/styles';
-
+//components
 import { Layout } from '/layout/Layout';
 import ArrowsContainer from 'components/ArrowsContainer';
 import NumberedList from 'components/NumberedList';
@@ -96,7 +92,11 @@ const CustomButton = styled(Button)({
 
 const ProgramaDeReciclaje = () => {
 	return (
-		<Layout title='¿Ya conoces el programa de reciclaje? | Pedidos.com | Pedidos.com'>
+		<Layout title='¿Ya conoces el programa de reciclaje? | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Conoce más sobre el programa de reciclaje de cartuchos de tinta & tóner originales, ayudando a impulsar un cambio en el medio ambiente."/>
+				<link rel="canonical" href="https://pedidos.com/programa-de-reciclaje"/>
+			</Head>
 			<Box
 				overflowX='hidden'
 				pt={{ xs: 2, md: 8 }}

@@ -1,6 +1,6 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
+import Head from 'next/head';
+import { Box, Container, Grid } from '@mui/material';
+//components
 import HeroCategory from 'components/HeroCategory';
 import ToutCard from 'components/ToutCard';
 
@@ -181,6 +181,10 @@ const otherSubCategories2 = [
 const CategoryTecnologia = () => {
 	return (
 		<Layout title='Tecnología | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Los productos tecnológicos que necesitas para tu oficina, escuela o/y hogar los encuentras en Pedidos.com, solo pide y te llegará donde te encuentres."/>
+				<link rel="canonical" href="https://pedidos.com/categorias/tecnologia"/>
+			</Head>
 			<HeroCategory
 				title='Tecnología'
 				description='Lo mejor en'

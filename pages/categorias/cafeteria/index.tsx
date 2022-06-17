@@ -1,6 +1,6 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
+import Head from 'next/head';
+import { Box, Container, Grid } from '@mui/material';
+//components
 import HeroCategory from 'components/HeroCategory';
 import ImageCarouselSection from 'components/ImageCarouselSection';
 import ToutCard from 'components/ToutCard';
@@ -103,6 +103,10 @@ const otherSubCategories = [
 const CategoryCafeteria = () => {
 	return (
 		<Layout title='Cafetería | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Snacks para tu espacio de trabajo, productos de cafetería para la oficina, escuela y el hogar. Tu solo pide y te llegará donde te encuentres."/>
+				<link rel="canonical" href="https://pedidos.com/categorias/cafeteria"/>
+			</Head>
 			<HeroCategory
 				title='Cafetería'
 				description='Tecnología / Electrónica'

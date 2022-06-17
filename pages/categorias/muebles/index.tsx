@@ -1,6 +1,6 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
+import Head from 'next/head';
+import { Box, Container, Grid } from '@mui/material';
+//components
 import HeroCategory from 'components/HeroCategory';
 import ImageCarouselSection from 'components/ImageCarouselSection';
 import ToutCard from 'components/ToutCard';
@@ -120,7 +120,10 @@ const otherSubCategories = [
 const CategoryMuebles = () => {
 	return (
 		<Layout title='Muebles | Pedidos.com'>
-			
+			<Head>
+				<meta name="description" content="El mobiliario para tu espacio de trabajo, solo pide los muebles que necesites y te llegarán donde te encuentres."/>
+				<link rel="canonical" href="https://pedidos.com/categorias/muebles"/>
+			</Head>
 			<HeroCategory
 				title='Muebles'
 				description='Lo escencial'

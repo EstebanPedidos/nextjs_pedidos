@@ -1,7 +1,6 @@
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-
+import Head from 'next/head';
+import { Box, Container, Grid } from '@mui/material';
+//components
 import HeroCategory from 'components/HeroCategory';
 import BrandCard from 'components/BrandCard';
 import { Layout } from 'layout/Layout';
@@ -153,6 +152,10 @@ const brands = [
 const CategoryTintasToners = () => {
 	return (
 		<Layout title='Tintas y tóners | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Los consumibles que necesitas para tu oficina, escuela y el hogar los encuentras en Pedidos.com. Envios EXPRESS en la CDMX, solo pide y te llegará donde te encuentres"/>
+				<link rel="canonical" href="https://pedidos.com/categorias/tintas-y-toners"/>
+			</Head>
 			<HeroCategory
 				title='Tintas y tóners'
 				description='Consumibles'

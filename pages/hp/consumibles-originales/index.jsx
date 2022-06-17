@@ -1,10 +1,7 @@
 import Script from 'next/script';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
+import Head from 'next/head';
+import { Box, Container, Divider,Typography, Grid, Button } from '@mui/material';
+//components
 import Link from '@mui/material/Link';
 
 import { Layout } from 'layout/Layout';
@@ -71,6 +68,10 @@ const OriginalSuppliesPerformanceSlides = [
 const OriginalSupplies = () => {
 	return (
 		<Layout title='Busca tus Cartuchos de tinta y tóner laser HP en Pedidos.com'>
+			<Head>
+				<meta name="description" content="Buscador de cartuchos de tinta y Tóner láser, nuevos y originales HP, con entrega a domicilio en todo México al mejor precio."/>
+				<link rel="canonical" href="https://pedidos.com/hp/consumibles-originales"/>
+			</Head>
 			<Box pt={8} position='relative'>
 				<Box
 					bgcolor='#f6f7f9'

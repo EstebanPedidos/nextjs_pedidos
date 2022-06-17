@@ -1,13 +1,9 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
+import Head from 'next/head';
+import {Container,Box, Grid, Typography, Divider, Button} from '@mui/material';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
-
+//Components
 import { Layout } from 'layout/Layout';
 import Link from 'components/Link';
 import MSIBanner from 'components/MSIBanner';
@@ -45,6 +41,10 @@ const howToSteps = [
 const PedidosMayorista = () => {
 	return (
 		<Layout title='Mayorístas de computo y equipo de oficina | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Obtén el mejor precio Precio por volumen en productos de computo y oficina. Precio especial y la mejor atención en productos tecnológicos para tu empresa."/>
+				<link rel="canonical" href="https://pedidos.com/pedidosmayoreo/pedidos-mayorista"/>
+			</Head>
 			<Box
 				sx={{
 					py: 3,

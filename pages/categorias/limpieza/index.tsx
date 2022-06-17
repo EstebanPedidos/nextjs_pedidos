@@ -1,7 +1,6 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
-
+import Head from 'next/head';
+import { Box, Container, Grid } from '@mui/material';
+//components
 import { Layout } from 'layout/Layout';
 import HeroCategory from 'components/HeroCategory';
 import ImageCarouselSection from 'components/ImageCarouselSection';
@@ -181,6 +180,10 @@ const subcategories = [
 const CategoryLimpieza = () => {
 	return (
 		<Layout title='Limpieza | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Lo necesario y mucho más para la limpieza e higiéne dentro de tu espacio de trabajo, productos para oficina, escuela y el hogar. Solo pide y te llegará donde te encuentres."/>
+				<link rel="canonical" href="https://pedidos.com/categorias/limpieza"/>
+			</Head>
 			<HeroCategory
 				title='Limpieza'
 				description='productos enfocados en'

@@ -1,9 +1,6 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
+import Head from 'next/head';
+import { Box, Container, Divider, Grid, Typography, Button } from '@mui/material';
+//components
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
 import { Layout } from 'layout/Layout';
@@ -62,6 +59,10 @@ const brands = [
 const Muebles = () => {
 	return (
 		<Layout title='Los mejores muebles de oficina | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Conoce los diferentes muebles de oficina que tenemos para ti. Elige el mobiliario perfecto para tu espacio de trabajo."/>
+				<link rel="canonical" href="https://pedidos.com/muebles"/>
+			</Head>
 			<Box
 				sx={{
 					backgroundImage: {
