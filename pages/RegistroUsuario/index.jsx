@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 //Componentes
 import { Layout } from 'layout/Layout';
-
+import Verification from './verification';
 //Servicios
 import Services from '../services/Services'
 import Router, { withRouter } from 'next/router'
@@ -163,18 +163,21 @@ export default function RegistroUsuario(){
                     <Paper variant="outlined" elevation={0} style={paperStyle}>
                         <Box textAlign='center' my={9}>
                             <Typography  variant="h4" component="h1" textAlign="center" sx={{ fontWeight:'600' }}>Verifica tu cuenta</Typography>
-                            <Typography variant="subtitle1">Ingresa el código que enviamos al e-mail: {inputs.correo} </Typography>   
+                            <Typography mt={1} variant="subtitle1">Ingresa el código que enviamos al e-mail: {inputs.correo} </Typography>   
                         </Box>
                        
                         <form fullWidth onSubmit={handleSubmitVerificar}>
-                            <Box py={4} sx={{ display: 'flex', flexWrap: 'wrap' }}>
+                            <Box component="div" pb={4}>
+                                <Verification/>
+                            </Box>
+                            {/* <Box py={4} sx={{ display: 'flex', flexWrap: 'wrap' }}>
                                 <TextField sx={{ m: 0.5, width: '5ch' }} variant="outlined" type="number" name="num1" onChange={handleChange}/>
                                 <TextField sx={{ m: 0.5, width: '5ch' }} variant="outlined" type="number" name="num2" onChange={handleChange}/>
                                 <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num3" onChange={handleChange}/>
                                 <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num4" onChange={handleChange}/>
                                 <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num5" onChange={handleChange}/>
                                 <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num6" onChange={handleChange}/>
-                            </Box>
+                            </Box> */}
                             <Box mt={2}>
                                 <Button type="submit" variant="contained" size="large" color="primary" fullWidth >Verificar el código</Button>
                             </Box>
