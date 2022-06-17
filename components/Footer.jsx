@@ -1,8 +1,16 @@
 import React from 'react';
 // import { Link as RouterLink} from 'react-router-dom';
-import Link from 'next/link'
+import Link from 'next/link';
 //mui5
-import {Grid, Box, Typography,Skeleton,Divider,Button, Container } from '@mui/material';
+import {
+	Grid,
+	Box,
+	Typography,
+	Skeleton,
+	Divider,
+	Button,
+	Container,
+} from '@mui/material';
 import { Hidden } from '@material-ui/core';
 //icons
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,10 +24,9 @@ import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import { logoUrl as logo } from '../constants';
 import { FooterAccordion } from './Text/FooterAccordion';
 //Modales
-import Cotizar from "../pages/articulos/Modales/Cotizar";
-import  Help  from '../components/modals/Help';
-import { LiveChatWidget, EventHandlerPayload } from '@livechat/widget-react'
-
+import Cotizar from '../pages/articulos/Modales/Cotizar';
+import Help from '../components/modals/Help';
+import { LiveChatWidget, EventHandlerPayload } from '@livechat/widget-react';
 
 const useStyles = makeStyles((theme) => ({
 	footer: {
@@ -36,12 +43,13 @@ const useStyles = makeStyles((theme) => ({
 	titlefooter: {
 		fontSize: '20px',
 		fontWeight: '600',
-		marginBottom: '0.5rem'
+		marginBottom: '0.5rem',
 	},
 	ItemListFooter: {
 		fontWeight: '500',
 		textDecoration: 'none',
 		color: theme.palette.text.primary,
+		boxShadow: 'none!important',
 	},
 	ItemListFooterl: {
 		fontWeight: '500',
@@ -83,72 +91,65 @@ export function FooterDesktop() {
 	const classes = useStyles();
 
 	return (
-		
 		<footer className='classes.footer'>
-            <LiveChatWidget
-            license="7731061"
-            visibility="minimized"
-            
-            />
-			<Box component="div" py={2}>
+			<LiveChatWidget license='7731061' visibility='minimized' />
+			<Box component='div' py={2}>
 				<Grid
 					container
 					direction='row'
 					justifyContent='center'
 					alignItems='center'
-					spacing={4}
-					>
-						<Grid item>
-							<Box component="div" p={1}>
-								<img
-									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/hp-partner.svg"
-									srcSet=""
-									alt="HP Partner First Platinum"
-									loading="lazy"
-								/>
-							</Box>
-						</Grid>	
-						<Grid item>
-							<Box component="div" p={1}>
-								<img
-									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/aar.svg"
-									srcSet=""
-									alt="Apple  Authorized  Reseller"
-									loading="lazy"
-								/>
-							</Box>
-						</Grid>	
-						<Grid item>
-							<Box component="div" p={1}>
-								<img 
-									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/afiliado-amvo1.png"
-									srcSet=""
-									alt="Amvo"
-									loading="lazy"
-									
-								/>
-							</Box>
-						</Grid>	
-						<Grid item>
-							<Box component="div" p={1}>
-								<img
-									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/epson.svg"
-									srcSet=""
-									alt="EPSON"
-									loading="lazy"
-								/>
-							</Box>
-						</Grid>	
-						<Grid item>
-							<Box component="div" p={1}>
-								<img
-									src="https://pedidos.com/myfotos/pedidos-com/pagina/footer/norton.svg"
-									srcSet=""
-									alt="Norton Secured"
-									loading="lazy"
-								/>
-							</Box>
-						</Grid>	
+					spacing={4}>
+					<Grid item>
+						<Box component='div' p={1}>
+							<img
+								src='https://pedidos.com/myfotos/pedidos-com/pagina/footer/hp-partner.svg'
+								srcSet=''
+								alt='HP Partner First Platinum'
+								loading='lazy'
+							/>
+						</Box>
+					</Grid>
+					<Grid item>
+						<Box component='div' p={1}>
+							<img
+								src='https://pedidos.com/myfotos/pedidos-com/pagina/footer/aar.svg'
+								srcSet=''
+								alt='Apple  Authorized  Reseller'
+								loading='lazy'
+							/>
+						</Box>
+					</Grid>
+					<Grid item>
+						<Box component='div' p={1}>
+							<img
+								src='https://pedidos.com/myfotos/pedidos-com/pagina/footer/afiliado-amvo1.png'
+								srcSet=''
+								alt='Amvo'
+								loading='lazy'
+							/>
+						</Box>
+					</Grid>
+					<Grid item>
+						<Box component='div' p={1}>
+							<img
+								src='https://pedidos.com/myfotos/pedidos-com/pagina/footer/epson.svg'
+								srcSet=''
+								alt='EPSON'
+								loading='lazy'
+							/>
+						</Box>
+					</Grid>
+					<Grid item>
+						<Box component='div' p={1}>
+							<img
+								src='https://pedidos.com/myfotos/pedidos-com/pagina/footer/norton.svg'
+								srcSet=''
+								alt='Norton Secured'
+								loading='lazy'
+							/>
+						</Box>
+					</Grid>
 				</Grid>
 			</Box>
 			<Divider />
@@ -164,38 +165,28 @@ export function FooterDesktop() {
 							Conocenos
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							<Link href="https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17">
-         						 <a>
-									Google
-								</a>
+							<Link href='https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17'>
+								<a>Google</a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							<Link href="/quienes-somos/prensa">
-         						 <a>
-									Prensa
-								</a>
+							<Link href='/quienes-somos/prensa'>
+								<a>Prensa</a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							<Link href="/">
-         						 <a>
-									Reviews
-								</a>
+							<Link href='/'>
+								<a>Reviews</a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							<Link href="/">
-         						 <a>
-								  	Se Proveedor
-								</a>
+							<Link href='/'>
+								<a>Se Proveedor</a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							<Link href="/">
-         						 <a>
-								  	Hot Sale
-								</a>
+							<Link href='/'>
+								<a>Hot Sale</a>
 							</Link>
 						</Grid>
 					</Grid>
@@ -205,41 +196,31 @@ export function FooterDesktop() {
 						<Grid item className={classes.titlefooter}>
 							Servicios
 						</Grid>
-							<Grid item className={classes.ItemListFooter}>
-								<Link href="/servicios/pickup">
-									<a>
-										Pick Up Center
-									</a>
-								</Link>
-							</Grid>
-							<Grid item className={classes.ItemListFooter}>
-								<Link href="/servicios/empresas">
-									<a>
-									Para empresas
-									</a>
-								</Link>
-							</Grid>
-							<Grid item className={classes.ItemListFooter}>
-							<Link href="/soho/cliente/planes-de-proteccion">
-								<a>
-									Planes de protección
-								</a>
+						<Grid item className={classes.ItemListFooter}>
+							<Link href='/servicios/pickup'>
+								<a>Pick Up Center</a>
 							</Link>
-							</Grid>
-							<Grid item className={classes.ItemListFooter}>
-								<Link href="/programa-de-reciclaje">
-									<a>
-										Programa de reciclaje
-									</a>
-								</Link>
-							</Grid>
-							<Grid item className={classes.ItemListFooter}>
-								<Link href="/uniclick">
-									<a>
-										Uniclick: Crédito PYME
-									</a>
-								</Link>
-							</Grid>
+						</Grid>
+						<Grid item className={classes.ItemListFooter}>
+							<Link href='/servicios/empresas'>
+								<a>Para empresas</a>
+							</Link>
+						</Grid>
+						<Grid item className={classes.ItemListFooter}>
+							<Link href='/soho/cliente/planes-de-proteccion'>
+								<a>Planes de protección</a>
+							</Link>
+						</Grid>
+						<Grid item className={classes.ItemListFooter}>
+							<Link href='/programa-de-reciclaje'>
+								<a>Programa de reciclaje</a>
+							</Link>
+						</Grid>
+						<Grid item className={classes.ItemListFooter}>
+							<Link href='/uniclick'>
+								<a>Uniclick: Crédito PYME</a>
+							</Link>
+						</Grid>
 					</Grid>
 				</Grid>
 				<Grid item className={classes.gridItem}>
@@ -251,24 +232,18 @@ export function FooterDesktop() {
 							Facturación
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							<Link href="/soporte-tecnico">
-								<a>
-									Soporte Técnico
-								</a>
+							<Link href='/soporte-tecnico'>
+								<a>Soporte Técnico</a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							<Link href="/soho/politicas/forma-pago">
-								<a>
-									Forma de Pago
-								</a>
+							<Link href='/soho/politicas/forma-pago'>
+								<a>Forma de Pago</a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							<Link href="/soho/politicas">
-								<a>
-									Forma de Envíos
-								</a>
+							<Link href='/soho/politicas'>
+								<a>Forma de Envíos</a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
@@ -280,15 +255,17 @@ export function FooterDesktop() {
 					<Grid container direction='column' spacing={2}>
 						<Grid item className={classes.titlefooter}>
 							Contacto
-							<Typography className={classes.titlefooter}>55 5015-8100 ó 01 800 8138181</Typography>
+							<Typography className={classes.titlefooter}>
+								55 5015-8100 ó 01 800 8138181
+							</Typography>
 						</Grid>
-						
+
 						<Grid item>Horario de atención 9:00 a 18:30 hrs</Grid>
 						<Grid item>
 							<Cotizar />
 						</Grid>
 						<Grid item>
-							<Help tipo={'1'}/>
+							<Help tipo={'1'} />
 						</Grid>
 					</Grid>
 				</Grid>
@@ -298,26 +275,29 @@ export function FooterDesktop() {
 				justifyContent='flex-start'
 				className={classes.mainContainer}>
 				<Grid item className={classes.gridLastItem}>
-					<Box component="div" px={5}>
-						<Grid container	direction='row' justifyContent="space-around"
-							alignItems='center' spacing={6}>
-							<Grid item className={classes.ItemListFooterl} color="textSecondary">
-								<Link href="/soho/cliente/aviso-privacidad">
-									<a>
-									Aviso de privacidad
-									</a>
+					<Box component='div' px={5}>
+						<Grid
+							container
+							direction='row'
+							justifyContent='space-around'
+							alignItems='center'
+							spacing={6}>
+							<Grid
+								item
+								className={classes.ItemListFooterl}
+								color='textSecondary'>
+								<Link href='/soho/cliente/aviso-privacidad'>
+									<a>Aviso de privacidad</a>
 								</Link>
 							</Grid>
 							<Grid item className={classes.ItemListFooterl}>
-								<Link href="/soho/cliente/terminos-y-condiciones">
-									<a>
-										Términos & Condiciones
-									</a>
+								<Link href='/soho/cliente/terminos-y-condiciones'>
+									<a>Términos & Condiciones</a>
 								</Link>
 							</Grid>
 							<Grid item className={classes.ItemListFooterl}>
-								<Link href="/RegistroUsuario" passHref>
-									<Button component="a" color='primary'>
+								<Link href='/RegistroUsuario' passHref>
+									<Button component='a' color='primary'>
 										Registrate
 									</Button>
 								</Link>
@@ -337,7 +317,8 @@ export function FooterDesktop() {
 					<Grid container direction='column' spacing={2}>
 						<Grid item>
 							{/* <Link to="/Home"> */}
-							<img sx={{width:'125px'}}
+							<img
+								sx={{ width: '125px' }}
 								alt='Pedidos.com'
 								src={logo}
 								className={classes.logo}
@@ -349,8 +330,7 @@ export function FooterDesktop() {
 				<Grid item className={classes.gridLastItem}>
 					<Grid container direction='column' spacing={2}>
 						<Grid item className={classes.copyrightItem}>
-							Copyright © {year} {name} - Todos los derechos
-							reservados
+							Copyright © {year} {name} - Todos los derechos reservados
 						</Grid>
 					</Grid>
 				</Grid>
@@ -382,9 +362,7 @@ export function FooterDesktop() {
 							href='https://www.instagram.com/pedidoscom/'
 							rel='noopener noreferrer'
 							target='_blank'>
-							<InstagramIcon
-								className={classes.socialMediaIcon}
-							/>
+							<InstagramIcon className={classes.socialMediaIcon} />
 						</Grid>
 						<Grid
 							item
@@ -404,7 +382,6 @@ export function FooterDesktop() {
 						</Grid>
 					</Grid>
 				</Grid>
-				
 			</Grid>
 		</footer>
 	);
