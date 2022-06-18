@@ -1,20 +1,22 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios'
-
+import Link from 'components/Link';
 //MUI
 import {Container,Box, Grid, Paper, Button, Typography, FormControl,
-    FormControlLabel, Checkbox, TextField,Link } from '@mui/material';
+    FormControlLabel, Checkbox, TextField, } from '@mui/material';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 
 //Componentes
 import { Layout } from 'layout/Layout';
+import ReactInputVerificationCode from "react-input-verification-code";
 
 //Servicios
 import Services from '../services/Services'
-import Router, { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
+import Alertas from '../checkout/Alertas'
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -28,6 +30,14 @@ export default function RegistroUsuario(){
     const [inputs, setInputs] = useState({});
     const [ip, setIP] = useState('');
     const [first, setFirst] = React.useState(false);
+    const [alerta,setAlerta] = useState({})
+    const [codigo,setCodigo] = useState(0)
+	const router = useRouter();
+
+    const obtenerCodigo = (value) => {
+        setCodigo([value])
+        console.log("Value: "+value)
+    };
 
     //creating function to load ip address from the API
     const getData = async () => {
@@ -47,7 +57,6 @@ export default function RegistroUsuario(){
         setInputs(values => ({...values, [name]: value}))
     }
 
-
     const params = 
         '?usuario='+inputs.usuario+
         '&email='+inputs.correo+
@@ -58,7 +67,7 @@ export default function RegistroUsuario(){
         '&isEmpresa=N';
 
     const params2 = 
-        '?codigo='+inputs.num1+inputs.num2+inputs.num3+inputs.num4+inputs.num5+inputs.num6+
+        '?codigo='+codigo+
         '&correo='+inputs.correo;
     
     const expresiones = {
@@ -79,6 +88,8 @@ export default function RegistroUsuario(){
         }
     }
 
+    
+
     async function handleSubmit(e) {
         e.preventDefault();
         console.log("Entro al servicio Registrar Usuario");
@@ -86,15 +97,46 @@ export default function RegistroUsuario(){
         let data = services.data;
         if(services.data === "S"){
             setFirst(true);
+            setAlerta({severity:'success',mensaje:'Registro exitoso',vertical:'bottom',horizontal:'right',variant:'filled'})
+        }else{
+            setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
         }
     }
 
     async function handleSubmitVerificar(e) {
         e.preventDefault();
-        let services  = await Services('POST','/registrov2/verificarCodigo'+params,{}) 
+        let services  = await Services('POST','/registrov2/UpdatePyClienteCodigo'+params2,{}) 
         let data = services.data;
+        if(services.data.estatus === "OK"){
+            let services        = await Services('POST','/registrov2/validaCredencial?email='+inputs.correo+'&pass='+inputs.password+'&user_m=0',{})
+            let data1            = await services.data
 
-        ruter.push("/home")
+            if(data1.error === 'Usuario o Password Invalido'){
+                setAlerta({severity:'error',mensaje:'Hubo un error al verificar',vertical:'bottom',horizontal:'right',variant:'filled'})
+                }else{
+                    localStorage.setItem('Usu_Nomb', data1.usuario.nombre)
+                    localStorage.setItem('Email', data1.usuario.email)
+                    localStorage.setItem('Cliente', data1.usuario.clienteNum)
+                    localStorage.setItem('Usuario', data1.usuario.usuarioNum)
+                    localStorage.setItem('SesPartidas', data1.usuario.partidas)
+                    localStorage.setItem('Token', data1.usuario.token)
+                    localStorage.setItem('Login', 'Ok')
+                    localStorage.setItem('afiliado', data1.usuario.afiliacion)
+                    localStorage.setItem('nivelAcceso', data1.usuario.nivelAcceso)
+
+                    router.push("/Home")
+                }
+        }else if(services.data.estatus === "CODIGO INVALIDO"){
+            setAlerta({severity:'error',mensaje:'Codigo Invalido',vertical:'bottom',horizontal:'right',variant:'filled'})
+        }
+    }
+
+    async function reenviarCodigo() {
+        let services  = await Services('POST','/registrov2/registraUsuarioNuevo'+params,{}) 
+        let data = services.data;
+        if(services.data === "S"){
+            setAlerta({severity:'info',mensaje:'Codigo Reenviado',vertical:'bottom',horizontal:'right',variant:'filled'})
+        }
     }
 
     const [state, setState] = React.useState({
@@ -136,8 +178,10 @@ export default function RegistroUsuario(){
                                         <Typography variant="body2"  >
                                             Al registrarte aceptas los &nbsp;
                                             <Box component="span" >
-                                                <Link href="/" color="textSecondary" sx={{ color:'textSecondary', fontWeight:'600' }}>
+                                                <Link href="/soho/cliente/terminos-y-condiciones" color="textSecondary" sx={{ color:'textSecondary', fontWeight:'600' }}>
+                                                    <a>
                                                     Términos y condiciones
+                                                    </a>
                                                 </Link>
                                             </Box>
                                         </Typography>
@@ -163,29 +207,31 @@ export default function RegistroUsuario(){
                     <Paper variant="outlined" elevation={0} style={paperStyle}>
                         <Box textAlign='center' my={9}>
                             <Typography  variant="h4" component="h1" textAlign="center" sx={{ fontWeight:'600' }}>Verifica tu cuenta</Typography>
-                            <Typography variant="subtitle1">Ingresa el código que enviamos al e-mail: {inputs.correo} </Typography>   
+                            <Typography mt={1} variant="subtitle1">Ingresa el código que enviamos al e-mail: {inputs.correo} </Typography>   
                         </Box>
                        
                         <form fullWidth onSubmit={handleSubmitVerificar}>
-                            <Box py={4} sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                                <TextField sx={{ m: 0.5, width: '5ch' }} variant="outlined" type="number" name="num1" onChange={handleChange}/>
-                                <TextField sx={{ m: 0.5, width: '5ch' }} variant="outlined" type="number" name="num2" onChange={handleChange}/>
-                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num3" onChange={handleChange}/>
-                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num4" onChange={handleChange}/>
-                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num5" onChange={handleChange}/>
-                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num6" onChange={handleChange}/>
+                            <Box component="div" pb={4}>
+                                <div className="custom-styles" sx={{width:'100px'}}>
+                                    <ReactInputVerificationCode placeholder={null}
+                                    length={6} onChange={obtenerCodigo}/>
+                                </div>
                             </Box>
+                        
                             <Box mt={2}>
                                 <Button type="submit" variant="contained" size="large" color="primary" fullWidth >Verificar el código</Button>
                             </Box>
                             <Box my={1} textAlign="center">
-                                <Button component={Link} to="/Contra" type="submit" variant="outlined" size="large" color="primary" fullWidth >
+                                <Button variant="outlined" size="large" color="primary" fullWidth onClick={reenviarCodigo}>
                                     Reenvíar código
                                 </Button>
                             </Box>
                         </form>
                    
                     </Paper>
+                } 
+                {(alerta.hasOwnProperty('severity'))&&
+                    <Alertas setAlerta={setAlerta} alerta={alerta}/>
                 } 
             </Container>   
         </Layout>

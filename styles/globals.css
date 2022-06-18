@@ -55,7 +55,17 @@ a {
 ::-webkit-scrollbar-thumb:horizontal {
 	min-width: 10px;
 }
+/*codigo*/
+.custom-styles {
+	--ReactInputVerificationCode-itemWidth: 3rem;
+	--ReactInputVerificationCode-itemHeight: 4rem;
+  }
 
+  .custom-styles .ReactInputVerificationCode__item {
+	position: relative;
+	color: #424242;
+	font-weight: 500;
+  }
 /*Algolia*/
 
 /*img {width: 100%;}*/
