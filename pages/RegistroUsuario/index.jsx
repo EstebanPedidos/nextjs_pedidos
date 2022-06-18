@@ -10,7 +10,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 //Componentes
 import { Layout } from 'layout/Layout';
-import Verification from './verification';
+import ReactInputVerificationCode from "react-input-verification-code";
+
 //Servicios
 import Services from '../services/Services'
 import { useRouter } from 'next/router'
@@ -30,7 +31,13 @@ export default function RegistroUsuario(){
     const [ip, setIP] = useState('');
     const [first, setFirst] = React.useState(false);
     const [alerta,setAlerta] = useState({})
+    const [codigo,setCodigo] = useState(0)
 	const router = useRouter();
+
+    const obtenerCodigo = (value) => {
+        setCodigo([value])
+        console.log("Value: "+value)
+    };
 
     //creating function to load ip address from the API
     const getData = async () => {
@@ -50,7 +57,6 @@ export default function RegistroUsuario(){
         setInputs(values => ({...values, [name]: value}))
     }
 
-
     const params = 
         '?usuario='+inputs.usuario+
         '&email='+inputs.correo+
@@ -61,7 +67,7 @@ export default function RegistroUsuario(){
         '&isEmpresa=N';
 
     const params2 = 
-        '?codigo='+inputs.num1+inputs.num2+inputs.num3+inputs.num4+inputs.num5+inputs.num6+
+        '?codigo='+codigo+
         '&correo='+inputs.correo;
     
     const expresiones = {
@@ -81,6 +87,8 @@ export default function RegistroUsuario(){
             }
         }
     }
+
+    
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -204,16 +212,12 @@ export default function RegistroUsuario(){
                        
                         <form fullWidth onSubmit={handleSubmitVerificar}>
                             <Box component="div" pb={4}>
-                                <Verification/>
+                                <div className="custom-styles" sx={{width:'100px'}}>
+                                    <ReactInputVerificationCode placeholder={null}
+                                    length={6} onChange={obtenerCodigo}/>
+                                </div>
                             </Box>
-                            {/* <Box py={4} sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                                <TextField sx={{ m: 0.5, width: '5ch' }} variant="outlined" type="number" name="num1" onChange={handleChange}/>
-                                <TextField sx={{ m: 0.5, width: '5ch' }} variant="outlined" type="number" name="num2" onChange={handleChange}/>
-                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num3" onChange={handleChange}/>
-                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num4" onChange={handleChange}/>
-                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num5" onChange={handleChange}/>
-                                <TextField sx={{ m: 0.5, width: '5ch' }}variant="outlined" type="number" name="num6" onChange={handleChange}/>
-                            </Box> */}
+                        
                             <Box mt={2}>
                                 <Button type="submit" variant="contained" size="large" color="primary" fullWidth >Verificar el código</Button>
                             </Box>
