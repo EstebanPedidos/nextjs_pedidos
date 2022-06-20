@@ -37,17 +37,17 @@ const itemsConocenos = [
 		content: 'Prensa',
 		to: '/quienes-somos/prensa',
 	},
-	{
+	/* {
 		content: 'Reviews',
 		to: '/',
 	},
 	{
 		content: 'Se Proveedor',
 		to: '/',
-	},
+	}, */
 	{
 		content: 'Hot Sale',
-		to: '/',
+		to: '/hotsale',
 	},
 	{
 		content: 'Aviso de Privacidad',
@@ -106,13 +106,13 @@ const itemsContacto = [
 	{
 		content: 'Horario de atención 9:00 a 18:30 hrs',
 	},
-	{
+	/* {
 		content: 'Cotizar',
 		to: '/',
-	},
+	}, */
 	{
 		content: '¿Necesitas Ayuda?',
-		to: '/',
+		to: 'https://direct.lc.chat/7731061/',
 	},
 	
 ];

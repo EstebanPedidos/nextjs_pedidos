@@ -1,11 +1,7 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
+import Head from 'next/head';
+import { Box, Container, Grid, Typography, Divider, Button } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-
+//components
 import { Layout } from 'layout/Layout';
 import MSIBanner from 'components/MSIBanner';
 import Link from 'components/Link';
@@ -30,7 +26,11 @@ const shippingTips = [
 
 const Hotsale = () => {
 	return (
-		<Layout title='Hotsale 2022'>
+		<Layout title='Hotsale | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Encuentra todo lo que necesitas en tecnología, electrónica y mucho más..."/>
+				<link rel="canonical" href="https://pedidos.com/hotsale"/>
+			</Head>
 			<Box
 				sx={{
 					backgroundImage:
