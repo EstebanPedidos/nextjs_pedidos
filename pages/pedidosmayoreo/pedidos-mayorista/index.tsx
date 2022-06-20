@@ -42,7 +42,7 @@ const PedidosMayorista = () => {
 	return (
 		<Layout title='Mayorístas de computo y equipo de oficina | Pedidos.com'>
 			<Head>
-				<meta name="description" content="Obtén el mejor precio Precio por volumen en productos de computo y oficina. Precio especial y la mejor atención en productos tecnológicos para tu empresa."/>
+				<meta name="description" content="Obtén el mejor precio Precio por volumen en productos de cómputo y oficina. Precio especial y la mejor atención en productos tecnológicos para tu empresa."/>
 				<link rel="canonical" href="https://pedidos.com/pedidosmayoreo/pedidos-mayorista"/>
 			</Head>
 			<Box
@@ -358,7 +358,7 @@ const PedidosMayorista = () => {
 								Una de las grandes ventajas de comprar{' '}
 								<Link
 									underline='none'
-									href='/categorias/tecnologia/computo.asp'
+									href='/categorias/tecnologia/computo'
 									target='_blank'>
 									equipo de computo
 								</Link>{' '}
@@ -388,7 +388,7 @@ const PedidosMayorista = () => {
 								cuál es el{' '}
 								<Link
 									underline='none'
-									href='/categorias/tecnologia/computo.asp'
+									href='/categorias/tecnologia/computo'
 									target='_blank'>
 									hardware
 								</Link>{' '}
@@ -406,7 +406,7 @@ const PedidosMayorista = () => {
 								La{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									computadora portátil
 								</Link>{' '}
@@ -423,7 +423,7 @@ const PedidosMayorista = () => {
 								Optar por{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									laptops baratas
 								</Link>{' '}
@@ -477,7 +477,7 @@ const PedidosMayorista = () => {
 								El abanico de{' '}
 								<Link
 									underline='none'
-									href='/categorias/tecnologia/computo.asp'
+									href='/categorias/tecnologia/computo'
 									target='_blank'>
 									equipo de cómputo
 								</Link>{' '}
@@ -525,7 +525,7 @@ const PedidosMayorista = () => {
 								Si por el contrario quieres optar por alguna de las{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									computadoras baratas
 								</Link>{' '}
@@ -543,7 +543,7 @@ const PedidosMayorista = () => {
 								calidad, por ejemplo, la{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/ALL-IN-ONE'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/ALL-IN-ONE'
 									target='_blank'>
 									All in One
 								</Link>{' '}
@@ -573,7 +573,7 @@ const PedidosMayorista = () => {
 								Una{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/IMPRESION/MULTIFUNCIONALES'
+									href='/busquedas?/TECNOLOGIA/IMPRESION/MULTIFUNCIONALES'
 									target='_blank'>
 									impresora multifuncional
 								</Link>{' '}
@@ -592,7 +592,7 @@ const PedidosMayorista = () => {
 								hojas, la{' '}
 								<Link
 									underline='none'
-									href='/hp/consumibles-originales.asp'
+									href='/hp/consumibles-originales'
 									target='_blank'>
 									tinta para impresora
 								</Link>{' '}

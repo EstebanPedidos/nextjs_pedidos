@@ -194,7 +194,7 @@ const OriginalSupplies = () => {
 										<Link
 											underline='none'
 											color='#777'
-											href='/soho/Politicas/politicas.asp'>
+											href='/soho/Politicas/politicas'>
 											*Más info.
 										</Link>
 									</Typography>

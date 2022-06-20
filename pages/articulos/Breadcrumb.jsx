@@ -21,16 +21,16 @@ export default function Breadcrumb(breadcrumb) {
   return (
     <div className={classes.root}>
       <Breadcrumbs color="inherit" variant="overline" separator="›" aria-label="breadcrumb">
-        <Link  href="https://pedidos.com/busquedas.asp">
+        <Link  href="https://pedidos.com/busquedas">
           {breadcrumb.site}
         </Link>
-        <Link color="inherit" href={`https://pedidos.com/busquedas.asp?/${breadcrumb.categoria}`}> 
+        <Link color="inherit" href={`https://pedidos.com/busquedas?/${breadcrumb.categoria}`}> 
           {breadcrumb.categoria}
         </Link>
-        <Link color="inherit" href={`https://pedidos.com/busquedas.asp?/${breadcrumb.categoria}/${breadcrumb.subcategoria}`} >
+        <Link color="inherit" href={`https://pedidos.com/busquedas?/${breadcrumb.categoria}/${breadcrumb.subcategoria}`} >
         {breadcrumb.subcategoria}
         </Link>
-         <Link color="inherit" href={`https://pedidos.com/busquedas.asp?/${breadcrumb.categoria}/${breadcrumb.subcategoria}/${breadcrumb.productos}`} >
+         <Link color="inherit" href={`https://pedidos.com/busquedas?/${breadcrumb.categoria}/${breadcrumb.subcategoria}/${breadcrumb.productos}`} >
         {breadcrumb.productos}
         </Link> 
         <Typography color="textPrimary">{breadcrumb.Producto}</Typography>

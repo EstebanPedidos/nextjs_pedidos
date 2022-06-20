@@ -11,43 +11,43 @@ import FloatingToutCard from 'components/FloatingToutCard';
 const categoryItems = [
 	{
 		label: 'Agua',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/BEBIDAS/AGUA-EMBOTELLADA',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/BEBIDAS/AGUA-EMBOTELLADA',
 	},
 	{
 		label: 'Chocolates',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/COMIDA-Y-SNACKS/SNACKS',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/COMIDA-Y-SNACKS/SNACKS',
 	},
 	{
 		label: 'Azúcar',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/AZUCAR-Y-SUSTITUTOS/AZUCAR',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/AZUCAR-Y-SUSTITUTOS/AZUCAR',
 	},
 	{
 		label: 'Cremas',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA&query=sustituto%20de%20crema',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA&query=sustituto%20de%20crema',
 	},
 	{
 		label: 'Galletas',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/COMIDA-Y-SNACKS/GALLETAS',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/COMIDA-Y-SNACKS/GALLETAS',
 	},
 	{
 		label: 'Dispensadores',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/DISPENSADOR-DE-AGUA',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/DISPENSADOR-DE-AGUA',
 	},
 	{
 		label: 'Desechables',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/DESECHABLES',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/DESECHABLES',
 	},
 	{
 		label: 'Desechables',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/DESECHABLES',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/DESECHABLES',
 	},
 	{
 		label: 'Nescafé',
-		url: 'https://www.pedidos.com/busquedas.asp?/busquedas.asp?/CAFETERIA&query=nescafe',
+		url: 'https://www.pedidos.com/busquedas?/busquedas?/CAFETERIA&query=nescafe',
 	},
 	{
 		label: 'Dolce Gusto',
-		url: 'https://www.pedidos.com/busquedas.asp?/busquedas.asp?/CAFETERIA&query=dolce%20gusto',
+		url: 'https://www.pedidos.com/busquedas?/busquedas?/CAFETERIA&query=dolce%20gusto',
 	},
 ];
 
@@ -55,17 +55,17 @@ const subcategoriesPrice = [
 	{
 		title: 'Café desde <span>$43.00</span>',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/cafeteria/coffee.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/CAFE-Y-TE/CAFE',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/CAFE-Y-TE/CAFE',
 	},
 	{
 		title: 'Agua desde <span>$52.00</span>',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/cafeteria/agua2.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/BEBIDAS/AGUA-EMBOTELLADA',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/BEBIDAS/AGUA-EMBOTELLADA',
 	},
 	{
 		title: 'Té desde <span>$49.20</span>',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/cafeteria/tea.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/CAFE-Y-TE/TE',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/CAFE-Y-TE/TE',
 	},
 ];
 
@@ -73,12 +73,12 @@ const subcategories = [
 	{
 		title: 'Azúcar y sustitutos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/cafeteria/azucar.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/AZUCAR-Y-SUSTITUTOS',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/AZUCAR-Y-SUSTITUTOS',
 	},
 	{
 		title: 'Cremas y sustitutos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/cafeteria/sustituto.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/CREMA-Y-SUSTITUTOS',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/CREMA-Y-SUSTITUTOS',
 	},
 ];
 
@@ -86,17 +86,17 @@ const otherSubCategories = [
 	{
 		title: 'Dispensadores',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/cafeteria/dispensadores.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/DISPENSADOR-DE-AGUA',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/DISPENSADOR-DE-AGUA',
 	},
 	{
 		title: 'Cafeteras',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/cafeteria/cafeteras.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/CAFETERAS',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/CAFETERAS',
 	},
 	{
 		title: 'Desechables',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/cafeteria/desechables.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/CAFETERIA/DESECHABLES',
+		url: 'https://www.pedidos.com/busquedas?/CAFETERIA/DESECHABLES',
 	},
 ];
 
@@ -151,7 +151,7 @@ const CategoryCafeteria = () => {
 					<FloatingToutCard
 						title='<center><strong>Comida y snacks</strong><br/>Perfectos para la junta</center>'
 						src='https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/cafeteria/snack1.jpg'
-						href='https://www.pedidos.com/busquedas.asp?/CAFETERIA/COMIDA-Y-SNACKS'
+						href='https://www.pedidos.com/busquedas?/CAFETERIA/COMIDA-Y-SNACKS'
 						cta='Ver todo opción'
 						floatingTitle
 					/>

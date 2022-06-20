@@ -260,7 +260,7 @@ export default function Facturacion(){
     return (
         <Box component="div">
             <Head>
-                <link href="https://pedidos.com/checkout/facturacion.asp" rel="canonical" />
+                <link href="https://pedidos.com/checkout/facturacion" rel="canonical" />
                 <title>Facturar mi pedido | Pedidos.com</title>
                 <meta name="description" content="Factura AQUI tu pedido. Todo lo que necesitas para tu oficina, negocio, escuela y hogar lo encuentras en Pedidos.com " />
             </Head>

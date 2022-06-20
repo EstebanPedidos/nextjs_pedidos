@@ -10,42 +10,42 @@ const productCategories = [
 	{
 		label: 'Plumas',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/papermate.png',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ESCRITURA/BOLIGRAFO&m=BEROL',
+		url: '/busquedas?/PRODUCTOS-PARA-OFICINA/ESCRITURA/BOLIGRAFO&m=BEROL',
 	},
 	{
 		label: 'Colores',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/prismacolor.png',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ESCRITURA/LAPICES-DE-COLOR&m=BEROL',
+		url: '/busquedas?/PRODUCTOS-PARA-OFICINA/ESCRITURA/LAPICES-DE-COLOR&m=BEROL',
 	},
 	{
 		label: 'Marcadores',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/sharpie.png',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ESCRITURA/MARCADORES-Y-MARCATEXTOS&m=BEROL',
+		url: '/busquedas?/PRODUCTOS-PARA-OFICINA/ESCRITURA/MARCADORES-Y-MARCATEXTOS&m=BEROL',
 	},
 	{
 		label: 'Pegamento',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/elmers.png',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ADHESIVOS&m=BEROL',
+		url: '/busquedas?/PRODUCTOS-PARA-OFICINA/ADHESIVOS&m=BEROL',
 	},
 	{
 		label: 'Lapices',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/lapices.png',
-		url: '/busquedas.asp?query=lapiz&m=BEROL',
+		url: '/busquedas?query=lapiz&m=BEROL',
 	},
 	{
 		label: 'Cintas',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/dymo.png',
-		url: '/busquedas.asp?query=DYMO&m=BEROL',
+		url: '/busquedas?query=DYMO&m=BEROL',
 	},
 	{
 		label: 'Marcatextos',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/marcas/marcatextos.png',
-		url: '/busquedas.asp?query=marcatextos&m=BEROL',
+		url: '/busquedas?query=marcatextos&m=BEROL',
 	},
 	{
 		label: 'Corrector',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/berol.png',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ESCRITURA/CORRECTORES&m=BEROL',
+		url: '/busquedas?/PRODUCTOS-PARA-OFICINA/ESCRITURA/CORRECTORES&m=BEROL',
 	},
 ];
 
@@ -53,27 +53,27 @@ const brands = [
 	{
 		label: 'Berol',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/marcas/berol-1.png',
-		url: '/busquedas.asp?query=Berol',
+		url: '/busquedas?query=Berol',
 	},
 	{
 		label: 'Sharpie',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/marcas/sharpie.png',
-		url: '/busquedas.asp?query=Sharpie',
+		url: '/busquedas?query=Sharpie',
 	},
 	{
 		label: 'Prismacolor',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/marcas/prismacolor.png',
-		url: '/busquedas.asp?query=Prismacolor',
+		url: '/busquedas?query=Prismacolor',
 	},
 	{
 		label: 'Paper-mate',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/marcas/paper-mate.png',
-		url: '/busquedas.asp?query=Paper-mate',
+		url: '/busquedas?query=Paper-mate',
 	},
 	{
 		label: 'Uniball',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/marcas/uniball.png',
-		url: '/busquedas.asp?query=Uniball',
+		url: '/busquedas?query=Uniball',
 	},
 	{
 		label: 'Dymo',
@@ -83,12 +83,12 @@ const brands = [
 	{
 		label: 'Elmers',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/marcas/elmers.png',
-		url: '/busquedas.asp?query=Elmers',
+		url: '/busquedas?query=Elmers',
 	},
 	{
 		label: 'Expo',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/newell/marcas/expo.png',
-		url: '/busquedas.asp?query=EXPO',
+		url: '/busquedas?query=EXPO',
 	},
 ];
 

@@ -116,7 +116,7 @@ export default function TrendSlides() {
             </Link>
         </SwiperSlide>
         <SwiperSlide>
-            <Link href="/busquedas.asp?/TECNOLOGIA/COMPUTO&p=INTEL-CORE-I5&p=INTEL-CORE-I3&p=INTEL-CORE-I7&p=INTEL-CELERON&p=INTEL-PENTIUM&p=INTEL-CORE--I3&p=INTEL-CORE-I3-1115G4">
+            <Link href="/busquedas?/TECNOLOGIA/COMPUTO&p=INTEL-CORE-I5&p=INTEL-CORE-I3&p=INTEL-CORE-I7&p=INTEL-CELERON&p=INTEL-PENTIUM&p=INTEL-CORE--I3&p=INTEL-CORE-I3-1115G4">
                     <a>
                     <BrandBox 
                         data={{
@@ -149,7 +149,7 @@ export default function TrendSlides() {
              </Link>
         </SwiperSlide>
         <SwiperSlide> 
-            <Link href="/tienda-epson.asp">
+            <Link href="/tienda-epson">
                 <a>
                     <BrandBox 
                         data={{
@@ -181,7 +181,7 @@ export default function TrendSlides() {
              </Link>
         </SwiperSlide>
         <SwiperSlide>
-            <Link href="/newell.asp">
+            <Link href="/newell">
                 <a> 
                     <BrandBox 
                         data={{
@@ -197,7 +197,7 @@ export default function TrendSlides() {
             </Link>
         </SwiperSlide>
         <SwiperSlide> 
-            <Link href="/3m.asp">
+            <Link href="/3m">
                 <a> 
                     <BrandBox 
                         data={{
@@ -213,7 +213,7 @@ export default function TrendSlides() {
             </Link>
         </SwiperSlide>
         <SwiperSlide>
-            <Link href="/azor.asp">
+            <Link href="/azor">
                 <a> 
                     <BrandBox 
                         data={{

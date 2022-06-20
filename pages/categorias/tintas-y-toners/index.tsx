@@ -8,39 +8,39 @@ import { Layout } from 'layout/Layout';
 const categoryItems = [
 	{
 		label: 'HP 664',
-		url: 'https://www.pedidos.com/busquedas.asp?query=hp-664',
+		url: 'https://www.pedidos.com/busquedas?query=hp-664',
 	},
 	{
 		label: 'HP 974XL',
-		url: 'https://www.pedidos.com/busquedas.asp?query=hp-974',
+		url: 'https://www.pedidos.com/busquedas?query=hp-974',
 	},
 	{
 		label: 'HP 950',
-		url: 'https://www.pedidos.com/busquedas.asp?query=hp-950',
+		url: 'https://www.pedidos.com/busquedas?query=hp-950',
 	},
 	{
 		label: 'EPSON T664120-AL',
-		url: 'https://www.pedidos.com/busquedas.asp?query=epson-T664120-AL',
+		url: 'https://www.pedidos.com/busquedas?query=epson-T664120-AL',
 	},
 	{
 		label: 'HP 662',
-		url: 'https://www.pedidos.com/busquedas.asp?query=hp-662',
+		url: 'https://www.pedidos.com/busquedas?query=hp-662',
 	},
 	{
 		label: 'EPSON T774120-AL',
-		url: 'https://www.pedidos.com/busquedas.asp?query=Epson+T774120',
+		url: 'https://www.pedidos.com/busquedas?query=Epson+T774120',
 	},
 	{
 		label: 'EPSON T544',
-		url: 'https://www.pedidos.com/busquedas.asp?query=Epson+t544',
+		url: 'https://www.pedidos.com/busquedas?query=Epson+t544',
 	},
 	{
 		label: 'CANON 107MBK',
-		url: 'https://www.pedidos.com/busquedas.asp?query=107MBK',
+		url: 'https://www.pedidos.com/busquedas?query=107MBK',
 	},
 	{
 		label: 'CANON 145',
-		url: 'https://www.pedidos.com/busquedas.asp?query=canon-145',
+		url: 'https://www.pedidos.com/busquedas?query=canon-145',
 	},
 ];
 
@@ -52,15 +52,15 @@ const brands = [
 		links: [
 			{
 				label: 'Tintas originales',
-				href: 'https://www.pedidos.com/busquedas.asp?/TINTAS-Y-TONERS/TINTAS&m=HP',
+				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TINTAS&m=HP',
 			},
 			{
 				label: 'Tóners originales',
-				href: 'https://www.pedidos.com/busquedas.asp?/TINTAS-Y-TONERS/TONERS&m=HP',
+				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TONERS&m=HP',
 			},
 			{
 				label: 'Botellas de tintas originales',
-				href: 'https://www.pedidos.com/busquedas.asp?query=CARTUCHO-DE-TINTA-HP-GT52&m=HP',
+				href: 'https://www.pedidos.com/busquedas?query=CARTUCHO-DE-TINTA-HP-GT52&m=HP',
 			},
 		],
 	},
@@ -71,15 +71,15 @@ const brands = [
 		links: [
 			{
 				label: 'Tintas originales',
-				href: 'https://www.pedidos.com/busquedas.asp?/TINTAS-Y-TONERS/TINTAS&m=EPSON',
+				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TINTAS&m=EPSON',
 			},
 			{
 				label: 'Tóners originales',
-				href: 'https://www.pedidos.com/busquedas.asp?/TINTAS-Y-TONERS/TONERS&m=EPSON',
+				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TONERS&m=EPSON',
 			},
 			{
 				label: 'Botellas de tintas originales',
-				href: 'https://www.pedidos.com/busquedas.asp?query=botella+de+tinta+epson',
+				href: 'https://www.pedidos.com/busquedas?query=botella+de+tinta+epson',
 			},
 		],
 	},
@@ -90,15 +90,15 @@ const brands = [
 		links: [
 			{
 				label: 'Tintas originales',
-				href: 'https://www.pedidos.com/busquedas.asp?/TINTAS-Y-TONERS/TINTAS&m=BROTHER',
+				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TINTAS&m=BROTHER',
 			},
 			{
 				label: 'Tóners originales',
-				href: 'https://www.pedidos.com/busquedas.asp?/TINTAS-Y-TONERS/TONERS&m=BROTHER',
+				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TONERS&m=BROTHER',
 			},
 			{
 				label: 'Botellas de tintas originales',
-				href: 'https://www.pedidos.com/busquedas.asp?query=botella+de+tinta+brother',
+				href: 'https://www.pedidos.com/busquedas?query=botella+de+tinta+brother',
 			},
 		],
 	},
@@ -109,11 +109,11 @@ const brands = [
 		links: [
 			{
 				label: 'Tintas originales',
-				href: 'https://www.pedidos.com/busquedas.asp?/TINTAS-Y-TONERS/TINTAS&m=CANON',
+				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TINTAS&m=CANON',
 			},
 			{
 				label: 'Tóners originales',
-				href: 'https://www.pedidos.com/busquedas.asp?/TINTAS-Y-TONERS/TONERS&m=CANON',
+				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TONERS&m=CANON',
 			},
 		],
 	},
@@ -124,11 +124,11 @@ const brands = [
 		links: [
 			{
 				label: 'Tintas originales',
-				href: 'https://www.pedidos.com/busquedas.asp?/TINTAS-Y-TONERS/TINTAS&m=XEROX',
+				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TINTAS&m=XEROX',
 			},
 			{
 				label: 'Tóners originales',
-				href: 'https://www.pedidos.com/busquedas.asp?/TINTAS-Y-TONERS/TONERS&m=XEROX',
+				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TONERS&m=XEROX',
 			},
 		],
 	},
@@ -139,11 +139,11 @@ const brands = [
 		links: [
 			{
 				label: 'Tóners originales',
-				href: 'https://www.pedidos.com/busquedas.asp?/TINTAS-Y-TONERS/TONERS/TONERS-DE-CAPACIDAD-ESTANDAR',
+				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TONERS/TONERS-DE-CAPACIDAD-ESTANDAR',
 			},
 			{
 				label: 'Ver todo LEXMARK',
-				href: 'https://www.pedidos.com/busquedas.asp?query=LEXMARK',
+				href: 'https://www.pedidos.com/busquedas?query=LEXMARK',
 			},
 		],
 	},

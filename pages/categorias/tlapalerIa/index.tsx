@@ -10,35 +10,35 @@ import FloatingToutCard from 'components/FloatingToutCard';
 const categoryItems = [
 	{
 		label: 'Pinzas',
-		url: 'https://www.pedidos.com/busquedas.asp?query=Pinzas',
+		url: 'https://www.pedidos.com/busquedas?query=Pinzas',
 	},
 	{
 		label: 'Extensión',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/ELECTRICIDAD/EXTENSION-DE-USO-RUDO',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/ELECTRICIDAD/EXTENSION-DE-USO-RUDO',
 	},
 	{
 		label: 'Desarmadores',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/HERRAMIENTAS/JUEGO-DE-DESARMADORES',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/HERRAMIENTAS/JUEGO-DE-DESARMADORES',
 	},
 	{
 		label: 'Foco',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/ILUMINACION/FOCOS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/ILUMINACION/FOCOS',
 	},
 	{
 		label: 'Guantes',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/GUANTES-DE-SEGURIDAD',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/GUANTES-DE-SEGURIDAD',
 	},
 	{
 		label: 'Flexómetros',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/FLEXOMETROS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/FLEXOMETROS',
 	},
 	{
 		label: 'Botiquín',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/BOTIQUIN-PRIMEROS-AUXILIOS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/BOTIQUIN-PRIMEROS-AUXILIOS',
 	},
 	{
 		label: 'Candado',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/CANDADOS/CANDADO-CORTINA',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/CANDADOS/CANDADO-CORTINA',
 	},
 ];
 
@@ -46,12 +46,12 @@ const subcategoriesMain = [
 	{
 		title: 'Todo en <strong>Herramientas</strong>',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/herramientas.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/HERRAMIENTAS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/HERRAMIENTAS',
 	},
 	{
 		title: 'Todo en<strong>Electricidad</strong>',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/electricidad.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/ELECTRICIDAD',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/ELECTRICIDAD',
 	},
 ];
 
@@ -59,37 +59,37 @@ const industrialCategories = [
 	{
 		label: 'Cascos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/casco.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/CASCOS-DE-SEGURIDAD',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/CASCOS-DE-SEGURIDAD',
 	},
 	{
 		label: 'Lentes',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/lentes.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/LENTES-DE-SEGURIDAD',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/LENTES-DE-SEGURIDAD',
 	},
 	{
 		label: 'Guantes',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/guantes.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/GUANTES-DE-SEGURIDAD',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/GUANTES-DE-SEGURIDAD',
 	},
 	{
 		label: 'Flexómetros',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/flexometro.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/FLEXOMETROS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/FLEXOMETROS',
 	},
 	{
 		label: 'Chalecos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/chaleco.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/CHALECOS-DE-SEGURIDAD',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/CHALECOS-DE-SEGURIDAD',
 	},
 	{
 		label: 'Diablito',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/diablito.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/DIABLITO',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/DIABLITO',
 	},
 	{
 		label: 'Chinchos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/chincho.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/CINCHO-SUJETACABLES',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/CINCHO-SUJETACABLES',
 	},
 	{
 		label: 'Faja elástica',
@@ -99,22 +99,22 @@ const industrialCategories = [
 	{
 		label: 'Cubrebocas',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/cubrebocas.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/CUBREBOCAS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/CUBREBOCAS',
 	},
 	{
 		label: 'Rollos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/rollo.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/ROLLOS-DE-BUBUJA',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/ROLLOS-DE-BUBUJA',
 	},
 	{
 		label: 'Cinta',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/cinta.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/CINTA-DE-AISLAR',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/CINTA-DE-AISLAR',
 	},
 	{
 		label: 'Botiquín',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/botiquin.jpg',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/INDUSTRIAL/BOTIQUIN-PRIMEROS-AUXILIOS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/INDUSTRIAL/BOTIQUIN-PRIMEROS-AUXILIOS',
 	},
 ];
 
@@ -122,36 +122,36 @@ const subcategories = [
 	{
 		title: 'Iluminación',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/iluminacion.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/ILUMINACION/FOCOS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/ILUMINACION/FOCOS',
 	},
 	{
 		title: 'Señalización',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/senalamiento.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/SENALIZACION',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/SENALIZACION',
 	},
 	{
 		title: 'Pinturas',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tlapaleria/pintura.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/PINTURAS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/PINTURAS',
 	},
 ];
 
 const homeLinks = [
 	{
 		label: 'Mangueras',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/HOGAR/MANGUERAS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/HOGAR/MANGUERAS',
 	},
 	{
 		label: 'Identificador de llaves',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/HOGAR/IDENTIFICADOR-PARA-LLAVES',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/HOGAR/IDENTIFICADOR-PARA-LLAVES',
 	},
 	{
 		label: 'Chapas y perillas',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/HOGAR/CHAPAS-Y-PERILLAS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/HOGAR/CHAPAS-Y-PERILLAS',
 	},
 	{
 		label: 'Basculas',
-		url: 'https://www.pedidos.com/busquedas.asp?/TLAPALERIA/HOGAR/BASCULAS',
+		url: 'https://www.pedidos.com/busquedas?/TLAPALERIA/HOGAR/BASCULAS',
 	},
 ];
 

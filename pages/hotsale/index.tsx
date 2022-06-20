@@ -280,7 +280,7 @@ const Hotsale = () => {
 						consumibles, impresoras,
 						<Link
 							underline='none'
-							href='/categorias/tecnologia/computo/monitores.asp'
+							href='/categorias/tecnologia/computo/monitores'
 							target='_blank'>
 							{' '}
 							monitores para PC
@@ -300,7 +300,7 @@ const Hotsale = () => {
 						Las{' '}
 						<Link
 							underline='none'
-							href='/categorias/tecnologia/computo/laptops.asp'
+							href='/categorias/tecnologia/computo/laptops'
 							target='_blank'>
 							computadoras, laptop
 						</Link>{' '}
@@ -311,7 +311,7 @@ const Hotsale = () => {
 						principal ventaja es, por supuesto, la portabilidad. Desde{' '}
 						<Link
 							underline='none'
-							href='/categorias/tecnologia/computo/laptops.asp'
+							href='/categorias/tecnologia/computo/laptops'
 							target='_blank'>
 							laptops baratas
 						</Link>{' '}
@@ -339,7 +339,7 @@ const Hotsale = () => {
 						Un{' '}
 						<Link
 							underline='none'
-							href='/categorias/tecnologia/computo.asp'
+							href='/categorias/tecnologia/computo'
 							target='_blank'>
 							hardware
 						</Link>{' '}
@@ -402,7 +402,7 @@ const Hotsale = () => {
 						Para cualquiera de estos equipos puedes elegir algún{' '}
 						<Link
 							underline='none'
-							href='/categorias/tecnologia/computo/monitores.asp'
+							href='/categorias/tecnologia/computo/monitores'
 							target='_blank'>
 							monitor de computadora
 						</Link>{' '}
@@ -425,7 +425,7 @@ const Hotsale = () => {
 						necesitará impresoras y multifuncionales, así como consumibles como{' '}
 						<Link
 							underline='none'
-							href='https://pedidos.com/hp/consumibles-originales.asp'
+							href='https://pedidos.com/hp/consumibles-originales'
 							target='_blank'>
 							tinta para impresora
 						</Link>{' '}
@@ -470,7 +470,7 @@ const Hotsale = () => {
 						al mejor precio para tu pequeña o mediana empresa, los precios del{' '}
 						<Link
 							underline='none'
-							href='https://pedidos.com/pedidosmayoreo/pedidos-mayorista.asp'
+							href='https://pedidos.com/pedidosmayoreo/pedidos-mayorista'
 							target='_blank'>
 							equipo de cómputo al mayoreo
 						</Link>
@@ -488,7 +488,7 @@ const Hotsale = () => {
 						siendo uno de los únicos con una tienda oficial de
 						<Link
 							underline='none'
-							href='https://pedidos.com/pedidosmayoreo/pedidos-mayorista.asp'
+							href='https://pedidos.com/pedidosmayoreo/pedidos-mayorista'
 							target='_blank'>
 							{' '}
 							HP México

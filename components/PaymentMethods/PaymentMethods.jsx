@@ -124,7 +124,7 @@ const PaymentMethods = () => {
 									<Link
 										underline='none'
 										color='#333'
-										href='/soho/Politicas/forma-pago.asp'>
+										href='/soho/Politicas/forma-pago'>
 										aquí
 									</Link>
 								</strong>

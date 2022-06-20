@@ -61,7 +61,7 @@ export default function SecondaryCards() {
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center" spacing={4}>
         <Grid item xs={12} sm={12} md={6} lg={6} >
-            <Link href="/busquedas.asp?/PAPEL/PAPEL-PARA-IMPRESION&d=true">
+            <Link href="/busquedas?/PAPEL/PAPEL-PARA-IMPRESION&d=true">
                 <a>
                 <Boxsecondarycard 
                     data={{

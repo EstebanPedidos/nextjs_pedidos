@@ -9,27 +9,27 @@ const products = [
 	{
 		label: 'Ejecutiva',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/Muebles/ejecutiva.jpg',
-		url: '/busquedas.asp?/MUEBLES/SILLAS-Y-SILLONES/SILLA-EJECUTIVA',
+		url: '/busquedas?/MUEBLES/SILLAS-Y-SILLONES/SILLA-EJECUTIVA',
 	},
 	{
 		label: 'Operativa',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/Muebles/operativa.jpg',
-		url: '/busquedas.asp?/MUEBLES/SILLAS-Y-SILLONES/SILLA-OPERATIVA',
+		url: '/busquedas?/MUEBLES/SILLAS-Y-SILLONES/SILLA-OPERATIVA',
 	},
 	{
 		label: 'Visita',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/Muebles/visita.jpg',
-		url: '/busquedas.asp?/MUEBLES/SILLAS-Y-SILLONES/SILLA-VISITA',
+		url: '/busquedas?/MUEBLES/SILLAS-Y-SILLONES/SILLA-VISITA',
 	},
 	{
 		label: 'Archiveros',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/Muebles/archivero.jpg',
-		url: '/busquedas.asp?/MUEBLES/ARCHIVEROS',
+		url: '/busquedas?/MUEBLES/ARCHIVEROS',
 	},
 	{
 		label: 'Escritorios',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/Muebles/escritorio.jpg',
-		url: '/busquedas.asp?/MUEBLES/ESCRITORIOS-Y-MESAS',
+		url: '/busquedas?/MUEBLES/ESCRITORIOS-Y-MESAS',
 	},
 ];
 
@@ -37,7 +37,7 @@ const brands = [
 	{
 		label: 'Ofik',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/muebles/ofik.png',
-		url: '/busquedas.asp?query=OFIK',
+		url: '/busquedas?query=OFIK',
 	},
 	{
 		label: 'Offiho',
@@ -47,12 +47,12 @@ const brands = [
 	{
 		label: 'Hirsh',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/muebles/hirsh.jpg',
-		url: '/busquedas.asp?/MUEBLES&m=HIRSH',
+		url: '/busquedas?/MUEBLES&m=HIRSH',
 	},
 	{
 		label: 'Linea Italia',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/muebles/lineaItalia.png',
-		url: '/busquedas.asp?/MUEBLES&m=LINEA%2520ITALIA',
+		url: '/busquedas?/MUEBLES&m=LINEA%2520ITALIA',
 	},
 ];
 
@@ -116,7 +116,7 @@ const Muebles = () => {
 						<Button
 							sx={{ mt: 4, px: 5 }}
 							variant='outlined'
-							href='/muebles.asp#about'>
+							href='/muebles#about'>
 							Comenzar
 						</Button>
 					</Box>
@@ -157,7 +157,7 @@ const Muebles = () => {
 							<Button
 								sx={{ px: 5 }}
 								variant='outlined'
-								href='/Soho/comentarios/reviews.asp'>
+								href='/Soho/comentarios/reviews'>
 								Comentarios
 							</Button>
 						</Box>
@@ -215,7 +215,7 @@ const Muebles = () => {
 								justifyContent='center'
 								flexDirection='column'
 								component='a'
-								href='/busquedas.asp?/MUEBLES'
+								href='/busquedas?/MUEBLES'
 								gap={2}>
 								<AddRoundedIcon sx={{ fontSize: '4.5rem!important' }} />
 								<Typography textAlign='center' color='#333' fontWeight={500}>

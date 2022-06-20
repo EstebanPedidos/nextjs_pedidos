@@ -5,7 +5,7 @@ const CommentsButton = () => {
 	return (
 		<Box
 			component='a'
-			href='/Soho/comentarios/reviews.asp'
+			href='/Soho/comentarios/reviews'
 			display='flex'
 			flexDirection='column'
 			alignItems='center'

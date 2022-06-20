@@ -80,7 +80,7 @@ const Azor = () => {
 					title='Marcas de Azor'
 					subtitle='Las marcas y productos de escritura'
 					items={brands}
-					ctaLink='/busquedas.asp?m=FORTEC&m=AZOR'
+					ctaLink='/busquedas?m=FORTEC&m=AZOR'
 				/>
 			</Box>
 			<Container sx={{ mt: 5 }}>
