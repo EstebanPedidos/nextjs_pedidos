@@ -414,6 +414,8 @@ export function Navbar(props) {
 							component={'div'}>
 							{/* This inline styles is temporaly, when add link router component, remove */}
 							<Hidden mdDown>
+								<Link href='/servicios/empresas'>
+								<a>
 								<Box
 									component={'span'}
 									style={{ cursor: 'pointer', fontWeight: 'Bold' }}>
@@ -430,6 +432,8 @@ export function Navbar(props) {
 										empresas
 									</Typography>
 								</Box>
+								</a>
+								</Link>
 							</Hidden>
 
 							<Hidden smDown>
