@@ -48,7 +48,7 @@ const Productcard = ({data})=>{
                     <CardContent>
                     <Divider light />
                     <Box  mt={2}  component="div" >
-                        <Typography variant="subtitle1"  textAlign="left"  gutterBottom > {data.productBrand} </Typography>
+                        <Typography variant="subtitle1" component='p'  textAlign="left"  gutterBottom > {data.productBrand} </Typography>
                         <Typography sx={{ height:'35px', overflow: 'hidden'}}
                             variant="body2"
                             color="textSecondary"

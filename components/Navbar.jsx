@@ -393,7 +393,7 @@ export function Navbar(props) {
 										InputProps={{
 											endAdornment: (
 												<InputAdornment position='start'>
-													<Button type='submit'>
+													<Button type='submit' aria-label="search" >
 														<SearchIcon />
 													</Button>
 												</InputAdornment>
@@ -438,7 +438,7 @@ export function Navbar(props) {
 
 							<Hidden smDown>
 								<Box component={'span'}>
-									<IconButton
+									<IconButton aria-label="Favorites" 
 										onClick={handleClick}
 										aria-controls={open ? 'favorites' : undefined}
 										aria-haspopup='true'>
@@ -468,7 +468,7 @@ export function Navbar(props) {
 									<Help tipo={'2'} />
 								</Box>
 							</Hidden>
-							<IconButton color='primary'>
+							<IconButton color='primary' aria-label="ShoppingCart">
 								<Badge
 									badgeContent={sesPartidas > 0 ? sesPartidas : null}
 									color='secondary'>
