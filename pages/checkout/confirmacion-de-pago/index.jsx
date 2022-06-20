@@ -48,7 +48,7 @@ export default function Confirmacion_de_pago(){
                     let mes             = await (((fecha.getMonth()+1)<10)?'0'+(fecha.getMonth()+1):(fecha.getMonth()+1))
                     let dia             = await ((fecha.getDate() <10)?'0'+fecha.getDate():fecha.getDate())
                     JsonCliente.fecha   = await ano+'-'+mes+'-'+dia
-                    let upcs            = await (upc !== null && upc !== undefined && upc !== '')?upc.split(',').map((upc) =>  JSON.stringify({'gtin':upc})):''
+                    let upcs            = await ''//(upc !== null && upc !== undefined && upc !== '')?upc+''.split(',').map((upc) =>  JSON.stringify({'gtin':upc})):''
                     JsonCliente.upcs    = await JSON.parse('['+upcs+']')
                     setData(json)
                     setJsonCli(JsonCliente)
