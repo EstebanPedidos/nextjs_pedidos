@@ -10,35 +10,35 @@ import FloatingToutCard from 'components/FloatingToutCard';
 const categoryItems = [
 	{
 		label: 'Laptops',
-		url: 'https://www.pedidos.com/busquedas.asp?query=laptop',
+		url: 'https://www.pedidos.com/busquedas?query=laptop',
 	},
 	{
 		label: 'All In One',
-		url: 'https://www.pedidos.com/busquedas.asp?query=all-in-one',
+		url: 'https://www.pedidos.com/busquedas?query=all-in-one',
 	},
 	{
 		label: 'Tablets',
-		url: 'https://www.pedidos.com/busquedas.asp?query=tablet',
+		url: 'https://www.pedidos.com/busquedas?query=tablet',
 	},
 	{
 		label: 'Multifuncionales',
-		url: 'https://www.pedidos.com/busquedas.asp?query=multifuncional',
+		url: 'https://www.pedidos.com/busquedas?query=multifuncional',
 	},
 	{
 		label: 'Monitores',
-		url: 'https://www.pedidos.com/busquedas.asp?query=monitor',
+		url: 'https://www.pedidos.com/busquedas?query=monitor',
 	},
 	{
 		label: 'Desktop',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS',
 	},
 	{
 		label: 'Impresora',
-		url: 'https://www.pedidos.com/busquedas.asp?query=impresora',
+		url: 'https://www.pedidos.com/busquedas?query=impresora',
 	},
 	{
 		label: 'Huawei',
-		url: 'https://www.pedidos.com/busquedas.asp?query=huawei',
+		url: 'https://www.pedidos.com/busquedas?query=huawei',
 	},
 ];
 
@@ -50,23 +50,23 @@ const shops = [
 		links: [
 			{
 				label: 'Laptops',
-				url: 'https://www.pedidos.com/busquedas.asp?query=laptop',
+				url: 'https://www.pedidos.com/busquedas?query=laptop',
 			},
 			{
 				label: 'All In One',
-				url: 'https://www.pedidos.com/busquedas.asp?query=all-in-one',
+				url: 'https://www.pedidos.com/busquedas?query=all-in-one',
 			},
 			{
 				label: 'Desktops',
-				url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS',
+				url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS',
 			},
 			{
 				label: 'Tablet',
-				url: 'https://www.pedidos.com/busquedas.asp?query=tablet',
+				url: 'https://www.pedidos.com/busquedas?query=tablet',
 			},
 			{
 				label: 'Monitores',
-				url: 'https://www.pedidos.com/busquedas.asp?query=monitor',
+				url: 'https://www.pedidos.com/busquedas?query=monitor',
 			},
 		],
 	},
@@ -77,23 +77,23 @@ const shops = [
 		links: [
 			{
 				label: 'Multifuncionales',
-				url: 'https://www.pedidos.com/busquedas.asp?query=multifuncional',
+				url: 'https://www.pedidos.com/busquedas?query=multifuncional',
 			},
 			{
 				label: 'Impresoras',
-				url: 'https://www.pedidos.com/busquedas.asp?query=impresora',
+				url: 'https://www.pedidos.com/busquedas?query=impresora',
 			},
 			{
 				label: 'Escáneres',
-				url: 'https://www.pedidos.com/busquedas.asp?query=Escaner',
+				url: 'https://www.pedidos.com/busquedas?query=Escaner',
 			},
 			{
 				label: 'Plotters',
-				url: 'https://www.pedidos.com/busquedas.asp?query=plotter',
+				url: 'https://www.pedidos.com/busquedas?query=plotter',
 			},
 			{
 				label: 'Rotuladores',
-				url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/CINTAS--ETIQUETAS-Y-ROTULADORES/ROTULADOR',
+				url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/CINTAS--ETIQUETAS-Y-ROTULADORES/ROTULADOR',
 			},
 		],
 	},
@@ -103,32 +103,32 @@ const subcategories = [
 	{
 		title: 'Pantallas',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/smart.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/TELEVISIONES',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/TELEVISIONES',
 	},
 	{
 		title: 'Software',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/software.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/SOFTWARE',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/SOFTWARE',
 	},
 	{
 		title: 'Telefonía',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/telefonos.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/TELEFONIA',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/TELEFONIA',
 	},
 	{
 		title: 'Línea blanca',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/linea-blanca.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/LINEA-BLANCA',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/LINEA-BLANCA',
 	},
 	{
 		title: 'Controles',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/videojuegos.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/VIDEOJUEGOS/CONTROLES',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/VIDEOJUEGOS/CONTROLES',
 	},
 	{
 		title: 'Punto de venta',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/punto-venta.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/PUNTO-DE-VENTA',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/PUNTO-DE-VENTA',
 	},
 ];
 
@@ -136,22 +136,22 @@ const otherSubCategories = [
 	{
 		title: 'Teclado y Mouse',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/teclado-mouse.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/TECLADO-Y-MOUSE',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/TECLADO-Y-MOUSE',
 	},
 	{
 		title: 'Proyectores',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/Proyectores.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/PROYECTORES',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/PROYECTORES',
 	},
 	{
 		title: 'Audio',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/Audio.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/AUDIO',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/AUDIO',
 	},
 	{
 		title: 'Cámara y video',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/camaras.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/CAMARA-Y-VIDEO',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/CAMARA-Y-VIDEO',
 	},
 ];
 
@@ -159,22 +159,22 @@ const otherSubCategories2 = [
 	{
 		title: 'Salud y Belleza',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/salud.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/SALUD-Y-BELLEZA',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/SALUD-Y-BELLEZA',
 	},
 	{
 		title: 'Seguridad',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/seguridad.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/SEGURIDAD',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/SEGURIDAD',
 	},
 	{
 		title: 'Energía',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/energia.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/ENERGIA',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/ENERGIA',
 	},
 	{
 		title: 'Pilas y baterías',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/pilas.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/TECNOLOGIA/PILAS-Y-BATERIAS',
+		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/PILAS-Y-BATERIAS',
 	},
 ];
 

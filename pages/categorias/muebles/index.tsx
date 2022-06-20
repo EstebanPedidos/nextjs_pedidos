@@ -11,43 +11,43 @@ import FloatingToutCard from 'components/FloatingToutCard';
 const categoryItems = [
 	{
 		label: 'Ofik',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES&m=OFIK',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES&m=OFIK',
 	},
 	{
 		label: 'Edar',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES&m=EDAR',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES&m=EDAR',
 	},
 	{
 		label: 'Ergo',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES&m=ERGO',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES&m=ERGO',
 	},
 	{
 		label: 'Hirsh',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES&m=HIRSH',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES&m=HIRSH',
 	},
 	{
 		label: 'Línea Italia',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES&m=LINEA%2520ITALIA',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES&m=LINEA%2520ITALIA',
 	},
 	{
 		label: 'Escritorio Ejecutivo',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/ESCRITORIOS-Y-MESAS',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/ESCRITORIOS-Y-MESAS',
 	},
 	{
 		label: 'Archiveros',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/ARCHIVEROS',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/ARCHIVEROS',
 	},
 	{
 		label: 'Sillas',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/SILLAS-Y-SILLONES',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/SILLAS-Y-SILLONES',
 	},
 	{
 		label: 'Escritorio',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/ESCRITORIOS-Y-MESAS',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/ESCRITORIOS-Y-MESAS',
 	},
 	{
 		label: 'Caja fuerte',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/CAJAS-FUERTES',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/CAJAS-FUERTES',
 	},
 ];
 
@@ -55,32 +55,32 @@ const chairCategories = [
 	{
 		label: 'Silla operativa',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/muebles/silla-operativa.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/SILLAS-Y-SILLONES/SILLA-OPERATIVA',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/SILLAS-Y-SILLONES/SILLA-OPERATIVA',
 	},
 	{
 		label: 'Silla directiva',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/muebles/silla-directiva.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/SILLAS-Y-SILLONES/SILLA-DIRECTIVA',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/SILLAS-Y-SILLONES/SILLA-DIRECTIVA',
 	},
 	{
 		label: 'Silla ejecutiva',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/muebles/silla-ejecutiva.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/SILLAS-Y-SILLONES/SILLA-EJECUTIVA',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/SILLAS-Y-SILLONES/SILLA-EJECUTIVA',
 	},
 	{
 		label: 'Silla ergonómica',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/muebles/silla-ergonomica.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/SILLAS-Y-SILLONES/SILLA-ERGONOMICA',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/SILLAS-Y-SILLONES/SILLA-ERGONOMICA',
 	},
 	{
 		label: 'Silla visita',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/muebles/silla-visita.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/SILLAS-Y-SILLONES/SILLA-VISITA',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/SILLAS-Y-SILLONES/SILLA-VISITA',
 	},
 	{
 		label: 'Silla plegable',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/muebles/silla-plegable.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/SILLAS-Y-SILLONES/SILLA-PLEGABLE',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/SILLAS-Y-SILLONES/SILLA-PLEGABLE',
 	},
 ];
 
@@ -88,13 +88,13 @@ const shops = [
 	{
 		title: 'Todo en <strong>Mesas</strong>',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/muebles/mesas.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/ESCRITORIOS-Y-MESAS/MESAS',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/ESCRITORIOS-Y-MESAS/MESAS',
 		cta: 'Ver todo',
 	},
 	{
 		title: 'Todo en <strong>Escritorios</strong>',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/muebles/escritorio.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/ESCRITORIOS-Y-MESAS/ESCRITORIOS&=true',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/ESCRITORIOS-Y-MESAS/ESCRITORIOS&=true',
 		cta: 'Ver todo',
 	},
 ];
@@ -103,17 +103,17 @@ const otherSubCategories = [
 	{
 		title: 'Archiveros',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/muebles/archivero.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/ARCHIVEROS',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/ARCHIVEROS',
 	},
 	{
 		title: 'Cajas Fuertes',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/muebles/caja-fuerte.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/CAJAS-FUERTES',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/CAJAS-FUERTES',
 	},
 	{
 		title: 'Libreros y anaqueles',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/muebles/librero.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/MUEBLES/ANAQUELES-Y-LIBREROS',
+		url: 'https://www.pedidos.com/busquedas?/MUEBLES/ANAQUELES-Y-LIBREROS',
 	},
 ];
 

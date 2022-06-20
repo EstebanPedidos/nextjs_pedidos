@@ -472,7 +472,7 @@ export default function Verifica_pedido() {
 			<Head>
 				<title> Carrito de compras | Pedidos.com </title>
   				<meta name="description" content="Pedidos.com, la tienda en línea con amplia variedad de productos. Encuentra ya papelería, tintas y tóners, tecnología, accesorios, muebles, tlapalería, limpieza, cafeteria y ¡Mucho más!. Todo lo que necesitas para tu oficina, negocio, escuela y hogar lo encuentras aquí." />
-  				<link rel="canonical" href="/checkout/verifica-pedido.asp" />
+  				<link rel="canonical" href="/checkout/verifica-pedido" />
 			</Head>
 		<Box component='div' m={1}>
 			<div className={classes.root}>

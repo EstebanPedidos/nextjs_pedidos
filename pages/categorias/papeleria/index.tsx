@@ -13,43 +13,43 @@ import FloatingToutCard from 'components/FloatingToutCard';
 const categoryItems = [
 	{
 		label: 'Bolígrafos',
-		url: 'https://www.pedidos.com/busquedas.asp?query=boligrafo',
+		url: 'https://www.pedidos.com/busquedas?query=boligrafo',
 	},
 	{
 		label: 'Cintas adhesivas',
-		url: 'https://www.pedidos.com/busquedas.asp?query=cinta&m=BEROL&m=JANEL&m=3M&m=AZOR&m=KORES&m=BARRILITO',
+		url: 'https://www.pedidos.com/busquedas?query=cinta&m=BEROL&m=JANEL&m=3M&m=AZOR&m=KORES&m=BARRILITO',
 	},
 	{
 		label: 'Notas adhesivas',
-		url: 'https://www.pedidos.com/busquedas.asp?query=nota%20adhesiva',
+		url: 'https://www.pedidos.com/busquedas?query=nota%20adhesiva',
 	},
 	{
 		label: 'Folders',
-		url: 'https://www.pedidos.com/busquedas.asp?query=Folder',
+		url: 'https://www.pedidos.com/busquedas?query=Folder',
 	},
 	{
 		label: 'Cutters',
-		url: 'https://www.pedidos.com/busquedas.asp?query=cutter',
+		url: 'https://www.pedidos.com/busquedas?query=cutter',
 	},
 	{
 		label: 'Colores',
-		url: 'https://www.pedidos.com/busquedas.asp?query=colores',
+		url: 'https://www.pedidos.com/busquedas?query=colores',
 	},
 	{
 		label: 'Separadores',
-		url: 'https://www.pedidos.com/busquedas.asp?query=separadores',
+		url: 'https://www.pedidos.com/busquedas?query=separadores',
 	},
 	{
 		label: 'Lapiceros',
-		url: 'https://www.pedidos.com/busquedas.asp?query=lapiceros',
+		url: 'https://www.pedidos.com/busquedas?query=lapiceros',
 	},
 	{
 		label: 'Tableros',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/PIZARRONES-Y-ROTAFOLIOS/TABLEROS',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/PIZARRONES-Y-ROTAFOLIOS/TABLEROS',
 	},
 	{
 		label: 'Rotuladores',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/CINTAS--ETIQUETAS-Y-ROTULADORES/ROTULADOR',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/CINTAS--ETIQUETAS-Y-ROTULADORES/ROTULADOR',
 	},
 ];
 
@@ -72,13 +72,13 @@ const featured: Array<{
 		subtitle: 'Pide tus esenciales para el trabajo',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/oficina.jpg',
 		cta: 'Ver más',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA',
 	},
 	{
 		title: '<strong>Esenciales</strong> desde <span>$1.70</span>',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/esenciales1.jpg',
 		cta: 'Ver más',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ESCRITURA',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/ESCRITURA',
 		floatingTitle: true,
 		centeredTitle: true,
 		children: {
@@ -97,7 +97,7 @@ const featured: Array<{
 		subtitle: 'Pide y prepara tu regreso a clases',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/escolar.jpg',
 		cta: 'Ver más',
-		url: 'https://busquedas.asp/?query=newell',
+		url: 'https://busquedas/?query=newell',
 	},
 ];
 
@@ -105,27 +105,27 @@ const subcategoryGrid = [
 	{
 		label: 'Estilo único',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/categorias/papeleria/newelll.jpg',
-		url: 'https://www.pedidos.com/newell.asp',
+		url: 'https://www.pedidos.com/newell',
 	},
 	{
 		label: 'Cuadernos y Blocks',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/cuadernos.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/CUADERNOS-Y-BLOCKS',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/CUADERNOS-Y-BLOCKS',
 	},
 	{
 		label: 'Escritura',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/escritura.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ESCRITURA',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/ESCRITURA',
 	},
 	{
 		label: 'Recorte',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/recorte.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/RECORTE',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/RECORTE',
 	},
 	{
 		label: 'Adhesivos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/adhesivos.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ADHESIVOS',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/ADHESIVOS',
 	},
 ];
 
@@ -133,17 +133,17 @@ const subcategories = [
 	{
 		title: 'Accesorios',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/accesorios.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ACCESORIOS-DE-ESCRITORIO',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/ACCESORIOS-DE-ESCRITORIO',
 	},
 	{
 		title: 'Destructoras',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/destructoras1.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/DESTRUCTORAS',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/DESTRUCTORAS',
 	},
 	{
 		title: 'Organización y clasificación',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/organizacion1.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/CLASIFICACION-Y-ORGANIZACION',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/CLASIFICACION-Y-ORGANIZACION',
 	},
 ];
 
@@ -151,22 +151,22 @@ const otherSubCategories = [
 	{
 		title: 'Formatos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/formatos.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/FORMATOS',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/FORMATOS',
 	},
 	{
 		title: 'Sellos y tintas',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/sellotintas.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/SELLOS-Y-TINTAS',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/SELLOS-Y-TINTAS',
 	},
 	{
 		title: 'Encuadernado',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/encuadernado.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/ENCUADERNADO-Y-ENGARGOLADO',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/ENCUADERNADO-Y-ENGARGOLADO',
 	},
 	{
 		title: 'Geometria',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/geometria1.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/GEOMETRIA',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/GEOMETRIA',
 	},
 ];
 
@@ -174,12 +174,12 @@ const otherSubCategories2 = [
 	{
 		title: 'Cintas, etiquetas y rotuladores',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/rotuladores.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/CINTAS--ETIQUETAS-Y-ROTULADORES',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/CINTAS--ETIQUETAS-Y-ROTULADORES',
 	},
 	{
 		title: 'Pizarrones y rotafolios',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/papeleria/pizza.png',
-		url: 'https://www.pedidos.com/busquedas.asp?/PRODUCTOS-PARA-OFICINA/PIZARRONES-Y-ROTAFOLIOS',
+		url: 'https://www.pedidos.com/busquedas?/PRODUCTOS-PARA-OFICINA/PIZARRONES-Y-ROTAFOLIOS',
 	},
 ];
 

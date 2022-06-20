@@ -749,7 +749,7 @@ export const Empresas = () => {
 						los proveedores de equipo de computo con las mejores{' '}
 						<Link
 							underline='none'
-							href='https://pedidos.com/categorias/tecnologia/computo/laptops.asp'
+							href='https://pedidos.com/categorias/tecnologia/computo/laptops'
 							target='_blank'>
 							laptops baratas
 						</Link>{' '}
@@ -758,7 +758,7 @@ export const Empresas = () => {
 						entonces considerar{' '}
 						<Link
 							underline='none'
-							href='https://pedidos.com/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+							href='https://pedidos.com/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 							target='_blank'>
 							desktops para oficina
 						</Link>{' '}
@@ -777,7 +777,7 @@ export const Empresas = () => {
 						y en la oficina, no puede faltar un monitorio y accesorios. Los{' '}
 						<Link
 							underline='none'
-							href='https://pedidos.com/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
+							href='https://pedidos.com/busquedas?/TECNOLOGIA/COMPUTO/MONITORES'
 							target='_blank'>
 							monitores para PC
 						</Link>{' '}
@@ -795,7 +795,7 @@ export const Empresas = () => {
 						computadora{' '}
 						<Link
 							underline='none'
-							href='https://pedidos.com/busquedas.asp?/TECNOLOGIA/COMPUTO/ALL-IN-ONE'
+							href='https://pedidos.com/busquedas?/TECNOLOGIA/COMPUTO/ALL-IN-ONE'
 							target='_blank'>
 							All in One
 						</Link>
@@ -816,7 +816,7 @@ export const Empresas = () => {
 						La mejor{' '}
 						<Link
 							underline='none'
-							href='https://pedidos.com/tienda-oficial-hp.asp'
+							href='https://pedidos.com/tienda-oficial-hp'
 							target='_blank'>
 							tienda HP
 						</Link>{' '}

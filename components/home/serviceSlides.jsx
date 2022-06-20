@@ -23,16 +23,16 @@ const Boxservice = ({data})=>{
     <Paper variant={0} className={styles.servicebox} sx={{padding: '1rem',}}>
           <Box component="div" sx={{position:'relative', height:'200px'}}>
             <Box component="div" textAlign="left" sx={{position: 'absolute', top: 0,left: 10,display: 'block',}}>
-              <Typography variant="subtitle1" my={1} color="textSecondary">
+              <Typography variant="subtitle1" component='p' my={1} color="textSecondary">
                 {data.texto1}
               </Typography>
               <Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
                 {data.texto2}
               </Typography>
-              <Typography variant="subtitle1" width='91%'>
+              <Typography variant="subtitle1" component='p' width='91%'>
                 {data.texto3}
               </Typography>
-              <Typography variant="subtitle1" sx={{fontWeight:'600'}} >
+              <Typography variant="subtitle1" component='p' sx={{fontWeight:'600'}} >
                 {data.texto5}
               </Typography>
             </Box>

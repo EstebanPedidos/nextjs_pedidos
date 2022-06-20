@@ -100,7 +100,7 @@ export default function SecondaryCards() {
         >
         
         <SwiperSlide>
-            <Link href="/busquedas.asp?/TLAPALERIA/INDUSTRIAL/CUBREBOCAS">
+            <Link href="/busquedas?/TLAPALERIA/INDUSTRIAL/CUBREBOCAS">
                 <a>
                     <Boxcard 
                         data={{
@@ -114,7 +114,7 @@ export default function SecondaryCards() {
             </Link>
         </SwiperSlide>
         <SwiperSlide>
-            <Link href="/busquedas.asp?d=true&g=true">
+            <Link href="/busquedas?d=true&g=true">
                 <a>
                 <Boxcard 
                     data={{
@@ -127,7 +127,7 @@ export default function SecondaryCards() {
             </Link>
         </SwiperSlide>
         <SwiperSlide>
-            <Link href="/outlet-caja-abierta.asp">
+            <Link href="/outlet-caja-abierta">
                 <a>
                     <Boxcard 
                         data={{

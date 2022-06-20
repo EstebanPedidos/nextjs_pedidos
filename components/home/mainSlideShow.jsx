@@ -88,7 +88,7 @@ export default function MainSlideShow() {
 				</SwiperSlide>
 				<SwiperSlide> 
 					<Box component="div" sx={{position:'relative'}}>
-						<Link href='/busquedas.asp?query=HTP200520211'>
+						<Link href='/busquedas?query=HTP200520211'>
 							<a>
 								<Box component="div">
 									<Hidden mdDown>
@@ -150,7 +150,7 @@ export default function MainSlideShow() {
 					</Box>
 				</SwiperSlide>
 				<SwiperSlide> 
-					<Link href='/apple/para-empresas.asp'>
+					<Link href='/apple/para-empresas'>
 						<a>
 							<Box component="div" sx={{position:'relative'}}>
 								<Box component="div">
@@ -174,7 +174,7 @@ export default function MainSlideShow() {
 					</Link>
 				</SwiperSlide>
 				<SwiperSlide> 
-					<Link href='/busquedas.asp?query=carpetas+acco'>
+					<Link href='/busquedas?query=carpetas+acco'>
 						<a>
 							<Box component="div" sx={{position:'relative'}}>
 								<Box component="div">
@@ -241,7 +241,7 @@ export default function MainSlideShow() {
 					</Link>
 				</SwiperSlide>
 				<SwiperSlide> 
-					<Link href='/busquedas.asp?query=SSD'>
+					<Link href='/busquedas?query=SSD'>
 						<a>
 							<Box component="div" sx={{position:'relative'}}>
 								<Box component="div">

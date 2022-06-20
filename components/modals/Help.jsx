@@ -96,18 +96,18 @@ export default function Help({tipo}) {
     return (
         <div>
             {(tipo == '1')?
-            <Button variant="outlined" fullWidth size="large" startIcon={<HelpOutlineIcon/>}  onClick={()=>{setOpen(true);}}>¿Necesitas Ayuda?</Button>            
+            <Button variant="outlined" fullWidth size="large"  aria-label="Help"  startIcon={<HelpOutlineIcon/>}  onClick={()=>{setOpen(true);}}>¿Necesitas Ayuda?</Button>            
             :
             (tipo == '2')?
-            <IconButton color='primary' onClick={()=>{setOpen(true);}}>
+            <IconButton color='primary' aria-label="Help" onClick={()=>{setOpen(true);}}>
 										<HelpOutlineIcon />
 						</IconButton>
             :
             (tipo == '3')?
-            <Button variant="contained" fullWidth size="large" startIcon={<HelpOutlineIcon/>}  onClick={()=>{setOpen(true);}}>¿Necesitas Ayuda?</Button>
+            <Button variant="contained" fullWidth size="large" aria-label="Help" startIcon={<HelpOutlineIcon/>}  onClick={()=>{setOpen(true);}}>¿Necesitas Ayuda?</Button>
             :
             (tipo == '4')&&
-            <Button variant="outlined" fullWidth size="large" startIcon={<HelpOutlineIcon/>}  onClick={()=>{setOpen(true);}}>Ayuda</Button>            
+            <Button variant="outlined" fullWidth size="large" aria-label="Help" startIcon={<HelpOutlineIcon/>}  onClick={()=>{setOpen(true);}}>Ayuda</Button>            
           }
             
             <Modal

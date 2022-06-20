@@ -197,7 +197,7 @@ export default function Direccion_de_envio(props){
        
         <Box className={classes.root}>
             <Head>
-                <link href="https://pedidos.com/checkout/direccion-de-envio.asp" rel="canonical" />
+                <link href="https://pedidos.com/checkout/direccion-de-envio" rel="canonical" />
                 <title>Dirección de envío | Pedidos.com</title>
                 <meta name="description" content="Pedidos.com, la tienda en línea con amplia variedad de productos. Todo lo que necesitas para tu oficina, negocio, escuela y hogar lo encuentras aquí, solo selecciona y/o añade tu dirección de envío para la entrega de tu pedido. " />
             </Head>

@@ -9,42 +9,42 @@ const productCategories = [
 	{
 		label: 'Papel',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/epson/tienda/papel.webp',
-		url: '/busquedas.asp?query=Papel+EPSON',
+		url: '/busquedas?query=Papel+EPSON',
 	},
 	{
 		label: 'Eco Tank',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/epson/tienda/ecotank.webp',
-		url: '/soluciones-multifuncionales.asp',
+		url: '/soluciones-multifuncionales',
 	},
 	{
 		label: 'Proyectores',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/epson/tienda/Proyectores.webp',
-		url: '/proyectores-epson.asp',
+		url: '/proyectores-epson',
 	},
 	{
 		label: 'Consumibles',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/epson/tienda/tintas.webp',
-		url: '/busquedas.asp?/TINTAS-Y-TONERS&m=EPSON',
+		url: '/busquedas?/TINTAS-Y-TONERS&m=EPSON',
 	},
 	{
 		label: 'Cintas',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/epson/tienda/cintas.webp',
-		url: '/busquedas.asp?query=cintas&m=EPSON',
+		url: '/busquedas?query=cintas&m=EPSON',
 	},
 	{
 		label: 'Escáneres',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/epson/tienda/escaner.webp',
-		url: '/busquedas.asp?query=ESCANERES+EPSON',
+		url: '/busquedas?query=ESCANERES+EPSON',
 	},
 	{
 		label: 'Impresoras térmicas',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/epson/tienda/tickets.webp',
-		url: '/busquedas.asp?query=impresora-termica&m=EPSON',
+		url: '/busquedas?query=impresora-termica&m=EPSON',
 	},
 	{
 		label: 'Plotter',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/epson/tienda/plotter.webp',
-		url: '/busquedas.asp?/TECNOLOGIA/IMPRESION/PLOTTERS&m=EPSON',
+		url: '/busquedas?/TECNOLOGIA/IMPRESION/PLOTTERS&m=EPSON',
 	},
 ];
 

@@ -242,7 +242,7 @@ export default function Forma_de_envio(props){
     return (
     <Box className={classes.root}>
         <Head>
-            <link href="https://pedidos.com/checkout/forma-de-envio.asp" rel="canonical" />
+            <link href="https://pedidos.com/checkout/forma-de-envio" rel="canonical" />
             <title>Forma de envío | Pedidos.com</title>
             <meta name="description" content="Selecciona alguna de las formas de envío que tenemos para ti: Programa tu entrega, entrega EXPRESS y paquetería (DHL, FedEX, Estafeta)." />
         </Head>

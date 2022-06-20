@@ -16,42 +16,42 @@ const productCategories = [
 	{
 		label: 'Laptops para el hogar',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/lhogar.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Laptops empresariales',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/Tienda-HP/lempresarial.webp',
-		url: '/busquedas.asp?query=HP-lap-&d=true',
+		url: '/busquedas?query=HP-lap-&d=true',
 	},
 	{
 		label: 'Zona Gaming',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/gaming1.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Accesorios',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/accesorios.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Desktops hogar',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/dhogar.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Desktops empresariales',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/dempresarial.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Impresoras empresariales',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/iempresarial.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Impresoras para el hogar',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/ihogar.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 ];
 
@@ -253,7 +253,7 @@ const TiendaOficialHP = () => {
 								<Link
 									underline='none'
 									className='c-blue'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&m=HP'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&m=HP'
 									target='_blank'>
 									laptops HP
 								</Link>{' '}

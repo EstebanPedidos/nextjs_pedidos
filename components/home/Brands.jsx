@@ -106,7 +106,7 @@ export default function TrendSlides() {
                             cover: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home19/tiendas/aar.png',
                             alt: 'Apple at Work, Pedidos.com',
                             imgavatar: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/applear.png',
-                            avataraalt: 'Apple Authorized Reseller',
+                            avataralt: 'Apple Authorized Reseller',
                             introbrand:'Diseñadospara',
                             brandname:'Las empresas',
 
@@ -116,14 +116,14 @@ export default function TrendSlides() {
             </Link>
         </SwiperSlide>
         <SwiperSlide>
-            <Link href="/busquedas.asp?/TECNOLOGIA/COMPUTO&p=INTEL-CORE-I5&p=INTEL-CORE-I3&p=INTEL-CORE-I7&p=INTEL-CELERON&p=INTEL-PENTIUM&p=INTEL-CORE--I3&p=INTEL-CORE-I3-1115G4">
+            <Link href="/busquedas?/TECNOLOGIA/COMPUTO&p=INTEL-CORE-I5&p=INTEL-CORE-I3&p=INTEL-CORE-I7&p=INTEL-CELERON&p=INTEL-PENTIUM&p=INTEL-CORE--I3&p=INTEL-CORE-I3-1115G4">
                     <a>
                     <BrandBox 
                         data={{
                             cover: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home19/tiendas/intel.webp',
                             alt: 'Procesadores Intel',
                             imgavatar: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/intel.png',
-                            avataraalt: 'intel',
+                            avataralt: 'intel',
                             introbrand:'Procesadores',
                             brandname:'Intel®',
 
@@ -140,7 +140,7 @@ export default function TrendSlides() {
                             cover: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home19/tiendas/tf-hp2.jpg',
                             alt: 'Tienda Oficial HP',
                             imgavatar: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/hp.png',
-                            avataraalt: 'HP, computadora, impresión ', 
+                            avataralt: 'HP, computadora, impresión ', 
                             introbrand:'Innovación',
                             brandname:'HP',
                             link:'',
@@ -149,14 +149,14 @@ export default function TrendSlides() {
              </Link>
         </SwiperSlide>
         <SwiperSlide> 
-            <Link href="/tienda-epson.asp">
+            <Link href="/tienda-epson">
                 <a>
                     <BrandBox 
                         data={{
                             cover: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home19/tiendas/epson-tienda.webp',
                             alt: 'Tienda Oficial Epson',
                             imgavatar: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/epson.png',
-                            avataraalt: 'Epson ', 
+                            avataralt: 'Epson ', 
                             introbrand:'Impresión',
                             brandname:'EPSON',
                             link:'',
@@ -172,7 +172,7 @@ export default function TrendSlides() {
                             cover:'https://pedidos.com/myfotos/Pedidos-com/pagina/home19/tiendas/uniclick.png',
                             alt: 'Crédito Uniclick',
                             imgavatar: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/uniclick.png',
-                            avataraalt: 'uniclick', 
+                            avataralt: 'uniclick', 
                             introbrand:'Crédito',
                             brandname:'Uniclick',
                             link:'',
@@ -181,14 +181,14 @@ export default function TrendSlides() {
              </Link>
         </SwiperSlide>
         <SwiperSlide>
-            <Link href="/newell.asp">
+            <Link href="/newell">
                 <a> 
                     <BrandBox 
                         data={{
                             cover: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home19/tiendas/newell.png',
                             alt: 'Tienda Oficial newell',
                             imgavatar: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/newell.png',
-                            avataraalt: 'Newell brands ', 
+                            avataralt: 'Newell brands ', 
                             introbrand:'Papelería',
                             brandname:'Newell',
                         
@@ -197,14 +197,14 @@ export default function TrendSlides() {
             </Link>
         </SwiperSlide>
         <SwiperSlide> 
-            <Link href="/3m.asp">
+            <Link href="/3m">
                 <a> 
                     <BrandBox 
                         data={{
                             cover:'https://pedidos.com/myfotos/Pedidos-com/pagina/home19/tiendas/3m-brand.png',
                             alt: '3m ciencua aplicada a tu vida',
                             imgavatar: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/3m.png',
-                            avataraalt: '3m ', 
+                            avataralt: '3m ', 
                             introbrand:'Soluciones',
                             brandname:'3M',
                             
@@ -213,14 +213,14 @@ export default function TrendSlides() {
             </Link>
         </SwiperSlide>
         <SwiperSlide>
-            <Link href="/azor.asp">
+            <Link href="/azor">
                 <a> 
                     <BrandBox 
                         data={{
                             cover:'https://pedidos.com/myfotos/Pedidos-com/pagina/home19/tiendas/azor-brand.png',
                             alt: 'Tienda Oficial AZOR',
                             imgavatar: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/azor.png',
-                            avataraalt: 'Productos Azor', 
+                            avataralt: 'Productos Azor', 
                             introbrand:'Escritura',
                             brandname:'AZOR',
                             link:'',

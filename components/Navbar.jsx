@@ -393,7 +393,7 @@ export function Navbar(props) {
 										InputProps={{
 											endAdornment: (
 												<InputAdornment position='start'>
-													<Button type='submit'>
+													<Button type='submit' aria-label="search" >
 														<SearchIcon />
 													</Button>
 												</InputAdornment>
@@ -414,6 +414,8 @@ export function Navbar(props) {
 							component={'div'}>
 							{/* This inline styles is temporaly, when add link router component, remove */}
 							<Hidden mdDown>
+								<Link href='/servicios/empresas'>
+								<a>
 								<Box
 									component={'span'}
 									style={{ cursor: 'pointer', fontWeight: 'Bold' }}>
@@ -430,11 +432,13 @@ export function Navbar(props) {
 										empresas
 									</Typography>
 								</Box>
+								</a>
+								</Link>
 							</Hidden>
 
 							<Hidden smDown>
 								<Box component={'span'}>
-									<IconButton
+									<IconButton aria-label="Favorites" 
 										onClick={handleClick}
 										aria-controls={open ? 'favorites' : undefined}
 										aria-haspopup='true'>
@@ -464,7 +468,7 @@ export function Navbar(props) {
 									<Help tipo={'2'} />
 								</Box>
 							</Hidden>
-							<IconButton color='primary'>
+							<IconButton color='primary' aria-label="ShoppingCart">
 								<Badge
 									badgeContent={sesPartidas > 0 ? sesPartidas : null}
 									color='secondary'>

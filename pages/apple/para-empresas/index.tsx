@@ -1,15 +1,10 @@
+import Head from 'next/head';
 import React from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
+import {Container,Box, Grid, Typography, Divider, Button, TextField} from '@mui/material';
 import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
 import HandymanOutlinedIcon from '@mui/icons-material/HandymanOutlined';
 import InventoryIcon from '@mui/icons-material/Inventory';
-import TextField from '@mui/material/TextField';
-
+//Components
 import { Layout } from 'layout/Layout';
 import Link from 'components/Link';
 import AppleContentCard from 'components/AppleContentCard';
@@ -23,7 +18,7 @@ const categories = [
 			{
 				label: 'MacBook Air',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/macbook-air.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052039',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052039',
 			},
 			{
 				label: 'MacBook Pro',
@@ -32,24 +27,24 @@ const categories = [
 					{
 						label: 'MacBook Pro 13',
 						img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/macbookpro.png',
-						url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052022',
+						url: 'https://www.pedidos.com/busquedas?query=MAMB23052022',
 					},
 					{
 						label: 'MacBook Pro 14 y 16',
 						img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/macbook-pro1416.png',
-						url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052023',
+						url: 'https://www.pedidos.com/busquedas?query=MAMB23052023',
 					},
 				],
 			},
 			{
 				label: 'iMac',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/imac.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052038',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052038',
 			},
 			{
 				label: 'Accesorios',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/macbook-air.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052025',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052025',
 			},
 		],
 	},
@@ -60,27 +55,27 @@ const categories = [
 			{
 				label: 'iPad mini',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/ipad/ipad-mini.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052030',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052030',
 			},
 			{
 				label: 'iPad',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/ipad/ipad-9.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052028',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052028',
 			},
 			{
 				label: 'iPad Air',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/ipad/ipad-air.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052027',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052027',
 			},
 			{
 				label: 'iPad Pro',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/ipad/ipad-pro.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052032',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052032',
 			},
 			{
 				label: 'Accesorios',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/ipad/accesorios.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052026',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052026',
 			},
 		],
 	},
@@ -91,17 +86,17 @@ const categories = [
 			{
 				label: 'Apple Watch Series 7',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/watch/apple-watch-series-7.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052035',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052035',
 			},
 			{
 				label: 'Apple Watch Series 3',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/watch/apple-watch-series-3.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052033',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052033',
 			},
 			{
 				label: 'Ver todo',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/watch/apple-watch-series-6.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052034',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052034',
 			},
 		],
 	},
@@ -112,32 +107,32 @@ const categories = [
 			{
 				label: 'AirPods 2da generación',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/airpods/airpods-2.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052035',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052035',
 			},
 			{
 				label: 'AirPods 3da generación',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/airpods/airpods-3.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052033',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052033',
 			},
 			{
 				label: 'AirPods Pro',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/airpods/airpods-pro.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052034',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052034',
 			},
 			{
 				label: 'AirPods Max',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/airpods/airpods-max.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052035',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052035',
 			},
 			{
 				label: 'Apple TV',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/apple-home/appleTV-4k.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052033',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052033',
 			},
 			{
 				label: 'HomePod mini',
 				img: 'https://pedidos.com/myfotos/pedidos-com/pagina/apple/productos/apple-home/homepod.png',
-				url: 'https://www.pedidos.com/busquedas.asp?query=MAMB23052034',
+				url: 'https://www.pedidos.com/busquedas?query=MAMB23052034',
 			},
 		],
 	},
@@ -273,7 +268,11 @@ const AppleParaEmpresas = () => {
 	const onSubmit = () => {};
 
 	return (
-		<Layout title='Apple para empresas'>
+		<Layout title='Apple para empresas | Pedidos.com'>
+			<Head>
+				<meta name="description" content=""/>
+				<link rel="canonical" href="https://pedidos.com/apple/para-empresas"/>
+			</Head>
 			<Container maxWidth='xl'>
 				<Box
 					component='img'
@@ -914,7 +913,7 @@ const AppleParaEmpresas = () => {
 								décadas. La familia{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=APPLE'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=APPLE'
 									target='_blank'>
 									Mac de Apple
 								</Link>{' '}
@@ -928,7 +927,7 @@ const AppleParaEmpresas = () => {
 								resistente y sobre todo, estético. La{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=APPLE'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=APPLE'
 									target='_blank'>
 									Macbook Pro
 								</Link>{' '}
@@ -962,7 +961,7 @@ const AppleParaEmpresas = () => {
 								marca, incluidos los últimos lanzamientos. Las{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS&amp;m=APPLE'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS&amp;m=APPLE'
 									target='_blank'>
 									iMac de escritorio
 								</Link>{' '}
@@ -999,7 +998,7 @@ const AppleParaEmpresas = () => {
 								los productos Apple es mediante pedidos.com, desde las{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=APPLE'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=APPLE'
 									target='_blank'>
 									MacBook Pro y MacBook Air
 								</Link>{' '}
@@ -1010,7 +1009,7 @@ const AppleParaEmpresas = () => {
 								Consigue tu siguiente{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=APPLE'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=APPLE'
 									target='_blank'>
 									computadora Apple
 								</Link>
@@ -1019,7 +1018,7 @@ const AppleParaEmpresas = () => {
 								reconocida mundialmente. Finalmente, pero no menos importante,{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/TABLETS&amp;m=APPLE'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/TABLETS&amp;m=APPLE'
 									target='_blank'>
 									iPad
 								</Link>{' '}
@@ -1031,7 +1030,7 @@ const AppleParaEmpresas = () => {
 								tecnología de Apple México en{' '}
 								<Link
 									underline='none'
-									href='/apple/para-empresas.asp'
+									href='/apple/para-empresas'
 									target='_blank'>
 									Pedidos.com
 								</Link>

@@ -69,7 +69,7 @@ const ThreeM = () => {
 					title='Marcas de 3M'
 					subtitle='Las marcas más importantes para todos los días.'
 					items={brands}
-					ctaLink='/busquedas.asp?query=3m&m=3M'
+					ctaLink='/busquedas?query=3m&m=3M'
 					breakpoints={{
 						1024: {
 							slidesPerView: 3,

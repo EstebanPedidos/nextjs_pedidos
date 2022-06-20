@@ -54,37 +54,37 @@ const brandLogos = [
 		label: 'ACCO',
 		img: 'https://pedidos.com/images/micrositios/acco/ACCO.png',
 		width: '100',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA&m=ACCO',
+		url: '/busquedas?/PRODUCTOS-PARA-OFICINA&m=ACCO',
 	},
 	{
 		label: 'BACO',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/papeleria/baco.png',
 		width: '100',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA&m=BACO',
+		url: '/busquedas?/PRODUCTOS-PARA-OFICINA&m=BACO',
 	},
 	{
 		label: 'AZOR',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/papeleria/azor.png',
 		width: '100',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA&m=AZOR',
+		url: '/busquedas?/PRODUCTOS-PARA-OFICINA&m=AZOR',
 	},
 	{
 		label: 'Pilot',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/papeleria/pilot.png',
 		width: '100',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA&m=PILOT',
+		url: '/busquedas?/PRODUCTOS-PARA-OFICINA&m=PILOT',
 	},
 	{
 		label: 'Maped',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/papeleria/maped.png',
 		width: '100',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA&m=MAPED',
+		url: '/busquedas?/PRODUCTOS-PARA-OFICINA&m=MAPED',
 	},
 	{
 		label: 'Casio',
 		img: 'https://pedidos.com/include/css/responsivo/imagenes/papeleria/casio.png',
 		width: '100',
-		url: '/busquedas.asp?/PRODUCTOS-PARA-OFICINA&m=CASIO',
+		url: '/busquedas?/PRODUCTOS-PARA-OFICINA&m=CASIO',
 	},
 ];
 
@@ -138,7 +138,7 @@ const Papeleria = () => {
 						title='Productos para oficina'
 						items={brands}
 						ctaLabel='Ver'
-						ctaLink='/busquedas.asp?/PRODUCTOS-PARA-OFICINA'
+						ctaLink='/busquedas?/PRODUCTOS-PARA-OFICINA'
 						centered
 					/>
 				</Container>
@@ -239,7 +239,7 @@ const Papeleria = () => {
 							<Typography variant='body2' gutterBottom>
 								<strong>
 									Envío gratis a partir de $599 (a excepción del papel) siendo{' '}
-									<Link href='/membresia/pro.asp'> miembro PRO</Link>
+									<Link href='/membresia/pro'> miembro PRO</Link>
 								</strong>
 								No tienes porque preocuparte de los envíos. Nosotros nos
 								encargamos de organizar la logística de entrega en las puertas

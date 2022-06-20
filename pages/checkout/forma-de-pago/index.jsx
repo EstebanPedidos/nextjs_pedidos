@@ -261,7 +261,7 @@ export default function Forma_de_pago(){
     return (
     <Box className={classes.root}>
         <Head>
-            <link href="https://pedidos.com/checkout/forma-de-pago.asp" rel="canonical" />
+            <link href="https://pedidos.com/checkout/forma-de-pago" rel="canonical" />
             <title>Forma de pago | Pedidos.com</title>
             <meta name="description" content="Conoce las formas de pago que tenemos para ti: Paga en línea con tu tarjeta de crédito o débito, PayPal, Paga al recibir ya sea con tarjeta (VISA,AMEX) o efectivo, transferencias y dépositos." />
         </Head>

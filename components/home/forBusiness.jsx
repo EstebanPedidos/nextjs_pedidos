@@ -75,7 +75,7 @@ export default function TrendSlides() {
                         title: 'Una experiencia como ninguna otra.', 
                         cta:'Conocer',
                         imgb:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/empresas/aar-business.png',
-                        keyw:'Apple at Work, Pedidos.com' }}
+                        kw:'Apple at Work, Pedidos.com' }}
                     />				
                     </a>
                 </Link>
@@ -89,7 +89,7 @@ export default function TrendSlides() {
                         title: 'Protecciones para dispositivos', 
                         cta:'Ver Detalles',
                         imgb:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/empresas/planes-proteccion2.png',
-                        keyw:'Protecciones y garantías' }}
+                        kw:'Protecciones y garantías' }}
                     />				
                     </a>
                 </Link> 
@@ -103,7 +103,7 @@ export default function TrendSlides() {
                             title: 'Precios por volumen', 
                             cta:'Ver Detalles',
                             imgb:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/empresas/precios-volumen.png',
-                            keyw:'Precios por volumen' }}
+                            kw:'Precios por volumen' }}
                         />				
                         </a>
                 </Link>

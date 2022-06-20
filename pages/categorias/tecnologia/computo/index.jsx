@@ -34,47 +34,47 @@ const categories = [
 const brands = [
 	{
 		label: 'Dell',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=DELL',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=DELL',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/dell.webp',
 	},
 	{
 		label: 'Lenovo',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=LENOVO',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=LENOVO',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/lenovo.webp',
 	},
 	{
 		label: 'HP',
-		url: '/busquedas.asp?query=laptop+hp',
+		url: '/busquedas?query=laptop+hp',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/hp.webp',
 	},
 	{
 		label: 'Apple',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=APPLE',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=APPLE',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/apple.webp',
 	},
 	{
 		label: 'Asus',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=ASUS',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=ASUS',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/asus.webp',
 	},
 	{
 		label: 'Huawei',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=HUAWEI',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=HUAWEI',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/huawei.webp',
 	},
 	{
 		label: 'Benq',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=BENQ',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=BENQ',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/benq.webp',
 	},
 	{
 		label: 'Samsung',
-		url: 'https://busquedas.asp/?query=monitor+Samsung',
+		url: 'https://busquedas/?query=monitor+Samsung',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/samsung.webp',
 	},
 	{
 		label: 'Acteck',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=ACTECK',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=ACTECK',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/acteck.webp',
 	},
 ];
@@ -82,17 +82,17 @@ const brands = [
 const CPUbrands = [
 	{
 		label: 'AMD',
-		url: '/busquedas.asp?query=AMD',
+		url: '/busquedas?query=AMD',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/procesadores/amd.webp',
 	},
 	{
 		label: 'Intel',
-		url: '/busquedas.asp?query=Intel',
+		url: '/busquedas?query=Intel',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/procesadores/intel.webp',
 	},
 	{
 		label: 'Apple M1',
-		url: '/busquedas.asp?query=CHIP-M1&m=APPLE',
+		url: '/busquedas?query=CHIP-M1&m=APPLE',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/procesadores/chip-m1.webp',
 	},
 ];
@@ -122,7 +122,7 @@ const Computer = () => {
 					subtitle='Gran variedad de opciones para tu día a día.'
 					items={categories}
 					ctaLabel='Ver todo'
-					ctaLink='/busquedas.asp?/TECNOLOGIA/COMPUTO'
+					ctaLink='/busquedas?/TECNOLOGIA/COMPUTO'
 					breakpoints={{
 						768: {
 							slidesPerView: 3,
@@ -214,7 +214,7 @@ const Computer = () => {
 								¿Estás buscando{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									{' '}
 									laptops baratas
@@ -225,7 +225,7 @@ const Computer = () => {
 								más conveniente. Para tu hogar, PYME u oficina encuentra{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO'
+									href='/busquedas?/TECNOLOGIA/COMPUTO'
 									target='_blank'>
 									las mejores marcas de cómputo en Pedidos.com
 								</Link>{' '}
@@ -251,7 +251,7 @@ const Computer = () => {
 								Comencemos por lo básico: ¿existen grandes diferencias entre las{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									{' '}
 									desktops para oficina
@@ -259,7 +259,7 @@ const Computer = () => {
 								y las conocidas como{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/ALL-IN-ONE'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/ALL-IN-ONE'
 									target='_blank'>
 									{' '}
 									“All in One”
@@ -267,7 +267,7 @@ const Computer = () => {
 								? Las primeras incluyen monitores para PC,{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/TECLADO-Y-MOUSE/TECLADOS'
+									href='/busquedas?/TECNOLOGIA/TECLADO-Y-MOUSE/TECLADOS'
 									target='_blank'>
 									{' '}
 									teclados
@@ -324,7 +324,7 @@ const Computer = () => {
 								acuerdo a tus necesidades entre variedad de marcas como{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=HP'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=HP'
 									target='_blank'>
 									{' '}
 									laptops HP
@@ -332,7 +332,7 @@ const Computer = () => {
 								,{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=MAC'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=MAC'
 									target='_blank'>
 									{' '}
 									Mac
@@ -340,7 +340,7 @@ const Computer = () => {
 								,{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=Dell'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=Dell'
 									target='_blank'>
 									{' '}
 									Dell
@@ -348,7 +348,7 @@ const Computer = () => {
 								,{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=ACER'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=ACER'
 									target='_blank'>
 									{' '}
 									Acer
@@ -356,7 +356,7 @@ const Computer = () => {
 								,{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=Asus'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=Asus'
 									target='_blank'>
 									{' '}
 									Asus
@@ -364,7 +364,7 @@ const Computer = () => {
 								o{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=Lenovo'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=Lenovo'
 									target='_blank'>
 									{' '}
 									Lenovo
@@ -374,7 +374,7 @@ const Computer = () => {
 								deseas mayor comodidad y simpleza, también puedes elegir{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/TABLETS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/TABLETS'
 									target='_blank'>
 									{' '}
 									tablets
@@ -383,7 +383,7 @@ const Computer = () => {
 								aproximadamente, u opciones más avanzadas como Samsung o{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?query=Tablet+ipad'
+									href='/busquedas?query=Tablet+ipad'
 									target='_blank'>
 									{' '}
 									Apple
@@ -411,7 +411,7 @@ const Computer = () => {
 								pantallas súper detalladas. Y si de{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/MONITORES'
 									target='_blank'>
 									{' '}
 									monitores para PC
@@ -461,7 +461,7 @@ const Computer = () => {
 								Al momento de elegir tipos de{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO'
+									href='/busquedas?/TECNOLOGIA/COMPUTO'
 									target='_blank'>
 									hardware
 								</Link>{' '}
@@ -474,7 +474,7 @@ const Computer = () => {
 								Ejemplos hay muchos:{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/ACCESORIOS/COMPONENTES-DE-COMPUTO/DISCOS-DUROS-EXTERNOS'
+									href='/busquedas?/ACCESORIOS/COMPONENTES-DE-COMPUTO/DISCOS-DUROS-EXTERNOS'
 									target='_blank'>
 									{' '}
 									procesadores
@@ -482,7 +482,7 @@ const Computer = () => {
 								,{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/ACCESORIOS/COMPONENTES-DE-COMPUTO/DISCOS-DUROS-EXTERNOS'
+									href='/busquedas?/ACCESORIOS/COMPONENTES-DE-COMPUTO/DISCOS-DUROS-EXTERNOS'
 									target='_blank'>
 									{' '}
 									tarjetas madres
@@ -552,7 +552,7 @@ const Computer = () => {
 								trabajo que realices, desees algo físico y tradicional como los{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/ACCESORIOS/COMPONENTES-DE-COMPUTO/DISCOS-DUROS-EXTERNOS'
+									href='/busquedas?/ACCESORIOS/COMPONENTES-DE-COMPUTO/DISCOS-DUROS-EXTERNOS'
 									target='_blank'>
 									{' '}
 									Discos Duros Externos
