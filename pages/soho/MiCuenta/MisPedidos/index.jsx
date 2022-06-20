@@ -291,7 +291,7 @@ export default function MisPedidos() {
                                             > 
                                                 Reservado
                                             </Button>
-                                            <Menu
+                                            <Menu elevation={10}
                                                 id="basic-menu"
                                                 anchorEl={anchorEl}
                                                 open={openMenu}
