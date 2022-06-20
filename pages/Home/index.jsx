@@ -253,7 +253,7 @@ export default function Home() {
                                                                             row.tipo === 'B' && index < 4 &&
                                                                             <Grid item xs={6} sm={3} md={3}>
                                                                                 <Box component="div" py={1}>
-                                                                                    <Link href={`/articulos/${row.itemNum}`}>
+                                                                                    <Link href={`/articulos/${row.url}`}>
                                                                                         <a>
                                                                                             <CardActionArea>
                                                                                                 <Card variant="outlined">
@@ -301,7 +301,7 @@ export default function Home() {
                                                                             row.tipo === 'V' && index < 4 &&
                                                                             <Grid item xs={6} sm={3} md={3}>
                                                                                 <Box component="div" py={1}>
-                                                                                    <Link href={`/articulos/${row.itemNum}`}>
+                                                                                    <Link href={`/articulos/${row.url}`}>
                                                                                         <a>
                                                                                             <CardActionArea>
                                                                                                 <Card variant="outlined">
@@ -346,7 +346,7 @@ export default function Home() {
                                                                         {favoritos.map((row, index ) => (
                                                                             (index < 4 ) &&
                                                                             <Grid item xs={6} sm={3} md={3}>
-                                                                                <Link href={`/articulos/${row.itemNum}`}>
+                                                                                <Link href={`/articulos/${row.url}`}>
                                                                                     <a>
                                                                                     <CardActionArea>
                                                                                         <Card variant="outlined" >
