@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import algoliasearch from 'algoliasearch/lite';
 
 //Tag Manager
@@ -181,37 +181,41 @@ export default function Busquedas(props) {
 
 	const router = useRouter();
 	let url = router.query.query;
-	let searchState = {}
+	let searchState = useRef({})
+    let [ renderSearch, setRenderSearch ] = useState({render: true})
 	let refinement = ''
-    if (url === undefined && router.query && Object.keys(router.query).length > 0) {
-				const query = Object.keys(router.query)[0]
 
-				const categories = query.split('/')
-				if (categories.length > 3) {
-					refinement = categories[1] + ' > ' + categories[2] + ' > ' + categories[3]
-					searchState = {
-						menu: {
-							LINEA_NEG: categories[1],
-							COD_FAMILIA: categories[1] + ' > ' + categories[2],
-							COD_SUBFAMILIA: categories[1] + ' > ' + categories[2] + ' > ' + categories[3]
-						}
-					}
-				} else if (categories.length > 2) {
-					refinement = categories[1] + ' > ' + categories[2]
-					searchState = {
-						menu: {
-							LINEA_NEG: categories[1],
-							COD_FAMILIA: categories[1] + ' > ' + categories[2]
-						}
-					}
-				} else if (categories.length > 1) {
-					refinement = categories[1]
-					searchState = {
-						menu: {
-							LINEA_NEG: categories[1]
-						}
-					}
-				}
+    if (url === undefined && router.query && Object.keys(router.query).length > 0) {
+        const query = Object.keys(router.query)[0]
+        let searchStateValue = {}
+
+        const categories = query.split('/')
+        if (categories.length > 3) {
+            refinement = categories[1] + ' > ' + categories[2] + ' > ' + categories[3]
+            searchStateValue = {
+                menu: {
+                    LINEA_NEG: categories[1],
+                    COD_FAMILIA: categories[1] + ' > ' + categories[2],
+                    COD_SUBFAMILIA: categories[1] + ' > ' + categories[2] + ' > ' + categories[3]
+                }
+            }
+        } else if (categories.length > 2) {
+            refinement = categories[1] + ' > ' + categories[2]
+            searchStateValue = {
+                menu: {
+                    LINEA_NEG: categories[1],
+                    COD_FAMILIA: categories[1] + ' > ' + categories[2]
+                }
+            }
+        } else if (categories.length > 1) {
+            refinement = categories[1]
+            searchStateValue = {
+                menu: {
+                    LINEA_NEG: categories[1]
+                }
+            }
+        }
+        searchState.current = searchStateValue
     }
 
     const [open, setOpen] = React.useState(false);
@@ -274,25 +278,25 @@ export default function Busquedas(props) {
     };
 
 		let breadcrumb = (<></>)
-		if (searchState.menu) {
+		if (searchState.current.menu) {
 			breadcrumb = (<div className="ais-Breadcrumb">
 				<ul className="ais-Breadcrumb-list">
 					<li className="ais-Breadcrumb-item">
 						<a className="ais-Breadcrumb-link" href="#">Home</a>
 					</li>
-					{searchState.menu.LINEA_NEG ?? (
+					{searchState.current.menu.LINEA_NEG ?? (
 						<li className="ais-Breadcrumb-item">
 							<span className="ais-Breadcrumb-separator"> &gt; </span>
 							<a className="ais-Breadcrumb-link" href="#">{refinement}</a>
 						</li>
 					)}
-					{searchState.menu.COD_FAMILIA ?? (
+					{searchState.current.menu.COD_FAMILIA ?? (
 						<li className="ais-Breadcrumb-item">
 							<span className="ais-Breadcrumb-separator"> &gt; </span>
 							<a className="ais-Breadcrumb-link" href="#">{refinement}</a>
 						</li>
 					)}
-					{searchState.menu.COD_SUBFAMILIA ?? (
+					{searchState.current.menu.COD_SUBFAMILIA ?? (
 						<li className="ais-Breadcrumb-item">
 							<span className="ais-Breadcrumb-separator"> &gt; </span>
 							<a className="ais-Breadcrumb-link" href="#">{refinement}</a>
@@ -309,13 +313,21 @@ export default function Busquedas(props) {
 
 		const HitWithInsights = connectHitInsights(aa)(Hit);
 
+        let searchVariable = searchState.current
+        if (!renderSearch.render) {
+            searchVariable = renderSearch
+        }
     return(
         <Layout title={url === undefined ? '' : url+" Compra en México Pedidos.com"}>
             <div className={classes.bgcontent}>
                 <InstantSearch 
-										searchState={searchState}
+					searchState={searchVariable}
                     indexName={indexX}
                     searchClient={searchClient}
+                    onSearchStateChange={newSearchState => {
+                        setRenderSearch(newSearchState)
+                        searchState.current = newSearchState
+                    }}
                 >
 									<div style={{display:'none'}}>
 										<Menu attribute='LINEA_NEG'/>
