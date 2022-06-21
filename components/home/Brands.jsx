@@ -53,7 +53,7 @@ const useStyles = makeStyles(() => ({
             
             <CardContent>
                 <Box component="div" textAlign="left" ml={2}>
-                    <Typography  variant="h6" component="caption" color="textSecondary">{data.introbrand} </Typography>
+                    <Typography  variant="h6" component="caption" color="textSecondary" textAlign='left' sx={{width:'300px'}}>{data.introbrand} </Typography>
                     <Typography variant="h4" component="h6" sx={{fontWeight:'600'}}>{data.brandname}</Typography>
                 </Box>
             </CardContent>
@@ -107,7 +107,7 @@ export default function TrendSlides() {
                             alt: 'Apple at Work, Pedidos.com',
                             imgavatar: 'https://pedidos.com/myfotos/Pedidos-com/pagina/home22/brands/applear.png',
                             avataralt: 'Apple Authorized Reseller',
-                            introbrand:'Diseñadospara',
+                            introbrand:'Diseñados para ',
                             brandname:'Las empresas',
 
                             link:'',
