@@ -408,7 +408,7 @@ export default function FichaTecnica(props){
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={7} md={8} lg={8}>
                                         <Grid container>
-                                            <Grid>
+                                            <Grid item  xs={12} sm={12}>
                                                 <Typography variant="h5" component="h1" sx={{fontWeight:'500'}}>
                                                     {(datos.hasOwnProperty('item_num'))?`${datos.descripcion.descripcion.urlName}`
                                                     : 

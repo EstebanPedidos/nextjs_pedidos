@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     // background: '#F7F7F9',
 },
   paperBox: {
-    
+    width:'100%',
     boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',
 },
 colorIcon: {
@@ -63,6 +63,8 @@ imgProduct: {
     padding: '5px', 
     height: '90px',
     width: '90px',
+    position:'relative',
+    boxShadow:'none',
     
 },
 }));
@@ -820,7 +822,7 @@ export default function Pedido(props) {
         <Layout partidas={partidas} title={"Mi Pedido #"+pedido+" | Pedidos.com"}>
         <div>
             <Box className={classes.bgcontent} component="div">
-                <Box component="div" m={1}>
+                <Box component="div" mx={1}>
                     <Grid
                         container
                         direction="row"
