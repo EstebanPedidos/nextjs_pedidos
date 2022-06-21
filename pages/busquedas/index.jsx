@@ -185,6 +185,7 @@ export default function Busquedas(props) {
     let [ renderSearch, setRenderSearch ] = useState({render: true})
 	let refinement = ''
 
+
     if (url === undefined && router.query && Object.keys(router.query).length > 0) {
         const query = Object.keys(router.query)[0]
         let searchStateValue = {}
@@ -2067,6 +2068,7 @@ export default function Busquedas(props) {
 	
 
 	function Hit(props) {
+    
 		const insights = props.insights
         const tagManagerArgs = {
             gtmId: 'GTM-NLQV5KF',
@@ -2205,7 +2207,7 @@ export default function Busquedas(props) {
                                             variant='h5'
                                             component='body1'
                                             className={classes.hitPrice}>
-                                            ${props.hit.PRECIO}
+                                            {Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(props.hit.PRECIO)}
                                         </Typography>
                                         <br></br>
                                         {props.hit.PRECIO > 500 ? (
