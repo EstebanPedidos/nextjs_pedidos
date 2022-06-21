@@ -407,7 +407,7 @@ export default function Home() {
                                                                         Mis Pedidos
                                                                 </Typography>
                                                                 <Link
-                                                                    href={`/MisPedidos`}
+                                                                    href={`/soho/MiCuenta/MisPedidos`}
                                                                     passHref>
                                                                     <Button fullWidth component="a" variant="outlined" color="primary">
                                                                         Ver todos
@@ -479,7 +479,7 @@ export default function Home() {
                                                             </Typography>
                                                         </Grid>
                                                         <Grid item xs={12}>
-                                                            <Link href="https://api.whatsapp.com/send?phone=5215634076339&text=Pedidos.com%20necesito%20ayuda">
+                                                            <Link href="/soporte-tecnico">
                                                                 <Button component="a" variant="outlined" color="primary">
                                                                     ¿Necesitas Ayuda?
                                                                 </Button>

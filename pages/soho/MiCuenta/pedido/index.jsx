@@ -461,7 +461,9 @@ export default function Pedido(props) {
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={4}>   
-                    <Button variant="contained" color="primary" fullWidth size="large" href="/misPedidos">Regresar</Button>
+                <Link href="/soho/MiCuenta/MisPedidos">
+                    <Button variant="contained" component="a" color="primary" fullWidth size="large">Regresar</Button>
+                </Link>
                 </Grid>
             </Grid>
             <Divider light/>
