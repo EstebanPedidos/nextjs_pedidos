@@ -8,12 +8,24 @@ import {AppBar, Toolbar, Box,  Paper, Container,
         import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import  Help  from '../../components/modals/Help';
 import { LiveChatWidget, EventHandlerPayload } from '@livechat/widget-react'
+import TagManager from 'react-gtm-module'
+
 
 export default function CheckoutHeader() {
     const [openModal, setOpenModal] = useState(false)
     function handleOpenModal(){
         setOpenModal(false)
     }
+
+    const tagManagerArgs = {
+        gtmId: 'GTM-NLQV5KF'
+    }
+
+    useEffect(() => {
+        TagManager.initialize(tagManagerArgs)
+
+
+	}, []);
     
     return (
         <>   

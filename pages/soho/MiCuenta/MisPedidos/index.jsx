@@ -268,7 +268,8 @@ export default function MisPedidos() {
                                         pathname: '/soho/MiCuenta/pedido',
                                         search: '?pedido='+row.pedidoNum,
                                         state: { pedido: row.pedidoNum }
-                                        }}>
+                                        }}
+                                    >
                                         <Button color="primary" size="large" fullWidth endIcon={<ArrowForwardIosIcon />}>
                                            <Typography
                                            variant='h6' component='h3'> #{row.pedidoNum} </Typography>
@@ -315,7 +316,7 @@ export default function MisPedidos() {
                                                     
                                                     {row.estatusEnvio != "RETURNED" && row.estatusEnvio != "REFUNDED" && 
                                                         <MenuItem>
-                                                            <Link href="/checkout/direccion-de-envio"> 
+                                                            <Link href="/checkout/direccion-de-envio" onClick={localStorage.setItem('Pedido', row.pedidoNum)}> 
                                                                 <a>
                                                                     Pagar
                                                                 </a>
