@@ -39,6 +39,8 @@ import Script from 'next/script';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Alertas from '../pages/checkout/Alertas';
+import TagManager from 'react-gtm-module'
+
 
 function ElevationScroll(props) {
 	const { children, window } = props;
@@ -93,7 +95,13 @@ export function Navbar(props) {
 	let Usuario = 0;
 	let ejecutivoNum = 0;
 
+    const tagManagerArgs = {
+        gtmId: 'GTM-NLQV5KF'
+    }
+
 	useEffect(() => {
+        TagManager.initialize(tagManagerArgs)
+
 		setNombre(localStorage.getItem('Usu_Nomb'));
 		if (localStorage.getItem('Login') === 'Ok') {
 			setLogged(true);
