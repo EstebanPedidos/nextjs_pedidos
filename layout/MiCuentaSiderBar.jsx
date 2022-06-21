@@ -289,17 +289,27 @@ export default function MiCuentaSiderBar() {
                     <Divider />
                         <Box component="divider" py={2}>
                         <Box component="div" py={1}>
+                            <Grid container spacing={2} alignContent="center">
                             <Button startIcon={<ShuffleIcon />} onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones'
                                                 +'&body=Completar%20la%20siguiente%20información%0D%0A'+
                                                 'Pedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A')}>
                                 Garantías & Devoluciones
                             </Button>
                             <br/>
-                            <a href="mailto:quejas@pedidos.com.mx?subject=Queja%20sobre">
-                                <Button startIcon={<FeedbackOutlinedIcon />}>
-                                    Levantar queja
-                                </Button>
-                            </a>
+                            <Grid item></Grid>
+                            <Grid item>
+                                <Box display={'flex'} alignItems='left' justifyContent='left' >
+                                    <a href="mailto:quejas@pedidos.com.mx?subject=Queja%20sobre">
+                                        <Box component='span' justifyContent="center" m="auto" py={1} sx={{justifyContent: "center", display: "flex" }}>
+                                            <FeedbackOutlinedIcon mr={2} color="primary"/>
+                                            <Typography variant="subtitle2" pl={1} component="p" color="primary">
+                                                Levantar queja
+                                            </Typography>
+                                        </Box>
+                                    </a>
+                                </Box>
+                            </Grid>
+                            </Grid>
                         </Box>   
                         <Divider />
                         <Box component="div" pt={3} >
