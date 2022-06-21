@@ -295,11 +295,11 @@ export default function MiCuentaSiderBar() {
                                 Garantías & Devoluciones
                             </Button>
                             <br/>
-                            <Button startIcon={<FeedbackOutlinedIcon />}
-                                onClick={() => window.open('mailto:quejas@pedidos.com.mx?subject=Queja%20sobre')}
-                            >
-                                Levantar queja
-                            </Button>
+                            <a href="mailto:quejas@pedidos.com.mx?subject=Queja%20sobre">
+                                <Button startIcon={<FeedbackOutlinedIcon />}>
+                                    Levantar queja
+                                </Button>
+                            </a>
                         </Box>   
                         <Divider />
                         <Box component="div" pt={3} >
