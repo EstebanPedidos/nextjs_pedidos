@@ -34,6 +34,8 @@ import { content, logo } from './Navbar.module.css';
 import DrawerCategorias from './drawers/drawer';
 
 //Nextjs
+import Script from 'next/script';
+
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Alertas from '../pages/checkout/Alertas';
@@ -359,7 +361,8 @@ export function Navbar(props) {
 				<AppBar position='sticky'>
 					<Toolbar className={content}>
 						<Box component={'div'} alignItems={'center'} display='flex'>
-							<Hidden smUp>
+                        
+                            <Hidden smUp>
 								<Box component={'span'}>
 									<DrawerCategorias />
 								</Box>

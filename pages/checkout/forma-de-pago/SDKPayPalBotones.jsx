@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 //next js
 import { useRouter } from 'next/router'
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
@@ -14,6 +15,7 @@ const initialOptions = {
 
 export default function SDKPayPalBotones({evento}){  
     const router    = useRouter()
+    const [orderId,setOrderId]= useState("")
     return (
         <>
         <PayPalScriptProvider options={initialOptions}>
@@ -21,21 +23,24 @@ export default function SDKPayPalBotones({evento}){
                 createOrder={() => { 
                     async function orden(){
                         let services    = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'})
-                        let data        = await services.data
+                        setOrderId(data)
                         return data
                     }       
                     return orden()
                 }}
-                onApprove={() => { 
-                    async function liberar(){        
-                        let services    = await Services('POST','/registrov2/getOrderPayPal',{evento:evento,orderID:props.data,address:'192.10.2.166',isSTC:'S',id_PayTok:'', term:'',interval_duration:''})
+                onApprove={(orderId) => { 
+                    
+                    async function liberar(){      
+                         
+                        let services    = await Services('POST','/registrov2/getOrderPayPal',{evento:evento,orderID:orderId,address:'192.10.2.166',isSTC:'S',id_PayTok:'', term:'',interval_duration:''})
                         let data        = await services.data
+                        
                         if(data.estatus == "COMPLETED" || data.estatus == "completed"){
                             router.push('/checkout/confirmacion-de-pago')
                         }else{
-                            alet('Error en transaccion')
+                            alert('Error en transaccion')
                         }
-                    }
+                    }                    
                     liberar()
                 }}
             />
