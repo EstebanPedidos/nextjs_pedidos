@@ -8,6 +8,10 @@ import TagManager from 'react-gtm-module'
 import { Container, Box, Grid, Paper, Typography, Button, Link, Skeleton,
         Card, CardActions, CardContent, CardActionArea,
         Avatar, Divider, Radio, RadioGroup, FormControlLabel} from '@mui/material';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import makeStyles from '@mui/styles/makeStyles';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -26,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
     },
-    
+    label:{width:'100%'},
     rootCardA: {
         flexGrow: 1,
         height: "13rem",
@@ -259,32 +263,34 @@ export default function Direccion_de_envio(props){
                                                             <Card className={classes.root} variant="outlined">
                                                                 <Box component="div" ml={1}>
                                                                     <CardActionArea>
-                                                                        <FormControlLabel sx={{ padding:"0px"}} value="0" label={
-                                                                            <Grid container direction="row" justifyContent="center" alignItems="center">
-                                                                                <CardContent>
-                                                                                        <Grid container alignItems="center" direction="row" justifyContent="flex-start">
-                                                                                            <Grid item xs={4} sm={2}>
-                                                                                                <Box justifyContent="center" py={1}>
-                                                                                                    <Avatar>
-                                                                                                        <StorefrontOutlinedIcon />
-                                                                                                    </Avatar>
-                                                                                                </Box> 
-                                                                                            </Grid>
-                                                                                            <Grid item xs={8} sm={10}>  
-                                                                                                <Box component="div">
-                                                                                                    {(data.hasOwnProperty('jsonResumen'))&&
-                                                                                                    <Typography variant="h6" component="h2">
-                                                                                                        {data.jsonResumen.resumen.entregaPickup} en PickUp Center
-                                                                                                    </Typography>
-                                                                                                    }
-                                                                                                    <Typography variant="body1" gutterBottom color="textSecondary">
-                                                                                                        Alejandro Dumas 135, Polanco, 11550 CDMX.
-                                                                                                    </Typography>
-                                                                                                </Box>
-                                                                                            </Grid>
-                                                                                        </Grid> 
-                                                                                </CardContent>
-                                                                            </Grid>
+                                                                        <FormControlLabel fullWidth sx={{ padding:"0px"}} value="0" label={
+                                                                            <Box sx={{width:'100%'}}>
+                                                                                <Grid container direction="row" justifyContent="center" alignItems="center">
+                                                                                    <CardContent>
+                                                                                            <Grid container alignItems="center" direction="row" justifyContent="flex-start">
+                                                                                                <Grid item xs={4} sm={2}>
+                                                                                                    <Box justifyContent="center" py={1}>
+                                                                                                        <Avatar>
+                                                                                                            <StorefrontOutlinedIcon />
+                                                                                                        </Avatar>
+                                                                                                    </Box> 
+                                                                                                </Grid>
+                                                                                                <Grid item xs={8} sm={10}>  
+                                                                                                    <Box component="div">
+                                                                                                        {(data.hasOwnProperty('jsonResumen'))&&
+                                                                                                        <Typography variant="h6" component="h2">
+                                                                                                            {data.jsonResumen.resumen.entregaPickup} en PickUp Center
+                                                                                                        </Typography>
+                                                                                                        }
+                                                                                                        <Typography variant="body1" gutterBottom color="textSecondary" sx={{width:'100%'}}>
+                                                                                                            Alejandro Dumas 135, Polanco, 11550 CDMX.
+                                                                                                        </Typography>
+                                                                                                    </Box>
+                                                                                                </Grid>
+                                                                                            </Grid> 
+                                                                                    </CardContent>
+                                                                                </Grid>
+                                                                            </Box>
                                                                         }
                                                                         labelPlacement="end"
                                                                         control={<Radio row id="PickUP"/>}/>                 
