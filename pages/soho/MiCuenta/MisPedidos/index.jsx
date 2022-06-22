@@ -236,10 +236,9 @@ export default function MisPedidos() {
         Services('POST','/miCuenta/cancelaPedido?clienteNum='+clienteNum+'&pedidoNum='+pedidoNum,{})
         .then( response =>{
             const resultado = response.data; 
-            console.log("resultado: "+resultado)
+
             switch(resultado){
                 case 1:
-                    console.log("Si se cancelo el pedido:"+pedidoNum)
                     setAlerta({severity:'success',mensaje:'Exito, pedido cancelado',vertical:'bottom',horizontal:'right',variant:'filled'})
                     break;
                 case 2://Cliente incorrecto

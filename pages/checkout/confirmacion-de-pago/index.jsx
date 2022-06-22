@@ -69,12 +69,12 @@ export default function Confirmacion_de_pago(){
                             const tagManagerArgs = {
                                 gtmId: 'GTM-NLQV5KF',
                                 dataLayer: {
-                                    'event': 'checkout',
+                                    'event': 'purchase',
                                     'ecommerce': {
                                         'purchase': {
                                         'actionField': {
                                             'id': pedido,
-                                            'affiliation': Usu_Nomb,
+                                            'affiliation': 'Pedidos.com',
                                             'revenue': totalTag,
                                             'shipping': envioTag,
                                             'empresa': isEmpresa
@@ -84,9 +84,9 @@ export default function Confirmacion_de_pago(){
                                     }
                                 }
                             }
-
-                        }
-                        TagManager.initialize(tagManagerArgs)
+                            TagManager.initialize(tagManagerArgs)
+                        }                        
+                        
                     }     
                 } 
             }    
