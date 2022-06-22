@@ -249,7 +249,7 @@ export default function MisFavoritos() {
                         </CardContent>
                         {row.disponibilidad > 0 ?
                         <CardActions>
-                            <Button><RemoveIcon/></Button>
+                            {/* <Button><RemoveIcon/></Button>
                             <InputBase
                                 className={classes.input}
                                 placeholder="1"
@@ -260,7 +260,7 @@ export default function MisFavoritos() {
                             <Button color="primary"><AddIcon/></Button>
                             <Button color='secondary' variant="contained" fullWidth size="large" >
                                 <ShoppingCartOutlinedIcon/>
-                            </Button>
+                            </Button> */}
                         </CardActions>
                         : 
                         <Box component="div" justifyContent="center" m="auto" sx={{justifyContent: "center", display: "flex" }}>
@@ -331,7 +331,7 @@ export default function MisFavoritos() {
                         </CardContent>
                         {row.disponibilidad > 0 ?
                         <CardActions>
-                           
+                           {/* 
                             <Button><RemoveIcon/></Button>
                             <InputBase
                                 className={classes.input}
@@ -343,7 +343,7 @@ export default function MisFavoritos() {
                             <Button color="primary"><AddIcon/></Button>
                             <Button variant="contained" color='secondary' fullWidth size="large" >
                                 <ShoppingCartOutlinedIcon/>
-                            </Button>
+                            </Button> */}
                         </CardActions>
                         : 
                         <Box component="div" justifyContent="center" m="auto" sx={{justifyContent: "center", display: "flex" }}>
