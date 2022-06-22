@@ -500,10 +500,10 @@ export default function Pedido(props) {
                                                         <Typography variant="h6" component="h2" color="textPrimary"gutterBottom>
                                                             Detalle del Pedido
                                                         </Typography>}
-                                                    
+                                                    /* 
                                                         action={
                                                             <Chip label="FACTURADO" color="success"/>
-                                                        }
+                                                        } */
                                                     />
                                                     <Divider variant="middle" light/>
                                                     <CardContent>

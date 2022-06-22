@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 		opacity: '0.40',
 	},
 }));
+
 const Accountsection = ({data})=>{
     return(
     <>  
@@ -70,7 +71,7 @@ const Accountsection = ({data})=>{
   }
 export default function MiCuentaSiderBar() {
 	const classes = useStyles();
-
+    const router = useRouter()
 	const [nombre, setNombre] = React.useState('');
 	const [open, setOpen] = React.useState(false);
 	const [modal, setModal] = React.useState('');
@@ -295,11 +296,11 @@ export default function MiCuentaSiderBar() {
                                 Garantías & Devoluciones
                             </Button>
                             <br/>
-                            <a href="mailto:quejas@pedidos.com.mx?subject=Queja%20sobre">
-                                <Button startIcon={<FeedbackOutlinedIcon />}>
-                                    Levantar queja
-                                </Button>
-                            </a>
+                            <Button startIcon={<FeedbackOutlinedIcon />}
+                                onClick={() => router.push('mailto:quejas@pedidos.com.mx?subject=Queja%20sobre')}
+                            >
+                                Levantar queja
+                            </Button>
                         </Box>   
                         <Divider />
                         <Box component="div" pt={3} >
