@@ -237,7 +237,7 @@ export function FooterDesktop() {
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							<Link href='/soho/politicas/forma-pago'>
+							<Link href='/soho/politicas/forma-de-pago'>
 								<a>Forma de Pago</a>
 							</Link>
 						</Grid>
