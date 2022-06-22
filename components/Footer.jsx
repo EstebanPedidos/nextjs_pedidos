@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.text.secondary,
 	},
 	gridLastItem: {
-		margin: ' 1.8rem ',
+		margin: ' 1.8rem ', width:'100', boxShadow:'none'
 	},
 	socialMediaIcon: {
 		textDecoration: 'none',
@@ -274,12 +274,12 @@ export function FooterDesktop() {
 				container
 				justifyContent='flex-start'
 				className={classes.mainContainer}>
-				<Grid item className={classes.gridLastItem}>
+				<Grid item className={classes.gridLastItem} sx={{width:'100%', padding:'inherit', position:'relative', boxShadow:'none'}}>
 					<Box component='div' px={5}>
-						<Grid
+						<Grid 
 							container
 							direction='row'
-							justifyContent='space-around'
+							justifyContent='flex-start'
 							alignItems='center'
 							spacing={6}>
 							<Grid
@@ -313,7 +313,7 @@ export function FooterDesktop() {
 				justifyContent='space-evenly'
 				alignItems='center'
 				className={classes.mainContainer}>
-				<Grid item className={classes.gridLastItem}>
+				<Grid item className={classes.gridLastItem} sx={{padding:'inherit', position:'relative', boxShadow:'none'}}>
 					<Grid container direction='column' spacing={2}>
 						<Grid item>
 							{/* <Link to="/Home"> */}
