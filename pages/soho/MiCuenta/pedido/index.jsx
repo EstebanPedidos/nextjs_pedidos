@@ -74,7 +74,7 @@ export default function Pedido(props) {
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(2);
     const [inputs, setInputs] = useState({});
-    const [clienteNum, setClienteNum] = useState('');
+    // const [clienteNum, setClienteNum] = useState('');
     const [open, setOpen] = React.useState(false);
     const [modal, setModal] = React.useState('');
     const [result, setResult] = useState(
@@ -386,11 +386,19 @@ export default function Pedido(props) {
     const pedido = router.query.pedido;
 
 
+    let clienteNum = '';
+
     useEffect(() => {
+        clienteNum =  localStorage.getItem('Cliente')
+    }, [router]) 
 
-        let afiliado =  localStorage.getItem('afiliado')
-        setClienteNum(localStorage.getItem('Cliente'));
 
+
+    useEffect(() => {
+        // setClienteNum(localStorage.getItem('Cliente'));
+        let afiliado = localStorage.getItem('afiliado')
+
+        
         if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
             if(parseInt(clienteNum) !== 201221){ 
 
@@ -412,7 +420,7 @@ export default function Pedido(props) {
             router.push('/')
         } 
 
-    }, [router]) 
+    }, []) 
 
     const handleOpen = (event) => {
         const name = event.target.name;

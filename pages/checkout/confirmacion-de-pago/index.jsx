@@ -86,6 +86,7 @@ export default function Confirmacion_de_pago(){
                             }
 
                         }
+                        TagManager.initialize(tagManagerArgs)
                     }     
                 } 
             }    
