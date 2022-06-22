@@ -23,22 +23,17 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
 	},
-	paper: {
-		position: 'absolute',
-		backgroundColor: theme.palette.background.paper,
-		borderRadius: '8px',
-		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2, 4, 3),
-		margin: theme.spacing(2),
-	},
+	
 	control: {
 		padding: theme.spacing(3),
 	},
 	bgcontent: {
 		backgroundImage:
 			'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
+        width:'100%'
 	},
 	boxCardI: {
+        width:'100%',
 		height: '380px',
 		boxShadow:
 			'0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',
@@ -340,7 +335,12 @@ export default function Direcciones() {
 						timeout: 500,
 					}}>
 					<Fade in={open}>
-						<div className={classes.paper}>
+						<Box component='div' sx={{
+                            position: 'absolute',
+                            backgroundColor:'#fff',
+                            borderRadius: '8px',
+                            padding:'2rem',
+                        }}>
 							<Box
 								component='div'
 								textAlign='center'
@@ -391,7 +391,7 @@ export default function Direcciones() {
 									</Button>
 								</Grid>
 							</Grid>
-						</div>
+						</Box>
 					</Fade>
 				</Modal>
 

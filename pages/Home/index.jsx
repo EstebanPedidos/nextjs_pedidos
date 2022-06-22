@@ -40,30 +40,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
     },
-    paper: {
-      position: 'absolute',
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    },
-    control: {
-      padding: theme.spacing(3),
-    },
-    breadcrumb:{padding: theme.spacing(2),},
-    width_carousel: {
-        width: 500,
-    },
-    titDescription:{
-        fontSize: '1.3rem',
-    },
-    titxt:{
-        fontSize: '1.3rem',
-    },
-   titSuggest:{
-    fontSize: '1.3rem',
-   },
-
    media: {
     height: 130,
     width: 130,
@@ -75,20 +51,7 @@ const useStyles = makeStyles((theme) => ({
     padding:5,
     margin:5,
   },
-/*plussss*/ 
-  rootqty: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    width: 400,
-  },
-  input: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-  iconButton: {
-    padding: 10,
-  },
+
   }));
 
 export default function Home() {

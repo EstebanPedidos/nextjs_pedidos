@@ -37,20 +37,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    position: 'absolute',
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  control: {
-    padding: theme.spacing(3),
-  },
-
   bgcontent: {
     backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
-    // background: '#F7F7F9',
+   width:'100%' // background: '#F7F7F9',
 },
   paperBox: {
     width:'100%',

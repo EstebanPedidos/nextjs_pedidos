@@ -66,13 +66,6 @@ const useStyles = makeStyles((theme) => ({
     width_carousel: {
         width: 'auto',
     },
-
-   media: {
-    height: 130,
-    width: 130,
-    margin: 'auto',
-  },
-
   productCard: {
     maxWidth: 345,
     marginTop:5,
@@ -81,7 +74,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0px 0px 16px rgb(54 85 166 / 8%), 0px 1px 4px rgb(54 85 166 / 8%)',
   },
 /*plussss*/ 
-  green: { color: 'rgba(116, 166, 38, 1)'},
   rootqty: {
     padding: '2px 4px',
     display: 'flex',
@@ -92,9 +84,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     flex: 1,
   },
-  iconButton: {
-    padding: 10,
-  },
+
   ctaAdd:{
     backgroundColor:  "secondary.light" ,
   }
@@ -674,7 +664,7 @@ export default function FichaTecnica(props){
                                                                     <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
                                                                         <Grid item><LocalShippingOutlinedIcon/></Grid>
                                                                         <Grid item>
-                                                                            <Typography className={classes.green} variant="subtitle2">Envío GRATIS <span>en producto.</span></Typography>
+                                                                            <Typography sx={{color: 'rgba(116, 166, 38, 1)'}} variant="subtitle2">Envío GRATIS <span>en producto.</span></Typography>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
@@ -836,7 +826,10 @@ export default function FichaTecnica(props){
                                                             <a>
                                                             <CardActionArea>
                                                                 <CardMedia
-                                                                className={classes.media}
+                                                                className={classes.media} sx={{    
+                                                                    height: 130,
+                                                                    width: 130,
+                                                                    margin: 'auto',}}
                                                                 image={`https://pedidos.com/myfotos/large/(L)${datos.relacionados.listaRelacionados[oneKey].item_rel}.webp`}
                                                                 alt={datos.item_num}
                                                                 title={datos.item_num} />

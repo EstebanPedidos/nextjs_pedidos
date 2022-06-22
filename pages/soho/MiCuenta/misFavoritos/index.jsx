@@ -50,13 +50,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    position: 'absolute',
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: '8px',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
+
   control: {
     padding: theme.spacing(3),
   },
@@ -230,7 +224,7 @@ export default function MisFavoritos() {
                                         </Box>
                                     </Grid>
                                 </Grid>
-                                <Box component="div">
+                                 <Box component="div">
                                     {row.tipo === "C" && row.diasRestantes < 1 ? 
                                     <Box component="div" justifyContent="center" m="auto" sx={{justifyContent: "center", display: "flex" }}>
                                         <Chip icon={<NotificationsNoneIcon />} label="Puedes necesitarlo" variant="outlined" />
@@ -238,7 +232,7 @@ export default function MisFavoritos() {
                                     :
                                     row.diasPromedio > 0 &&
                                     <Box component="div" sx={{ width: '100%' }}  >
-                                        <Typography variant="subtitle1">Proxima compra en {row.diasRestantes} días</Typography>
+                                        <Typography variant="subtitle1">Próxima compra en {row.diasRestantes} días</Typography>
                                         <LinearProgress 
                                             variant="determinate" value={(100 - (row.diasRestantes * 100)/row.diasPromedio)}
                                             // Se comenta esto por que si no aparece el error Too many re-renders. React limits the number of renders to prevent an infinite loop
@@ -437,7 +431,13 @@ export default function MisFavoritos() {
                 }}
             >
                 <Fade in={open}>
-                    <div className={classes.paper}>
+                    <Box component="div" sx={{
+                        position: 'absolute',
+                        backgroundColor: '#fff',
+                        borderRadius: '8px',
+                        
+                        padding: '2rem',
+                    }}>
                         <Box component="div" textAlign="center" m={1} py={2}>
                         <Typography component="h3" variant="h5">
                             <Box component="span" fontWeight="fontWeightMedium">
@@ -462,7 +462,7 @@ export default function MisFavoritos() {
                         {(alerta.hasOwnProperty('severity'))&&
                             <Alertas setAlerta={setAlerta} alerta={alerta}/>
                         } 
-                    </div>
+                    </Box>
                 </Fade>
             </Modal>
         </div>

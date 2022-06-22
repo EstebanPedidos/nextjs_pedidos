@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(2),
   },
-  bgcontent:{backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)'},
   boxCardF:{
     height:'260px',
     boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',
@@ -121,7 +120,7 @@ export default function DatosFacturacion() {
         <Layout title="Mis Datos de Facturaci&oacute;n">
          
         <div>
-            <Box className={classes.bgcontent} component="div">
+            <Box sx={{backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)'}} component="div">
                 <Box component="div" mx={1}>
                     <Grid
                         container
@@ -129,10 +128,10 @@ export default function DatosFacturacion() {
                         justifyContent="space-between"
                         alignItems="flex-start"
                     >
-                        <Grid item xs={12} sm={12} lg={3}>
+                        <Grid item xs={12} sm={12} md={3} lg={3}>
                             <MiCuentaSiderBar/>
                         </Grid>
-                        <Grid item xs={12} sm={12} lg={9}>
+                        <Grid item xs={12} sm={12} md={9} lg={9}>
                             <Box component="div" m={1}>
                                 <Grid 
                                 container

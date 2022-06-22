@@ -51,12 +51,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    position: 'absolute',
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
+
   control: {
     padding: theme.spacing(3),
   },
@@ -291,7 +286,7 @@ export default function MisPedidos() {
                                             > 
                                                 Reservado
                                             </Button>
-                                            <Menu elevation={10}
+                                            <Menu variant='outlined' elevation={0}
                                                 id="basic-menu"
                                                 anchorEl={anchorEl}
                                                 open={openMenu}

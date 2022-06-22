@@ -44,23 +44,17 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
+/*   paper: {
     position: 'absolute',
     backgroundColor: theme.palette.background.paper,
     borderRadius: '8px',
     boxShadow: theme.shadows[5],
     margin: theme.spacing(2),
     padding: theme.spacing(2, 4, 3),
-  },
+  }, */
   
-  control: {
-    padding: theme.spacing(3),
-  },
-  opacityBox: {
-    opacity:'0.40',
-},
-
 bgcontent: {
+    width:'100%',
     backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
     // background: '#F7F7F9',
 },
