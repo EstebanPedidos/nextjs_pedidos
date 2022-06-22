@@ -472,7 +472,7 @@ export function Navbar(props) {
 
 									<div ref={anchorEl} id='menu'></div>
 								</Box>
-								<Box
+								<Box mx={1}
 									component='span'
 									justifyContent='center'
 									sx={{ backgroundColor: '#E7ECF3', borderRadius: '100px' }}>

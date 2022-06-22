@@ -31,21 +31,11 @@ import Services from '../../../services/Services'
 
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   root: {
     flexGrow: 1,
   },
-  paper: {
-    position: 'absolute',
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
+
   control: {
     padding: theme.spacing(3),
   },
@@ -54,15 +44,17 @@ const useStyles = makeStyles((theme) => ({
 },
   opacity20:{ opacity:'0.20'},
   bgcontent: {
+    width:'100%',
     backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
     // background: '#F7F7F9',
 },
 paperBox: {
     padding: theme.spacing(1), 
     boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',
-    height: '100%',
+    width: '100%',
     marginBottom: theme.spacing(1), 
-    
+    position: 'inherit',
+    display: 'inline-block',
 },
 }));
 
@@ -74,7 +66,7 @@ export default function MisNotasCredito() {
     const [valueDate, setValueDate] = React.useState(null);
 
     const [open, setOpen] = React.useState(false);
-    const [modal, setModal] = React.useState('');
+
     const [inputs, setInputs] = useState({});
     const [result, setResult] = useState([]);
     const [resultado, setResultado] = useState(true);
@@ -313,7 +305,7 @@ export default function MisNotasCredito() {
                                                     </Grid>
                                                 </Box>
                                                 <Box>
-                                                {resultado ? Contenido : sinResultados}
+                                                    {resultado ? Contenido : sinResultados}
                                                 </Box>
                                             </Grid>                                        
                                         </Grid>
@@ -326,68 +318,6 @@ export default function MisNotasCredito() {
                 </Box> 
             </Box>
            
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open && modal === 'Modal1'}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                timeout: 500,
-                }}
-            >
-                <Fade in={open}>
-                <div className={classes.paper}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}> 
-                            <Card className={classes.root}>
-                                <CardContent>
-                                    <ChatBubbleOutlineIcon fontSize="large" /> 
-                                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                    Chat
-                                    </Typography>
-                                    <Typography variant="h5" component="h2">
-                                    Inicia una conversación
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-
-                        <Grid item xs={12}> 
-                            <Card className={classes.root}>
-                                <CardContent>
-                                    <WhatsAppIcon fontSize="large" /> 
-                                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                    WhatsApp
-                                    </Typography>
-                                    <Typography variant="h5" component="h2">
-                                    Envía un mensaje
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-
-                        <Grid item xs={12}> 
-                            <Card className={classes.root}>
-                                <CardContent>
-                                    <MailOutlineIcon fontSize="large" /> 
-                                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                    Correo
-                                    </Typography>
-                                    <Typography variant="h5" component="h2">
-                                    En breve responderemos
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-
-                    </Grid>
-                </div>
-                </Fade>
-            </Modal>
-        
         </div>
         </Layout>
     );
