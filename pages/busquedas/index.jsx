@@ -280,33 +280,58 @@ export default function Busquedas(props) {
 
 		let breadcrumb = (<></>)
 		if (searchState.current.menu) {
+            let lvl1 = (<></>)
+            let lvl2 = (<></>)
+            let lvl3 = (<></>)
+            if (searchState.current.menu.LINEA_NEG) {
+                if (searchState.current.menu.COD_FAMILIA) {
+                    lvl1 = (<li className="ais-Breadcrumb-item">
+                        <span className="ais-Breadcrumb-separator"> &gt; </span>
+                        <Link href={`/busquedas?/` + searchState.current.menu.LINEA_NEG}>
+                            <a className="ais-Breadcrumb-link" href="#">{searchState.current.menu.LINEA_NEG}</a>
+                        </Link>
+                    </li>)
+                } else {
+                    lvl1 = (<li className="ais-Breadcrumb-item ais-Breadcrumb-item--selected">
+                        <span className="ais-Breadcrumb-separator"> &gt; </span>
+                        {searchState.current.menu.LINEA_NEG}
+                    </li>)
+                }
+            }
+
+            if (searchState.current.menu.COD_FAMILIA) {
+                if (searchState.current.menu.COD_SUBFAMILIA) {
+                    lvl2 = (<li className="ais-Breadcrumb-item">
+                        <span className="ais-Breadcrumb-separator"> &gt; </span>
+                        <Link href={`/busquedas?/` + searchState.current.menu.COD_FAMILIA.replaceAll(' > ', '/')}>
+                            <a className="ais-Breadcrumb-link" href="#">{searchState.current.menu.COD_FAMILIA.split(' > ')[1]}</a>
+                        </Link>
+                    </li>)
+                } else {
+                    lvl2 = (<li className="ais-Breadcrumb-item ais-Breadcrumb-item--selected">
+                        <span className="ais-Breadcrumb-separator"> &gt; </span>
+                        {searchState.current.menu.COD_FAMILIA.split(' > ')[1]}
+                    </li>)
+                }
+            }
+
+            if (searchState.current.menu.COD_SUBFAMILIA) {
+                lvl3 = (<li className="ais-Breadcrumb-item ais-Breadcrumb-item--selected">
+                    <span className="ais-Breadcrumb-separator"> &gt; </span>
+                    {searchState.current.menu.COD_SUBFAMILIA.split(' > ')[2]}
+                </li>)
+            }
+
 			breadcrumb = (<div className="ais-Breadcrumb">
 				<ul className="ais-Breadcrumb-list">
 					<li className="ais-Breadcrumb-item">
-						<a className="ais-Breadcrumb-link" href="#">Home</a>
+                        <Link href={`/`}>
+						    <a className="ais-Breadcrumb-link">Home</a>
+                        </Link>
 					</li>
-					{searchState.current.menu.LINEA_NEG ?? (
-						<li className="ais-Breadcrumb-item">
-							<span className="ais-Breadcrumb-separator"> &gt; </span>
-							<a className="ais-Breadcrumb-link" href="#">{refinement}</a>
-						</li>
-					)}
-					{searchState.current.menu.COD_FAMILIA ?? (
-						<li className="ais-Breadcrumb-item">
-							<span className="ais-Breadcrumb-separator"> &gt; </span>
-							<a className="ais-Breadcrumb-link" href="#">{refinement}</a>
-						</li>
-					)}
-					{searchState.current.menu.COD_SUBFAMILIA ?? (
-						<li className="ais-Breadcrumb-item">
-							<span className="ais-Breadcrumb-separator"> &gt; </span>
-							<a className="ais-Breadcrumb-link" href="#">{refinement}</a>
-						</li>
-					)}
-					<li className="ais-Breadcrumb-item ais-Breadcrumb-item--selected">
-						<span className="ais-Breadcrumb-separator"> &gt; </span>
-						Digital Cameras
-					</li>
+                    {lvl1}
+                    {lvl2}
+                    {lvl3}
 				</ul>
 			</div>
 			)
@@ -404,7 +429,6 @@ export default function Busquedas(props) {
                                     </Grid>
                                     <Box mb={4}>
                                         <Box my={2}>
-																					<h1>Bread</h1>
                                             {breadcrumb}
                                         </Box>
                                     </Box>
@@ -2105,11 +2129,10 @@ export default function Busquedas(props) {
                                     <Link href={`/articulos/${props.hit.URL}`} 
                                     >
                                         <a onClick={() => {
-																					console.log('ok')
-																						insights('clickedObjectIDsAfterSearch', {
-																								eventName: 'Product Clicked'
-																						})
-																					}
+                                                insights('clickedObjectIDsAfterSearch', {
+                                                        eventName: 'Product Clicked'
+                                                })
+                                            }
                                         }>
                                             <CardMedia
                                                 className={classes.cover}
@@ -2164,12 +2187,11 @@ export default function Busquedas(props) {
                                                 href={`/articulos/${props.hit.URL}`}
                                                 className={classes.productLink}>
                                                 <a onClick={() => {
-																									console.log('ok')
-																										insights('clickedObjectIDsAfterSearch', {
-																												eventName: 'Product Clicked'
-																										})
-																									}
-																								}>
+                                                        insights('clickedObjectIDsAfterSearch', {
+                                                                eventName: 'Product Clicked'
+                                                        })
+                                                    }
+                                                }>
                                                     <Typography
                                                         component='body2'
                                                         variant='p'
@@ -2226,12 +2248,11 @@ export default function Busquedas(props) {
                                             href={`/articulos/${props.hit.URL}`}
                                             className={classes.CTAlink}>
                                             <a onClick={() => {
-																							console.log('ok')
-																								insights('clickedObjectIDsAfterSearch', {
-																										eventName: 'Product Clicked'
-																								})
-																							}
-																						}>
+                                                    insights('clickedObjectIDsAfterSearch', {
+                                                            eventName: 'Product Clicked'
+                                                    })
+                                                }
+                                            }>
                                                 <Button
                                                     variant='contained'
                                                     size='large'
