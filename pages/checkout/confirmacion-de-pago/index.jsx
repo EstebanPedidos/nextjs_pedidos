@@ -66,6 +66,15 @@ export default function Confirmacion_de_pago(){
                             let totalTag     = await ((services.data.resumen.subtotal + services.data.resumen.costoEnvio)-services.data.nc.montoNc)
                             let envioTag     = await services.data.resumen.costoEnvio
                             let isEmpresa    = await (services.data.resumen.facturas.rfc !== 'XAXX010101000')?true:false;
+                            
+                            
+                            const tagManagerArgs0 = {
+                                gtmId: 'GTM-NLQV5KF',
+                                dataLayer: {
+                                    'ecommerce': null}}
+                            
+                            TagManager.initialize(tagManagerArgs0)
+
                             const tagManagerArgs = {
                                 gtmId: 'GTM-NLQV5KF',
                                 dataLayer: {
@@ -85,6 +94,7 @@ export default function Confirmacion_de_pago(){
                                 }
                             }
                             TagManager.initialize(tagManagerArgs)
+                            
                         }                        
                         
                     }     

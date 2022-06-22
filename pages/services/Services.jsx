@@ -1,6 +1,7 @@
 import axios from 'axios'
 const PATH ='https://api-pickup.pedidos.com/API-Rest'
-
+// const PATH ='http://localhost:8080/rest'
+          
 function Services(metodo,url,json) {
     switch (metodo) {
         case 'POST':
