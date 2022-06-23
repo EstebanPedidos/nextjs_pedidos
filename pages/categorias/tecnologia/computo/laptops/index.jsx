@@ -316,7 +316,7 @@ const Laptops = () => {
 								son las{' '}
 								<Link
 									underline='none'
-									href='busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=DELL'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=DELL'
 									target='_blank'>
 									Laptops Dell
 								</Link>
