@@ -1115,7 +1115,7 @@ export default function Busquedas(props) {
                                 <Stats
                                     translations={{
                                         stats(nbHits) {
-                                            return nbHits > 1 ? (
+                                            return nbHits > 0 ? (
                                                 <Box
                                                     px={2}
                                                     className='right-panel'>
@@ -2196,7 +2196,7 @@ export default function Busquedas(props) {
                                                         component='body2'
                                                         variant='p'
                                                         textAlign='left'>
-                                                        {props.hit.FILTROS.MARCA}
+                                                        {props.hit.FILTROS ? props.hit.FILTROS.MARCA : ''}
                                                     </Typography>
                                                     <Typography
                                                         variant='subtitle1'
