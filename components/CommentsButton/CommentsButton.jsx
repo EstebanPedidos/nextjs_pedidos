@@ -5,7 +5,7 @@ const CommentsButton = () => {
 	return (
 		<Box
 			component='a'
-			href='/Soho/comentarios/reviews'
+			href='https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17'
 			display='flex'
 			flexDirection='column'
 			alignItems='center'

@@ -127,7 +127,7 @@ export default function SecondaryCards() {
             </Link>
         </SwiperSlide>
         <SwiperSlide>
-            <Link href="/outlet-caja-abierta">
+            <Link href="/busquedas?query=Caja+abierta">
                 <a>
                     <Boxcard 
                         data={{
