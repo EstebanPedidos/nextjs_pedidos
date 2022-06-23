@@ -30,6 +30,8 @@ import ForBusiness from 'components/home/forBusiness';
 import Brands from 'components/home/Brands';
 import MainSlideShow from 'components/home/mainSlideShow';
 import { isObjectBindingPattern } from 'typescript';
+//Modals
+import  Help  from '../../components/modals/Help';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -40,16 +42,11 @@ const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
     },
+
    media: {
     height: 130,
     width: 130,
     margin: 'auto',
-  },
-
-  productCard: {
-    boxShadow: '0px 0px 16px rgb(54 85 166 / 8%), 0px 1px 4px rgb(54 85 166 / 8%)',
-    padding:5,
-    margin:5,
   },
 
   }));
@@ -511,119 +508,135 @@ export default function Home() {
 					<MainSlideShow />
 				</Box>
 			</Box>
-
             {/* Inicio de sugerencias */}
-            <Box component="div" mt={4} py={4} textAlign="left" sx={{position:'relative'}}>
-				<Box component="div" className={styles.boxbbc}>
-					<Container maxWidth="xl">
-						{show.Vistos &&
-                            <Box component="div" py={2}>
-                                <Typography variant="h6" component="h2" sx={{fontWeight:'600'}}>
-                                    Productos Vistos
-                                </Typography>
-                                <Box component="div" py={2}> 
-                                    <Swiper
-                                    modules={[Lazy, Navigation]}
-                                    navigation
-                                    lazy={true}
-                                    className="mySwiper11"
-                                    spaceBetween={20}
-                                    slidesPerView={4.2}
-                                    loop={true}
-                                    pagination={{
-                                        clickable: true,
-                                    }}
-                                    //centeredSlides={true}
-                                    //autoplay={{
-                                    //"delay": 2500,
-                                    //"disableOnInteraction": false}}
-                                    onSlideChange={() => console.log('slide change')}
-                                    onSwiper={(swiper) => console.log(swiper)}
-                                    breakpoints={{
-                                        320: {
-                                            slidesPerView: 1.2,
-                                            
-                                        },
-                                        640: {
-                                        slidesPerView: 2.1,
-                                        
-                                        },
-                                        768: {
-                                        slidesPerView: 3.3,
-                                        
-                                        },
-                                        1024: {
-                                        slidesPerView: 4,
-                                        
-                                        },
-                                    }}
-                                    >
-                            
-                                    { Object.keys(vistos).map((oneKey,i)=>{
-                                            return (
-                                        <SwiperSlide  className={classes.swiperBox} key={i}>
-                                            <Box component="div" >
-                                                <Card className={classes.productCard} >
-                                                    <CardActionArea  to={`/articulos/${vistos[oneKey].url}`} >
-                                                        <CardMedia
-                                                        className={classes.media}
-                                                        image={`https://pedidos.com/myfotos/large/(L)${vistos[oneKey].itemNum}.webp`}
-                                                        onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
-                                                        alt={vistos[oneKey].itemNum}
-                                                        title={vistos[oneKey].itemNum}
-                                                        />
-                                                        <CardContent>
-                                                            <Divider light />
-                                                            <Typography mt={2}variant="subtitle1"  textAlign="left"  gutterBottom>{vistos[oneKey].marca} </Typography>
-                                                            <Typography sx={{ height:'45px', overflow: 'hidden'}} variant="body2" color="textSecondary"  component="p">
-                                                                {vistos[oneKey].tituloCompuesto} 
-                                                            </Typography>
-                                                            <Box component="div">
-                                                                <Grid container alignItems="center">
-                                                                    <Grid item>
-                                                                        <Box component="div" px={1} pt={1}>
-                                                                            <Typography variant="subtitle1" component="p" gutterBottom color="textPrimary">
-                                                                                <Box component="span" fontWeight="fontWeightBold"> ${(Math.round((vistos[oneKey].precio) * 100) / 100).toFixed(2)}</Box>
-                                                                            </Typography>
-                                                                        </Box>
-                                                                    </Grid>
-                                                                    <Grid item>
-                                                                        <Box component="div"  >
-                                                                            <Typography  variant="subtitle1" component="p" color="grey.600" sx={ {textDecoration:"line-through", }} >
-                                                                            ${(Math.round((vistos[oneKey].precioDeLista) * 100) / 100).toFixed(2)}
-                                                                            </Typography> 
-                                                                        </Box>
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Box> 
-                                                        </CardContent>
-                                                    </CardActionArea>
-                                                    <CardActions>
-                                                        <Button
-                                                        size="medium"
-                                                        variant="outlined"
-                                                        color="primary"
-                                                        fullWidth
-                                                        >
-                                                            <Link href={`/articulos/${vistos[oneKey].url}`}>
-                                                                Ver Detalle
-                                                            </Link>
-                                                        </Button>
-                                                    </CardActions>
-                                                </Card>                
-                                            </Box>
-                                        </SwiperSlide>
-                                            );
-                                        })
-                                    }
-                                    </Swiper>
-                                </Box>                                      
-						    </Box>
-                        }
-					</Container>
-				</Box>
+                {show.Vistos &&
+                    <Box component="div" mt={4} py={4} textAlign="left" sx={{position:'relative'}}>
+                        <Box component="div" className={styles.boxbbc}>
+                            <Container maxWidth="xl">
+                                
+                                    <Box component="div" py={2}>
+                                        <Typography variant="h6" component="h2" sx={{fontWeight:'600'}}>
+                                            Productos Vistos
+                                        </Typography>
+                                        <Box component="div" py={2}> 
+                                            <Swiper
+                                            modules={[Lazy, Navigation]}
+                                            navigation
+                                            lazy={true}
+                                            className="mySwiper11"
+                                            spaceBetween={20}
+                                            slidesPerView={4.2}
+                                            loop={true}
+                                            pagination={{
+                                                clickable: true,
+                                            }}
+                                            //centeredSlides={true}
+                                            //autoplay={{
+                                            //"delay": 2500,
+                                            //"disableOnInteraction": false}}
+                                            onSlideChange={() => console.log('slide change')}
+                                            onSwiper={(swiper) => console.log(swiper)}
+                                            breakpoints={{
+                                                320: {
+                                                    slidesPerView: 1.2,
+                                                    
+                                                },
+                                                640: {
+                                                slidesPerView: 2.1,
+                                                
+                                                },
+                                                768: {
+                                                slidesPerView: 3.3,
+                                                
+                                                },
+                                                1024: {
+                                                slidesPerView: 4,
+                                                
+                                                },
+                                            }}
+                                            >
+                                    
+                                            { Object.keys(vistos).map((oneKey,i)=>{
+                                                    return (
+                                                <SwiperSlide  className={classes.swiperBox} key={i}>
+                                                    <Box component="div" >
+                                                        <Card className={styles.productCard} >
+                                                            <CardActionArea  to={`/articulos/${vistos[oneKey].url}`} >
+                                                                <CardMedia
+                                                                className={classes.media}
+                                                                image={`https://pedidos.com/myfotos/large/(L)${vistos[oneKey].itemNum}.webp`}
+                                                                onError="this.onerror=null;this.src='https://pedidos.com/myfotos/xLarge/(X)logitinPed.webp'"
+                                                                alt={vistos[oneKey].itemNum}
+                                                                title={vistos[oneKey].itemNum}
+                                                                />
+                                                                <CardContent>
+                                                                    <Divider light />
+                                                                    <Typography mt={2}variant="subtitle1"  textAlign="left"  gutterBottom>{vistos[oneKey].marca} </Typography>
+                                                                    <Typography sx={{ height:'45px', overflow: 'hidden'}} variant="body2" color="textSecondary"  component="p">
+                                                                        {vistos[oneKey].tituloCompuesto} 
+                                                                    </Typography>
+                                                                    <Box component="div">
+                                                                        <Grid container alignItems="center">
+                                                                            <Grid item>
+                                                                                <Box component="div" px={1} pt={1}>
+                                                                                    <Typography variant="subtitle1" component="p" gutterBottom color="textPrimary">
+                                                                                        <Box component="span" fontWeight="fontWeightBold"> ${(Math.round((vistos[oneKey].precio) * 100) / 100).toFixed(2)}</Box>
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                            </Grid>
+                                                                            <Grid item>
+                                                                                <Box component="div"  >
+                                                                                    <Typography  variant="subtitle1" component="p" color="grey.600" sx={ {textDecoration:"line-through", }} >
+                                                                                    ${(Math.round((vistos[oneKey].precioDeLista) * 100) / 100).toFixed(2)}
+                                                                                    </Typography> 
+                                                                                </Box>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Box> 
+                                                                </CardContent>
+                                                            </CardActionArea>
+                                                            <CardActions>
+                                                                <Button
+                                                                size="medium"
+                                                                variant="outlined"
+                                                                color="primary"
+                                                                fullWidth
+                                                                >
+                                                                    <Link href={`/articulos/${vistos[oneKey].url}`}>
+                                                                        Ver Detalle
+                                                                    </Link>
+                                                                </Button>
+                                                            </CardActions>
+                                                        </Card>                
+                                                    </Box>
+                                                </SwiperSlide>
+                                                    );
+                                                })
+                                            }
+                                            </Swiper>
+                                        </Box>                                      
+                                    </Box>
+                                
+                            </Container>
+                        </Box>
+                    </Box>
+            }
+            <Box component="div" pt={6} textAlign="center">
+                <Box py={6} sx={{ background:'#f6f7f9' }}>
+                    <Container maxWidth="xl">
+                        <Box component="div" pt={6} textAlign="center">
+                            <Typography variant="h4" component="h5" sx={{fontWeight:'600'}}>
+                            Servicio personalizado enfocado a tus necesidades
+                            </Typography>
+                        </Box>
+                        <Box component="div" pt={4} pb={6}>
+                        <Container maxWidth="xs">
+                            <Help tipo={'3'}/>
+                        </Container>
+                        </Box>
+                    </Container>
+                </Box>
 			</Box>
-        
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"

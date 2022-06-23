@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 //mui5
 import {
-	Grid,
+	Grid, Stack, IconButton,
 	Box,
 	Typography,
 	Skeleton,
@@ -158,31 +158,40 @@ export function FooterDesktop() {
 				<Grid item className={classes.gridItem}>
 					<Grid container direction='column' spacing={3}>
 						<Grid item className={classes.titlefooter}>
-							Conocenos
+							<Typography variant="h6" fontWeight="600">Conocenos</Typography>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17'>
-								<a>Google</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Google</Typography>
+								</a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='/quienes-somos/prensa'>
-								<a>Prensa</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Prensa</Typography>
+								</a>
 							</Link>
 						</Grid>
-						<Grid item className={classes.ItemListFooter}>
+						{/* <Grid item className={classes.ItemListFooter}>
 							<Link href='/'>
-								<a>Reviews</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Reviews</Typography>
+								</a>
 							</Link>
-						</Grid>
+						</Grid> */}
 						<Grid item className={classes.ItemListFooter}>
-							<Link href='/'>
-								<a>Se Proveedor</a>
-							</Link>
+								<a href="mailto:info@pedidos.com.mx">
+								<Typography variant="body1" fontWeight="500">Se Proveedor</Typography>
+								</a>
+							
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='/hotsale'>
-								<a>Hot Sale</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Hot Sale</Typography>
+								</a>
 							</Link>
 						</Grid>
 					</Grid>
@@ -190,31 +199,37 @@ export function FooterDesktop() {
 				<Grid item className={classes.gridItem}>
 					<Grid container direction='column' spacing={3}>
 						<Grid item className={classes.titlefooter}>
-							Servicios
+							<Typography variant="h6" fontWeight="600">Servicios</Typography>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='/servicios/pickup'>
-								<a>Pick Up Center</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Pick Up Center </Typography></a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='/servicios/empresas'>
-								<a>Para empresas</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Para empresas </Typography></a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='/soho/cliente/planes-de-proteccion'>
-								<a>Planes de protección</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Planes de protección </Typography></a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='/programa-de-reciclaje'>
-								<a>Programa de reciclaje</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Programa de reciclaje </Typography></a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='/uniclick'>
-								<a>Uniclick: Crédito PYME</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Uniclick Crédito </Typography>
+								</a>
 							</Link>
 						</Grid>
 					</Grid>
@@ -222,37 +237,48 @@ export function FooterDesktop() {
 				<Grid item className={classes.gridItem}>
 					<Grid container direction='column' spacing={3}>
 						<Grid item className={classes.titlefooter}>
-							Ayuda
+							<Typography variant="h6" fontWeight="600">Ayuda</Typography>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							Facturación
+							<Typography variant="body1" fontWeight="500">Facturación</Typography>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='/soporte-tecnico'>
-								<a>Soporte Técnico</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Soporte Técnico </Typography>
+								</a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='/soho/politicas/forma-de-pago'>
-								<a>Forma de Pago</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Forma de Pago </Typography>
+								</a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='/soho/politicas'>
-								<a>Forma de Envíos</a>
+								<a>
+								<Typography variant="body1" fontWeight="500">Forma de Envíos</Typography>
+								</a>
 							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							Garantías & devoluciones
+							<Link href='/soho/devoluciones-garantias'>
+								<a>
+								<Typography variant="body1" fontWeight="500">Garantías & devoluciones</Typography>
+								</a>
+							</Link>
 						</Grid>
 					</Grid>
 				</Grid>
 				<Grid item className={classes.gridItem}>
 					<Grid container direction='column' spacing={2}>
 						<Grid item className={classes.titlefooter}>
-							Contacto
-							<Typography className={classes.titlefooter}>
-								55 5015-8100 ó 01 800 8138181
+							<Typography variant="h6" fontWeight="600">Contacto
+								<Typography className={classes.titlefooter}>
+									55 5015-8100 ó 01 800 8138181
+								</Typography>
 							</Typography>
 						</Grid>
 
@@ -283,17 +309,21 @@ export function FooterDesktop() {
 								className={classes.ItemListFooterl}
 								color='textSecondary'>
 								<Link href='/soho/cliente/aviso-privacidad'>
-									<a>Aviso de privacidad</a>
+									<a>
+									<Typography variant="body1" fontWeight="500" color="textSecondary">Aviso de privacidad</Typography>
+									</a>
 								</Link>
 							</Grid>
 							<Grid item className={classes.ItemListFooterl}>
 								<Link href='/soho/cliente/terminos-y-condiciones'>
-									<a>Términos & Condiciones</a>
+									<a>
+										<Typography variant="body1" fontWeight="500" color="textSecondary">Términos & Condiciones</Typography>
+									</a>
 								</Link>
 							</Grid>
 							<Grid item className={classes.ItemListFooterl}>
 								<Link href='/RegistroUsuario' passHref>
-									<Button component='a' color='primary'>
+									<Button component='a' size='large' color='primary'>
 										Registrate
 									</Button>
 								</Link>
@@ -326,57 +356,38 @@ export function FooterDesktop() {
 				<Grid item className={classes.gridLastItem}>
 					<Grid container direction='column' spacing={2}>
 						<Grid item className={classes.copyrightItem}>
-							Copyright © {year} {name} - Todos los derechos reservados
+							<Typography variant="caption">Copyright © {year} {name} - Todos los derechos reservados </Typography>
 						</Grid>
 					</Grid>
 				</Grid>
 				<Grid item className={classes.gridLastItem}>
-					<Grid sx={{width:'fit-content'}}
-						container
-						direction='row'
-						justifyContent='space-around'
-						alignItems='center'
-						spacing={3}>
-						<Grid
-							item
-							component={'a'}
-							href='https://www.facebook.com/pedidoscom/'
-							rel='noopener noreferrer'>
-							<FacebookIcon className={classes.socialMediaIcon} />
-						</Grid>
-						<Grid
-							item
-							component={'a'}
-							href='https://www.linkedin.com/company/pedidos-com/'
-							rel='noopener noreferrer'
-							target='_blank'>
-							<LinkedInIcon className={classes.socialMediaIcon} />
-						</Grid>
-						<Grid
-							item
-							component={'a'}
-							href='https://www.instagram.com/pedidoscom/'
-							rel='noopener noreferrer'
-							target='_blank'>
-							<InstagramIcon className={classes.socialMediaIcon} />
-						</Grid>
-						<Grid
-							item
-							component={'a'}
-							href='https://www.youtube.com/user/PedidosTV'
-							rel='noopener noreferrer'
-							target='_blank'>
-							<YouTubeIcon className={classes.socialMediaIcon} />
-						</Grid>
-						<Grid
-							item
-							component={'a'}
-							href='https://twitter.com/pedidos_com?'
-							rel='noopener noreferrer'
-							target='_blank'>
-							<TwitterIcon className={classes.socialMediaIcon} />
-						</Grid>
-					</Grid>
+					<Stack direction="row" spacing={1}>
+						<Link href='https://www.facebook.com/pedidoscom/'>
+							<IconButton component="a" aria-label="Facebook">
+								<FacebookIcon />
+							</IconButton>
+						</Link>
+						<Link href='https://www.linkedin.com/company/pedidos-com/'>
+							<IconButton component="a" aria-label="Linkedin">
+								<LinkedInIcon />
+							</IconButton>
+						</Link>
+						<Link href='https://www.instagram.com/pedidoscom/'>
+							<IconButton component="a" aria-label="Instagram">
+								<InstagramIcon />
+							</IconButton>
+						</Link>
+						<Link href='https://www.youtube.com/user/PedidosTV'>
+							<IconButton component="a" aria-label="YouTube">
+								<YouTubeIcon />
+							</IconButton>
+						</Link>
+						<Link href='https://twitter.com/pedidos_com?'>
+							<IconButton component="a" aria-label="Twitter">
+								<TwitterIcon />
+							</IconButton>
+						</Link>
+					</Stack>
 				</Grid>
 			</Grid>
 		</footer>
