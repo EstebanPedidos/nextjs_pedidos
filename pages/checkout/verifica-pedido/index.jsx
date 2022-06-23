@@ -612,7 +612,7 @@ export default function Verifica_pedido() {
 										spacing={2}>
 										<Grid item xs={12}>
 											<Box component='div' m={1} pt={4}>
-												<img sx={{padding: theme.spacing(1), width: '160px',}}
+												<img sx={{ width: '160px'}}
 													src='https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/carrito-v.svg'
 													alt='Carrito vacio'
 												/>
