@@ -111,7 +111,7 @@ const Laptops = () => {
 		<Layout title='Oferta de laptops HP, Dell, Lenovo, Asus y más | Pedidos.com'>
 			<Head>
 				<meta name="description" content="Compra en línea laptops baratas y hardware para casa u oficina. Mejor calidad y precio en tu tienda en línea pedidos.com. Envío gratis en CDMX."/>
-				<link rel="canonical" href="https://pedidos.com/tecnologia/computo/laptops"/>
+				<link rel="canonical" href="https://pedidos.com/categorias/tecnologia/computo/laptops"/>
 			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/computo/back-computo.webp'

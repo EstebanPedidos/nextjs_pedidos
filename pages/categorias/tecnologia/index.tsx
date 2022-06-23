@@ -118,17 +118,17 @@ const subcategories = [
 	{
 		title: 'Línea blanca',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/linea-blanca.png',
-		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/LINEA-BLANCA',
+		url: '/busquedas?/TECNOLOGIA/LINEA-BLANCA',
 	},
 	{
 		title: 'Controles',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/videojuegos.png',
-		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/VIDEOJUEGOS/CONTROLES',
+		url: '/busquedas?/TECNOLOGIA/VIDEOJUEGOS/CONTROLES',
 	},
 	{
 		title: 'Punto de venta',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/tecnologia/punto-venta.png',
-		url: 'https://www.pedidos.com/busquedas?/TECNOLOGIA/PUNTO-DE-VENTA',
+		url: '/busquedas?/TECNOLOGIA/PUNTO-DE-VENTA',
 	},
 ];
 

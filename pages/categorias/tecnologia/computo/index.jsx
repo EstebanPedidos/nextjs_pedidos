@@ -102,7 +102,7 @@ const Computer = () => {
 		<Layout title='Equipo de cómputo y hardware para tu oficina | Pedidos.com'>
 			<Head>
 				<meta name="description" content="Compra en línea equipo de cómputo y hardware para casa u oficina. Mejor calidad y precio en tu tienda en línea pedidos.com. Envío gratis en CDMX."/>
-				<link rel="canonical" href="https://pedidos.com/tecnologia/computo"/>
+				<link rel="canonical" href="https://pedidos.com/categorias/tecnologia/computo"/>
 			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/computo/back-computo.webp'
