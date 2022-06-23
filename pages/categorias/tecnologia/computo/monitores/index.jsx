@@ -452,14 +452,14 @@ const Monitores = () => {
 								mayor tamaño, son el{' '}
 								<Link
 									underline='none'
-									href='articulos/monitor-benq-gw2480-led-23-8-pulgadas'
+									href='/articulos/monitor-benq-gw2480-led-23-8-pulgadas'
 									target='_blank'>
 									monitor BENQ
 								</Link>{' '}
 								de 23.8 pulgadas o el{' '}
 								<Link
 									underline='none'
-									href='articulos/monitor-huawei-ad80hw-1920-x-1080-vga--hdmi-23-8-pulg-h'
+									href='/articulos/monitor-huawei-ad80hw-1920-x-1080-vga--hdmi-23-8-pulg-h'
 									target='_blank'>
 									monitor Huawei
 								</Link>

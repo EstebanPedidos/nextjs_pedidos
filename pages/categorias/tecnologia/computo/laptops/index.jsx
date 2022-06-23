@@ -505,7 +505,7 @@ const Laptops = () => {
 								se consiguen desde $7,699 pesos, en tanto las{' '}
 								<Link
 									underline='none'
-									href='/articulos/laptop-asus-celeron-f543ma-intel-celeron-n4020-ram-4-gb-dd-500-gb-/articulos/laptop-asus-celeron-f543ma-intel-celeron-n4020-ram-4-gb-dd-500-gb-'
+									href='/articulos/laptop-asus-celeron-f543ma-intel-celeron-n4020-ram-4-gb-dd-500-gb-'
 									target='_blank'>
 									Laptops Asus
 								</Link>{' '}
