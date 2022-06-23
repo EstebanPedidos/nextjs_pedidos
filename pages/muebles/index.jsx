@@ -157,7 +157,7 @@ const Muebles = () => {
 							<Button
 								sx={{ px: 5 }}
 								variant='outlined'
-								href='/Soho/comentarios/reviews'>
+								href='https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17'>
 								Comentarios
 							</Button>
 						</Box>

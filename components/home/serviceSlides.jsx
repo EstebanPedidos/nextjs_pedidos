@@ -85,7 +85,7 @@ export default function serviceSlides() {
               
             },
             1200: {
-                slidesPerView: 3.6,
+                slidesPerView: 4,
               
             },
           }}
@@ -125,7 +125,7 @@ export default function serviceSlides() {
                   data={{texto1:'FORMA DE PAGO',
                   texto2:'Paga al recibir', 
                   texto3:'Paga con tarjeta al momento.',
-                  texto5:'CDMX  Guadalajara',
+                  texto5:'CDMX y Guadalajara',
                   img1:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/servicios/paga-recibe.svg',
                   texto4:'Paga al recibir, pago contra entrega'
                 }}

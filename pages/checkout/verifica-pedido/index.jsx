@@ -51,10 +51,7 @@ const useStyles = makeStyles((theme) => ({
 		padding: '2px 4px',
 		display: 'flex',
 	},
-	emptyCart: {
-		padding: theme.spacing(1),
-		width: '160px',
-	},
+	
 }));
 
 export default function Verifica_pedido() {
@@ -615,10 +612,7 @@ export default function Verifica_pedido() {
 										spacing={2}>
 										<Grid item xs={12}>
 											<Box component='div' m={1} pt={4}>
-												<img
-													className={
-														classes.emptyCart
-													}
+												<img sx={{ width: '160px'}}
 													src='https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/carrito-v.svg'
 													alt='Carrito vacio'
 												/>

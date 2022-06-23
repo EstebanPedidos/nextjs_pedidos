@@ -1,0 +1,32 @@
+User-agent: *
+Disallow: /CFD/
+Disallow: /dibujos/
+Disallow: /error/
+Disallow: /estadisticas/
+Disallow: /Funciones/
+Disallow: /fichasTecnicas/images/
+Disallow: /fichasTecnicas/img/
+Disallow: /ico/
+Disallow: /imagenes/
+Disallow: /images/
+Disallow: /js/
+Disallow: /Logos/
+Disallow: /mailing/
+Disallow: /mailing_mayo/
+Disallow: /mailingAbril/
+Disallow: /mootools/
+Disallow: /myFotos/
+Disallow: /scripts/
+Disallow: /soho/images/
+Disallow: /soho/Pedidos/images/icons/
+Disallow: /SpryAssets/
+Disallow: /MercadoLibre/
+Disallow: /checkout/verifica-pedido.asp
+Disallow: /checkout/direccion-de-envio.asp
+Disallow: /checkout/forma-de-envio.asp
+Disallow: /checkout/forma-de-pago.asp
+Disallow: /checkout/confirmacion-de-pago.asp
+
+
+#Sitemap files
+Sitemap: https://pedidos.com/sitemap.xml

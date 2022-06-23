@@ -14,12 +14,12 @@ const productCategories = [
 	{
 		label: 'Eco Tank',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/epson/tienda/ecotank.webp',
-		url: '/soluciones-multifuncionales',
+		url: '/busquedas?query=ecotank',
 	},
 	{
 		label: 'Proyectores',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/epson/tienda/Proyectores.webp',
-		url: '/proyectores-epson',
+		url: '/busquedas?/TECNOLOGIA/PROYECTORES',
 	},
 	{
 		label: 'Consumibles',

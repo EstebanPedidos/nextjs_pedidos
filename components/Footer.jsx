@@ -30,7 +30,6 @@ import { LiveChatWidget, EventHandlerPayload } from '@livechat/widget-react';
 
 const useStyles = makeStyles((theme) => ({
 	footer: {
-		backgroundColor: '#F6F6F6',
 		width: '100%',
 		position: 'relative',
 	},
@@ -60,14 +59,11 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.text.secondary,
 	},
 	gridLastItem: {
-		margin: ' 1.8rem ', width:'100', boxShadow:'none'
+		margin: ' 1.8rem ', width:'initial', boxShadow:'none',position:'relative'
 	},
 	socialMediaIcon: {
 		textDecoration: 'none',
 		color: theme.palette.text.primary,
-	},
-	logo: {
-		height: '1.5em',
 	},
 }));
 const name = 'Pedidos.com';
@@ -94,7 +90,7 @@ export function FooterDesktop() {
 		<footer className='classes.footer'>
 			<LiveChatWidget license='7731061' visibility='minimized' />
 			<Box component='div' py={2}>
-				<Grid
+				<Grid sx={{width:'100%'}}
 					container
 					direction='row'
 					justifyContent='center'
@@ -153,7 +149,7 @@ export function FooterDesktop() {
 				</Grid>
 			</Box>
 			<Divider />
-			<Grid
+			<Grid sx={{width:'100%'}}
 				container
 				direction='row'
 				justifyContent='space-evenly'
@@ -270,11 +266,11 @@ export function FooterDesktop() {
 					</Grid>
 				</Grid>
 			</Grid>
-			<Grid
+			<Grid sx={{width:'100%'}}
 				container
 				justifyContent='flex-start'
 				className={classes.mainContainer}>
-				<Grid item className={classes.gridLastItem} sx={{width:'100%', padding:'inherit', position:'relative', boxShadow:'none'}}>
+				<Grid item className={classes.gridLastItem} sx={{width:'initial', padding:'inherit', position:'relative', boxShadow:'none'}}>
 					<Box component='div' px={5}>
 						<Grid 
 							container
@@ -318,10 +314,10 @@ export function FooterDesktop() {
 						<Grid item>
 							{/* <Link to="/Home"> */}
 							<img
-								sx={{ width: '125px' }}
+								sx={{ width: '125px', position:'relative', boxShadow:'none', padding:'initial', backgroundColor:'none' }}
 								alt='Pedidos.com'
 								src={logo}
-								className={classes.logo}
+								
 							/>
 							{/* </Link> */}
 						</Grid>
@@ -335,7 +331,7 @@ export function FooterDesktop() {
 					</Grid>
 				</Grid>
 				<Grid item className={classes.gridLastItem}>
-					<Grid
+					<Grid sx={{width:'fit-content'}}
 						container
 						direction='row'
 						justifyContent='space-around'

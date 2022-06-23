@@ -58,7 +58,7 @@ const Monitores = () => {
 		<Layout title='Monitores y equipo de computo para oficina | Pedidos.com'>
 			<Head>
 				<meta name="description" content="Compra en línea monitores para oficina y hogar. Marcas como HP, Acer, Samsung y más en tu tienda en línea pedidos.com. Envío gratis en CDMX."/>
-				<link rel="canonical" href="https://pedidos.com/tecnologia/computo/monitores"/>
+				<link rel="canonical" href="https://pedidos.com/categorias/tecnologia/computo/monitores"/>
 			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/computo/back-computo.webp'
@@ -452,14 +452,14 @@ const Monitores = () => {
 								mayor tamaño, son el{' '}
 								<Link
 									underline='none'
-									href='articulos/monitor-benq-gw2480-led-23-8-pulgadas'
+									href='/articulos/monitor-benq-gw2480-led-23-8-pulgadas'
 									target='_blank'>
 									monitor BENQ
 								</Link>{' '}
 								de 23.8 pulgadas o el{' '}
 								<Link
 									underline='none'
-									href='articulos/monitor-huawei-ad80hw-1920-x-1080-vga--hdmi-23-8-pulg-h'
+									href='/articulos/monitor-huawei-ad80hw-1920-x-1080-vga--hdmi-23-8-pulg-h'
 									target='_blank'>
 									monitor Huawei
 								</Link>

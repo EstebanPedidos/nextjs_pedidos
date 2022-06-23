@@ -13,7 +13,7 @@ export const Layout = (props) => {
 				<meta content="es-mx" http-equiv="content-language"/>
 				<title>{title ?? 'Pedidos.com'}</title>
 				<meta name="viewport" content="width=device-width,initial-scale=1"/>
-				<meta name="robots" content="index,follow"/>
+				<meta name="robots" content="index, follow"/>
 
 			</Head>
 			<Script

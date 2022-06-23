@@ -95,7 +95,7 @@ export default function TrendSlides() {
                 </Link> 
             </SwiperSlide>
             <SwiperSlide> 
-                <Link href="/pedidosmayoreo/pedidos-mayorist">
+                <Link href="/pedidosmayoreo/pedidos-mayorista">
                         <a>
                         <Businessoption sx={{ backgroundColor:'#757575',}}
                             data={{

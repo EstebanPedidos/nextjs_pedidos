@@ -110,7 +110,7 @@ export default function TrendSlides({favoritos,add}) {
               
             },
             1200: {
-                slidesPerView: 3.6,
+                slidesPerView: 4,
               
             },
         }}

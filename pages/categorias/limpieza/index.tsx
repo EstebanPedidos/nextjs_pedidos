@@ -9,47 +9,47 @@ import ToutCard from 'components/ToutCard';
 const categoryItems = [
 	{
 		label: 'Guantes',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/GUANTES-DE-HULE-Y-LATEX',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/GUANTES-DE-HULE-Y-LATEX',
 	},
 	{
 		label: 'Despachadores',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/DESPACHADORES',
+		url: '/busquedas?/LIMPIEZA/DESPACHADORES',
 	},
 	{
 		label: 'Aromatizantes',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/QUIMICOS',
+		url: '/busquedas?/LIMPIEZA/QUIMICOS',
 	},
 	{
 		label: 'Esponjas',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/CEPILLOS-Y-FIBRAS',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/CEPILLOS-Y-FIBRAS',
 	},
 	{
 		label: 'Cloro',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/QUIMICOS/CLORO',
+		url: '/busquedas?/LIMPIEZA/QUIMICOS/CLORO',
 	},
 	{
 		label: 'Gel antibacterial',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/QUIMICOS/GEL-ANTIBACTERIAL',
+		url: '/busquedas?/LIMPIEZA/QUIMICOS/GEL-ANTIBACTERIAL',
 	},
 	{
 		label: 'Rollos de papel',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/HIGIENICOS',
+		url: '/busquedas?/LIMPIEZA/HIGIENICOS',
 	},
 	{
 		label: 'Toallas de papel',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/HIGIENICOS/SERVILLETA-INTERDOBLADA',
+		url: '/busquedas?/LIMPIEZA/HIGIENICOS/SERVILLETA-INTERDOBLADA',
 	},
 	{
 		label: 'Pañuelos',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/HIGIENICOS/PANUELOS-FACIALES',
+		url: '/busquedas?/LIMPIEZA/HIGIENICOS/PANUELOS-FACIALES',
 	},
 	{
 		label: 'Franelas',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/FRANELAS-Y-JERGAS',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/FRANELAS-Y-JERGAS',
 	},
 	{
 		label: 'Abrillantador',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/CERAS-Y-ACEITES/ABRILLANTADOR-DE-MUEBLES',
+		url: '/busquedas?/LIMPIEZA/CERAS-Y-ACEITES/ABRILLANTADOR-DE-MUEBLES',
 	},
 ];
 
@@ -57,12 +57,12 @@ const subcategoriesMain = [
 	{
 		title: 'Químicos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/quimicos.png',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/QUIMICOS',
+		url: '/busquedas?/LIMPIEZA/QUIMICOS',
 	},
 	{
 		title: 'Higiénicos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/higienicos.png',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/HIGIENICOS',
+		url: '/busquedas?/LIMPIEZA/HIGIENICOS',
 	},
 ];
 
@@ -70,97 +70,97 @@ const jarsCategories = [
 	{
 		label: 'Cepillos y fibras',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/esponja.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/CEPILLOS-Y-FIBRAS',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/CEPILLOS-Y-FIBRAS',
 	},
 	{
 		label: 'Cestos de basura',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/cesto.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/CESTOS-DE-BASURA',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/CESTOS-DE-BASURA',
 	},
 	{
 		label: 'Exprimidores',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/exprimidor.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/CUBETA-CON-EXPRIMIDOR',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/CUBETA-CON-EXPRIMIDOR',
 	},
 	{
 		label: 'Cubetas y jícaras',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/cubeta.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/CUBETAS-Y-JICARAS',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/CUBETAS-Y-JICARAS',
 	},
 	{
 		label: 'Escobas y mechudos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/escoba.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/ESCOBAS-Y-MECHUDOS',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/ESCOBAS-Y-MECHUDOS',
 	},
 	{
 		label: 'Jaladores',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/jalador.jpg',
-		url: 'https://busquedas/?/LIMPIEZA/JARCIERIA/JALADORES-DE-PISO-Y-VIDRIO',
+		url: 'https://busquedas?/LIMPIEZA/JARCIERIA/JALADORES-DE-PISO-Y-VIDRIO',
 	},
 	{
 		label: 'Franelas y jergas',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/franela.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/FRANELAS-Y-JERGAS',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/FRANELAS-Y-JERGAS',
 	},
 	{
 		label: 'Guantes',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/guantes.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/GUANTES-DE-HULE-Y-LATEX',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/GUANTES-DE-HULE-Y-LATEX',
 	},
 	{
 		label: 'Bolsas',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/bolsa.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/BOLSA-DE-PLASTICO',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/BOLSA-DE-PLASTICO',
 	},
 	{
 		label: 'Recogedor',
-		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/cubrebocas.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA',
+		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/recogedor.jpg',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA',
 	},
 	{
 		label: 'Plumero',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/rollo.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/PLUMERO',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/PLUMERO',
 	},
 	{
 		label: 'Bomba',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/bomba.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/BOMBA-PARA-WC',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/BOMBA-PARA-WC',
 	},
 	{
 		label: 'Rodillo',
-		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/botiquin.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/RODILLO-QUITAPELUSAS',
+		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/rodillo.jpg',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/RODILLO-QUITAPELUSAS',
 	},
 	{
 		label: 'Mop',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/mop.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA&m=MOP%C3%AFS',
+		url: '/busquedas?/LIMPIEZA&m=MOPïS',
 	},
 	{
 		label: 'Atomizador',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/atomizador.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/ATOMIZADOR&query=atomizador',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/ATOMIZADOR&query=atomizador',
 	},
 	{
 		label: 'Tapetes',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/tapete.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/JARCIERIA/REJILLAS-Y-TAPETES-PARA-MINGITORIOS&query=tapetes',
+		url: '/busquedas?/LIMPIEZA/JARCIERIA/REJILLAS-Y-TAPETES-PARA-MINGITORIOS&query=tapetes',
 	},
 	{
 		label: 'Rollos',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/rollo.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/HIGIENICOS',
+		url: '/busquedas?/LIMPIEZA/HIGIENICOS',
 	},
 	{
 		label: 'Cofias',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/cofia.jpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA&query=cofias',
+		url: '/busquedas?/LIMPIEZA&query=cofias',
 	},
 	{
 		label: 'Telas',
-		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/telajpg',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA&query=toallitas',
+		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/telas.jpg',
+		url: '/busquedas?/LIMPIEZA&query=toallitas',
 	},
 ];
 
@@ -168,12 +168,12 @@ const subcategories = [
 	{
 		title: 'Despachadores',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias//limpieza/despachadores.png',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/DESPACHADORES',
+		url: '/busquedas?/LIMPIEZA/DESPACHADORES',
 	},
 	{
 		title: 'Ceras y aceites',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/limpieza/aceite-c.png',
-		url: 'https://www.pedidos.com/busquedas?/LIMPIEZA/CERAS-Y-ACEITES',
+		url: '/busquedas?/LIMPIEZA/CERAS-Y-ACEITES',
 	},
 ];
 

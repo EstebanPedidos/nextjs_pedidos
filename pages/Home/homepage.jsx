@@ -18,7 +18,8 @@ import Categories from 'components/home/categories';
 import ThreeCards from 'components/home/tertiaryCards';
 import Brands from 'components/home/Brands';
 import ForBusiness from 'components/home/forBusiness';
-
+//Modales
+import  Help  from '../../components/modals/Help';
 //Nextjs
 import { useRouter } from 'next/router'
 
@@ -114,9 +115,9 @@ export const HomeSite = () => {
 									</Typography>
 								</Box>
 								<Box component="div" pt={4} pb={6}>
-									<Button variant="contained">
-											Centro de Ayuda
-									</Button>
+								<Container maxWidth="xs">
+                                	<Help tipo={'3'}/>
+                            	</Container>
 								</Box>
 							</Container>
 						</Box>

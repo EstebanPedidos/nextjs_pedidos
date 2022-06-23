@@ -139,7 +139,7 @@ const brands = [
 		links: [
 			{
 				label: 'Tóners originales',
-				href: 'https://www.pedidos.com/busquedas?/TINTAS-Y-TONERS/TONERS/TONERS-DE-CAPACIDAD-ESTANDAR',
+				href: '/busquedas?/TINTAS-Y-TONERS/TONERS/TONERS-DE-CAPACIDAD-ESTANDAR',
 			},
 			{
 				label: 'Ver todo LEXMARK',

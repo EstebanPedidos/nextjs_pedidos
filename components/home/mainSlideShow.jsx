@@ -53,6 +53,7 @@ export default function MainSlideShow() {
 				spaceBetween={0}
 				slidesPerView={1}
 				centeredSlides={true}
+				loop={true}
 				pagination={{
 					"clickable": true
 				  }}

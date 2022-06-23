@@ -760,7 +760,7 @@ export default function FichaTecnica(props){
                                                 ((subfamilia[datos.descripcion.descripcion.subfamilia] === 2 || subfamilia[datos.descripcion.descripcion.subfamilia] === 3) && (garantext1 > 0 || garantext2 > 0))&&
                                                 <Box pt={4}>
                                                     <FormControl component="fieldset">
-                                                    <FormLabel component="legend">Protección contra daños</FormLabel>
+                                                    <FormLabel component="legend">Garantía extendida</FormLabel>
                                                         <RadioGroup aria-label="duración" name="garantiaext" value={isGarn} onChange={({target})=>{setIsGarn(target.value)}}>
                                                             <FormControlLabel value="ZZZGAEXT1" control={<Radio />} label={
                                                             <Typography>1 AÑO  ${garantext1}</Typography>

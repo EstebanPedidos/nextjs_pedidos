@@ -8,43 +8,43 @@ import ToutCard from 'components/ToutCard';
 const categoryItems = [
 	{
 		label: 'Memorias',
-		url: 'https://www.pedidos.com/busquedas?query=memoria',
+		url: '/busquedas?query=memoria',
 	},
 	{
 		label: 'Bases',
-		url: 'https://www.pedidos.com/busquedas?query=base',
+		url: '/busquedas?query=base',
 	},
 	{
 		label: 'Presentadores',
-		url: 'https://www.pedidos.com/busquedas?query=presentador',
+		url: '/busquedas?query=presentador',
 	},
 	{
 		label: 'Limpiador',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/LIMPIEZA-Y-MANTENIMIENTO/LIMPIADOR',
+		url: '/busquedas?/ACCESORIOS/LIMPIEZA-Y-MANTENIMIENTO/LIMPIADOR',
 	},
 	{
 		label: 'Funda',
-		url: 'https://www.pedidos.com/busquedas?query=funda',
+		url: '/busquedas?query=funda',
 	},
 	{
 		label: 'Toalla',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/LIMPIEZA-Y-MANTENIMIENTO/TOALLA',
+		url: '/busquedas?/ACCESORIOS/LIMPIEZA-Y-MANTENIMIENTO/TOALLA',
 	},
 	{
 		label: 'Adaptador',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/CONEXIONES/ADAPTADOR',
+		url: '/busquedas?/ACCESORIOS/CONEXIONES/ADAPTADOR',
 	},
 	{
 		label: 'Cables',
-		url: 'https://www.pedidos.com/busquedas?query=cable',
+		url: '/busquedas?query=cable',
 	},
 	{
 		label: 'Disco duro',
-		url: 'https://www.pedidos.com/busquedas?query=disco%20duro',
+		url: '/busquedas?query=disco%20duro',
 	},
 	{
 		label: 'Lector de tarjetas',
-		url: 'https://www.pedidos.com/busquedas?query=lector%20de%20tarjetas',
+		url: '/busquedas?query=lector%20de%20tarjetas',
 	},
 ];
 
@@ -52,27 +52,27 @@ const subcategoryGrid = [
 	{
 		label: 'Componentes de cómputo',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/categorias/accesorios/componente.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/COMPONENTES-DE-COMPUTO',
+		url: '/busquedas?/ACCESORIOS/COMPONENTES-DE-COMPUTO',
 	},
 	{
 		label: 'Memorias',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/accesorios/memorias.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/MEMORIAS=',
+		url: '/busquedas?/ACCESORIOS/MEMORIAS=',
 	},
 	{
 		label: 'Pantallas',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/accesorios/pantallas.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/PANTALLAS',
+		url: '/busquedas?/ACCESORIOS/PANTALLAS',
 	},
 	{
 		label: 'Ergonomía',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/accesorios/ergonomia.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/ERGONOMIA',
+		url: '/busquedas?/ACCESORIOS/ERGONOMIA',
 	},
 	{
 		label: 'Bases',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/accesorios/bases.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/BASES/BASES-PARA-LAPTOP',
+		url: '/busquedas?/ACCESORIOS/BASES/BASES-PARA-LAPTOP',
 	},
 ];
 
@@ -80,22 +80,22 @@ const subcategories = [
 	{
 		title: 'CD y DVD’s',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/accesorios/cd.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/CDS-Y-DVDS',
+		url: '/busquedas?/ACCESORIOS/CDS-Y-DVDS',
 	},
 	{
 		title: 'Presentadores',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/accesorios/presentadores.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/PRESENTADORES/PRESENTADOR-LASER',
+		url: '/busquedas?/ACCESORIOS/PRESENTADORES/PRESENTADOR-LASER',
 	},
 	{
 		title: 'Equipamiento',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/accesorios/equipamiento.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/EQUIPAMIENTO-ELECTRONICO',
+		url: '/busquedas?/ACCESORIOS/EQUIPAMIENTO-ELECTRONICO',
 	},
 	{
 		title: 'Protección',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/accesorios/proteccion.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/PROTECCION/CANDADOS-PARA-LAPTOPS',
+		url: '/busquedas?/ACCESORIOS/PROTECCION/CANDADOS-PARA-LAPTOPS',
 	},
 ];
 
@@ -103,17 +103,17 @@ const otherSubCategories = [
 	{
 		title: 'Limpieza y mantenimiento',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/accesorios/limpieza.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/LIMPIEZA-Y-MANTENIMIENTO',
+		url: '/busquedas?/ACCESORIOS/LIMPIEZA-Y-MANTENIMIENTO',
 	},
 	{
 		title: 'Estuche y fundas',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/accesorios/fundas.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/ESTUCHE-Y-FUNDAS',
+		url: '/busquedas?/ACCESORIOS/ESTUCHE-Y-FUNDAS',
 	},
 	{
 		title: 'Conexión',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/categorias/accesorios/conexion.png',
-		url: 'https://www.pedidos.com/busquedas?/ACCESORIOS/CONEXIONES',
+		url: '/busquedas?/ACCESORIOS/CONEXIONES',
 	},
 ];
 
