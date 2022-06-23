@@ -2196,7 +2196,7 @@ export default function Busquedas(props) {
                                                         component='body2'
                                                         variant='p'
                                                         textAlign='left'>
-                                                        {props.hit.FILTROS ? props.hit.FILTROS.MARCA : ''}
+                                                        {props.hit.FILTROS ? props.hit.FILTROS.MARCA : props.hit.MARCA ? props.hit.MARCA : ''}
                                                     </Typography>
                                                     <Typography
                                                         variant='subtitle1'
