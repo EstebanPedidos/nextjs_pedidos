@@ -350,13 +350,7 @@ const AppleParaEmpresas = () => {
 				<Container maxWidth='lg'>
 					<Grid spacing={4} justifyContent='center' container>
 						{categories[selectedPath[0]]?.categories?.map((cat, i) => (
-							<Grid
-								key={cat.label}
-								xs={6}
-								md={Math.floor(
-									12 / categories[selectedPath[0]]?.categories?.length
-								)}
-								item>
+							<Grid key={cat.label} xs={6} md={2} item>
 								<TabButton
 									data={cat}
 									selectPath={() => setSelectedPath([selectedPath[0], i])}
@@ -372,7 +366,7 @@ const AppleParaEmpresas = () => {
 						{categories[selectedPath[0]]?.categories[
 							selectedPath[1]
 						]?.categories?.map((cat, i) => (
-							<Grid key={cat.label} xs={6} md={3} item>
+							<Grid key={cat.label} xs={6} md={2} item>
 								<TabButton
 									data={cat}
 									selectPath={() =>
