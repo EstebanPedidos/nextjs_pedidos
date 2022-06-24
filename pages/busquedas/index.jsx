@@ -344,7 +344,13 @@ export default function Busquedas(props) {
             searchVariable = renderSearch
         }
     return(
-        <Layout title={url === undefined ? '' : url+" Compra en México Pedidos.com"}>
+        <Layout title={url === undefined ? 'Compra en México Pedidos.com' : url+" Compra en México Pedidos.com"}>
+            
+            <Head>
+                <meta httpEquiv="X-UA-Compatible" content="IE=Edge"/>
+                <meta name="description" content={url === undefined ? 'Encuentra el mejor servicio y los mejores precios Pedidos.com' : url+"Encuentra el mejor servicio y los mejores precios Pedidos.com"}/>         
+                <meta name="keywords" content={url === undefined ? '' : url}/>
+			</Head>
             <div className={classes.bgcontent}>
                 <InstantSearch 
 					searchState={searchVariable}
