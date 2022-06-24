@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 8082",
-    "lint": "next lint",
-    "postbuild": "next-sitemap"
+    "lint": "next lint"
   },
   "dependencies": {
     "@algolia/client-common": "^4.13.0",
@@ -33,7 +32,6 @@
     "js-file-download": "^0.4.12",
     "next": "^12.1.4",
     "next-pwa": "^5.4.7",
-    "next-sitemap": "^3.1.6",
     "prop-types": "^15.8.1",
     "pure-react-carousel": "^1.28.1",
     "qs": "^6.10.5",
