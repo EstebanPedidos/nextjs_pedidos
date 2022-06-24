@@ -80,7 +80,6 @@ export default function MisFacturas() {
     const [clienteNum,setClienteNum]     = useLocalStorage('Cliente',201221)
     const [afiliado,setAfiliado]         = useLocalStorage('afiliado','N')
     const [usu_nombre,seUsu_nombre]      = useLocalStorage('Usu_Nomb','')
-    const [fechaFacturas,seFechaFacturas]= useLocalStorage('fechaFacturas','')
     const [snack, setSnack] = React.useState('');
     const [statusRFC, setStatusRFC] = React.useState(false);
     const [cfdiSelect, setCfdiSelect] = React.useState([]);
@@ -127,6 +126,7 @@ export default function MisFacturas() {
     }
 
     useEffect(() => {   
+        let fechaFacturas = localStorage.getItem('fechaFacturas');
         if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
             if(parseInt(clienteNum) !== 201221){                
                 const getData= async ()=>{        
@@ -201,7 +201,7 @@ export default function MisFacturas() {
 
     function descargaPdf(factura){
         console.log('Entro a descarga')
-        window.open("/Soho/MiCuenta/factura.asp?factura="+factura+".pdf", "_blank");
+        window.open("http://35.238.28.150/Soho/MiCuenta/factura.asp?factura="+factura+".pdf", "_blank");
     }
 
     function descargaXml(factura){
@@ -236,6 +236,7 @@ export default function MisFacturas() {
     }
 
     function consultaPorFecha(date){
+
         let rangoFecha = new Date()
         if(date !== null || date !== '')
         rangoFecha = (date.getMonth()+1)+'/'+date.getFullYear();

@@ -86,6 +86,7 @@ export default function MisPedidos() {
     const [partidas,setPartidas] = useLocalStorage('SesPartidas',0)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openMenu = Boolean(anchorEl);
+    const [reload, setReaload] = useState(false);
 
     const router = useRouter();
 
@@ -125,7 +126,6 @@ export default function MisPedidos() {
 
         if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
             if(parseInt(clienteNum) !== 201221){
-                
                 const getData= async ()=>{
                     if(fechaPedido === null || fechaPedido ===''){
                         console.log("if falso fechaPedido: "+fechaPedido)
@@ -178,7 +178,7 @@ export default function MisPedidos() {
             router.push('/')
         } 
 
-    }, []) 
+    }, [reload]) 
 
     function consultaPorFecha(date){
         let rangoFecha = new Date()
@@ -235,6 +235,7 @@ export default function MisPedidos() {
             switch(resultado){
                 case 1:
                     setAlerta({severity:'success',mensaje:'Exito, pedido cancelado',vertical:'bottom',horizontal:'right',variant:'filled'})
+                    setReload(true)
                     break;
                 case 2://Cliente incorrecto
                     setAlerta({severity:'error',mensaje:'Cliente incorrecto',vertical:'bottom',horizontal:'right',variant:'filled'})
@@ -508,7 +509,7 @@ export default function MisPedidos() {
                                             >
                                                 <DatePicker
                                                     views={['year','month']}
-                                                    label='Mes / Año'
+                                                    label='Año / Mes'
                                                     minDate={new Date('2015-01-02')}
                                                     maxDate={new Date()}
                                                     value={valueDate}
