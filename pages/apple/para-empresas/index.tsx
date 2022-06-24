@@ -209,7 +209,7 @@ const shipping = [
 ];
 
 const TabButton = (props) => {
-	const { data, selectPath, selected } = props;
+	const { data, selectPath, selected, opaque } = props;
 
 	return (
 		<Box
@@ -230,7 +230,7 @@ const TabButton = (props) => {
 				boxShadow: '0 5px 16px 0 rgb(51 51 51 / 7%)',
 				border: '1px solid',
 				borderColor: selected ? '#3655a533' : 'transparent',
-				opacity: selected ? 1 : 0.7,
+				opacity: opaque ? 1 : selected ? 1 : 0.7,
 
 				'&:hover': {
 					borderColor: '#3655a533',
@@ -349,17 +349,12 @@ const AppleParaEmpresas = () => {
 				<Container maxWidth='lg'>
 					<Grid spacing={4} justifyContent='center' container>
 						{categories[selectedPath[0]]?.categories?.map((cat, i) => (
-							<Grid
-								key={cat.label}
-								xs={6}
-								md={Math.floor(
-									12 / categories[selectedPath[0]]?.categories?.length
-								)}
-								item>
+							<Grid key={cat.label} xs={6} md={2} item>
 								<TabButton
 									data={cat}
 									selectPath={() => setSelectedPath([selectedPath[0], i])}
 									selected={selectedPath[1] === i}
+									opaque
 								/>
 							</Grid>
 						))}
@@ -371,13 +366,14 @@ const AppleParaEmpresas = () => {
 						{categories[selectedPath[0]]?.categories[
 							selectedPath[1]
 						]?.categories?.map((cat, i) => (
-							<Grid key={cat.label} xs={6} md={3} item>
+							<Grid key={cat.label} xs={6} md={2} item>
 								<TabButton
 									data={cat}
 									selectPath={() =>
 										setSelectedPath([selectedPath[0], selectedPath[1], i])
 									}
 									selected={selectedPath[2] === i}
+									opaque
 								/>
 							</Grid>
 						))}
