@@ -240,7 +240,11 @@ export function FooterDesktop() {
 							<Typography variant="h6" fontWeight="600">Ayuda</Typography>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
-							<Typography variant="body1" fontWeight="500">Facturación</Typography>
+							<Link href='/soho/cliente/modificar-factura'>
+								<a>
+									<Typography variant="body1" fontWeight="500">Facturación</Typography>
+								</a>
+							</Link>
 						</Grid>
 						<Grid item className={classes.ItemListFooter}>
 							<Link href='/soporte-tecnico'>
@@ -363,29 +367,39 @@ export function FooterDesktop() {
 				<Grid item className={classes.gridLastItem}>
 					<Stack direction="row" spacing={1}>
 						<Link href='https://www.facebook.com/pedidoscom/'>
-							<IconButton component="a" aria-label="Facebook">
+							<a>
+							<IconButton  aria-label="Facebook">
 								<FacebookIcon />
 							</IconButton>
+							</a>
 						</Link>
 						<Link href='https://www.linkedin.com/company/pedidos-com/'>
-							<IconButton component="a" aria-label="Linkedin">
+							<a>
+							<IconButton aria-label="Linkedin">
 								<LinkedInIcon />
 							</IconButton>
-						</Link>
+							</a>
+						</Link>							
 						<Link href='https://www.instagram.com/pedidoscom/'>
-							<IconButton component="a" aria-label="Instagram">
+							<a>
+							<IconButton aria-label="Instagram">
 								<InstagramIcon />
 							</IconButton>
+							</a>
 						</Link>
 						<Link href='https://www.youtube.com/user/PedidosTV'>
-							<IconButton component="a" aria-label="YouTube">
+							<a>
+							<IconButton aria-label="YouTube">
 								<YouTubeIcon />
 							</IconButton>
-						</Link>
+							</a>
+						</Link>							
 						<Link href='https://twitter.com/pedidos_com?'>
-							<IconButton component="a" aria-label="Twitter">
+							<a>
+							<IconButton aria-label="Twitter">
 								<TwitterIcon />
 							</IconButton>
+							</a>
 						</Link>
 					</Stack>
 				</Grid>
