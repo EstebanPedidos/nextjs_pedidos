@@ -201,7 +201,7 @@ export default function MisFacturas() {
 
     function descargaPdf(factura){
         console.log('Entro a descarga')
-        window.open("http://35.238.28.150/Soho/MiCuenta/factura.asp?factura="+factura+".pdf", "_blank");
+        window.open("http://pedidos.com/Soho/MiCuenta/factura?factura="+factura+".pdf", "_blank");
     }
 
     function descargaXml(factura){

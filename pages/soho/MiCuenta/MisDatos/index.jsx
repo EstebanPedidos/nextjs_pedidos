@@ -44,9 +44,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
     // background: '#F7F7F9',
 },
-opacityBox: {
-    opacity:'0.40',
-},
 boxevaluation: {
     backgroundColor: theme.palette.background.paper,
     borderRadius: '8px',
@@ -399,7 +396,7 @@ export default function MisDatos() {
                     <Typography component="h3" variant="h6">Gestiona tu cuenta, tu eliges</Typography>
                 </Box>
                 <Box component="div" width="15%" mx="auto" py={4}>
-                    <img className={classes.opacityBox} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/modal/edit.svg" alt="Perfil de usuario" />
+                    <img sx={{opacity:'0.40',}} className={classes.opacityBox} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/modal/edit.svg" alt="Perfil de usuario" />
                 </Box>
                 <Box component="div"  width="40%" mx="auto" textAlign="center" py={2}>
                     <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>

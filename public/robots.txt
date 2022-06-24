@@ -1,3 +1,4 @@
+# *
 User-agent: *
 Disallow: /CFD/
 Disallow: /dibujos/
@@ -28,5 +29,8 @@ Disallow: /checkout/forma-de-pago.asp
 Disallow: /checkout/confirmacion-de-pago.asp
 
 
-#Sitemap files
+# Host
+Host: https://pedidos.com/
+
+# Sitemaps
 Sitemap: https://pedidos.com/sitemap.xml

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import algoliasearch from 'algoliasearch/lite';
-
+import Head from 'next/head';
 //Tag Manager
 import TagManager from 'react-gtm-module'
 

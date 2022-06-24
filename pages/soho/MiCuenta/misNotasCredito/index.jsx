@@ -39,10 +39,6 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(3),
   },
-  opacityBox: {
-    opacity:'0.40',
-},
-  opacity20:{ opacity:'0.20'},
   bgcontent: {
     width:'100%',
     backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
@@ -220,7 +216,7 @@ export default function MisNotasCredito() {
         <Container maxWidth="lg">
             <Box component="div" mx="auto" py={8}>
                     <Box component="div" width="20%" mx="auto" py={4}>
-                        <img className={classes.opacityBox} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/page-info/notfound.svg" alt="Sin resutado de busquedas" />
+                        <img sx={{opacity:'0.40',}} className={classes.opacityBox} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/page-info/notfound.svg" alt="Sin resutado de busquedas" />
                     </Box>
                     <Box component="div" textAlign="center">
                         <Typography component="h3" variant="h6">No encontramos ningun registro</Typography>
