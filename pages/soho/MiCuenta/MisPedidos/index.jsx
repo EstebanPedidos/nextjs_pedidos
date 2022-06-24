@@ -55,9 +55,7 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(3),
   },
-  opacityBox: {
-    opacity:'0.40',
-},
+
 paperBox: {
     padding: theme.spacing(1), 
     boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',  
@@ -456,7 +454,7 @@ export default function MisPedidos() {
         <Container maxWidth="lg">
             <Box component="div" mx="auto" py={8}>
                     <Box component="div" width="20%" mx="auto" py={4}>
-                        <img className={classes.opacityBox} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/page-info/notfound.svg" alt="Sin resutado de busquedas" />
+                        <img sx={{ opacity:'0.40',}} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/page-info/notfound.svg" alt="Sin resutado de busquedas" />
                     </Box>
                     <Box component="div" textAlign="center">
                         <Typography component="h2" variant="h6">No ha realizado ningun pedido </Typography>

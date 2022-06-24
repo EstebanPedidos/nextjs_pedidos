@@ -99,7 +99,7 @@ const itemsAyuda = [
 	},
 	{
 		content: 'Garantías & Devoluciones',
-		to: 'mailto:pagos@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones&body=Completar%20la%20siguiente%20información%0D%0APedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A',
+		to: '/soho/politicas/devoluciones-garantias',
 	},
 ];
 const itemsContacto = [

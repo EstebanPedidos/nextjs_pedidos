@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(3),
   },
-  opacity20:{ opacity:'0.20'},
+
   cover: {
     width: 180,
     margin: 'auto',
@@ -62,8 +62,11 @@ const useStyles = makeStyles((theme) => ({
   },
   pCardDetail: { flexGrow: 1, height: '31rem', boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)', },
   bgcontent: {
-    backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
+    backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',width:'100%',
     // background: '#F7F7F9',
+    position: 'relative',
+    padding: 'initial',
+    boxShadow: 'none',
     
  },
  barColor: {
@@ -364,7 +367,7 @@ export default function MisFavoritos() {
         <Container maxWidth="lg">
             <Box component="div" mx="auto" py={8}>
                     <Box component="div" width="20%" mx="auto" py={4}>
-                        <img className={classes.opacity20} src="https://pedidos.com/myfotos/pedidos-com/pagina/modal/nofav/heart.svg" alt="Sin resutado de busquedas" />
+                        <img sx={{opacity:'0.20'}} src="https://pedidos.com/myfotos/pedidos-com/pagina/modal/nofav/heart.svg" alt="Sin resutado de busquedas" />
                     </Box>
                     <Box component="div" textAlign="center">
                         <Typography component="h2" variant="h6">Aún no hay favoritos </Typography>

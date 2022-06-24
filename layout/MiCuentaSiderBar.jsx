@@ -50,9 +50,6 @@ const useStyles = makeStyles((theme) => ({
 			'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
 		// background: '#F7F7F9',
 	},
-	opacityBox: {
-		opacity: '0.40',
-	},
 }));
 
 const Accountsection = ({data})=>{
@@ -131,7 +128,7 @@ export default function MiCuentaSiderBar() {
                                     </Box>
                                 </Grid>
                                 <Grid item sm={12}>
-                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                    <Typography variant="subtitle1" color="textSecondary" gutterBottom sx={{fontWeight:'500'}}>
                                         <Link href="/soho/MiCuenta/MisDatos">
                                             <a>
                                                 <Grid
@@ -153,7 +150,7 @@ export default function MiCuentaSiderBar() {
                                     </Typography>
                                 </Grid>
                                 <Grid item sm={12}>
-                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                    <Typography variant="subtitle1" color="textSecondary" gutterBottom sx={{fontWeight:'500'}}>
                                         <Link href="/soho/MiCuenta/MisPedidos">
                                             <a>
                                                 <Grid
@@ -175,7 +172,7 @@ export default function MiCuentaSiderBar() {
                                     </Typography>
                                 </Grid>
                                 <Grid item sm={12}>
-                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                    <Typography variant="subtitle1" color="textSecondary" gutterBottom sx={{fontWeight:'500'}}>
                                         <Link href="/soho/MiCuenta/Direcciones">
                                             <a>
                                                 <Grid
@@ -197,7 +194,7 @@ export default function MiCuentaSiderBar() {
                                     </Typography>
                                 </Grid>
                                 <Grid item sm={12}>
-                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                    <Typography variant="subtitle1" color="textSecondary" gutterBottom sx={{fontWeight:'500'}}>
                                         <Link href="/soho/MiCuenta/misFacturas">
                                             <a>
                                                 <Grid
@@ -241,7 +238,7 @@ export default function MiCuentaSiderBar() {
                                     </Typography>
                                 </Grid> */}
                                 <Grid item sm={12}>
-                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                    <Typography variant="subtitle1" color="textSecondary" gutterBottom sx={{fontWeight:'500'}}>
                                         <Link href="/soho/MiCuenta/misFavoritos">
                                             <a>
                                                 <Grid
@@ -263,7 +260,7 @@ export default function MiCuentaSiderBar() {
                                     </Typography>
                                 </Grid>
                                 <Grid item sm={12}>
-                                    <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'500'}}>
+                                    <Typography variant="subtitle1" color="textSecondary" gutterBottom sx={{fontWeight:'500'}}>
                                         <Link href="/soho/MiCuenta/misNotasCredito">
                                             <a>
                                                 <Grid
