@@ -12,9 +12,9 @@ import makeStyles from '@mui/styles/makeStyles';
 import { Layout } from 'layout/Layout';
 
 //Servicios
-import Services from '../services/Services'
+import Services from '../../services/Services'
 import { useRouter } from 'next/router'
-import Alertas from '../checkout/Alertas'
+import Alertas from '../../checkout/Alertas'
 
 
 const useStyles = makeStyles((theme) => ({
