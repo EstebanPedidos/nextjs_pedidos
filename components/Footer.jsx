@@ -149,193 +149,197 @@ export function FooterDesktop() {
 				</Grid>
 			</Box>
 			<Divider />
-			<Grid sx={{width:'100%'}}
-				container
-				direction='row'
-				justifyContent='space-evenly'
-				alignItems='stretch'
-				className={classes.mainContainer}>
-				<Grid item className={classes.gridItem}>
-					<Grid container direction='column' spacing={3}>
-						<Grid item className={classes.titlefooter}>
-							<Typography variant="h6" fontWeight="600">Conocenos</Typography>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Google</Typography>
-								</a>
-							</Link>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/quienes-somos/prensa'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Prensa</Typography>
-								</a>
-							</Link>
-						</Grid>
-						{/* <Grid item className={classes.ItemListFooter}>
-							<Link href='/'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Reviews</Typography>
-								</a>
-							</Link>
-						</Grid> */}
-						<Grid item className={classes.ItemListFooter}>
-								<a href="mailto:info@pedidos.com.mx">
-								<Typography variant="body1" fontWeight="500">Se Proveedor</Typography>
-								</a>
-							
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/hotsale'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Hot Sale</Typography>
-								</a>
-							</Link>
-						</Grid>
+			<Box component='div' sx={{width:'100%'}}>
+				<Grid 
+					container
+					direction='row'
+					justifyContent='space-evenly'
+					alignItems='stretch'
+					className={classes.mainContainer}>
+					<Grid item className={classes.gridItem}>
+						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
+							<Grid container direction='column' spacing={3}>
+								<Grid item className={classes.titlefooter}>
+									<Typography variant="h6" fontWeight="600">Conocenos</Typography>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Google</Typography>
+										</a>
+									</Link>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/quienes-somos/prensa'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Prensa</Typography>
+										</a>
+									</Link>
+								</Grid>
+								{/* <Grid item className={classes.ItemListFooter}>
+									<Link href='/'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Reviews</Typography>
+										</a>
+									</Link>
+								</Grid> */}
+								<Grid item className={classes.ItemListFooter}>
+										<a href="mailto:info@pedidos.com.mx">
+										<Typography variant="body1" fontWeight="500">Se Proveedor</Typography>
+										</a>
+									
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/hotsale'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Hot Sale</Typography>
+										</a>
+									</Link>
+								</Grid>
+							</Grid>
+						</Box>
 					</Grid>
-				</Grid>
-				<Grid item className={classes.gridItem}>
-					<Grid container direction='column' spacing={3}>
-						<Grid item className={classes.titlefooter}>
-							<Typography variant="h6" fontWeight="600">Servicios</Typography>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/servicios/pickup'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Pick Up Center </Typography></a>
-							</Link>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/servicios/empresas'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Para empresas </Typography></a>
-							</Link>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/soho/cliente/planes-de-proteccion'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Planes de protección </Typography></a>
-							</Link>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/programa-de-reciclaje'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Programa de reciclaje </Typography></a>
-							</Link>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/uniclick'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Uniclick Crédito </Typography>
-								</a>
-							</Link>
-						</Grid>
+					<Grid item className={classes.gridItem}>
+						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
+							<Grid container direction='column' spacing={3}>
+								<Grid item className={classes.titlefooter}>
+									<Typography variant="h6" fontWeight="600">Servicios</Typography>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/servicios/pickup'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Pick Up Center </Typography></a>
+									</Link>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/servicios/empresas'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Para empresas </Typography></a>
+									</Link>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/soho/cliente/planes-de-proteccion'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Planes de protección </Typography></a>
+									</Link>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/programa-de-reciclaje'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Programa de reciclaje </Typography></a>
+									</Link>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/uniclick'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Uniclick Crédito </Typography>
+										</a>
+									</Link>
+								</Grid>
+							</Grid>
+						</Box>
 					</Grid>
-				</Grid>
-				<Grid item className={classes.gridItem}>
-					<Grid container direction='column' spacing={3}>
-						<Grid item className={classes.titlefooter}>
-							<Typography variant="h6" fontWeight="600">Ayuda</Typography>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/soho/cliente/modificar-factura'>
-								<a>
-									<Typography variant="body1" fontWeight="500">Facturación</Typography>
-								</a>
-							</Link>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/soporte-tecnico'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Soporte Técnico </Typography>
-								</a>
-							</Link>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/soho/politicas/forma-de-pago'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Forma de Pago </Typography>
-								</a>
-							</Link>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/soho/politicas'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Forma de Envíos</Typography>
-								</a>
-							</Link>
-						</Grid>
-						<Grid item className={classes.ItemListFooter}>
-							<Link href='/soho/devoluciones-garantias'>
-								<a>
-								<Typography variant="body1" fontWeight="500">Garantías & devoluciones</Typography>
-								</a>
-							</Link>
-						</Grid>
+					<Grid item className={classes.gridItem}>
+						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
+							<Grid container direction='column' spacing={3}>
+								<Grid item className={classes.titlefooter}>
+									<Typography variant="h6" fontWeight="600">Ayuda</Typography>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/soho/cliente/modificar-factura'>
+										<a>
+											<Typography variant="body1" fontWeight="500">Facturación</Typography>
+										</a>
+									</Link>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/soporte-tecnico'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Soporte Técnico </Typography>
+										</a>
+									</Link>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/soho/politicas/forma-de-pago'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Forma de Pago </Typography>
+										</a>
+									</Link>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/soho/politicas'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Forma de Envíos</Typography>
+										</a>
+									</Link>
+								</Grid>
+								<Grid item className={classes.ItemListFooter}>
+									<Link href='/soho/devoluciones-garantias'>
+										<a>
+										<Typography variant="body1" fontWeight="500">Garantías & devoluciones</Typography>
+										</a>
+									</Link>
+								</Grid>
+							</Grid>
+						</Box>
 					</Grid>
-				</Grid>
-				<Grid item className={classes.gridItem}>
-					<Grid container direction='column' spacing={2}>
-						<Grid item className={classes.titlefooter}>
-							<Typography variant="h6" fontWeight="600">Contacto
-								<Typography className={classes.titlefooter}>
-									55 5015-8100 ó 01 800 8138181
-								</Typography>
-							</Typography>
-						</Grid>
+					<Grid item className={classes.gridItem}>
+						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
+							<Grid container direction='column' spacing={2}>
+								<Grid item className={classes.titlefooter}>
+									<Typography variant="h6" fontWeight="600">Contacto
+										<Typography className={classes.titlefooter}>
+											55 5015-8100 ó 01 800 8138181
+										</Typography>
+									</Typography>
+								</Grid>
 
-						<Grid item>Horario de atención 9:00 a 18:30 hrs</Grid>
-						<Grid item>
-							<Cotizar />
-						</Grid>
-						<Grid item>
-							<Help tipo={'1'} />
-						</Grid>
+								<Grid item>Horario de atención 9:00 a 18:30 hrs</Grid>
+								<Grid item>
+									<Cotizar />
+								</Grid>
+								<Grid item>
+									<Help tipo={'1'} />
+								</Grid>
+							</Grid>
+						</Box>
 					</Grid>
 				</Grid>
-			</Grid>
-			<Grid sx={{width:'100%'}}
-				container
-				justifyContent='flex-start'
-				className={classes.mainContainer}>
-				<Grid item className={classes.gridLastItem} sx={{width:'initial', padding:'inherit', position:'relative', boxShadow:'none'}}>
-					<Box component='div' px={5}>
-						<Grid 
-							container
-							direction='row'
-							justifyContent='flex-start'
-							alignItems='center'
-							spacing={6}>
-							<Grid
-								item
-								className={classes.ItemListFooterl}
-								color='textSecondary'>
-								<Link href='/soho/cliente/aviso-privacidad'>
-									<a>
-									<Typography variant="body1" fontWeight="500" color="textSecondary">Aviso de privacidad</Typography>
-									</a>
-								</Link>
-							</Grid>
-							<Grid item className={classes.ItemListFooterl}>
-								<Link href='/soho/cliente/terminos-y-condiciones'>
-									<a>
-										<Typography variant="body1" fontWeight="500" color="textSecondary">Términos & Condiciones</Typography>
-									</a>
-								</Link>
-							</Grid>
-							<Grid item className={classes.ItemListFooterl}>
-								<Link href='/RegistroUsuario' passHref>
-									<Button component='a' size='large' color='primary'>
-										Registrate
-									</Button>
-								</Link>
-							</Grid>
-						</Grid>
-					</Box>
+			</Box>
+			<Box component='div' sx={{width:'100%'}}>
+				<Grid
+					container
+					justifyContent='flex-start'
+					className={classes.mainContainer}>
+					<Grid item className={classes.gridLastItem} sx={{width:'initial', padding:'inherit', position:'relative', boxShadow:'none'}}>
+						<Box component='div' px={6}>
+							<Stack direction="row" alignItems='center' spacing={4}>
+								<Box component="div">
+									<Link href='/soho/cliente/aviso-privacidad'>
+										<a>
+										<Typography variant="body1" fontWeight="500" color="textSecondary">Aviso de privacidad</Typography>
+										</a>
+									</Link>
+								</Box>
+								<Box component="div">
+									<Link href='/soho/cliente/terminos-y-condiciones'>
+											<a>
+												<Typography variant="body1" fontWeight="500" color="textSecondary">Términos & Condiciones</Typography>
+											</a>
+									</Link>
+								</Box>
+								<Box component="div">
+									<Link href='/RegistroUsuario' passHref>
+											<Button component='a' size='large' color='primary'>
+												Registrate
+											</Button>
+									</Link>
+								</Box>
+							</Stack>
+						</Box>
+					</Grid>
 				</Grid>
-			</Grid>
+			</Box>
 			<Divider />
 			<Grid
 				container
@@ -360,7 +364,9 @@ export function FooterDesktop() {
 				<Grid item className={classes.gridLastItem}>
 					<Grid container direction='column' spacing={2}>
 						<Grid item className={classes.copyrightItem}>
-							<Typography variant="caption">Copyright © {year} {name} - Todos los derechos reservados </Typography>
+							<Box component='div' m={1}>
+								<Typography variant="caption">Copyright © {year} {name} - Todos los derechos reservados </Typography>
+							</Box>
 						</Grid>
 					</Grid>
 				</Grid>

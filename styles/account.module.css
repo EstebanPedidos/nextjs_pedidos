@@ -1,0 +1,12 @@
+.bgcontent {
+    background-image: linear-gradient(to bottom, #f6f7f9, #f6f7f9ee, white);
+    width: 100%;
+    position: relative;
+    padding: 'initial';
+    box-Shadow: 'none';
+    /* background: '#F7F7F9',*/
+}
+.boxCardF{
+    height:260px;
+    box-shadow: 0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%);
+  }

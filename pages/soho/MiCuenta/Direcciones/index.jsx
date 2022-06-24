@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 
+import styles from '../../../../styles/account.module.css';
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar';
 import AddDir from './add/Index'
@@ -26,11 +27,6 @@ const useStyles = makeStyles((theme) => ({
 	
 	control: {
 		padding: theme.spacing(3),
-	},
-	bgcontent: {
-		backgroundImage:
-			'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
-        width:'100%'
 	},
 	boxCardI: {
         width:'100%',
@@ -136,7 +132,7 @@ export default function Direcciones() {
 
 	return (
 		<Layout title="Mis Direcciones | Pedidos.com"> 
-				<Box className={classes.bgcontent} component='div'>
+				<Box className={styles.bgcontent} component='div'>
 					<Box component='div' mx={1}>
 						<Grid
 							container

@@ -7,7 +7,7 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     FormHelperText, FormControl, MenuItem, IconButton,
     Input, InputLabel, InputAdornment, Chip, Snackbar, 
     Alert, Rating } from '@mui/material';
-
+import styles from '../../../../styles/account.module.css';
 import esLocale from 'date-fns/locale/es'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -39,11 +39,7 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(3),
   },
-  bgcontent: {
-    width:'100%',
-    backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
-    // background: '#F7F7F9',
-},
+
 paperBox: {
     padding: theme.spacing(1), 
     boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',
@@ -216,7 +212,7 @@ export default function MisNotasCredito() {
         <Container maxWidth="lg">
             <Box component="div" mx="auto" py={8}>
                     <Box component="div" width="20%" mx="auto" py={4}>
-                        <img sx={{opacity:'0.40',}} className={classes.opacityBox} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/page-info/notfound.svg" alt="Sin resutado de busquedas" />
+                        <img sx={{opacity:'0.20',}} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/page-info/notfound.svg" alt="Sin resutado de busquedas" />
                     </Box>
                     <Box component="div" textAlign="center">
                         <Typography component="h3" variant="h6">No encontramos ningun registro</Typography>
@@ -231,7 +227,7 @@ export default function MisNotasCredito() {
         <Layout>
         
         <div>
-            <Box className={classes.bgcontent} component="div">
+            <Box className={styles.bgcontent} component="div">
                 <Box component="div" mx={1}>
                 <Grid
                     container

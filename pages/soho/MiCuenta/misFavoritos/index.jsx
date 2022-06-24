@@ -6,7 +6,7 @@ import { Grid, Box, Paper,
     Card, CardHeader, CardContent, CardActions, CardMedia, CardActionArea, Backdrop,
 	Divider, Fade, Chip, LinearProgress,
 	Skeleton, IconButton, Container, InputBase} from '@mui/material';
-
+import styles from '../../../../styles/account.module.css';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
@@ -61,14 +61,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   pCardDetail: { flexGrow: 1, height: '31rem', boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)', },
-  bgcontent: {
-    backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',width:'100%',
-    // background: '#F7F7F9',
-    position: 'relative',
-    padding: 'initial',
-    boxShadow: 'none',
-    
- },
  barColor: {
     "& .MuiLinearProgress-barColorPrimary": {
         backgroundColor: 'blue',
@@ -386,7 +378,7 @@ export default function MisFavoritos() {
     return(
         <Layout favoritos={favoritos} partidas={partidas} title="Mis Favoritos | Pedidos.com">
         <div>
-            <Box className={classes.bgcontent} component="div">
+            <Box className={styles.bgcontent} component="div">
                 <Box component="div" mx={1}>
                     <Grid
                         container

@@ -18,7 +18,7 @@ import esLocale from 'date-fns/locale/es'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-
+import styles from '../../../../styles/account.module.css';
 //Component
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
@@ -40,10 +40,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     margin: theme.spacing(2),
   },
-  bgcontent: {
-    backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
-    // background: '#F7F7F9',
-},
+
 boxevaluation: {
     backgroundColor: theme.palette.background.paper,
     borderRadius: '8px',
@@ -1364,7 +1361,7 @@ export default function MisDatos() {
 
   return(
     <Layout> 
-        <Box className={classes.bgcontent} component="div" >
+        <Box className={styles.bgcontent} component="div" >
             <Box component="div" mx={1}>
                 <Grid
                     container

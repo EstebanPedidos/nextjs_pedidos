@@ -6,7 +6,7 @@ import {Box, Grid, Paper, Typography, Container, Backdrop,
     InputLabel, InputAdornment, Hidden,Menu} from '@mui/material';
 
 import makeStyles from '@mui/styles/makeStyles';
-
+import styles from '../../../../styles/account.module.css';
 import esLocale from 'date-fns/locale/es'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -62,10 +62,7 @@ paperBox: {
     marginBottom: '1rem',
 },
 
-bgcontent: {
-    backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
-    // background: '#F7F7F9',
-},
+
 }));
 
 export default function MisPedidos() {
@@ -473,7 +470,7 @@ export default function MisPedidos() {
     return(
         <Layout partidas={partidas} title="Mis Pedidos | Pedidos.com">
         <div>
-             <Box className={classes.bgcontent} component="div">
+             <Box className={styles.bgcontent} component="div">
                 <Box component="div" mx={1}>
                     <Grid
                         container
