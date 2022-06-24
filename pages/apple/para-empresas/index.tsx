@@ -214,7 +214,7 @@ const shipping = [
 ];
 
 const TabButton = (props) => {
-	const { data, selectPath, selected } = props;
+	const { data, selectPath, selected, opaque } = props;
 
 	return (
 		<Box
@@ -235,7 +235,7 @@ const TabButton = (props) => {
 				boxShadow: '0 5px 16px 0 rgb(51 51 51 / 7%)',
 				border: '1px solid',
 				borderColor: selected ? '#3655a533' : 'transparent',
-				opacity: selected ? 1 : 0.7,
+				opacity: opaque ? 1 : selected ? 1 : 0.7,
 
 				'&:hover': {
 					borderColor: '#3655a533',
@@ -355,6 +355,7 @@ const AppleParaEmpresas = () => {
 									data={cat}
 									selectPath={() => setSelectedPath([selectedPath[0], i])}
 									selected={selectedPath[1] === i}
+									opaque
 								/>
 							</Grid>
 						))}
@@ -373,6 +374,7 @@ const AppleParaEmpresas = () => {
 										setSelectedPath([selectedPath[0], selectedPath[1], i])
 									}
 									selected={selectedPath[2] === i}
+									opaque
 								/>
 							</Grid>
 						))}
