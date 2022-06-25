@@ -78,7 +78,7 @@ export default function MainSlideShow() {
 								<Hidden mdUp>
 									<Banner props={{
 									img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/imac-xs-june.png',
-									alt:'',
+									alt:'Apple, iMac',
 									}}
 									/>
 								</Hidden>
