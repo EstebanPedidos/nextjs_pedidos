@@ -4,6 +4,7 @@ import Link from 'components/Link';
 //MUI
 import {Container,Box, Grid, Paper, Button, Typography, FormControl,
     FormControlLabel, Checkbox, TextField, } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,6 +34,12 @@ export default function RegistroUsuario(){
     const [alerta,setAlerta] = useState({})
     const [codigo,setCodigo] = useState(0)
 	const router = useRouter();
+    const [loading,setLoading] = useState(false) 
+    const [empresa, setEmpresa] = React.useState(false);
+    const [empresa2, setEmpresa2] = React.useState('N');
+
+    let mensajeError = '';
+    let error = false;
 
     const obtenerCodigo = (value) => {
         setCodigo([value])
@@ -58,13 +65,13 @@ export default function RegistroUsuario(){
     }
 
     const params = 
-        '?usuario='+inputs.usuario+
-        '&email='+inputs.correo+
-        '&pass='+inputs.password+
-        '&passC='+inputs.password2+
-        '&ip='+ip+
-        '&tel='+inputs.telefono+
-        '&isEmpresa=N';
+    '?usuario='+inputs.usuario+
+    '&email='+inputs.correo+
+    '&pass='+inputs.password+
+    '&passC='+inputs.password2+
+    '&ip='+ip+
+    '&tel='+inputs.telefono+
+    '&isEmpresa='+empresa2;
 
     const params2 = 
         '?codigo='+codigo+
@@ -81,25 +88,46 @@ export default function RegistroUsuario(){
     const validarPassword2 = () => {
         if(password.campo.length > 0){
             if(password.campo !== password2.campo){
-                console.log('Las contraseñas son iguales')
             }else{
-                console.log('Las contraseñas son distintas')
+                setAlerta({severity:'error',mensaje:'Las contraseñas son distintas',vertical:'bottom',horizontal:'right',variant:'filled'})
             }
         }
     }
 
     
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-        console.log("Entro al servicio Registrar Usuario");
-        let services  = await Services('POST','/registrov2/registraUsuarioNuevo'+params,{}) 
-        let data = services.data;
-        if(services.data === "S"){
-            setFirst(true);
-            setAlerta({severity:'success',mensaje:'Registro exitoso',vertical:'bottom',horizontal:'right',variant:'filled'})
+    async function handleSubmit() {
+       
+        setLoading(true);
+        
+        if(inputs.usuario === undefined || inputs.correo === undefined || inputs.password === undefined || inputs.password2 === undefined || inputs.telefono === undefined ){
+            mensajeError = 'Campo(s) vacíos'
+            error = true;
+            
         }else{
-            setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
+            if( inputs.password !== inputs.password2){
+                mensajeError = 'Contraseñas no coinciden'
+                error = true;
+            } else{
+                error = false;
+            }
+        }
+
+        if(error !== true){
+            Services('POST','/registrov2/registraUsuarioNuevo'+params,{})
+                .then( response =>{ 
+                    if(response.data === "S"){
+                        setFirst(true);
+                        setLoading(false)
+                        setAlerta({severity:'success',mensaje:'Registro exitoso',vertical:'bottom',horizontal:'right',variant:'filled'})
+                    }else{
+                        setLoading(false)
+                        setAlerta({severity:'error',mensaje:'Hubo un error',vertical:'bottom',horizontal:'right',variant:'filled'})
+                    }
+            })
+        }else{
+            setAlerta({severity:'error',mensaje:mensajeError,vertical:'bottom',horizontal:'right',variant:'filled'})
+            setLoading(false)
         }
     }
 
@@ -139,9 +167,15 @@ export default function RegistroUsuario(){
         }
     }
 
-    const [state, setState] = React.useState({
-        checked: false
-    });
+    const handleChange2 = (event) => {
+        setEmpresa(event.target.checked)
+
+        if(event.target.checked === true){
+            setEmpresa2('S')
+        }else{
+            setEmpresa2('N')
+        }
+    }
 
     const paperStyle={padding:40, height: 'auto', width:450, maxWidth:'90%', margin:"30px auto"}
     return(
@@ -165,15 +199,19 @@ export default function RegistroUsuario(){
                                 <TextField margin="dense" name="password2" variant="outlined"  onChange={handleChange} type="password" label="Confirmación" funcion={validarPassword2} />
                                 <FormControlLabel 
                                 control={
-                                    <Checkbox checked={state.checked} onChange={handleChange} name="checked" color="primary"/>
+                                    <Checkbox checked={empresa} onChange={handleChange2} name="checked" color="primary"/>
                                 }
                                     label="Soy Empresa"
                                 />
 
                                 <Box mt={1}>
-                                    <Button type="submit" variant="contained" size="large" color="primary"  onClick={handleSubmit} fullWidth>
-                                            Crea tu cuenta
-                                    </Button>
+                                    <LoadingButton type="submit" variant="contained" size="large" color="primary"  fullWidth
+                                        onClick={handleSubmit} 
+                                        loading={loading}
+                                        loadingIndicator="Registrando"
+                                    >
+                                        Crea tu cuenta
+                                    </LoadingButton> 
                                     <Box my={1} textAlign="center">
                                         <Typography variant="body2"  >
                                             Al registrarte aceptas los &nbsp;
