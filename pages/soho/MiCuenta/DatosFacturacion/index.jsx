@@ -13,7 +13,7 @@ import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCi
 
 import { makeStyles } from '@material-ui/core/styles';
 import MuiAlert from '@material-ui/lab/Alert';
-
+import styles from '../../../../styles/account.module.css';
 import AddRFC from './add/Index'
 import { Layout } from 'layout/Layout';
 import MiCuentaSiderBar from 'layout/MiCuentaSiderBar'
@@ -36,11 +36,6 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(2),
   },
-  boxCardF:{
-    height:'260px',
-    boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',
-  },
-  boxContentF: {height: '6.6rem'},
   adressBox: {
     marginTop: theme.spacing(2),
   },
@@ -120,7 +115,7 @@ export default function DatosFacturacion() {
         <Layout title="Mis Datos de Facturaci&oacute;n">
          
         <div>
-            <Box sx={{backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)'}} component="div">
+            <Box  className={styles.bgcontent} component="div">
                 <Box component="div" mx={1}>
                     <Grid
                         container
@@ -168,14 +163,14 @@ export default function DatosFacturacion() {
                                                     {result.map((row) => (
                                                         row.clienteRfc !== 'XAXX010101000' &&
                                                         <Grid item xs={6} sm={6} lg={4} key={row.rfcNum}> 
-                                                            <Card variant='auto' className={classes.boxCardF}>
+                                                            <Card variant='auto' className={styles.boxCardF}>
                                                                 <CardContent>
                                                                     <Box component="div" pb={2} display="flex" alignItems="center" justifyContent="center" mx="auto">
                                                                         <Avatar sx={{backgroundColor:'#E7ECF3', color:'#002d75'}}>
                                                                         <DescriptionOutlinedIcon />
                                                                         </Avatar>
                                                                     </Box>
-                                                                    <Box component="div" className={classes.boxContentF}>
+                                                                    <Box component="div" sx={{height: '6.6rem'}} >
                                                                     <Typography variant="h6" component="h2" key={row.rfcNum}>
                                                                         {row.clienteRfc}
                                                                     </Typography> 
@@ -188,9 +183,9 @@ export default function DatosFacturacion() {
                                                                 </CardContent>
                                                                 <Divider variant="middle" light/>
                                                                 <CardActions>
-                                                                    <Button size="small" fullWidth color="primary" name="Modal2" onClick={(event) => {event.preventDefault(); handleOpen(event); setRfcNum(row.rfcNum);}}>VER</Button>
+                                                                    <Button size="small" fullWidth color="primary" name="Modal2" onClick={(event) => {event.preventDefault(); handleOpen(event); setRfcNum(row.rfcNum);}}>Ver</Button>
                                                                     {row.rfcNum > 0 &&
-                                                                    <Button size="small" fullWidth color="primary" name="Modal3" onClick={(event) => {event.preventDefault(); setRfcNum(row.rfcNum); setClienteRfc(row.clienteRfc);}}>ELIMINAR</Button>
+                                                                    <Button size="small" fullWidth color="primary" name="Modal3" onClick={(event) => {event.preventDefault(); setRfcNum(row.rfcNum); setClienteRfc(row.clienteRfc);}}>Eliminar</Button>
                                                                     }
                                                                 </CardActions>
                                                             </Card>

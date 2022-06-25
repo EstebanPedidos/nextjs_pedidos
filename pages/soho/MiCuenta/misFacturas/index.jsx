@@ -12,7 +12,7 @@ import esLocale from 'date-fns/locale/es'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-
+import styles from '../../../../styles/account.module.css';
 
 import SearchIcon from '@mui/icons-material/Search';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
@@ -53,11 +53,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   }, */
   
-bgcontent: {
-    width:'100%',
-    backgroundImage: 'linear-gradient(to bottom, #f5f6f9a8, #f5f5f5, white)',
-    // background: '#F7F7F9',
-},
+
 paperBox: {
     padding: theme.spacing(2), 
     boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)',
@@ -429,7 +425,7 @@ export default function MisFacturas() {
     return(
         <Layout title="Mis Facturas | Pedidos.com">
         <div>
-            <Box className={classes.bgcontent} component="div">
+            <Box className={styles.bgcontent} component="div">
                 <Box component="div" mx={1}>
                 <Grid
                     container
