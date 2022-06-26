@@ -38,7 +38,7 @@ export default function CheckoutHeader() {
                 <Container maxWidth="xl">
                     <Toolbar>
                     <Box component="div" sx={{ flexGrow: 1 }}>
-                         <Link href={`/`}>
+                         <Link href={`/Home`}>
                             <a>
                                 <img alt='Pedidos.com' sx={{height:"1.5em",}} src='https://pedidos.com/myfotos/pedidos-com/pagina/header/pedidos-logo.svg' />
                             </a>

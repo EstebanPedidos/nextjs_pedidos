@@ -680,7 +680,7 @@ export default function Forma_de_envio(props){
                     <Grid item xs={12} sm={4}>
                     {(data.hasOwnProperty('jsonResumen'))?
                         <>
-                        <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                        <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} paso={2}/> 
                         {(!alerta.hasOwnProperty('severity'))&&
                             <LoadingButton variant="contained" fullWidth  size="large" color="primary" type="button"
                             onClick={continuarCompra}
