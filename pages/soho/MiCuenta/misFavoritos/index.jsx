@@ -358,8 +358,8 @@ export default function MisFavoritos() {
         
         <Container maxWidth="lg">
             <Box component="div" mx="auto" py={8}>
-                    <Box component="div" width="20%" mx="auto" py={4}>
-                        <img sx={{opacity:'0.20'}} src="https://pedidos.com/myfotos/pedidos-com/pagina/modal/nofav/heart.svg" alt="Sin resutado de busquedas" />
+                    <Box sx={{opacity:'0.20'}} component="div" width="20%" mx="auto" py={4}>
+                        <img  src="https://pedidos.com/myfotos/pedidos-com/pagina/modal/nofav/heart.svg" alt="Sin resutado de busquedas" />
                     </Box>
                     <Box component="div" textAlign="center">
                         <Typography component="h2" variant="h6">Aún no hay favoritos </Typography>

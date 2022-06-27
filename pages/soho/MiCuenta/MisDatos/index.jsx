@@ -389,11 +389,11 @@ export default function MisDatos() {
     <div>
         <Container maxWidth="lg">
             <Box component="div" mx="auto" py={8} >
-                <Box component="div" textAlign="center">
-                    <Typography component="h3" variant="h6">Gestiona tu cuenta, tu eliges</Typography>
+                <Box sx={{opacity:'0.40'}} component="div" width="15%" mx="auto" py={4}>
+                    <img   src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/modal/edit.svg" alt="Perfil de usuario" />
                 </Box>
-                <Box component="div" width="15%" mx="auto" py={4}>
-                    <img sx={{opacity:'0.40',}} className={classes.opacityBox} src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/modal/edit.svg" alt="Perfil de usuario" />
+                <Box component="div" textAlign="center">
+                    <Typography component="h1" variant="h5">Gestiona tu cuenta, tu eliges</Typography>
                 </Box>
                 <Box component="div"  width="40%" mx="auto" textAlign="center" py={2}>
                     <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
@@ -423,75 +423,83 @@ export default function MisDatos() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <PersonAddIcon 
-                  style={{ fontSize: 50 }}
-                  color="primary"/>
-                <h3>Cuenta Personal</h3>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField 
-                  id="outlined-full-width" 
-                  label="Nombres(s)" 
-                  variant="outlined" 
-                  type="text" 
-                  name="nombre"
-                  placeholder="Nombre de Usuario " 
-                  onChange={handleChange}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField 
-                  id="outlined-full-width" 
-                  label="Apellido(s)" 
-                  variant="outlined" 
-                  type="text" 
-                  name="apellido" 
-                  onChange={handleChange}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField 
-                  id="outlined-full-width" 
-                  label="Correo" 
-                  variant="outlined" 
-                  type="text" 
-                  name="correo" 
-                  defaultValue={correo}
-                  onChange={handleChange}
-                  margin="normal"
-                  InputLabelProps={{
-                    readOnly: true,
-                  }}
-                  />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField 
-                  id="outlined-full-width" 
-                  label="Fecha de nacimiento" 
-                  variant="outlined" 
-                  type="date" 
-                  name="fechaNac" 
-                  onChange={handleChange}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  />
-              </Grid>
-              <div>
-              <Button variant="contained" color="primary" onClick={(event) => { event.preventDefault();handleSubmit('Personal')}}>Guardar</Button>
-            </div>
-            </Grid>
+            <Box component="div" textAlign="center" m={1} py={2}>
+                <Typography component="h3" variant="h5">
+                    <Box component="span" fontWeight="fontWeightMedium">
+                    Cuenta Personal
+                    </Box>
+                </Typography>
+                <Box component="div" py={1}>
+                <Divider/>
+                </Box>
+            </Box>
+            <Box component="div" justifyContet="center" px={2}>
+                <Grid container justifyContent="center" spacing={2}>
+                    <Grid item xs={6}>
+                        <TextField fullWidth
+                        id="outlined-full-width" 
+                        label="Nombres(s)" 
+                        variant="outlined" 
+                        type="text" 
+                        name="nombre"
+                        placeholder="Nombre de Usuario " 
+                        onChange={handleChange}
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextField fullWidth
+                        id="outlined-full-width" 
+                        label="Apellido(s)" 
+                        variant="outlined" 
+                        type="text" 
+                        name="apellido" 
+                        onChange={handleChange}
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextField fullWidth
+                        id="outlined-full-width" 
+                        label="Correo" 
+                        variant="outlined" 
+                        type="text" 
+                        name="correo" 
+                        defaultValue={correo}
+                        onChange={handleChange}
+                        margin="normal"
+                        InputLabelProps={{
+                            readOnly: true,
+                        }}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextField fullWidth
+                        id="outlined-full-width" 
+                        label="Fecha de nacimiento" 
+                        variant="outlined" 
+                        type="date" 
+                        name="fechaNac" 
+                        onChange={handleChange}
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Box component="div" justifyContet="center">
+                            <Button fullWidth variant="contained" color="primary" onClick={(event) => { event.preventDefault();handleSubmit('Personal')}}>Guardar</Button>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Box>
           </div>
         </Fade>
       </Modal>
@@ -499,7 +507,7 @@ export default function MisDatos() {
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        className={classes.modal1}
+        className={classes.modal}
         open={open && modal === 'Modal2'}
         onClose={handleClose}
         closeAfterTransition
@@ -509,91 +517,99 @@ export default function MisDatos() {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <PersonAddIcon 
-                  style={{ fontSize: 50 }}
-                  color="primary"/>
-                <h3>Cuenta Personal</h3>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField 
-                  id="outlined-full-width" 
-                  label="Nombres(s)" 
-                  variant="outlined" 
-                  type="text" 
-                  name="nombre"
-                  placeholder="Nombre de Usuario" 
-                  onChange={handleChange}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField 
-                  id="outlined-full-width" 
-                  label="Apellido(s)" 
-                  variant="outlined" 
-                  type="text" 
-                  name="apellido" 
-                  onChange={handleChange}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField 
-                  id="outlined-full-width" 
-                  label="Empresa" 
-                  variant="outlined" 
-                  type="text" 
-                  name="empresa" 
-                  onChange={handleChange}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField 
-                  id="outlined-full-width" 
-                  label="Correo" 
-                  variant="outlined" 
-                  type="text" 
-                  name="correo" 
-                  defaultValue={correo}
-                  onChange={handleChange}
-                  margin="normal"
-                  InputLabelProps={{
-                    readOnly: true,
-                  }}
-                  />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField 
-                  id="outlined-full-width" 
-                  label="Fecha de nacimiento" 
-                  variant="outlined" 
-                  type="date" 
-                  name="fechaNac" 
-                  onChange={handleChange}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  />
-              </Grid>
-              <div>
-              <Button variant="contained" color="primary" onClick={(event) => { event.preventDefault();handleSubmit('N')}}>Guardar</Button>
+            <div className={classes.paper}>
+                <Box component="div" textAlign="center" m={1} py={2}>
+                    <Typography component="h3" variant="h5">
+                        <Box component="span" fontWeight="fontWeightMedium">
+                        Cuenta Empresarial
+                        </Box>
+                    </Typography>
+                    <Box component="div" py={1}>
+                    <Divider/>
+                    </Box>
+                </Box>
+                <Box component="div" justifyContet="center" px={2}>
+                    <Grid container justifyContent="center" spacing={2}>
+                        <Grid item xs={6}>
+                            <TextField fullWidth
+                            id="outlined-full-width" 
+                            label="Nombres(s)" 
+                            variant="outlined" 
+                            type="text" 
+                            name="nombre"
+                            placeholder="Nombre de Usuario" 
+                            onChange={handleChange}
+                            margin="normal"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField fullWidth
+                            id="outlined-full-width" 
+                            label="Apellido(s)" 
+                            variant="outlined" 
+                            type="text" 
+                            name="apellido" 
+                            onChange={handleChange}
+                            margin="normal"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField fullWidth
+                            id="outlined-full-width" 
+                            label="Empresa" 
+                            variant="outlined" 
+                            type="text" 
+                            name="empresa" 
+                            onChange={handleChange}
+                            margin="normal"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField  fullWidth
+                            id="outlined-full-width" 
+                            label="Correo" 
+                            variant="outlined" 
+                            type="text" 
+                            name="correo" 
+                            defaultValue={correo}
+                            onChange={handleChange}
+                            margin="normal"
+                            InputLabelProps={{
+                                readOnly: true,
+                            }}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField fullWidth
+                            id="outlined-full-width" 
+                            label="Fecha de nacimiento" 
+                            variant="outlined" 
+                            type="date" 
+                            name="fechaNac" 
+                            onChange={handleChange}
+                            margin="normal"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Box component="div" justifyContet="center">
+                                <Button fullWidth variant="contained" color="primary" onClick={(event) => { event.preventDefault();handleSubmit('N')}}>Guardar</Button>
+                            </Box>
+                        </Grid>
+                    </Grid>
+                </Box>
             </div>
-            </Grid>
-          </div>
         </Fade>
       </Modal>
     </div>
