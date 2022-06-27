@@ -31,6 +31,8 @@ import 'swiper/css';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import RandomUser from '../pages/services/RandomUser';
+
 const useStyles = makeStyles((theme) => ({
 	modal: {
 		display: 'flex',
@@ -68,11 +70,14 @@ const Accountsection = ({data})=>{
   }
 export default function MiCuentaSiderBar() {
 	const classes = useStyles();
-    const router = useRouter()
+    const router = useRouter();
+    const ruter = useRouter();
 	const [nombre, setNombre] = React.useState('');
+    const [isLogged, setLogged] = React.useState(false);
 	const [open, setOpen] = React.useState(false);
 	const [modal, setModal] = React.useState('');
-
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 	useEffect(() => {
 		setNombre(localStorage.getItem('Usu_Nomb'));
 	}, [nombre]);
@@ -86,6 +91,28 @@ export default function MiCuentaSiderBar() {
 	const handleClose = () => {
 		setOpen(false);
 	};
+    const handleMobileMenuClose = () => {
+		setMobileMoreAnchorEl(null);
+	};
+    const handleMenuClose = () => {
+		setAnchorEl(null);
+		handleMobileMenuClose();
+	};
+    function CerrarSesion() {
+		setLogged(false);
+		localStorage.setItem('Usu_Nomb', '');
+		localStorage.setItem('Cliente', 0);
+		localStorage.setItem('Favoritos', 0);
+		localStorage.setItem('SesPartidas', 0);
+		localStorage.setItem('Token', '');
+		localStorage.setItem('Login', 'NO');
+		localStorage.setItem('Email', '');
+		localStorage.setItem('Usuario', RandomUser());
+		localStorage.setItem('afiliado', '');
+		localStorage.setItem('pedido', 0);
+		localStorage.setItem('URL', '');
+		ruter.push('/');
+	}
 
 	return (
 		<>
@@ -305,11 +332,7 @@ export default function MiCuentaSiderBar() {
                                 <Help tipo={'3'}/>
                             </Box>
                             <Box component="div" >
-                                <Link href="/soho/MiCuenta/MisNotasCredito">
-                                    <a>
-                                        <Button startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
-                                    </a>
-                                </Link>
+                                <Button onClick={() => (handleMenuClose(), CerrarSesion())} startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
                             </Box>
                             
                         </Box>
@@ -426,9 +449,7 @@ export default function MiCuentaSiderBar() {
                         <Help tipo={'4'}/>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Link href="/soho/MiCuenta/MisNotasCredito">
-                            <Button component="a" startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
-                        </Link>
+                        <Button onClick={() => (handleMenuClose(), CerrarSesion())} component="a" startIcon={<LogoutOutlinedIcon />} variant="outlined" color="primary" fullWidth size="large" name="editarDatos" >Cerrar sesión</Button>
                     </SwiperSlide>
                         </Swiper>
                         <Box py={2}>
