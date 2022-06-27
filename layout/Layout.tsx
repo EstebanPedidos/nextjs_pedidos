@@ -13,8 +13,8 @@ export const Layout = (props) => {
 				<meta content="es-mx" http-equiv="content-language"/>
 				<title>{title ?? 'Pedidos.com'}</title>
 				<meta name="viewport" content="width=device-width,initial-scale=1"/>
-				<meta name="robots" content="index, follow"/>
-
+				<meta name="robots" content="all" />
+				{/* <meta name="robots" content="index, follow"/> */}
 			</Head>
 			<Script
 				src='https://kit.fontawesome.com/57c5aaf07a.js'

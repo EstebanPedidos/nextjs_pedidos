@@ -22,12 +22,15 @@ Disallow: /soho/images/
 Disallow: /soho/Pedidos/images/icons/
 Disallow: /SpryAssets/
 Disallow: /MercadoLibre/
-Disallow: /checkout/verifica-pedido.asp
-Disallow: /checkout/direccion-de-envio.asp
-Disallow: /checkout/forma-de-envio.asp
-Disallow: /checkout/forma-de-pago.asp
-Disallow: /checkout/confirmacion-de-pago.asp
+Disallow: /checkout/verifica-pedido
+Disallow: /checkout/direccion-de-envio
+Disallow: /checkout/forma-de-envio
+Disallow: /checkout/forma-de-pago
+Disallow: /checkout/confirmacion-de-pago
 
+# Allow all crawlers
+User-agent: *
+Allow: /
 
 # Host
 Host: https://pedidos.com/

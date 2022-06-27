@@ -424,7 +424,7 @@ export default function MisPedidos() {
                                                             <Chip icon={<LocalShippingOutlinedIcon />} label="Enviando" variant="outlined" />
                                                         }
                                                         {row.estatusEnvio == "RETURNED" && 
-                                                            <Chip icon={<AssignmentReturnOutlinedIcon />} label="Regresado" variant="outlined" />
+                                                            <Chip icon={<AssignmentReturnOutlinedIcon />} label="Retorno" variant="outlined" />
                                                         }
                                                         {row.estatusEnvio == "REFUNDED" && 
                                                             <Chip icon={<PaidOutlinedIcon />} label="Reembolsado" variant="outlined" />

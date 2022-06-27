@@ -296,9 +296,11 @@ export const AvisoPrivacidad = () => {
 						autoridad es el Instituto Nacional de Transparencia, Acceso a la
 						Información y Protección de Datos Personales (INAI), su sitio web
 						es:{' '}
-						<a href='www.inai.org.mx/' target={'_blank'}>
+						<Link href='www.inai.org.mx'>
+						<a>
 							www.inai.org.mx/
 						</a>
+						</Link>
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>

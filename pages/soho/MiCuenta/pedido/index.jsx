@@ -535,7 +535,7 @@ export default function Pedido(props) {
                                                                     {result.misPedidos.estatusBoton === 'PAGADO' || (result.misPedidos.estatusBoton === 'FACTURADO' 
                                                                     && 'FACTURADO')}
                                                                     {result.misPedidos.estatusBoton === 'REFUNDED' && 'Reembolsado'}
-                                                                    {result.misPedidos.estatusBoton === 'RETURNED' && 'Regresado'}
+                                                                    {result.misPedidos.estatusBoton === 'RETURNED' && 'Retorno'}
                                                                     {result.misPedidos.estatusBoton != 'PAGADO' && result.misPedidos.estatusBoton != 'FACTURADO' && result.misPedidos.estatusBoton != 'REFUNDED'  && result.misPedidos.estatusBoton != 'RETURNED'
                                                                     && result.misPedidos.estatusBoton}
                                                                 </Typography>
