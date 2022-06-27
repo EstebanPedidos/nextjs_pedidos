@@ -314,7 +314,7 @@ export default function MiCuentaSiderBar() {
                     <Divider />
                         <Box component="divider" py={2}>
                         <Box component="div" py={1}>
-                            <Button startIcon={<ShuffleIcon />} onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones'
+                            <Button startIcon={<ShuffleIcon />} onClick={() => window.open('mailto:quejas@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones'
                                                 +'&body=Completar%20la%20siguiente%20información%0D%0A'+
                                                 'Pedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A')}>
                                 Garantías & Devoluciones
@@ -422,7 +422,7 @@ export default function MiCuentaSiderBar() {
                         </Link>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Button component="a" onClick={() => window.open('mailto:pagos@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones&body=Completar%20la%20siguiente%20información%0D%0APedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
+                        <Button component="a" onClick={() => window.open('mailto:quejas@pedidos.com.mx?subject=Garantia%20Y%20Devoluciones&body=Completar%20la%20siguiente%20información%0D%0APedido:%20%0D%0AProducto:%20%0D%0ACantidad:%20%0D%0ATelefono%20de%20Contacto:%20%0D%0AAdjuntar%20Fotos.%20%0D%0A%0D%0A%0D%0A%0D%0A')}
                         >
                             Garantías y Devoluciones
                         </Button>
