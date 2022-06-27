@@ -491,24 +491,33 @@ export function Navbar(props) {
 						</Box>
 						<Box>
 							{isLogged ? (
-								<IconButton
-									size='large'
-									aria-controls={menuId}
-									aria-haspopup='true'
-									onClick={handleProfileMenuOpen}>
-									<Avatar
-										sx={{
-											width: 48,
-											height: 48,
-											border: 2,
-											borderColor: '#3655A5',
-											color: '#3655A5',
-											backgroundColor: '#E7ECF3',
-											textTransform: 'uppercase',
-										}}>
-										{nombre.substring(0, 2)}
-									</Avatar>
-								</IconButton>
+								
+									<IconButton
+										size='large'
+										aria-controls={menuId}
+										aria-haspopup='true'
+										onClick={handleProfileMenuOpen}>
+											<Badge
+											anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+											badgeContent={
+											<Box component="span" sx={{backgroundColor:'#3655A5', borderRadius:'4px', color:'#fff', padding:'3px', marginLeft:'-46px', marginTop:'-8px'}} variant='caption'>PRO</Box>
+											}
+											>
+												<Avatar
+													sx={{
+														width: 48,
+														height: 48,
+														border: 2,
+														borderColor: '#3655A5',
+														color: '#3655A5',
+														backgroundColor: '#E7ECF3',
+														textTransform: 'uppercase',
+													}}>
+													{nombre.substring(0, 2)}
+												</Avatar>
+											</Badge>
+									</IconButton>
+								
 							) : (
 								<Button
 									variant='contained'
