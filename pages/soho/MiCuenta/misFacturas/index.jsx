@@ -196,12 +196,27 @@ export default function MisFacturas() {
     }
 
     function descargaPdf(factura){
-        console.log('Entro a descarga')
-        window.open("http://pedidos.com/Soho/MiCuenta/factura?factura="+factura+".pdf", "_blank");
+        Services('POST','/miCuenta/consultaArchivo?clienteNum='+clienteNum+'&invoice='+factura+'&extension=pdf',{})
+        .then( response =>{
+            if(response.data === "CLIENTE INVALIDO")
+            {
+                console.log("El cliente no corresponde con el XML a descargar","Error");
+            }
+            else
+            {
+            const linkSource = `data:application/PDF;base64,${response.data}`;
+            const downloadLink = document.createElement("a");
+            const fileName = (factura.replace(/ /g, ""))+".pdf";
+
+            downloadLink.href = linkSource;
+            downloadLink.download = fileName;
+            downloadLink.click();
+            }
+        })
     }
 
     function descargaXml(factura){
-        console.log("Descarga XML");
+        
         Services('POST','/miCuenta/consultaArchivo?clienteNum='+clienteNum+'&invoice='+factura+'&extension=xml',{})
         .then( response =>{
             if(response.data === "CLIENTE INVALIDO")
@@ -544,7 +559,7 @@ export default function MisFacturas() {
                                                                         <Grid item xs={12} sm={2}>
                                                                             <Box component="div">
                                                                                 {row.tienePdf ? 
-                                                                                    <IconButton aria-label="openPDF" onClick={(event) => { event.preventDefault(); descargaPdf(row.invoice);} }>
+                                                                                    <IconButton aria-label="openPDF" onClick={(event) => { event.preventDefault(); descargaPdf(row.invoice);}} download={row.invoice+".pdf"}>
                                                                                         <PictureAsPdfIcon/>
                                                                                     </IconButton>
                                                                                     :

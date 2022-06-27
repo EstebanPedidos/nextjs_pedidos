@@ -2,8 +2,10 @@ import React, {useEffect,useState} from "react";
 import Link from 'next/link'
 //MUI
 import {Container, Box, Grid, Paper, Button, Typography, FormControl, Tab,AppBar,Table,TableBody,
-    TableCell,TableContainer,TableRow, Avatar, TextField } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+    TextField } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
+
+    import makeStyles from '@mui/styles/makeStyles';
 
 //Componentes
 import { Layout } from 'layout/Layout';
@@ -29,6 +31,7 @@ export default function Login(){
     const [intentos, setIntentos] = useState(0);
     const [alerta,setAlerta] = useState({})
     const [url, setUrl] = useState('');
+    const [loading,setLoading] = useState(false) 
 
     useEffect(() => {
         setUrl(localStorage.getItem('URL') )
@@ -45,11 +48,14 @@ export default function Login(){
         window.location.reload(false);
     }
 
-    async function handleSubmit(e) {       
+    async function handleSubmit(e) {     
+        setLoading(true);
+  
         e.preventDefault();
         let usuario         = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?0:localStorage.getItem('Usuario')
         let services        = await Services('POST','/registrov2/validaCredencial?email='+inputs.correo+'&pass='+inputs.pass+'&user_m='+usuario,{})
         let data            = await services.data
+        
 
         if(data.error === 'Usuario o Password Invalido'){
             localStorage.setItem('Cliente','201221')
@@ -64,7 +70,10 @@ export default function Login(){
             if(intentos > 2){
                 ruter.push('/Contra')
             }
+            setLoading(false)
         }else{
+            let nombre = data.usuario.nombre
+            setAlerta({severity:'info',mensaje:'Bienvenido '+nombre,vertical:'bottom',horizontal:'right',variant:'filled'})
             localStorage.setItem('Usu_Nomb', data.usuario.nombre)
             localStorage.setItem('Email', data.usuario.email)
             localStorage.setItem('Cliente', data.usuario.clienteNum)
@@ -111,9 +120,13 @@ export default function Login(){
                                 <TextField id="outlined-basic" margin="normal"  label="Contraseña" variant="outlined" type="password" name="pass" onChange={handleChange} fullWidth />
                                 
                                 <Box mt={2}>
-                                    <Button className={classes.button} type="submit" variant="contained" size="large" color="primary"  onClick={handleSubmit} fullWidth>
+                                    <LoadingButton className={classes.button} type="submit" variant="contained" size="large" color="primary" fullWidth
+                                        onClick={handleSubmit}
+                                        loading={loading}
+                                        loadingIndicator="Iniciando Sesión"
+                                    >    
                                         Inicia Sesión
-                                    </Button>
+                                    </LoadingButton>
                                 </Box>
                                 
                                 <Box textAlign="center" pt={4}>

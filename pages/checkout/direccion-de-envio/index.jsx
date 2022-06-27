@@ -391,7 +391,7 @@ export default function Direccion_de_envio(props){
                             {(data.hasOwnProperty('jsonResumen'))?
                                 (!addOpen)&&
                                 <>
-                                    <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                                    <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} paso={0}/> 
                                     <ConFactura continuarCompra={continuarCompra} loading={loading}/>
                                 </>
                                 :

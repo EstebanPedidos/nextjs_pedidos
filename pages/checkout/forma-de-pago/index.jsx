@@ -682,7 +682,7 @@ export default function Forma_de_pago(){
                     </Grid>  
                     <Grid item xs={12} sm={4}>
                         {(data.hasOwnProperty('jsonResumen'))?
-                        <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                        <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} paso={3}/> 
                         :
                         <Skeleton variant="rectangular" height={600} animation="wave"/>
                         }                
