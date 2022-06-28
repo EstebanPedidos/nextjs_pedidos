@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 		position: 'relative',
 		boxShadow:'none',
 		width:'auto',
+		height:'initial',
 		padding: 'inherit',
 	},
 	titlefooter: {
