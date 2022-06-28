@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     justifyContent: 'center',
   },
-  pCardDetail: { flexGrow: 1, height: '31rem', boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)', },
+  pCardDetail: { flexGrow: 1, width: '100%', height: '31rem', boxShadow: '0px 0px 16px rgb(195 203 214 / 16%), 0px 1px 4px rgb(195 203 214 / 16%)', },
  barColor: {
     "& .MuiLinearProgress-barColorPrimary": {
         backgroundColor: 'blue',
