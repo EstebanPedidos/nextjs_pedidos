@@ -73,6 +73,7 @@ export function Navbar(props) {
 	const [isLogged, setLogged] = React.useState(false);
 	const [menuName, setMenuName] = React.useState(null);
 	const [lista, setLista] = React.useState({});
+    const [afiliado, setAfiliado] = React.useState(false);
 	const [state, setState] = React.useState({
 		top: false,
 		left: false,
@@ -118,6 +119,7 @@ export function Navbar(props) {
 				: 0
 		);
 		setFavoritos(localStorage.getItem('Favoritos'));
+        setAfiliado(localStorage.getItem('afiliado'))
 	}, [props]);
 
 	useEffect(() => {
@@ -497,25 +499,41 @@ export function Navbar(props) {
 										aria-controls={menuId}
 										aria-haspopup='true'
 										onClick={handleProfileMenuOpen}>
-											<Badge
-											anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-											badgeContent={
-											<Box component="span" sx={{backgroundColor:'#3655A5', borderRadius:'4px', color:'#fff', padding:'3px', marginLeft:'-46px', marginTop:'-8px'}} variant='caption'>PRO</Box>
-											}
-											>
-												<Avatar
-													sx={{
-														width: 48,
-														height: 48,
-														border: 2,
-														borderColor: '#3655A5',
-														color: '#3655A5',
-														backgroundColor: '#E7ECF3',
-														textTransform: 'uppercase',
-													}}>
-													{nombre.substring(0, 2)}
-												</Avatar>
-											</Badge>
+                                            {localStorage.getItem('afiliado') === "false" ?
+                                                <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+                                                    <Avatar
+                                                        sx={{
+                                                            width: 48,
+                                                            height: 48,
+                                                            border: 2,
+                                                            borderColor: '#3655A5',
+                                                            color: '#3655A5',
+                                                            backgroundColor: '#E7ECF3',
+                                                            textTransform: 'uppercase',
+                                                        }}>
+                                                        {nombre.substring(0, 2)}
+                                                    </Avatar>
+                                                </Badge>
+                                                :
+                                                <Badge
+                                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                                badgeContent={
+                                                <Box component="span" sx={{backgroundColor:'#3655A5', borderRadius:'4px', color:'#fff', padding:'3px', marginLeft:'-46px', marginTop:'-8px'}} variant='caption'>PRO</Box>
+                                                }>
+                                                    <Avatar
+                                                        sx={{
+                                                            width: 48,
+                                                            height: 48,
+                                                            border: 2,
+                                                            borderColor: '#3655A5',
+                                                            color: '#3655A5',
+                                                            backgroundColor: '#E7ECF3',
+                                                            textTransform: 'uppercase',
+                                                        }}>
+                                                        {nombre.substring(0, 2)}
+                                                    </Avatar>
+                                                </Badge>
+                                            }
 									</IconButton>
 								
 							) : (

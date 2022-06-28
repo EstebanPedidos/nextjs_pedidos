@@ -2,6 +2,8 @@ import {useEffect, useState} from 'react';
 //next js
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import Script from 'next/script'
+
 //Tag Manager
 import TagManager from 'react-gtm-module'
 //Material
@@ -68,10 +70,11 @@ export default function Forma_de_pago(){
     const [sub_forma_pago,setSubFormaPago]  = useState('1')
     const [clientToken,setClientToken]      = useState({clienteToken:'',getPaymentTokens:[]})
     const [tajetaSave,setTarjetaSave]       = useState('nueva')
-    const [max_cont_ent,setMaxCE]           = useState(1000)
+    const [max_cont_ent,setMaxCE]           = useState(50000)
     const [loading,setLoading]              = useState(false) 
     const [alerta,setAlerta]                = useState({})
     const [idMeses,setIdMeses]              = useState([])
+    const [pedidoNum,setPedidoNum]              = useState(0)
 
     function salectOption({target}){
         const {value,name} = target;
@@ -188,6 +191,7 @@ export default function Forma_de_pago(){
             if(cliente !== undefined && cliente !== null && afiliado !== undefined && afiliado !== null){
                 if(parseInt(cliente) !== 201221){
                     let pedido       = await localStorage.getItem('Pedido')
+                    setPedidoNum(pedido)
                     if(pedido !== undefined && pedido !== null){                        
                         let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=4',{})
                         let json         = await services.data  
@@ -212,7 +216,7 @@ export default function Forma_de_pago(){
                                     setTarjetaSave(id)                                    
                                 }
                                 setClientToken({clienteToken:cliente_l.clienteToken,getPaymentTokens:getPaymentTokens,meses:meses})
-                                setMaxCE((afiliado === 'S')?5000:1000)
+                                setMaxCE((afiliado === 'S')?50000:50000)
                                 if(miPedido.pedido.listPyPedidoDet.length > 0){
                                     let products = await miPedido.pedido.listPyPedidoDet.map((item) =>
                                         JSON.stringify({
@@ -255,6 +259,7 @@ export default function Forma_de_pago(){
                 router.push('/')
             } 
         }
+
         getData()
     },[])
 
@@ -264,8 +269,14 @@ export default function Forma_de_pago(){
             <link href="https://pedidos.com/checkout/forma-de-pago" rel="canonical" />
             <title>Forma de pago | Pedidos.com</title>
             <meta name="description" content="Conoce las formas de pago que tenemos para ti: Paga en línea con tu tarjeta de crédito o débito, PayPal, Paga al recibir ya sea con tarjeta (VISA,AMEX) o efectivo, transferencias y dépositos." />
-        </Head>
+        </Head> 
         <Header/>
+        <Script type="application/json" fncls="fnparams-dede7cc5-15fd-4c75-a9f4-36c430ee3a99">
+            {
+                `"f":"${pedidoNum}",
+                "s":"PE_ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv__PYMNT"`      
+            }
+        </Script>
         <Container maxWidth="lg">
             <Box component="div" py={3} m={1}>
                 <Grid container spacing={3}>
@@ -663,7 +674,19 @@ export default function Forma_de_pago(){
                                         <Box component="div" m={1} >
                                             <Divider light/>
                                         <Box component="div"  p={2}>
-                                            <Hostedfields clientToken={clientToken} salectOption={salectOption} tajetaSave={tajetaSave} evento={data.jsonResumen.resumen.eventoNum} Delete={Delete} total={Precios('formatcurrency',{subtotal:((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc),fixed:2})} idMeses={idMeses} loading={loading} setLoading={setLoading} cambioNueva={cambioNueva}/>
+                                            <Hostedfields 
+                                                clientToken={clientToken} 
+                                                salectOption={salectOption} 
+                                                tajetaSave={tajetaSave} 
+                                                evento={data.jsonResumen.resumen.eventoNum} 
+                                                Delete={Delete} 
+                                                total={Precios('formatcurrency',{subtotal:((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc),fixed:2})} 
+                                                idMeses={idMeses} 
+                                                loading={loading} 
+                                                setLoading={setLoading} 
+                                                cambioNueva={cambioNueva}
+                                                pedidoNum={pedidoNum}
+                                            />
                                         </Box>
                                         </Box>
                                         :

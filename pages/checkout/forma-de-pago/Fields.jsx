@@ -126,7 +126,7 @@ const SubmitPayment = ({ customStyle,evento,total}) => {
 };
 
 
-export default function Fields({clientToken,evento,total,getPaymentTokens,cambioNueva}) {	
+export default function Fields({clientToken,evento,total,getPaymentTokens,cambioNueva,pedido}) {	
 	var appendOption = function (options) {
 		if(parseFloat(total.replace(',','')) >= minMeses){
 			var $installmentList = document.getElementById('installments');
@@ -205,7 +205,7 @@ export default function Fields({clientToken,evento,total,getPaymentTokens,cambio
 						styles={{".valid":{"color":"#28a745"},".invalid":{"color":"#dc3545"},"input":{"font-family":"Poppins","font-size":"16px"}}}
 						createOrder={function () {
 							async function orden(){
-                                let services    = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'})
+                                let services    = await Services('POST-PAYPAL','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'},pedido)
                                 let data        = await services.data
 								console.log('Orden Paypal: '+data)
                                 return data
