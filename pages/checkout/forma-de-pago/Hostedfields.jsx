@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Hostedfields({clientToken,salectOption,tajetaSave,evento,Delete,total,idMeses,loading,setLoading,cambioNueva}) {
+export default function Hostedfields({clientToken,salectOption,tajetaSave,evento,Delete,total,idMeses,loading,setLoading,cambioNueva,pedidoNum}) {
     const classes  = useStyles()
     const [clientTokenC,setClientTokenC] = useState({})
     const [mes,setMes]                   = useState(0)
@@ -185,7 +185,14 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
 			}
             </Box>           
         :        
-        <Fields clientToken={clientTokenC.clienteToken} evento={evento} total={total} getPaymentTokens={clientTokenC.getPaymentTokens} cambioNueva={cambioNueva}/>
+        <Fields 
+            clientToken={clientTokenC.clienteToken} 
+            evento={evento} 
+            total={total} 
+            getPaymentTokens={clientTokenC.getPaymentTokens} 
+            cambioNueva={cambioNueva} 
+            pedidoNum={pedidoNum}
+        />
         }
         </>
         
