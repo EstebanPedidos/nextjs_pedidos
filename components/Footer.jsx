@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	gridItem: {
 		margin: '2.5%',
+		position: 'relative',
+		boxShadow:'none',
+		width:'auto',
+		padding: 'inherit',
 	},
 	titlefooter: {
 		fontSize: '20px',
