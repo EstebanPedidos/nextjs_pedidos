@@ -159,7 +159,7 @@ export function FooterDesktop() {
 					className={classes.mainContainer}>
 					<Grid item className={classes.gridItem} sx={{ width: 'initial', height: 'inherit'}}>
 						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
-							<Grid container direction='column' spacing={3} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
+							<Grid container direction='column' spacing={3} sx={{position: 'relative', width: 'initial', height: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 								<Grid item className={classes.titlefooter} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 									<Typography variant="h6" fontWeight="600">Conocenos</Typography>
 								</Grid>
@@ -202,7 +202,7 @@ export function FooterDesktop() {
 					</Grid>
 					<Grid item className={classes.gridItem} sx={{ width: 'initial', height: 'inherit'}}>
 						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
-							<Grid container direction='column' spacing={3} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
+							<Grid container direction='column' spacing={3} sx={{position: 'relative', width: 'initial', height: 'inherit', height: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 								<Grid item className={classes.titlefooter}>
 									<Typography variant="h6" fontWeight="600" sx={{position: 'relative', width: 'inherit', padding: '0', boxShadow: 'none'}}>Servicios</Typography>
 								</Grid>
@@ -242,7 +242,7 @@ export function FooterDesktop() {
 					</Grid>
 					<Grid item className={classes.gridItem} sx={{ width: 'initial', height: 'inherit'}}>
 						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
-							<Grid container direction='column' spacing={3} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}} >
+							<Grid container direction='column' spacing={3} sx={{position: 'relative', width: 'initial', height: 'inherit', padding: 'inherit', boxShadow: 'none'}} >
 								<Grid item className={classes.titlefooter} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 									<Typography variant="h6" fontWeight="600">Ayuda</Typography>
 								</Grid>
@@ -308,7 +308,7 @@ export function FooterDesktop() {
 				</Grid>
 			</Box>
 			<Box component='div' sx={{width:'100%'}}>
-				<Grid
+				<Grid sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}
 					container
 					justifyContent='flex-start'
 					className={classes.mainContainer}>
@@ -349,8 +349,8 @@ export function FooterDesktop() {
 				alignItems='center'
 				className={classes.mainContainer}>
 				<Grid item className={classes.gridLastItem} sx={{padding:'inherit', position:'relative', boxShadow:'none'}}>
-					<Grid container direction='column' spacing={2}>
-						<Grid item>
+					<Box sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
+						<Box item px={2}>
 							{/* <Link to="/Home"> */}
 							<img
 								sx={{ width: '125px', position:'relative', boxShadow:'none', padding:'initial', backgroundColor:'none' }}
@@ -359,19 +359,19 @@ export function FooterDesktop() {
 								
 							/>
 							{/* </Link> */}
-						</Grid>
-					</Grid>
+						</Box>
+					</Box>
 				</Grid>
-				<Grid item className={classes.gridLastItem}>
-					<Grid container direction='column' spacing={2}>
-						<Grid item className={classes.copyrightItem}>
+				<Grid item className={classes.gridLastItem} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
+					<Grid container direction='column' spacing={2} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
+						<Grid item className={classes.copyrightItem} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 							<Box component='div' m={1}>
 								<Typography variant="caption">Copyright © {year} {name} - Todos los derechos reservados </Typography>
 							</Box>
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid item className={classes.gridLastItem}>
+				<Grid item className={classes.gridLastItem} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 					<Stack direction="row" spacing={1}>
 						<Link href='https://www.facebook.com/pedidoscom/'>
 							<a>

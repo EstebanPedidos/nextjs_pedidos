@@ -14,18 +14,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-/* export const items = [
-	{
-		image: 'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/impresion-epson-ecotank-l3210.png',
-		alt: 'Impresion EPSON',
-		
-	},
-	{
-		image: 'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/impresion-epson-ecotank-l3210-xs.png',
-		alt: 'Impresion EPSON',
-		
-	},
-]; */
+
 
 
 const Banner = ({props})=> {
@@ -357,7 +346,7 @@ export default function MainSlideShow() {
 										<Box component="div" >
 											<div>
 												<Typography className={styles.title} variant="h4" component="body1" > 
-												Desde <Box component="span" sx={{color:'#3655a5'}}>$6,999</Box>
+												Desde <Box component="span" sx={{color:'#3655a5'}}>$6,899</Box>
 												</Typography>
 
 												<Typography variant="Subtitle1" component="p" >
