@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	mainContainer: {
 		position: 'relative',
+		width: '100%',
 	},
 	gridItem: {
 		margin: '2.5%',
@@ -156,7 +157,7 @@ export function FooterDesktop() {
 					justifyContent='space-evenly'
 					alignItems='stretch'
 					className={classes.mainContainer}>
-					<Grid item className={classes.gridItem}>
+					<Grid item className={classes.gridItem} sx={{ width: 'initial', height: 'inherit'}}>
 						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 							<Grid container direction='column' spacing={3} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 								<Grid item className={classes.titlefooter} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
@@ -199,11 +200,11 @@ export function FooterDesktop() {
 							</Grid>
 						</Box>
 					</Grid>
-					<Grid item className={classes.gridItem}>
+					<Grid item className={classes.gridItem} sx={{ width: 'initial', height: 'inherit'}}>
 						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 							<Grid container direction='column' spacing={3} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 								<Grid item className={classes.titlefooter}>
-									<Typography variant="h6" fontWeight="600" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>Servicios</Typography>
+									<Typography variant="h6" fontWeight="600" sx={{position: 'relative', width: 'inherit', padding: '0', boxShadow: 'none'}}>Servicios</Typography>
 								</Grid>
 								<Grid item className={classes.ItemListFooter}>
 									<Link href='/servicios/pickup'>
@@ -239,7 +240,7 @@ export function FooterDesktop() {
 							</Grid>
 						</Box>
 					</Grid>
-					<Grid item className={classes.gridItem}>
+					<Grid item className={classes.gridItem} sx={{ width: 'initial', height: 'inherit'}}>
 						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 							<Grid container direction='column' spacing={3} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}} >
 								<Grid item className={classes.titlefooter} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
@@ -283,7 +284,7 @@ export function FooterDesktop() {
 							</Grid>
 						</Box>
 					</Grid>
-					<Grid item className={classes.gridItem}>
+					<Grid item className={classes.gridItem} sx={{ width: 'initial', height: 'inherit'}}>
 						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 							<Grid container direction='column' spacing={2} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}} >
 								<Grid item className={classes.titlefooter} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
@@ -312,8 +313,8 @@ export function FooterDesktop() {
 					justifyContent='flex-start'
 					className={classes.mainContainer}>
 					<Grid item className={classes.gridLastItem} sx={{width:'100%', padding:'inherit', position:'relative', boxShadow:'none'}}>
-						<Box component='div' px={6}>
-							<Stack direction="row" alignItems='center' spacing={4}>
+						<Box component='div' px={6} sx={{ width: '100%'}}>
+							<Stack direction="row" alignItems='center' spacing={4} sx={{ width: '100%'}}>
 								<Box component="div">
 									<Link href='/soho/cliente/aviso-privacidad'>
 										<a>
