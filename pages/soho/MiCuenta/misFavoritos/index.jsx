@@ -193,7 +193,7 @@ export default function MisFavoritos() {
                             </IconButton>
                             }
                         />
-                        <Link href={`/articulos/${row.itemNum}`}>
+                        <Link href={`/articulos/${row.url}`}>
                             <CardMedia
                             className={classes.media}
                             component="img"
@@ -275,7 +275,7 @@ export default function MisFavoritos() {
                             </IconButton>
                             }
                         />
-                        <Link href={`/articulos/${row.itemNum}`}>
+                        <Link href={`/articulos/${row.url}`}>
                             <CardMedia
                             className={classes.media}
                             component="img"

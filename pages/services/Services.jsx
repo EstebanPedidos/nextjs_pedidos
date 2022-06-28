@@ -10,6 +10,9 @@ function Services(metodo,url,json) {
         case 'POST-NOT':
           return getMetodPost_not(url,json)
           break;
+        case 'POST-PAYPAL':
+          return getMetodPostPayPal(url,json,pedido)
+          break;
         case 'GET':
         return getMetodGet(url,json)
           break;
@@ -34,6 +37,16 @@ function Services(metodo,url,json) {
       }
       return await axios.post(PATH+url,json)
     }
+
+    async function getMetodPostPayPal(url,json,pedido){
+        json.headers ={
+            'Content-Type': 'application/json',
+            'Access-control-Allow-Origin' : '*',
+            'Access-control-Allow-Methods' : 'GET, PUT, POST, DELETE',
+            'PayPal-Client-Metada-Id:': pedido.toString(),
+        }
+        return await axios.post(PATH+url,json)
+      }
 
     async function getMetodPost_not(url,json){
       return await axios.post(PATH+url,json)

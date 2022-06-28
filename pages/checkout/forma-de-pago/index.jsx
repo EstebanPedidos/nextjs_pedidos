@@ -266,17 +266,18 @@ export default function Forma_de_pago(){
     return (
     <Box className={classes.root}>
         <Head>
-            <link href="https://pedidos.com/checkout/forma-de-pago" rel="canonical" />
+            <link href="https://pedidos.com/checkout/forma-de-pago" rel="canonical"/>
             <title>Forma de pago | Pedidos.com</title>
             <meta name="description" content="Conoce las formas de pago que tenemos para ti: Paga en línea con tu tarjeta de crédito o débito, PayPal, Paga al recibir ya sea con tarjeta (VISA,AMEX) o efectivo, transferencias y dépositos." />
         </Head> 
         <Header/>
-        <Script type="application/json" fncls="fnparams-dede7cc5-15fd-4c75-a9f4-36c430ee3a99">
+        <Script type="application/json" fncls="fnparams-dede7cc5-15fd-4c75-a9f4-36c430ee3a99" id="Paypal">
             {
                 `"f":"${pedidoNum}",
                 "s":"PE_ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv__PYMNT"`      
             }
         </Script>
+        <Script type="text/javascript" src="https://c.paypal.com/da/r/fb.js" id="Paypal1"></Script>
         <Container maxWidth="lg">
             <Box component="div" py={3} m={1}>
                 <Grid container spacing={3}>
