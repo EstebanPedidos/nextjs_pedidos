@@ -134,7 +134,7 @@ export default function serviceSlides() {
             </Link>
           </SwiperSlide>
           <SwiperSlide>
-            <Link href="/servicios/pickup" passHref>
+            <Link href="/servicios/express-cdmx" passHref>
               <a> 
               <Boxservice 
                     data={{texto1:'FORMA DE ENTREGA',
