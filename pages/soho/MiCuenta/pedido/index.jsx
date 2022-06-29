@@ -588,8 +588,8 @@ export default function Pedido(props) {
                                                                                             <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/fedex.png"
                                                                                             alt="fedex" width="120px"/>
                                                                                             {result.guia.guiaNum.map((row) => (
-                                                                                                <div> 
-                                                                                                    <a target="_blank" href={result.guia.guiaLink} rel="noopener noreferrer">
+                                                                                                <div key={row}> 
+                                                                                                    <a target="_blank" href={result.guia.guiaLink} rel="noopener">
                                                                                                         <p>{row}</p>   
                                                                                                     </a>
                                                                                                 </div>
@@ -601,8 +601,8 @@ export default function Pedido(props) {
                                                                                             <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/dhl.png"
                                                                                             alt="dhl" width="120px" height="50"/>   
                                                                                                 {result.guia.guiaNum.map((row) => (
-                                                                                                    <div> 
-                                                                                                        <a target="_blank" href={result.guia.guiaLink} rel="noopener noreferrer">
+                                                                                                    <div key={row}> 
+                                                                                                        <a target="_blank" href={result.guia.guiaLink} rel="noopener">
                                                                                                             <p>{row}</p>   
                                                                                                         </a>
                                                                                                     </div>
@@ -614,13 +614,13 @@ export default function Pedido(props) {
                                                                                             <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/estafeta.png"
                                                                                             alt="estafeta" width="120px" height="50"/>   
                                                                                                 {result.guia.guiaNum.map((row) => (
-                                                                                                    <div> 
+                                                                                                    <div key={row}> 
                                                                                                         <p>{row}</p>   
                                                                                                     </div>
                                                                                                 ))}
                                                                                             <Typography variant="subtitle2" gutterBottom>
                                                                                                 Copia el numero de gu&iacute;a
-                                                                                                ve a <a href={result.guia.guiaLink} target="_blank"><b>ESTE ENLACE</b></a>. <b>Tu Número de guía es
+                                                                                                ve a <a href={result.guia.guiaLink} target="_blank" rel="noopener"><b>ESTE ENLACE</b></a>. <b>Tu Número de guía es
 															                                    22 digitos.</b>
                                                                                             </Typography>                                                
                                                                                         </Box>
@@ -630,13 +630,13 @@ export default function Pedido(props) {
                                                                                             <img src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/paqueterias/redpack.png"
                                                                                             alt="redpack" width="120px" height="50"/>
                                                                                             {result.guia.guiaNum.map((row) => (
-                                                                                                <div>                                                                                                         
+                                                                                                <div key={row}>                                                                                                         
                                                                                                     <p>{row}</p>
                                                                                                 </div>
                                                                                             ))} 
                                                                                             <Typography variant="subtitle2" gutterBottom>
                                                                                                 Copia el numero de gu&iacute;a
-														                                        ve a <a href={result.guia.guiaLink} target="_blank"><b>ESTE ENLACE</b></a>
+														                                        ve a <a href={result.guia.guiaLink} target="_blank" rel="noopener"><b>ESTE ENLACE</b></a>
                                                                                             </Typography>     
                                                                                         </Box>
                                                                                     }
@@ -684,7 +684,7 @@ export default function Pedido(props) {
                                                                             <Typography variant="subtitle2" gutterBottom>
                                                                                 ESTATUS DE ENVIO 
                                                                             </Typography>
-                                                                            <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/generando.svg" class=" rastimg"
+                                                                            <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/generando.svg"
                                                                             alt="servicio de pedidos.com" width="70px"/>  
                                                                         </Grid>
                                                                     }
