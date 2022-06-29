@@ -60,7 +60,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { makeStyles } from '@mui/styles';
-import 'styles/algolia.module.css';
+import styles from 'styles/algolia.module.css';
 
 //Componentes
 import { Layout } from 'layout/Layout';
@@ -392,26 +392,49 @@ export default function Busquedas(props) {
                                             </Box>
                                         </Grid>
                                         <Hidden mdDown>
-                                            <Grid item xs={12} sm={12} lg={3}>
-                                                <Grid container spacing={2}>
+                                            <Grid item xs={12} sm={12}  md={4}  lg={3}>
+                                                <Grid container spacing={2} justifyContent="center">
                                                     <Grid item xs={6} sm={6}>
-                                                        <Paper elevation={4} className={classes.BoxMsi}>
-                                                        <Typography variant="overline" display="block">Hasta</Typography>
-                                                            <Typography  component="body1" variant="h4" sx={{fontWeight:'600'}}><Typography component="span" variant="h4" color="primary">18</Typography> MSI</Typography>
-                                                            <Typography variant="caption" display="block" gutterBottom color="textSecondary">Meses sin Intereses*</Typography>
-                                                        </Paper>
+                                                        <Box component="div" sx={{position:'relative'}}>
+                                                            <Paper variant='auto' px={1} className={styles.boxmsi }>
+                                                                <Box component="div" textAlign="center" py={1} px={3}>
+                                                                    <Typography variant="overline" display="block">Hasta
+                                                                    </Typography>
+                                                                    <Typography variant="h4" component="body1"
+                                                                        sx={{fontWeight:'600'}}>
+                                                                        <Box component="span" sx={{color:'#3655a5'}}>18
+                                                                        </Box>
+                                                                    </Typography>
+                                                                    <Typography variant="caption" display="block"
+                                                                        gutterBottom color="textSecondary">Tarjetas
+                                                                        participantes*</Typography>
+                                                                </Box>
+                                                            </Paper>
+                                                        </Box>
                                                     </Grid>
                                                     <Grid item xs={6} sm={6}>
-                                                        <Paper elevation={4} className={classes.BoxMsi}> 
-                                                            <Typography variant="overline" display="block">Hasta</Typography>
-                                                            <Typography component="body1" variant="h4" sx={{fontWeight:'600'}}><Typography component="span" variant="h4" color="primary">24</Typography> MSI*</Typography>
-                                                            <Typography variant="caption" display="block" gutterBottom color="textSecondary">con CitiBanamex</Typography>
-                                                        </Paper>
+                                                        <Box component="div" sx={{position:'relative'}}>
+                                                            <Paper variant='auto' px={1} className={styles.boxmsi }>
+                                                                <Box component="div" textAlign="center" py={1} px={3}>
+                                                                    <Typography variant="overline" display="block">Hasta
+                                                                    </Typography>
+                                                                    <Typography variant="h4" component="body1"
+                                                                        sx={{fontWeight:'600'}}>
+                                                                        <Box component="span" sx={{color:'#3655a5'}}>24
+                                                                        </Box>
+                                                                    </Typography>
+                                                                    <Typography variant="caption" display="block"
+                                                                        gutterBottom color="textSecondary">Tarjetas
+                                                                        Citibanamex*</Typography>
+
+                                                                </Box>
+                                                            </Paper>
+                                                        </Box>
                                                     </Grid>
                                                 </Grid>  
                                             </Grid>
                                         </Hidden>
-                                        <Grid item xs={12} sm={12} md={4} lg={3} >
+                                        <Grid item xs={12} sm={12} md={12} lg={3} >
                                             <FormControl fullWidth>
                                             <InputLabel id="product-order-select-label">Ordenar por:</InputLabel>
                                             <Select

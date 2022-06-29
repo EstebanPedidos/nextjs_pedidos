@@ -166,7 +166,7 @@ export function FooterDesktop() {
 						<Box component="div" sx={{position: 'relative', width: 'inherit',height: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 							<Grid container direction='column' spacing={3} sx={{position: 'relative', width: 'initial', height: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 								<Grid item className={classes.titlefooter} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
-									<Typography variant="h6" fontWeight="600" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>Conocenos</Typography>
+									<Typography variant="h6" fontWeight="600" sx={{position: 'relative', width: 'inherit', padding: '0', boxShadow: 'none'}}>Conocenos</Typography>
 								</Grid>
 								<Grid item className={classes.ItemListFooter}>
 									<Link href='https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17'>
@@ -249,7 +249,7 @@ export function FooterDesktop() {
 						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 							<Grid container direction='column' spacing={3} sx={{position: 'relative', width: 'initial', height: 'inherit', padding: 'inherit', boxShadow: 'none'}} >
 								<Grid item className={classes.titlefooter} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
-									<Typography variant="h6" fontWeight="600" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>Ayuda</Typography>
+									<Typography variant="h6" fontWeight="600" sx={{position: 'relative', width: 'inherit', padding: '0', boxShadow: 'none'}}>Ayuda</Typography>
 								</Grid>
 								<Grid item className={classes.ItemListFooter}>
 									<Link href='/soho/cliente/modificar-factura'>
@@ -293,7 +293,7 @@ export function FooterDesktop() {
 						<Box component="div" sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
 							<Grid container direction='column' spacing={2} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}} >
 								<Grid item className={classes.titlefooter} sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>
-									<Typography variant="h6" fontWeight="600"  sx={{position: 'relative', width: 'inherit', padding: 'inherit', boxShadow: 'none'}}>Contacto
+									<Typography variant="h6" fontWeight="600"  sx={{position: 'relative', width: 'inherit', padding: '0', boxShadow: 'none'}}>Contacto
 										<Typography className={classes.titlefooter}>
 											55 5015-8100 ó 01 800 8138181
 										</Typography>
