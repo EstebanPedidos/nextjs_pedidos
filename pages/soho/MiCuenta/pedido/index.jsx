@@ -360,7 +360,7 @@ export default function Pedido(props) {
                 "guiaNum": null,
                 "guiaNombre": null,
                 "guiaLink": "",
-                "tipoEnvio": ""
+                "TipoEnvio": ""
             },
             "upc": [
                 ""
@@ -581,69 +581,112 @@ export default function Pedido(props) {
                                                                             <Typography variant="subtitle1" component="h5" color="textSecondary" gutterBottom>
                                                                                 Guía de rastreo
                                                                             </Typography>
-                                                                            <Grid
-                                                                            container
-                                                                            direction="row"
-                                                                            justifyContent="space-around"
-                                                                            alignItems="center"
-                                                                            >
-                                                                            <Grid item xs={3} sm={12} lg={3}>
-                                                                                {result.guia.guiaNombre === "FEDEX" &&
-                                                                                    <Box component="div">
-                                                                                        <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/fedex.png"
-                                                                                        alt="fedex" width="50px" height="50"/>
-                                                                                    </Box>
-                                                                                }   
-                                                                                {result.guia.guiaNombre === "DHL" || result.guia.guiaNombre === "DHL EXPRESS" &&
-                                                                                    <Box component="div">
-                                                                                        <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/dhl.png"
-                                                                                        alt="dhl" width="50px" height="50"/>                                                              
-                                                                                    </Box>
-                                                                                }
-                                                                                {result.guia.guiaNombre === "ESTAFETA" &&
-                                                                                    <Box component="div">
-                                                                                        <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/estafeta.png"
-                                                                                        alt="estafeta" width="50px" height="50"/>                                                              
-                                                                                    </Box>
-                                                                                }
-                                                                                {result.guia.guiaNombre === "REDPACK" &&
-                                                                                    <Box component="div">
-                                                                                        <img src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/paqueterias/redpack.png"
-                                                                                        alt="redpack" width="50px" height="50"/>                                                              
-                                                                                    </Box>
-                                                                                }
-                                                                            </Grid>
-                                                                            <Grid item xs={9} sm={12} lg={9}>
-                                                                                <Typography variant="subtitle2" gutterBottom>
-                                                                                    ESTATUS DE ENVIO 
-                                                                                </Typography>
-                                                                                <Typography variant="subtitle2" color="textSecondary" gutterBottom>
-                                                                                {result.guia.guiaNombre === "NO EMPACADO" &&
-                                                                                    <p>El pedido aún no se está empacando</p>
-                                                                                }
-                                                                                {result.guia.guiaNombre === "NO GUIA" &&
-                                                                                    <span>
-                                                                                        <AutorenewOutlinedIcon size="large"/>                                                              
-                                                                                    </span>
-                                                                                }
-                                                                                {result.guia.guiaNombre === "ERROR" &&
-                                                                                    <span>
-                                                                                    <AutorenewOutlinedIcon size="large"/>                                                              
-                                                                                    </span>
-                                                                                }
-                                                                                {result.guia.guiaNombre === "NO INFO" &&
-                                                                                    <span>
-                                                                                        <AutorenewOutlinedIcon size="large"/>                                                              
-                                                                                    </span>
-                                                                                }
-                                                                                {result.guia.guiaNombre === "NO ESPECIFICADO" &&
-                                                                                    <p>Sin especificar</p>
-                                                                                
-                                                                                }
-                                                                                </Typography>
-                                                                            </Grid>
+                                                                            <Grid container direction="row" justifyContent="space-around" alignItems="center">
+                                                                                <Grid item xs={3} sm={12} lg={3}>
+                                                                                    {result.guia.guiaNombre === "FEDEX" &&
+                                                                                        <Box component="div">
+                                                                                            <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/fedex.png"
+                                                                                            alt="fedex" width="120px"/>
+                                                                                            {result.guia.guiaNum.map((row) => (
+                                                                                                <div> 
+                                                                                                    <a target="_blank" href={result.guia.guiaLink} rel="noopener noreferrer">
+                                                                                                        <p>{row}</p>   
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            ))} 
+                                                                                        </Box>
+                                                                                    }
+                                                                                    {(result.guia.guiaNombre === "DHL" || result.guia.guiaNombre === "DHL EXPRESS") &&
+                                                                                        <Box component="div">
+                                                                                            <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/dhl.png"
+                                                                                            alt="dhl" width="120px" height="50"/>   
+                                                                                                {result.guia.guiaNum.map((row) => (
+                                                                                                    <div> 
+                                                                                                        <a target="_blank" href={result.guia.guiaLink} rel="noopener noreferrer">
+                                                                                                            <p>{row}</p>   
+                                                                                                        </a>
+                                                                                                    </div>
+                                                                                                ))}                              
+                                                                                        </Box>
+                                                                                    }
+                                                                                    {result.guia.guiaNombre === "ESTAFETA" &&
+                                                                                        <Box component="div">
+                                                                                            <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/estafeta.png"
+                                                                                            alt="estafeta" width="120px" height="50"/>   
+                                                                                                {result.guia.guiaNum.map((row) => (
+                                                                                                    <div> 
+                                                                                                        <p>{row}</p>   
+                                                                                                    </div>
+                                                                                                ))}
+                                                                                            <Typography variant="subtitle2" gutterBottom>
+                                                                                                Copia el numero de gu&iacute;a
+                                                                                                ve a <a href={result.guia.guiaLink} target="_blank"><b>ESTE ENLACE</b></a>. <b>Tu Número de guía es
+															                                    22 digitos.</b>
+                                                                                            </Typography>                                                
+                                                                                        </Box>
+                                                                                    }
+                                                                                    {result.guia.guiaNombre === "REDPACK" &&
+                                                                                        <Box component="div">
+                                                                                            <img src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/paqueterias/redpack.png"
+                                                                                            alt="redpack" width="120px" height="50"/>
+                                                                                            {result.guia.guiaNum.map((row) => (
+                                                                                                <div>                                                                                                         
+                                                                                                    <p>{row}</p>
+                                                                                                </div>
+                                                                                            ))} 
+                                                                                            <Typography variant="subtitle2" gutterBottom>
+                                                                                                Copia el numero de gu&iacute;a
+														                                        ve a <a href={result.guia.guiaLink} target="_blank"><b>ESTE ENLACE</b></a>
+                                                                                            </Typography>     
+                                                                                        </Box>
+                                                                                    }
+                                                                                </Grid>
                                                                             </Grid>
                                                                         </Box>
+                                                                    }
+                                                                    {result.guia.TipoEnvio === "NO EMPACADO" &&
+                                                                        <Grid item xs={9} sm={12} lg={9}>
+                                                                            <Typography variant="subtitle2" gutterBottom>
+                                                                                ESTATUS DE ENVIO 
+                                                                            </Typography>
+                                                                            <p>El pedido aún no se está empacando</p>
+                                                                        </Grid>
+                                                                    }
+                                                                    {result.guia.TipoEnvio === "NO GUIA" &&
+                                                                        <Grid item xs={9} sm={12} lg={9}>
+                                                                            <Typography variant="subtitle2" gutterBottom>
+                                                                                ESTATUS DE ENVIO 
+                                                                            </Typography>
+                                                                            <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/generando.svg"
+															                    alt="servicio de pedidos.com" width="70px"/>
+                                                                        </Grid>
+                                                                    }
+                                                                    {result.guia.TipoEnvio === "ERROR" &&
+                                                                        <Grid item xs={9} sm={12} lg={9}>
+                                                                            <Typography variant="subtitle2" gutterBottom>
+                                                                                ESTATUS DE ENVIO 
+                                                                            </Typography>
+                                                                            <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/generando.svg"
+															                    alt="servicio de pedidos.com" width="70px"/>
+                                                                        </Grid>
+                                                                    }
+                                                                    {result.guia.TipoEnvio === "NO INFO" &&
+                                                                        <Grid item xs={9} sm={12} lg={9}>
+                                                                            <Typography variant="subtitle2" gutterBottom>
+                                                                                ESTATUS DE ENVIO 
+                                                                            </Typography>
+                                                                            <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/generando.svg"
+															                    alt="servicio de pedidos.com" width="70px"/>
+                                                                        </Grid>
+                                                                    }
+                                                                    {result.guia.TipoEnvio === "NO ESPECIFICADO"  &&
+                                                                        <Grid item xs={9} sm={12} lg={9}>
+                                                                            <Typography variant="subtitle2" gutterBottom>
+                                                                                ESTATUS DE ENVIO 
+                                                                            </Typography>
+                                                                            <img src="https://pedidos.com/myfotos/pedidos-com/pagina/mi-cuenta/pedido/generando.svg" class=" rastimg"
+                                                                            alt="servicio de pedidos.com" width="70px"/>  
+                                                                        </Grid>
                                                                     }
                                                                 </Grid>
                                                             }
