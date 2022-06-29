@@ -589,7 +589,7 @@ export default function Pedido(props) {
                                                                                             alt="fedex" width="120px"/>
                                                                                             {result.guia.guiaNum.map((row) => (
                                                                                                 <div key={row}> 
-                                                                                                    <a target="_blank" href={result.guia.guiaLink} rel="noopener">
+                                                                                                    <a target="_blank" href={result.guia.guiaLink} rel="noopener noreferrer">
                                                                                                         <p>{row}</p>   
                                                                                                     </a>
                                                                                                 </div>
@@ -602,7 +602,7 @@ export default function Pedido(props) {
                                                                                             alt="dhl" width="120px" height="50"/>   
                                                                                                 {result.guia.guiaNum.map((row) => (
                                                                                                     <div key={row}> 
-                                                                                                        <a target="_blank" href={result.guia.guiaLink} rel="noopener">
+                                                                                                        <a target="_blank" href={result.guia.guiaLink} rel="noopener noreferrer">
                                                                                                             <p>{row}</p>   
                                                                                                         </a>
                                                                                                     </div>
@@ -620,7 +620,7 @@ export default function Pedido(props) {
                                                                                                 ))}
                                                                                             <Typography variant="subtitle2" gutterBottom>
                                                                                                 Copia el numero de gu&iacute;a
-                                                                                                ve a <a href={result.guia.guiaLink} target="_blank" rel="noopener"><b>ESTE ENLACE</b></a>. <b>Tu Número de guía es
+                                                                                                ve a <a href={result.guia.guiaLink} target="_blank" rel="noopener noreferrer"><b>ESTE ENLACE</b></a>. <b>Tu Número de guía es
 															                                    22 digitos.</b>
                                                                                             </Typography>                                                
                                                                                         </Box>
@@ -636,7 +636,7 @@ export default function Pedido(props) {
                                                                                             ))} 
                                                                                             <Typography variant="subtitle2" gutterBottom>
                                                                                                 Copia el numero de gu&iacute;a
-														                                        ve a <a href={result.guia.guiaLink} target="_blank" rel="noopener"><b>ESTE ENLACE</b></a>
+														                                        ve a <a href={result.guia.guiaLink} target="_blank" rel="noopener noreferrer"><b>ESTE ENLACE</b></a>
                                                                                             </Typography>     
                                                                                         </Box>
                                                                                     }
