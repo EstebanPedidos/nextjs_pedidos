@@ -205,7 +205,7 @@ export default function Fields({clientToken,evento,total,getPaymentTokens,cambio
 						styles={{".valid":{"color":"#28a745"},".invalid":{"color":"#dc3545"},"input":{"font-family":"Poppins","font-size":"16px"}}}
 						createOrder={function () {
 							async function orden(){
-                                let services    = await Services('POST-PAYPAL','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'},pedido)
+                                let services    = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'},pedido)
                                 let data        = await services.data
 								console.log('Orden Paypal: '+data)
                                 return data
