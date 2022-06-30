@@ -67,22 +67,7 @@ export default function Actualizapass(){
     // var email = urlParams.get('email');
 
     useEffect(() => {
-        let clienteNum = localStorage.getItem('Cliente');
-        let afiliado =  localStorage.getItem('afiliado')
-        if(clienteNum !== undefined && clienteNum !== null && afiliado !== undefined && afiliado !== null){
-            if(parseInt(clienteNum) !== 201221){
-                // // if(!(urlParams.has('producto'))){
-                    
-                // // }else{
-                // //     router.push('/')
-                // // }
-                
-            }else{
-                router.push('/')
-            } 
-        }else{
-            router.push('/')
-        } 
+
     }, [email]) 
 
     const handleChange = (event) => {

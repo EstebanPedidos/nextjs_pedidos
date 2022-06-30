@@ -350,10 +350,10 @@ export default function FichaTecnica(props){
                     {`
                         "@context": "https://schema.org",
                         "@type": "Product",
-                        "description"
-                            "offers": {
-                            "@type": "MonetaryAmount",
-                            "price": "${precio}",
+                        "offers": {
+                            "@type": "Offer",
+                            "availability": "https://schema.org/InStock"
+                            "price": "${(precio > 0)?Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):``}",
                             "priceCurrency": "MXN"
                             }
                     `}
@@ -624,11 +624,11 @@ export default function FichaTecnica(props){
                                         <Paper variant="outlined" >
                                             <Box component="div" m={4}>
                                             <Typography>Precio unitario</Typography>
-                                            <Box component="div">
+                                            <Box component="div" vocab="https://schema.org/" typeof="Product">
                                                 <Grid container>
-                                                    <Grid item>
-                                                        <Box p={1}>
-                                                            <Typography variant="h4" component="subtitle1"> 
+                                                    <Grid item> 
+                                                        <Box p={1} property="offers" typeof="AggregateOffer">
+                                                            <Typography variant="h4" component="subtitle1" property="price"> 
                                                             ${(precio > 0)?Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):``}
                                                             </Typography>
                                                         </Box>

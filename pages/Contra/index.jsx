@@ -35,13 +35,9 @@ export default function Contra(){
 
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log("Entro al servicio de Recuperar Contraseña");
-        console.log("Correo: "+inputs.correo);
-
         let services  = await Services('GET','/registrov2/enviacorreoPedidos'+params,{}) 
         let data = services.data;
         setAlerta({severity:'success',mensaje:'Correo Enviado',vertical:'bottom',horizontal:'right',variant:'filled'})
-        ruter.push("/")
     }
     const paperStyle={padding:40, height: 'auto', width:450, maxWidth:'90%', margin:"30px auto"}
     return(

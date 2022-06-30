@@ -221,7 +221,6 @@ export function Navbar(props) {
 	function searchBoxSubmit(e) {
 		e.preventDefault();
 		var busquedaUrl = inputs.query;
-		var busquedaUrl1 = busquedaUrl.replace(/\s+/g, '+');
 		ruter.push({
 			pathname: '/busquedas',
 			query: { query: inputs.query },
