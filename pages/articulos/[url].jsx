@@ -347,15 +347,16 @@ export default function FichaTecnica(props){
                         <meta name="keywords" content={datos.descripcion.descripcion.urlName.substring(0,34)} />
                     }
                     {<script type="application/ld+json">
-                    {`
+                    {`{
                         "@context": "https://schema.org",
                         "@type": "Product",
                         "offers": {
                             "@type": "Offer",
-                            "availability": "https://schema.org/InStock"
+                            "availability": "https://schema.org/InStock",
                             "price": "${(precio > 0)?Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):``}",
                             "priceCurrency": "MXN"
                             }
+                        }
                     `}
                     </script>
                     }
@@ -410,7 +411,7 @@ export default function FichaTecnica(props){
                                     <Grid item xs={12} sm={7} md={8} lg={8}>
                                         <Grid container>
                                             <Grid item  xs={12} sm={12}>
-                                                <Typography variant="h5" component="h1" sx={{fontWeight:'500'}}>
+                                                <Typography variant="h5" component="h1" sx={{fontWeight:'500'}} property="name">
                                                     {(datos.hasOwnProperty('item_num'))?`${datos.descripcion.descripcion.urlName}`
                                                     : 
                                                     <Box sx={{ pt: 0.2, width: '80vw' }}>
@@ -624,18 +625,19 @@ export default function FichaTecnica(props){
                                         <Paper variant="outlined" >
                                             <Box component="div" m={4}>
                                             <Typography>Precio unitario</Typography>
-                                            <Box component="div" vocab="https://schema.org/" typeof="Product">
+                                            <Box component="div" >
                                                 <Grid container>
                                                     <Grid item> 
                                                         <Box p={1} property="offers" typeof="AggregateOffer">
-                                                            <Typography variant="h4" component="subtitle1" property="price"> 
+                                                            <Typography variant="h4" component="subtitle1" property="lowPrice"> 
                                                             ${(precio > 0)?Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):``}
                                                             </Typography>
+                                                            <span property="priceCurrency" style={{display:'none'}}>MXN</span>
                                                         </Box>
                                                     </Grid>
                                                     <Grid item>
                                                         <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
-                                                            <Typography variant="subtitle1">
+                                                            <Typography variant="subtitle1" property="highPrice">
                                                             ${(cortadosPA.indexOf(datos.cortado) >= 0 || articulosPA.indexOf(datos.item_num) >= 0)?(datos.precio_anterior > 0 && datos.precio_anterior > precio)?Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0,formato:true}):``:Precios('redondear_arriba',{subtotal:(((parseFloat(precio)*10)/100)+parseFloat(precio)),iva:0,formato:true})}
                                                             </Typography> 
                                                         </Box>
