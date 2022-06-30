@@ -61,14 +61,14 @@ export default function SecondaryCards() {
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center" spacing={4}>
         <Grid item xs={12} sm={12} md={6} lg={6} >
-            <Link href="/busquedas?/PAPEL/PAPEL-PARA-IMPRESION&d=true">
+            <Link href="/articulos/caja-de-papel-reprograf-carta-92-porciento-blancura-10-paquetes-con-500-hojas-75-grs">
                 <a>
                 <Boxsecondarycard 
                     data={{
                     titulo:'Desde ',
-                    precio:'$1,159', 
-                    subtitle: 'Papel Bond PAPERLINE ', 
-                    text1:'Caja con 10 Resmas de 500 HOJAS c/u',
+                    precio:'$1,105', 
+                    subtitle: 'Papel REPROGRAF CARTA', 
+                    text1:'Caja con 10 Paquetes de 500 HOJAS',
                     imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/SAJ-PAP-REPROG.jpg',
                     keyw:'Productos para oficina, papelería, papel, cajas de papel, resma de papel' }}
                 />				
