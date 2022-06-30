@@ -65,11 +65,11 @@ export default function SecondaryCards() {
                 <a>
                 <Boxsecondarycard 
                     data={{
-                    titulo:'Desde ',
+                    titulo:'Papel desde ',
                     precio:'$1,105', 
-                    subtitle: 'Papel REPROGRAF CARTA', 
+                    subtitle: 'REPROGRAF, Tamaño Carta.', 
                     text1:'Caja con 10 Paquetes de 500 HOJAS',
-                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/SAJ-PAP-REPROG.jpg',
+                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/reprograf-xs.webp',
                     keyw:'Productos para oficina, papelería, papel, cajas de papel, resma de papel' }}
                 />				
                 </a>
