@@ -69,7 +69,7 @@ export default function SecondaryCards() {
                     precio:'$1,159', 
                     subtitle: 'Papel Bond PAPERLINE ', 
                     text1:'Caja con 10 Resmas de 500 HOJAS c/u',
-                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/paperline-xs.png',
+                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/SAJ-PAP-REPROG.png',
                     keyw:'Productos para oficina, papelería, papel, cajas de papel, resma de papel' }}
                 />				
                 </a>
