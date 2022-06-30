@@ -346,10 +346,21 @@ export default function FichaTecnica(props){
                     {(!JSON.stringify(datos.metas.metasList).includes('keywords'))&&
                         <meta name="keywords" content={datos.descripcion.descripcion.urlName.substring(0,34)} />
                     }
+                    {<script type="application/ld+json">
+                    {`
+                        "@context": "https://schema.org",
+                        "@type": "Product",
+                        "description"
+                            "offers": {
+                            "@type": "MonetaryAmount",
+                            "price": "${precio}",
+                            "priceCurrency": "MXN"
+                            }
+                    `}
+                    </script>
+                    }
                 </Head>
-
                 }
-               
                 {(datos.hasOwnProperty('item_num'))&&
                     (datos.item_num.includes('HP-') || datos.item_num.includes('hp-') || datos.item_num.includes('PDIR-') || datos.item_num.includes('pdir-'))&&
                     <Script type="text/javascript" src="https://storage.googleapis.com/indexado/assets/alquimioIndexado.v2.js" 
