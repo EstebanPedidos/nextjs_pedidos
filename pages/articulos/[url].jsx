@@ -352,7 +352,7 @@ export default function FichaTecnica(props){
                         "@type": "Product",
                         "offers": {
                             "@type": "Offer",
-                            "availability": "https://schema.org/InStock",
+                            "name": "${datos.descripcion.descripcion.urlName}",
                             "price": "${(precio > 0)?Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):``}",
                             "priceCurrency": "MXN"
                             }

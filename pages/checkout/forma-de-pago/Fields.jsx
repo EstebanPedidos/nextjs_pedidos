@@ -195,6 +195,7 @@ export default function Fields({clientToken,evento,total,getPaymentTokens,cambio
 						"client-id":"ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_",
 						components: "buttons,hosted-fields",
 						"data-client-token": clientToken,
+                        "data-client-metadata-id": pedido, 
 						currency: "MXN",
     					locale:"es_MX",
 						intent: "capture",
@@ -205,9 +206,9 @@ export default function Fields({clientToken,evento,total,getPaymentTokens,cambio
 						styles={{".valid":{"color":"#28a745"},".invalid":{"color":"#dc3545"},"input":{"font-family":"Poppins","font-size":"16px"}}}
 						createOrder={function () {
 							async function orden(){
-                                let services    = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'},pedido)
+                                let services    = await Services('POST-PAYPAL','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'},pedido)
                                 let data        = await services.data
-								console.log('Orden Paypal: '+data)
+								
                                 return data
                             }       
                             return orden()

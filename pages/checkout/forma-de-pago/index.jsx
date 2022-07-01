@@ -271,13 +271,13 @@ export default function Forma_de_pago(){
             <meta name="description" content="Conoce las formas de pago que tenemos para ti: Paga en línea con tu tarjeta de crédito o débito, PayPal, Paga al recibir ya sea con tarjeta (VISA,AMEX) o efectivo, transferencias y dépositos." />
         </Head> 
         <Header/>
-        {/* <Script type="application/json" fncls="fnparams-dede7cc5-15fd-4c75-a9f4-36c430ee3a99" id="Paypal">
+       <Script type="application/json" fncls="fnparams-dede7cc5-15fd-4c75-a9f4-36c430ee3a99" id="Paypal">
             {
                 `"f":"${pedidoNum}",
-                "s":"PE_ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv__PYMNT"`      
+                "s":"ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_"`      
             }
         </Script>
-        <Script type="text/javascript" src="https://c.paypal.com/da/r/fb.js" id="Paypal1"></Script> */}
+        <Script type="text/javascript" src="https://c.paypal.com/da/r/fb.js" id="Paypal1"></Script>
         <Container maxWidth="lg">
             <Box component="div" py={3} m={1}>
                 <Grid container spacing={3}>
@@ -674,21 +674,21 @@ export default function Forma_de_pago(){
                                         
                                         <Box component="div" m={1} >
                                             <Divider light/>
-                                        <Box component="div"  p={2}>
-                                            <Hostedfields 
-                                                clientToken={clientToken} 
-                                                salectOption={salectOption} 
-                                                tajetaSave={tajetaSave} 
-                                                evento={data.jsonResumen.resumen.eventoNum} 
-                                                Delete={Delete} 
-                                                total={Precios('formatcurrency',{subtotal:((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc),fixed:2})} 
-                                                idMeses={idMeses} 
-                                                loading={loading} 
-                                                setLoading={setLoading} 
-                                                cambioNueva={cambioNueva}
-                                                pedidoNum={pedidoNum}
-                                            />
-                                        </Box>
+                                            <Box component="div"  p={2}>
+                                                <Hostedfields 
+                                                    clientToken={clientToken} 
+                                                    salectOption={salectOption} 
+                                                    tajetaSave={tajetaSave} 
+                                                    evento={data.jsonResumen.resumen.eventoNum} 
+                                                    Delete={Delete} 
+                                                    total={Precios('formatcurrency',{subtotal:((data.jsonResumen.resumen.subtotal+data.jsonResumen.resumen.costoEnvio)-data.jsonResumen.nc.montoNc),fixed:2})} 
+                                                    idMeses={idMeses} 
+                                                    loading={loading} 
+                                                    setLoading={setLoading} 
+                                                    cambioNueva={cambioNueva}
+                                                    pedidoNum={pedidoNum}
+                                                />
+                                            </Box>
                                         </Box>
                                         :
                                         <LoadingButton variant="contained" fullWidth  size="large" color="secondary" type="button"
