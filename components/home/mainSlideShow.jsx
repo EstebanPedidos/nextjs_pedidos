@@ -54,8 +54,7 @@ export default function MainSlideShow() {
 			onSwiper={(swiper) => console.log(swiper)}>
 
 			<SwiperSlide> 
-				<Link href='/articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-silver-3050u-ram-4-gb-dd-256-gb-windows-10-home-64-pantalla-hd-14-pulgadas-'>
-					<a>
+
 						<Box component="div" sx={{position:'relative'}}>	
 							<Box component="div" className={styles.infopbox}>
 								<Grid spacing={1}
@@ -100,8 +99,6 @@ export default function MainSlideShow() {
 								</Grid>
 							</Box>
 						</Box>
-					</a>
-				</Link>
 			</SwiperSlide>
 
 			<SwiperSlide> 
