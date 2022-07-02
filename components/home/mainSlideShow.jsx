@@ -54,6 +54,40 @@ export default function MainSlideShow() {
 			<SwiperSlide> 
 				<Link href='/articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-silver-3050u-ram-4-gb-dd-256-gb-windows-10-home-64-pantalla-hd-14-pulgadas-'>
 					<a>
+						<Box component="div" sx={{position:'relative'}}>	
+							<Box component="div" className={styles.infopbox}>
+								<Grid spacing={1}
+								container
+								direction="row"
+								justifyContent="space-between"
+								alignItems="center">
+									
+									<Grid item xs={4} sm={9}>
+										<Box component="div" >
+											<div>
+												<Typography className={styles.title} variant="h4" component="body1" > 
+												Estamos trabajando para ti
+												</Typography>
+
+												<Typography variant="Subtitle1" component="p" >
+												Si necesitas ayuda con tu pedido nos puedes contactar vía whatsapp al siguiente número
+												</Typography>
+												<Typography variant="h4" component="h5" sx={{fontWeight:'400', textDecoration:"underline"}} pt={3} color="primary">
+													<a> 5610348533</a>
+												</Typography>
+											</div>
+										</Box>
+									</Grid>
+								</Grid>
+							</Box>
+						</Box>
+					</a>
+				</Link>
+			</SwiperSlide>
+
+			<SwiperSlide> 
+				<Link href='/articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-silver-3050u-ram-4-gb-dd-256-gb-windows-10-home-64-pantalla-hd-14-pulgadas-'>
+					<a>
 						<Box component="div" sx={{position:'relative'}}>
 							<Box component="div">
 								<Hidden mdDown>
