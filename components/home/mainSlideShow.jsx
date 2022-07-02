@@ -13,6 +13,8 @@ import { Autoplay, Pagination, Navigation, Lazy } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+
 
 
 
@@ -72,12 +74,29 @@ export default function MainSlideShow() {
 												<Typography variant="Subtitle1" component="p" >
 												Si necesitas ayuda con tu pedido nos puedes contactar vía whatsapp al siguiente número
 												</Typography>
-												<Typography variant="h4" component="h5" sx={{fontWeight:'400', textDecoration:"underline"}} pt={3} color="primary">
-													<a> 5610348533</a>
-												</Typography>
+
+                                                <Box component="div" pt={4} pb={6}>
+                                                    <Button 
+                                                        variant="outlined"
+                                                        size="large" 
+                                                        aria-label="Help" 
+                                                        startIcon={<WhatsAppIcon/>}  
+                                                        onClick={(event) => { event.preventDefault(); window.open('https://api.whatsapp.com/send?phone=5215610348533&amp;text=Hola,%20Pedidos.com%20me%20ayudas%20a...%20', '_blank')}}>
+                                                            +5215610348533
+                                                    </Button>
+                                                </Box>
 											</div>
 										</Box>
 									</Grid>
+                                    <Grid item xs={8} sm={3}>
+                                        <Image
+                                            src="/imagenes/error-404.jpg"
+                                            alt="Error 404"
+                                            width="600"
+                                            height="480"
+                                            layout="responsive"
+                                        />
+                                    </Grid>
 								</Grid>
 							</Box>
 						</Box>
