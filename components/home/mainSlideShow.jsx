@@ -112,7 +112,7 @@ export default function MainSlideShow() {
 							</Box>
 						</Box>
 			</SwiperSlide> */}
-
+ 
 			<SwiperSlide> 
 				<Link href='/articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-silver-3050u-ram-4-gb-dd-256-gb-windows-10-home-64-pantalla-hd-14-pulgadas-'>
 					<a>
