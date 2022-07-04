@@ -41,72 +41,73 @@ export default function Login(){
     let cliente_m = router.query.cliente_m;
 
  
-    useEffect(() => {
-        setUrl(localStorage.getItem('URL') )
-    }, [    useEffect(() => {
+    useEffect(()=>{
+        
 
-                if(crmUser==='Si'){
-                    if(usuario_m !== undefined && password_m !== undefined && crmUser !== undefined && cliente_m !== undefined ){
-                        let usuario         =  (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?0:localStorage.getItem('Usuario')
-                        console.log('/registrov2/validaCredencialClien?email='+usuario_m+'&pass='+password_m+'&clien='+cliente_m+'&user_m='+usuario)
-                        let services = Services('POST','/registrov2/validaCredencialClien?email='+usuario_m+'&pass='+password_m+'&clien='+cliente_m+'&user_m='+usuario,{})
-                        .then( response =>{
+        const getData = async () => {
+            if(crmUser==='Si'){
+                if(usuario_m !== undefined && password_m !== undefined && crmUser !== undefined && cliente_m !== undefined ){
+                    let usuario         =  (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?0:localStorage.getItem('Usuario')
+                    console.log('/registrov2/validaCredencialClien?email='+usuario_m+'&pass='+password_m+'&clien='+cliente_m+'&user_m='+usuario)
+                    let services = Services('POST','/registrov2/validaCredencialClien?email='+usuario_m+'&pass='+password_m+'&clien='+cliente_m+'&user_m='+usuario,{})
+                    .then( response =>{
 
-                            if(response.data.error === 'Usuario o Password Invalido'){
-                                localStorage.setItem('Cliente','201221')
-                                localStorage.setItem('Token', '')
-                                localStorage.setItem('Login', 'NO')
-                                localStorage.setItem('Usuario', '0')
-                                localStorage.setItem('iniciales', false)
-                                localStorage.setItem('iniciales', "")
-                                localStorage.setItem('Nombre_corto', "")
-                                setIntentos(intentos+1);
-                                setAlerta({severity:'error',mensaje:'Correo o Contraseña incorrecta',vertical:'bottom',horizontal:'right',variant:'filled'})
-                                if(intentos > 2){
-                                    ruter.push('/Contra')
-                                }
-                                setLoading(false)
-                            }else{
-                                let nombre = response.data.usuario.nombre
-                                setAlerta({severity:'info',mensaje:'Bienvenido '+nombre,vertical:'bottom',horizontal:'right',variant:'filled'})
-                                localStorage.setItem('Usu_Nomb', response.data.usuario.nombre)
-                                localStorage.setItem('Email', response.data.usuario.email)
-                                localStorage.setItem('Cliente', response.data.usuario.clienteNum)
-                                localStorage.setItem('Usuario', response.data.usuario.usuarioNum)
-                                localStorage.setItem('SesPartidas', response.data.usuario.partidas)
-                                localStorage.setItem('Token', response.data.usuario.token)
-                                localStorage.setItem('Login', 'Ok')
-                                localStorage.setItem('afiliado', response.data.usuario.afiliacion)
-                                localStorage.setItem('nivelAcceso', response.data.usuario.nivelAcceso)
-                                setLogged(true);
-                    
-                                let services1        =  Services('POST','/miCuenta/obtieneFavoritosFrecuentes?clienteNum='+response.data.usuario.clienteNum,{})
-                                let data1            =  services1.data.favoritosFrecuentes;
-                                if(data1 !== "VACIO"){
-                                data1 = data1.filter(
-                                    (favoritos) => favoritos.tipo === "F")
-                                    localStorage.setItem('Favoritos', data1.length) 
-                                }else{
-                                    localStorage.setItem('Favoritos', 0) 
-                                }
-
-                                return {
-                                    redirect: {
-                                      destination: '/Home',
-                                      permanent: false,
-                                    },
-                                }
+                        if(response.data.error === 'Usuario o Password Invalido'){
+                            localStorage.setItem('Cliente','201221')
+                            localStorage.setItem('Token', '')
+                            localStorage.setItem('Login', 'NO')
+                            localStorage.setItem('Usuario', '0')
+                            localStorage.setItem('iniciales', false)
+                            localStorage.setItem('iniciales', "")
+                            localStorage.setItem('Nombre_corto', "")
+                            setIntentos(intentos+1);
+                            setAlerta({severity:'error',mensaje:'Correo o Contraseña incorrecta',vertical:'bottom',horizontal:'right',variant:'filled'})
+                            if(intentos > 2){
+                                ruter.push('/Contra')
                             }
-                          
-                        }).catch(error => {
-                            console.log("falló LoginCRM")
-                            console.log(error.response)
-                    });
-                    
-                    }
+                            setLoading(false)
+                        }else{
+                            let nombre = response.data.usuario.nombre
+                            setAlerta({severity:'info',mensaje:'Bienvenido '+nombre,vertical:'bottom',horizontal:'right',variant:'filled'})
+                            localStorage.setItem('Usu_Nomb', response.data.usuario.nombre)
+                            localStorage.setItem('Email', response.data.usuario.email)
+                            localStorage.setItem('Cliente', response.data.usuario.clienteNum)
+                            localStorage.setItem('Usuario', response.data.usuario.usuarioNum)
+                            localStorage.setItem('SesPartidas', response.data.usuario.partidas)
+                            localStorage.setItem('Token', response.data.usuario.token)
+                            localStorage.setItem('Login', 'Ok')
+                            localStorage.setItem('afiliado', response.data.usuario.afiliacion)
+                            localStorage.setItem('nivelAcceso', response.data.usuario.nivelAcceso)
+                            setLogged(true);
+                
+                            let services1        =  Services('POST','/miCuenta/obtieneFavoritosFrecuentes?clienteNum='+response.data.usuario.clienteNum,{})
+                            let data1            =  services1.data.favoritosFrecuentes;
+                            if(data1 !== "VACIO"){
+                            data1 = data1.filter(
+                                (favoritos) => favoritos.tipo === "F")
+                                localStorage.setItem('Favoritos', data1.length) 
+                            }else{
+                                localStorage.setItem('Favoritos', 0) 
+                            }
+
+                            return {
+                                redirect: {
+                                  destination: '/Home',
+                                  permanent: false,
+                                },
+                            }
+                        }
+                        
+                    }).catch(error => {
+                        console.log("falló LoginCRM")
+                        console.log(error.response)
+                });
+                
                 }
             }
-    ,[])]) 
+        }
+        getData()
+    },[crmUser])
 
     
     const handleChange = (event) => {
