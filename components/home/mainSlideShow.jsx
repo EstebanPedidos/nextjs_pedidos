@@ -53,7 +53,7 @@ export default function MainSlideShow() {
 			onSlideChange={() => console.log('slide change')}
 			onSwiper={(swiper) => console.log(swiper)}>
 
-			<SwiperSlide> 
+			{/* <SwiperSlide> 
 
 						<Box component="div" sx={{position:'relative'}}>	
 							<Box component="div" className={styles.infopbox}>
@@ -99,7 +99,7 @@ export default function MainSlideShow() {
 								</Grid>
 							</Box>
 						</Box>
-			</SwiperSlide>
+			</SwiperSlide> */}
 
 			<SwiperSlide> 
 				<Link href='/articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-silver-3050u-ram-4-gb-dd-256-gb-windows-10-home-64-pantalla-hd-14-pulgadas-'>

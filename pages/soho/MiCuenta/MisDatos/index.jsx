@@ -210,16 +210,18 @@ export default function MisDatos() {
                             console.log("falló todosMisTelefonos")
                             console.log(error.response)
                     });
-        
-                    Services('POST','/miCuenta/consultaTransportista?clienteNum='+cliente1,{})
-                    .then( response =>{
-                        setUltimoTransportista(response.data);
-                        console.log(response.data)
-                        console.log("consultaTransportista Exitoso")
-                        }).catch(error => {
-                            console.log("falló consultaTransportista")
-                            console.log(error.response)
-                    });
+                    
+
+                    //SERVICIO COMENTADO DEBIDO A QUE TRUENA TOMCAR Y TIRA LA PAGINA
+                    // Services('POST','/miCuenta/consultaTransportista?clienteNum='+cliente1,{})
+                    // .then( response =>{
+                    //     setUltimoTransportista(response.data);
+                    //     console.log(response.data)
+                    //     console.log("consultaTransportista Exitoso")
+                    //     }).catch(error => {
+                    //         console.log("falló consultaTransportista")
+                    //         console.log(error.response)
+                    // });
                 }
                 
                 getData();

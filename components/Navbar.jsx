@@ -347,7 +347,7 @@ export function Navbar(props) {
 			anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
 			<div>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/Home'>
+					<Link href='/Login'>
 						<Typography variant='h6' component='a' py={1}>
 							Iniciar Sesión
 						</Typography>
