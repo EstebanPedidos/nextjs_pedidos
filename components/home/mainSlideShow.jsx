@@ -53,9 +53,36 @@ export default function MainSlideShow() {
 			onSlideChange={() => console.log('slide change')}
 			onSwiper={(swiper) => console.log(swiper)}>
 
+<<<<<<< HEAD
 			{/* <SwiperSlide> 
 
+=======
+			<SwiperSlide> 
+				<Link href='/articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-silver-3050u-ram-4-gb-dd-256-gb-windows-10-home-64-pantalla-hd-14-pulgadas-'>
+					<a>
+>>>>>>> 0eb1c5c1fce3252d0a639a1c4197c58ee4bbd6d9
 						<Box component="div" sx={{position:'relative'}}>	
+							<Box component="div">
+								<Hidden mdDown>
+									<Box component="div">
+										<Banner xs={{width:'100%'}} props={{
+										img:'https://imgur.com/Dp1okQD.jpg',
+										alt:'sin servicio',
+										
+										}}
+										/>
+									</Box>
+								</Hidden>
+								<Hidden mdUp>
+									<Box component="div">
+										<Banner props={{
+										img:'https://imgur.com/XD9mBwu.jpg',
+										alt:'sin servicio',
+										}}
+										/>
+									</Box>
+								</Hidden>
+							</Box>
 							<Box component="div" className={styles.infopbox}>
 								<Grid spacing={1}
 								container
@@ -63,7 +90,7 @@ export default function MainSlideShow() {
 								justifyContent="space-between"
 								alignItems="center">
 									
-									<Grid item xs={4} sm={9}>
+									<Grid item xs={12} sm={9}>
 										<Box component="div" >
 											<div>
 												<Typography className={styles.title} variant="h4" component="body1" > 
@@ -74,33 +101,30 @@ export default function MainSlideShow() {
 												Si necesitas ayuda con tu pedido nos puedes contactar vía whatsapp al siguiente número
 												</Typography>
 
-                                                <Box component="div" pt={4} pb={6}>
-                                                    <Button 
-                                                        variant="outlined"
-                                                        size="large" 
-                                                        aria-label="Help" 
-                                                        startIcon={<WhatsAppIcon/>}  
-                                                        onClick={(event) => { event.preventDefault(); window.open('https://api.whatsapp.com/send?phone=5215610348533&amp;text=Hola,%20Pedidos.com%20me%20ayudas%20a...%20', '_blank')}}>
-                                                            +5215610348533
-                                                    </Button>
-                                                </Box>
+												<Box component="div" pt={3} pb={6}>
+													<Button 
+														variant="outlined"
+														size="large" 
+														aria-label="Help" 
+														startIcon={<WhatsAppIcon/>}  
+														onClick={(event) => { event.preventDefault(); window.open('https://api.whatsapp.com/send?phone=5215610348533&amp;text=Hola,%20Pedidos.com%20me%20ayudas%20a...%20', '_blank')}}>
+															+5215610348533
+													</Button>
+												</Box>
 											</div>
 										</Box>
 									</Grid>
-                                    <Grid item xs={8} sm={3}>
-                                        <Image
-                                            src="/imagenes/error-404.jpg"
-                                            alt="Error 404"
-                                            width="600"
-                                            height="480"
-                                            layout="responsive"
-                                        />
-                                    </Grid>
 								</Grid>
 							</Box>
 						</Box>
+<<<<<<< HEAD
 			</SwiperSlide> */}
 
+=======
+					</a>
+				</Link>
+			</SwiperSlide>
+>>>>>>> 0eb1c5c1fce3252d0a639a1c4197c58ee4bbd6d9
 			<SwiperSlide> 
 				<Link href='/articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-silver-3050u-ram-4-gb-dd-256-gb-windows-10-home-64-pantalla-hd-14-pulgadas-'>
 					<a>
