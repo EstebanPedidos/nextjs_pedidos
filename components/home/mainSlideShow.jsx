@@ -53,14 +53,8 @@ export default function MainSlideShow() {
 			onSlideChange={() => console.log('slide change')}
 			onSwiper={(swiper) => console.log(swiper)}>
 
-<<<<<<< HEAD
 			{/* <SwiperSlide> 
 
-=======
-			<SwiperSlide> 
-				<Link href='/articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-silver-3050u-ram-4-gb-dd-256-gb-windows-10-home-64-pantalla-hd-14-pulgadas-'>
-					<a>
->>>>>>> 0eb1c5c1fce3252d0a639a1c4197c58ee4bbd6d9
 						<Box component="div" sx={{position:'relative'}}>	
 							<Box component="div">
 								<Hidden mdDown>
@@ -117,14 +111,8 @@ export default function MainSlideShow() {
 								</Grid>
 							</Box>
 						</Box>
-<<<<<<< HEAD
 			</SwiperSlide> */}
 
-=======
-					</a>
-				</Link>
-			</SwiperSlide>
->>>>>>> 0eb1c5c1fce3252d0a639a1c4197c58ee4bbd6d9
 			<SwiperSlide> 
 				<Link href='/articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-silver-3050u-ram-4-gb-dd-256-gb-windows-10-home-64-pantalla-hd-14-pulgadas-'>
 					<a>
