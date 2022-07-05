@@ -182,7 +182,7 @@ export default function MainSlideShow() {
 			</SwiperSlide>
 
 			<SwiperSlide> 
-				<Link href='/articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-silver-3050u-ram-4-gb-dd-256-gb-windows-10-home-64-pantalla-hd-14-pulgadas-'>
+				<Link href='/busquedas?query=HTP200520213'>
 					<a>
 						<Box component="div" sx={{position:'relative'}}>
 							<Box component="div">
@@ -190,7 +190,7 @@ export default function MainSlideShow() {
 									<Box component="div">
 										<Banner xs={{width:'100%'}} props={{
 										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/bro-30-desktop.webp',
-										alt:'hp, tecnologia, computo',
+										alt:'brother, tecnologia',
 										
 										}}
 										/>
@@ -200,7 +200,7 @@ export default function MainSlideShow() {
 									<Box component="div">
 										<Banner props={{
 										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/bro-30-sm-xs.webp',
-										alt:'hp, tecnologia, computo',
+										alt:'brother, tecnologia',
 										}}
 										/>
 									</Box>
