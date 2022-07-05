@@ -63,7 +63,7 @@ export default function Login(){
                             setIntentos(intentos+1);
                             setAlerta({severity:'error',mensaje:'Correo o Contraseña incorrecta',vertical:'bottom',horizontal:'right',variant:'filled'})
                             if(intentos > 2){
-                                ruter.push('/Contra')
+                                router.push('/Contra')
                             }
                             setLoading(false)
                         }else{
@@ -90,12 +90,7 @@ export default function Login(){
                                 localStorage.setItem('Favoritos', 0) 
                             }
 
-                            return {
-                                redirect: {
-                                  destination: '/Home',
-                                  permanent: false,
-                                },
-                            }
+                            router.push('/Home')
                         }
                         
                     }).catch(error => {
@@ -140,7 +135,7 @@ export default function Login(){
             setIntentos(intentos+1);
             setAlerta({severity:'error',mensaje:'Correo o Contraseña incorrecta',vertical:'bottom',horizontal:'right',variant:'filled'})
             if(intentos > 2){
-                ruter.push('/Contra')
+                router.push('/Contra')
             }
             setLoading(false)
         }else{
@@ -169,10 +164,10 @@ export default function Login(){
             }
             
             if( url === undefined || url === null || url === ''){
-                ruter.push('/Home')
+                router.push('/Home')
             }else{
                 // ruter.push(localStorage.getItem('URL'))
-                ruter.push('/checkout/verifica-pedido')
+                router.push('/checkout/verifica-pedido')
             }
         }
       }

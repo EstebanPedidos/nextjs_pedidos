@@ -278,7 +278,7 @@ export default function MisPedidos() {
                                             aria-controls={openMenu ? 'basic-menu' : undefined}
                                             aria-haspopup="true"
                                             aria-expanded={openMenu ? 'true' : undefined}
-                                            onClick={handleClick}
+                                            onClick={(event) => { event.preventDefault(); handleClick(event); setPedido(row.pedidoNum); alert(row.pedidoNum)}}
                                             > 
                                                 Reservado
                                             </Button>
@@ -306,7 +306,7 @@ export default function MisPedidos() {
                                                     
                                                     {row.estatusEnvio != "RETURNED" && row.estatusEnvio != "REFUNDED" && 
                                                         <MenuItem>
-                                                            <Link href="/checkout/direccion-de-envio" onClick={localStorage.setItem('Pedido', row.pedidoNum)}> 
+                                                            <Link href="/checkout/direccion-de-envio" onClick={localStorage.setItem('Pedido', pedido)}> 
                                                                 <a>
                                                                     Pagar
                                                                 </a>
@@ -330,7 +330,7 @@ export default function MisPedidos() {
                                                             Pago OXXO
                                                         </MenuItem>
                                                     }
-                                                    <MenuItem onClick={(event) => { event.preventDefault();cancelar(row.pedidoNum);}}>
+                                                    <MenuItem onClick={(event) => { event.preventDefault();cancelar(pedido);}}>
                                                         Cancelar
                                                     </MenuItem>
                                                 </Menu>
@@ -360,7 +360,7 @@ export default function MisPedidos() {
                                                 > 
                                                     <MenuItem 
                                                         onClick={(event) => { event.preventDefault();
-                                                        cancelar(row.pedidoNum)}}
+                                                        cancelar(pedido)}}
                                                     >
                                                         Cancelar
                                                     </MenuItem>
