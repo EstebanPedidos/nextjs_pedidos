@@ -2,7 +2,7 @@ import axios from 'axios'
 const PATH ='https://api-pickup.pedidos.com/API-Rest'
 // const PATH ='http://localhost:8080/rest'
           
-function Services(metodo,url,json) {
+function Services(metodo,url,json, pedidoNum) {
     switch (metodo) {
         case 'POST':
           return getMetodPost(url,json)
@@ -11,7 +11,7 @@ function Services(metodo,url,json) {
           return getMetodPost_not(url,json)
           break;
         case 'POST-PAYPAL':
-          return getMetodPostPayPal(url,json,pedido)
+          return getMetodPostPayPal(url,json,pedidoNum)
           break;
         case 'GET':
         return getMetodGet(url,json)
@@ -38,12 +38,12 @@ function Services(metodo,url,json) {
       return await axios.post(PATH+url,json)
     }
 
-    async function getMetodPostPayPal(url,json,pedido){
+    async function getMetodPostPayPal(url,json,pedidoNum){
         json.headers ={
             'Content-Type': 'application/json',
             'Access-control-Allow-Origin' : '*',
             'Access-control-Allow-Methods' : 'GET, PUT, POST, DELETE',
-            'PayPal-Client-Metada-Id:': pedido.toString(),
+            'PayPal-Client-Metada-Id:': pedidoNum.toString(),
         }
         return await axios.post(PATH+url,json)
       }

@@ -57,7 +57,7 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
             setLoading(true)
             let term                = await (mes > 0 )?idMeses[mes-1].term:''
             let interval_duration   = await (mes > 0 )?idMeses[mes-1].interval_duration:''
-            let services            = await Services('POST-PAYPAL','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'}, pedido)
+            let services            = await Services('POST-PAYPAL','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'}, pedidoNum)
             let orderId             = await services.data
             if(orderId !== '' && orderId !== 'null' && orderId !== null){
                 let services    = await Services('POST-NOT','/registrov2/getOrderPayPal',{evento:evento,orderID:orderId,address:'192.10.2.166',isSTC:'S',id_PayTok:tajetaSave, term:term,interval_duration:interval_duration})
