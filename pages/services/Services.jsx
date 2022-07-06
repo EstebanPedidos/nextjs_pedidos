@@ -43,7 +43,7 @@ function Services(metodo,url,json, pedidoNum) {
             'Content-Type': 'application/json',
             'Access-control-Allow-Origin' : '*',
             'Access-control-Allow-Methods' : 'GET, PUT, POST, DELETE',
-            'PayPal-Client-Metada-Id:': pedidoNum.toString(),
+            // 'PayPal-Client-Metada-Id:': pedidoNum.toString(),
         }
         return await axios.post(PATH+url,json)
       }
