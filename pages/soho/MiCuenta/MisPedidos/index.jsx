@@ -278,7 +278,7 @@ export default function MisPedidos() {
                                             aria-controls={openMenu ? 'basic-menu' : undefined}
                                             aria-haspopup="true"
                                             aria-expanded={openMenu ? 'true' : undefined}
-                                            onClick={(event) => { event.preventDefault(); handleClick(event); setPedido(row.pedidoNum); alert(row.pedidoNum)}}
+                                            onClick={(event) => { event.preventDefault(); handleClick(event); setPedido(row.pedidoNum);}}
                                             > 
                                                 Reservado
                                             </Button>
