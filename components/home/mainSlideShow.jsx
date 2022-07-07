@@ -255,7 +255,7 @@ export default function MainSlideShow() {
 							<Box component="div">
 								<Hidden mdDown>
 									<Banner xs={{width:'100%'}} props={{
-									img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/imac-aar.webp',
+									img:'https://drscdn.500px.org/photo/1050666110/m%3D900/v2?sig=73211f85aa35af6e623662e1b7e08c845142bb11e7aa3dd4638639dabe91ed18',
 									alt:'Apple, iMac',
 									
 									}}
@@ -263,7 +263,7 @@ export default function MainSlideShow() {
 								</Hidden>
 								<Hidden mdUp>
 									<Banner props={{
-									img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/imac-xs-june.png',
+									img:'https://drscdn.500px.org/photo/1050666109/m%3D900/v2?sig=20f84a28113b19d259f564132485d151b631abf2de99139488e48494b836cfef',
 									alt:'Apple, iMac',
 									}}
 									/>
