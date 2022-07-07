@@ -112,9 +112,75 @@ export default function MainSlideShow() {
 							</Box>
 						</Box>
 			</SwiperSlide> */}
+			<SwiperSlide> 
+				<Box component="div" sx={{position:'relative'}}>
+					<Link href='/busquedas?query=HTP200520211'>
+						<a>
+							<Box component="div">
+								<Hidden mdDown>
+									<Banner xs={{width:'100%'}} props={{
+									img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/len-30-desktop.webp',
+									alt:'Lenovo',
+									
+									}}
+									/>
+								</Hidden>
+								<Hidden mdUp>
+									<Banner props={{
+									img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/len-30-sm-xs.webp',
+									alt:'Lenovo',
+									}}
+									/>
+								</Hidden>
+							</Box>	
+							<Box component="div" className={styles.infopbox}>
+								<Grid spacing={1}
+								container
+								direction="row"
+								justifyContent="space-between"
+								alignItems="center">
+									<Grid item xs={4} sm={4}>
+										<Box component="div" sx={{position:'relative'}} >
+											<Paper variant='auto' px={1}  className={styles.boxmsi } >
+												<Box component="div" textAlign="center" py={1} px={3}> 
+													<Typography variant="overline" display="block">Hasta</Typography>
+														<Typography  variant="h4" component="body1" sx={{fontWeight:'600'}}>
+														<Box component="span" sx={{color:'#3655a5'}}>18</Box></Typography>
+														<Typography variant="caption" display="block" gutterBottom color="textSecondary">Tarjetas Citibanamex*</Typography>
+														
+												</Box>
+											</Paper>
+										</Box>
+									</Grid>
+									<Divider orientation="vertical" flexItem />
+									<Grid item xs={7} sm={7}>
+										<Box component="div" >
+											<div>
+												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
+												Cómputo | Lenovo
+												</Typography>  
+												<Typography className={styles.title} variant="h4" component="body1" > 
+												Desde <Box component="span" sx={{color:'#3655a5'}}>$15,899</Box>
+												</Typography>
+
+												<Typography variant="Subtitle1" component="p" >
+													Lenovo Think Pad E14
+												</Typography> 
+												<Typography variant="Subtitle1" component="p" color="textSecondary" >								
+													Ryzen 5, 8 GB, SSD 256 GB
+												</Typography>  
+											</div>
+										</Box>
+									</Grid>
+								</Grid>
+							</Box>
+						</a>
+					</Link>
+				</Box>
+			</SwiperSlide>
  
 			<SwiperSlide> 
-				<Link href='/articulos/laptop-hp-14-dk1015la-procesador-amd-athlon-silver-3050u-ram-4-gb-dd-256-gb-windows-10-home-64-pantalla-hd-14-pulgadas-'>
+				<Link href='/busquedas?query=HTP200520210'>
 					<a>
 						<Box component="div" sx={{position:'relative'}}>
 							<Box component="div">
@@ -161,175 +227,18 @@ export default function MainSlideShow() {
 									<Grid item xs={7} sm={7}>
 										<Box component="div" >
 											<div>
+												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
+												Cómputo | HP
+												</Typography>  
 												<Typography className={styles.title} variant="h4" component="body1" > 
-												Desde <Box component="span" sx={{color:'#3655a5'}}>$6,199</Box>
+												Desde <Box component="span" sx={{color:'#3655a5'}}>$8,098</Box>
 												</Typography>
 
 												<Typography variant="Subtitle1" component="p" >
 												Laptop HP 14 DK1015la
 												</Typography> 
 												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
-												AMD Athlon Silver 3050U, 4GB, 256GB
-												</Typography>  
-											</div>
-										</Box>
-									</Grid>
-								</Grid>
-							</Box>
-						</Box>
-					</a>
-				</Link>
-			</SwiperSlide>
-
-			<SwiperSlide> 
-				<Link href='/busquedas?query=HTP200520213'>
-					<a>
-						<Box component="div" sx={{position:'relative'}}>
-							<Box component="div">
-								<Hidden mdDown>
-									<Box component="div">
-										<Banner xs={{width:'100%'}} props={{
-										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/bro-30-desktop.webp',
-										alt:'brother, tecnologia',
-										
-										}}
-										/>
-									</Box>
-								</Hidden>
-								<Hidden mdUp>
-									<Box component="div">
-										<Banner props={{
-										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/bro-30-sm-xs.webp',
-										alt:'brother, tecnologia',
-										}}
-										/>
-									</Box>
-								</Hidden>
-							</Box>	
-							<Box component="div" className={styles.infopbox}>
-								<Grid spacing={1}
-								container
-								direction="row"
-								justifyContent="space-between"
-								alignItems="center">
-									<Grid item xs={4} sm={4}>
-										<Box component="div" sx={{position:'relative'}} >
-											<Paper variant='auto' px={1}  className={styles.boxmsi } >
-												<Box component="div" textAlign="center" py={1} px={3}> 
-													<Typography variant="overline" display="block">Hasta</Typography>
-														<Typography  variant="h4" component="body1" sx={{fontWeight:'600'}}>
-														<Box component="span" sx={{color:'#3655a5'}}>24</Box></Typography>
-														<Typography variant="caption" display="block" gutterBottom color="textSecondary">Tarjetas participantes*</Typography>
-														
-												</Box>
-											</Paper>
-										</Box>
-									</Grid>
-									<Divider orientation="vertical" flexItem />
-									<Grid item xs={7} sm={7}>
-										<Box component="div" >
-											<div>
-												<Typography className={styles.title} variant="h4" component="body1" > 
-												Desde <Box component="span" sx={{color:'#3655a5'}}>$4,299</Box>
-												</Typography>
-
-												<Typography variant="Subtitle1" component="p" >
-												Multifuncional brother DCPT520W
-												</Typography> 
-												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
-												Tinta continua color
-												</Typography>  
-											</div>
-										</Box>
-									</Grid>
-								</Grid>
-							</Box>
-						</Box>
-					</a>
-				</Link>
-			</SwiperSlide>
-			<SwiperSlide> 
-				<Box component="div" sx={{position:'relative'}}>
-					<Link href='/articulos/imac-2017-apple-mhk03ea-intel-core-i5-8-gb-ssd-256-gb-led-21-5-pulgadas-mac-os'>
-						<a>	
-							<Box component="div">
-								<Hidden mdDown>
-									<Banner xs={{width:'100%'}} props={{
-									img:'https://drscdn.500px.org/photo/1050666110/m%3D900/v2?sig=73211f85aa35af6e623662e1b7e08c845142bb11e7aa3dd4638639dabe91ed18',
-									alt:'Apple, iMac',
-									
-									}}
-									/>
-								</Hidden>
-								<Hidden mdUp>
-									<Banner props={{
-									img:'https://drscdn.500px.org/photo/1050666109/m%3D900/v2?sig=20f84a28113b19d259f564132485d151b631abf2de99139488e48494b836cfef',
-									alt:'Apple, iMac',
-									}}
-									/>
-								</Hidden>
-							</Box>	
-						</a>
-					</Link>
-				</Box>
-			</SwiperSlide>
-			<SwiperSlide> 
-				<Link href='/busquedas?query=proyector+epson'>
-					<a>
-						<Box component="div" sx={{position:'relative'}}>
-							<Box component="div">
-								<Hidden mdDown>
-									<Box component="div">
-										<Banner xs={{width:'100%'}} props={{
-										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/e20-desktop.webp',
-										alt:'hp, tecnologia, computo',
-										
-										}}
-										/>
-									</Box>
-								</Hidden>
-								<Hidden mdUp>
-									<Box component="div">
-										<Banner props={{
-										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/e20-sm-xs.webp',
-										alt:'hp, tecnologia, computo',
-										}}
-										/>
-									</Box>
-								</Hidden>
-							</Box>	
-							<Box component="div" className={styles.infopbox}>
-								<Grid spacing={1}
-								container
-								direction="row"
-								justifyContent="space-between"
-								alignItems="center">
-									<Grid item xs={4} sm={4}>
-										<Box component="div" sx={{position:'relative'}} >
-											<Paper variant='auto' px={1}  className={styles.boxmsi } >
-												<Box component="div" textAlign="center" py={1} px={3}> 
-													<Typography variant="overline" display="block">Hasta</Typography>
-														<Typography  variant="h4" component="body1" sx={{fontWeight:'600'}}>
-														<Box component="span" sx={{color:'#3655a5'}}>18</Box></Typography>
-														<Typography variant="caption" display="block" gutterBottom color="textSecondary">Tarjetas participantes*</Typography>
-														
-												</Box>
-											</Paper>
-										</Box>
-									</Grid>
-									<Divider orientation="vertical" flexItem />
-									<Grid item xs={7} sm={7}>
-										<Box component="div" >
-											<div>
-												<Typography className={styles.title} variant="h4" component="body1" > 
-												Desde <Box component="span" sx={{color:'#3655a5'}}>$10,699</Box>
-												</Typography>
-
-												<Typography variant="Subtitle1" component="p" >
-												Proyector Epson 
-												</Typography> 
-												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
-												POWERLITE E20
+												AMD ATHLON, 4GB, 256GB
 												</Typography>  
 											</div>
 										</Box>
@@ -412,6 +321,9 @@ export default function MainSlideShow() {
 									<Grid item xs={7} sm={7}>
 										<Box component="div" >
 											<div>
+												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
+												Canon
+												</Typography>  
 												<Typography className={styles.title} variant="h4" component="body1" > 
 												Desde <Box component="span" sx={{color:'#3655a5'}}>$11,999</Box>
 												</Typography>
@@ -421,6 +333,146 @@ export default function MainSlideShow() {
 												</Typography> 
 												<Typography variant="Subtitle1" component="p" color="textSecondary" >		
 												Tinta continua color
+												</Typography>  
+											</div>
+										</Box>
+									</Grid>
+								</Grid>
+							</Box>
+						</Box>
+					</a>
+				</Link>
+			</SwiperSlide>
+			<SwiperSlide> 
+				<Link href='/busquedas?query=HTP200520213'>
+					<a>
+						<Box component="div" sx={{position:'relative'}}>
+							<Box component="div">
+								<Hidden mdDown>
+									<Box component="div">
+										<Banner xs={{width:'100%'}} props={{
+										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/bro-30-desktop.webp',
+										alt:'brother, tecnologia',
+										
+										}}
+										/>
+									</Box>
+								</Hidden>
+								<Hidden mdUp>
+									<Box component="div">
+										<Banner props={{
+										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/bro-30-sm-xs.webp',
+										alt:'brother, tecnologia',
+										}}
+										/>
+									</Box>
+								</Hidden>
+							</Box>	
+							<Box component="div" className={styles.infopbox}>
+								<Grid spacing={1}
+								container
+								direction="row"
+								justifyContent="space-between"
+								alignItems="center">
+									<Grid item xs={4} sm={4}>
+										<Box component="div" sx={{position:'relative'}} >
+											<Paper variant='auto' px={1}  className={styles.boxmsi } >
+												<Box component="div" textAlign="center" py={1} px={3}> 
+													<Typography variant="overline" display="block">Hasta</Typography>
+														<Typography  variant="h4" component="body1" sx={{fontWeight:'600'}}>
+														<Box component="span" sx={{color:'#3655a5'}}>24</Box></Typography>
+														<Typography variant="caption" display="block" gutterBottom color="textSecondary">Tarjetas participantes*</Typography>
+														
+												</Box>
+											</Paper>
+										</Box>
+									</Grid>
+									<Divider orientation="vertical" flexItem />
+									<Grid item xs={7} sm={7}>
+										<Box component="div" >
+											<div>
+												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
+												Impresión | Brother
+												</Typography>  
+												<Typography className={styles.title} variant="h4" component="body1" > 
+												Desde <Box component="span" sx={{color:'#3655a5'}}>$4,299</Box>
+												</Typography>
+
+												<Typography variant="Subtitle1" component="p" >
+												Multifuncional brother DCPT520W
+												</Typography> 
+												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
+												Tinta continua color
+												</Typography>  
+											</div>
+										</Box>
+									</Grid>
+								</Grid>
+							</Box>
+						</Box>
+					</a>
+				</Link>
+			</SwiperSlide>
+			<SwiperSlide> 
+				<Link href='/busquedas?query=proyector+epson'>
+					<a>
+						<Box component="div" sx={{position:'relative'}}>
+							<Box component="div">
+								<Hidden mdDown>
+									<Box component="div">
+										<Banner xs={{width:'100%'}} props={{
+										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/e20-desktop.webp',
+										alt:'epson, tecnologia, proyeccion',
+										
+										}}
+										/>
+									</Box>
+								</Hidden>
+								<Hidden mdUp>
+									<Box component="div">
+										<Banner props={{
+										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/e20-sm-xs.webp',
+										alt:'epson, tecnologia, proyeccion',
+										}}
+										/>
+									</Box>
+								</Hidden>
+							</Box>	
+							<Box component="div" className={styles.infopbox}>
+								<Grid spacing={1}
+								container
+								direction="row"
+								justifyContent="space-between"
+								alignItems="center">
+									<Grid item xs={4} sm={4}>
+										<Box component="div" sx={{position:'relative'}} >
+											<Paper variant='auto' px={1}  className={styles.boxmsi } >
+												<Box component="div" textAlign="center" py={1} px={3}> 
+													<Typography variant="overline" display="block">Hasta</Typography>
+														<Typography  variant="h4" component="body1" sx={{fontWeight:'600'}}>
+														<Box component="span" sx={{color:'#3655a5'}}>18</Box></Typography>
+														<Typography variant="caption" display="block" gutterBottom color="textSecondary">Tarjetas participantes*</Typography>
+														
+												</Box>
+											</Paper>
+										</Box>
+									</Grid>
+									<Divider orientation="vertical" flexItem />
+									<Grid item xs={7} sm={7}>
+										<Box component="div" >
+											<div>
+												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
+												Proyección | Epson
+												</Typography>  
+												<Typography className={styles.title} variant="h4" component="body1" > 
+												Desde <Box component="span" sx={{color:'#3655a5'}}>$10,699</Box>
+												</Typography>
+
+												<Typography variant="Subtitle1" component="p" >
+												Proyector Epson 
+												</Typography> 
+												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
+												POWERLITE E20
 												</Typography>  
 											</div>
 										</Box>
@@ -479,6 +531,9 @@ export default function MainSlideShow() {
 									<Grid item xs={7} sm={7}>
 										<Box component="div" >
 											<div>
+												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
+												Copamex | Papel
+												</Typography>  
 												<Typography className={styles.title} variant="h4" component="body1" > 
 												Desde <Box component="span" sx={{color:'#3655a5'}}>$1,079</Box>
 												</Typography>
@@ -499,24 +554,28 @@ export default function MainSlideShow() {
 				</Link>
 			</SwiperSlide>
 			<SwiperSlide> 
-				<Box component="div" sx={{position:'relative'}}>
-					<Link href='/busquedas?query=HTP200520211'>
-						<a>
+				<Link href='/busquedas?query=faber+castell'>
+					<a>
+						<Box component="div" sx={{position:'relative'}}>
 							<Box component="div">
 								<Hidden mdDown>
-									<Banner xs={{width:'100%'}} props={{
-									img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/len-30-desktop.webp',
-									alt:'Lenovo',
-									
-									}}
-									/>
+									<Box component="div">
+										<Banner xs={{width:'100%'}} props={{
+										img:'https://drscdn.500px.org/photo/1050668180/m%3D900/v2?sig=a92aae522fdb8c82da4ca97dd47c8feeaf7b166f2b6f10eba14f1dae9a9faac3',
+										alt:'epson, tecnologia, impresion',
+										
+										}}
+										/>
+									</Box>
 								</Hidden>
 								<Hidden mdUp>
-									<Banner props={{
-									img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/len-30-sm-xs.webp',
-									alt:'Lenovo',
-									}}
-									/>
+									<Box component="div">
+										<Banner props={{
+										img:'https://drscdn.500px.org/photo/1050668181/m%3D900/v2?sig=58cf6e343778f89f403f9d2e802ca9d7c1a44184fa841e96e2fbe38b2c164d6c',
+										alt:'epson, tecnologia, impresion',
+										}}
+										/>
+									</Box>
 								</Hidden>
 							</Box>	
 							<Box component="div" className={styles.infopbox}>
@@ -532,7 +591,7 @@ export default function MainSlideShow() {
 													<Typography variant="overline" display="block">Hasta</Typography>
 														<Typography  variant="h4" component="body1" sx={{fontWeight:'600'}}>
 														<Box component="span" sx={{color:'#3655a5'}}>18</Box></Typography>
-														<Typography variant="caption" display="block" gutterBottom color="textSecondary">Tarjetas Citibanamex*</Typography>
+														<Typography variant="caption" display="block" gutterBottom color="textSecondary">Tarjetas participantes*</Typography>
 														
 												</Box>
 											</Paper>
@@ -542,24 +601,27 @@ export default function MainSlideShow() {
 									<Grid item xs={7} sm={7}>
 										<Box component="div" >
 											<div>
+												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
+												Papelería | Faber castell
+												</Typography>  
 												<Typography className={styles.title} variant="h4" component="body1" > 
-												Desde <Box component="span" sx={{color:'#3655a5'}}>$15,899</Box>
+												Desde <Box component="span" sx={{color:'#3655a5'}}>$45</Box>
 												</Typography>
 
 												<Typography variant="Subtitle1" component="p" >
-													Lenovo Think Pad E14
+												Crayones Jumbo grip borrables
 												</Typography> 
-												<Typography variant="Subtitle1" component="p" color="textSecondary" >								
-													Ryzen 5, 8 GB, SSD 256 GB
+												<Typography variant="Subtitle1" component="p" color="textSecondary" >		
+												Caja con 12 piezas
 												</Typography>  
 											</div>
 										</Box>
 									</Grid>
 								</Grid>
 							</Box>
-						</a>
-					</Link>
-				</Box>
+						</Box>
+					</a>
+				</Link>
 			</SwiperSlide>
 			
 		</Swiper>
