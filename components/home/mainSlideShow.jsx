@@ -187,7 +187,7 @@ export default function MainSlideShow() {
 								<Hidden mdDown>
 									<Box component="div">
 										<Banner xs={{width:'100%'}} props={{
-										img:'https://drscdn.500px.org/photo/1050715289/m%3D900/v2?sig=e120daf514fdd29a359d32b866605e96a98bfa92f082ec0f8650d2f56832a838',
+										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/hp-desktop.webp',
 										alt:'hp, tecnologia, computo',
 										
 										}}
@@ -197,7 +197,7 @@ export default function MainSlideShow() {
 								<Hidden mdUp>
 									<Box component="div">
 										<Banner props={{
-										img:'https://drscdn.500px.org/photo/1050715279/m%3D900/v2?sig=469ecd29d7e282a708c7b92de6250b7c4cc39be1ec456114e298adc5b41b238a',
+										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/hp-sm-xs.webp',
 										alt:'hp, tecnologia, computo',
 										}}
 										/>
@@ -281,7 +281,7 @@ export default function MainSlideShow() {
 								<Hidden mdDown>
 									<Box component="div">
 										<Banner xs={{width:'100%'}} props={{
-										img:'https://drscdn.500px.org/photo/1050715957/m%3D900/v2?sig=4fac68519852ff69ee9b225c0570e637e4ef2b7d0697ceb802be95cb5b4d0ec3',
+										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/canon-jul8-desktop.webp',
 										alt:'Canon, tecnologia, impresion',
 										
 										}}
@@ -291,7 +291,7 @@ export default function MainSlideShow() {
 								<Hidden mdUp>
 									<Box component="div">
 										<Banner props={{
-										img:'https://drscdn.500px.org/photo/1050715958/m%3D900/v2?sig=da2fbd4f082db67ae8417a315e2780bcf55681f887f89976dd7d729a61e686cd',
+										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/canon-jul8-sm-xs.webp',
 										alt:'Canon, tecnologia, impresion',
 										}}
 										/>
@@ -492,7 +492,7 @@ export default function MainSlideShow() {
 									<Box component="div">
 										<Banner xs={{width:'100%'}} props={{
 										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/ecobond-30-desktop.webp',
-										alt:'epson, tecnologia, impresion',
+										alt:'ecobond, papeleria, papel',
 										
 										}}
 										/>
@@ -502,7 +502,7 @@ export default function MainSlideShow() {
 									<Box component="div">
 										<Banner props={{
 										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/epson-1-sm-xs.webp',
-										alt:'epson, tecnologia, impresion',
+										alt:'ecobond, papeleria, papel',
 										}}
 										/>
 									</Box>
@@ -561,8 +561,8 @@ export default function MainSlideShow() {
 								<Hidden mdDown>
 									<Box component="div">
 										<Banner xs={{width:'100%'}} props={{
-										img:'https://drscdn.500px.org/photo/1050668180/m%3D900/v2?sig=a92aae522fdb8c82da4ca97dd47c8feeaf7b166f2b6f10eba14f1dae9a9faac3',
-										alt:'epson, tecnologia, impresion',
+										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/Faber-desktop.webp',
+										alt:'faber, papeleria, lapiz',
 										
 										}}
 										/>
@@ -571,8 +571,8 @@ export default function MainSlideShow() {
 								<Hidden mdUp>
 									<Box component="div">
 										<Banner props={{
-										img:'https://drscdn.500px.org/photo/1050668181/m%3D900/v2?sig=58cf6e343778f89f403f9d2e802ca9d7c1a44184fa841e96e2fbe38b2c164d6c',
-										alt:'epson, tecnologia, impresion',
+										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/Faber-sm-xs.webp',
+										alt:'faber, papeleria, lapiz',
 										}}
 										/>
 									</Box>
