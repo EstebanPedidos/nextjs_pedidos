@@ -187,7 +187,7 @@ export default function MainSlideShow() {
 								<Hidden mdDown>
 									<Box component="div">
 										<Banner xs={{width:'100%'}} props={{
-										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/hp-1-desktop.webp',
+										img:'https://drscdn.500px.org/photo/1050715289/m%3D900/v2?sig=e120daf514fdd29a359d32b866605e96a98bfa92f082ec0f8650d2f56832a838',
 										alt:'hp, tecnologia, computo',
 										
 										}}
@@ -197,7 +197,7 @@ export default function MainSlideShow() {
 								<Hidden mdUp>
 									<Box component="div">
 										<Banner props={{
-										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/hp-1-sm-xs.webp',
+										img:'https://drscdn.500px.org/photo/1050715279/m%3D900/v2?sig=469ecd29d7e282a708c7b92de6250b7c4cc39be1ec456114e298adc5b41b238a',
 										alt:'hp, tecnologia, computo',
 										}}
 										/>
@@ -231,14 +231,14 @@ export default function MainSlideShow() {
 												Cómputo | HP
 												</Typography>  
 												<Typography className={styles.title} variant="h4" component="body1" > 
-												Desde <Box component="span" sx={{color:'#3655a5'}}>$8,098</Box>
+												Desde <Box component="span" sx={{color:'#3655a5'}}>$14,399</Box>
 												</Typography>
 
 												<Typography variant="Subtitle1" component="p" >
-												Laptop HP 14 DK1015la
+												Laptop HP PAVILION 15 EH0002LA
 												</Typography> 
 												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
-												AMD ATHLON, 4GB, 256GB
+												AMD RYZEN 5, 8GB, 512GB
 												</Typography>  
 											</div>
 										</Box>
@@ -281,7 +281,7 @@ export default function MainSlideShow() {
 								<Hidden mdDown>
 									<Box component="div">
 										<Banner xs={{width:'100%'}} props={{
-										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/canon-desktop.webp',
+										img:'https://drscdn.500px.org/photo/1050715957/m%3D900/v2?sig=4fac68519852ff69ee9b225c0570e637e4ef2b7d0697ceb802be95cb5b4d0ec3',
 										alt:'Canon, tecnologia, impresion',
 										
 										}}
@@ -291,7 +291,7 @@ export default function MainSlideShow() {
 								<Hidden mdUp>
 									<Box component="div">
 										<Banner props={{
-										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/canon-vesion-sm-xs.webp',
+										img:'https://drscdn.500px.org/photo/1050715958/m%3D900/v2?sig=da2fbd4f082db67ae8417a315e2780bcf55681f887f89976dd7d729a61e686cd',
 										alt:'Canon, tecnologia, impresion',
 										}}
 										/>
@@ -322,14 +322,14 @@ export default function MainSlideShow() {
 										<Box component="div" >
 											<div>
 												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
-												Canon
+												Impresión | Canon
 												</Typography>  
 												<Typography className={styles.title} variant="h4" component="body1" > 
-												Desde <Box component="span" sx={{color:'#3655a5'}}>$11,999</Box>
+												Desde <Box component="span" sx={{color:'#3655a5'}}>$3,899</Box>
 												</Typography>
 
 												<Typography variant="Subtitle1" component="p" >
-												Canon maxify GX6010
+												Canon G3160
 												</Typography> 
 												<Typography variant="Subtitle1" component="p" color="textSecondary" >		
 												Tinta continua color
