@@ -523,44 +523,64 @@ export default function Forma_de_envio(props){
                                                     <div className={classes.root}>
                                                         <Grid container spacing={2}>
                                                             
-                                                            {
-                                                            horarios.map((horario, index) => (
-                                                            <Grid key={index} item xs={12}>
-                                                                <Box component="div" >   
-                                                                    <Card variant="outlined"> 
-                                                                        <ListItem button>                                      
-                                                                                {(data.hasOwnProperty('jsonResumen'))&&
-                                                                                (horario.horario !== '10hrs a 18hrs')&&
-                                                                                (data.jsonResumen.resumen.bodegaDif === 'N' || horario.horario !== '10hrs a 19hrs')&&
-                                                                                        
-                                                                                    <FormControlLabel fullWidth disabled={(horario.disponible === 'N')?(horario.horario === '10hrs a 19hrs')?true:(data.jsonResumen.resumen.bodegaDif !== 'S')?true:false:false}
-                                                                                    value={(horario.horario === '10hrs a 19hrs')?'-':horario.horario.replace('hrs a ','-').replace('hrs','')} label={
-                                                                                        <Box component="div" py={2}>
-                                                                                            <Grid container direction="row" justifyContent="space-evenly" alignItems="center" >
-                                                                                                <Grid item xs={12} sm={10}>
-                                                                                                    <Box component="div" className={classes.w300}>
-                                                                                                        <Typography variant="subtitle2" component="body2">{(horario.horario === '10hrs a 19hrs')?`Horario abierto de`:`Horario:`} {horario.horario} </Typography>
-                                                                                                    </Box>
-                                                                                                </Grid>
-                                                                                                <Grid item xs={12} sm={2} >
-                                                                                                    <ListItemSecondaryAction>
-                                                                                                        <ListItemText id="list-label-horarios" secondary={(horario.horario === '10hrs a 19hrs')?(data.jsonResumen.formasEnvio.pactado.abierto===0)?`GRATIS`:`$${data.jsonResumen.formasEnvio.pactado.abierto} MXN`:`+$${data.jsonResumen.formasEnvio.pactado.costo} MXN`}/>
-                                                                                                    </ListItemSecondaryAction>
-                                                                                                </Grid>                                
-                                                                                            </Grid>   
-                                                                                        </Box>
-                                                                                        
-                                                                                    } control={<Radio id={(horario.horario === '10hrs a 19hrs')?data.jsonResumen.formasEnvio.pactado.abierto:data.jsonResumen.formasEnvio.pactado.costo}/>}/>
-                                                                                
-                                                                                }
-                                                                        
-                                                                        </ListItem>
-                                                                    </Card>
-                                                                </Box>
-                                                            </Grid>
-                                                                ))
-                                                            }
-                                                            
+                                                            {horarios.map((horario, index) => (
+                                                                <Grid key={index} item xs={12}>               
+                                                                    {(data.hasOwnProperty('jsonResumen'))&&
+                                                                        (data.jsonResumen.resumen.bodegaDif === 'S')?
+
+                                                                            (horario.horario === '10hrs a 19hrs')&&  
+                                                                            <Box component="div" >   
+                                                                                <Card variant="outlined"> 
+                                                                                    <ListItem button>    
+                                                                                        <FormControlLabel fullWidth 
+                                                                                        value="10-19" label={
+                                                                                            <Box component="div" py={2}>
+                                                                                                <Grid container direction="row" justifyContent="space-evenly" alignItems="center" >
+                                                                                                    <Grid item xs={12} sm={10}>
+                                                                                                        <Box component="div" className={classes.w300}>
+                                                                                                            <Typography variant="subtitle2" component="body2">Horario abierto de 10hrs a 19hrs</Typography>
+                                                                                                        </Box>
+                                                                                                    </Grid>
+                                                                                                    <Grid item xs={12} sm={2} >
+                                                                                                        <ListItemSecondaryAction>
+                                                                                                            <ListItemText id="list-label-horarios" secondary="GRATIS"/>
+                                                                                                        </ListItemSecondaryAction>
+                                                                                                    </Grid>                                
+                                                                                                </Grid>   
+                                                                                            </Box>
+                                                                                        } control={<Radio id={data.jsonResumen.formasEnvio.pactado.abierto}/>}/> 
+                                                                                    </ListItem>
+                                                                                </Card>
+                                                                            </Box>
+                                                                        : 
+                                                                        (horario.horario !== '10hrs a 18hrs')&&
+                                                                        (data.jsonResumen.resumen.bodegaDif === 'N' || horario.horario !== '10hrs a 19hrs')&&
+                                                                            <Box component="div" >   
+                                                                                <Card variant="outlined"> 
+                                                                                    <ListItem button>           
+                                                                                        <FormControlLabel fullWidth disabled={(horario.disponible === 'N')?(horario.horario === '10hrs a 19hrs')?true:(data.jsonResumen.resumen.bodegaDif !== 'S')?true:false:false}
+                                                                                        value={(horario.horario === '10hrs a 19hrs')?'-':horario.horario.replace('hrs a ','-').replace('hrs','')} label={
+                                                                                            <Box component="div" py={2}>
+                                                                                                <Grid container direction="row" justifyContent="space-evenly" alignItems="center" >
+                                                                                                    <Grid item xs={12} sm={10}>
+                                                                                                        <Box component="div" className={classes.w300}>
+                                                                                                            <Typography variant="subtitle2" component="body2">{(horario.horario === '10hrs a 19hrs')?`Horario abierto de`:`Horario:`} {horario.horario} </Typography>
+                                                                                                        </Box>
+                                                                                                    </Grid>
+                                                                                                    <Grid item xs={12} sm={2} >
+                                                                                                        <ListItemSecondaryAction>
+                                                                                                            <ListItemText id="list-label-horarios" secondary={(horario.horario === '10hrs a 19hrs')?(data.jsonResumen.formasEnvio.pactado.abierto===0)?`GRATIS`:`$${data.jsonResumen.formasEnvio.pactado.abierto} MXN`:`+$${data.jsonResumen.formasEnvio.pactado.costo} MXN`}/>
+                                                                                                        </ListItemSecondaryAction>
+                                                                                                    </Grid>                                
+                                                                                                </Grid>   
+                                                                                            </Box>
+                                                                                        } control={<Radio id={(horario.horario === '10hrs a 19hrs')?data.jsonResumen.formasEnvio.pactado.abierto:data.jsonResumen.formasEnvio.pactado.costo}/>}/>
+                                                                                    </ListItem>
+                                                                                </Card>
+                                                                            </Box>
+                                                                    }           
+                                                                </Grid>
+                                                            ))}
                                                         </Grid>
                                                     </div>
                                                 </List>
