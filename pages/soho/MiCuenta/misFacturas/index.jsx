@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios'
 import fileDownload from 'js-file-download';
 //hooks
 import {useLocalStorage} from "../../../../hooks/useLocalStorage";
@@ -128,7 +129,7 @@ export default function MisFacturas() {
                 const getData= async ()=>{        
                     if(fechaFacturas === null || fechaFacturas ===''){
                         setTitulo('Facturas recientes')
-                        Services('POST','/miCuenta/consultaFacturas?clienteNum='+clienteNum+'&fechaFacturas=',{})
+                        axios.post('https://api-pickup.pedidos.com/API-Rest/miCuenta/consultaFacturas?clienteNum='+clienteNum+'&fechaFacturas=',{},{timeout: 5000} )
                         .then( response =>{
                             console.log('sin fecha ')
                             setResult(response.data)
@@ -139,11 +140,13 @@ export default function MisFacturas() {
                                 setResultado(false)
                             }
                         }).catch(error => {
-                            console.log("falló sin")
-                            console.log(error.response)
+                            setAlerta({severity:'info',mensaje:'Estamos trabajando para que pronto veas tus Facturas',vertical:'bottom',horizontal:'right',variant:'filled'})
+                            console.log(error.code)
+                            console.log(error.message)
+                            console.log(error.stack)
                         });
                     }else{ 
-                        Services('POST','/miCuenta/consultaFacturas?clienteNum='+clienteNum+'&fechaFacturas='+fechaFacturas,{})
+                        axios.post('https://api-pickup.pedidos.com/API-Rest/miCuenta/consultaFacturas?clienteNum='+clienteNum+'&fechaFacturas='+fechaFacturas,{},{timeout: 5000} )
                         .then( response =>{
                             setTitulo('Mis Facturas del '+fechaFacturas)
                             setResult(response.data)
@@ -155,10 +158,12 @@ export default function MisFacturas() {
         
                             localStorage.setItem('fechaFacturas', '')
                         }).catch(error => {
-                            console.log("falló con")
-                            console.log(error.response)
-                                });
-                            }
+                            setAlerta({severity:'info',mensaje:'Estamos trabajando para que pronto veas tus Facturas',vertical:'bottom',horizontal:'right',variant:'filled'})
+                            console.log(error.code)
+                            console.log(error.message)
+                            console.log(error.stack)
+                        });
+                    }
                 }                
                 getData();
             }else{

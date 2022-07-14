@@ -1,7 +1,7 @@
 import axios from 'axios'
-// const PATH ='https://api-pickup.pedidos.com/API-Rest'
+const PATH ='https://api-pickup.pedidos.com/API-Rest'
 //  const PATH ='http://localhost:8080/ServiciosEsteban'
-const PATH ='http://10.128.0.2:9090/API-Rest'
+// const PATH ='http://10.128.0.2:9090/API-Rest'
  
           
 function Services(metodo,url,json, pedidoNum) {
