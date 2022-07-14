@@ -1,6 +1,8 @@
 import axios from 'axios'
-const PATH ='https://api-pickup.pedidos.com/API-Rest'
-// const PATH ='http://localhost:8080/rest'
+// const PATH ='https://api-pickup.pedidos.com/API-Rest'
+//  const PATH ='http://localhost:8080/ServiciosEsteban'
+const PATH ='http://10.128.0.2:9090/API-Rest'
+ 
           
 function Services(metodo,url,json, pedidoNum) {
     switch (metodo) {
@@ -43,7 +45,7 @@ function Services(metodo,url,json, pedidoNum) {
             'Content-Type': 'application/json',
             'Access-control-Allow-Origin' : '*',
             'Access-control-Allow-Methods' : 'GET, PUT, POST, DELETE',
-            // 'PayPal-Client-Metada-Id:': pedidoNum.toString(),
+            'PayPal-Client-Metada-Id:': pedidoNum.toString(),
         }
         return await axios.post(PATH+url,json)
       }
