@@ -178,7 +178,6 @@ export default function MainSlideShow() {
 					</Link>
 				</Box>
 			</SwiperSlide>
- 
 			<SwiperSlide> 
 				<Link href='/busquedas?query=HTP200520210'>
 					<a>
@@ -269,76 +268,6 @@ export default function MainSlideShow() {
 									/>
 								</Hidden>
 							</Box>	
-						</Box>
-					</a>
-				</Link>
-			</SwiperSlide>
-			<SwiperSlide> 
-				<Link href='/busquedas?query=HTP200520213'>
-					<a>
-						<Box component="div" sx={{position:'relative'}}>
-							<Box component="div">
-								<Hidden mdDown>
-									<Box component="div">
-										<Banner xs={{width:'100%'}} props={{
-										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/banners/bro-30-desktop.webp',
-										alt:'brother, tecnologia',
-										
-										}}
-										/>
-									</Box>
-								</Hidden>
-								<Hidden mdUp>
-									<Box component="div">
-										<Banner props={{
-										img:'https://pedidos.com/myfotos/pedidos-com/pagina/home22/bro-30-sm-xs.webp',
-										alt:'brother, tecnologia',
-										}}
-										/>
-									</Box>
-								</Hidden>
-							</Box>	
-							<Box component="div" className={styles.infopbox}>
-								<Grid spacing={1}
-								container
-								direction="row"
-								justifyContent="space-between"
-								alignItems="center">
-									<Grid item xs={4} sm={4}>
-										<Box component="div" sx={{position:'relative'}} >
-											<Paper variant='auto' px={1}  className={styles.boxmsi } >
-												<Box component="div" textAlign="center" py={1} px={3}> 
-													<Typography variant="overline" display="block">Hasta</Typography>
-														<Typography  variant="h4" component="body1" sx={{fontWeight:'600'}}>
-														<Box component="span" sx={{color:'#3655a5'}}>24</Box></Typography>
-														<Typography variant="caption" display="block" gutterBottom color="textSecondary">Tarjetas participantes*</Typography>
-														
-												</Box>
-											</Paper>
-										</Box>
-									</Grid>
-									<Divider orientation="vertical" flexItem />
-									<Grid item xs={7} sm={7}>
-										<Box component="div" >
-											<div>
-												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
-												Impresión | Brother
-												</Typography>  
-												<Typography className={styles.title} variant="h4" component="body1" > 
-												Desde <Box component="span" sx={{color:'#3655a5'}}>$4,299</Box>
-												</Typography>
-
-												<Typography variant="Subtitle1" component="p" >
-												Multifuncional brother DCPT520W
-												</Typography> 
-												<Typography variant="Subtitle1" component="p" color="textSecondary" >	
-												Tinta continua color
-												</Typography>  
-											</div>
-										</Box>
-									</Grid>
-								</Grid>
-							</Box>
 						</Box>
 					</a>
 				</Link>
