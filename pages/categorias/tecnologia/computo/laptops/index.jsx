@@ -1,9 +1,6 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
-
+import Head from 'next/head';
+import {Container,Box, Grid, Typography, Divider,} from '@mui/material';
+//Components
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
 import CardsCarouselSection from 'components/CardsCarouselSection';
@@ -18,21 +15,21 @@ const categories = [
 		label: 'Escolar',
 		description: 'Para cada etapa',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/laptops/laptop-escolar.webp?w=390&h=490&crop=faces&dpr=2&fit=crop',
-		url: '/busquedas.asp?query=laptop&p=INTEL-CELERON&p=AMD-3020E&p=INTEL-PENTIUM&p=ATHLON-3020E&p=AMD-A4&p=INTEL-CELERON-N4020',
+		url: '/busquedas?query=laptop&p=INTEL-CELERON&p=AMD-3020E&p=INTEL-PENTIUM&p=ATHLON-3020E&p=AMD-A4&p=INTEL-CELERON-N4020',
 		icon: 'fa-graduation-cap',
 	},
 	{
 		label: 'Empresarial',
 		description: 'Mejora tu productividad',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/laptops/laptop-empresariales.webp?w=390&h=490&crop=faces&dpr=2&fit=crop',
-		url: '/busquedas.asp?query=laptop&p=INTEL-CORE--I5&p=AMD-RYZEN-5&p=INTEL-CORE--I3&p=INTEL-CORE-I5&p=INTEL-CORE-I5-1035G1&p=AMD-RYZEN-3&p=AMD-RYZEN-5-3500U&p=AMD-RYZEN-3-3300U&p=INTEL-CORE-I3-1115G4&p=INTEL-CORE-I5-10210U&p=CHIP-M1',
+		url: '/busquedas?query=laptop&p=INTEL-CORE--I5&p=AMD-RYZEN-5&p=INTEL-CORE--I3&p=INTEL-CORE-I5&p=INTEL-CORE-I5-1035G1&p=AMD-RYZEN-3&p=AMD-RYZEN-5-3500U&p=AMD-RYZEN-3-3300U&p=INTEL-CORE-I3-1115G4&p=INTEL-CORE-I5-10210U&p=CHIP-M1',
 		icon: 'fa-briefcase',
 	},
 	{
 		label: 'Gaming',
 		description: 'Disfruta los juegos',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/laptops/laptop-gamer.webp?w=390&h=490&crop=faces&dpr=2&fit=crop',
-		url: '/busquedas.asp?query=gaming',
+		url: '/busquedas?query=gaming',
 		icon: 'fa-gamepad',
 	},
 	{
@@ -46,47 +43,47 @@ const categories = [
 const brands = [
 	{
 		label: 'Dell',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=DELL',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=DELL',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/dell.webp',
 	},
 	{
 		label: 'Lenovo',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=LENOVO',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=LENOVO',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/lenovo.webp',
 	},
 	{
 		label: 'HP',
-		url: '/busquedas.asp?query=laptop+hp',
+		url: '/busquedas?query=laptop+hp',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/hp.webp',
 	},
 	{
 		label: 'Apple',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=APPLE',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=APPLE',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/apple.webp',
 	},
 	{
 		label: 'Asus',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=ASUS',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=ASUS',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/asus.webp',
 	},
 	{
 		label: 'Huawei',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=HUAWEI',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=HUAWEI',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/huawei.webp',
 	},
 	{
 		label: 'Benq',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=BENQ',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=BENQ',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/benq.webp',
 	},
 	{
 		label: 'Samsung',
-		url: 'https://busquedas.asp/?query=monitor+Samsung',
+		url: 'https://busquedas/?query=monitor+Samsung',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/samsung.webp',
 	},
 	{
 		label: 'Acteck',
-		url: '/busquedas.asp?/TECNOLOGIA/COMPUTO&m=ACTECK',
+		url: '/busquedas?/TECNOLOGIA/COMPUTO&m=ACTECK',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/marcas/acteck.webp',
 	},
 ];
@@ -94,17 +91,17 @@ const brands = [
 const CPUbrands = [
 	{
 		label: 'AMD',
-		url: '/busquedas.asp?query=AMD',
+		url: '/busquedas?query=AMD',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/procesadores/amd.webp',
 	},
 	{
 		label: 'Intel',
-		url: '/busquedas.asp?query=Intel',
+		url: '/busquedas?query=Intel',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/procesadores/intel.webp',
 	},
 	{
 		label: 'Apple M1',
-		url: '/busquedas.asp?query=CHIP-M1&m=APPLE',
+		url: '/busquedas?query=CHIP-M1&m=APPLE',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/procesadores/chip-m1.webp',
 	},
 ];
@@ -112,6 +109,10 @@ const CPUbrands = [
 const Laptops = () => {
 	return (
 		<Layout title='Oferta de laptops HP, Dell, Lenovo, Asus y más | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Compra en línea laptops baratas y hardware para casa u oficina. Mejor calidad y precio en tu tienda en línea pedidos.com. Envío gratis en CDMX."/>
+				<link rel="canonical" href="https://pedidos.com/categorias/tecnologia/computo/laptops"/>
+			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/computo/back-computo.webp'
 				alt='Computo'
@@ -128,7 +129,7 @@ const Laptops = () => {
 					title='¿Para qué se utilizará principalmente?'
 					items={categories}
 					ctaLabel='Ver todo'
-					ctaLink='/busquedas.asp?/TECNOLOGIA/COMPUTO'
+					ctaLink='/busquedas?/TECNOLOGIA/COMPUTO'
 					centered
 					ctaNewLine
 				/>
@@ -203,14 +204,14 @@ const Laptops = () => {
 								casa u oficina.
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=LENOVO'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=LENOVO'
 									target='_blank'>
 									Laptops Lenovo
 								</Link>
 								, Dell, Asus, HP y todas las mejores marcas. Encuentra{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									Laptops al mejor precio en Pedidos.com
 								</Link>
@@ -224,7 +225,7 @@ const Laptops = () => {
 								Si buscas{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									laptops baratas
 								</Link>{' '}
@@ -253,7 +254,7 @@ const Laptops = () => {
 								informática de una{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									computadora portátil
 								</Link>{' '}
@@ -261,7 +262,7 @@ const Laptops = () => {
 								deslizan en marcos de portátiles esbeltos. Aún así, si deseas
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									computadoras laptop{' '}
 								</Link>{' '}
@@ -278,7 +279,7 @@ const Laptops = () => {
 								aparece en primer lugar en las especificaciones de una{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									computadora portátil
 								</Link>
@@ -315,7 +316,7 @@ const Laptops = () => {
 								son las{' '}
 								<Link
 									underline='none'
-									href='busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=DELL'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&amp;m=DELL'
 									target='_blank'>
 									Laptops Dell
 								</Link>
@@ -368,7 +369,7 @@ const Laptops = () => {
 								qué significan todos esos números. Examina las{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									computadoras laptop
 								</Link>{' '}
@@ -448,7 +449,7 @@ const Laptops = () => {
 								salida que tienen las{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									computadoras laptop
 								</Link>
@@ -476,7 +477,7 @@ const Laptops = () => {
 								de portátiles. Para ahorrar algo de dinero, busca modelos de{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									laptops baratas
 								</Link>
@@ -504,7 +505,7 @@ const Laptops = () => {
 								se consiguen desde $7,699 pesos, en tanto las{' '}
 								<Link
 									underline='none'
-									href='/articulos/laptop-asus-celeron-f543ma-intel-celeron-n4020-ram-4-gb-dd-500-gb-/articulos/laptop-asus-celeron-f543ma-intel-celeron-n4020-ram-4-gb-dd-500-gb-'
+									href='/articulos/laptop-asus-celeron-f543ma-intel-celeron-n4020-ram-4-gb-dd-500-gb-'
 									target='_blank'>
 									Laptops Asus
 								</Link>{' '}

@@ -1,15 +1,18 @@
 import React from 'react';
-
-// import { Box, Container } from '@material-ui/core';
+import Head from 'next/head';
 // mui/material
 import { Box, Container, Typography } from '@mui/material';
-
+//components
 import { HeadingPolicies, Paragraph, PoliciesMenu } from '/components';
 import { Layout } from '/layout/Layout';
 
 export const SohoPrecios = () => {
 	return (
-		<Layout>
+		<Layout title='Precios y existencias sobre productos | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Información sobre los precios y existencias de productos"/>
+				<link rel="canonical" href="https://pedidos.com/soho/politicas/precios"/>
+			</Head>
 			<HeadingPolicies/>
 			<PoliciesMenu />
 				<Container maxWidth='md'>

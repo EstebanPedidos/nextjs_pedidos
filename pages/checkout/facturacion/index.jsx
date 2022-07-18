@@ -1,6 +1,9 @@
 import { useState,useEffect } from 'react';
 //next js
 import { useRouter } from 'next/router'
+import Head from 'next/head'
+//Tag Manager
+import TagManager from 'react-gtm-module'
 //Material UI
 import {Container, Box, Grid, Paper, Typography, Button, Select, Badge,
     Card, CardActions, CardContent, CardActionArea, FormControl,
@@ -19,9 +22,11 @@ import NotasCredito from './NotasCredito';
 import Resumen from '../Resumen';
 import Eliminar from '../modals/Eliminar';
 import Alertas from '../Alertas';
+import AddRFC from '../../soho/MiCuenta/DatosFacturacion/add/Index';
 
 //Servicios
 import Services from '../../services/Services'
+import { minHeight } from '@mui/system';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,9 +34,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         minWidth: 120,
       },
-      selectEmpty: {
-        marginTop: theme.spacing(2),
-      },
+     
       rootcard: {
         margin: theme.spacing(1),  
       },
@@ -51,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Facturacion(props){
+export default function Facturacion(){
     const classes                   = useStyles()
     const ruter                     = useRouter() 
 
@@ -68,6 +71,7 @@ export default function Facturacion(props){
     const [aplicar,setAplicar]      = useState([])
     const [alerta,setAlerta]        = useState({})
     const [loading,setLoading]      = useState(false)
+    const [addOpen,setAddOpen]      = useState(false)
 
     useEffect(()=>{
         const getData = async () => {
@@ -83,15 +87,19 @@ export default function Facturacion(props){
                             let total        = await ((json.resumen.subtotal+json.resumen.costoEnvio)-json.nc.montoNc)
                             let jsonP        = await Services('POST','/miCuenta/obtieneMPago',{})
                             let pagos        = await jsonP.data 
-                            let rfc_ini      = ((await json.facturas.length) > 0)?json.facturas[0]:rfc
-                            let tipoPersona  = (rfc_ini.rfc.length === 13)?'fisica':'moral';
+                            let Lrfcs        = await json.facturas
+                            let rfc_ini      = await ((Lrfcs.length) > 0)?Lrfcs[Lrfcs.length-1]:rfc
+                            let tipoPersona  = await (rfc_ini.rfc.length === 13)?'fisica':'moral';
                             let jsonC        = await Services('POST','/miCuenta/obtieneCfdi?tipoPersona='+tipoPersona,{})
                             let cfdis        = await jsonC.data 
                             let notas        = []   
-                            if(json.facturas.length > 0){
+                            if(Lrfcs.length > 0){
                                 let jsonN    = await Services('GET','/carritoyreservado/obtieneNotas?clienteNum='+cliente+'&rfc='+rfc_ini.rfc+'&total='+total,{})
                                     notas    = await jsonN.data                 
                             }
+                            let servicesM    = await Services('POST','/miCuenta/detallePedido?clienteNum='+cliente+'&pedidoNum='+pedido,{})
+                            let miPedido     = await servicesM.data
+
                             setData({jsonResumen:json,pedido:pedido})  
                             setTotal(total)
                             setPagos(pagos) 
@@ -101,7 +109,34 @@ export default function Facturacion(props){
                             setRfc({rfc_num:rfc_ini.rfcNum,rfc:rfc_ini.rfc})
                             setCfdi((cfdis.length > 0)?cfdis[0].idUsu:'')
                             setPago((pagos.length > 0)?pagos[0].mpago:'')
-                            setRfcs(json.facturas)
+                            setRfcs(Lrfcs)
+
+                            if(miPedido.pedido.listPyPedidoDet.length > 0){
+                                let products = await miPedido.pedido.listPyPedidoDet.map((item) =>
+                                    JSON.stringify({
+                                        'name': item.tituloCompuesto,
+                                        'id': item.itemNum,
+                                        'price': item.precio,
+                                        'quantity': item.cantidad
+                                    })
+                                )
+                                
+                                if(products != ''){
+                                    const tagManagerArgs = {
+                                        gtmId: 'GTM-NLQV5KF',
+                                        dataLayer: {
+                                            'event': 'checkout',
+                                            'ecommerce': {
+                                            'checkout': {
+                                                'actionField': {'step': 2, 'option': 'Factura'},
+                                                'products': JSON.parse('['+products+']')
+                                            }
+                                        }
+                                        },
+                                    }
+                                    TagManager.initialize(tagManagerArgs)   
+                                }                                        
+                            } 
                         }else{
                             ruter.push('/misPedidos')
                         }  
@@ -115,8 +150,11 @@ export default function Facturacion(props){
                 ruter.push('/')
             } 
         }
-        getData()
-    },[])
+        if(!addOpen){
+            setRfcs([])
+            getData()
+        }
+    },[addOpen])
 
     async function salectOption({target}){
         const {value,name,id} = target;
@@ -219,6 +257,11 @@ export default function Facturacion(props){
 
     return (
         <Box component="div">
+            <Head>
+                <link href="https://pedidos.com/checkout/facturacion" rel="canonical" />
+                <title>Facturar mi pedido | Pedidos.com</title>
+                <meta name="description" content="Factura AQUI tu pedido. Todo lo que necesitas para tu oficina, negocio, escuela y hogar lo encuentras en Pedidos.com " />
+            </Head>
             <Header/>
             <Container maxWidth="lg">
             <Box component="div" py={3} m={1}>
@@ -235,7 +278,10 @@ export default function Facturacion(props){
                                 <Box component="div" pt={3}  mb={1}> 
                                     <Typography variant="h6" component="h1" sx={{ fontWeight:'600'}}>{(data.hasOwnProperty('jsonResumen'))?'2. Selecciona y/o añade los datos de facturación.':<Skeleton variant="text" width="70%" animation="wave"/>}</Typography>
                                 </Box>
-                                <Box component="div" py={2} >
+                                
+                            {(!addOpen)?                              
+                            <>
+                                <Box component="div" py={2} >                          
                                     <div className={classes.root}>
                                         <Grid container direction="row" justifyContent="center" alignItems="center"  spacing={2}>
                                             <Grid item xs={12}>
@@ -243,9 +289,9 @@ export default function Facturacion(props){
                                                     <Grid container direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
                                                         <Grid item xs={12} sm={6}>
                                                         {(data.hasOwnProperty('jsonResumen'))?
-                                                            <Button disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
-                                                            Añadir Nueva
-                                                            </Button>
+                                                            <Button onClick={()=>{setAddOpen(true)}} disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
+                                                            Añadir Nuevo
+                                                           </Button>
                                                         :
                                                         <Box component="div">
                                                             <Skeleton variant="rectangular" width="60%" height={80} animation="wave"/>
@@ -253,44 +299,7 @@ export default function Facturacion(props){
                                                         }
                                                         </Grid>
                                                     </Grid>
-                                                </Box>
-                                               {/*  <Card className={classes.root} variant="outlined">
-                                                    <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
-                                                        <Grid item xs={8} sm={8}> 
-                                                            {(data.hasOwnProperty('jsonResumen'))? 
-                                                            <CardContent>
-                                                                <Grid container alignItems="center" direction="row" justifyContent="flex-start" spacing={1}>
-                                                                    <Grid item xs={4} sm={4}>
-                                                                        <Box component="div" ml={4}>
-                                                                            <Avatar>
-                                                                                <AddOutlinedIcon />
-                                                                            </Avatar>
-                                                                        </Box>
-                                                                    </Grid>
-                                                                    <Grid item xs={4} sm={4}>  
-                                                                        <Box component="div"textAlign="left">
-                                                                            <Typography variant="h6" component="h2">
-                                                                                Nueva
-                                                                            </Typography>
-                                                                        </Box>
-                                                                    </Grid>
-                                                                </Grid> 
-                                                            </CardContent>
-                                                            :
-                                                            <Skeleton variant="rectangular" height={80} animation="wave"/>
-                                                            }
-                                                        </Grid> 
-                                                        <Grid item xs={4} sm={4}>
-                                                            {(data.hasOwnProperty('jsonResumen'))? 
-                                                            <CardActions>
-                                                                <Button size="Large" fullWidth color="primary">Añadir Datos</Button>
-                                                            </CardActions>
-                                                            :
-                                                            <Skeleton variant="rectangular" height={80} animation="wave"/>
-                                                            }
-                                                        </Grid>   
-                                                    </Grid>                      
-                                                </Card> */}
+                                                </Box>                                               
                                             </Grid> 
                                             <Grid item xs={12} sm={12}>
                                                 {(data.hasOwnProperty('jsonResumen'))? 
@@ -299,12 +308,12 @@ export default function Facturacion(props){
                                                         <div className={classes.root}>
                                                             <RadioGroup name='rfc' value={rfc.rfc_num+''}  onChange={salectOption}>                                                     
                                                                 <Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
-                                                                        {
+                                                                        {(rfcs.length > 0)?
                                                                             rfcs.map((rfc, index) => (  
-                                                                                <Grid item xs={6} key={index}>
+                                                                                <Grid item xs={12} sm={6} key={index}>
                                                                                     <Box component="div">
                                                                                         <Card className={classes.rootcardi} variant="outlined">  
-                                                                                            <Box component="div" >
+                                                                                            <Box component="div" p={3}>
                                                                                                 {(rfc.cantNotas > 0)&&
                                                                                                     <Box component="div" m={2} display="flex" justifyContent="flex-end"> 
                                                                                                         <Typography variant="caption" display="block" color="primary" gutterBottom>
@@ -338,8 +347,8 @@ export default function Facturacion(props){
                                                                                                         </Box>  
                                                                                                         :                       
                                                                                                         <Box component="div">   
-                                                                                                            <CardContent> 
-                                                                                                                <Box component="div" mb={2} sx={{height:'60px'}}>
+                                                                                                            <CardContent sx={{minWidth:'260px', minHeight:'150px'}}> 
+                                                                                                                <Box component="div" mb={1} >
                                                                                                                     <Typography variant="subtitle1" component="h3" sx={{fontWeight:'500'}}>
                                                                                                                         {rfc.razon.substring(0,27)}
                                                                                                                     </Typography>
@@ -351,22 +360,20 @@ export default function Facturacion(props){
                                                                                                                     RFC: {rfc.rfc}
                                                                                                                 </Typography>
                                                                                                             </CardContent> 
-                                                                                                            {/* <Box component="div" >
+                                                                                                            <Box component="div">
                                                                                                                 <Divider variant="middle" light />
-                                                                                                            </Box> */}
-                                                                                                            <CardActions>
-                                                                                                                <Button size="small" fullWidth color="primary">
-                                                                                                                Detalles
-                                                                                                                </Button>
-                                                                                                                <Eliminar
+                                                                                                            </Box>
+                                                                                                            <Box component="div" px={2}>
+                                                                                                           {/*  <CardActions> */}
+                                                                                                                <Eliminar fullWidth
                                                                                                                 Delete={Delete}
                                                                                                                 object={{rfc:rfc.rfc,rfcNum:rfc.rfcNum}}
                                                                                                                 ms_but={'Eliminar'}
                                                                                                                 titilo={'Eliminar RFC'}
                                                                                                                 mensaje={'Estás seguro de eliminar el RFC: '+rfc.rfc+'?'}
                                                                                                                 />
-                                                                                                            </CardActions>
-                                                                                                            
+                                                                                                            {/* </CardActions> */}
+                                                                                                            </Box>
                                                                                                         </Box>
                                                                                                         }
                                                                                                     </Box>
@@ -376,7 +383,52 @@ export default function Facturacion(props){
                                                                                         </Card>   
                                                                                     </Box>
                                                                                 </Grid>
-                                                                            ))                    
+                                                                            )) 
+                                                                            :
+                                                                            <Box sx={{ pt: 0.5 }}>
+                                                                                <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
+                                                                                    <Grid item xs={12} sm={6}>
+                                                                                        <Box component="div">
+                                                                                            <Card className={classes.rootcardi}  variant="outlined">  
+                                                                                                <Box component="div" p={3}>
+                                                                                                    <Box component="div">
+                                                                                                        <Box component="div" py={2} > 
+                                                                                                            <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>        
+                                                                                                                <Grid item xs={12} justifyContent="center">
+                                                                                                                    <Box sx={{margin:'auto', justifyContent:'center', }}>
+                                                                                                                        <Skeleton variant="circular" width={40} height={40} />
+                                                                                                                    </Box>
+                                                                                                                </Grid>
+                                                                                                                <Grid item xs={12}>
+                                                                                                                    <Box textAlign="center" p={1}>
+                                                                                                                        <Skeleton variant="text"  width={250} />
+                                                                                                                    </Box>                         
+                                                                                                                </Grid>
+                                                                                                            </Grid>
+                                                                                                        </Box>  
+                                                                                                    </Box>
+                                                                                                </Box>
+                                                                                            </Card>   
+                                                                                        </Box>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.rootcardi}  variant="outlined">  
+                                                                                            <Box component="div" p={3}>
+                                                                                                <Box component="div">
+                                                                                                    <Box component="div" py={2} > 
+                                                                                                        <Box textAlign="center" p={1} sx={{ pt: 0.5 }}>
+                                                                                                            <Skeleton variant="text" width='30%' />
+                                                                                                            <Skeleton variant="text" />
+                                                                                                            <Skeleton variant="text"  width={250} />
+                                                                                                        </Box>                         
+                                                                                                    </Box>  
+                                                                                                </Box>
+                                                                                            </Box>
+                                                                                        </Card>   
+                                                                                    </Grid>
+                                                                                </Grid>
+                                                                            </Box>
+                                                                                           
                                                                         }                                                   
                                                                 </Grid>
                                                             </RadioGroup>
@@ -446,15 +498,22 @@ export default function Facturacion(props){
                                 }
                                 {(notas.length > 0 )&&
                                     <NotasCredito notas={notas} salectOption={salectOption} aplicar={aplicar}/>
-                                }  
-                            </Box>          
+                                } 
+                            </>                              
+                            :
+                            <Box component="div" p={2}>
+                                <AddRFC setAddOpen={setAddOpen} setAlerta={setAlerta} alerta={alerta}/>
+                            </Box>
+                            }  
+                            </Box>      
                         </div>
                     </Grid>  
                     <Grid item xs={12} sm={4}>
-                        {(data.hasOwnProperty('jsonResumen'))?
-                        (!alerta.hasOwnProperty('severity'))&&
+                        {(data.hasOwnProperty('jsonResumen'))?                        
                         <>
-                        <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                        <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} paso={1}/> 
+                        {(!alerta.hasOwnProperty('severity'))&&
+                        (!addOpen)&&
                         <LoadingButton variant="contained" fullWidth  size="large" color="primary" type="button"
                         onClick={continuarCompra}
                         loading={loading}
@@ -462,6 +521,7 @@ export default function Facturacion(props){
                         >
                             Continuar
                         </LoadingButton>
+                        }
                         </>
                         :
                         <Skeleton variant="rectangular" height={600} animation="wave"/>

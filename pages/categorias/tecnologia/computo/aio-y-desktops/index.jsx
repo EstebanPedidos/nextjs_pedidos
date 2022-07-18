@@ -1,9 +1,6 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
-
+import Head from 'next/head';
+import {Container,Box, Grid, Typography, Divider,} from '@mui/material';
+//Components
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
 import CardsCarouselSection from 'components/CardsCarouselSection';
@@ -18,27 +15,27 @@ const categories = [
 		label: 'Escolar',
 		description: 'Para cada etapa',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/aio-desktops/aio-escolar.webp?w=390&h=490&crop=faces&dpr=2&fit=crop',
-		url: '/busquedas.asp?%20query=AIO&p=INTEL-CELERON&p=AMD-ATHLON&p=INTEL-CELERON-J3060&p=INTEL-CELERON-J4025&p=AMD-ATHLON-SILVER-3050U&d=true',
+		url: '/busquedas?%20query=AIO&p=INTEL-CELERON&p=AMD-ATHLON&p=INTEL-CELERON-J3060&p=INTEL-CELERON-J4025&p=AMD-ATHLON-SILVER-3050U&d=true',
 		icon: 'fa-graduation-cap',
 	},
 	{
 		label: 'Empresarial',
 		description: 'Mejora tu productividad',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/aio-desktops/aio-empresa.webp?w=390&h=490&crop=faces&dpr=2&fit=crop',
-		url: '/busquedas.asp?%20query=AIO&p=AMD-RYZEN-3&p=INTEL-CORE-I3&p=INTEL-CORE-I5&p=AMD-RYZEN-5&p=AMD-A4&p=AMD-A6&p=INTEL-CORE-I5-10500&p=CORE-I5&p=AMD-A6-9225&p=AMD-A6-9230&p=CHIP-M1&d=true',
+		url: '/busquedas?%20query=AIO&p=AMD-RYZEN-3&p=INTEL-CORE-I3&p=INTEL-CORE-I5&p=AMD-RYZEN-5&p=AMD-A4&p=AMD-A6&p=INTEL-CORE-I5-10500&p=CORE-I5&p=AMD-A6-9225&p=AMD-A6-9230&p=CHIP-M1&d=true',
 		icon: 'fa-briefcase',
 	},
 	{
 		label: 'Gaming',
 		description: 'Disfruta los juegos',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/aio-desktops/aio-gamer.webp?w=390&h=490&crop=faces&dpr=2&fit=crop',
-		url: '/busquedas.asp?%20query=desktop-gaming&d=true',
+		url: '/busquedas?%20query=desktop-gaming&d=true',
 		icon: 'fa-gamepad',
 	},
 	{
 		label: 'Diseño & Arquitectura ',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/aio-desktops/aio-profesional.webp?w=390&h=490&crop=faces&dpr=2&fit=crop',
-		url: '/busquedas.asp?%20query=all-in-one&p=AMD-A9&p=INTEL-CORE-I7&p=AMD-A12-9730P&p=CHIP-M1&d=true',
+		url: '/busquedas?%20query=all-in-one&p=AMD-A9&p=INTEL-CORE-I7&p=AMD-A12-9730P&p=CHIP-M1&d=true',
 		icon: 'fa-pencil-ruler',
 	},
 ];
@@ -46,17 +43,17 @@ const categories = [
 const CPUbrands = [
 	{
 		label: 'AMD',
-		url: '/busquedas.asp?%20query=All-in-one&p=AMD-A9&p=AMD-A6&p=AMD-RYZEN-3&p=AMD-RYZEN-5&p=AMD-A4&p=AMD-ATHLON&p=AMD-A12-9730P&p=AMD-A6-9225&p=AMD-A6-9230&p=AMD-ATHLON-SILVER-3050U&p=AMD-E2-9000&p=AMD-RYZEN-3-4300U&d=true',
+		url: '/busquedas?%20query=All-in-one&p=AMD-A9&p=AMD-A6&p=AMD-RYZEN-3&p=AMD-RYZEN-5&p=AMD-A4&p=AMD-ATHLON&p=AMD-A12-9730P&p=AMD-A6-9225&p=AMD-A6-9230&p=AMD-ATHLON-SILVER-3050U&p=AMD-E2-9000&p=AMD-RYZEN-3-4300U&d=true',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/procesadores/amd.webp',
 	},
 	{
 		label: 'Intel',
-		url: '/busquedas.asp?%20query=All-in-one&p=INTEL-CORE-I3&p=INTEL-CORE-I5&p=INTEL-CORE-I7&p=INTEL-CELERON&p=INTEL-CELERON-J3060&p=INTEL-CELERON-J4025&p=INTEL-PENTIUM-SILVER-J5005&p=CORE-I5&d=true',
+		url: '/busquedas?%20query=All-in-one&p=INTEL-CORE-I3&p=INTEL-CORE-I5&p=INTEL-CORE-I7&p=INTEL-CELERON&p=INTEL-CELERON-J3060&p=INTEL-CELERON-J4025&p=INTEL-PENTIUM-SILVER-J5005&p=CORE-I5&d=true',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/procesadores/intel.webp',
 	},
 	{
 		label: 'Apple M1',
-		url: '/busquedas.asp?query=all-in-one&p=CHIP-M1',
+		url: '/busquedas?query=all-in-one&p=CHIP-M1',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/procesadores/chip-m1.webp',
 	},
 ];
@@ -64,6 +61,10 @@ const CPUbrands = [
 const AIOAndDesktops = () => {
 	return (
 		<Layout title='Computadoras de escritorio al mejor precio | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Compra en línea computadoras de escritorio para casa u oficina. Mejor calidad y precio en desktops en tu tienda en línea pedidos.com. Envío gratis en CDMX."/>
+				<link rel="canonical" href="https://pedidos.com/categorias/tecnologia/computo/aio-y-desktops"/>
+			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/computo/back-computo.webp'
 				alt='Computo'
@@ -80,7 +81,7 @@ const AIOAndDesktops = () => {
 					title='¿Para qué se utilizará principalmente?'
 					items={categories}
 					ctaLabel='Ver todo'
-					ctaLink='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
+					ctaLink='/busquedas?/TECNOLOGIA/COMPUTO/MONITORES'
 					centered
 					ctaNewLine
 				/>
@@ -153,14 +154,14 @@ const AIOAndDesktops = () => {
 								Las mejores{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									computadoras de escritorio
 								</Link>{' '}
 								y{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/ALL-IN-ONE'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/ALL-IN-ONE'
 									target='_blank'>
 									All in One
 								</Link>{' '}
@@ -169,14 +170,14 @@ const AIOAndDesktops = () => {
 								modelos novedosos y modernos. A continuación, incluimos las{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									mejores desktops
 								</Link>{' '}
 								para tu casa u oficina. Descubre las desktops al mejor precio en{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									Pedidos.com.
 								</Link>
@@ -191,14 +192,14 @@ const AIOAndDesktops = () => {
 								al{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									hardware de tu computadora
 								</Link>
 								, puedes elegir entre dispositivos de escritorio,{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									computadoras portátiles
 								</Link>{' '}
@@ -240,7 +241,7 @@ const AIOAndDesktops = () => {
 								Antes de comprar{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									desktops para oficina
 								</Link>{' '}
@@ -251,7 +252,7 @@ const AIOAndDesktops = () => {
 								necesidades. Las especificaciones ideales de la
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									computadora
 								</Link>{' '}
@@ -262,7 +263,7 @@ const AIOAndDesktops = () => {
 								importantes. Si planeas usar tu{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									computadora de escritorio
 								</Link>
@@ -272,7 +273,7 @@ const AIOAndDesktops = () => {
 								suficiente. Si bien hay muchos{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									procesadores de escritorio
 								</Link>{' '}
@@ -289,7 +290,7 @@ const AIOAndDesktops = () => {
 								potentes para tus necesidades. Una buena opción es una{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS&amp;m=HP'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS&amp;m=HP'
 									target='_blank'>
 									computadora HP
 								</Link>
@@ -321,7 +322,7 @@ const AIOAndDesktops = () => {
 								de memoria. Si bien algunas{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									computadoras de escritorio
 								</Link>{' '}
@@ -353,7 +354,7 @@ const AIOAndDesktops = () => {
 								qué significan todos esos números. Examina las{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS'
 									target='_blank'>
 									computadoras laptop
 								</Link>{' '}
@@ -393,7 +394,7 @@ const AIOAndDesktops = () => {
 								Unidades ópticas{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/ACCESORIOS/CDS-Y-DVDS'
+									href='/busquedas?/ACCESORIOS/CDS-Y-DVDS'
 									target='_blank'>
 									(CD / DVD / Blu-Ray)
 								</Link>
@@ -460,7 +461,7 @@ const AIOAndDesktops = () => {
 								Si te preguntas cuáles son{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/DESKTOPS'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/DESKTOPS'
 									target='_blank'>
 									las mejores desktops
 								</Link>{' '}

@@ -1,10 +1,13 @@
 import {useEffect, useState} from 'react';
 //Next js
 import { useRouter } from 'next/router'
+import Head from 'next/head'
+//Tag Manager
+import TagManager from 'react-gtm-module'
 //Material UI
 import makeStyles from '@mui/styles/makeStyles';
 import {Container, Radio,RadioGroup,FormControlLabel,CardContent,
-       FormControl,Box,Grid,Button,Avatar,Divider,
+       FormControl,Box,Grid,Button,Avatar,Divider, Hidden,
        Typography,Card,List,ListItem,ListItemText,
        ListItemSecondaryAction,ListItemAvatar, Alert, AlertTitle,Stack,Skeleton } from '@mui/material';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
@@ -37,9 +40,8 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
     },
     CardSDay: {
-    minWidth:"100px",
-   
-    height:'8rem',
+    minWidth:"100px", 
+    height:'6rem',
     "&:hover": {
         backgroundColor: 'rgb(54 85 165 / 7%)',
         boxShadow: '0px 0px 16px rgb(54 85 166 / 8%), 0px 1px 4px rgb(54 85 166 / 8%)',
@@ -96,11 +98,39 @@ export default function Forma_de_envio(props){
                                 let fe           = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?'Programada':'2':'2'
                                 let fhe          = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].fecha.replace(' de ','-').replace(' ','-'):'-':'-'
                                 let h            = await (json.formasEnvio !== undefined)?(json.formasEnvio.pactado.fechas.length > 0)?json.formasEnvio.pactado.fechas[0].horarios:[]:[]
+                                let servicesM    = await Services('POST','/miCuenta/detallePedido?clienteNum='+cliente+'&pedidoNum='+pedido,{})
+                                let miPedido     = await servicesM.data
                                 setData({jsonResumen:json,pedido:pedido})
                                 setEjecutivo((json.resumen.nombreEjecutivo !== '')?{ejecutivo:json.resumen.nombreEjecutivo, slmn:parseInt(json.resumen.ejecutivo)}:{ejecutivo:'', slmn:0})
                                 setFormaEnvio(fe)
                                 setFechaEnvio(fhe)
                                 setHorarios(h)
+                                if(miPedido.pedido.listPyPedidoDet.length > 0){
+                                    let products = await miPedido.pedido.listPyPedidoDet.map((item) =>
+                                        JSON.stringify({
+                                            'name': item.tituloCompuesto,
+                                            'id': item.itemNum,
+                                            'price': item.precio,
+                                            'quantity': item.cantidad
+                                        })
+                                    )
+                                    
+                                    if(products != ''){
+                                        const tagManagerArgs = {
+                                            gtmId: 'GTM-NLQV5KF',
+                                            dataLayer: {
+                                                'event': 'checkout',
+                                                'ecommerce': {
+                                                'checkout': {
+                                                    'actionField': {'step': 3, 'option': 'Envio'},
+                                                    'products': JSON.parse('['+products+']')
+                                                }
+                                            }
+                                            },
+                                        }
+                                        TagManager.initialize(tagManagerArgs)   
+                                    }                                        
+                                }
                             }else{
                                 router.push('/checkout/forma-de-pago')
                             }
@@ -211,6 +241,11 @@ export default function Forma_de_envio(props){
     }
     return (
     <Box className={classes.root}>
+        <Head>
+            <link href="https://pedidos.com/checkout/forma-de-envio" rel="canonical" />
+            <title>Forma de envío | Pedidos.com</title>
+            <meta name="description" content="Selecciona alguna de las formas de envío que tenemos para ti: Programa tu entrega, entrega EXPRESS y paquetería (DHL, FedEX, Estafeta)." />
+        </Head>
         <Header/>
         <Container maxWidth="lg">
             <Box component="div" py={3} m={1}>
@@ -255,23 +290,25 @@ export default function Forma_de_envio(props){
                                                                         <FormControlLabel value="Programada" label={ 
                                                                             <Box component="div" py={2}>
                                                                                 <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                    <Grid item xs={7} sm={3}>
+                                                                                    <Grid item xs={4} sm={3}>
                                                                                     <ListItemAvatar>
                                                                                         <Avatar variant="rounded" className={classes.MethodType} alt="Shipping date" src="https://pedidos.com/myfotos/pedidos-com/pagina/home19/pp/proe.svg" />
                                                                                     </ListItemAvatar>
                                                                                     </Grid>
-                                                                                    <Grid item xs={5} sm={4}>
+                                                                                    <Grid item xs={8} sm={4}>
                                                                                         {/* <Typography component="subtitle1"> Programada </Typography> */}
                                                                                         <ListItemText id="list-label-horario-programad" ml={8} sx={{width:'150px'}} primary={
                                                                                         <Typography  className={classes.titleTypeS} variant="subtitle1">
                                                                                             Programada </Typography> 
                                                                                         }/>
                                                                                     </Grid>
+                                                                                    <Hidden smDown>
                                                                                     <Grid item xs={12} sm={5}>
                                                                                         <ListItemSecondaryAction className={classes.rightText}>
                                                                                             <ListItemText id="list-label-horario-programad" secondary="Elige tu horario"/>
                                                                                         </ListItemSecondaryAction>
-                                                                                    </Grid>                                
+                                                                                    </Grid>
+                                                                                    </Hidden>                                
                                                                                 </Grid>   
                                                                             </Box>
                                                                             } 
@@ -288,12 +325,12 @@ export default function Forma_de_envio(props){
                                                                         <FormControlLabel value="Express"  label={ 
                                                                             <Box component="div" py={2}>
                                                                                 <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                    <Grid item xs={7} sm={3}>
+                                                                                    <Grid item xs={4} sm={3}>
                                                                                         <ListItemAvatar>
                                                                                             <Avatar variant="rounded" className={classes.MethodType} alt="Express Shipping" src="https://pedidos.com/myfotos/pedidos-com/pagina/home19/pp/pe.svg" />
                                                                                         </ListItemAvatar>
                                                                                     </Grid>
-                                                                                    <Grid item xs={5} sm={4}>                 
+                                                                                    <Grid item xs={8} sm={4}>                 
                                                                                         <ListItemText id="list-label-horario-programad" ml={8} sx={{width:'150px'}} primary={
                                                                                         <Typography  className={classes.titleTypeS} variant="subtitle1">
                                                                                             Express 3hrs. </Typography> 
@@ -327,18 +364,18 @@ export default function Forma_de_envio(props){
                                                                         <FormControlLabel value="2" label={
                                                                             <Box component="div" py={2}>
                                                                                 <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                    <Grid item xs={7} sm={3}>
+                                                                                    <Grid item xs={4} sm={3}>
                                                                                         <ListItemAvatar>
                                                                                             <Avatar variant="rounded" className={classes.MethodType} alt="Shipping" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/envio/paqueteria.svg" />
                                                                                         </ListItemAvatar>
                                                                                     </Grid>
-                                                                                    <Grid item xs={5} sm={4}>    
+                                                                                    <Grid item xs={8} sm={4}>    
                                                                                         <ListItemText id="list-label-horario-programad" ml={8} sx={{width:'150px'}} primary={
                                                                                         <Typography className={classes.titleTypeS} variant="subtitle1">
                                                                                         Paquetería </Typography> 
-                                                                                        } />             
-                                                                                        
+                                                                                        } />               
                                                                                     </Grid>
+                                                                                    <Hidden smDown>
                                                                                     <Grid item xs={12} sm={5}>
                                                                                         <ListItemSecondaryAction className={classes.rightText}>
                                                                                             <ListItemText id="list-label-horario-programad" secondary={
@@ -349,7 +386,8 @@ export default function Forma_de_envio(props){
                                                                                             Demoras en Zonas extendidas
                                                                                             </Typography> 
                                                                                         </ListItemSecondaryAction>
-                                                                                    </Grid>                                
+                                                                                    </Grid>
+                                                                                    </Hidden>                                
                                                                                 </Grid>  
                                                                             </Box>
                                                                         } control={<Radio />}/>
@@ -364,18 +402,19 @@ export default function Forma_de_envio(props){
                                                                         <FormControlLabel value="3"  label={ 
                                                                             <Box component="div" py={2}>                                   
                                                                                 <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={4}>
-                                                                                    <Grid item xs={7} sm={3}>
+                                                                                    <Grid item xs={4} sm={3}>
                                                                                         <ListItemAvatar>
                                                                                             <Avatar variant="rounded" className={classes.MethodType} sx={{ padding:'0.05rem'}} alt="PickUP" src="https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/envio/pickup.svg" />
                                                                                         </ListItemAvatar>
                                                                                     </Grid>
-                                                                                    <Grid item xs={5} sm={4}>                 
+                                                                                    <Grid item xs={8} sm={4}>                 
                                                                                         {/* <Typography component="caption">PickUp </Typography> */}
                                                                                         <ListItemText id="list-label-horario-programad" ml={8} sx={{width:'150px'}}  primary={
                                                                                         <Typography  className={classes.titleTypeS} variant="subtitle1">
                                                                                             PickUp Center </Typography> 
                                                                                         }/>
                                                                                     </Grid>
+                                                                                    <Hidden smDown>
                                                                                     <Grid item xs={12} sm={5}>
                                                                                         <ListItemSecondaryAction className={classes.rightText}>
                                                                                             <ListItemText id="list-label-horario-programad" secondary=
@@ -388,7 +427,8 @@ export default function Forma_de_envio(props){
                                                                                             Polanco, CDMX
                                                                                             </Typography> 
                                                                                         </ListItemSecondaryAction>
-                                                                                    </Grid>                                
+                                                                                    </Grid>
+                                                                                    </Hidden>                               
                                                                                 </Grid>   
                                                                             </Box>
                                                                         } control={<Radio />}/>
@@ -422,18 +462,18 @@ export default function Forma_de_envio(props){
                                             <Box pb={1}  className={classes.root}>
                                                 <RadioGroup aria-label="gender" name="fecha_envio" value={fecha_envio} onChange={salectOption} row fullWidth>  
                                                     <Swiper
-                                                        spaceBetween={10}
+                                                        spaceBetween={15}
                                                         slidesPerView={3}
                                                         onSlideChange={() => console.log("slide change")}
                                                         onSwiper={swiper => console.log(swiper)}
-                                                        className="mySwiper"
+                                                        className="mySwiper15"
                                                         breakpoints={{
-                                                            410: {
-                                                                slidesPerView: 2.5,
+                                                            320: {
+                                                                slidesPerView: 1.4,
                                                                 
-                                                                },
+                                                            },
                                                             640: {
-                                                            slidesPerView: 2.5,
+                                                            slidesPerView: 2.8,
                                                             
                                                             },
                                                             768: {
@@ -445,7 +485,6 @@ export default function Forma_de_envio(props){
                                                             
                                                             },
                                                         }}
-                                                    
                                                         >
                                                         {(data.hasOwnProperty('jsonResumen'))&&
                                                             data.jsonResumen.formasEnvio.pactado.fechas.map((fecha, index) => (
@@ -453,7 +492,7 @@ export default function Forma_de_envio(props){
                                                             <SwiperSlide key={index} className={classes.swiperBox}>
                                                                     <Box component="div" >  
                                                                         <Card className={classes.CardSDay} variant="outlined">
-                                                                            <Box component="div" m={1}>
+                                                                            <Box component="div" m={1} px={1}>
                                                                                 <FormControlLabel fullWidth value={fecha.fecha.replace(' de ','-').replace(' ','-')} label={
                                                                                     <CardContent className={classes.shippingDay}>
                                                                                         <Typography className={classes.titleTypeS} variant="subtitle1" component="h3">
@@ -484,44 +523,64 @@ export default function Forma_de_envio(props){
                                                     <div className={classes.root}>
                                                         <Grid container spacing={2}>
                                                             
-                                                            {
-                                                            horarios.map((horario, index) => (
-                                                            <Grid key={index} item xs={12}>
-                                                                <Box component="div" >   
-                                                                    <Card variant="outlined"> 
-                                                                        <ListItem button>                                      
-                                                                                {(data.hasOwnProperty('jsonResumen'))&&
-                                                                                (horario.horario !== '10hrs a 18hrs')&&
-                                                                                (data.jsonResumen.resumen.bodegaDif === 'N' || horario.horario !== '10hrs a 19hrs')&&
-                                                                                        
-                                                                                    <FormControlLabel fullWidth disabled={(horario.disponible === 'N')?(horario.horario === '10hrs a 19hrs')?true:(data.jsonResumen.resumen.bodegaDif !== 'S')?true:false:false}
-                                                                                    value={(horario.horario === '10hrs a 19hrs')?'-':horario.horario.replace('hrs a ','-').replace('hrs','')} label={
-                                                                                        <Box component="div" py={2}>
-                                                                                            <Grid container direction="row" justifyContent="space-evenly" alignItems="center" >
-                                                                                                <Grid item xs={12} sm={10}>
-                                                                                                    <Box component="div" className={classes.w300}>
-                                                                                                        <Typography component="subtitle1"> {(horario.horario === '10hrs a 19hrs')?`Horario abierto de`:`Horario de`} {horario.horario} </Typography>
-                                                                                                    </Box>
-                                                                                                </Grid>
-                                                                                                <Grid item xs={12} sm={2} >
-                                                                                                    <ListItemSecondaryAction>
-                                                                                                        <ListItemText id="list-label-horarios" secondary={(horario.horario === '10hrs a 19hrs')?(data.jsonResumen.formasEnvio.pactado.abierto===0)?`GRATIS`:`$${data.jsonResumen.formasEnvio.pactado.abierto} MXN`:`+$${data.jsonResumen.formasEnvio.pactado.costo} MXN`}/>
-                                                                                                    </ListItemSecondaryAction>
-                                                                                                </Grid>                                
-                                                                                            </Grid>   
-                                                                                        </Box>
-                                                                                        
-                                                                                    } control={<Radio id={(horario.horario === '10hrs a 19hrs')?data.jsonResumen.formasEnvio.pactado.abierto:data.jsonResumen.formasEnvio.pactado.costo}/>}/>
-                                                                                
-                                                                                }
-                                                                        
-                                                                        </ListItem>
-                                                                    </Card>
-                                                                </Box>
-                                                            </Grid>
-                                                                ))
-                                                            }
-                                                            
+                                                            {horarios.map((horario, index) => (
+                                                                <Grid key={index} item xs={12}>               
+                                                                    {(data.hasOwnProperty('jsonResumen'))&&
+                                                                        (data.jsonResumen.resumen.bodegaDif === 'S')?
+
+                                                                            (horario.horario === '10hrs a 19hrs')&&  
+                                                                            <Box component="div" >   
+                                                                                <Card variant="outlined"> 
+                                                                                    <ListItem button>    
+                                                                                        <FormControlLabel fullWidth 
+                                                                                        value="10-19" label={
+                                                                                            <Box component="div" py={2}>
+                                                                                                <Grid container direction="row" justifyContent="space-evenly" alignItems="center" >
+                                                                                                    <Grid item xs={12} sm={10}>
+                                                                                                        <Box component="div" className={classes.w300}>
+                                                                                                            <Typography variant="subtitle2" component="body2">Horario abierto de 10hrs a 19hrs</Typography>
+                                                                                                        </Box>
+                                                                                                    </Grid>
+                                                                                                    <Grid item xs={12} sm={2} >
+                                                                                                        <ListItemSecondaryAction>
+                                                                                                            <ListItemText id="list-label-horarios" secondary="GRATIS"/>
+                                                                                                        </ListItemSecondaryAction>
+                                                                                                    </Grid>                                
+                                                                                                </Grid>   
+                                                                                            </Box>
+                                                                                        } control={<Radio id={data.jsonResumen.formasEnvio.pactado.abierto}/>}/> 
+                                                                                    </ListItem>
+                                                                                </Card>
+                                                                            </Box>
+                                                                        : 
+                                                                        (horario.horario !== '10hrs a 18hrs')&&
+                                                                        (data.jsonResumen.resumen.bodegaDif === 'N' || horario.horario !== '10hrs a 19hrs')&&
+                                                                            <Box component="div" >   
+                                                                                <Card variant="outlined"> 
+                                                                                    <ListItem button>           
+                                                                                        <FormControlLabel fullWidth disabled={(horario.disponible === 'N')?(horario.horario === '10hrs a 19hrs')?true:(data.jsonResumen.resumen.bodegaDif !== 'S')?true:false:false}
+                                                                                        value={(horario.horario === '10hrs a 19hrs')?'-':horario.horario.replace('hrs a ','-').replace('hrs','')} label={
+                                                                                            <Box component="div" py={2}>
+                                                                                                <Grid container direction="row" justifyContent="space-evenly" alignItems="center" >
+                                                                                                    <Grid item xs={12} sm={10}>
+                                                                                                        <Box component="div" className={classes.w300}>
+                                                                                                            <Typography variant="subtitle2" component="body2">{(horario.horario === '10hrs a 19hrs')?`Horario abierto de`:`Horario:`} {horario.horario} </Typography>
+                                                                                                        </Box>
+                                                                                                    </Grid>
+                                                                                                    <Grid item xs={12} sm={2} >
+                                                                                                        <ListItemSecondaryAction>
+                                                                                                            <ListItemText id="list-label-horarios" secondary={(horario.horario === '10hrs a 19hrs')?(data.jsonResumen.formasEnvio.pactado.abierto===0)?`GRATIS`:`$${data.jsonResumen.formasEnvio.pactado.abierto} MXN`:`+$${data.jsonResumen.formasEnvio.pactado.costo} MXN`}/>
+                                                                                                        </ListItemSecondaryAction>
+                                                                                                    </Grid>                                
+                                                                                                </Grid>   
+                                                                                            </Box>
+                                                                                        } control={<Radio id={(horario.horario === '10hrs a 19hrs')?data.jsonResumen.formasEnvio.pactado.abierto:data.jsonResumen.formasEnvio.pactado.costo}/>}/>
+                                                                                    </ListItem>
+                                                                                </Card>
+                                                                            </Box>
+                                                                    }           
+                                                                </Grid>
+                                                            ))}
                                                         </Grid>
                                                     </div>
                                                 </List>
@@ -598,10 +657,12 @@ export default function Forma_de_envio(props){
                                                                                                     } />
                                                                                                 </ListItemAvatar>                                                                                    
                                                                                             </Grid>
-                                                                                            <Grid item xs={4}>                 
-                                                                                                {/* <Typography component="caption">Paquetería</Typography> */}
-                                                                                                <ListItemText id="list-label-horario-programad" primary={key}/>
-                                                                                            </Grid>
+                                                                                            <Hidden smDown>
+                                                                                                <Grid item xs={4}>                 
+                                                                                                    {/* <Typography component="caption">Paquetería</Typography> */}
+                                                                                                    <ListItemText id="list-label-horario-programad" primary={key}/>
+                                                                                                </Grid>
+                                                                                            </Hidden>
                                                                                             <Grid item xs={5}>
                                                                                                 <ListItemSecondaryAction className={classes.rightText}>
                                                                                                     <ListItemText id="list-label-horario-programad" secondary={(value === 0)?'GRATIS':'+$'+value}/>
@@ -639,7 +700,7 @@ export default function Forma_de_envio(props){
                     <Grid item xs={12} sm={4}>
                     {(data.hasOwnProperty('jsonResumen'))?
                         <>
-                        <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                        <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} paso={2}/> 
                         {(!alerta.hasOwnProperty('severity'))&&
                             <LoadingButton variant="contained" fullWidth  size="large" color="primary" type="button"
                             onClick={continuarCompra}

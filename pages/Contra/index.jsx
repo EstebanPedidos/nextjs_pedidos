@@ -11,12 +11,15 @@ import { Layout } from 'layout/Layout';
 //Servicios
 import Services from '../services/Services'
 import { useRouter } from 'next/router'
+import Alertas from '../checkout/Alertas'
 
 
 export default function Contra(){  
 
     const [inputs, setInputs] = useState({});
-    const ruter = useRouter() 
+    const ruter = useRouter()
+    const [alerta,setAlerta] = useState({})
+ 
     const params = 
             '?email='+inputs.correo;
     
@@ -32,20 +35,13 @@ export default function Contra(){
 
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log("Entro al servicio de Recuperar Contraseña");
-        console.log("Correo: "+inputs.correo);
-
         let services  = await Services('GET','/registrov2/enviacorreoPedidos'+params,{}) 
         let data = services.data;
-        alert(data);
-        ruter.push("/home")
-
+        setAlerta({severity:'success',mensaje:'Correo Enviado',vertical:'bottom',horizontal:'right',variant:'filled'})
     }
-    const paperStyle={padding:40, height:'auto', width:450, margin:"60px auto"}
-
+    const paperStyle={padding:40, height: 'auto', width:450, maxWidth:'90%', margin:"30px auto"}
     return(
         <Layout>
-
                 <Container maxWidth="sm">
                     <Paper variant="outlined" elevation={0} style={paperStyle}>
                         <Box textAlign='center' my={2}>
@@ -60,12 +56,13 @@ export default function Contra(){
                                        Envíar
                                     </Button>
                                 </Box>
-                                
                             </FormControl>
                         </Box>
                     </Paper>
                 </Container> 
-            
+                {(alerta.hasOwnProperty('severity'))&&
+                    <Alertas setAlerta={setAlerta} alerta={alerta}/>
+                } 
         </Layout>
     )
 }

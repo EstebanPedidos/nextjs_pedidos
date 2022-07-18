@@ -1,13 +1,16 @@
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-
+import Head from 'next/head';
+import { Box, Container, Divider } from '@mui/material';
+//components
 import { Layout } from 'layout/Layout';
 import HPSearchScript from 'components/HPSearchScript';
 
 const TintaTonerHP = () => {
 	return (
 		<Layout title='Cartuchos originales HP | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Encuentra tu tinta & tóner original HP en Pedidos.com y paga a Meses sin Intereses, 18 MSI con tarjetas participantes y hasta 24 MSI con Citibanamex. Contamos con entregas EXPRESS CDMX."/>
+				<link rel="canonical" href="https://pedidos.com/hp/cartuchos-de-tinta-y-toner-original-hp"/>
+			</Head>
 			<Box pt={8} position='relative'>
 				<Box
 					bgcolor='#f6f7f9'

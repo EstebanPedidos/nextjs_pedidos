@@ -1,4 +1,6 @@
 import {useState,useEffect} from "react";
+//Tag Manager
+import TagManager from 'react-gtm-module'
 //hooks
 import {useLocalStorage} from "../../hooks/useLocalStorage";
 //next js
@@ -19,6 +21,7 @@ import ProductTab   from './ProductTab';
 import Alertas from '../checkout/Alertas'
 import { Layout } from 'layout/Layout';
 import ReviewItem from './ReviewItem';
+import Gallery  from './Gallery/index'
 //Modales
 import Cotizar from "./Modales/Cotizar";
 
@@ -63,13 +66,6 @@ const useStyles = makeStyles((theme) => ({
     width_carousel: {
         width: 'auto',
     },
-
-   media: {
-    height: 130,
-    width: 130,
-    margin: 'auto',
-  },
-
   productCard: {
     maxWidth: 345,
     marginTop:5,
@@ -78,7 +74,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0px 0px 16px rgb(54 85 166 / 8%), 0px 1px 4px rgb(54 85 166 / 8%)',
   },
 /*plussss*/ 
-  green: { color: 'rgba(116, 166, 38, 1)'},
   rootqty: {
     padding: '2px 4px',
     display: 'flex',
@@ -89,9 +84,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     flex: 1,
   },
-  iconButton: {
-    padding: 10,
-  },
+
   ctaAdd:{
     backgroundColor:  "secondary.light" ,
   }
@@ -116,6 +109,45 @@ TypographyDemo.propTypes = {
     loading: PropTypes.bool,
 };
 
+function renderVideo(item) {
+    return (
+      <div>
+        {
+          this.state.showVideo[item.embedUrl] ?
+            <div className='video-wrapper'>
+                <a
+                  className='close-video'
+                  onClick={this._toggleShowVideo.bind(this, item.embedUrl)}
+                >
+                </a>
+                <iframe
+                  width='560'
+                  height='315'
+                  src={item.embedUrl}
+                  frameBorder='0'
+                  allowFullScreen
+                >
+                </iframe>
+            </div>
+          :
+            <a onClick={this._toggleShowVideo.bind(this, item.embedUrl)}>
+              <div className='play-button'></div>
+              <img className='image-gallery-image' src={item.original} />
+              {
+                item.description &&
+                  <span
+                    className='image-gallery-description'
+                    style={{right: '0', left: 'initial'}}
+                  >
+                    {item.description}
+                  </span>
+              }
+            </a>
+        }
+      </div>
+    );
+  }
+
 
 
 export default function FichaTecnica(props){
@@ -139,8 +171,8 @@ export default function FichaTecnica(props){
     const [cp,setCP]                        = useState('')
     const [isFavorito,setIsFavorito]        = useState(false)
     const [thumbsSwiper, setThumbsSwiper]   = useState(null);
-    const [partidas,setPartidas]                    = useLocalStorage('SesPartidas',0)
-    const [favoritos,setFavoritos]                    = useLocalStorage('Favoritos',0)
+    const [partidas,setPartidas]            = useLocalStorage('SesPartidas',0)
+    const [favoritos,setFavoritos]          = useLocalStorage('Favoritos',0)
 
     const cortadosPA    = ['HP-TIN','HP-TO-'];
     const articulosPA   = ['HP-LAP-2C3C3LA','ASU-LAP-C4G500','HP-MFC-Z4B04A','HP-MFC-Z4B53A','PDIR-LAP-2C3E1L','PDIR-LAP-2Z748L','HP-LAP-151F5LT','PDIR-LAP-22A98L','PDIR-IMP-1TJ09A','PDIR-ACC-2UF58A','LG-PAN-32LM570','BRO-MFC-T220','PF-LOG-G920','PF-LOG-G29','HP-IMP-CZ993A','CAN-MFC-G2160','BRO-MFC-DCP2551','PDIR-MFC-2LB19A','HP-ALL-140P8AA','ACE-MON-V246HQL','LEN-LAP-CHRB0US'];
@@ -171,8 +203,10 @@ export default function FichaTecnica(props){
                     data.relacionados   = await JSON.parse(data.relacionados)
                     data.metas          = await JSON.parse(data.metas)
 
+                    let price  = await parseFloat(data.precio)+(parseFloat(data.precio)*parseFloat(data.iva))
+
                     setDatos(data)
-                    setPrecio(parseFloat(data.precio)+(parseFloat(data.precio)*parseFloat(data.iva)))
+                    setPrecio(price)
                     setSubTotal(data.precio)
                     setHdi(data.precioSeguro)
                     setGarnatExt1(data.garantia1)
@@ -185,6 +219,23 @@ export default function FichaTecnica(props){
                         meta.setAttribute('content', valor.content);                        
                         document.head.appendChild(meta);
                     });
+                    const tagManagerArgs = {
+                        gtmId: 'GTM-NLQV5KF',
+                        dataLayer: {
+                            'ecommerce': {
+                                'detail': {                                  
+                                  'products': [{
+                                    'name': data.descripcion.descripcion.urlName,         
+                                    'id': data.item_num,
+                                    'price': Precios('redondear_arriba',{subtotal:price,iva:0,formato:true}),
+                                    'brand': data.marca,
+                                    'category': data.breadcrumb[0]+'/'+data.breadcrumb[1]+'/'+data.breadcrumb[2]
+                                   }]
+                                 }
+                            }
+                        },
+                    }
+                    TagManager.initialize(tagManagerArgs)
                 }else{
                     ruter.push('/')
                 }                
@@ -255,18 +306,20 @@ export default function FichaTecnica(props){
                     setLoading(false)
                     if(response.data === 'OK'){
                         setAlerta({severity:'success',mensaje:'Eliminado de Favoritos',vertical:'bottom',horizontal:'right',variant:'filled'})
-                        setIsFavorito(false)              
+                        setIsFavorito(false)  
+                        setFavoritos(favoritos-1)           
                     }else{
                         setAlerta({severity:'error',mensaje:'Error al eliminar Favorito',vertical:'bottom',horizontal:'right',variant:'filled'})
                     }
                 })
             }else{
-                let precio = Precios('redondear_arriba',{subtotal:(parseFloat(subTotal)*parseFloat(datos.iva)),iva:0,formato:true})
+                let precio = await Precios('redondear_arriba',{subtotal:(parseFloat(subTotal)*parseFloat(datos.iva)),iva:0,formato:true})
+                    precio = await precio.replace(',','')
                 Services('POST-NOT','/miCuenta/agregarFavorito?cliente_num='+cliente_num+'&item_num='+datos.item_num+'&notificacion=1&precio='+precio,{})
                 .then( response =>{
                     setLoading(false)
                     if(response.data === 'OK'){
-                        setFavoritos(favoritos++)
+                        setFavoritos(parseInt(favoritos+1))
                         setAlerta({severity:'success',mensaje:'Agregado a Favoritos',vertical:'bottom',horizontal:'right',variant:'filled'})
                         setIsFavorito(true)               
                     }else{
@@ -279,10 +332,11 @@ export default function FichaTecnica(props){
         }        
     }
     
-
+    
     return (
-        <div>      
+        <div>     
             <Layout favoritos={favoritos} partidas={partidas} title={(datos.hasOwnProperty('item_num'))?datos.descripcion.descripcion.urlName.substring(0,34):''}>    
+               
                {(datos.hasOwnProperty('item_num'))&&
                 <Head>                    
                     <link rel="canonical" href={`https://pedidos.com/articulos/${urlTem}`} />
@@ -292,10 +346,22 @@ export default function FichaTecnica(props){
                     {(!JSON.stringify(datos.metas.metasList).includes('keywords'))&&
                         <meta name="keywords" content={datos.descripcion.descripcion.urlName.substring(0,34)} />
                     }
+                    {<script type="application/ld+json">
+                    {`{
+                        "@context": "https://schema.org",
+                        "@type": "Product",
+                        "offers": {
+                            "@type": "Offer",
+                            "name": "${datos.descripcion.descripcion.urlName}",
+                            "price": "${(precio > 0)?Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):``}",
+                            "priceCurrency": "MXN"
+                            }
+                        }
+                    `}
+                    </script>
+                    }
                 </Head>
-
                 }
-               
                 {(datos.hasOwnProperty('item_num'))&&
                     (datos.item_num.includes('HP-') || datos.item_num.includes('hp-') || datos.item_num.includes('PDIR-') || datos.item_num.includes('pdir-'))&&
                     <Script type="text/javascript" src="https://storage.googleapis.com/indexado/assets/alquimioIndexado.v2.js" 
@@ -326,7 +392,7 @@ export default function FichaTecnica(props){
                     </Script>
                 }
                 <Container maxWidth="xl">                
-                    <Box component="div" m={2}>
+                    <Box component="div" m={2} pt={2}>
                         <Grid container direction="row" justifyContent="space-between" spacing={3}>
                             <Grid xs={12} sm={12} >
                                 <Box component="div">
@@ -344,8 +410,8 @@ export default function FichaTecnica(props){
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={7} md={8} lg={8}>
                                         <Grid container>
-                                            <Grid>
-                                                <Typography variant="h5" component="h1" sx={{fontWeight:'500'}}>
+                                            <Grid item  xs={12} sm={12}>
+                                                <Typography variant="h5" component="h1" sx={{fontWeight:'500'}} property="name">
                                                     {(datos.hasOwnProperty('item_num'))?`${datos.descripcion.descripcion.urlName}`
                                                     : 
                                                     <Box sx={{ pt: 0.2, width: '80vw' }}>
@@ -369,70 +435,70 @@ export default function FichaTecnica(props){
                                                             />
                                                         }
                                                     </Box>
-                                                    <Swiper
-                                                    style={{
-                                                    "--swiper-navigation-color": "#fff",
-                                                    "--swiper-pagination-color": "#fff",
-                                                    }}
-                                                    loop={true}
-                                                    spaceBetween={10}
-                                                    navigation={true}
-                                                    thumbs={{ swiper: thumbsSwiper }}
-                                                    modules={[FreeMode, Navigation, Thumbs]}
-                                                    className="mySwiper2"
-                                                    >
-                                                        <SwiperSlide>
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`}  alt={datos.item_num} />
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                           
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v2/(v2)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                            
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={(datos.estatus_img === "A")?`https://pedidos.com/myfotos/xLarge_v3/(v3)(X)${datos.item_num}.webp`:`https://pedidos.com/myfotos/xLarge/(X)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </SwiperSlide>
-                                                        {(datos.hasOwnProperty('item_num'))&&
-                                                            (datos.descripcion.descripcion.hasOwnProperty("link"))&&
-                                                                datos.descripcion.descripcion.link.split(',').map((link, index) => (
-                                                                    <SwiperSlide key={index}>  
-                                                                        <Box component="div" py={6} alignItems="center" sx={{backgroundColor:'#000000',borderRadius:'8px'}}>
-                                                                            <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts} onReady={onPlayerReady}/>
-                                                                        </Box>
-                                                                    </SwiperSlide>
-                                                                ))
-                                                        }                                                                                                           
-                                                    </Swiper>
-                                                    <Swiper
-                                                        onSwiper={setThumbsSwiper}                                                        
+                                                    <Box component="div" p={2}>
+                                                        <Swiper
+                                                        style={{
+                                                        "--swiper-navigation-color": "#507EF2",
+                                                        "--swiper-pagination-color": "#507EF2",
+                                                        }}
+                                                        loop={true}
                                                         spaceBetween={10}
-                                                        slidesPerView={4}
-                                                        freeMode={true}
-                                                        watchSlidesProgress={true}
+                                                        navigation={true}
+                                                        thumbs={{ swiper: thumbsSwiper }}
                                                         modules={[FreeMode, Navigation, Thumbs]}
-                                                        className="mySwiper"
-                                                    >
-                                                        <SwiperSlide>
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num} />
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} alt={datos.item_num}/>
-                                                        </SwiperSlide>
-                                                        {(datos.hasOwnProperty('item_num'))&&
-                                                            (datos.descripcion.descripcion.hasOwnProperty("link"))&&
-                                                                datos.descripcion.descripcion.link.split(',').map((link, index) => (
-                                                                    <SwiperSlide key={index}>
-                                                                        <Box component="div" py={2} alignItems="center">
-                                                                        <img width={'80%'}  height={'80%'} layout="responsive" src={`https://img.youtube.com/vi${(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length)}/0.jpg`} alt={datos.item_num}/>
-                                                                        </Box>
-                                                                    </SwiperSlide>
-                                                                ))
-                                                        }                                                       
-                                                    </Swiper>
-                                                    
+                                                        className="mySwiper2"
+                                                        >
+                                                            <SwiperSlide>                                                           
+                                                                <Gallery item_num={datos.item_num} indice={0} estatus_img={datos.estatus_img} link={''} links={(datos.descripcion.descripcion.hasOwnProperty("link"))?datos.descripcion.descripcion.link:''}/>
+                                                            </SwiperSlide>
+                                                            <SwiperSlide>
+                                                                <Gallery item_num={datos.item_num} indice={1} estatus_img={datos.estatus_img} link={''} links={(datos.descripcion.descripcion.hasOwnProperty("link"))?datos.descripcion.descripcion.link:''}/> 
+                                                            </SwiperSlide>
+                                                            <SwiperSlide>
+                                                                <Gallery item_num={datos.item_num} indice={2} estatus_img={datos.estatus_img} link={''} links={(datos.descripcion.descripcion.hasOwnProperty("link"))?datos.descripcion.descripcion.link:''}/>                                                            
+                                                            </SwiperSlide>
+                                                            {(datos.hasOwnProperty('item_num'))&&
+                                                                (datos.descripcion.descripcion.hasOwnProperty("link"))&&
+                                                                    datos.descripcion.descripcion.link.split(',').map((link, index) => (
+                                                                        <SwiperSlide key={index}>  
+                                                                            <Box component="div" py={2} alignItems="center" sx={{borderRadius:'8px', margin:'2.5rem auto'}}>
+                                                                                <Gallery  sx={{ margin:'auto'}} item_num={datos.item_num} indice={(3+index)} estatus_img={datos.estatus_img} link={link} links={datos.descripcion.descripcion.link}/> 
+                                                                                {/* <YouTube videoId={(link.includes('='))?link.substring(link.lastIndexOf('=')+1,link.length):link.substring(link.lastIndexOf('/')+1,link.length)} opts={opts} onReady={onPlayerReady}/> */}
+                                                                            </Box>
+                                                                        </SwiperSlide>
+                                                                    ))
+                                                            }                                                                                                           
+                                                        </Swiper>
+                                                        <Swiper
+                                                            onSwiper={setThumbsSwiper}                                                        
+                                                            spaceBetween={10}
+                                                            slidesPerView={4}
+                                                            freeMode={true}
+                                                            watchSlidesProgress={true}
+                                                            modules={[FreeMode, Navigation, Thumbs]}
+                                                            className="mySwiper"
+                                                        >
+                                                            <SwiperSlide>
+                                                                <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/${datos.item_num}.webp`}  alt={datos.item_num} />
+                                                            </SwiperSlide>
+                                                            <SwiperSlide>
+                                                                <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v2/(v2)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                            </SwiperSlide>
+                                                            <SwiperSlide>
+                                                                <img width={'100%'}  height={'100%'} layout="responsive" src={`https://pedidos.com/myfotos/v3/(v3)${datos.item_num}.webp`} alt={datos.item_num}/>
+                                                            </SwiperSlide>
+                                                            {(datos.hasOwnProperty('item_num'))&&
+                                                                (datos.descripcion.descripcion.hasOwnProperty("link"))&&
+                                                                    datos.descripcion.descripcion.link.split(',').map((link, index) => (
+                                                                        <SwiperSlide key={index}>
+                                                                            <Box component="div" py={2} alignItems="center">
+                                                                            <img width={'100%'}  height={'100%'} layout="responsive" src={`https://img.youtube.com/vi${(link.includes('='))?link.substring(link.lastIndexOf('='),link.length):link.substring(link.lastIndexOf('/'),link.length)}/0.jpg`} alt={datos.item_num}/>
+                                                                            </Box>
+                                                                        </SwiperSlide>
+                                                                    ))
+                                                            }                                                       
+                                                        </Swiper>
+                                                    </Box>
                                                 </Box>
                                                 :
                                                 <Box sx={{ pt: 0.5 }}>
@@ -559,18 +625,19 @@ export default function FichaTecnica(props){
                                         <Paper variant="outlined" >
                                             <Box component="div" m={4}>
                                             <Typography>Precio unitario</Typography>
-                                            <Box component="div">
+                                            <Box component="div" >
                                                 <Grid container>
-                                                    <Grid item>
-                                                        <Box p={1}>
-                                                            <Typography variant="h4" component="subtitle1"> 
+                                                    <Grid item> 
+                                                        <Box p={1} property="offers" typeof="AggregateOffer">
+                                                            <Typography variant="h4" component="subtitle1" property="lowPrice"> 
                                                             ${(precio > 0)?Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):``}
                                                             </Typography>
+                                                            <span property="priceCurrency" style={{display:'none'}}>MXN</span>
                                                         </Box>
                                                     </Grid>
                                                     <Grid item>
                                                         <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
-                                                            <Typography variant="subtitle1">
+                                                            <Typography variant="subtitle1" property="highPrice">
                                                             ${(cortadosPA.indexOf(datos.cortado) >= 0 || articulosPA.indexOf(datos.item_num) >= 0)?(datos.precio_anterior > 0 && datos.precio_anterior > precio)?Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0,formato:true}):``:Precios('redondear_arriba',{subtotal:(((parseFloat(precio)*10)/100)+parseFloat(precio)),iva:0,formato:true})}
                                                             </Typography> 
                                                         </Box>
@@ -610,7 +677,7 @@ export default function FichaTecnica(props){
                                                                     <Grid container alignItems="center" justifyContent="space-around" spacing={1}>
                                                                         <Grid item><LocalShippingOutlinedIcon/></Grid>
                                                                         <Grid item>
-                                                                            <Typography className={classes.green} variant="subtitle2">Envío GRATIS <span>en producto.</span></Typography>
+                                                                            <Typography sx={{color: 'rgba(116, 166, 38, 1)'}} variant="subtitle2">Envío GRATIS <span>en producto.</span></Typography>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
@@ -706,7 +773,7 @@ export default function FichaTecnica(props){
                                                 ((subfamilia[datos.descripcion.descripcion.subfamilia] === 2 || subfamilia[datos.descripcion.descripcion.subfamilia] === 3) && (garantext1 > 0 || garantext2 > 0))&&
                                                 <Box pt={4}>
                                                     <FormControl component="fieldset">
-                                                    <FormLabel component="legend">Protección contra daños</FormLabel>
+                                                    <FormLabel component="legend">Garantía extendida</FormLabel>
                                                         <RadioGroup aria-label="duración" name="garantiaext" value={isGarn} onChange={({target})=>{setIsGarn(target.value)}}>
                                                             <FormControlLabel value="ZZZGAEXT1" control={<Radio />} label={
                                                             <Typography>1 AÑO  ${garantext1}</Typography>
@@ -772,7 +839,10 @@ export default function FichaTecnica(props){
                                                             <a>
                                                             <CardActionArea>
                                                                 <CardMedia
-                                                                className={classes.media}
+                                                                className={classes.media} sx={{    
+                                                                    height: 130,
+                                                                    width: 130,
+                                                                    margin: 'auto',}}
                                                                 image={`https://pedidos.com/myfotos/large/(L)${datos.relacionados.listaRelacionados[oneKey].item_rel}.webp`}
                                                                 alt={datos.item_num}
                                                                 title={datos.item_num} />

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Link from 'next/link';
 import {
 	Accordion,
 	AccordionSummary,
@@ -21,90 +21,100 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: theme.typography.pxToRem(15),
 		fontWeight: theme.typography.fontWeightRegular,
 	},
+	titlefooter: {
+		fontSize: '20px',
+		fontWeight: '600',
+		marginBottom: '0.5rem'
+	},
 }));
 
 const itemsConocenos = [
 	{
 		content: 'Google',
-		to: '/',
+		to: 'https://customerreviews.google.com/v/merchant?q=pedidos.com&c=MX&v=17',
 	},
 	{
 		content: 'Prensa',
-		to: '/',
+		to: '/quienes-somos/prensa',
 	},
-	{
+	/* {
 		content: 'Reviews',
 		to: '/',
 	},
 	{
 		content: 'Se Proveedor',
 		to: '/',
-	},
+	}, */
 	{
 		content: 'Hot Sale',
-		to: '/',
+		to: '/hotsale',
 	},
 	{
 		content: 'Aviso de Privacidad',
-		to: '/',
+		to: '/soho/cliente/aviso-privacidad',
+	},
+	{
+		content: 'Terminos y condiciones',
+		to: '/soho/cliente/terminos-y-condiciones',
 	},
 ];
 const itemsServicios = [
 	{
 		content: 'Pick Up Center',
-		to: '/',
+		to: '/servicios/pickup',
 	},
 	{
 		content: 'Para empresas',
-		to: '/',
+		to: '/servicios/empresas',
 	},
 	{
 		content: 'Planes de protección',
-		to: '/',
+		to: '/soho/cliente/planes-de-proteccion',
 	},
 	{
 		content: 'Programa de reciclaje',
-		to: '/',
+		to: '/programa-de-reciclaje',
 	},
 	{
 		content: 'Uniclick: Crédito PYME',
-		to: '/',
+		to: '/uniclick/credito',
 	},
 ];
 const itemsAyuda = [
 	{
 		content: 'Facturación',
-		to: '/',
+		to: '/soho/cliente/modificar-factura',
 	},
 	{
 		content: 'Forma de pago',
-		to: '/',
+		to: '/soho/politicas/forma-de-pago',
 	},
 	{
 		content: 'Forma de Envíos',
-		to: '/',
+		to: '/soho/politicas',
 	},
 	{
 		content: 'Soporte Técnico',
-		to: '/',
+		to: '/soporte-tecnico',
 	},
 	{
 		content: 'Garantías & Devoluciones',
-		to: '/',
+		to: '/soho/politicas/devoluciones-garantias',
 	},
 ];
 const itemsContacto = [
 	{
 		content: 'Horario de atención 9:00 a 18:30 hrs',
 	},
-	{
-		content: 'Cotizar por volumen',
+	/* {
+		content: 'Cotizar',
 		to: '/',
-	},
+	}, */
 	{
-		content: 'Comunícate con ventas',
-		to: '/',
+		content: '¿Necesitas Ayuda?',
+		to: 'https://direct.lc.chat/7731061/',
 	},
+	
 ];
 
 export function FooterAccordion() {
@@ -112,16 +122,33 @@ export function FooterAccordion() {
 
 	return (
 		<div className={classes.root}>
-			<CustomAcordion title='Conocenos'>
+			<CustomAcordion title={
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Conocenos
+				</Typography>
+			}>
 				<CustomList data={itemsConocenos} />
 			</CustomAcordion>
-			<CustomAcordion title='Servicios'>
+			<CustomAcordion title={
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Servicios
+				</Typography>
+			}>
 				<CustomList data={itemsServicios} />
 			</CustomAcordion>
-			<CustomAcordion title={'Ayuda'}>
+			<CustomAcordion title=
+			{
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Ayuda
+				</Typography>
+			}>
 				<CustomList data={itemsAyuda} />
 			</CustomAcordion>
-			<CustomAcordion title={'Contacto'}>
+			<CustomAcordion title={
+				<Typography variant="subtitle2" component='span' className={classes.titlefooter}>
+					Contacto
+				</Typography>
+			}>
 				<CustomList data={itemsContacto} />
 			</CustomAcordion>
 		</div>
@@ -134,14 +161,23 @@ const CustomList = ({ data = [1, 2] }) => {
 			style={{
 				marginBottom: '1rem',
 			}}>
-			{data.map(({ content }, indx) => (
-				<ListItem component={'li'} key={indx} button>
-					<span
-						style={{
-							color: 'gray',
-						}}>
-						{content}
-					</span>
+			{data.map(({ content, to }, indx) => (
+				<ListItem component={'li'}  key={indx} button>
+					{/* <Link href={to}>
+						<a> */}
+						<Link href={to+''}>
+							<a>
+								<span style={{
+										color: 'gray',
+									}}>
+									
+									{content}
+								</span>
+							</a>
+						</Link>
+							
+						{/* </a>
+					</Link> */}
 				</ListItem>
 			))}
 		</List>
@@ -151,7 +187,7 @@ const CustomList = ({ data = [1, 2] }) => {
 const CustomAcordion = ({ title, children }) => {
 	const { heading } = useStyles();
 	return (
-		<Accordion>
+		<Accordion elevation={0}>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={heading}>{title}</Typography>
 			</AccordionSummary>

@@ -15,41 +15,32 @@ import {
 	InputAdornment,
 	MenuItem,
 	Badge,
-	Drawer,
-	List,
-	ListItem,
-	ListIcon,
-	ListItemText,
 	Avatar,
-	Tooltip,
 } from '@mui/material';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-
 import {
 	FavoriteBorder,
-	HelpOutline as HelpOutlineIcon,
-	ShoppingCart as ShoppingCartIcon,
 	Search as SearchIcon,
+	ShoppingCartOutlined as ShoppingCartOutlinedIcon,
 } from '@mui/icons-material';
-
 import { makeStyles, useTheme } from '@mui/styles';
 
-import RandomUser  from '../pages/services/RandomUser'
+import RandomUser from '../pages/services/RandomUser';
 
 // Variables imports
 import { logoUrl } from '../constants';
-
-import { HelpModal } from './modals';
-
+import Help from '../components/modals/Help';
 import { content, logo } from './Navbar.module.css';
-
 import DrawerCategorias from './drawers/drawer';
 
-const drawerWidth = 240;
-
 //Nextjs
+import Script from 'next/script';
+
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Alertas from '../pages/checkout/Alertas';
+import TagManager from 'react-gtm-module'
+
 
 function ElevationScroll(props) {
 	const { children, window } = props;
@@ -71,35 +62,18 @@ function ElevationScroll(props) {
 	});
 }
 
-const useStyles = makeStyles((theme) => ({
-	drawer: {
-		width: drawerWidth,
-		flexShrink: 0,
-	},
-	drawerPaper: {
-		width: drawerWidth,
-	},
-	list: {
-		width: 250,
-	},
-	fullList: {
-		width: 'auto',
-	},
-}));
-
 export function Navbar(props) {
 	const [openModal, setOpenModal] = useState(false);
 	const [openMenu, setOpenMenu] = useState(false);
 
 	const ruter = useRouter();
-	const classes = useStyles();
-	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
 	const [inputs, setInputs] = useState({});
 	const [nombre, setNombre] = React.useState('');
 	const [isLogged, setLogged] = React.useState(false);
 	const [menuName, setMenuName] = React.useState(null);
 	const [lista, setLista] = React.useState({});
+    const [afiliado, setAfiliado] = React.useState(false);
 	const [state, setState] = React.useState({
 		top: false,
 		left: false,
@@ -110,7 +84,9 @@ export function Navbar(props) {
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
 	const [sesPartidas, setSesPartidas] = useState(props.partidas);
-    const [favoritos, setFavoritos] = useState(props.favoritos);
+	const [favoritos, setFavoritos] = useState(props.favoritos);
+
+	const [alerta, setAlerta] = useState({});
 
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -120,7 +96,13 @@ export function Navbar(props) {
 	let Usuario = 0;
 	let ejecutivoNum = 0;
 
+    const tagManagerArgs = {
+        gtmId: 'GTM-NLQV5KF'
+    }
+
 	useEffect(() => {
+        TagManager.initialize(tagManagerArgs)
+
 		setNombre(localStorage.getItem('Usu_Nomb'));
 		if (localStorage.getItem('Login') === 'Ok') {
 			setLogged(true);
@@ -130,7 +112,14 @@ export function Navbar(props) {
 		) {
 			setLogged(false);
 		}
-		setSesPartidas(localStorage.getItem('SesPartidas'));
+		setSesPartidas(
+			localStorage.getItem('SesPartidas') !== undefined &&
+				localStorage.getItem('SesPartidas') !== null
+				? localStorage.getItem('SesPartidas')
+				: 0
+		);
+		setFavoritos(localStorage.getItem('Favoritos'));
+        setAfiliado(localStorage.getItem('afiliado'))
 	}, [props]);
 
 	useEffect(() => {
@@ -140,7 +129,7 @@ export function Navbar(props) {
 				setSesPartidas(CountPartidas);
 			}
 
-            const countFavoritos = localStorage.getItem('Favoritos');
+			const countFavoritos = localStorage.getItem('Favoritos');
 			if (countFavoritos) {
 				setFavoritos(countFavoritos);
 			}
@@ -149,18 +138,21 @@ export function Navbar(props) {
 		return () => {
 			window.removeEventListener('storage', checkUserData);
 		};
-
-		Cliente = localStorage.getItem('Cliente');
-		Token = localStorage.getItem('Token');
-		Usuario = localStorage.getItem('Usuario');
-		ejecutivoNum = localStorage.getItem('ejecutivoNum');
 	}, [props]);
 
 	const handleClose = () => {
 		setOpenMenu(false);
 	};
 	const handleClick = (event) => {
-		setOpenMenu(true);
+		if (!isLogged) {
+			setAlerta({
+				severity: 'info',
+				mensaje: 'Inicia sesión para ver tus favoritos',
+				vertical: 'bottom',
+				horizontal: 'right',
+				variant: 'filled',
+			});
+		}
 	};
 
 	const handleOpenModal = () => {
@@ -221,14 +213,14 @@ export function Navbar(props) {
 		localStorage.setItem('Email', '');
 		localStorage.setItem('Usuario', RandomUser());
 		localStorage.setItem('afiliado', '');
-        localStorage.setItem('pedido', 0);
+		localStorage.setItem('pedido', 0);
+		localStorage.setItem('URL', '');
 		ruter.push('/');
 	}
 
 	function searchBoxSubmit(e) {
 		e.preventDefault();
 		var busquedaUrl = inputs.query;
-		var busquedaUrl1 = busquedaUrl.replace(/\s+/g, '+');
 		ruter.push({
 			pathname: '/busquedas',
 			query: { query: inputs.query },
@@ -273,26 +265,52 @@ export function Navbar(props) {
 			anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
 			<div>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/MisDatos'>Mis Datos</Link>
+					<Link href='/soho/MiCuenta/MisDatos'>
+						<Typography variant='h6' component='a' py={1}>
+							Mis Datos
+						</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/MisPedidos'>Pedidos</Link>
+					<Link href='/soho/MiCuenta/MisPedidos'>
+						<Typography variant='h6' component='a' py={1}>
+							Pedidos
+						</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/Direcciones'>Direcciones</Link>
+					<Link href='/soho/MiCuenta/Direcciones'>
+						<Typography variant='h6' component='a' py={1}>
+							Direcciones
+						</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/misFacturas'>Facturas</Link>
+					<Link href='/soho/MiCuenta/misFacturas'>
+						<Typography variant='h6' component='a' py={1}>
+							Facturas
+						</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/misFavoritos'>Favoritos</Link>
+					<Link href='/soho/MiCuenta/misFavoritos'>
+						<Typography variant='h6' component='a' py={1}>
+							Favoritos
+						</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/misNotasCredito'>Notas de Credito</Link>
+					<Link href='/soho/MiCuenta/misNotasCredito'>
+						<Typography variant='h6' component='a' py={1}>
+							Notas de Credito
+						</Typography>
+					</Link>
 				</MenuItem>
 				<Divider />
 				<MenuItem onClick={() => (handleMenuClose(), CerrarSesion())}>
-					Salir
+					<Typography variant='h6' component='p' py={1} color='textSecondary'>
+						Salir{' '}
+					</Typography>
 				</MenuItem>
 			</div>
 		</Menu>
@@ -311,16 +329,36 @@ export function Navbar(props) {
 					overflow: 'visible',
 					filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
 					mt: 1.5,
+					'&:before': {
+						content: '""',
+						display: 'block',
+						position: 'absolute',
+						top: 0,
+						right: 14,
+						width: 10,
+						height: 10,
+						bgcolor: 'background.paper',
+						transform: 'translateY(-50%) rotate(45deg)',
+						zIndex: 0,
+					},
 				},
 			}}
 			transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 			anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
 			<div>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/Login'>Iniciar Sesión</Link>
+					<Link href='/Login'>
+						<Typography variant='h6' component='a' py={1}>
+							Iniciar Sesión
+						</Typography>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={handleMenuClose}>
-					<Link href='/RegistroUsuario'>Crear Cuenta</Link>
+					<Link href='/RegistroUsuario'>
+						<Typography variant='h6' component='a' py={1}>
+							Crear Cuenta{' '}
+						</Typography>
+					</Link>
 				</MenuItem>
 			</div>
 		</Menu>
@@ -328,31 +366,33 @@ export function Navbar(props) {
 
 	return (
 		<>
-			<HelpModal isOpen={openModal} onClose={handleOpenModal} />
 			<ElevationScroll {...props}>
 				<AppBar position='sticky'>
 					<Toolbar className={content}>
 						<Box component={'div'} alignItems={'center'} display='flex'>
-							<Hidden smDown={true}>
-								{/* Crear una variante del logo que sea adaptable / Por
-							ejemplo una "p" para esos casos de usos */}
-								<Link href='/Home'>
-									<a>
-										<img className={logo} src={logoUrl} alt='logo pedidos' />
-									</a>
-								</Link>
+                        
+                            <Hidden smUp>
+								<Box component={'span'}>
+									<DrawerCategorias />
+								</Box>
 							</Hidden>
-							<Box component={'span'} marginLeft='2%'>
-								<DrawerCategorias />
-							</Box>
-							<Hidden smDown={true}>
-								<Box component={'span'} padding={'1rem'}>
-									<Typography color='textPrimary'>Categorías</Typography>
+							{/*<Hidden smDown={true}>
+								 Crear una variante del logo que sea adaptable / Por
+							ejemplo una "p" para esos casos de usos */}
+							<Link href='/'>
+								<a>
+									<img className={logo} src={logoUrl} alt='logo pedidos' />
+								</a>
+							</Link>
+							{/* </Hidden> */}
+							<Hidden smDown>
+								<Box component={'span'} px={2}>
+									<DrawerCategorias />
 								</Box>
 							</Hidden>
 						</Box>
 						{/* <Hidden smDown='hide'> */}
-						<Hidden smDown>
+						<Hidden mdDown>
 							<Box width='30%'>
 								<form onSubmit={searchBoxSubmit}>
 									<TextField
@@ -365,7 +405,9 @@ export function Navbar(props) {
 										InputProps={{
 											endAdornment: (
 												<InputAdornment position='start'>
-													<Button type="submit"><SearchIcon /></Button>
+													<Button type='submit' aria-label="search" >
+														<SearchIcon />
+													</Button>
 												</InputAdornment>
 											),
 										}}
@@ -375,7 +417,6 @@ export function Navbar(props) {
 								</form>
 							</Box>
 						</Hidden>
-
 						<Box
 							display={'flex'}
 							flexDirection='row'
@@ -384,77 +425,116 @@ export function Navbar(props) {
 							flexWrap='nowrap'
 							component={'div'}>
 							{/* This inline styles is temporaly, when add link router component, remove */}
-							<Hidden smDown>
-								<Box component={'span'} style={{ cursor: 'pointer' }}>
-									<Typography component='span' color='textPrimary'>
+							<Hidden mdDown>
+								<Link href='/servicios/empresas'>
+								<a>
+								<Box
+									component={'span'}
+									style={{ cursor: 'pointer', fontWeight: 'Bold' }}>
+									<Typography
+										variant='subtitle2'
+										component='span'
+										color='textPrimary'>
 										Para{' '}
 									</Typography>
-									<Typography component='span' color='primary'>
+									<Typography
+										variant='subtitle2'
+										component='span'
+										color='primary'>
 										empresas
 									</Typography>
 								</Box>
+								</a>
+								</Link>
 							</Hidden>
 
-							<Box component={'span'}>
-								<IconButton onClick={handleClick}>
-									<Badge
-										badgeContent={isLogged ? favoritos : null}
-										color='secondary'>
-										<Link href='/misFavoritos'>
-											<FavoriteBorder />
-										</Link>
-									</Badge>
-								</IconButton>
-								<Menu
-									anchorEl={anchorEl}
-									keepMounted
-									open={openMenu}
-									onClose={handleClose}>
-									<Box padding={'1em'}>
-										{/* <MenuItem onClick={handleClose}> */}
-										<Typography variant='subtitle2' align='center'>
-											Aún no tienes favoritos
-										</Typography>
-										{/* </MenuItem> */}
-										<Divider />
-										<Box
-											paddingTop={'1em'}
-											display='flex'
-											alignItems='center'
-											flexDirection={'column'}>
-											<IconButton>
-												<FavoriteBorder fontSize='large' />
-											</IconButton>
-											<Typography>Iniciar sesión para añadir</Typography>
-										</Box>
-									</Box>
-								</Menu>
-								<div ref={anchorEl} id='menu'></div>
-							</Box>
-							<IconButton onClick={handleOpenModal}>
-								<HelpOutlineIcon />
-							</IconButton>
-							<IconButton color='primary'>
+							<Hidden smDown>
+								<Box component={'span'}>
+									<IconButton aria-label="Favorites" 
+										onClick={handleClick}
+										aria-controls={open ? 'favorites' : undefined}
+										aria-haspopup='true'>
+										<Badge
+											badgeContent={
+												isLogged ? (favoritos > 0 ? favoritos : null) : null
+											}
+											color='secondary'>
+											{favoritos === null ||
+											favoritos === 0 ||
+											favoritos === undefined ? (
+												''
+											) : (
+												<Link href='/soho/MiCuenta/misFavoritos'>
+													<FavoriteBorder sx={{ color: '#9298A7' }} />
+												</Link>
+											)}
+										</Badge>
+									</IconButton>
+
+									<div ref={anchorEl} id='menu'></div>
+								</Box>
+								<Box mx={1}
+									component='span'
+									justifyContent='center'
+									sx={{ backgroundColor: '#E7ECF3', borderRadius: '100px' }}>
+									<Help tipo={'2'} />
+								</Box>
+							</Hidden>
+							<IconButton color='primary' aria-label="ShoppingCart">
 								<Badge
-									badgeContent={isLogged ? sesPartidas : null}
+									badgeContent={sesPartidas > 0 ? sesPartidas : null}
 									color='secondary'>
 									<Link href='/checkout/verifica-pedido'>
-										<ShoppingCartIcon />
+										<ShoppingCartOutlinedIcon sx={{ color: '#9298A7' }} />
 									</Link>
 								</Badge>
 							</IconButton>
 						</Box>
 						<Box>
 							{isLogged ? (
-								<IconButton
-									size='large'
-									aria-controls={menuId}
-									aria-haspopup='true'
-									onClick={handleProfileMenuOpen}>
-									<Avatar sx={{ width: 32, height: 32 }}>
-										{nombre.substring(0, 2)}
-									</Avatar>
-								</IconButton>
+								
+									<IconButton
+										size='large'
+										aria-controls={menuId}
+										aria-haspopup='true'
+										onClick={handleProfileMenuOpen}>
+                                            {localStorage.getItem('afiliado') === "false" ?
+                                                <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+                                                    <Avatar
+                                                        sx={{
+                                                            width: 48,
+                                                            height: 48,
+                                                            border: 2,
+                                                            borderColor: '#3655A5',
+                                                            color: '#3655A5',
+                                                            backgroundColor: '#E7ECF3',
+                                                            textTransform: 'uppercase',
+                                                        }}>
+                                                        {nombre.substring(0, 2)}
+                                                    </Avatar>
+                                                </Badge>
+                                                :
+                                                <Badge
+                                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                                badgeContent={
+                                                <Box component="span" sx={{backgroundColor:'#3655A5', borderRadius:'4px', color:'#fff', padding:'3px', marginLeft:'-46px', marginTop:'-8px'}} variant='caption'>PRO</Box>
+                                                }>
+                                                    <Avatar
+                                                        sx={{
+                                                            width: 48,
+                                                            height: 48,
+                                                            border: 2,
+                                                            borderColor: '#3655A5',
+                                                            color: '#3655A5',
+                                                            backgroundColor: '#E7ECF3',
+                                                            textTransform: 'uppercase',
+                                                        }}>
+                                                        {nombre.substring(0, 2)}
+                                                    </Avatar>
+                                                </Badge>
+                                            }
+									</IconButton>
+								
 							) : (
 								<Button
 									variant='contained'
@@ -467,31 +547,36 @@ export function Navbar(props) {
 						</Box>
 					</Toolbar>
 					<Hidden mdUp={true}>
-						<Box mt={'1rem'}>
-                            <form onSubmit={searchBoxSubmit}>
-                                <TextField
-                                    size='medium'
-                                    id='outlined-basic'
-                                    fullWidth
-                                    variant='outlined'
-                                    placeholder='Buscar..'
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position='start'>
-                                                <Button type="submit"><SearchIcon /></Button>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                    name='query'
+						<Box px={3} pb={1}>
+							<form onSubmit={searchBoxSubmit}>
+								<TextField
+									size='medium'
+									id='outlined-basic'
+									fullWidth
+									variant='outlined'
+									placeholder='Buscar..'
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position='start'>
+												<Button type='submit'>
+													<SearchIcon />
+												</Button>
+											</InputAdornment>
+										),
+									}}
+									name='query'
 									onChange={handleChange}
-                                />
-                            </form>
+								/>
+							</form>
 						</Box>
 					</Hidden>
 				</AppBar>
 			</ElevationScroll>
 
 			{isLogged ? menuLogin : menuLogout}
+			{alerta.hasOwnProperty('severity') && (
+				<Alertas setAlerta={setAlerta} alerta={alerta} />
+			)}
 		</>
 	);
 }

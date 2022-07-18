@@ -14,7 +14,7 @@ const PaymentMethods = () => {
 				<Grid xs={12} md={5} display={{ xs: 'none', md: 'block' }} item>
 					<Box pt={2} height='100%' display='flex' alignItems='end'>
 						<img
-							src='https://pedidos.com/include/css/responsivo/imagenes/HP/gabs.png'
+							src='/imagenes/hp/gabs.png'
 							alt='Formas de pago'
 							width='100%'
 						/>
@@ -124,7 +124,7 @@ const PaymentMethods = () => {
 									<Link
 										underline='none'
 										color='#333'
-										href='/soho/Politicas/forma-pago.asp'>
+										href='/soho/Politicas/forma-de-pago'>
 										aquí
 									</Link>
 								</strong>

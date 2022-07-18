@@ -1,10 +1,15 @@
+import Head from 'next/head';
 import {Box, Container, Typography} from '@mui/material';
 import {Layout} from 'layout/Layout';
 import Link from 'next/link';
 
 export const AvisoPrivacidad = () => {
 	return (
-		<Layout>
+		<Layout title='Aviso de Privacidad | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Pedidos.com es tu nueva forma de comprar productos de oficina y papelería"/>
+				<link rel="canonical" href="https://pedidos.com/soho/cliente/aviso-privacidad"/>
+			</Head>
 			<Container maxWidth='md'>
 				<Box marginTop='2rem'>
 					<Typography
@@ -291,9 +296,11 @@ export const AvisoPrivacidad = () => {
 						autoridad es el Instituto Nacional de Transparencia, Acceso a la
 						Información y Protección de Datos Personales (INAI), su sitio web
 						es:{' '}
-						<a href='www.inai.org.mx/' target={'_blank'}>
+						<Link href='www.inai.org.mx'>
+						<a>
 							www.inai.org.mx/
 						</a>
+						</Link>
 					</Typography>
 				</Box>
 				<Box marginTop={'1rem'}>

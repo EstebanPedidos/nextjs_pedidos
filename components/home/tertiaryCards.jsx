@@ -1,11 +1,13 @@
 
-import Link from 'next/link'
+import Link from 'next/link';
 import Image from 'next/image';
 //MUI
 import {Box, Grid, Paper, Typography, Button, Card, 
   CardActionArea, CardContent, CardActions,CardMedia
  } from '@mui/material';
  import makeStyles from '@mui/styles/makeStyles';
+ import styles from 'styles/Home.module.css';
+
 // Import Swiper styles
 import { Swiper, SwiperSlide } from "swiper/react";
 //import SwiperCore, {Autoplay,Pagination,Navigation} from 'swiper';
@@ -20,37 +22,38 @@ const Boxcard = ({data})=>{
   return(
   <>  
     {/* <Box component="div" mt={1} p={2}> */}
-        <Paper elevation={8}>
-            <Box component="div" sx={{position:'relative'}}>
-                <Grid container justifyContent="space-between" alignItems="center">
-					<Grid item xs={12} sm={6} md={6} lg={7}>
-                        <Box component="div" textAlign="left" p={4} >
-                            <Typography variant="caption" color="textSecondary">Limpieza</Typography><br/>
-                            <Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
-                                {data.titulo}
-                            <Box component="span" sx={{color:'#f1861c'}}>
-                                {data.precio}
+        <Box component="div" py={2}>
+            <Box component="div" px={1}>
+                <Card variant={0}  className={styles.sbox} sx={{ display: 'flex', position:'relative' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent:'space-between' }}>
+                        <CardContent className={styles.sboxcontent} sx={{ flex: '1 0 auto' }}>
+                            <Box component="div" textAlign="left" >                                
+                                <Typography variant="h4" component="h3" sx={{fontWeight:'600'}}>
+                                        {data.titulo}
+                                    <Box component="span" sx={{color:'#f1861c'}}>
+                                        {data.precio}
+                                    </Box>
+                                </Typography>  
+                                <Typography variant="h6" component="p" sx={{fontWeight:'500'}}>
+                                    {data.subtitle}
+                                </Typography>
+                                <Typography variant="subtitle1" component="p" color="textSecondary">
+                                    {data.text1} 
+                                </Typography>
                             </Box>
-                            </Typography>
-                            
-                            <Typography variant="subtitle1" sx={{fontWeight:'500'}}>
-                            {data.subtitle}
-                            </Typography>
-                            <Typography variant="subtitle2" color="textSecondary">
-                            {data.text1} 
-                            </Typography>
-                        </Box> 
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={6} lg={5}>
-                        <img 
-                            src= {data.imgcard}
-                            alt= {data.keyw}
-                            layout="fill"
-                        />
-                    </Grid>
-                </Grid>                    
+                        </CardContent>
+                    
+                    </Box>
+                    <CardMedia
+                        component="img" className={styles.sboximg}
+                        sx={{ width: 'auto', position:'absolute', top:'0rem', right:'0rem' }}
+                        image= {data.imgcard}
+                        alt= {data.keyw}
+                        objectPosition="right"   
+                    />
+                </Card>
             </Box>
-        </Paper>
+        </Box>
     {/* </Box> */}
         
   </> 
@@ -59,23 +62,59 @@ const Boxcard = ({data})=>{
 export default function SecondaryCards() {
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center" spacing={3}>
-        <Grid item xs={12} sm={12} md={4} lg={4} >
-            <Link href="/">
+
+    <Swiper
+        //modules={[Autoplay]}
+        lazy={true}
+        spaceBetween={20}
+        slidesPerView={3}
+        //centeredSlides={true}
+        //autoplay={{
+        //"delay": 2500,
+        //"disableOnInteraction": false}}
+        onSlideChange={() => console.log('slide change')}
+        onSwiper={(swiper) => console.log(swiper)}
+        className="mySwiper6"
+        breakpoints={{
+            320: {
+                slidesPerView: 1.1,
+                
+              },
+            640: {
+              slidesPerView: 1.2,
+              
+            },
+            768: {
+              slidesPerView:2.1,
+              
+            },
+            1024: {
+              slidesPerView: 2,
+             
+            },
+            1200: {
+                slidesPerView: 3,
+               
+              },
+        }}
+        >
+        
+        <SwiperSlide>
+            <Link href="/busquedas?/TLAPALERIA/INDUSTRIAL/CUBREBOCAS">
                 <a>
-                <Boxcard 
-                    data={{
-                    titulo:'Salud y Cuidado',
-                    subtitle: 'Productos clave para cuidarte a ti y a los demás.', 
-                    text1:'Gel antibacterial, Cubrebocas y más...',
-                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home20/principales/salud-150.webp',
-                    keyw:'Productos para oficina, papelería, papel, cajas de papel, resma de papel' }}
-                />				
+                    <Boxcard 
+                        data={{
+                        titulo:'Salud y Cuidado',
+                        subtitle: 'Productos clave:', 
+                        text1:'Gel antibacterial, Cubrebocas y más...',
+                        imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home20/principales/salud-150.webp',
+                        keyw:'Productos para oficina, papelería, papel, cajas de papel, resma de papel' }}
+                    />				
                 </a>
             </Link>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4} lg={4} >
-            <Link href="/">
+        </SwiperSlide>
+        <SwiperSlide>
+            <Link href="/busquedas?d=true&g=true">
                 <a>
                 <Boxcard 
                     data={{
@@ -86,22 +125,22 @@ export default function SecondaryCards() {
                 />				
                 </a>
             </Link>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4} lg={4} >
-            <Link href="/">
+        </SwiperSlide>
+        <SwiperSlide>
+            <Link href="/busquedas?query=Caja+abierta">
                 <a>
-                <Boxcard 
-                    data={{
-                    titulo:'Ahorra con Pedidos.com Outlet',
-                    subtitle: 'Encuentra productos reacondicionados o de caja abierta.', 
-                    text1:'Conoce todos los detalles ',
-                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home20/principales/caja-150.webp',
-                   keyw:'cómputo, hardware, laptops, all in one, aio, tablets' }}
-                />				
+                    <Boxcard 
+                        data={{
+                        titulo:'Ahorra en la Outlet',
+                        subtitle: 'Productos Reacondicionados o de caja abierta.', 
+                        imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home20/principales/caja-150.webp',
+                        keyw:'cómputo, hardware, laptops, all in one, aio, tablets' }}
+                    />				
                 </a>
             </Link>
-        </Grid>
-    </Grid>
+        </SwiperSlide>
+    </Swiper>
+    
          
 
 	)

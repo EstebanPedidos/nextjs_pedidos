@@ -1,11 +1,16 @@
-// import { Container, Typography, Box } from '@material-ui/core';
+import Head from 'next/head';
 import { Container, Typography, Box } from '@mui/material';
+//components
 import { HeadingPolicies, PoliciesMenu } from '/components';
 import { Layout } from '/layout/Layout';
 
 export const FormaDePago = () => {
 	return (
-		<Layout>
+		<Layout title='Formas de Pago | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Múltiples formas de pago dentro de Pedidos.com ¡Conócelas!"/>
+				<link rel="canonical" href="https://pedidos.com/soho/politicas/forma-de-pago"/>
+			</Head>
 			<Container maxWidth='xl'>
 				<HeadingPolicies/>
 				<PoliciesMenu />

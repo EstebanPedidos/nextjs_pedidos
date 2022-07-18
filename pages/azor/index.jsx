@@ -1,7 +1,6 @@
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Container from '@mui/material/Container';
-
+import Head from 'next/head';
+import {Box, Container,  Divider} from '@mui/material';
+//components
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
 import CardsCarouselSection from 'components/CardsCarouselSection/CardsCarouselSection';
@@ -63,6 +62,10 @@ const brands = [
 const Azor = () => {
 	return (
 		<Layout title='Azor | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Encuentra la gran variedad de prooductos de oficina y papelería Azor. Paga a Meses Sin Intereses , 18 MSI con tarjetas bancarias participantes o hasta 24 MSI con citibanamex"/>
+				<link rel="canonical" href="https://pedidos.com/azor"/>
+			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/azor/back-azor.webp'
 				alt='Azor'
@@ -77,7 +80,7 @@ const Azor = () => {
 					title='Marcas de Azor'
 					subtitle='Las marcas y productos de escritura'
 					items={brands}
-					ctaLink='/busquedas.asp?m=FORTEC&m=AZOR'
+					ctaLink='/busquedas?m=FORTEC&m=AZOR'
 				/>
 			</Box>
 			<Container sx={{ mt: 5 }}>

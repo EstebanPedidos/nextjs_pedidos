@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'; 
 import clsx from 'clsx';
 import {
-	Drawer,
+	Drawer, Button, Hidden,
 	List,
 	Divider,
 	ListItem,
@@ -14,10 +14,8 @@ import {
 } from '@mui/material';
 
 import { makeStyles, useTheme } from '@mui/styles';
-
-
 import { content, logo, iconhca } from '../Navbar.module.css';
-
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 //Nextjs
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -1178,14 +1176,16 @@ export default function DrawerCategorias() {
     return(
         <>
             <div>
-                <IconButton onClick={toggleDrawer("left", true)}>
-                    <img
-                        className={iconhca}
-                        src='https://pedidos.com/myfotos/pedidos-com/pagina/header/catego.svg'
-                        alt='categories'
-                    />
+                <Hidden smDown={true}>
+                    <Button onClick={toggleDrawer("left", true)} startIcon={<MenuOutlinedIcon />} sx={{color:'rgb(0 0 0 / 87%)'}}>
+                        Categorias
+                    </Button>
+                </Hidden>
+                <Hidden smUp={true}>
+                <IconButton aria-label="Categorias" onClick={toggleDrawer("left", true)}>
+                    <MenuOutlinedIcon  />
                 </IconButton>
-
+                </Hidden>
                 <Drawer
                 anchor="left"
                 open={state["left"]}

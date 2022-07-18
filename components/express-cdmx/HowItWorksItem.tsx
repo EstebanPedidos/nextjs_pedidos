@@ -1,8 +1,20 @@
-import { makeStyles } from '@mui/styles';
-import clsx from 'clsx';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
+import { makeStyles } from '@mui/styles';
+import clsx from 'clsx';
+
+export interface DataItem {
+	title: string;
+	bigTitle: boolean;
+	text: string;
+	icon?: string;
+	iconWidth?: number;
+}
+
+export interface IHowItWorksItemProps {
+	item: DataItem;
+}
 
 const useStyles = makeStyles({
 	bigTitle: {
@@ -15,17 +27,6 @@ const useStyles = makeStyles({
 	},
 });
 
-// export interface DataItem {
-// 	title: string;
-// 	bigTitle: boolean;
-// 	text: string;
-// 	icon: string;
-// }
-
-// export interface IHowItWorksItemProps {
-// 	item: DataItem;
-// }
-
 export const HowItWorksItem = ({ item }: any) => {
 	const classes = useStyles();
 	const titleClassName = clsx({
@@ -35,39 +36,42 @@ export const HowItWorksItem = ({ item }: any) => {
 
 	return (
 		<Grid item xs={12} md={6} lg={3}>
-			<Grid container spacing={2}>
-				<Grid item xs={1.5}>
+			<Box display='flex' gap={1.5} py={2.5}>
+				{item.icon && (
 					<Box
 						display='flex'
 						justifyContent={'center'}
 						alignItems='center'
 						height={'100px'}>
 						{/* {item.icon && <item.icon />} */}
-						{item.icon && (
-							<img
-								src={item.icon}
-								alt={item.title}
-								style={{
-									width: '50px',
-									height: 'auto',
-									border: 0,
-								}}
-								sizes='50px'
-							/>
-						)}
+						<Box
+							component='img'
+							src={item.icon}
+							alt={item.title}
+							sx={{
+								width: item.iconWidth,
+								height: 'auto',
+								border: 0,
+								px: 1.5,
+								py: 2.5,
+							}}
+						/>
 					</Box>
-				</Grid>
-				<Grid item xs={10.5}>
+				)}
+				<Box>
 					<Typography
 						component={item.bigTitle ? 'h1' : 'h4'}
 						variant={item.bigTitle ? 'h1' : 'h6'}
-						className={titleClassName}
+						fontSize={item.bigTitle ? 32 : 18}
+						fontWeight={item.bigTitle ? 700 : 500}
 						gutterBottom>
 						{item.title}
 					</Typography>
-					<Typography component='p'>{item.text}</Typography>
-				</Grid>
-			</Grid>
+					<Typography component='p' fontSize={14}>
+						{item.text}
+					</Typography>
+				</Box>
+			</Box>
 		</Grid>
 	);
 };

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
-const Carousel = (props) => {
+const CategoryCarousel = (props) => {
 	const { productCategories } = props;
 
 	return (
@@ -47,4 +47,4 @@ const Carousel = (props) => {
 	);
 };
 
-export default Carousel;
+export default CategoryCarousel;

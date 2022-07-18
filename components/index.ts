@@ -1,6 +1,6 @@
 export { Footer } from './Footer';
 export { Navbar } from './Navbar';
-export { HeroSection } from './HeroSection';
+export { SubNav } from './SubNav';
 export { HelpModal } from './modals';
 export { PoliciesMenu } from './policies/PoliciesMenu';
 export { CategoriesDrawer } from './drawers/CategoriesDrawer';

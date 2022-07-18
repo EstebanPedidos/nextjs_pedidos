@@ -116,7 +116,7 @@ const SubmitPayment = ({ customStyle,evento,total}) => {
 				style={{ float: "right" }}
 				onClick={handleClick}
 			>
-				{paying ? <div className="spinner tiny" /> : "Pagar"}
+				{paying ?"Pagando...": "Pagar"}
 			</Button>
 			{(alerta.hasOwnProperty('severity'))&&
 				<Alertas setAlerta={setAlerta} alerta={alerta}/>
@@ -126,10 +126,9 @@ const SubmitPayment = ({ customStyle,evento,total}) => {
 };
 
 
-export default function Fields({clientToken,evento,total}) {	
+export default function Fields({clientToken,evento,total,getPaymentTokens,cambioNueva,pedido}) {	
 	var appendOption = function (options) {
 		if(parseFloat(total.replace(',','')) >= minMeses){
-			var ingresa = true;
 			var $installmentList = document.getElementById('installments');
 			var $option = document.createElement('option');	  
 			if (options.type === 'no_installments_option') {
@@ -172,8 +171,7 @@ export default function Fields({clientToken,evento,total}) {
 	};
 
 	return (
-		<>
-		
+		<>		
 			{clientToken ? (
 			<Box component="div" py={2}>
 				<Box component="div" pb={4}>
@@ -184,9 +182,11 @@ export default function Fields({clientToken,evento,total}) {
 							</Typography>
 						</Grid>
 						<Grid item xs={4} sm={4}>
-							<Button disableElevation variant="contained" fullWidth>
+							{(getPaymentTokens.length > 0)&&
+							<Button onClick={()=>{cambioNueva(2)}} disableElevation variant="contained" fullWidth>
 								Regresar
 							</Button>
+							}
 						</Grid>
 					</Grid>
 				</Box>
@@ -195,6 +195,7 @@ export default function Fields({clientToken,evento,total}) {
 						"client-id":"ARuJiaAFKxs8vJtK5KxLz0wHlC3Tdgz-XRbMSNwHC2GY0Ip0JIxMgxfgB6oqbGDwh8CFRhUS-vpcGfv_",
 						components: "buttons,hosted-fields",
 						"data-client-token": clientToken,
+                        "data-client-metadata-id": pedido, 
 						currency: "MXN",
     					locale:"es_MX",
 						intent: "capture",
@@ -205,9 +206,9 @@ export default function Fields({clientToken,evento,total}) {
 						styles={{".valid":{"color":"#28a745"},".invalid":{"color":"#dc3545"},"input":{"font-family":"Poppins","font-size":"16px"}}}
 						createOrder={function () {
 							async function orden(){
-                                let services    = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'})
+                                let services    = await Services('POST-PAYPAL','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'},pedido)
                                 let data        = await services.data
-								console.log('Orden Paypal: '+data)
+								
                                 return data
                             }       
                             return orden()

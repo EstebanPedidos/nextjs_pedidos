@@ -1,16 +1,19 @@
 import axios from 'axios'
 const PATH ='https://api-pickup.pedidos.com/API-Rest'
-//'http://192.10.2.166:8080/rest'
-
-
-
-function Services(metodo,url,json) {
+//  const PATH ='http://localhost:8080/ServiciosEsteban'
+// const PATH ='http://10.128.0.2:9090/API-Rest'
+ 
+          
+function Services(metodo,url,json, pedidoNum) {
     switch (metodo) {
         case 'POST':
           return getMetodPost(url,json)
           break;
         case 'POST-NOT':
           return getMetodPost_not(url,json)
+          break;
+        case 'POST-PAYPAL':
+          return getMetodPostPayPal(url,json,pedidoNum)
           break;
         case 'GET':
         return getMetodGet(url,json)
@@ -36,6 +39,15 @@ function Services(metodo,url,json) {
       }
       return await axios.post(PATH+url,json)
     }
+
+    async function getMetodPostPayPal(url,json,pedidoNum){
+        json.headers ={
+            'Content-Type': 'application/json',
+            'Access-control-Allow-Origin' : '*',
+            'Access-control-Allow-Methods' : 'GET, PUT, POST, DELETE',
+        }
+        return await axios.post(PATH+url,json)
+      }
 
     async function getMetodPost_not(url,json){
       return await axios.post(PATH+url,json)

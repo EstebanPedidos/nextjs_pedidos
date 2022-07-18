@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Hostedfields({clientToken,salectOption,tajetaSave,evento,Delete,total,idMeses,loading,setLoading}) {
+export default function Hostedfields({clientToken,salectOption,tajetaSave,evento,Delete,total,idMeses,loading,setLoading,cambioNueva,pedidoNum}) {
     const classes  = useStyles()
     const [clientTokenC,setClientTokenC] = useState({})
     const [mes,setMes]                   = useState(0)
@@ -57,7 +57,7 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
             setLoading(true)
             let term                = await (mes > 0 )?idMeses[mes-1].term:''
             let interval_duration   = await (mes > 0 )?idMeses[mes-1].interval_duration:''
-            let services            = await Services('POST-NOT','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'})
+            let services            = await Services('POST-PAYPAL','/registrov2/createOrderPayPal',{evento:evento,isSTC:'S'}, pedidoNum)
             let orderId             = await services.data
             if(orderId !== '' && orderId !== 'null' && orderId !== null){
                 let services    = await Services('POST-NOT','/registrov2/getOrderPayPal',{evento:evento,orderID:orderId,address:'192.10.2.166',isSTC:'S',id_PayTok:tajetaSave, term:term,interval_duration:interval_duration})
@@ -88,33 +88,10 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
                         <RadioGroup aria-label="gender" name="tarjeta_guardada" value={tajetaSave} onChange={salectOption}>
                             <Grid container direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
                                 <Grid item xs={12}>
-                                    <FormControlLabel key="nueva" value="nueva" fullWidth label={                                                            
-                                        <Box component="div" py={2}>
-                                                <Grid container direction="row"  justifyContent="space-evenly"  alignItems="center" spacing={8}>
-                                                    <Grid item xs={3} >
-                                                        <Box component="div" ml={1}>
-                                                            <Avatar sx={{ backgroundColor:'#3655a6',}}>
-                                                                <AddOutlinedIcon />
-                                                            </Avatar>
-                                                        </Box>
-                                                    </Grid>
-                                                    <Grid item xs={9}>                                    
-                                                        <ListItemText id="list-label-payment-method" color="primary" primary={  
-                                                        <Typography component="subtitle2" sx={{ fontWeight:'500',}} color="primary">Agregar nueva</Typography>
-                                                            }/>
-                                                       
-                                                    </Grid>
-                                                   
-                                                </Grid>
-                                        </Box>
-                                    } control={<Radio />}/> 
-                                </Grid>
-                                
-                                <Grid item xs={12}>
                                     <Box component="div">
                                         <Grid container direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
                                             <Grid item xs={12} sm={6}>
-                                                <Button disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
+                                                <Button onClick={()=>{cambioNueva(1)}} disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
                                                    Añadir Nueva
                                                 </Button>
                                             </Grid>
@@ -208,7 +185,14 @@ export default function Hostedfields({clientToken,salectOption,tajetaSave,evento
 			}
             </Box>           
         :        
-        <Fields clientToken={clientTokenC.clienteToken} evento={evento} total={total}/>
+        <Fields 
+            clientToken={clientTokenC.clienteToken} 
+            evento={evento} 
+            total={total} 
+            getPaymentTokens={clientTokenC.getPaymentTokens} 
+            cambioNueva={cambioNueva} 
+            pedidoNum={pedidoNum}
+        />
         }
         </>
         

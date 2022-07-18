@@ -1,15 +1,10 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
+import Head from 'next/head';
+import {Box, Container, Typography, Button, Divider, Grid, } from '@mui/material';
 import Link from '@mui/material/Link';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import HeadsetMicOutlinedIcon from '@mui/icons-material/HeadsetMicOutlined';
-
 // import required modules
 import { Layout } from 'layout/Layout';
 import HPSearchScript from 'components/HPSearchScript';
@@ -21,48 +16,52 @@ const productCategories = [
 	{
 		label: 'Laptops para el hogar',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/lhogar.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Laptops empresariales',
 		img: 'https://pedidos.com/myfotos/Pedidos-com/pagina/Tienda-HP/lempresarial.webp',
-		url: '/busquedas.asp?query=HP-lap-&d=true',
+		url: '/busquedas?query=HP-lap-&d=true',
 	},
 	{
 		label: 'Zona Gaming',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/gaming1.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Accesorios',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/accesorios.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Desktops hogar',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/dhogar.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Desktops empresariales',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/dempresarial.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Impresoras empresariales',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/iempresarial.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 	{
 		label: 'Impresoras para el hogar',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/ihogar.webp',
-		url: '/busquedas.asp?query=PDIR-LAP-&m=HP&d=true',
+		url: '/busquedas?query=PDIR-LAP-&m=HP&d=true',
 	},
 ];
 
 const TiendaOficialHP = () => {
 	return (
 		<Layout title='Tienda Oficial HP en Pedidos.com'>
+			<Head>
+				<meta name="description" content="COMPRA AQUÍ los productos originales de HP que necesitas y descubre todo lo que Pedidos.com trae para ti en la tienda oficial de HP"/>
+				<link rel="canonical" href="https://pedidos.com/tienda-oficial-hp"/>
+			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/Tienda-HP/tiendaoftxt.jpg'
 				alt='Tienda oficial HP'
@@ -254,7 +253,7 @@ const TiendaOficialHP = () => {
 								<Link
 									underline='none'
 									className='c-blue'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/LAPTOPS&m=HP'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/LAPTOPS&m=HP'
 									target='_blank'>
 									laptops HP
 								</Link>{' '}

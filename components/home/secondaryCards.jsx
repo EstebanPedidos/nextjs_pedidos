@@ -5,6 +5,7 @@ import Image from 'next/image';
 import {Box, Grid, Paper, Typography, Button, Card, 
   CardActionArea, CardContent, CardActions,CardMedia
  } from '@mui/material';
+ import styles from 'styles/Home.module.css';
  import makeStyles from '@mui/styles/makeStyles';
 // Import Swiper styles
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,39 +20,37 @@ import { margin } from '@mui/system';
 const Boxsecondarycard = ({data})=>{
   return(
   <>
-    
-    <Box component="div" mt={1} p={2}>
-        <Paper elevation={8}>
-            <Box component="div" sx={{position:'relative'}}>
-                <Grid container justifyContent="space-between" alignItems="center">
-					<Grid item xs={12} sm={6} md={6} lg={7}>
-                        <Box component="div" textAlign="left" p={4} >
-                        
-                        <Typography variant="h5" component="h2" sx={{fontWeight:'600'}}>
-                            {data.titulo}
-                        <Box component="span" sx={{color:'#f1861c'}}>
-                            {data.precio}
+    <Box component="div" py={2}>
+        <Box component="div" px={1}>
+            <Card variant={0}  className={styles.sbox} sx={{ display: 'flex', justifyContent:'space-between'}}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent:'space-between' }}>
+                    <CardContent sx={{ flex: '1 0 auto' }}>
+                        <Box component="div" mt={4} ml={2} textAlign="left" >
+                            <Typography variant="h4"  component="h2" sx={{fontWeight:'600'}}>
+                                    {data.titulo}
+                                <Box component="span" sx={{color:'#f1861c'}}>
+                                    {data.precio}
+                                </Box>
+                            </Typography>  
+                            <Typography variant="h6" component="p" sx={{fontWeight:'500'}}>
+                                {data.subtitle}
+                            </Typography>
+                            <Typography variant="subtitle1" component="p" color="textSecondary">
+                                {data.text1} 
+                            </Typography>
                         </Box>
-                        </Typography>
-                        
-                        <Typography variant="subtitle1" sx={{fontWeight:'500'}}>
-                        {data.subtitle}
-                        </Typography>
-                        <Typography variant="subtitle2" color="textSecondary">
-                        {data.text1} 
-                        </Typography>
-                        </Box> 
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={6} lg={5}>
-                        <img 
-                            src= {data.imgcard}
-                            alt= {data.keyw}
-                            layout="fill"
-                        />
-                    </Grid>
-                </Grid>                    
-            </Box>
-        </Paper>
+                    </CardContent>
+                
+                </Box>
+                <CardMedia
+                    component="img"
+                    sx={{ width: 'auto', height:250 }}
+                    image= {data.imgcard}
+                    alt= {data.keyw}
+                    objectPosition="right"   
+                />
+            </Card>
+        </Box>
     </Box>
         
   </> 
@@ -62,27 +61,27 @@ export default function SecondaryCards() {
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center" spacing={4}>
         <Grid item xs={12} sm={12} md={6} lg={6} >
-            <Link href="/">
+            <Link href="/articulos/caja-de-papel-reprograf-carta-92-porciento-blancura-10-paquetes-con-500-hojas-75-grs">
                 <a>
                 <Boxsecondarycard 
                     data={{
-                    titulo:'Desde ',
-                    precio:'$999', 
-                    subtitle: 'Papel Bond PAPERLINE ', 
-                    text1:'Caja con 10 Resmas de 500 HOJAS c/u',
-                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/paperline-xs.png',
+                    titulo:'Papel desde ',
+                    precio:'$1,105', 
+                    subtitle: 'REPROGRAF, Tamaño Carta.', 
+                    text1:'Caja con 10 Paquetes de 500 HOJAS',
+                    imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/reprograf-xs.webp',
                     keyw:'Productos para oficina, papelería, papel, cajas de papel, resma de papel' }}
                 />				
                 </a>
             </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} >
-            <Link href="/">
+            <Link href="/categorias/tecnologia/computo">
                 <a>
                 <Boxsecondarycard 
                     data={{
-                    titulo:'Encuentra tu computadora ',
-                    subtitle: 'variedad de opciones para tu día a día. ', 
+                    titulo:'Todo en Cómputo',
+                    subtitle: 'Encuentra el equipo perfecto para ti. ', 
                     imgcard:'https://pedidos.com/myfotos/pedidos-com/pagina/home21/principales/computo-pedidos-xs.png',
                    keyw:'cómputo, hardware, laptops, all in one, aio, tablets' }}
                 />				

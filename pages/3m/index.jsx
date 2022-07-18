@@ -1,8 +1,6 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-
+import Head from 'next/head';
+import {Box, Container, Typography, Grid, Divider} from '@mui/material';
+//components
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
 import CardsCarouselSection from 'components/CardsCarouselSection/CardsCarouselSection';
@@ -52,6 +50,10 @@ const brandLogos = [
 const ThreeM = () => {
 	return (
 		<Layout title='3M | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Compra los productos 3M, Scotch, Post-it, Scotch Brite.  en Pedidos.com, Paga a Meses Sin Intereses , 18 MSI con tarjetas bancarias participantes o hasta 24 MSI con citibanamex"/>
+				<link rel="canonical" href="https://pedidos.com/3m"/>
+			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/3m/3m-back.png'
 				alt='3M'
@@ -67,7 +69,7 @@ const ThreeM = () => {
 					title='Marcas de 3M'
 					subtitle='Las marcas más importantes para todos los días.'
 					items={brands}
-					ctaLink='/busquedas.asp?query=3m&m=3M'
+					ctaLink='/busquedas?query=3m&m=3M'
 					breakpoints={{
 						1024: {
 							slidesPerView: 3,

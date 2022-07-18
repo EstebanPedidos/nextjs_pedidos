@@ -1,9 +1,6 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
-
+import Head from 'next/head';
+import {Container,Box, Grid, Typography, Divider,} from '@mui/material';
+//Components
 import { Layout } from 'layout/Layout';
 import HeroImage from 'components/HeroImage';
 import CardsCarouselSection from 'components/CardsCarouselSection';
@@ -18,27 +15,27 @@ const categories = [
 		label: 'Escolar',
 		description: 'Para cada etapa',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/monitores/monitor-escolar.webp?w=390&h=490&crop=faces&dpr=2&fit=crop',
-		url: '/busquedas.asp?query=monitor-21.5&d=true',
+		url: '/busquedas?query=monitor-21.5&d=true',
 		icon: 'fa-graduation-cap',
 	},
 	{
 		label: 'Empresarial',
 		description: 'Mejora tu productividad',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/monitores/monitor-empresa.webp?w=390&h=490&crop=faces&dpr=2&fit=crop',
-		url: '/busquedas.asp?query=monitor',
+		url: '/busquedas?query=monitor',
 		icon: 'fa-briefcase',
 	},
 	{
 		label: 'Gaming',
 		description: 'Disfruta los juegos',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/monitores/monitor-gamer.webp?w=390&h=490&crop=faces&dpr=2&fit=crop',
-		url: '/busquedas.asp?query=monitor+gaming',
+		url: '/busquedas?query=monitor+gaming',
 		icon: 'fa-gamepad',
 	},
 	{
 		label: 'Diseño & Arquitectura ',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/monitores/monitor-profesionales.webp?w=390&h=490&crop=faces&dpr=2&fit=crop',
-		url: '/busquedas.asp?query=monitor-27&d=true',
+		url: '/busquedas?query=monitor-27&d=true',
 		icon: 'fa-pencil-ruler',
 	},
 ];
@@ -46,12 +43,12 @@ const categories = [
 const CPUbrands = [
 	{
 		label: 'Intel',
-		url: '/busquedas.asp?query=Laptop&p=INTEL-CORE--I7&p=INTEL-CORE--I5&p=INTEL-CORE--I3&p=INTEL-CELERON-N4020&p=INTEL-CORE-I5&p=INTEL-CELERON&p=INTEL-CORE-I7&p=INTEL-CORE-I3-1115G4&p=INTEL-CORE-I5-10210U&p=INTEL-PENTIUM&p=INTEL-CORE-I5-1035G1%22',
+		url: '/busquedas?query=Laptop&p=INTEL-CORE--I7&p=INTEL-CORE--I5&p=INTEL-CORE--I3&p=INTEL-CELERON-N4020&p=INTEL-CORE-I5&p=INTEL-CELERON&p=INTEL-CORE-I7&p=INTEL-CORE-I3-1115G4&p=INTEL-CORE-I5-10210U&p=INTEL-PENTIUM&p=INTEL-CORE-I5-1035G1%22',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/procesadores/intel.webp',
 	},
 	{
 		label: 'AMD',
-		url: '/busquedas.asp?query=Laptop&p=AMD-RYZEN-7&p=AMD-A4&p=AMD-RYZEN-3&p=AMD-RYZEN-3-3300U&p=AMD-3020E&p=AMD-RYZEN-5-3500U&p=AMD-RYZEN-7-4700U&p=AMD-RYZEN-5https://pedidos.com/busquedas.asp?query=Laptop&p=AMD-RYZEN-7&p=AMD-A4&p=AMD-RYZEN-3&p=AMD-RYZEN-3-3300U&p=AMD-3020E&p=AMD-RYZEN-5-3500U&p=AMD-RYZEN-7-4700U&p=AMD-RYZEN-5',
+		url: '/busquedas?query=Laptop&p=AMD-RYZEN-7&p=AMD-A4&p=AMD-RYZEN-3&p=AMD-RYZEN-3-3300U&p=AMD-3020E&p=AMD-RYZEN-5-3500U&p=AMD-RYZEN-7-4700U&p=AMD-RYZEN-5https://pedidos.com/busquedas?query=Laptop&p=AMD-RYZEN-7&p=AMD-A4&p=AMD-RYZEN-3&p=AMD-RYZEN-3-3300U&p=AMD-3020E&p=AMD-RYZEN-5-3500U&p=AMD-RYZEN-7-4700U&p=AMD-RYZEN-5',
 		img: 'https://pedidos.com/myfotos/pedidos-com/pagina/computo/procesadores/amd.webp',
 	},
 ];
@@ -59,6 +56,10 @@ const CPUbrands = [
 const Monitores = () => {
 	return (
 		<Layout title='Monitores y equipo de computo para oficina | Pedidos.com'>
+			<Head>
+				<meta name="description" content="Compra en línea monitores para oficina y hogar. Marcas como HP, Acer, Samsung y más en tu tienda en línea pedidos.com. Envío gratis en CDMX."/>
+				<link rel="canonical" href="https://pedidos.com/categorias/tecnologia/computo/monitores"/>
+			</Head>
 			<HeroImage
 				src='https://pedidos.com/myfotos/pedidos-com/pagina/computo/back-computo.webp'
 				alt='Computo'
@@ -75,7 +76,7 @@ const Monitores = () => {
 					title='¿Para qué se utilizará principalmente?'
 					items={categories}
 					ctaLabel='Ver todo'
-					ctaLink='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
+					ctaLink='/busquedas?/TECNOLOGIA/COMPUTO/MONITORES'
 					centered
 					ctaNewLine
 				/>
@@ -149,7 +150,7 @@ const Monitores = () => {
 								para jugar, tener{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/MONITORES'
 									target='_blank'>
 									monitores para computadora
 								</Link>
@@ -159,7 +160,7 @@ const Monitores = () => {
 								reciente, comprar{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/MONITORES'
 									target='_blank'>
 									monitores para PC
 								</Link>{' '}
@@ -194,7 +195,7 @@ const Monitores = () => {
 								¿Qué tan grande es lo suficientemente grande? Cuando se trata de{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/MONITORES'
 									target='_blank'>
 									monitores para computadora
 								</Link>
@@ -208,7 +209,7 @@ const Monitores = () => {
 								tamaños de{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/MONITORES'
 									target='_blank'>
 									monitor de computadora
 								</Link>{' '}
@@ -316,7 +317,7 @@ const Monitores = () => {
 								El tiempo de respuesta indica la rapidez con la que los{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/MONITORES'
 									target='_blank'>
 									monitores
 								</Link>{' '}
@@ -385,7 +386,7 @@ const Monitores = () => {
 								conectar tu nuevo monitor de manera ordenada. Los{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/MONITORES'
 									target='_blank'>
 									monitores de computadora
 								</Link>{' '}
@@ -412,7 +413,7 @@ const Monitores = () => {
 								Puedes usar{' '}
 								<Link
 									underline='none'
-									href='/busquedas.asp?/TECNOLOGIA/COMPUTO/MONITORES'
+									href='/busquedas?/TECNOLOGIA/COMPUTO/MONITORES'
 									target='_blank'>
 									monitores de PC
 								</Link>{' '}
@@ -451,14 +452,14 @@ const Monitores = () => {
 								mayor tamaño, son el{' '}
 								<Link
 									underline='none'
-									href='articulos/monitor-benq-gw2480-led-23-8-pulgadas'
+									href='/articulos/monitor-benq-gw2480-led-23-8-pulgadas'
 									target='_blank'>
 									monitor BENQ
 								</Link>{' '}
 								de 23.8 pulgadas o el{' '}
 								<Link
 									underline='none'
-									href='articulos/monitor-huawei-ad80hw-1920-x-1080-vga--hdmi-23-8-pulg-h'
+									href='/articulos/monitor-huawei-ad80hw-1920-x-1080-vga--hdmi-23-8-pulg-h'
 									target='_blank'>
 									monitor Huawei
 								</Link>

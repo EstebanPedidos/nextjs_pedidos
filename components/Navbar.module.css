@@ -13,3 +13,11 @@
 	width: 19px;
 	height: 19px;
 }
+
+@media (max-width: 630px) {
+	.logo {
+		margin-top: 0.5rem;
+		margin-left: 0.5rem;
+		width: 150px;
+	}
+ }

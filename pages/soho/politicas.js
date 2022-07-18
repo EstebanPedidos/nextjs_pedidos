@@ -1,15 +1,18 @@
 import React from 'react';
-// MATERIAL UI COMPONENTS
-// import { Box, Container, Icon, Typography } from '@material-ui/core';
+import Head from 'next/head';
+// MUI
 import { Box, Container, Icon, Typography, Button } from '@mui/material';
-
-//CUSTOM COMPONENTS
+// COMPONENTS
 import { Layout } from '/layout/Layout';
 import { HeadingPolicies, PoliciesMenu } from '/components';
 
 export const Politicas = () => {
 	return (
-		<Layout>
+		<Layout title='Políticas | Pedidos.com'>
+			<Head>
+				<meta name="description" content="AQUÍ encontrarás toda la información que necesitas saber sobre las políticas de envío, devoluciones y cancelaciones que tiene Pedidos.com"/>
+				<link rel="canonical" href="https://pedidos.com/soho/politicas"/>
+			</Head>
 			<Container maxWidth='xl'>
 				<HeadingPolicies />
 				<PoliciesMenu />

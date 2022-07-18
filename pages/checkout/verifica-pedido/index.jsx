@@ -1,9 +1,13 @@
 //Pauquetes
 import { useState, useEffect } from 'react';
-import * as React from 'react';
+//Tag Manager
+import TagManager from 'react-gtm-module'
+//hooks
+import {useLocalStorage} from '../../../hooks/useLocalStorage'
 //next js
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head'
 //Paquetes
 import {
 	Box,
@@ -14,8 +18,8 @@ import {
 	TextField,
 	Divider,
 	Alert,
-	Stack,
 	AlertTitle,
+	Skeleton, Hidden
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -47,10 +51,7 @@ const useStyles = makeStyles((theme) => ({
 		padding: '2px 4px',
 		display: 'flex',
 	},
-	emptyCart: {
-		padding: theme.spacing(1),
-		width: '160px',
-	},
+	
 }));
 
 export default function Verifica_pedido() {
@@ -64,11 +65,13 @@ export default function Verifica_pedido() {
 	const [alerta, setAlerta] = useState({});
 	const [carrito, setCarrito] = useState({});
 	const [partidas, setPartidas] = useState(0);
+	const [partidas2,setPartidas2]  = useLocalStorage('SesPartidas',0)
 	const [isEjecutivo, setisEjecutivo] = useState(false);
 	const [total, setTotal] = useState(0);
 	const [favoritos, setFavoritos] = useState([]);
 	const [articulos, setArticulos] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [cambioSG, setCambioSG] = useState(0);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -81,9 +84,10 @@ export default function Verifica_pedido() {
 			let carritoS 	= await services.data;
 			let totalS 		= await carritoS.configCarrito.precarrito
 				.map((item) =>
-						item.precio * item.cantidad +
-						item.precioSeguro * item.cantSeguro +
-						item.precioGarant1 * item.cantGarant1
+					item.precio * item.cantidad +
+					item.precioSeguro * item.cantSeguro +
+					item.precioGarant1 * item.cantGarant1+
+					item.precioGarant2 * item.cantGarant2
 				)
 				.reduce((prev, curr) => prev + curr, 0);
 			let isEjecutivo = await (carritoS.configCarrito.resenapedidos.length > 0);
@@ -124,9 +128,10 @@ export default function Verifica_pedido() {
 			setTotal(totalS);
 			setFavoritos(favoritos);
 			setArticulos(articulos);
+			setPartidas2(carritoS.configCarrito.precarrito.length)
 		};
 		getData();
-	}, [partidas]);
+	}, [partidas,cambioSG]);
 
 	async function add(item_num) {
 		setLoading(true);
@@ -134,6 +139,7 @@ export default function Verifica_pedido() {
             cliente     = await (parseInt(cliente) === 0)?201221:cliente            
 		let usuario     = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
 			usuario     = await (parseInt(usuario) === 0)?RandomUser():usuario
+		let item_add 	= await favoritos.filter(item => item.itemNum === item_num)
 		Services('POST-NOT', '/carritoyreservado/agregaCarrito', {
 			cliente_num: cliente,
 			usuario_num: usuario,
@@ -144,7 +150,27 @@ export default function Verifica_pedido() {
 		}).then((response) => {
 			if (response.data > 0) {
 				setPartidas(response.data);
+				setPartidas2(parseInt(response.data))
 				setLoading(false);
+				const tagManagerArgs = {
+					gtmId: 'GTM-NLQV5KF',
+					dataLayer: {
+						'event': 'addToCart',
+						'ecommerce': {
+						  'currencyCode': 'MXN',
+						  'add': {                                
+							'products': [{                        
+							  'name': item_add[0].tituloCompuesto,
+							  'id': item_num,
+							  'price': item_add[0].precio,
+							  'brand': item_add[0].marca,
+							  'quantity': 1
+							 }]
+						  }
+						}
+					},
+				}
+				TagManager.initialize(tagManagerArgs)
 			}
 		});
 	}
@@ -171,40 +197,105 @@ export default function Verifica_pedido() {
 				? Remove.toString()
 				: articulos.toString()
 			: item_num;
-		Services(
-			'DELETE',
-			'/carritoyreservado/deleteCarrito?clienteNum=' +
-				cliente +
-				'&usuarioNum=' +
-				usuario +
-				'&items=' +
-				articulosD,
-			{}
-		).then((response) => {
-			setLoading(false);
-			setPartidas(response.data);
-		});
+		if(articulosD !== ''){
+			let item_rem = await articulosD.split(',')	
+			Services(
+				'DELETE',
+				'/carritoyreservado/deleteCarrito?clienteNum=' +
+					cliente +
+					'&usuarioNum=' +
+					usuario +
+					'&items=' +
+					articulosD,
+				{}
+			).then((response) => {
+				setLoading(false);
+				setPartidas(response.data);
+				setPartidas2(parseInt(response.data))	
+				try {
+					if(item_rem.length > 0){
+						item_rem.forEach(function(item_num) {
+						   let item_add =  favoritos.filter(item => item.itemNum === item_num)
+						    const tagManagerArgs = {
+							   gtmId: 'GTM-NLQV5KF',
+							   dataLayer: {
+								   'event': 'removeFromCart',
+								   'ecommerce': {
+								   'currencyCode': 'MXN',
+								   'add': {                                
+									   'products': [{                        
+									   'name': item_add[0].tituloCompuesto,
+									   'id': item_num,
+									   'price': item_add[0].precio,
+									   'brand': item_add[0].marca,
+									   'quantity': 1
+									   }]
+								   }
+								   }
+							   },
+						   }
+						   TagManager.initialize(tagManagerArgs)
+					   });
+				   }
+				} catch (error) {
+					console.log('Error en tag removeFromCart')
+				}		
+			});
+		}
+		
 	}
 
 	async function UpdateCantidad({ target }) {
-		const { name, value, id } = target;
-		if (parseInt(value) === 0) {
+		let { name, value, id } =  target;
+		let cantidad_ins = await 0;
+		 if (parseInt(value) === 0) {
 			carrito.configCarrito.precarrito[name].modificar = await true;
 			carrito.configCarrito.precarrito[name].cantidad = await 6;
-		} else if (id === 'input') {
-			carrito.configCarrito.precarrito[name].cantidad = (await (parseInt(
-				value
-			) > carrito.configCarrito.precarrito[name].existencia))
-				? carrito.configCarrito.precarrito[name].existencia
-				: value;
-		} else {
-			carrito.configCarrito.precarrito[name].cantidad = await value;
+			cantidad_ins = await 6;
+		 } else if (id === 'input') {
+			cantidad_ins = (await (parseInt(value) > carrito.configCarrito.precarrito[name].existencia))
+			? carrito.configCarrito.precarrito[name].existencia
+			: value;
+			carrito.configCarrito.precarrito[name].cantidad = await cantidad_ins
+		 } else {			
+			cantidad_ins = await value
+			if (id === '' ){
+				carrito.configCarrito.precarrito[name].cantidad = await cantidad_ins
+			}
+		 }
+		if(cantidad_ins > 0){
+			let item_selec = await carrito.configCarrito.precarrito[name]
+			if(item_selec.hasOwnProperty('cantSeguro')){
+				if(parseInt(item_selec.cantSeguro) > 0){
+					if(id === '' || id === 'Plan'){
+						carrito.configCarrito.precarrito[name].cantSeguro = await cantidad_ins
+					}
+				}
+			}
+			if(item_selec.hasOwnProperty('cantGarant1')){
+				if(parseInt(item_selec.cantGarant1) > 0){
+					if(id === '' || id === 'Garantia1'){
+						carrito.configCarrito.precarrito[name].cantGarant1 = await cantidad_ins
+					}
+				}
+			}
+			if(item_selec.hasOwnProperty('cantGarant2')){
+				if(parseInt(item_selec.cantGarant2) > 0){
+					if(id === '' || id === 'Garantia2'){
+						carrito.configCarrito.precarrito[name].cantGarant2 = await cantidad_ins
+					}
+				}
+			}
 		}
 		let totalR = await carrito.configCarrito.precarrito
-			.map((item) => item.precio * item.cantidad)
-			.reduce((prev, curr) => prev + curr, 0);
-		setTotal(totalR);
-	}
+		.map((item) =>
+		item.precio * item.cantidad+
+		item.precioSeguro * item.cantSeguro +
+		item.precioGarant1 * item.cantGarant1+
+		item.precioGarant2 * item.cantGarant2)
+		.reduce((prev, curr) => prev + curr, 0);
+		 setTotal(totalR);
+ 	}
 
 	async function validaCodigoDescuento() {
 		let cliente     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
@@ -259,6 +350,24 @@ export default function Verifica_pedido() {
 		}
 	}
 
+	async function CambiarPlanes(index,opcion,tipo){
+		let item = await carrito.configCarrito.precarrito[index];
+		let cliente     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
+	 		cliente     = await (parseInt(cliente) === 0)?201221:cliente
+		let usuario     = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
+			usuario     = await (parseInt(usuario) === 0)?RandomUser():usuario
+		let datos       = await '/carritoyreservado/modificaSegGaran?clienteNum='+cliente+'&usuarioNum='+usuario+'&itemNum='+item.item_num+'&idInt='+((opcion===1)?item.cantidad:0)+'&seguro='+((opcion === 2)?(tipo==='S')?1:0:item.cantSeguro)+'&itemGarantia='+((parseInt(item.cantGarant1)> 0)?'ZZZGAEXT1':'ZZZGAEXT2')+'&garantia='+((opcion === 2)?(tipo === 'G')?1:0:((parseInt(item.cantGarant1)> 0)?parseInt(item.cantGarant1):parseInt(item.cantGarant2)))+'&opcion='+opcion
+		if(cliente !== 201221){
+				Services(
+						'PUT',
+						datos,
+						{}
+				).then((response) => {
+						setCambioSG(cambioSG+1)
+				});
+		}
+	}
+
 	async function reservaCarrito() {
 		setLoading(true);
 		let cliente     = await (localStorage.getItem('Cliente') === undefined || localStorage.getItem('Cliente') === null)?201221:localStorage.getItem('Cliente')
@@ -277,6 +386,9 @@ export default function Verifica_pedido() {
 							objeto.seguro = 0;
 							objeto.gaex = 0;
 							objeto.itemGarant = '';
+							objeto.seguro = item.cantSeguro;
+							objeto.gaex = (parseInt(item.cantGarant1) > 0)?item.cantGarant1:(parseInt(item.cantGarant2) > 0)?item.cantGarant2:0
+							objeto.itemGarant = (parseInt(item.cantGarant1) > 0)?'ZZZGAEXT1':(parseInt(item.cantGarant2) > 0)?'ZZZGAEXT2':'';
 							arraySkus.push(objeto);
 						} else {
 							setLoading(false);
@@ -323,6 +435,7 @@ export default function Verifica_pedido() {
 						arraySkus
 					).then((response) => {
 						if (response.data.pedido > 0) {
+							setPartidas2(parseInt(0))
 							localStorage.setItem('Pedido', response.data.pedido);
 							ruter.push('/checkout/direccion-de-envio');
 						} else {
@@ -346,12 +459,18 @@ export default function Verifica_pedido() {
 				}
 			}
 		}else{
+            localStorage.setItem('URL', '/checkout/verfica-pedido');
 			ruter.push('/Login')
 		}
 	}
 
 	return (
-		<Layout>
+		<Layout partidas={partidas2}>
+			<Head>
+				<title> Carrito de compras | Pedidos.com </title>
+  				<meta name="description" content="Pedidos.com, la tienda en línea con amplia variedad de productos. Encuentra ya papelería, tintas y tóners, tecnología, accesorios, muebles, tlapalería, limpieza, cafeteria y ¡Mucho más!. Todo lo que necesitas para tu oficina, negocio, escuela y hogar lo encuentras aquí." />
+  				<link rel="canonical" href="/checkout/verifica-pedido" />
+			</Head>
 		<Box component='div' m={1}>
 			<div className={classes.root}>
 				<Grid
@@ -359,11 +478,19 @@ export default function Verifica_pedido() {
 					justifyContent='space-around'
 					alignItems='flex-start'>
 					<Grid item xs={12} sm={8}>
+						{(carrito.hasOwnProperty('configCarrito'))?
 						<ItemFavorites
 							favoritos={favoritos}
 							add={add}
 							loading={loading}
 						/>
+						:
+						<Box sx={{ pt: 0.5 }}>
+							<Skeleton width="30%" animation="wave"/>    
+							<Skeleton variant="rectangular" width="25%" height={130} animation="wave"/>
+							<Skeleton width="25%" animation="wave"/>
+						</Box>
+						}
 						{partidas > 0 ? (
 							<Box component='div' m={2}>
 								<Box className={classes.root} py={2}>
@@ -467,10 +594,13 @@ export default function Verifica_pedido() {
 										Delete={Delete}
 										UpdateCantidad={UpdateCantidad}
 										modificar={modificar}
+										CambiarPlanes={CambiarPlanes}
 									/>
 								)}
 							</Box>
-						) : (
+						) : 
+						(carrito.hasOwnProperty('configCarrito'))?
+						(
 							<Box component='div' py={4}>
 								<Divider light variant='middle' />
 								<Box className={classes.root} py={2}>
@@ -482,10 +612,7 @@ export default function Verifica_pedido() {
 										spacing={2}>
 										<Grid item xs={12}>
 											<Box component='div' m={1} pt={4}>
-												<img
-													className={
-														classes.emptyCart
-													}
+												<img sx={{ width: '160px'}}
 													src='https://pedidos.com/myfotos/pedidos-com/pagina/carrito-compra/carrito-v.svg'
 													alt='Carrito vacio'
 												/>
@@ -514,58 +641,72 @@ export default function Verifica_pedido() {
 									</Grid>
 								</Box>
 							</Box>
+						)
+						:
+						(
+						<Box sx={{ pt: 1.5 }}>
+							<Skeleton width="40%" variant="rectangular" height={40} sx={{ mb: 1.5 }} animation="wave"/>
+							<Skeleton animation="wave" height={5} />
+							<Skeleton variant="rectangular" height={150} animation="wave" sx={{ my: 0.5 }}/>
+							<Skeleton animation="wave"  height={5} />
+
+						</Box>
+							
 						)}
 					</Grid>
+					{(carrito.hasOwnProperty('configCarrito'))?
 					<Grid item xs={12} sm={4}>
 						<Paper className={classes.paper} elevation={0}>
-							{isEjecutivo && (
+							<Hidden smDown>
+								{isEjecutivo && (
+									<div>
+										<ModalExecutive
+											resenapedidos={
+												carrito.configCarrito.resenapedidos
+											}
+											setEjecutivo={setEjecutivo}
+											ejecutivo={ejecutivo.ejecutivo}
+										/>
+									</div>
+								)}
 								<div>
-									<ModalExecutive
-										resenapedidos={
-											carrito.configCarrito.resenapedidos
-										}
-										setEjecutivo={setEjecutivo}
-										ejecutivo={ejecutivo.ejecutivo}
-									/>
-								</div>
-							)}
-							<div>
-								<Box
-									component='div'
-									m={1}
-									className={classes.root}>
-									<Grid
-										container
-										alignItems='center'
-										spacing={1}>
-										<Grid item xs={6} sm={5} lg={6}>
-											<Box textAlign='left'>
-												<Typography
-													component='h2'
-													variant='h6'>
-													Resumen
-												</Typography>
-											</Box>
-										</Grid>
-										<Grid item xs={6} sm={7} lg={6}>
-											{partidas > 0 && (
-												<Paper variant='outlined'>
-													<Typography variant='body2'>
-														<Box
-															py={1}
-															fontWeight='fontWeightMedium'>
-															{partidas}{' '}
-															{partidas > 1
-																? `productos`
-																: `producto`}
-														</Box>
+									<Box
+										component='div'
+										m={1}
+										className={classes.root}>
+										<Grid
+											container
+											alignItems='center'
+											spacing={1}>
+											<Grid item xs={6} sm={5} lg={6}>
+												<Box textAlign='left'>
+													<Typography
+														component='h2'
+														variant='h6'>
+														Resumen
 													</Typography>
-												</Paper>
-											)}
+												</Box>
+											</Grid>
+											<Grid item xs={6} sm={7} lg={6}>
+												{partidas > 0 && (
+													<Paper variant='outlined'>
+														<Typography variant='body2'>
+															<Box
+																py={1}
+																fontWeight='fontWeightMedium'>
+																{partidas}{' '}
+																{partidas > 1
+																	? `productos`
+																	: `producto`}
+															</Box>
+														</Typography>
+													</Paper>
+												)}
+											</Grid>
 										</Grid>
-									</Grid>
-								</Box>
-							</div>
+									</Box>
+								</div>
+							</Hidden>
 							<Box component='div'>
 								<form
 									className={classes.root}
@@ -767,6 +908,9 @@ export default function Verifica_pedido() {
 							)}
 						</Paper>
 					</Grid>
+					:
+					<Skeleton variant="rectangular" height={250} animation="wave"/>
+					}
 				</Grid>
 			</div>
 			{alerta.hasOwnProperty('severity') && (

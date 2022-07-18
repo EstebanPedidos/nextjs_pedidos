@@ -32,7 +32,7 @@ const ShippingBanner = () => {
 					*Consulta restricciones{' '}
 					<Link
 						underline='none'
-						href='/soho/Politicas/politicas.asp'
+						href='/soho/politicas'
 						target='_blank'>
 						aquí.
 					</Link>

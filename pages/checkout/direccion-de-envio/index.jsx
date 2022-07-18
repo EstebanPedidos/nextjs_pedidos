@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 //next js
 import { useRouter } from 'next/router';
+import Head from 'next/head'
+//Tag Manager
+import TagManager from 'react-gtm-module'
 //Material UI
 import { Container, Box, Grid, Paper, Typography, Button, Link, Skeleton,
         Card, CardActions, CardContent, CardActionArea,
         Avatar, Divider, Radio, RadioGroup, FormControlLabel} from '@mui/material';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import makeStyles from '@mui/styles/makeStyles';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
-
-
 //Componentes 
 import Resumen from '../Resumen';
 import Process from "../Process";
@@ -19,7 +22,7 @@ import Header  from '../Header';
 import ConFactura from '../modals/ConFactura';
 import Eliminar from '../modals/Eliminar';
 import Alertas from '../Alertas';
-
+import AddDir from '../../soho/MiCuenta/Direcciones/add/Index'
 //Servicos
 import Services from '../../services/Services'
 
@@ -27,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
     },
-    
+    label:{width:'100%'},
     rootCardA: {
         flexGrow: 1,
         height: "13rem",
@@ -56,8 +59,9 @@ export default function Direccion_de_envio(props){
     const [direcciones,setDirecciones]  = useState([])
     const [direccion,setDireccion]      = useState({dir_num:'0',observacion:'PickUP'});
     const [ejecutivo,setEjecutivo]      = useState({ejecutivo:'', slmn:0})
-    const [alerta,setAlerta]            = useState({estado:false,severity:'success',vertical:'bottom',horizontal:'right',mensaje:''})
+    const [alerta,setAlerta]            = useState({inputError:''})
     const [loading,setLoading]          = useState(false) 
+    const [addOpen,setAddOpen]          = useState(false);     
 
     useEffect(()=>{
         const getData = async () => {
@@ -70,7 +74,10 @@ export default function Direccion_de_envio(props){
                     if(pedido !== undefined && pedido !== null){
                         let services     = await Services('GET','/carritoyreservado/obtieneResumenPedido?pedidoNum='+pedido+'&afiliado='+afiliado+'&paso=1',{})
                         let json         = await {jsonResumen:services.data,pedido:pedido,Usu_Nomb:Usu_Nomb}
+                        let servicesM    = await Services('POST','/miCuenta/detallePedido?clienteNum='+cliente+'&pedidoNum='+pedido,{})
+                        let miPedido     = await servicesM.data
                         if(json.jsonResumen.resumen.estatus === 'R' && json.jsonResumen.resumen.pvse === 'N'){
+                            let Ldirecciones = await json.jsonResumen.direcciones.sort(SortArray)
                             /*if(json.jsonResumen.resumen.envio.tipo !== ''){
                                 if(json.jsonResumen.resumen.facturas.idMetodo !== 0  || json.jsonResumen.resumen.direccion.nombreDireccion === 'PickUP'){
                                     ruter.push('/checkout/forma-de-pago')
@@ -81,10 +88,40 @@ export default function Direccion_de_envio(props){
                                 if(resumen.facturas.rfc !== ''){
                                     ruter.push('/checkout/forma-de-envio')
                                 }else{*/
-                                    setDirecciones(json.jsonResumen.direcciones)
+                                    setDirecciones(Ldirecciones)
                                     setEjecutivo((json.jsonResumen.resumen.nombreEjecutivo !== '')?{ejecutivo:json.jsonResumen.resumen.nombreEjecutivo, slmn:0}:{ejecutivo:'', slmn:0})
                                     setPeso((json.jsonResumen.resumen.peso >= json.jsonResumen.resumen.pesoVolumetrico)?json.jsonResumen.resumen.peso:json.jsonResumen.resumen.pesoVolumetrico)
-                                    setData(json)  
+                                    setData(json) 
+                                    console.log(JSON.stringify(Ldirecciones))
+                                    if(Ldirecciones.length > 0){
+                                        setDireccion({dir_num:Ldirecciones[0].dirNum,observacion:Ldirecciones[0].observacion})
+                                    } 
+                                    if(miPedido.pedido.listPyPedidoDet.length > 0){
+                                        let products = await miPedido.pedido.listPyPedidoDet.map((item) =>
+                                            JSON.stringify({
+                                                'name': item.tituloCompuesto,
+                                                'id': item.itemNum,
+                                                'price': item.precio,
+                                                'quantity': item.cantidad
+                                            })
+                                        )
+                                        
+                                        if(products != ''){
+                                            const tagManagerArgs = {
+                                                gtmId: 'GTM-NLQV5KF',
+                                                dataLayer: {
+                                                    'event': 'checkout',
+                                                    'ecommerce': {
+                                                    'checkout': {
+                                                        'actionField': {'step': 1, 'option': 'Entrega'},
+                                                        'products': JSON.parse('['+products+']')
+                                                    }
+                                                }
+                                                },
+                                            }
+                                            TagManager.initialize(tagManagerArgs)   
+                                        }                                        
+                                    }                                   
                                /* }                
                             } */                 
                         } else{
@@ -100,8 +137,17 @@ export default function Direccion_de_envio(props){
                 ruter.push('/')
             }      
         }
-        getData()
-    },[])
+
+        if(!addOpen){
+            getData()
+        }        
+    },[addOpen])
+
+    function SortArray(x, y){
+        if (x.dirNum < y.dirNum) {return 1;}
+        if (x.dirNum > y.dirNum) {return -1;}
+        return 0;
+    }
 
     async function Delete({dirNum,nombreDireccion}){
         Services('PUT','/registrov2/inhabilitadireccion?clienteNum='+localStorage.getItem('Cliente')+'&dirNum='+dirNum,{})
@@ -154,7 +200,12 @@ export default function Direccion_de_envio(props){
     return ( 
        
         <Box className={classes.root}>
-            <Header/>
+            <Head>
+                <link href="https://pedidos.com/checkout/direccion-de-envio" rel="canonical" />
+                <title>Dirección de envío | Pedidos.com</title>
+                <meta name="description" content="Pedidos.com, la tienda en línea con amplia variedad de productos. Todo lo que necesitas para tu oficina, negocio, escuela y hogar lo encuentras aquí, solo selecciona y/o añade tu dirección de envío para la entrega de tu pedido. " />
+            </Head>
+            <Header/>            
             <Container maxWidth="lg">
                 <Box component="div" py={3} m={1}>
                     <Grid container spacing={2}>
@@ -200,8 +251,8 @@ export default function Direccion_de_envio(props){
                                         <Skeleton animation="wave" />
                                     </Box>
                                     }
-                                    <Box component="div" px={2}>
-                                        
+                                    {(!addOpen)?
+                                    <Box component="div" px={2}>                                        
                                         <Box component="div" py={2}>
                                             <RadioGroup name='direccion_envio' value={direccion.dir_num}  onChange={salectOption}>
                                             {(data.hasOwnProperty('jsonResumen'))&&
@@ -212,32 +263,34 @@ export default function Direccion_de_envio(props){
                                                             <Card className={classes.root} variant="outlined">
                                                                 <Box component="div" ml={1}>
                                                                     <CardActionArea>
-                                                                        <FormControlLabel sx={{ padding:"0px"}} value="0" label={
-                                                                            <Grid container direction="row" justifyContent="center" alignItems="center">
-                                                                                <CardContent>
-                                                                                        <Grid container alignItems="center" direction="row" justifyContent="flex-start">
-                                                                                            <Grid item xs={4} sm={2}>
-                                                                                                <Box justifyContent="center" py={1}>
-                                                                                                    <Avatar>
-                                                                                                        <StorefrontOutlinedIcon />
-                                                                                                    </Avatar>
-                                                                                                </Box> 
-                                                                                            </Grid>
-                                                                                            <Grid item xs={8} sm={10}>  
-                                                                                                <Box component="div">
-                                                                                                    {(data.hasOwnProperty('jsonResumen'))&&
-                                                                                                    <Typography variant="h6" component="h2">
-                                                                                                        {data.jsonResumen.resumen.entregaPickup} en PickUp Center
-                                                                                                    </Typography>
-                                                                                                    }
-                                                                                                    <Typography variant="body1" gutterBottom color="textSecondary">
-                                                                                                        Alejandro Dumas 135, Polanco, 11550 CDMX.
-                                                                                                    </Typography>
-                                                                                                </Box>
-                                                                                            </Grid>
-                                                                                        </Grid> 
-                                                                                </CardContent>
-                                                                            </Grid>
+                                                                        <FormControlLabel fullWidth sx={{ padding:"0px"}} value="0" label={
+                                                                            <Box sx={{width:'100%'}}>
+                                                                                <Grid container direction="row" justifyContent="center" alignItems="center">
+                                                                                    <CardContent>
+                                                                                            <Grid container alignItems="center" direction="row" justifyContent="flex-start">
+                                                                                                <Grid item xs={4} sm={2}>
+                                                                                                    <Box justifyContent="center" py={1}>
+                                                                                                        <Avatar>
+                                                                                                            <StorefrontOutlinedIcon />
+                                                                                                        </Avatar>
+                                                                                                    </Box> 
+                                                                                                </Grid>
+                                                                                                <Grid item xs={8} sm={10}>  
+                                                                                                    <Box component="div">
+                                                                                                        {(data.hasOwnProperty('jsonResumen'))&&
+                                                                                                        <Typography variant="h6" component="h2">
+                                                                                                            {data.jsonResumen.resumen.entregaPickup} en PickUp Center
+                                                                                                        </Typography>
+                                                                                                        }
+                                                                                                        <Typography variant="body1" gutterBottom color="textSecondary" sx={{width:'100%'}}>
+                                                                                                            Alejandro Dumas 135, Polanco, 11550 CDMX.
+                                                                                                        </Typography>
+                                                                                                    </Box>
+                                                                                                </Grid>
+                                                                                            </Grid> 
+                                                                                    </CardContent>
+                                                                                </Grid>
+                                                                            </Box>
                                                                         }
                                                                         labelPlacement="end"
                                                                         control={<Radio row id="PickUP"/>}/>                 
@@ -254,57 +307,19 @@ export default function Direccion_de_envio(props){
                                             <Box component="div">
                                                 <Grid container direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
                                                     <Grid item xs={12} sm={6}>
-                                                        <Button disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
-                                                        Añadir Nueva
+                                                        <Button onClick={()=>{setAddOpen(true)}} disableElevation variant="outlined" startIcon={<AddCircleOutlineIcon />} fullWidth>
+                                                         Añadir Nueva
                                                         </Button>
                                                     </Grid>
                                                 </Grid>
                                             </Box>
-                                           {/*  <div className={classes.root}>
-                                                <Grid container direction="row" justifyContent="center" alignItems="center">
-                                                    <Grid item xs={12} >
-                                                        <Card className={classes.root} variant="outlined">
-                                                            <Grid container direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
-                                                                <Grid item xs={8} sm={8}>                 
-                                                                    <Box component="div" ml={5}>
-                                                                        <CardContent>
-                                                                            <Grid container alignItems="center" direction="row" justifyContent="flex-start">
-                                                                                <Grid item xs={4} sm={2}>
-                                                                                    <Box component="div">
-                                                                                        <Avatar>
-                                                                                            <AddOutlinedIcon />
-                                                                                        </Avatar>
-                                                                                    </Box>
-                                                                                </Grid>
-                                                                                <Grid item xs={4} sm={7}>  
-                                                                                    <Box component="div" textAlign="left" ml={2}>
-                                                                                        <Typography variant="h6" component="h2">
-                                                                                            A Domicilio
-                                                                                        </Typography>
-                                                                                    </Box>
-                                                                                </Grid>
-                                                                            </Grid> 
-                                                                        </CardContent>
-                                                                    </Box>
-                                                                </Grid> 
-                                                                <Grid item xs={4} sm={4}>
-                                                                    <CardActions>
-                                                                        <Button size="Large" fullWidth color="primary">Añadir Nueva</Button>
-                                                                    </CardActions>
-                                                                </Grid>   
-                                                            </Grid>   
-                                                        </Card>
-                                                    </Grid>
-                                                </Grid>
-                                            </div> */}
                                         </Box>
                                         :
                                         <Box sx={{ pt: 1.5 }}>
                                             <Skeleton variant="rectangle" height={200} animation="wave"/>
                                         </Box>
                                         }
-                                            </Box>
-                                            
+                                        </Box>
                                             <Box component="div" py={3}>
                                                 <Typography variant="h6" component="h2">{(data.hasOwnProperty('jsonResumen'))?'Direcciones de envío:':<Skeleton animation="wave"/>}</Typography>
                                             </Box>
@@ -313,6 +328,7 @@ export default function Direccion_de_envio(props){
                                                 <Grid container spacing={2}>
                                                     {
                                                         direcciones.map((direccion, index) => (
+                                                            (direccion.nombreDireccion !== 'PickUP')&&
                                                             <Grid item xs={12} sm={12} lg={6} key={index}>
                                                                 <Card className={classes.rootCardA} variant="outlined">
                                                                 <Box component="div" mx={2}>
@@ -331,13 +347,13 @@ export default function Direccion_de_envio(props){
                                                                         
                                                                     }
                                                                     labelPlacement="end"
-                                                                    control={<Radio id={(direccion.observacion.trim() === '')?'':direccion.observacion.replace('Á','A').replace('É','E').replace('Í','I').replace('Ó','O').replace('Ú','U').replace('á','a').replace('é','e').replace('í','i').replace('ó','o').replace('ú','u').replace('Ñ','N').replace('ñ','n').replace(/ /g, "%20").substr(0,50)}/>} />
+                                                                    control={<Radio id={(direccion.observacion.trim() === '')?'':direccion.observacion.replace('Á','A').replace('É','E').replace('Í','I').replace('Ó','O').replace('Ú','U').replace('á','a').replace('é','e').replace('í','i').replace('ó','o').replace('ú','u').replace('Ñ','N').replace('ñ','n').replace(/ /g, "%20")}/>} />
                                                                 
                                                                 </Box>
                                                                 <Box component="div">
                                                                         <Divider variant="middle" light />
                                                                 </Box>
-                                                                
+                                                                <Box component="div" px={2}>
                                                                     {/* <Button size="small" fullWidth color="primary">
                                                                         Detalles
                                                                     </Button> */}
@@ -350,7 +366,7 @@ export default function Direccion_de_envio(props){
                                                                         mensaje={'¿Estás seguro de eliminar la dirección?'}
                                                                         />
                                                                     }
-                                                                
+                                                                </Box>
                                                                 </Card>
                                                             </Grid>
                                                     ))                    
@@ -363,14 +379,19 @@ export default function Direccion_de_envio(props){
                                             </RadioGroup>
                                         </Box>
                                     </Box>
-                                    
+                                    :
+                                    <Box component="div" p={2} width="100%">
+                                        <AddDir  setAddOpen={setAddOpen} setAlerta={setAlerta} alerta={alerta}/>
+                                    </Box>
+                                    } 
                                 </Box>
                             </div>
                         </Grid>     
                         <Grid item xs={12} sm={4}>
                             {(data.hasOwnProperty('jsonResumen'))?
+                                (!addOpen)&&
                                 <>
-                                    <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} /> 
+                                    <Resumen data={data} setEjecutivo={setEjecutivo} ejecutivo={ejecutivo} paso={0}/> 
                                     <ConFactura continuarCompra={continuarCompra} loading={loading}/>
                                 </>
                                 :
@@ -382,7 +403,7 @@ export default function Direccion_de_envio(props){
                         <Alertas setAlerta={setAlerta} alerta={alerta}/>
                     } 
                 </Box> 
-            </Container>         
+            </Container>   
         </Box>
     );
 }

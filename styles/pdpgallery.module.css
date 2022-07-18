@@ -1,0 +1,5 @@
+.imgC{ width: auto;  height: 540px;}
+.vidC{height: 300px;}
+@media (max-width: 991px) {
+    .imgC{ width: 100%;  height: auto;}  
+}

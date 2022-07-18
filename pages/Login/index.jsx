@@ -1,12 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect,useState} from "react";
 import Link from 'next/link'
+
 //MUI
 import {Container, Box, Grid, Paper, Button, Typography, FormControl, Tab,AppBar,Table,TableBody,
-    TableCell,TableContainer,TableRow, Avatar, TextField } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+    TextField } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
+
+    import makeStyles from '@mui/styles/makeStyles';
 
 //Componentes
 import { Layout } from 'layout/Layout';
+import Alertas from '../checkout/Alertas'
 
 //Servicios
 import Services from '../services/Services'
@@ -20,15 +24,86 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Login(){  
-    const ruter = useRouter() 
     const classes = useStyles();
-
-    const paperStyle={padding:40, height: 'auto', width:450, margin:"30px auto"}
-
+    const paperStyle={padding:40, height: 'auto', width:450, maxWidth:'90%', margin:"30px auto"}
     const [inputs, setInputs] = useState({});
     const [isLogged, setLogged] = useState(false);
-    
-    
+    const [intentos, setIntentos] = useState(0);
+    const [alerta,setAlerta] = useState({})
+    const [url, setUrl] = useState('');
+    const [loading,setLoading] = useState(false) 
+
+    const router = useRouter();
+
+    let usuario_m = router.query.usuario_m;
+    let password_m = router.query.password_m;
+    let crmUser = router.query.crmUser;
+    let cliente_m = router.query.cliente_m;
+
+ 
+    useEffect(()=>{
+        
+
+        const getData = async () => {
+            if(crmUser==='Si'){
+                if(usuario_m !== undefined && password_m !== undefined && crmUser !== undefined && cliente_m !== undefined ){
+                    let usuario         =  (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?0:localStorage.getItem('Usuario')
+                    console.log('/registrov2/validaCredencialClien?email='+usuario_m+'&pass='+password_m+'&clien='+cliente_m+'&user_m='+usuario)
+                    let services = Services('POST','/registrov2/validaCredencialClien?email='+usuario_m+'&pass='+password_m+'&clien='+cliente_m+'&user_m='+usuario,{})
+                    .then( response =>{
+
+                        if(response.data.error === 'Usuario o Password Invalido'){
+                            localStorage.setItem('Cliente','201221')
+                            localStorage.setItem('Token', '')
+                            localStorage.setItem('Login', 'NO')
+                            localStorage.setItem('Usuario', '0')
+                            localStorage.setItem('iniciales', false)
+                            localStorage.setItem('iniciales', "")
+                            localStorage.setItem('Nombre_corto', "")
+                            setIntentos(intentos+1);
+                            setAlerta({severity:'error',mensaje:'Correo o Contraseña incorrecta',vertical:'bottom',horizontal:'right',variant:'filled'})
+                            if(intentos > 2){
+                                router.push('/Contra')
+                            }
+                            setLoading(false)
+                        }else{
+                            let nombre = response.data.usuario.nombre
+                            setAlerta({severity:'info',mensaje:'Bienvenido '+nombre,vertical:'bottom',horizontal:'right',variant:'filled'})
+                            localStorage.setItem('Usu_Nomb', response.data.usuario.nombre)
+                            localStorage.setItem('Email', response.data.usuario.email)
+                            localStorage.setItem('Cliente', response.data.usuario.clienteNum)
+                            localStorage.setItem('Usuario', response.data.usuario.usuarioNum)
+                            localStorage.setItem('SesPartidas', response.data.usuario.partidas)
+                            localStorage.setItem('Token', response.data.usuario.token)
+                            localStorage.setItem('Login', 'Ok')
+                            localStorage.setItem('afiliado', response.data.usuario.afiliacion)
+                            localStorage.setItem('nivelAcceso', response.data.usuario.nivelAcceso)
+                            setLogged(true);
+                
+                            let services1        =  Services('POST','/miCuenta/obtieneFavoritosFrecuentes?clienteNum='+response.data.usuario.clienteNum,{})
+                            let data1            =  services1.data.favoritosFrecuentes;
+                            if(data1 !== "VACIO"){
+                            data1 = data1.filter(
+                                (favoritos) => favoritos.tipo === "F")
+                                localStorage.setItem('Favoritos', data1.length) 
+                            }else{
+                                localStorage.setItem('Favoritos', 0) 
+                            }
+
+                            router.push('/Home')
+                        }
+                        
+                    }).catch(error => {
+                        console.log("falló LoginCRM")
+                        console.log(error.response)
+                });
+                
+                }
+            }
+        }
+        getData()
+    },[crmUser])
+
     
     const handleChange = (event) => {
         const name = event.target.name;
@@ -40,11 +115,14 @@ export default function Login(){
         window.location.reload(false);
     }
 
-    async function handleSubmit(e) {       
+    async function handleSubmit(e) {     
+        setLoading(true);
+  
         e.preventDefault();
         let usuario         = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?0:localStorage.getItem('Usuario')
         let services        = await Services('POST','/registrov2/validaCredencial?email='+inputs.correo+'&pass='+inputs.pass+'&user_m='+usuario,{})
         let data            = await services.data
+        
 
         if(data.error === 'Usuario o Password Invalido'){
             localStorage.setItem('Cliente','201221')
@@ -54,21 +132,43 @@ export default function Login(){
             localStorage.setItem('iniciales', false)
             localStorage.setItem('iniciales', "")
             localStorage.setItem('Nombre_corto', "")
-            ruter.push('/Contra')
+            setIntentos(intentos+1);
+            setAlerta({severity:'error',mensaje:'Correo o Contraseña incorrecta',vertical:'bottom',horizontal:'right',variant:'filled'})
+            if(intentos > 2){
+                router.push('/Contra')
+            }
+            setLoading(false)
         }else{
+            let nombre = data.usuario.nombre
+            setAlerta({severity:'info',mensaje:'Bienvenido '+nombre,vertical:'bottom',horizontal:'right',variant:'filled'})
             localStorage.setItem('Usu_Nomb', data.usuario.nombre)
             localStorage.setItem('Email', data.usuario.email)
             localStorage.setItem('Cliente', data.usuario.clienteNum)
             localStorage.setItem('Usuario', data.usuario.usuarioNum)
-            localStorage.setItem('Favoritos', data.usuario.favoritos)
             localStorage.setItem('SesPartidas', data.usuario.partidas)
             localStorage.setItem('Token', data.usuario.token)
             localStorage.setItem('Login', 'Ok')
-            localStorage.setItem('afiliado', data.usuario.afiliado)
+            localStorage.setItem('afiliado', data.usuario.afiliacion)
             localStorage.setItem('nivelAcceso', data.usuario.nivelAcceso)
             setLogged(true);
-            ruter.push('/Home')
-            // refreshPage();
+
+            let services1        = await Services('POST','/miCuenta/obtieneFavoritosFrecuentes?clienteNum='+data.usuario.clienteNum,{})
+            let data1            = await services1.data.favoritosFrecuentes;
+            if(data1 !== "VACIO"){
+            data1 = data1.filter(
+                (favoritos) => favoritos.tipo === "F")
+
+            localStorage.setItem('Favoritos', data1.length) 
+            }else{
+                localStorage.setItem('Favoritos', 0) 
+            }
+            
+            if( url === undefined || url === null || url === ''){
+                router.push('/Home')
+            }else{
+                // ruter.push(localStorage.getItem('URL'))
+                router.push('/checkout/verifica-pedido')
+            }
         }
       }
     
@@ -87,9 +187,13 @@ export default function Login(){
                                 <TextField id="outlined-basic" margin="normal"  label="Contraseña" variant="outlined" type="password" name="pass" onChange={handleChange} fullWidth />
                                 
                                 <Box mt={2}>
-                                    <Button className={classes.button} type="submit" variant="contained" size="large" color="primary"  onClick={handleSubmit} fullWidth>
+                                    <LoadingButton className={classes.button} type="submit" variant="contained" size="large" color="primary" fullWidth
+                                        onClick={handleSubmit}
+                                        loading={loading}
+                                        loadingIndicator="Iniciando Sesión"
+                                    >    
                                         Inicia Sesión
-                                    </Button>
+                                    </LoadingButton>
                                 </Box>
                                 
                                 <Box textAlign="center" pt={4}>
@@ -115,6 +219,9 @@ export default function Login(){
                         </Box>
                     </Paper>
                 </Container> 
+                {(alerta.hasOwnProperty('severity'))&&
+                    <Alertas setAlerta={setAlerta} alerta={alerta}/>
+                } 
             </Layout>  
         </React.Fragment>  
     )
