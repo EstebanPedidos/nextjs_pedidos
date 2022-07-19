@@ -337,7 +337,7 @@ export default function Direccion_de_envio(props){
                                                                         <>
                                                                             <CardContent className={classes.textCardA} >                                        
                                                                                 <Typography variant="subtitle1" component="h3" sx={{fontWeight:'500'}}>
-                                                                                    {direccion.nombreDireccion.substring(0, 30)}
+                                                                                    {direccion.nombreDireccion.substring(0, 30)} 
                                                                                 </Typography>
                                                                                 <Typography variant="body1" gutterBottom color="textSecondary">
                                                                                     {direccion.direccion.substring(0, 57)}
