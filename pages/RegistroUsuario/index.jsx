@@ -113,8 +113,11 @@ export default function RegistroUsuario(){
             }
         }
 
+        let usuarioTemp     = await (localStorage.getItem('Usuario') === undefined || localStorage.getItem('Usuario') === null)?RandomUser():localStorage.getItem('Usuario')
+        usuarioTemp     = await (parseInt(usuarioTemp) === 0)?RandomUser():usuarioTemp
+
         if(error !== true){
-            Services('POST','/registrov2/registraUsuarioNuevo'+params,{})
+            Services('POST','/registrov2/registraUsuarioNuevo'+params+'&usuarioTemp='+usuarioTemp,{})
                 .then( response =>{ 
                     if(response.data === "S"){
                         setFirst(true);

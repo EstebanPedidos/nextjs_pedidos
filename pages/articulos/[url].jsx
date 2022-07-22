@@ -630,7 +630,7 @@ export default function FichaTecnica(props){
                                                     <Grid item> 
                                                         <Box p={1} property="offers" typeof="AggregateOffer">
                                                             <Typography variant="h4" component="subtitle1" property="lowPrice"> 
-                                                            ${(precio > 0)?Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):``}
+                                                            {(precio > 0)?'$'+Precios('redondear_arriba',{subtotal:precio,iva:0,formato:true}):`Precio no Disponible`}
                                                             </Typography>
                                                             <span property="priceCurrency" style={{display:'none'}}>MXN</span>
                                                         </Box>
@@ -638,7 +638,7 @@ export default function FichaTecnica(props){
                                                     <Grid item>
                                                         <Box p={1} color="grey.600" sx={ {textDecoration:"line-through", }} >
                                                             <Typography variant="subtitle1" property="highPrice">
-                                                            ${(cortadosPA.indexOf(datos.cortado) >= 0 || articulosPA.indexOf(datos.item_num) >= 0)?(datos.precio_anterior > 0 && datos.precio_anterior > precio)?Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0,formato:true}):``:Precios('redondear_arriba',{subtotal:(((parseFloat(precio)*10)/100)+parseFloat(precio)),iva:0,formato:true})}
+                                                            {(cortadosPA.indexOf(datos.cortado) > 0 || articulosPA.indexOf(datos.item_num) > 0)?'$'+(datos.precio_anterior > 0 && datos.precio_anterior > precio)?'$'+Precios('redondear_arriba',{subtotal:datos.precio_anterior,iva:0,formato:true}):``:'$'+Precios('redondear_arriba',{subtotal:(((parseFloat(precio)*10)/100)+parseFloat(precio)),iva:0,formato:true})}
                                                             </Typography> 
                                                         </Box>
                                                     </Grid>
